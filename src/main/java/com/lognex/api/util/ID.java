@@ -1,4 +1,4 @@
-package com.moysklad.api.util;
+package com.lognex.api.util;
 
 public class ID {
     private String value;
