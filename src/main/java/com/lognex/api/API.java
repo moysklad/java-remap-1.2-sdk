@@ -4,7 +4,6 @@ import com.lognex.api.endpoint.DocumentEndpoint;
 import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.util.Constants;
 
-import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -14,10 +13,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
 public class API {
-    @Inject
-    private DocumentEndpoint documentEndpoint;
-
-    public static RequestBuilder initRequest(String login, String password) {
+    public RequestBuilder initRequest(String login, String password) {
         return new RequestBuilder(login, password);
     }
 
@@ -75,7 +71,7 @@ public class API {
             offset.ifPresent(integer -> checkState(integer > 0));
         }
 
-        public String build() {
+        private String build() {
             StringBuilder sb = new StringBuilder(Constants.HOST_URL);
             sb.append('/');
             sb.append(type);
