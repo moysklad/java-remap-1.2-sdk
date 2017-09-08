@@ -1,20 +1,17 @@
 package com.lognex.api;
 
-import com.lognex.api.endpoint.DocumentEndpoint;
 import junit.framework.TestCase;
 import org.junit.Test;
 
 import static org.junit.Assert.fail;
 
 public class RequestBuilderTest {
-    private static final DocumentEndpoint documentEnpoint = new DocumentEndpoint();
-
     @Test
     public void testLoginPassword() {
         API api = new API();
         API.RequestBuilder requestBuilder = api.initRequest(null, "password");
         try {
-            requestBuilder.read(documentEnpoint);
+            requestBuilder.build();
             fail();
         } catch (NullPointerException e) {
             TestCase.assertEquals("login is missing", e.getMessage());
@@ -22,7 +19,7 @@ public class RequestBuilderTest {
 
         requestBuilder = api.initRequest("login", null);
         try {
-            requestBuilder.read(documentEnpoint);
+            requestBuilder.build();
             fail();
         } catch (NullPointerException e) {
             TestCase.assertEquals("password is missing", e.getMessage());
@@ -34,14 +31,14 @@ public class RequestBuilderTest {
         API api = new API();
         API.RequestBuilder requestBuilder = api.initRequest("Login", "password");
         try {
-            requestBuilder.read(documentEnpoint);
+            requestBuilder.build();
             fail();
         } catch (NullPointerException e) {
             TestCase.assertEquals("type is missing", e.getMessage());
         }
 
         //should work correctly
-        api.initRequest("Login", "password").type("paymentIn").read(documentEnpoint);
+        api.initRequest("Login", "password").type("paymentIn").build();
     }
 
     @Test
@@ -49,15 +46,15 @@ public class RequestBuilderTest {
         API api = new API();
         API.RequestBuilder requestBuilder = api.initRequest("Login", "password").type("paymentIn").limit(-2);
         try {
-            requestBuilder.read(documentEnpoint);
+            requestBuilder.build();
             fail();
         } catch (IllegalStateException e) {
             TestCase.assertEquals("limit should be greater than or equal to zero", e.getMessage());
         }
 
         //should work correctly
-        requestBuilder.limit(0).read(documentEnpoint);
-        requestBuilder.limit(50).read(documentEnpoint);
+        requestBuilder.limit(0).build();
+        requestBuilder.limit(50).build();
     }
 
     @Test
@@ -65,15 +62,15 @@ public class RequestBuilderTest {
         API api = new API();
         API.RequestBuilder requestBuilder = api.initRequest("Login", "password").type("paymentIn").offset(-2);
         try {
-            requestBuilder.read(documentEnpoint);
+            requestBuilder.build();
             fail();
         } catch (IllegalStateException e) {
             TestCase.assertEquals("offset should be greater than or equal to zero", e.getMessage());
         }
 
         //should work correctly
-        requestBuilder.offset(0).read(documentEnpoint);
-        requestBuilder.offset(50).read(documentEnpoint);
+        requestBuilder.offset(0).build();
+        requestBuilder.offset(50).build();
     }
 
     @Test
@@ -81,14 +78,14 @@ public class RequestBuilderTest {
         API api = new API();
         API.RequestBuilder requestBuilder = api.initRequest("Login", "password").type("paymentIn").expand("demand.agent.owner.cashier");
         try {
-            requestBuilder.read(documentEnpoint);
+            requestBuilder.build();
             fail();
         } catch (IllegalStateException e) {
             TestCase.assertEquals("max depth of expand equals 3", e.getMessage());
         }
 
         //should work correctly
-        requestBuilder = api.initRequest("Login", "password").type("paymentIn").expand("demand.agent.owner");
-        requestBuilder = api.initRequest("Login", "password").type("paymentIn").expand("demand");
+        api.initRequest("Login", "password").type("paymentIn").expand("demand.agent.owner").build();
+        api.initRequest("Login", "password").type("paymentIn").expand("demand").build();
     }
 }

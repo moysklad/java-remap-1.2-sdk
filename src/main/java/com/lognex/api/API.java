@@ -1,7 +1,5 @@
 package com.lognex.api;
 
-import com.lognex.api.endpoint.DocumentEndpoint;
-import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.util.Constants;
 
 import java.util.HashSet;
@@ -33,6 +31,14 @@ public class API {
             this.password = password;
         }
 
+        public String login() {
+            return login;
+        }
+
+        public String password() {
+            return password;
+        }
+
         public RequestBuilder expand(String expandParam) {
             this.expand.add(expandParam);
             return this;
@@ -53,11 +59,6 @@ public class API {
             return this;
         }
 
-        public AbstractEntity read(DocumentEndpoint documentEndpoint) {
-            validate();
-            return documentEndpoint.readDocument(this.build());
-        }
-
         private void validate() {
             checkNotNull(login, "login is missing");
             checkNotNull(password, "password is missing");
@@ -70,7 +71,8 @@ public class API {
             offset.ifPresent(integer -> checkState(integer >= 0, "offset should be greater than or equal to zero"));
         }
 
-        private String build() {
+        public String build() {
+            validate();
             StringBuilder sb = new StringBuilder(Constants.HOST_URL);
             sb.append('/');
             sb.append(type);

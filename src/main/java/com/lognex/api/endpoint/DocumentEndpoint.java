@@ -1,11 +1,18 @@
 package com.lognex.api.endpoint;
 
-import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.API;
+import com.lognex.api.converter.PaymentInConverter;
+import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.document.PaymentIn;
 
-public class DocumentEndpoint {
+import java.util.List;
 
-    public AbstractEntity readDocument(String queryString) {
-        return new PaymentIn();
+public class DocumentEndpoint extends BaseEndpoint{
+
+    public List<PaymentIn> readPaymentInList(API.RequestBuilder rb) throws ConverterException {
+        String paymentIn = executeGet(rb.type("paymentin").build(), rb);
+        return new PaymentInConverter().convertToListEntity(paymentIn);
     }
+
+
 }

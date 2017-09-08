@@ -1,13 +1,10 @@
 package com.lognex.api.model.base;
 
-import com.lognex.api.util.ID;
-
 import java.util.Date;
 
 public abstract class AbstractEntityInfoable extends AbstractEntityWithOwner {
     private long version;
     private Date updated;
-    private ID updatedBy;
     private Date created;
     private Date deleted;
 
@@ -25,14 +22,6 @@ public abstract class AbstractEntityInfoable extends AbstractEntityWithOwner {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
-    }
-
-    public ID getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(ID updatedBy) {
-        this.updatedBy = updatedBy;
     }
 
     public Date getCreated() {

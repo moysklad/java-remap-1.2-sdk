@@ -1,13 +1,11 @@
 package com.lognex.api.model.base;
 
-import com.lognex.api.util.ID;
-
 import java.util.Date;
 
 public abstract class AbstractFinance extends AbstractOperation {
     private String paymentPurpose;
     private Double vatSum;
-    private ID expenseItem;
+    //private ID expenseItem;
     private String incomingNumber;
     private Date incomingDate;
 
@@ -25,14 +23,6 @@ public abstract class AbstractFinance extends AbstractOperation {
 
     public void setVatSum(Double vatSum) {
         this.vatSum = vatSum;
-    }
-
-    public ID getExpenseItem() {
-        return expenseItem;
-    }
-
-    public void setExpenseItem(ID expenseItem) {
-        this.expenseItem = expenseItem;
     }
 
     public String getIncomingNumber() {

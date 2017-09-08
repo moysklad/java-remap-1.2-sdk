@@ -1,6 +1,7 @@
 package com.lognex.api.model.entity;
 
 import com.lognex.api.model.base.AbstractAgent;
+import com.lognex.api.util.ID;
 
 public class Employee extends AbstractAgent {
     private String uid;
@@ -12,6 +13,12 @@ public class Employee extends AbstractAgent {
     private String fullName;
     private String shortFio;
     private Cashier cashier;
+
+    public Employee() {}
+
+    public Employee(ID id) {
+        setId(id);
+    }
 
     public String getEmail() {
         return email;
