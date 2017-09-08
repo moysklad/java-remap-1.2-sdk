@@ -23,7 +23,6 @@ public class API {
         /*TODO
         * 1) либо продумать механизм валидации переданной строки
         * 2) либо передавать сюда объекты ( как тогда быть с вложенными сущностями, пример demand.agent ? */
-        /*TODO ограничивать глубину вложенности экспанда 3 */
         private Set<String> expand = new HashSet<>();
         private Optional<Integer> limit = Optional.empty();
         private Optional<Integer> offset = Optional.empty();
@@ -64,11 +63,11 @@ public class API {
             checkNotNull(password, "password is missing");
             checkNotNull(type, "type is missing");
 
-            checkState(expand.stream()
+            checkState(!expand.stream()
                     .anyMatch(s -> s.split("\\.").length > 3),
                     "max depth of expand equals 3");
-            limit.ifPresent(integer -> checkState(integer >= 0));
-            offset.ifPresent(integer -> checkState(integer > 0));
+            limit.ifPresent(integer -> checkState(integer >= 0, "limit should be greater than or equal to zero"));
+            offset.ifPresent(integer -> checkState(integer >= 0, "offset should be greater than or equal to zero"));
         }
 
         private String build() {
