@@ -25,6 +25,7 @@ public class API {
         private Optional<Integer> limit = Optional.empty();
         private Optional<Integer> offset = Optional.empty();
         private String type;
+        private Optional<String> id = Optional.empty();
 
         RequestBuilder(String login, String password) {
             this.login = login;
@@ -59,6 +60,11 @@ public class API {
             return this;
         }
 
+        public RequestBuilder id(String id) {
+            this.id = Optional.of(id);
+            return this;
+        }
+
         private void validate() {
             checkNotNull(login, "login is missing");
             checkNotNull(password, "password is missing");
@@ -69,6 +75,8 @@ public class API {
                     "max depth of expand equals 3");
             limit.ifPresent(integer -> checkState(integer >= 0, "limit should be greater than or equal to zero"));
             offset.ifPresent(integer -> checkState(integer >= 0, "offset should be greater than or equal to zero"));
+
+            id.ifPresent(id -> checkState(!limit.isPresent() && !offset.isPresent(), "limit and offset shouldnt be presented when id is presented"));
         }
 
         public String build() {
@@ -76,6 +84,10 @@ public class API {
             StringBuilder sb = new StringBuilder(Constants.HOST_URL);
             sb.append('/');
             sb.append(type);
+            if (id.isPresent()) {
+                sb.append('/');
+                sb.append(id.get());
+            }
             if ( limit != null || offset != null | expand != null) {
                 sb.append('?');
             }

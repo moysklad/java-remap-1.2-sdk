@@ -88,4 +88,20 @@ public class RequestBuilderTest {
         api.initRequest("Login", "password").type("paymentIn").expand("demand.agent.owner").build();
         api.initRequest("Login", "password").type("paymentIn").expand("demand").build();
     }
+
+    @Test
+    public void testId() {
+        API api = new API();
+        API.RequestBuilder requestBuilder = api.initRequest("Login", "password").type("paymentIn").id("ac08418c-9482-11e7-7a69-8f550003b1e0");
+        //should work correctly
+        requestBuilder.build();
+
+        requestBuilder.limit(10);
+        try {
+            requestBuilder.build();
+            fail();
+        } catch (IllegalStateException e) {
+            TestCase.assertEquals("limit and offset shouldnt be presented when id is presented", e.getMessage());
+        }
+    }
 }

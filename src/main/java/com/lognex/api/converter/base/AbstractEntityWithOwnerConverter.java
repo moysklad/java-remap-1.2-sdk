@@ -10,8 +10,8 @@ public abstract class AbstractEntityWithOwnerConverter extends AbstractEntityCon
     protected void convertToEntity(final AbstractEntityWithOwner entity, JsonNode node) {
         super.convertToEntity(entity, node);
         /*TODO добавить поддержку expand*/
-        entity.setOwner(new Employee(MetaHrefParser.getId(node.get("owner").get("meta").get("href").asText())));
-        entity.setGroup(new Group(MetaHrefParser.getId(node.get("group").get("meta").get("href").asText())));
-        entity.setShared(node.get("shared").asBoolean());
+        entity.setOwner(node.get("owner") == null ? null : new Employee(MetaHrefParser.getId(node.get("owner").get("meta").get("href").asText())));
+        entity.setGroup(node.get("group") == null ? null : new Group(MetaHrefParser.getId(node.get("group").get("meta").get("href").asText())));
+        entity.setShared(node.get("shared") == null ? false : node.get("shared").asBoolean());
     }
 }

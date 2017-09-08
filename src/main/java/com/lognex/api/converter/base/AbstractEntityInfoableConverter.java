@@ -10,7 +10,7 @@ public abstract class AbstractEntityInfoableConverter extends AbstractEntityWith
         super.convertToEntity(entity, node);
         entity.setVersion(node.get("version").asLong());
         entity.setUpdated(DateParser.parseDate(node.get("updated").asText()));
-        entity.setCreated(DateParser.parseDate(node.get("created").asText()));
+        entity.setCreated(node.get("created") == null ? null : DateParser.parseDate(node.get("created").asText()));
         entity.setDeleted(node.get("deleted") == null ? null : DateParser.parseDate(node.get("deleted").asText()));
     }
 }
