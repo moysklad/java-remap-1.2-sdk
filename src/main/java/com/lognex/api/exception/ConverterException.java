@@ -1,6 +1,6 @@
 package com.lognex.api.exception;
 
-public class ConverterException extends Exception {
+public class ConverterException extends RuntimeException {
 
     public ConverterException(String errorMessage) {
         super(errorMessage);

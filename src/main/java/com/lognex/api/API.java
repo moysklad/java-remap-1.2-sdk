@@ -84,9 +84,7 @@ public class API {
             StringBuilder sb = new StringBuilder(Constants.HOST_URL);
             sb.append('/');
             sb.append(type);
-            id.ifPresent(s -> {
-                sb.append('/').append(s);
-            });
+            id.ifPresent(s -> sb.append('/').append(s));
             if ( limit != null || offset != null | expand != null) {
                 sb.append('?');
             }

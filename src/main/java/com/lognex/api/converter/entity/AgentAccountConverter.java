@@ -7,6 +7,7 @@ import com.lognex.api.model.entity.AgentAccount;
 
 public class AgentAccountConverter extends AbstractEntityInfoableConverter<AgentAccount> {
 
+    @Override
     protected AgentAccount convertFromJson(JsonNode node) throws ConverterException {
         AgentAccount result = new AgentAccount();
         super.convertToEntity(result, node);

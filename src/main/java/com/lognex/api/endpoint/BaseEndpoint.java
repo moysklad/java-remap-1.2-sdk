@@ -22,11 +22,13 @@ public abstract class BaseEndpoint {
         URL url;
         try {
 
+
             HttpsURLConnection con;
             url = new URL(httpsUrl);
 
             con = (HttpsURLConnection) url.openConnection();
             Authenticator authenticator = new Authenticator() {
+                @Override
                 public PasswordAuthentication getPasswordAuthentication() {
                     return (new PasswordAuthentication(rb.login(), rb.password().toCharArray()));
                 }
