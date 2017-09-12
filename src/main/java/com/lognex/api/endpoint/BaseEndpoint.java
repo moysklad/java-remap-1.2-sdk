@@ -1,8 +1,7 @@
 package com.lognex.api.endpoint;
 
 import com.lognex.api.API;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -13,8 +12,8 @@ import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.net.URL;
 
+@Slf4j
 public abstract class BaseEndpoint {
-    private static final Logger logger = LoggerFactory.getLogger(BaseEndpoint.class);
 
     protected String executeGet(final String httpsUrl, final API.RequestBuilder rb) {
         String ret = "";
@@ -44,7 +43,7 @@ public abstract class BaseEndpoint {
             }
             ret = result.toString();
         } catch (IOException e) {
-            logger.error("Error: ", e);
+            log.error("Error: ", e);
         }
 
         return ret;

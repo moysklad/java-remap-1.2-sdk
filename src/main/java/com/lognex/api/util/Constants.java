@@ -1,8 +1,10 @@
 package com.lognex.api.util;
 
-public class Constants {
-    public static final String HOST_URL = "https://online.moysklad.ru/api/remap/1.1/entity";
+import lombok.NoArgsConstructor;
 
-    private Constants() {
-    }
+import static lombok.AccessLevel.PRIVATE;
+
+@NoArgsConstructor(access = PRIVATE)
+public final class Constants {
+    public static final String HOST_URL = "https://online.moysklad.ru/api/remap/1.1/entity";
 }
