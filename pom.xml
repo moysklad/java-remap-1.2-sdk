@@ -11,9 +11,14 @@
     <distributionManagement>
         <repository>
             <id>artifactory</id>
-            <name>mvn-snapshots</name>
-            <url>https://repo.moysklad.ru/artifactory/libs-snapshot</url>
+            <name>Moysklad Libs Release Repo</name>
+            <url>https://repo.moysklad.ru/artifactory/libs-release-local/</url>
         </repository>
+        <snapshotRepository>
+            <id>artifactory</id>
+            <name>Moysklad Libs Snapshot Repo</name>
+            <url>https://repo.moysklad.ru/artifactory/libs-snapshot-local/</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <properties>
