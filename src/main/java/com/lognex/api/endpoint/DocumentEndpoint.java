@@ -11,12 +11,12 @@ public class DocumentEndpoint extends BaseEndpoint {
 
     public PaymentIn readPaymentIn(API.RequestBuilder rb) throws ConverterException {
         String paymentIn = executeGet(rb.type("paymentin").build(), rb);
-        return new PaymentInConverter().convertToEntity(paymentIn);
+        return new PaymentInConverter().convert(paymentIn);
     }
 
     public List<PaymentIn> readPaymentInList(API.RequestBuilder rb) throws ConverterException {
         String paymentIn = executeGet(rb.type("paymentin").build(), rb);
-        return new PaymentInConverter().convertToListEntity(paymentIn);
+        return new PaymentInConverter().convertToList(paymentIn);
     }
 
 

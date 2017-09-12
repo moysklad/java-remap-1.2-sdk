@@ -6,7 +6,7 @@ import com.lognex.api.model.entity.Employee;
 import com.lognex.api.model.entity.Group;
 import com.lognex.api.util.MetaHrefParser;
 
-public abstract class AbstractEntityWithOwnerConverter extends AbstractEntityConverter {
+public abstract class AbstractEntityWithOwnerConverter<T extends AbstractEntityWithOwner> extends AbstractEntityConverter<T> {
     protected void convertToEntity(final AbstractEntityWithOwner entity, JsonNode node) {
         super.convertToEntity(entity, node);
         /*TODO добавить поддержку expand*/

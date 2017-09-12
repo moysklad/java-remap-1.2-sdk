@@ -5,7 +5,7 @@ import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.base.AbstractFinance;
 import com.lognex.api.util.DateParser;
 
-public abstract class AbstractFinanceConverer extends AbstractOperationConverter {
+public abstract class AbstractFinanceConverter<T extends AbstractFinance> extends AbstractOperationConverter<T> {
     protected void convertToEntity(final AbstractFinance entity, JsonNode node) throws ConverterException {
         super.convertToEntity(entity, node);
         entity.setPaymentPurpose(node.get("paymentPurpose").asText());

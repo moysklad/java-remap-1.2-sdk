@@ -70,8 +70,8 @@ public class API {
             checkNotNull(password, "password is missing");
             checkNotNull(type, "type is missing");
 
-            checkState(!expand.stream()
-                    .anyMatch(s -> s.split("\\.").length > 3),
+            checkState(expand.stream()
+                    .noneMatch(s -> s.split("\\.").length > 3),
                     "max depth of expand equals 3");
             limit.ifPresent(integer -> checkState(integer >= 0, "limit should be greater than or equal to zero"));
             offset.ifPresent(integer -> checkState(integer >= 0, "offset should be greater than or equal to zero"));
@@ -84,10 +84,9 @@ public class API {
             StringBuilder sb = new StringBuilder(Constants.HOST_URL);
             sb.append('/');
             sb.append(type);
-            if (id.isPresent()) {
-                sb.append('/');
-                sb.append(id.get());
-            }
+            id.ifPresent(s -> {
+                sb.append('/').append(s);
+            });
             if ( limit != null || offset != null | expand != null) {
                 sb.append('?');
             }
@@ -106,8 +105,8 @@ public class API {
 
         private StringBuilder appendParam(final StringBuilder sb, String paramName, Object param) {
             return sb.charAt(sb.length()-1) != '?'
-                    ? sb.append('&' + paramName + '=' + param)
-                    : sb.append(paramName + '=' + param);
+                    ? sb.append('&').append(paramName).append('=').append(param)
+                    : sb.append(paramName).append('=').append(param);
         }
     }
 }

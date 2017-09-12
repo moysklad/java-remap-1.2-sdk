@@ -18,13 +18,12 @@ public class ID {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o instanceof ID) {
+            ID id = (ID) o;
+            return value.equals(id.getValue());
+        }
 
-        ID id = (ID) o;
-
-        if (!value.equals(id.value)) return false;
-
-        return true;
+        return false;
     }
 
     @Override

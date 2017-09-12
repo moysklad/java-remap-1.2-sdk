@@ -1,6 +1,8 @@
 package com.lognex.api.endpoint;
 
 import com.lognex.api.API;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -8,11 +10,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Authenticator;
-import java.net.MalformedURLException;
 import java.net.PasswordAuthentication;
 import java.net.URL;
 
 public abstract class BaseEndpoint {
+    private static final Logger logger = LoggerFactory.getLogger(BaseEndpoint.class);
+
     protected String executeGet(final String httpsUrl, final API.RequestBuilder rb) {
         String ret = "";
 
@@ -38,10 +41,8 @@ public abstract class BaseEndpoint {
                 result.append(line);
             }
             ret = result.toString();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error: ", e);
         }
 
         return ret;

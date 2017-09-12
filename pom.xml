@@ -15,6 +15,7 @@
         <guava.version>21.0</guava.version>
         <junit.version>4.12</junit.version>
         <jackson.version>2.9.0</jackson.version>
+        <slf4j.version>1.7.7.jbossorg-1</slf4j.version>
     </properties>
 
     <dependencies>
@@ -40,7 +41,21 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.16</version>
+        </dependency>
     </dependencies>
 
     

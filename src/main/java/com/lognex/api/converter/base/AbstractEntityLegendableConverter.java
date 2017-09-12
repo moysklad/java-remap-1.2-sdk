@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.base.AbstractEntityLegendable;
 
-public abstract class AbstractEntityLegendableConverter extends AbstractEntityInfoableConverter {
+public abstract class AbstractEntityLegendableConverter<T extends AbstractEntityLegendable> extends AbstractEntityInfoableConverter<T> {
     protected void convertToEntity(final AbstractEntityLegendable entity, JsonNode node) throws ConverterException {
         super.convertToEntity(entity, node);
         entity.setName(node.get("name").asText());

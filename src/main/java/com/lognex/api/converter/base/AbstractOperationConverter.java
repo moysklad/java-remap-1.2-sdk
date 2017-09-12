@@ -5,7 +5,7 @@ import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.base.AbstractOperation;
 import com.lognex.api.util.DateParser;
 
-public abstract class AbstractOperationConverter extends AbstractEntityLegendableConverter {
+public abstract class AbstractOperationConverter<T extends AbstractOperation> extends AbstractEntityLegendableConverter<T> {
     protected void convertToEntity(final AbstractOperation entity, JsonNode node) throws ConverterException {
         super.convertToEntity(entity, node);
         entity.setMoment(DateParser.parseDate(node.get("moment").asText()));
