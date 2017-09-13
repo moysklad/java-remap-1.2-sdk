@@ -14,9 +14,11 @@ public class PaymentInConverter extends AbstractFinanceInConverter<PaymentIn> {
         PaymentIn result = new PaymentIn();
         super.convertToEntity(result, node);
 
-        result.setAgentAccount(node.get("agentAccount").get("id") == null
-                ? new AgentAccount(MetaHrefParser.getId(node.get("agentAccount").get("meta").get("href").asText()))
-                : new AgentAccountConverter().convert(node.get("agentAccount").toString()));
+        if (node.get("agentAccount") != null) {
+            result.setAgentAccount(node.get("agentAccount").get("id") == null
+                    ? new AgentAccount(MetaHrefParser.getId(node.get("agentAccount").get("meta").get("href").asText()))
+                    : new AgentAccountConverter().convert(node.get("agentAccount").toString()));
+        }
         return result;
     }
 }
