@@ -7,6 +7,7 @@ import com.lognex.api.util.ID;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Objects;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
@@ -54,6 +55,7 @@ public class DocumentEndpointTest {
                 .anyMatch(p -> p.getId() == null));
         assertFalse(paymentIns.stream()
                 .map(PaymentIn::getAgentAccount)
+                .filter(Objects::nonNull)
                 .anyMatch(a -> a.getId() == null));
     }
 }
