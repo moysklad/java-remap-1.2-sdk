@@ -1,6 +1,7 @@
 package com.lognex.api.model.document;
 
 import com.lognex.api.model.base.AbstractFinanceIn;
+import com.lognex.api.model.entity.Agent;
 import com.lognex.api.model.entity.AgentAccount;
 import com.lognex.api.model.entity.Organization;
 import lombok.Getter;
@@ -13,6 +14,7 @@ public class PaymentIn extends AbstractFinanceIn {
     //contract
     //state
     //organizationAccount
+    private Agent agent;
     private AgentAccount agentAccount;
     //attributes
 }

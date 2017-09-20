@@ -8,8 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Organization extends Agent {
-    public Organization(ID id) {
+public class Counterparty extends Agent{
+
+    public Counterparty(ID id) {
         super(id);
     }
 }
