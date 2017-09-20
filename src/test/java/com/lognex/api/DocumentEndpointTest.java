@@ -58,4 +58,15 @@ public class DocumentEndpointTest {
                 .filter(Objects::nonNull)
                 .anyMatch(a -> a.getId() == null));
     }
+
+    @Test
+    public void testReadPaymentInWithAgentExpand() throws ConverterException {
+        API api = new API();
+        API.RequestBuilder requestBuilder = api.initRequest(System.getenv("login"), System.getenv("password"))
+                .id("ac08418c-9482-11e7-7a69-8f550003b1e0")
+                .expand("agent");
+        PaymentIn paymentIn = documentEndpoint.readPaymentIn(requestBuilder);
+        assertEquals(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"), paymentIn.getId());
+        assertEquals(new ID("81c97d10-9482-11e7-7a6c-d2a9000847cc"), paymentIn.getAgent().getId());
+    }
 }
