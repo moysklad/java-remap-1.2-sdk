@@ -42,7 +42,7 @@ public class DocumentEndpointTest {
                 .expand("agentAccount");
         PaymentIn paymentIn = documentEndpoint.readPaymentIn(requestBuilder);
         assertEquals(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"), paymentIn.getId());
-        assertEquals(new ID("81c97f7f-9482-11e7-7a6c-d2a9000847cd"), paymentIn.getAgentAccount().getId());
+        assertEquals(new ID("5bc8549b-9e14-11e7-7a34-5acf00403d35"), paymentIn.getAgentAccount().getId());
     }
 
     @Test
