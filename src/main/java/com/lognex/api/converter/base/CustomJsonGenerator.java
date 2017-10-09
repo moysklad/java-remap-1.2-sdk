@@ -11,9 +11,9 @@ public class CustomJsonGenerator extends JsonGenerator {
 
     private JsonGenerator delegate;
 
-
     public CustomJsonGenerator(JsonGenerator generator) {
         this.delegate = generator;
+        delegate.disable(Feature.ESCAPE_NON_ASCII);
     }
 
     public void writeStringFieldIfNotEmpty(String fieldName, String value) throws IOException {
@@ -25,7 +25,8 @@ public class CustomJsonGenerator extends JsonGenerator {
     // DELEGATE
     @Override
     public JsonGenerator setCodec(ObjectCodec objectCodec) {
-        return delegate.setCodec(objectCodec);
+        delegate = delegate.setCodec(objectCodec);
+        return this;
     }
 
     @Override
@@ -40,12 +41,14 @@ public class CustomJsonGenerator extends JsonGenerator {
 
     @Override
     public JsonGenerator enable(Feature feature) {
-        return delegate.enable(feature);
+        delegate = delegate.enable(feature);
+        return this;
     }
 
     @Override
     public JsonGenerator disable(Feature feature) {
-        return delegate.disable(feature);
+        delegate = delegate.disable(feature);
+        return this;
     }
 
     @Override
@@ -59,13 +62,23 @@ public class CustomJsonGenerator extends JsonGenerator {
     }
 
     @Override
+    public JsonGenerator setHighestNonEscapedChar(int charCode) {
+        delegate = delegate.setHighestNonEscapedChar(charCode);
+        return this;
+    }
+
+
+    @Override
     public JsonGenerator setFeatureMask(int i) {
-        return delegate.setFeatureMask(i);
+        delegate = delegate.setFeatureMask(i);
+        return this;
+
     }
 
     @Override
     public JsonGenerator useDefaultPrettyPrinter() {
-        return delegate.useDefaultPrettyPrinter();
+        delegate = delegate.useDefaultPrettyPrinter();
+        return this;
     }
 
     @Override

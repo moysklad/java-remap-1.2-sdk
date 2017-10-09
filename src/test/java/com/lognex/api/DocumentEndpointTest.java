@@ -4,9 +4,9 @@ import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.document.PaymentIn;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.util.ID;
+import org.junit.Assert;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -17,7 +17,7 @@ public class DocumentEndpointTest {
     @Test
     public void testReadPaymentsInRemastered() throws ConverterException {
         ApiResponse response = api.entity("paymentin").list().limit(10).execute();
-        assertFalse(response.hasErrors());
+        Assert.assertFalse(response.hasErrors());
         assertEquals(10, response.getEntities().size());
         response.getEntities().forEach(e -> assertNotNull(e.getId()));
     }

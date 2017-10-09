@@ -10,5 +10,5 @@ import lombok.Setter;
 public abstract class AbstractEntityWithOwner extends AbstractEntity{
     private Employee owner;
     private Group group;
-    private boolean shared;
+    private boolean shared = true;
 }

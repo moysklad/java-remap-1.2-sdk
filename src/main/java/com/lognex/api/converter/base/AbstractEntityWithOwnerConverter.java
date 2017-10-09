@@ -6,6 +6,8 @@ import com.lognex.api.model.entity.Employee;
 import com.lognex.api.model.entity.Group;
 import com.lognex.api.util.MetaHrefParser;
 
+import java.io.IOException;
+
 public abstract class AbstractEntityWithOwnerConverter<T extends AbstractEntityWithOwner> extends AbstractEntityConverter<T> {
     protected void convertToEntity(final AbstractEntityWithOwner entity, JsonNode node) {
         super.convertToEntity(entity, node);
@@ -13,5 +15,17 @@ public abstract class AbstractEntityWithOwnerConverter<T extends AbstractEntityW
         entity.setOwner(node.get("owner") == null ? null : new Employee(MetaHrefParser.getId(node.get("owner").get("meta").get("href").asText())));
         entity.setGroup(node.get("group") == null ? null : new Group(MetaHrefParser.getId(node.get("group").get("meta").get("href").asText())));
         entity.setShared(node.get("shared") != null && node.get("shared").asBoolean());
+    }
+
+    @Override
+    protected void convertFields(CustomJsonGenerator jgen, T entity) throws IOException {
+        super.convertFields(jgen, entity);
+        if (entity.getOwner() != null){
+            convertMetaField(jgen, "owner", entity.getOwner());
+        }
+        if (entity.getGroup() != null){
+            convertMetaField(jgen, "group", entity.getGroup());
+        }
+        jgen.writeBooleanField("shared", entity.isShared());
     }
 }

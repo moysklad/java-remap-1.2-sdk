@@ -2,6 +2,7 @@ package com.lognex.api.converter.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lognex.api.converter.field.Meta;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.util.ID;
@@ -12,11 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static java.util.stream.Collectors.toList;
 
 @Slf4j
 public abstract class AbstractEntityConverter<T extends AbstractEntity> implements Converter<T> {
-    protected static final ObjectMapper om = new ObjectMapper();
+    private static final ObjectMapper om = new ObjectMapper();
 
     @Override
     public T convert(String json) throws ConverterException {
@@ -52,19 +54,33 @@ public abstract class AbstractEntityConverter<T extends AbstractEntity> implemen
     @Override
     public void toJson(CustomJsonGenerator jgen, T entity) throws IOException {
         jgen.writeStartObject();
-        writeMeta(jgen, entity);
+        if (entity.getId() != null) {
+            writeMeta(jgen, entity);
+        }
         convertFields(jgen, entity);
         jgen.writeEndObject();
     }
 
     protected void convertFields(CustomJsonGenerator jgen, T entity) throws IOException {
-        jgen.writeStringFieldIfNotEmpty("id", entity.getId().getValue());
-        jgen.writeStringFieldIfNotEmpty("accountId", entity.getAccountId().getValue());
+        checkNotNull(entity);
+        if (entity.getId() != null) {
+            jgen.writeStringFieldIfNotEmpty("id", entity.getId().getValue());
+        }
+        if (entity.getAccountId() != null) {
+            jgen.writeStringFieldIfNotEmpty("accountId", entity.getAccountId().getValue());
+        }
     }
 
     private void writeMeta(CustomJsonGenerator jgen, T entity) throws IOException {
         Type type = Type.find(entity.getClass());
-        jgen.writeObjectField("meta", type);
+        jgen.writeObjectField("meta", new Meta(type, entity));
+    }
+
+    protected void convertMetaField(CustomJsonGenerator jgen, String name, AbstractEntity fieldValue) throws IOException {
+        jgen.writeObjectFieldStart(name);
+        Type type = Type.find(fieldValue.getClass());
+        jgen.writeObjectField("meta", new Meta(type, fieldValue));
+        jgen.writeEndObject();
     }
 
 
