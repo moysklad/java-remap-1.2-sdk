@@ -1,4 +1,4 @@
-package com.lognex.api.endpoint;
+package com.lognex.api;
 
 
 import com.lognex.api.request.builder.entity.EntityRequestBuilder;
@@ -6,7 +6,7 @@ import com.lognex.api.request.builder.entity.EntityRequestBuilderImpl;
 import lombok.Getter;
 
 @Getter
-public class ApiClient extends BaseEndpoint {
+public class ApiClient {
 
     String login;
     String password;

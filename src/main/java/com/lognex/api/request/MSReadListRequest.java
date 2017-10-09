@@ -1,6 +1,6 @@
 package com.lognex.api.request;
 
-import com.lognex.api.endpoint.ApiClient;
+import com.lognex.api.ApiClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 
@@ -28,12 +28,17 @@ public class MSReadListRequest extends MSRequest {
     @Override
     protected HttpUriRequest buildRequest() {
         StringBuilder urldBuilder = new StringBuilder(getUrl());
-        if (limit.isPresent() || offset.isPresent()){
+        if (hasParameters()){
             urldBuilder.append("?");
         }
         limit.ifPresent(integer -> appendParam(urldBuilder, "limit", integer));
         offset.ifPresent(integer -> appendParam(urldBuilder, "offset", integer));
         addExpandParameter(urldBuilder);
-        return new HttpGet(getUrl());
+        return new HttpGet(urldBuilder.toString());
+    }
+
+    @Override
+    protected boolean hasParameters() {
+        return super.hasParameters() || limit.isPresent() || offset.isPresent();
     }
 }

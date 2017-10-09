@@ -1,6 +1,5 @@
 package com.lognex.api;
 
-import com.lognex.api.endpoint.ApiClient;
 import com.lognex.api.model.entity.Counterparty;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.util.ID;
@@ -12,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class EntityTest {
 
-    private ApiClient api = new ApiClient("tut@tutorial", "tutorial1");
+    private ApiClient api = new ApiClient(System.getenv("login"), System.getenv("password"));
 
     @Test
     public void testCreateAndGetCounterparty() throws Exception{

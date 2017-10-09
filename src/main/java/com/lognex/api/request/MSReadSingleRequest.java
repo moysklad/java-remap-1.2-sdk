@@ -1,6 +1,7 @@
 package com.lognex.api.request;
 
-import com.lognex.api.endpoint.ApiClient;
+import com.lognex.api.ApiClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 
 public class MSReadSingleRequest extends MSRequest {
@@ -11,6 +12,11 @@ public class MSReadSingleRequest extends MSRequest {
 
     @Override
     protected HttpUriRequest buildRequest() {
-        return null;
+        StringBuilder urldBuilder = new StringBuilder(getUrl());
+        if (hasParameters()) {
+            urldBuilder.append("?");
+        }
+        addExpandParameter(urldBuilder);
+        return new HttpGet(urldBuilder.toString());
     }
 }

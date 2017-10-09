@@ -12,12 +12,12 @@ public class AgentAccountConverter extends AbstractEntityInfoableConverter<Agent
         AgentAccount result = new AgentAccount();
         super.convertToEntity(result, node);
 
-        result.setDefault(node.get("isDefault").asBoolean());
-        result.setAccountNumber(node.get("accountNumber").asText());
-        result.setBankName(node.get("bankName").asText());
-        result.setBankLocation(node.get("bankLocation").asText());
-        result.setCorrespondentAccount(node.get("correspondentAccount").asText());
-        result.setBic(node.get("bic").asText());
+        result.setDefault(node.has("isDefault") && node.get("isDefault").asBoolean());
+        result.setAccountNumber(node.has("accountNumber") ? node.get("accountNumber").asText() : null);
+        result.setBankName(node.has("bankName") ? node.get("bankName").asText() : null);
+        result.setBankLocation(node.has("bankLocation")? node.get("bankLocation").asText() : null);
+        result.setCorrespondentAccount(node.has("correspondentAccount")? node.get("correspondentAccount").asText() : null);
+        result.setBic(node.has("bic")? node.get("bic").asText() : null);
 
         return result;
     }

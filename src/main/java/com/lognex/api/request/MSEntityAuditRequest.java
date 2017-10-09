@@ -1,6 +1,6 @@
 package com.lognex.api.request;
 
-import com.lognex.api.endpoint.ApiClient;
+import com.lognex.api.ApiClient;
 import org.apache.http.client.methods.HttpUriRequest;
 
 public class MSEntityAuditRequest extends MSRequest {

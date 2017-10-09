@@ -90,7 +90,7 @@ public class ApiResponse {
 
 
     private static List<AbstractEntity> parseEntities(String body) throws IOException {
-        List<AbstractEntity> result = ImmutableList.of();
+        List<AbstractEntity> result = new ArrayList<>();
         if (body != null && !body.isEmpty()) {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode json = mapper.readTree(body);

@@ -1,6 +1,6 @@
 package com.lognex.api.request;
 
-import com.lognex.api.endpoint.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.response.ApiResponse;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -85,4 +85,9 @@ public abstract class MSRequest {
         return params.stream()
                 .collect(Collectors.joining(","));
     }
+
+    protected boolean hasParameters(){
+        return !expand.isEmpty();
+    }
+
 }

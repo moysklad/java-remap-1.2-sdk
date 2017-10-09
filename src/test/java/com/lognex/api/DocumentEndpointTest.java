@@ -1,72 +1,67 @@
 package com.lognex.api;
 
-import com.lognex.api.endpoint.DocumentEndpoint;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.document.PaymentIn;
+import com.lognex.api.response.ApiResponse;
 import com.lognex.api.util.ID;
 import org.junit.Test;
 
-import java.util.List;
-import java.util.Objects;
-
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class DocumentEndpointTest {
-    private static final DocumentEndpoint documentEndpoint = new DocumentEndpoint();
+    private ApiClient api = new ApiClient(System.getenv("login"), System.getenv("password"));
 
     @Test
-    public void testReadPaymentsIn() throws ConverterException {
-        API api = new API();
-        API.RequestBuilder requestBuilder = api.initRequest(System.getenv("login"), System.getenv("password"));
-        List<PaymentIn> paymentIns = documentEndpoint.readPaymentInList(requestBuilder);
-        assertFalse(paymentIns.stream()
-                .anyMatch(p -> p.getId() == null));
+    public void testReadPaymentsInRemastered() throws ConverterException {
+        ApiResponse response = api.entity("paymentin").list().limit(10).execute();
+        assertFalse(response.hasErrors());
+        assertEquals(10, response.getEntities().size());
+        response.getEntities().forEach(e -> assertNotNull(e.getId()));
     }
 
     @Test
-    public void testReadPaymentIn() throws ConverterException {
-        API api = new API();
-        API.RequestBuilder requestBuilder = api.initRequest(System.getenv("login"), System.getenv("password"))
-                .id("ac08418c-9482-11e7-7a69-8f550003b1e0");
-        PaymentIn paymentIn = documentEndpoint.readPaymentIn(requestBuilder);
-        assertEquals(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"), paymentIn.getId());
-
+    public void testReadPaymentInRemastered() throws Exception{
+        ApiResponse response = api.entity("paymentin").id(new ID("017d451a-5acf-43e9-b8e1-e91ccc339d59")).read().execute();
+        assertEquals(response.getStatus(), 200);
+        assertEquals(response.getEntities().size(), 1);
+        assertEquals(response.getEntities().get(0).getId(), new ID("017d451a-5acf-43e9-b8e1-e91ccc339d59"));
     }
 
     @Test
-    public void testReadPaymentInWithAgentAccountExpand() throws ConverterException {
-        API api = new API();
-        API.RequestBuilder requestBuilder = api.initRequest(System.getenv("login"), System.getenv("password"))
-                .id("ac08418c-9482-11e7-7a69-8f550003b1e0")
-                .expand("agentAccount");
-        PaymentIn paymentIn = documentEndpoint.readPaymentIn(requestBuilder);
-        assertEquals(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"), paymentIn.getId());
-        assertEquals(new ID("5bc8549b-9e14-11e7-7a34-5acf00403d35"), paymentIn.getAgentAccount().getId());
+    public void testReadPaymentInWithAgentAccountExpandRemastered() throws ConverterException {
+        ApiResponse response = api.
+                entity("paymentin").
+                id(new ID("9671ada7-735c-11e7-7a69-9711000111d6"))
+                .read().addExpand("agentAccount").execute();
+        assertEquals(response.getStatus(), 200);
+        assertEquals(response.getEntities().size(), 1);
+        assertEquals(response.getEntities().get(0).getId(), new ID("9671ada7-735c-11e7-7a69-9711000111d6"));
+        assertEquals(((PaymentIn)response.getEntities().get(0)).getAgentAccount().getId(), new ID("3f4de04d-e5dc-11e3-a77a-002590a28eca"));
     }
 
     @Test
-    public void testReadPaymentsInWithAgentAccountExpand() throws ConverterException {
-        API api = new API();
-        API.RequestBuilder requestBuilder = api.initRequest(System.getenv("login"), System.getenv("password"))
-                .expand("agentAccount");
-        List<PaymentIn> paymentIns = documentEndpoint.readPaymentInList(requestBuilder);
-        assertFalse(paymentIns.stream()
-                .anyMatch(p -> p.getId() == null));
-        assertFalse(paymentIns.stream()
-                .map(PaymentIn::getAgentAccount)
-                .filter(Objects::nonNull)
-                .anyMatch(a -> a.getId() == null));
+    public void testReadPaymentsInWithAgentAccountExpandRemastered() throws Exception {
+        ApiResponse response = api.entity("paymentin").list().addExpand("agentAccount").execute();
+        assertEquals(response.getStatus(), 200);
+        assertTrue(response.getEntities().size() > 0);
+        response.getEntities().stream()
+                .map(o -> (PaymentIn)o)
+                .filter(p -> p.getAgentAccount() != null)
+                .forEach(p -> assertTrue(p.getAgentAccount().getId() != null));
     }
 
     @Test
-    public void testReadPaymentInWithAgentExpand() throws ConverterException {
-        API api = new API();
-        API.RequestBuilder requestBuilder = api.initRequest(System.getenv("login"), System.getenv("password"))
-                .id("ac08418c-9482-11e7-7a69-8f550003b1e0")
-                .expand("agent");
-        PaymentIn paymentIn = documentEndpoint.readPaymentIn(requestBuilder);
-        assertEquals(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"), paymentIn.getId());
-        assertEquals(new ID("81c97d10-9482-11e7-7a6c-d2a9000847cc"), paymentIn.getAgent().getId());
+    public void testReadPaymentInWithAgentExpandRemastered() throws Exception {
+        ApiResponse response = api.entity("paymentin").id(new ID("9671ada7-735c-11e7-7a69-9711000111d6"))
+                .read().addExpand("agent").execute();
+        assertEquals(response.getStatus(), 200);
+        assertTrue(response.getEntities().size() == 1);
+        assertEquals(new ID("9671ada7-735c-11e7-7a69-9711000111d6"), response.getEntities().get(0).getId());
+        assertEquals(new ID("65cc16a7-276a-451c-995f-0ecfc44f72f0"), ((PaymentIn)response.getEntities().get(0)).getAgent().getId());
+
+
     }
 }

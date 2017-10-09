@@ -1,6 +1,6 @@
 package com.lognex.api.request.builder;
 
-import com.lognex.api.endpoint.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.util.Constants;
 import lombok.Getter;
 

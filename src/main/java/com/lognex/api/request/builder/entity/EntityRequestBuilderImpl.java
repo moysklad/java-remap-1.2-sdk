@@ -1,7 +1,7 @@
 package com.lognex.api.request.builder.entity;
 
 import com.google.common.collect.ImmutableList;
-import com.lognex.api.endpoint.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.request.MSCreateRequest;
 import com.lognex.api.request.MSMetadataRequest;
