@@ -1,6 +1,6 @@
 package com.lognex.api.model.entity;
 
-import com.lognex.api.model.base.AbstractAgent;
+import com.lognex.api.model.base.AbstractEntityLegendable;
 import com.lognex.api.util.ID;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Employee extends AbstractAgent {
+public class Employee extends Agent {
     private String uid;
     private String email;
     private String phone;

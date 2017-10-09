@@ -13,6 +13,7 @@ public abstract class Agent extends AbstractEntityLegendable {
     private String legalAddress;
     private String inn;
     private String kpp;
+    private boolean archived;
 
     public Agent(ID id) {
         setId(id);
