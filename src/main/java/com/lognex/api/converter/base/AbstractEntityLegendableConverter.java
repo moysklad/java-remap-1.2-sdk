@@ -7,7 +7,7 @@ import com.lognex.api.model.base.AbstractEntityLegendable;
 import java.io.IOException;
 
 public abstract class AbstractEntityLegendableConverter<T extends AbstractEntityLegendable> extends AbstractEntityInfoableConverter<T> {
-    protected void convertToEntity(final AbstractEntityLegendable entity, JsonNode node) throws ConverterException {
+    protected void convertToEntity(final T entity, JsonNode node) throws ConverterException {
         super.convertToEntity(entity, node);
         entity.setName(node.get("name").asText());
         entity.setDescription(node.get("description") == null ? null : node.get("description").asText());

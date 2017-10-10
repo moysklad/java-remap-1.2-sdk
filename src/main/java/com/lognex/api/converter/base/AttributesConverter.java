@@ -10,7 +10,7 @@ import com.lognex.api.model.entity.*;
 import com.lognex.api.model.entity.attribute.Attribute;
 import com.lognex.api.model.entity.attribute.AttributeType;
 import com.lognex.api.model.entity.attribute.AttributeValue;
-import com.lognex.api.util.DateParser;
+import com.lognex.api.util.DateUtils;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.MetaHrefParser;
 
@@ -48,8 +48,13 @@ public class AttributesConverter implements CustomFieldsConverter<IEntityWithAtt
                             break;
                         }
                         case TIME:{
-                            Date date = DateParser.parseDate(attribute.get("value").asText());
+                            Date date = DateUtils.parseDate(attribute.get("value").asText());
                             entity.getAttributes().add(new Attribute<>(id, name, type, new AttributeValue<>(date)));
+                            break;
+                        }
+                        case BOOLEAN:{
+                            boolean value = attribute.get("value").asBoolean();
+                            entity.getAttributes().add(new Attribute<>(id, name, type, new AttributeValue<>(value)));
                             break;
                         }
                         case FILE:{

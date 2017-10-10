@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public enum AttributeType {
-    STRING, TEXT, LONG, TIME, DOUBLE, LINK, FILE, //PRIMITIVE
+    STRING, TEXT, LONG, TIME, DOUBLE, LINK, FILE, BOOLEAN, //PRIMITIVE
         CUSTOMENTITY,
         COUNTERPARTY, PRODUCT, SERVICE, CONSIGNMENT, VARIANT, BUNDLE, STORE, PROJECT, CONTRACT, EMPLOYEE; // Embedded entity
 

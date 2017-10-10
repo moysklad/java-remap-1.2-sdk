@@ -15,7 +15,7 @@ public class DocumentEndpointTest {
     private ApiClient api = new ApiClient(System.getenv("login"), System.getenv("password"));
 
     @Test
-    public void testReadPaymentsInRemastered() throws ConverterException {
+    public void testReadPaymentsIn() throws ConverterException {
         ApiResponse response = api.entity("paymentin").list().limit(10).execute();
         Assert.assertFalse(response.hasErrors());
         assertEquals(10, response.getEntities().size());
@@ -23,7 +23,7 @@ public class DocumentEndpointTest {
     }
 
     @Test
-    public void testReadPaymentInRemastered() throws Exception{
+    public void testReadPaymentIn() throws Exception{
         ApiResponse response = api.entity("paymentin").id(new ID("017d451a-5acf-43e9-b8e1-e91ccc339d59")).read().execute();
         assertEquals(response.getStatus(), 200);
         assertEquals(response.getEntities().size(), 1);
@@ -31,7 +31,7 @@ public class DocumentEndpointTest {
     }
 
     @Test
-    public void testReadPaymentInWithAgentAccountExpandRemastered() throws ConverterException {
+    public void testReadPaymentInWithAgentAccountExpand() throws ConverterException {
         ApiResponse response = api.
                 entity("paymentin").
                 id(new ID("9671ada7-735c-11e7-7a69-9711000111d6"))
@@ -43,7 +43,7 @@ public class DocumentEndpointTest {
     }
 
     @Test
-    public void testReadPaymentsInWithAgentAccountExpandRemastered() throws Exception {
+    public void testReadPaymentsInWithAgentAccountExpand() throws Exception {
         ApiResponse response = api.entity("paymentin").list().addExpand("agentAccount").execute();
         assertEquals(response.getStatus(), 200);
         assertTrue(response.getEntities().size() > 0);
@@ -54,7 +54,7 @@ public class DocumentEndpointTest {
     }
 
     @Test
-    public void testReadPaymentInWithAgentExpandRemastered() throws Exception {
+    public void testReadPaymentInWithAgentExpand() throws Exception {
         ApiResponse response = api.entity("paymentin").id(new ID("9671ada7-735c-11e7-7a69-9711000111d6"))
                 .read().addExpand("agent").execute();
         assertEquals(response.getStatus(), 200);

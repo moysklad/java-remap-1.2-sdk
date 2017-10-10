@@ -7,6 +7,7 @@ import com.lognex.api.converter.base.CustomJgenFactory;
 import com.lognex.api.converter.base.CustomJsonGenerator;
 import com.lognex.api.ApiClient;
 import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.util.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -15,6 +16,7 @@ import org.apache.http.entity.StringEntity;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static com.lognex.api.util.Constants.APPLICATION_JSON;
@@ -28,6 +30,7 @@ public class MSCreateRequest extends MSRequest {
     public MSCreateRequest(String url, ApiClient client, List<? extends AbstractEntity> entityList) {
         super(url, client);
         this.postEntityList = entityList;
+        mapper.setDateFormat(new SimpleDateFormat(Constants.DATE_TIME_FORMAT));
     }
 
     @Override
