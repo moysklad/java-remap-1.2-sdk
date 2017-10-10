@@ -6,6 +6,8 @@ import com.lognex.api.util.ID;
 import org.junit.Test;
 
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class EntityTest {
@@ -26,6 +28,13 @@ public class EntityTest {
         Counterparty counterparty = (Counterparty) response.getEntities().get(0);
         assertNotNull(counterparty.getId());
         assertEquals(counterparty.getName(), "Володя LOL PRO2");
+    }
+
+    @Test
+    public void testCounterpartyWithAdditionaFields() throws Exception{
+        ApiResponse response = api.entity("counterparty").list().execute();
+        List<Counterparty> counterparties = (List<Counterparty>) response.getEntities();
+        int i=2;
     }
 
 }

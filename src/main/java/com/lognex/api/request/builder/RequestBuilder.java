@@ -14,6 +14,6 @@ public abstract class RequestBuilder {
 
     protected RequestBuilder(ApiClient apiClient){
         this.client = apiClient;
-        url = new StringBuilder(Constants.HOST_URL2);
+        url = new StringBuilder(Constants.HOST_URL);
     }
 }
