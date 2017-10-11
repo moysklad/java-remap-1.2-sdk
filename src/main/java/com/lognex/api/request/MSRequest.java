@@ -76,9 +76,13 @@ public abstract class MSRequest {
     }
 
     StringBuilder appendParam(final StringBuilder sb, String paramName, Object param) {
-        return sb.charAt(sb.length()-1) != '?'
-                ? sb.append('&').append(paramName).append('=').append(param)
-                : sb.append(paramName).append('=').append(param);
+        if (sb.toString().contains("?")) {
+            return sb.charAt(sb.length() - 1) != '?'
+                    ? sb.append('&').append(paramName).append('=').append(param)
+                    : sb.append(paramName).append('=').append(param);
+        } else {
+            return sb.append('?').append(paramName).append('=').append(param);
+        }
     }
 
     private String buildSetParam(Set<String> params) {

@@ -17,7 +17,7 @@ public class EntityRequestBuilderImpl extends BaseEntityRequestBuilder implement
     public EntityRequestBuilderImpl(Type type, ApiClient client){
         super(client);
         this.type = type;
-        url.append("/").append(type);
+        url.append("/").append(type.name().toLowerCase());
     }
 
     @Override
@@ -27,7 +27,7 @@ public class EntityRequestBuilderImpl extends BaseEntityRequestBuilder implement
 
     @Override
     public MSReadListRequest list() {
-        return new MSReadListRequest(url.toString(), client);
+        return new MSReadListRequest(url.toString(), client, type);
     }
 
     @Override

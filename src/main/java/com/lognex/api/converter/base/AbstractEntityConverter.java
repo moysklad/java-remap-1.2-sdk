@@ -2,7 +2,7 @@ package com.lognex.api.converter.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lognex.api.converter.field.Meta;
+import com.lognex.api.model.base.field.Meta;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.util.ID;
