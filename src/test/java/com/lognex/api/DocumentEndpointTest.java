@@ -4,6 +4,7 @@ import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.document.PaymentIn;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.util.ID;
+import com.lognex.api.util.Type;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ public class DocumentEndpointTest {
 
     @Test
     public void testReadPaymentsIn() throws ConverterException {
-        ApiResponse response = api.entity("paymentin").list().limit(10).execute();
+        ApiResponse response = api.entity(Type.PAYMENTIN).list().limit(10).execute();
         Assert.assertFalse(response.hasErrors());
         assertEquals(10, response.getEntities().size());
         response.getEntities().forEach(e -> assertNotNull(e.getId()));
@@ -24,7 +25,7 @@ public class DocumentEndpointTest {
 
     @Test
     public void testReadPaymentIn() throws Exception{
-        ApiResponse response = api.entity("paymentin").id(new ID("017d451a-5acf-43e9-b8e1-e91ccc339d59")).read().execute();
+        ApiResponse response = api.entity(Type.PAYMENTIN).id(new ID("017d451a-5acf-43e9-b8e1-e91ccc339d59")).read().execute();
         assertEquals(response.getStatus(), 200);
         assertEquals(response.getEntities().size(), 1);
         assertEquals(response.getEntities().get(0).getId(), new ID("017d451a-5acf-43e9-b8e1-e91ccc339d59"));
@@ -33,7 +34,7 @@ public class DocumentEndpointTest {
     @Test
     public void testReadPaymentInWithAgentAccountExpand() throws ConverterException {
         ApiResponse response = api.
-                entity("paymentin").
+                entity(Type.PAYMENTIN).
                 id(new ID("9671ada7-735c-11e7-7a69-9711000111d6"))
                 .read().addExpand("agentAccount").execute();
         assertEquals(response.getStatus(), 200);
@@ -44,7 +45,7 @@ public class DocumentEndpointTest {
 
     @Test
     public void testReadPaymentsInWithAgentAccountExpand() throws Exception {
-        ApiResponse response = api.entity("paymentin").list().addExpand("agentAccount").execute();
+        ApiResponse response = api.entity(Type.PAYMENTIN).list().addExpand("agentAccount").execute();
         assertEquals(response.getStatus(), 200);
         assertTrue(response.getEntities().size() > 0);
         response.getEntities().stream()
@@ -55,7 +56,7 @@ public class DocumentEndpointTest {
 
     @Test
     public void testReadPaymentInWithAgentExpand() throws Exception {
-        ApiResponse response = api.entity("paymentin").id(new ID("9671ada7-735c-11e7-7a69-9711000111d6"))
+        ApiResponse response = api.entity(Type.PAYMENTIN).id(new ID("9671ada7-735c-11e7-7a69-9711000111d6"))
                 .read().addExpand("agent").execute();
         assertEquals(response.getStatus(), 200);
         assertTrue(response.getEntities().size() == 1);

@@ -1,4 +1,4 @@
-package com.lognex.api.model.entity;
+package com.lognex.api.model.base;
 
 import com.lognex.api.model.entity.attribute.Attribute;
 import com.lognex.api.util.ID;

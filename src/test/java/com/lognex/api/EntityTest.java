@@ -4,18 +4,16 @@ import com.lognex.api.converter.field.CompanyType;
 import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.model.entity.Counterparty;
 import com.lognex.api.model.entity.CustomEntity;
-import com.lognex.api.model.entity.IEntityWithAttributes;
+import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.attribute.Attribute;
 import com.lognex.api.model.entity.attribute.AttributeValue;
 import com.lognex.api.response.ApiResponse;
-import com.lognex.api.util.ID;
 import com.lognex.api.util.Type;
 import org.junit.Test;
 
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -46,7 +44,7 @@ public class EntityTest {
 
         Counterparty cp1 = new Counterparty();
         cp1.setName("Петюня братюня");
-        ApiResponse response = api.entity("counterparty").create(cp1).execute();
+        ApiResponse response = api.entity(Type.COUNTERPARTY).create(cp1).execute();
         cp1 = (Counterparty) response.getEntities().get(0);
         counterparty.getAttributes().add(new Attribute<>("af6874ef-adba-11e7-7a34-5acf003d7f31", "counterparty", new AttributeValue<>(cp1)));
 
@@ -62,7 +60,7 @@ public class EntityTest {
         counterparty.getAttributes().add(new Attribute<>("37caf134-adbe-11e7-6b01-4b1d003e24b7", "customentity", new AttributeValue<>(customEntity)));
 
 
-        response = api.entity("counterparty").create(counterparty).execute();
+        response = api.entity(Type.COUNTERPARTY).create(counterparty).execute();
         assertEquals(response.getStatus(), 200);
         assertFalse(response.hasErrors());
 

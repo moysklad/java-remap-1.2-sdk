@@ -31,7 +31,7 @@ public abstract class MSRequest {
     private Set<String> expand = new HashSet<>();
     protected Set<Header> headers = new HashSet<>();
 
-    public MSRequest(String url, ApiClient client){
+    MSRequest(String url, ApiClient client){
         this.url = url;
         this.client = client;
     }
@@ -52,7 +52,7 @@ public abstract class MSRequest {
             HttpUriRequest request = buildRequest();
             headers.forEach(request::addHeader);
             CloseableHttpResponse response = httpclient.execute(request);
-            return ApiResponse.produce(response);
+            return ResponseParser.parse(response);
         } catch (IOException e) {
             log.error("Error: ", e);
             throw new RuntimeException(e);
@@ -61,7 +61,7 @@ public abstract class MSRequest {
 
     protected abstract HttpUriRequest buildRequest();
 
-    protected void addExpandParameter(StringBuilder currentUrl){
+    void addExpandParameter(StringBuilder currentUrl){
         if (!expand.isEmpty()) {
             appendParam(currentUrl, "expand", buildSetParam(expand));
         }
@@ -75,7 +75,7 @@ public abstract class MSRequest {
                 .build();
     }
 
-    protected StringBuilder appendParam(final StringBuilder sb, String paramName, Object param) {
+    StringBuilder appendParam(final StringBuilder sb, String paramName, Object param) {
         return sb.charAt(sb.length()-1) != '?'
                 ? sb.append('&').append(paramName).append('=').append(param)
                 : sb.append(paramName).append('=').append(param);

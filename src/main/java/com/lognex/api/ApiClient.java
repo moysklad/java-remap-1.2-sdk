@@ -3,6 +3,7 @@ package com.lognex.api;
 
 import com.lognex.api.request.builder.entity.EntityRequestBuilder;
 import com.lognex.api.request.builder.entity.EntityRequestBuilderImpl;
+import com.lognex.api.util.Type;
 import lombok.Getter;
 
 @Getter
@@ -16,7 +17,7 @@ public class ApiClient {
         this.password = password;
     }
 
-    public EntityRequestBuilder entity(String type) {
+    public EntityRequestBuilder entity(Type type) {
         return new EntityRequestBuilderImpl(type, this);
     }
 

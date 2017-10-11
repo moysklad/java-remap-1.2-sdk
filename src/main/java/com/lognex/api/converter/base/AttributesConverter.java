@@ -7,6 +7,7 @@ import com.lognex.api.converter.field.FileRef;
 import com.lognex.api.converter.field.Meta;
 import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.model.base.AbstractEntityLegendable;
+import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.*;
 import com.lognex.api.model.entity.attribute.Attribute;
 import com.lognex.api.model.entity.attribute.AttributeType;
@@ -166,7 +167,7 @@ public class AttributesConverter implements CustomFieldsConverter<IEntityWithAtt
     private void serializeEntityValue(CustomJsonGenerator jgen, Attribute<?> attribute) throws IOException{
         jgen.writeObjectFieldStart("value");
         Type type = Type.find(((AbstractEntity)attribute.getValue().getValue()).getClass());
-        if (type.equals(Type.customentity)){
+        if (type.equals(Type.CUSTOMENTITY)){
             if (((AbstractEntity) attribute.getValue().getValue()).getId() != null) {
                 jgen.writeObjectField("meta", new Meta(type, attribute.getValue().getValue()));
             }

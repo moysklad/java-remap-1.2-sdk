@@ -73,13 +73,13 @@ public abstract class AbstractEntityConverter<T extends AbstractEntity> implemen
 
     private void writeMeta(CustomJsonGenerator jgen, T entity) throws IOException {
         Type type = Type.find(entity.getClass());
-        jgen.writeObjectField("meta", new Meta(type, entity));
+        jgen.writeObjectField("meta", new Meta<>(type, entity));
     }
 
-    protected void convertMetaField(CustomJsonGenerator jgen, String name, AbstractEntity fieldValue) throws IOException {
+    void convertMetaField(CustomJsonGenerator jgen, String name, AbstractEntity fieldValue) throws IOException {
         jgen.writeObjectFieldStart(name);
         Type type = Type.find(fieldValue.getClass());
-        jgen.writeObjectField("meta", new Meta(type, fieldValue));
+        jgen.writeObjectField("meta", new Meta<>(type, fieldValue));
         jgen.writeEndObject();
     }
 

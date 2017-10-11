@@ -1,6 +1,7 @@
 package com.lognex.api.model.entity;
 
 import com.lognex.api.converter.field.CompanyType;
+import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.attribute.Attribute;
 import com.lognex.api.util.ID;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Counterparty extends Agent implements IEntityWithAttributes{
+public class Counterparty extends Agent implements IEntityWithAttributes {
 
     private Set<Attribute<?>> attributes = new HashSet<>();
 

@@ -9,16 +9,16 @@ import java.util.Arrays;
 
 public enum Type {
 
-    counterparty(Counterparty.class),
-    paymentin(PaymentIn.class),
-    employee(Employee.class),
-    customentity(CustomEntity.class),
-    product(Product.class),
-    service(Service.class),
-    consignment(Consignment.class),
-    bundle(Bundle.class),
-    variant(Variant.class),
-    store(Store.class),
+    COUNTERPARTY(Counterparty.class),
+    PAYMENTIN(PaymentIn.class),
+    EMPLOYEE(Employee.class),
+    CUSTOMENTITY(CustomEntity.class),
+    PRODUCT(Product.class),
+    SERVICE(Service.class),
+    CONSIGNMENT(Consignment.class),
+    BUNDLE(Bundle.class),
+    VARIANT(Variant.class),
+    STORE(Store.class),
     ;
 
 

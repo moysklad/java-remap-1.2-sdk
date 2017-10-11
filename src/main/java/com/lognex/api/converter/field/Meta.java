@@ -33,8 +33,7 @@ public class Meta<T> {
 
     private String makeMetadataHref(Type type, T value) {
         if (value instanceof AbstractEntity) {
-            return new StringBuilder(HOST_URL).append("/")
-                    .append(ENTITY_PATH).append("/").append(type.name()).append("/").append(METADATA_PATH).toString();
+            return HOST_URL + "/" + ENTITY_PATH + "/" + type.name() + "/" + METADATA_PATH;
         }
         return null;
     }

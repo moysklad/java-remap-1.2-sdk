@@ -7,13 +7,14 @@ import com.lognex.api.request.MSCreateRequest;
 import com.lognex.api.request.MSMetadataRequest;
 import com.lognex.api.request.MSReadListRequest;
 import com.lognex.api.util.ID;
+import com.lognex.api.util.Type;
 
 
 public class EntityRequestBuilderImpl extends BaseEntityRequestBuilder implements EntityRequestBuilder {
 
-    private String type;
+    private Type type;
 
-    public EntityRequestBuilderImpl(String type, ApiClient client){
+    public EntityRequestBuilderImpl(Type type, ApiClient client){
         super(client);
         this.type = type;
         url.append("/").append(type);
