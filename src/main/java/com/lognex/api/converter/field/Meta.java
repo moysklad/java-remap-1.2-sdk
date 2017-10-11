@@ -2,6 +2,7 @@ package com.lognex.api.converter.field;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.entity.CustomEntity;
 import com.lognex.api.util.Constants;
 import com.lognex.api.util.Type;
 import lombok.AccessLevel;
@@ -45,7 +46,12 @@ public class Meta<T> {
         }
         sb.append("/").append(type.name());
         if (value instanceof AbstractEntity){
-            sb.append("/").append(((AbstractEntity)value).getId().getValue());
+            if (value instanceof CustomEntity) {
+                sb.append("/").append(((CustomEntity)value).getCustomDictionaryId())
+                        .append("/").append(((AbstractEntity) value).getId().getValue());
+            } else {
+                sb.append("/").append(((AbstractEntity) value).getId().getValue());
+            }
         }
         return sb.toString();
     }

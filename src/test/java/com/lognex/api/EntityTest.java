@@ -1,12 +1,20 @@
 package com.lognex.api;
 
 import com.lognex.api.converter.field.CompanyType;
+import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.model.entity.Counterparty;
+import com.lognex.api.model.entity.CustomEntity;
+import com.lognex.api.model.entity.IEntityWithAttributes;
+import com.lognex.api.model.entity.attribute.Attribute;
+import com.lognex.api.model.entity.attribute.AttributeValue;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.util.ID;
+import com.lognex.api.util.Type;
 import org.junit.Test;
 
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -17,29 +25,7 @@ public class EntityTest {
 
     @Test
     public void testCreateAndGetCounterparty() throws Exception{
-        Counterparty cp = new Counterparty();
-        cp.setName("Володя LOL PRO2");
-        ApiResponse response1 =  api.entity("counterparty").create(cp).execute();
-        assertTrue(response1.getStatus() == 200);
-        assertFalse(response1.hasErrors());
-        ID id = response1.getEntities().get(0).getId();
 
-        ApiResponse response = api.entity("counterparty").id(id).read().execute();
-        assertFalse(response.hasErrors());
-        Counterparty counterparty = (Counterparty) response.getEntities().get(0);
-        assertNotNull(counterparty.getId());
-        assertEquals(counterparty.getName(), "Володя LOL PRO2");
-    }
-
-    @Test
-    public void testCounterpartyWithAdditionaFields() throws Exception{
-        ApiResponse response = api.entity("counterparty").id(new ID("b9dcaab9-adba-11e7-6b01-4b1d003d6037")).read().execute();
-        Counterparty cp  = (Counterparty) response.getEntities().get(0);
-        assertTrue(cp.getAttributes().size() > 0);
-    }
-
-    @Test
-    public void testCounterpartyWithRequisiteFields() throws Exception{
         Counterparty counterparty = new Counterparty();
         counterparty.setName("AwesomeBro");
         counterparty.setCompanyType(CompanyType.LEGAL);
@@ -48,9 +34,36 @@ public class EntityTest {
         counterparty.setKpp("771001001");
         counterparty.setOgrn("1027700505348");
         counterparty.setOkpo("02278679");
+        counterparty.getAttributes().add(new Attribute<>("af686e1c-adba-11e7-7a34-5acf003d7f2e", "string", new AttributeValue<>("string")));
+        counterparty.getAttributes().add(new Attribute<>("af687111-adba-11e7-7a34-5acf003d7f2f", "long", new AttributeValue<>(100L)));
+        // Потому что наш API обрезает секунды при проставлении значения в доп. поле =_=
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        counterparty.getAttributes().add(new Attribute<>("af6872f9-adba-11e7-7a34-5acf003d7f30", "time", new AttributeValue<>(calendar.getTime())));
 
-        ApiResponse response = api.entity("counterparty").create(counterparty).execute();
-        assertTrue(response.getStatus() == 200);
+        Counterparty cp1 = new Counterparty();
+        cp1.setName("Петюня братюня");
+        ApiResponse response = api.entity("counterparty").create(cp1).execute();
+        cp1 = (Counterparty) response.getEntities().get(0);
+        counterparty.getAttributes().add(new Attribute<>("af6874ef-adba-11e7-7a34-5acf003d7f31", "counterparty", new AttributeValue<>(cp1)));
+
+
+        counterparty.getAttributes().add(new Attribute<>("af6879ea-adba-11e7-7a34-5acf003d7f33", "double", new AttributeValue<>(20.00)));
+        counterparty.getAttributes().add(new Attribute<>("af687e1c-adba-11e7-7a34-5acf003d7f34","boolean", new AttributeValue<>(true)));
+        counterparty.getAttributes().add(new Attribute<>("af687f96-adba-11e7-7a34-5acf003d7f35", "text", new AttributeValue<>("text attribute")));
+        counterparty.getAttributes().add(new Attribute<>("af688152-adba-11e7-7a34-5acf003d7f36", "link", new AttributeValue<>("link.link.link")));
+
+        CustomEntity customEntity = new CustomEntity();
+        customEntity.setName("must be ensured");
+
+        counterparty.getAttributes().add(new Attribute<>("37caf134-adbe-11e7-6b01-4b1d003e24b7", "customentity", new AttributeValue<>(customEntity)));
+
+
+        response = api.entity("counterparty").create(counterparty).execute();
+        assertEquals(response.getStatus(), 200);
         assertFalse(response.hasErrors());
 
         Counterparty created = (Counterparty) response.getEntities().get(0);
@@ -61,6 +74,27 @@ public class EntityTest {
         assertEquals(created.getKpp(), counterparty.getKpp());
         assertEquals(created.getOgrn(), counterparty.getOgrn());
         assertEquals(created.getOkpo(), counterparty.getOkpo());
+        checkAttributesEquality(created, counterparty);
+    }
+
+    private void checkAttributesEquality(IEntityWithAttributes en1, IEntityWithAttributes en2){
+        assertEquals(en1.getAttributes().size(), en2.getAttributes().size());
+        for (Attribute<?> attribute : en1.getAttributes()){
+            Attribute<?> attr2 = en2.getAttribute(attribute.getId());
+            assertTrue(attr2 != null);
+            assertEquals(attr2.getType(), attribute.getType());
+            if (attribute.getValue().getValue() instanceof AbstractEntity){
+                AbstractEntity entity = (AbstractEntity) attribute.getValue().getValue();
+                AbstractEntity entity2 = (AbstractEntity) attr2.getValue().getValue();
+                assertEquals(Type.find(entity.getClass()), Type.find(entity2.getClass()));
+                if (!(entity instanceof CustomEntity)) {
+                    // because CustomEntity might be ensured while put in attributes array
+                    assertEquals(entity.getId().getValue(), entity2.getId().getValue());
+                }
+            } else {
+                assertEquals(attr2.getValue().getValue(), attribute.getValue().getValue());
+            }
+        }
     }
 
 

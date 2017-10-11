@@ -25,12 +25,12 @@ import static com.lognex.api.util.Constants.APPLICATION_JSON;
 public class MSCreateRequest extends MSRequest {
 
     private List<? extends AbstractEntity> postEntityList;
-    private final ObjectMapper mapper = new ObjectMapper();
+    private ObjectMapper mapper = new ObjectMapper();
 
     public MSCreateRequest(String url, ApiClient client, List<? extends AbstractEntity> entityList) {
         super(url, client);
         this.postEntityList = entityList;
-        mapper.setDateFormat(new SimpleDateFormat(Constants.DATE_TIME_FORMAT));
+        mapper = mapper.setDateFormat(new SimpleDateFormat(Constants.DATE_TIME_FORMAT));
     }
 
     @Override

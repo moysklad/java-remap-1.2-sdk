@@ -37,28 +37,32 @@ public class CounterpartyConverter extends AgentConverter<Counterparty> {
     @Override
     protected void convertFields(CustomJsonGenerator jgen, Counterparty entity) throws IOException {
         super.convertFields(jgen, entity);
-        jgen.writeStringFieldIfNotEmpty("companyType", entity.getCompanyType().name().toLowerCase());
         jgen.writeStringFieldIfNotEmpty("legalTitle", entity.getLegalTitle());
-        switch (entity.getCompanyType()){
-            case LEGAL: {
-                jgen.writeStringFieldIfNotEmpty("kpp", entity.getKpp());
-                jgen.writeStringFieldIfNotEmpty("ogrn", entity.getOgrn());
-                jgen.writeStringFieldIfNotEmpty("okpo", entity.getOkpo());
-                break;
-            }
-            case ENTREPRENEUR: {
-                jgen.writeStringFieldIfNotEmpty("okpo", entity.getOkpo());
-                jgen.writeStringFieldIfNotEmpty("ogrnip", entity.getOgrnip());
-                jgen.writeStringFieldIfNotEmpty("certificateNumber", entity.getCertificateNumber());
-                if (entity.getCertificateDate() != null) {
-                    jgen.writeObjectField("certificateDate", entity.getCertificateDate());
+        if (entity.getCompanyType() != null) {
+            jgen.writeStringFieldIfNotEmpty("companyType", entity.getCompanyType().name().toLowerCase());
+
+            switch (entity.getCompanyType()){
+                case LEGAL: {
+                    jgen.writeStringFieldIfNotEmpty("kpp", entity.getKpp());
+                    jgen.writeStringFieldIfNotEmpty("ogrn", entity.getOgrn());
+                    jgen.writeStringFieldIfNotEmpty("okpo", entity.getOkpo());
+                    break;
                 }
-                break;
+                case ENTREPRENEUR: {
+                    jgen.writeStringFieldIfNotEmpty("okpo", entity.getOkpo());
+                    jgen.writeStringFieldIfNotEmpty("ogrnip", entity.getOgrnip());
+                    jgen.writeStringFieldIfNotEmpty("certificateNumber", entity.getCertificateNumber());
+                    if (entity.getCertificateDate() != null) {
+                        jgen.writeObjectField("certificateDate", entity.getCertificateDate());
+                    }
+                    break;
+                }
+                case INDIVIDUAL:
+                    break;
+                default:
+                    throw new IllegalStateException("No such companyType=" + entity.getCompanyType().name());
             }
-            case INDIVIDUAL:
-                break;
-            default:
-                throw new IllegalStateException("No such companyType=" + entity.getCompanyType().name());
         }
+        attributesConverter.toJson(jgen, entity);
     }
 }

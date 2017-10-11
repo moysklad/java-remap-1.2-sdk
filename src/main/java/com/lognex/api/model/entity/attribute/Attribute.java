@@ -12,10 +12,16 @@ public class Attribute<T> {
         this.value = value;
     }
 
+    public Attribute(String id, String type, AttributeValue<T> value){
+        this.id = id;
+        this.value = value;
+        this.type = type;
+    }
+
     @Getter
     private final String id;
     @Getter
-    private final String name;
+    private String name;
     @Getter
     private final String type;
     @Getter

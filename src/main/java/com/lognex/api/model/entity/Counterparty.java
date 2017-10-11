@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class Counterparty extends Agent implements IEntityWithAttributes{
 
-    private Set<Attribute> attributes = new HashSet<>();
+    private Set<Attribute<?>> attributes = new HashSet<>();
 
     private String legalTitle;
     private String ogrn;
@@ -28,6 +28,17 @@ public class Counterparty extends Agent implements IEntityWithAttributes{
 
     public Counterparty(ID id) {
         super(id);
+    }
+
+    @Override
+    public Set<Attribute<?>> getAttributes(){
+        return attributes;
+    }
+
+    @Override
+    public Attribute<?> getAttribute(String attributeId) {
+        return attributes.stream().filter(a -> a.getId().equals(attributeId))
+                .findFirst().orElseGet(null);
     }
 
 }
