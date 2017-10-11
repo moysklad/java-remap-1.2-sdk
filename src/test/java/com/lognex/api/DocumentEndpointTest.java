@@ -19,28 +19,28 @@ public class DocumentEndpointTest {
     public void testReadPaymentsIn() throws ConverterException {
         ApiResponse response = api.entity(Type.PAYMENTIN).list().limit(10).execute();
         Assert.assertFalse(response.hasErrors());
-        assertEquals(10, response.getEntities().size());
+        assertTrue(response.getEntities().size() <= 10);
         response.getEntities().forEach(e -> assertNotNull(e.getId()));
     }
 
     @Test
     public void testReadPaymentIn() throws Exception{
-        ApiResponse response = api.entity(Type.PAYMENTIN).id(new ID("017d451a-5acf-43e9-b8e1-e91ccc339d59")).read().execute();
+        ApiResponse response = api.entity(Type.PAYMENTIN).id(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0")).read().execute();
         assertEquals(response.getStatus(), 200);
         assertEquals(response.getEntities().size(), 1);
-        assertEquals(response.getEntities().get(0).getId(), new ID("017d451a-5acf-43e9-b8e1-e91ccc339d59"));
+        assertEquals(response.getEntities().get(0).getId(), new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"));
     }
 
     @Test
     public void testReadPaymentInWithAgentAccountExpand() throws ConverterException {
         ApiResponse response = api.
                 entity(Type.PAYMENTIN).
-                id(new ID("9671ada7-735c-11e7-7a69-9711000111d6"))
+                id(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"))
                 .read().addExpand("agentAccount").execute();
         assertEquals(response.getStatus(), 200);
         assertEquals(response.getEntities().size(), 1);
-        assertEquals(response.getEntities().get(0).getId(), new ID("9671ada7-735c-11e7-7a69-9711000111d6"));
-        assertEquals(((PaymentIn)response.getEntities().get(0)).getAgentAccount().getId(), new ID("3f4de04d-e5dc-11e3-a77a-002590a28eca"));
+        assertEquals(response.getEntities().get(0).getId(), new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"));
+        assertEquals(((PaymentIn)response.getEntities().get(0)).getAgentAccount().getId(), new ID("5bc8549b-9e14-11e7-7a34-5acf00403d35"));
     }
 
     @Test
@@ -56,12 +56,12 @@ public class DocumentEndpointTest {
 
     @Test
     public void testReadPaymentInWithAgentExpand() throws Exception {
-        ApiResponse response = api.entity(Type.PAYMENTIN).id(new ID("9671ada7-735c-11e7-7a69-9711000111d6"))
+        ApiResponse response = api.entity(Type.PAYMENTIN).id(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"))
                 .read().addExpand("agent").execute();
         assertEquals(response.getStatus(), 200);
         assertTrue(response.getEntities().size() == 1);
-        assertEquals(new ID("9671ada7-735c-11e7-7a69-9711000111d6"), response.getEntities().get(0).getId());
-        assertEquals(new ID("65cc16a7-276a-451c-995f-0ecfc44f72f0"), ((PaymentIn)response.getEntities().get(0)).getAgent().getId());
+        assertEquals(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"), response.getEntities().get(0).getId());
+        assertEquals(new ID("81c97d10-9482-11e7-7a6c-d2a9000847cc"), ((PaymentIn)response.getEntities().get(0)).getAgent().getId());
 
 
     }
