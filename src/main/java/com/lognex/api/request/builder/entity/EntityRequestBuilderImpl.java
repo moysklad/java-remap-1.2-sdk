@@ -13,21 +13,23 @@ import com.lognex.api.util.Type;
 public class EntityRequestBuilderImpl extends BaseEntityRequestBuilder implements EntityRequestBuilder {
 
     private Type type;
+    private final String baseUrl;
 
-    public EntityRequestBuilderImpl(Type type, ApiClient client){
-        super(client);
+    public EntityRequestBuilderImpl(String baseUrl, Type type, ApiClient client){
+        super(client, baseUrl);
         this.type = type;
-        url.append("/").append(type);
+        this.baseUrl = baseUrl;
+        url.append("/").append(type.name().toLowerCase());
     }
 
     @Override
     public SingleEntityRequestBuilder id(ID id) {
-        return new SingleEntityRequestBuilderImpl(client, type, id);
+        return new SingleEntityRequestBuilderImpl(client, baseUrl, type, id);
     }
 
     @Override
     public MSReadListRequest list() {
-        return new MSReadListRequest(url.toString(), client);
+        return new MSReadListRequest(url.toString(), client, type);
     }
 
     @Override

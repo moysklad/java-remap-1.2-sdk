@@ -10,8 +10,8 @@ import com.lognex.api.util.Type;
 
 public class SingleEntityRequestBuilderImpl extends BaseEntityRequestBuilder implements SingleEntityRequestBuilder {
 
-    SingleEntityRequestBuilderImpl(ApiClient client, Type type, ID id){
-        super(client);
+    SingleEntityRequestBuilderImpl(ApiClient client, String baseUrl, Type type, ID id){
+        super(client, baseUrl);
         url.append("/").append(type.name().toLowerCase()).append("/").append(id.getValue());
     }
 

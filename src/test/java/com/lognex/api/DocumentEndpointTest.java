@@ -13,7 +13,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class DocumentEndpointTest {
-    private ApiClient api = new ApiClient(System.getenv("login"), System.getenv("password"));
+    private ApiClient api = new ApiClient(System.getenv("login"), System.getenv("password"), null);
 
     @Test
     public void testReadPaymentsIn() throws ConverterException {
