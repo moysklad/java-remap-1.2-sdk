@@ -1,26 +1,23 @@
 package com.lognex.api;
 
 import com.lognex.api.exception.ConverterException;
+import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.model.document.PaymentIn;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.Type;
-import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class DocumentEndpointTest {
     private ApiClient api = new ApiClient(System.getenv("login"), System.getenv("password"));
 
     @Test
     public void testReadPaymentsIn() throws ConverterException {
-        ApiResponse response = api.entity(Type.PAYMENTIN).list().limit(10).execute();
-        Assert.assertFalse(response.hasErrors());
-        assertTrue(response.getEntities().size() <= 10);
-        response.getEntities().forEach(e -> assertNotNull(e.getId()));
+        checkListRequest(Type.PAYMENTIN);
     }
 
     @Test
@@ -64,5 +61,24 @@ public class DocumentEndpointTest {
         assertEquals(new ID("81c97d10-9482-11e7-7a6c-d2a9000847cc"), ((PaymentIn)response.getEntities().get(0)).getAgent().getId());
 
 
+    }
+
+    @Test
+    public void testReadServices() throws Exception {
+        checkListRequest(Type.SERVICE);
+    }
+
+    @Test
+    public void testReadCurrencies() throws Exception {
+        checkListRequest(Type.CURRENCY);
+    }
+
+    private void checkListRequest(Type type) {
+        ApiResponse response = api.entity(type).list().limit(10).execute();
+        assertFalse(response.hasErrors());
+        List<? extends AbstractEntity> entities = response.getEntities();
+        assertFalse(entities.isEmpty());
+        assertTrue(entities.size() <= 10);
+        entities.forEach(e -> assertNotNull(e.getId()));
     }
 }

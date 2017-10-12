@@ -19,6 +19,7 @@ public enum Type {
     BUNDLE(Bundle.class),
     VARIANT(Variant.class),
     STORE(Store.class),
+    CURRENCY(Currency.class)
     ;
 
 

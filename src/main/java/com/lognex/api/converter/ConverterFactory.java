@@ -4,9 +4,13 @@ import com.lognex.api.converter.base.AbstractEntityConverter;
 import com.lognex.api.converter.base.Converter;
 import com.lognex.api.converter.document.PaymentInConverter;
 import com.lognex.api.converter.entity.CounterpartyConverter;
+import com.lognex.api.converter.entity.CurrencyConverter;
+import com.lognex.api.converter.entity.ServiceConverter;
 import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.model.document.PaymentIn;
 import com.lognex.api.model.entity.Counterparty;
+import com.lognex.api.model.entity.Currency;
+import com.lognex.api.model.entity.Service;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -19,7 +23,9 @@ public final class ConverterFactory {
     static {
         converters = new LinkedHashMap<>();
         converters.put(Counterparty.class, CounterpartyConverter.class);
+        converters.put(Currency.class, CurrencyConverter.class);
         converters.put(PaymentIn.class, PaymentInConverter.class);
+        converters.put(Service.class, ServiceConverter.class);
     }
 
     private ConverterFactory() {

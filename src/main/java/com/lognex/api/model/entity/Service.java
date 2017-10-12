@@ -1,6 +1,13 @@
 package com.lognex.api.model.entity;
 
-import com.lognex.api.model.base.AbstractEntityLegendable;
+import com.lognex.api.util.ID;
+import lombok.NoArgsConstructor;
 
-public class Service extends AbstractEntityLegendable {
+@NoArgsConstructor
+public class Service extends BaseProduct {
+
+    public Service(ID id) {
+        super(id);
+    }
+
 }
