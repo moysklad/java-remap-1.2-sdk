@@ -1,7 +1,6 @@
 package com.lognex.api.request.builder;
 
 import com.lognex.api.ApiClient;
-import com.lognex.api.util.Constants;
 import lombok.Getter;
 
 
@@ -12,8 +11,8 @@ public abstract class RequestBuilder {
 
     protected StringBuilder url;
 
-    protected RequestBuilder(ApiClient apiClient){
+    protected RequestBuilder(ApiClient apiClient, String baseUrl){
         this.client = apiClient;
-        url = new StringBuilder(Constants.HOST_URL);
+        url = new StringBuilder(baseUrl);
     }
 }

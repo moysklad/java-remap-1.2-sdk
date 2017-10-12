@@ -3,7 +3,7 @@ package com.lognex.api.converter.entity;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.lognex.api.converter.base.AttributesConverter;
 import com.lognex.api.converter.base.CustomJsonGenerator;
-import com.lognex.api.converter.field.CompanyType;
+import com.lognex.api.model.base.field.CompanyType;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.entity.Counterparty;
 import com.lognex.api.util.DateUtils;
