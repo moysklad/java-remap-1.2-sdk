@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 
 public class EntityTest {
 
-    private ApiClient api = new ApiClient(System.getenv("login"), System.getenv("password"));
+    private ApiClient api = new ApiClient(System.getenv("login"), System.getenv("password"), null);
 
     @Test
     public void testCreateAndGetCounterparty() throws Exception{

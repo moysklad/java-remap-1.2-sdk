@@ -16,7 +16,7 @@ public final class MetaHrefUtils {
     }
 
     public static <T> String makeHref(Type type, T value) {
-        StringBuilder sb = new StringBuilder(Constants.HOST_URL);
+        StringBuilder sb = new StringBuilder(Constants.DEFAULT_HOST_URL);
         if (value instanceof AbstractEntity){
             sb.append("/").append(ENTITY_PATH);
         }

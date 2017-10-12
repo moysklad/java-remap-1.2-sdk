@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import static com.lognex.api.util.Constants.ENTITY_PATH;
-import static com.lognex.api.util.Constants.HOST_URL;
+import static com.lognex.api.util.Constants.DEFAULT_HOST_URL;
 import static com.lognex.api.util.Constants.METADATA_PATH;
 import static com.lognex.api.util.MetaHrefUtils.makeHref;
 
@@ -32,7 +32,7 @@ public class Meta<T> {
 
     private String makeMetadataHref(Type type, T value) {
         if (value instanceof AbstractEntity) {
-            return HOST_URL + "/" + ENTITY_PATH + "/" + type.name() + "/" + METADATA_PATH;
+            return DEFAULT_HOST_URL + "/" + ENTITY_PATH + "/" + type.name() + "/" + METADATA_PATH;
         }
         return null;
     }
