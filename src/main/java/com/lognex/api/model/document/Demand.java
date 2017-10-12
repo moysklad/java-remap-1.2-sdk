@@ -1,4 +1,6 @@
 package com.lognex.api.model.document;
 
-public class Demand {
+import com.lognex.api.model.base.AbstractOperationWithPositions;
+
+public class Demand extends AbstractOperationWithPositions {
 }

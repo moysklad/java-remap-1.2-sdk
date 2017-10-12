@@ -1,5 +1,6 @@
 package com.lognex.api.model.base;
 
+import com.lognex.api.model.entity.Agent;
 import com.lognex.api.model.entity.Currency;
 import com.lognex.api.model.entity.Organization;
 import lombok.Getter;
@@ -18,5 +19,6 @@ public abstract class AbstractOperation extends AbstractEntityLegendable {
     //private ID state;
     private String syncId;
     private Currency rate;
+    private Agent agent;
     private Organization organization;
 }
