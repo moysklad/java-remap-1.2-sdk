@@ -19,7 +19,7 @@ public class EntityRequestBuilderImpl extends BaseEntityRequestBuilder implement
         super(client, baseUrl);
         this.type = type;
         this.baseUrl = baseUrl;
-        url.append("/").append(type.name().toLowerCase());
+        url.append("/").append(type.getApiName());
     }
 
     @Override

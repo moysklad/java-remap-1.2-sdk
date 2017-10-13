@@ -9,24 +9,27 @@ import java.util.Arrays;
 
 public enum Type {
 
-    COUNTERPARTY(Counterparty.class),
-    PAYMENTIN(PaymentIn.class),
-    EMPLOYEE(Employee.class),
-    CUSTOMENTITY(CustomEntity.class),
-    PRODUCT(Product.class),
-    SERVICE(Service.class),
-    CONSIGNMENT(Consignment.class),
-    BUNDLE(Bundle.class),
-    VARIANT(Variant.class),
-    STORE(Store.class),
+    COUNTERPARTY("counterparty", Counterparty.class),
+    PAYMENT_IN("paymentin", PaymentIn.class),
+    EMPLOYEE("employee", Employee.class),
+    CUSTOM_ENTITY("customentity", CustomEntity.class),
+    PRODUCT("product", Product.class),
+    SERVICE("service", Service.class),
+    CONSIGNMENT("consignment", Consignment.class),
+    BUNDLE("bundle", Bundle.class),
+    VARIANT("variant", Variant.class),
+    STORE("store", Store.class),
     ;
 
 
     @Getter
-    final Class<? extends AbstractEntity> modelClass;
+    private final Class<? extends AbstractEntity> modelClass;
 
-    Type(Class<? extends AbstractEntity> clazz){
+    private @Getter final String apiName;
+
+    Type(String apiName, Class<? extends AbstractEntity> clazz){
         this.modelClass = clazz;
+        this.apiName = apiName;
     }
 
     public static Type find(Class<? extends AbstractEntity> clazz){

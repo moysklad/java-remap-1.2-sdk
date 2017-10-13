@@ -12,7 +12,7 @@ public class SingleEntityRequestBuilderImpl extends BaseEntityRequestBuilder imp
 
     SingleEntityRequestBuilderImpl(ApiClient client, String baseUrl, Type type, ID id){
         super(client, baseUrl);
-        url.append("/").append(type.name().toLowerCase()).append("/").append(id.getValue());
+        url.append("/").append(type.getApiName()).append("/").append(id.getValue());
     }
 
     @Override

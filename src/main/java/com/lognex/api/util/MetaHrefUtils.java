@@ -20,7 +20,7 @@ public final class MetaHrefUtils {
         if (value instanceof AbstractEntity){
             sb.append("/").append(ENTITY_PATH);
         }
-        sb.append("/").append(type.name());
+        sb.append("/").append(type.getApiName());
         if (value instanceof AbstractEntity){
             if (value instanceof CustomEntity) {
                 sb.append("/").append(((CustomEntity)value).getCustomDictionaryId())

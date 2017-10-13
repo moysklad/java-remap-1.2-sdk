@@ -167,7 +167,7 @@ public class AttributesConverter implements CustomFieldsConverter<IEntityWithAtt
     private void serializeEntityValue(CustomJsonGenerator jgen, Attribute<?> attribute) throws IOException{
         jgen.writeObjectFieldStart("value");
         Type type = Type.find(((AbstractEntity)attribute.getValue().getValue()).getClass());
-        if (type.equals(Type.CUSTOMENTITY)){
+        if (type.equals(Type.CUSTOM_ENTITY)){
             if (((AbstractEntity) attribute.getValue().getValue()).getId() != null) {
                 jgen.writeObjectField("meta", new Meta<>(type, attribute.getValue().getValue()));
             }

@@ -25,14 +25,14 @@ public class Meta<T> {
     private String mediaType = "application/json";
 
     public Meta(Type type, T value){
-        this.type = type.name();
+        this.type = type.getApiName();
         this.href = makeHref(type, value);
         this.metadataHref = makeMetadataHref(type, value);
     }
 
     private String makeMetadataHref(Type type, T value) {
         if (value instanceof AbstractEntity) {
-            return DEFAULT_HOST_URL + "/" + ENTITY_PATH + "/" + type.name() + "/" + METADATA_PATH;
+            return DEFAULT_HOST_URL + "/" + ENTITY_PATH + "/" + type.getApiName() + "/" + METADATA_PATH;
         }
         return null;
     }
