@@ -111,7 +111,7 @@ class ResponseParser {
     private static Type typeFromUrl(String url){
         String[] split = url.split("/");
         if (split[6].equals("entity")){
-            return Type.valueOf(split[7].toUpperCase());
+            return Type.find(split[7]);
         }
         return null;
     }

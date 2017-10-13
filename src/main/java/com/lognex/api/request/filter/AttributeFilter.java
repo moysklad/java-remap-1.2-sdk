@@ -18,7 +18,7 @@ public class AttributeFilter extends Filter<AttributeValue> {
 
     private static String prepareFieldName(Type entityType, Attribute attribute){
         return Constants.DEFAULT_HOST_URL + "/" + Constants.ENTITY_PATH + "/"
-                + entityType.name().toLowerCase() + "/" + Constants.METADATA_PATH + "/attributes/" + attribute.getId();
+                + entityType.getApiName() + "/" + Constants.METADATA_PATH + "/attributes/" + attribute.getId();
     }
 
 
