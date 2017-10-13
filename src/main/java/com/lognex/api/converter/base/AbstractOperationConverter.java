@@ -1,27 +1,26 @@
 package com.lognex.api.converter.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.converter.entity.CounterpartyConverter;
 import com.lognex.api.converter.entity.OrganizationConverter;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.base.AbstractOperation;
-import com.lognex.api.model.base.field.Meta;
 import com.lognex.api.model.entity.Agent;
 import com.lognex.api.model.entity.Counterparty;
 import com.lognex.api.model.entity.Organization;
 import com.lognex.api.util.DateUtils;
 import com.lognex.api.util.MetaHrefUtils;
-import com.lognex.api.util.Type;
 
 import java.io.IOException;
 
 public abstract class AbstractOperationConverter<T extends AbstractOperation> extends AbstractEntityLegendableConverter<T> {
     protected void convertToEntity(final AbstractOperation entity, JsonNode node) throws ConverterException {
         super.convertToEntity(entity, node);
-        entity.setMoment(DateUtils.parseDate(node.get("moment").asText()));
-        entity.setApplicable(node.get("applicable").asBoolean());
-        entity.setSum(node.get("sum").asDouble());
-        entity.setSyncId(node.get("syncId") == null ? null : node.get("syncId").asText());
+        entity.setMoment(ConverterUtil.getDate(node, "moment"));
+        entity.setApplicable(ConverterUtil.getBoolean(node, "applicable"));
+        entity.setSum(ConverterUtil.getDouble(node, "sum"));
+        entity.setSyncId(ConverterUtil.getString(node, "syncId"));
 
         if (node.get("agent") != null) {
             entity.setAgent(node.get("agent").get("id") == null
