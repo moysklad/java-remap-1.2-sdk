@@ -94,8 +94,8 @@ class ResponseParser {
             } else if (json.isObject()) {
                 // single value
                 String entityType = json.has("meta") && json.get("meta").has("type")?
-                        json.get("meta").get("type").asText() : type.name().toLowerCase();
-                AbstractEntity entity = ConverterFactory.getConverter(Type.valueOf(entityType.toUpperCase()).getModelClass()).convert(json.toString());
+                        json.get("meta").get("type").asText() : type.getApiName();
+                AbstractEntity entity = ConverterFactory.getConverter(Type.find(entityType).getModelClass()).convert(json.toString());
                 result.add(entity);
             }
             return result;
@@ -105,7 +105,7 @@ class ResponseParser {
 
     private static AbstractEntity parseJsonObject(JsonNode json){
         String type = json.get("meta").get("type").asText();
-        return ConverterFactory.getConverter(Type.valueOf(type.toUpperCase()).getModelClass()).convert(json.toString());
+        return ConverterFactory.getConverter(Type.find(type).getModelClass()).convert(json.toString());
     }
 
     private static Type typeFromUrl(String url){
