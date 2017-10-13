@@ -13,7 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class BaseProduct extends ProductFolder implements IEntityWithAttributes {
+public abstract class BaseProduct extends ProductFolder implements IEntityWithAttributes, Assortment {
     private double minPrice;
     private Set<Price> salePrices = new HashSet<>();
     private Set<Attribute<?>> attributes = new HashSet<>();

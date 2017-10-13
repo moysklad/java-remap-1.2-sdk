@@ -3,19 +3,25 @@ package com.lognex.api.converter;
 import com.lognex.api.converter.base.AbstractEntityConverter;
 import com.lognex.api.converter.base.Converter;
 import com.lognex.api.converter.document.FactureOutConverter;
+import com.lognex.api.converter.base.PositionConverter;
+import com.lognex.api.converter.base.ShipmentOutPositionConverter;
+import com.lognex.api.converter.document.DemandConverter;
 import com.lognex.api.converter.document.PaymentInConverter;
 import com.lognex.api.converter.entity.CounterpartyConverter;
 import com.lognex.api.converter.entity.CurrencyConverter;
 import com.lognex.api.converter.entity.OrganizationConverter;
 import com.lognex.api.converter.entity.ServiceConverter;
+import com.lognex.api.converter.entity.*;
 import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.model.document.Demand;
 import com.lognex.api.model.document.FactureOut;
+import com.lognex.api.model.base.ShipmentOutPosition;
 import com.lognex.api.model.document.PaymentIn;
 import com.lognex.api.model.entity.Counterparty;
 import com.lognex.api.model.entity.Currency;
 import com.lognex.api.model.entity.Organization;
 import com.lognex.api.model.entity.Service;
+import com.lognex.api.model.entity.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -27,12 +33,21 @@ public final class ConverterFactory {
 
     static {
         converters = new LinkedHashMap<>();
+        converters.put(AgentAccount.class, AgentAccountConverter.class);
+        converters.put(Contract.class, ContractConverter.class);
         converters.put(Counterparty.class, CounterpartyConverter.class);
         converters.put(Currency.class, CurrencyConverter.class);
         converters.put(PaymentIn.class, PaymentInConverter.class);
         converters.put(Service.class, ServiceConverter.class);
+        converters.put(Project.class, ProjectConverter.class);
         converters.put(Organization.class, OrganizationConverter.class);
         converters.put(FactureOut.class, FactureOutConverter.class);
+        converters.put(Store.class, StoreConverter.class);
+
+        converters.put(Demand.class, DemandConverter.class);
+        converters.put(PaymentIn.class, PaymentInConverter.class);
+
+        converters.put(ShipmentOutPosition.class, ShipmentOutPositionConverter.class);
     }
 
     private ConverterFactory() {

@@ -7,6 +7,7 @@ import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.util.DateUtils;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.MetaHrefUtils;
+import com.lognex.api.util.Type;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +19,7 @@ import static org.apache.http.util.TextUtils.isEmpty;
 public class ConverterUtil {
     private static final String HREF = "href";
     private static final String META = "meta";
+    private static final String TYPE = "type";
 
     public static String getString(JsonNode node, String fieldName) {
         return getElement(node, fieldName)
@@ -37,6 +39,11 @@ public class ConverterUtil {
     public static double getDouble(JsonNode node, String fieldName) {
         return getElement(node, fieldName)
                 .map(JsonNode::asDouble).orElse(0d);
+    }
+
+    public static int getInt(JsonNode node, String fieldName) {
+        return getElement(node, fieldName)
+                .map(JsonNode::asInt).orElse(0);
     }
 
     public static ArrayNode getArray(JsonNode node, String fieldName) {
@@ -76,9 +83,21 @@ public class ConverterUtil {
         return element.map(jsonNode -> converter.convert(jsonNode.toString())).orElse(null);
     }
 
+    public static <T extends AbstractEntity> T getObject(JsonNode node, String fieldName) {
+        Optional<JsonNode> element = getElement(node, fieldName);
+        if (element.isPresent()) {
+            JsonNode typeElement = node.findValue(TYPE);
+            if (typeElement != null && !isEmpty(typeElement.asText())) {
+                return ((T) ConverterFactory.getConverter(Type.find(typeElement.asText()).getModelClass())
+                        .convert(node.toString()));
+            }
+        }
+        return null;
+    }
+
     public static <T extends AbstractEntity> List<T> getList(JsonNode node, String fieldName, Converter<T> converter) {
         List<T> result = new ArrayList<>();
-        ArrayNode array = getArray(node, fieldName);
+        ArrayNode array = ConverterUtil.getArray(node, fieldName);
         if (array != null) {
             for (JsonNode item : array) {
                 result.add(converter.convert(item.toString()));
@@ -87,7 +106,7 @@ public class ConverterUtil {
         return result;
     }
 
-    private static Optional<JsonNode> getElement(JsonNode node, String fieldName) {
+    public static Optional<JsonNode> getElement(JsonNode node, String fieldName) {
         return Optional.ofNullable(!isEmpty(fieldName) && node != null && node.has(fieldName) ? node.get(fieldName) : null);
     }
 

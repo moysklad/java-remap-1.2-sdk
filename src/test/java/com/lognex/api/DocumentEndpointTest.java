@@ -99,6 +99,18 @@ public class DocumentEndpointTest {
         assertEquals(factureOutResponse.getStatus(), 200);
     }
 
+    @Test
+    public void testReadDemands() throws Exception {
+        checkListRequest(Type.DEMAND);
+    }
+
+    @Test
+    public void testReadDemandsWithPositions() throws Exception {
+        ApiResponse response = api.entity(Type.DEMAND).list().addExpand("positions").execute();
+        assertFalse(response.hasErrors());
+        List<? extends AbstractEntity> entities = response.getEntities();
+    }
+
     private void checkListRequest(Type type) {
         ApiResponse response = api.entity(type).list().limit(10).execute();
         assertFalse(response.hasErrors());

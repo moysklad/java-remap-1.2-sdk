@@ -2,31 +2,39 @@ package com.lognex.api.converter.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.lognex.api.converter.ConverterUtil;
+import com.lognex.api.converter.entity.*;
 import com.lognex.api.converter.entity.CounterpartyConverter;
 import com.lognex.api.converter.entity.OrganizationConverter;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.base.AbstractOperation;
-import com.lognex.api.model.entity.Agent;
-import com.lognex.api.model.entity.Counterparty;
-import com.lognex.api.model.entity.Organization;
 import com.lognex.api.util.DateUtils;
-import com.lognex.api.util.MetaHrefUtils;
+import com.lognex.api.util.ID;
 
 import java.io.IOException;
 
 public abstract class AbstractOperationConverter<T extends AbstractOperation> extends AbstractEntityLegendableConverter<T> {
+
+    private CurrencyConverter currencyConverter = new CurrencyConverter();
+    private OrganizationConverter organizationConverter = new OrganizationConverter();
+    private CounterpartyConverter counterpartyConverter = new CounterpartyConverter();
+    private ContractConverter contractConverter = new ContractConverter();
+    private ProjectConverter projectConverter = new ProjectConverter();
+
     protected void convertToEntity(final AbstractOperation entity, JsonNode node) throws ConverterException {
         super.convertToEntity(entity, node);
         entity.setMoment(ConverterUtil.getDate(node, "moment"));
         entity.setApplicable(ConverterUtil.getBoolean(node, "applicable"));
         entity.setSum(ConverterUtil.getDouble(node, "sum"));
-        entity.setSyncId(ConverterUtil.getString(node, "syncId"));
+        entity.setSyncId(new ID(ConverterUtil.getString(node, "syncId")));
 
-        if (node.get("agent") != null) {
-            entity.setAgent(node.get("agent").get("id") == null
-                    ? createAgentWithoutExpand(node.get("agent"))
-                    : createAgentWithExpand(node.get("agent")));
-        }
+        entity.setContract(ConverterUtil.getObject(node, "contract", contractConverter));
+        entity.setProject(ConverterUtil.getObject(node, "project", projectConverter));
+        entity.setRate(ConverterUtil.getObject(node, "rate", currencyConverter));
+        entity.setOrganization(ConverterUtil.getObject(node, "rate", organizationConverter));
+        entity.setVatEnabled(ConverterUtil.getBoolean(node, "vatEnabled"));
+        entity.setVatIncluded(ConverterUtil.getBoolean(node, "vatIncluded"));
+        entity.setAgent(ConverterUtil.getObject(node, "agent", counterpartyConverter));
+
     }
 
     @Override
@@ -39,31 +47,10 @@ public abstract class AbstractOperationConverter<T extends AbstractOperation> ex
         if (entity.getSum() != null) {
             jgen.writeNumberField("sum", entity.getSum());
         }
-        jgen.writeStringFieldIfNotEmpty("syncId", entity.getSyncId());
+        jgen.writeStringFieldIfNotEmpty("syncId", entity.getSyncId().getValue());
 
         if (entity.getAgent() != null && entity.getAgent().getId() != null) {
             convertMetaField(jgen, "agent", entity.getAgent());
         }
-    }
-
-
-    private Agent createAgentWithoutExpand(JsonNode agent) {
-        if (isCounterpaty(agent.get("meta"))) {
-            return new Counterparty(MetaHrefUtils.getId(agent.get("meta").get("href").asText()));
-        } else {
-            return new Organization(MetaHrefUtils.getId(agent.get("meta").get("href").asText()));
-        }
-    }
-
-    private Agent createAgentWithExpand(JsonNode agent) {
-        if (isCounterpaty(agent.get("meta"))) {
-            return new CounterpartyConverter().convert(agent.toString());
-        } else {
-            return new OrganizationConverter().convert(agent.toString());
-        }
-    }
-
-    private boolean isCounterpaty(JsonNode meta) {
-        return meta.get("type").asText().equals("counterparty");
     }
 }
