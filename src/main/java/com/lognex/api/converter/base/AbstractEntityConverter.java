@@ -2,6 +2,7 @@ package com.lognex.api.converter.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.model.base.field.Meta;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.base.AbstractEntity;
@@ -45,8 +46,8 @@ public abstract class AbstractEntityConverter<T extends AbstractEntity> implemen
     }
 
     protected void convertToEntity(final AbstractEntity entity, JsonNode node) {
-        entity.setId(new ID(node.get("id").textValue()));
-        entity.setAccountId(new ID(node.get("accountId").textValue()));
+        entity.setId(new ID(ConverterUtil.getString(node, "id")));
+        entity.setAccountId(new ID(ConverterUtil.getString(node, "accountId")));
     }
 
     protected abstract T convertFromJson(JsonNode node) throws ConverterException;

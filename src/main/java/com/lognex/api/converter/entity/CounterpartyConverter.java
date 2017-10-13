@@ -1,6 +1,7 @@
 package com.lognex.api.converter.entity;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.converter.base.AttributesConverter;
 import com.lognex.api.converter.base.CustomJsonGenerator;
 import com.lognex.api.model.base.field.CompanyType;
@@ -25,13 +26,14 @@ public class CounterpartyConverter extends AgentConverter<Counterparty> {
     @Override
     protected void convertToEntity(Counterparty entity, JsonNode node) throws ConverterException {
         super.convertToEntity(entity, node);
-        entity.setCompanyType(node.get("companyType") == null? null : CompanyType.valueOf(node.get("companyType").asText().toUpperCase()));
-        entity.setLegalTitle(node.get("legalTitle") == null ? null : node.get("legalTitle").asText());
-        entity.setOgrn(node.get("ogrn") == null ? null : node.get("ogrn").asText());
-        entity.setOgrnip(node.get("ogrnip") == null ? null : node.get("ogrnip").asText());
-        entity.setOkpo(node.get("okpo") == null? null : node.get("okpo").asText());
-        entity.setCertificateNumber(node.get("certificateNumber") == null? null : node.get("certificateNumber").asText());
-        entity.setCertificateDate(node.get("certificateDate") == null? null : DateUtils.parseDate(node.get("certificateDate").asText()));
+        entity.setCompanyType(ConverterUtil.getString(node, "companyType") == null? null :
+                CompanyType.valueOf(ConverterUtil.getString(node, "companyType").toUpperCase()));
+        entity.setLegalTitle(ConverterUtil.getString(node, "legalTitle"));
+        entity.setOgrn(ConverterUtil.getString(node, "ogrn"));
+        entity.setOgrnip(ConverterUtil.getString(node, "ogrnip"));
+        entity.setOkpo(ConverterUtil.getString(node, "okpo"));
+        entity.setCertificateNumber(ConverterUtil.getString(node, "certificateNumber"));
+        entity.setCertificateDate(ConverterUtil.getDate(node, "certificateDate"));
     }
 
     @Override

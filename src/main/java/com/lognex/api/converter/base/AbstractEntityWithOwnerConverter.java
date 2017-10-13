@@ -1,6 +1,8 @@
 package com.lognex.api.converter.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.lognex.api.converter.ConverterFactory;
+import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.model.base.AbstractEntityWithOwner;
 import com.lognex.api.model.entity.Employee;
 import com.lognex.api.model.entity.Group;
@@ -14,7 +16,7 @@ public abstract class AbstractEntityWithOwnerConverter<T extends AbstractEntityW
         /*TODO добавить поддержку expand*/
         entity.setOwner(node.get("owner") == null ? null : new Employee(MetaHrefUtils.getId(node.get("owner").get("meta").get("href").asText())));
         entity.setGroup(node.get("group") == null ? null : new Group(MetaHrefUtils.getId(node.get("group").get("meta").get("href").asText())));
-        entity.setShared(node.get("shared") != null && node.get("shared").asBoolean());
+        entity.setShared(ConverterUtil.getBoolean(node, "shared"));
     }
 
     @Override
