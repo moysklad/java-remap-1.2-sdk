@@ -14,7 +14,6 @@ public class PaymentIn extends AbstractFinanceIn {
     //contract
     //state
     //organizationAccount
-    private Agent agent;
     private AgentAccount agentAccount;
     //attributes
 }

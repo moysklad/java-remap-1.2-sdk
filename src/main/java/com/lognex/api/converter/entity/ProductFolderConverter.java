@@ -1,7 +1,7 @@
 package com.lognex.api.converter.entity;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.lognex.api.converter.ConverterUtill;
+import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.converter.base.AbstractEntityLegendableConverter;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.entity.ProductFolder;
@@ -13,11 +13,11 @@ public class ProductFolderConverter extends AbstractEntityLegendableConverter<Pr
     protected void convertToEntity(ProductFolder entity, JsonNode node) throws ConverterException {
         super.convertToEntity(entity, node);
 
-        entity.setPathName(ConverterUtill.getString(node, "pathName"));
-        entity.setArchived(ConverterUtill.getBoolean(node, "archived"));
-        entity.setVat(ConverterUtill.getLong(node, "vat"));
-        entity.setEffectiveVat(ConverterUtill.getLong(node, "effectiveVat"));
-        ID parentGroupId = ConverterUtill.getIdFromMetaHref(node);
+        entity.setPathName(ConverterUtil.getString(node, "pathName"));
+        entity.setArchived(ConverterUtil.getBoolean(node, "archived"));
+        entity.setVat(ConverterUtil.getLong(node, "vat"));
+        entity.setEffectiveVat(ConverterUtil.getLong(node, "effectiveVat"));
+        ID parentGroupId = ConverterUtil.getIdFromMetaHref(node);
         if (parentGroupId != null) {
             entity.setProductFolder(new ProductFolder(parentGroupId));
         }
