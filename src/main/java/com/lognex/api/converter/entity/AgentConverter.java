@@ -1,6 +1,7 @@
 package com.lognex.api.converter.entity;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.converter.base.AbstractEntityLegendableConverter;
 import com.lognex.api.converter.base.CustomJsonGenerator;
 import com.lognex.api.exception.ConverterException;
@@ -13,9 +14,9 @@ public abstract class AgentConverter<T extends Agent> extends AbstractEntityLege
     @Override
     protected void convertToEntity(final T entity, JsonNode node) throws ConverterException {
         super.convertToEntity(entity, node);
-        entity.setLegalAddress(node.get("legalAddress") == null ? null : node.get("legalAddress").asText());
-        entity.setInn(node.get("inn") == null ? null : node.get("inn").asText());
-        entity.setKpp(node.get("kpp") == null ? null : node.get("kpp").asText());
+        entity.setLegalAddress(ConverterUtil.getString(node,"legalAddress"));
+        entity.setInn(ConverterUtil.getString(node, "inn"));
+        entity.setKpp(ConverterUtil.getString(node, "kpp"));
 
     }
 

@@ -17,12 +17,12 @@ public class DocumentEndpointTest {
 
     @Test
     public void testReadPaymentsIn() throws ConverterException {
-        checkListRequest(Type.PAYMENTIN);
+        checkListRequest(Type.PAYMENT_IN);
     }
 
     @Test
     public void testReadPaymentIn() throws Exception{
-        ApiResponse response = api.entity(Type.PAYMENTIN).id(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0")).read().execute();
+        ApiResponse response = api.entity(Type.PAYMENT_IN).id(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0")).read().execute();
         assertEquals(response.getStatus(), 200);
         assertEquals(response.getEntities().size(), 1);
         assertEquals(response.getEntities().get(0).getId(), new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"));
@@ -31,7 +31,7 @@ public class DocumentEndpointTest {
     @Test
     public void testReadPaymentInWithAgentAccountExpand() throws ConverterException {
         ApiResponse response = api.
-                entity(Type.PAYMENTIN).
+                entity(Type.PAYMENT_IN).
                 id(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"))
                 .read().addExpand("agentAccount").execute();
         assertEquals(response.getStatus(), 200);
@@ -42,7 +42,7 @@ public class DocumentEndpointTest {
 
     @Test
     public void testReadPaymentsInWithAgentAccountExpand() throws Exception {
-        ApiResponse response = api.entity(Type.PAYMENTIN).list().addExpand("agentAccount").execute();
+        ApiResponse response = api.entity(Type.PAYMENT_IN).list().addExpand("agentAccount").execute();
         assertEquals(response.getStatus(), 200);
         assertTrue(response.getEntities().size() > 0);
         response.getEntities().stream()
@@ -53,7 +53,7 @@ public class DocumentEndpointTest {
 
     @Test
     public void testReadPaymentInWithAgentExpand() throws Exception {
-        ApiResponse response = api.entity(Type.PAYMENTIN).id(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"))
+        ApiResponse response = api.entity(Type.PAYMENT_IN).id(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"))
                 .read().addExpand("agent").execute();
         assertEquals(response.getStatus(), 200);
         assertTrue(response.getEntities().size() == 1);
