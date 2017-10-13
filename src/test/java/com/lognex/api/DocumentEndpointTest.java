@@ -4,9 +4,13 @@ import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.model.document.Demand;
 import com.lognex.api.model.document.FactureOut;
+import com.lognex.api.model.base.Position;
+import com.lognex.api.model.base.ShipmentOutPosition;
 import com.lognex.api.model.document.PaymentIn;
 import com.lognex.api.model.entity.Counterparty;
 import com.lognex.api.model.entity.Organization;
+import com.lognex.api.model.entity.Service;
+import com.lognex.api.model.entity.Store;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.Type;
@@ -63,8 +67,6 @@ public class DocumentEndpointTest {
         assertTrue(response.getEntities().size() == 1);
         assertEquals(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"), response.getEntities().get(0).getId());
         assertEquals(new ID("81c97d10-9482-11e7-7a6c-d2a9000847cc"), ((PaymentIn)response.getEntities().get(0)).getAgent().getId());
-
-
     }
 
     @Test
@@ -106,9 +108,51 @@ public class DocumentEndpointTest {
 
     @Test
     public void testReadDemandsWithPositions() throws Exception {
+        // TODO False-positive test AbstractOperationWithPositionsConverter fix in converter.
         ApiResponse response = api.entity(Type.DEMAND).list().addExpand("positions").execute();
         assertFalse(response.hasErrors());
-        List<? extends AbstractEntity> entities = response.getEntities();
+        List<Demand> entities = (List<Demand>) response.getEntities();
+        for (Demand demand : entities){
+            if (!demand.getPositions().isEmpty()){
+                for (Position p : demand.getPositions()){
+                    assertNotNull(p.getAssortment());
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testCreateDemand() throws Exception {
+        Service service = (Service) api.entity(Type.SERVICE).list().limit(1).execute().getEntities().get(0);
+        Counterparty cp = (Counterparty) api.entity(Type.COUNTERPARTY).list().limit(1).execute().getEntities().get(0);
+        Organization organization = (Organization) api.entity(Type.ORGANIZATION).list().limit(1).execute().getEntities().get(0);
+        ApiResponse storeResponse = api.entity(Type.STORE).list().limit(1).execute();
+        Store store = (Store) storeResponse.getEntities().get(0);
+        Demand d = new Demand();
+        d.setName("szname323s5zsx");
+        d.setOrganization(organization);
+        d.setAgent(cp);
+        d.setStore(store);
+
+        ShipmentOutPosition position = new ShipmentOutPosition();
+        position.setAssortment(service);
+        position.setQuantity(1);
+        position.setPrice(1000);
+        d.getPositions().add(position);
+        ShipmentOutPosition position2 = new ShipmentOutPosition();
+        position2.setAssortment(service);
+        position2.setQuantity(2);
+        position2.setPrice(150000);
+        d.getPositions().add(position2);
+
+        ApiResponse demandResp = api.entity(Type.DEMAND).create(d).execute();
+        assertEquals(demandResp.getStatus(), 200);
+        Demand demand = (Demand) demandResp.getEntities().get(0);
+        assertEquals(demand.getAgent().getId().getValue(), cp.getId().getValue());
+        assertEquals(demand.getOrganization().getId().getValue(), organization.getId().getValue());
+        assertEquals(demand.getName(), demand.getName());
+        assertEquals(demand.getPositionsRef().getMeta().getSize(), 2);
+        assertEquals(demand.getPositionsRef().getMeta().getType(), "demandposition");
     }
 
     private void checkListRequest(Type type) {

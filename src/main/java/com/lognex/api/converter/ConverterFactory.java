@@ -3,7 +3,6 @@ package com.lognex.api.converter;
 import com.lognex.api.converter.base.AbstractEntityConverter;
 import com.lognex.api.converter.base.Converter;
 import com.lognex.api.converter.document.FactureOutConverter;
-import com.lognex.api.converter.base.PositionConverter;
 import com.lognex.api.converter.base.ShipmentOutPositionConverter;
 import com.lognex.api.converter.document.DemandConverter;
 import com.lognex.api.converter.document.PaymentInConverter;
