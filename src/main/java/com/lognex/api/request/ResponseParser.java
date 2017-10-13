@@ -94,7 +94,7 @@ class ResponseParser {
             } else if (json.isObject()) {
                 // single value
                 String type = json.get("meta").get("type").asText();
-                AbstractEntity entity = ConverterFactory.getConverter(Type.valueOf(type.toUpperCase()).getModelClass()).convert(json.toString());
+                AbstractEntity entity = ConverterFactory.getConverter(Type.find(type).getModelClass()).convert(json.toString());
                 result.add(entity);
             }
             return result;
@@ -104,7 +104,7 @@ class ResponseParser {
 
     private static AbstractEntity parseJsonObject(JsonNode json){
         String type = json.get("meta").get("type").asText();
-        return ConverterFactory.getConverter(Type.valueOf(type.toUpperCase()).getModelClass()).convert(json.toString());
+        return ConverterFactory.getConverter(Type.find(type).getModelClass()).convert(json.toString());
     }
 
 }
