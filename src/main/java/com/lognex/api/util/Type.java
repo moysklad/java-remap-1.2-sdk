@@ -37,4 +37,10 @@ public enum Type {
                         .filter(t -> t.modelClass.getSimpleName().equals(clazz.getSimpleName()))
                         .findFirst().orElseThrow(() -> new IllegalStateException("No type found for class: " + clazz.getSimpleName()));
     }
+
+    public static Type find(String apiName){
+        return Arrays.stream(values())
+                .filter(t -> t.apiName.equals(apiName))
+                .findFirst().orElseThrow(() -> new IllegalStateException("No type found for string: " + apiName));
+    }
 }
