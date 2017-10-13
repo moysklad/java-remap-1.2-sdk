@@ -2,7 +2,6 @@ package com.lognex.api.converter;
 
 import com.lognex.api.converter.base.AbstractEntityConverter;
 import com.lognex.api.converter.base.Converter;
-import com.lognex.api.converter.base.PositionConverter;
 import com.lognex.api.converter.base.ShipmentOutPositionConverter;
 import com.lognex.api.converter.document.DemandConverter;
 import com.lognex.api.converter.document.PaymentInConverter;
@@ -30,7 +29,7 @@ public final class ConverterFactory {
         converters.put(Project.class, ProjectConverter.class);
         converters.put(Service.class, ServiceConverter.class);
         converters.put(Store.class, StoreConverter.class);
-
+        converters.put(Organization.class, OrganizationConverter.class);
         converters.put(Demand.class, DemandConverter.class);
         converters.put(PaymentIn.class, PaymentInConverter.class);
 

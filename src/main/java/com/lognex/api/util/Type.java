@@ -21,7 +21,8 @@ public enum Type {
     VARIANT("variant", Variant.class),
     STORE("store", Store.class),
     CURRENCY("currency", Currency.class),
-    DEMAND("demand", Demand.class)
+    DEMAND("demand", Demand.class),
+    ORGANIZATION("organization", Organization.class)
     ;
 
 

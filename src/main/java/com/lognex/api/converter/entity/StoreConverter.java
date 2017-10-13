@@ -8,6 +8,8 @@ import com.lognex.api.model.entity.Store;
 public class StoreConverter extends AbstractEntityConverter<Store> {
     @Override
     protected Store convertFromJson(JsonNode node) throws ConverterException {
-        return null;
+        Store store = new Store();
+        convertToEntity(store, node);
+        return store;
     }
 }

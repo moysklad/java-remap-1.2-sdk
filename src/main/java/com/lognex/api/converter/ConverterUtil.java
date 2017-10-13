@@ -83,6 +83,21 @@ public class ConverterUtil {
         return element.map(jsonNode -> converter.convert(jsonNode.toString())).orElse(null);
     }
 
+    public static <T extends AbstractEntity> T getObject(JsonNode node, String fieldName, Converter<T> converter, T entity){
+        Optional<JsonNode> element = getElement(node, fieldName);
+        if (element.isPresent()) {
+            JsonNode field = element.get();
+            if (field.has("id")) {
+                return element.map(jsonNode -> converter.convert(jsonNode.toString())).orElse(null);
+            } else if (field.has("meta")) {
+                ID id = MetaHrefUtils.getId(field.get("meta").get("href").asText());
+                entity.setId(id);
+                return entity;
+            }
+        }
+        return null;
+    }
+
     public static <T extends AbstractEntity> T getObject(JsonNode node, String fieldName) {
         Optional<JsonNode> element = getElement(node, fieldName);
         if (element.isPresent()) {
