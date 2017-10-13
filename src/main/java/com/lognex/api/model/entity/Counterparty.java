@@ -1,6 +1,6 @@
 package com.lognex.api.model.entity;
 
-import com.lognex.api.converter.field.CompanyType;
+import com.lognex.api.model.base.field.CompanyType;
 import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.attribute.Attribute;
 import com.lognex.api.util.ID;

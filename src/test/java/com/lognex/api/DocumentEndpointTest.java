@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class DocumentEndpointTest {
-    private ApiClient api = new ApiClient(System.getenv("login"), System.getenv("password"));
+    private ApiClient api = new ApiClient(System.getenv("login"), System.getenv("password"), null);
 
     @Test
     public void testReadPaymentsIn() throws ConverterException {

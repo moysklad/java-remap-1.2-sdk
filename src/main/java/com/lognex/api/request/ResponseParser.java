@@ -9,7 +9,7 @@ import com.lognex.api.model.entity.Employee;
 import com.lognex.api.response.ApiError;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.response.Context;
-import com.lognex.api.util.MetaHrefParser;
+import com.lognex.api.util.MetaHrefUtils;
 import com.lognex.api.util.Type;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -68,7 +68,7 @@ class ResponseParser {
             if (json.has("context")) {
                 Context context = new Context();
                 JsonNode employee = json.get("context").get("employee");
-                context.setEmployee(new Employee(MetaHrefParser.getId(employee.get("meta").get("href").asText())));
+                context.setEmployee(new Employee(MetaHrefUtils.getId(employee.get("meta").get("href").asText())));
                 return context;
             }
         }

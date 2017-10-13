@@ -11,7 +11,7 @@ import com.lognex.api.model.entity.Agent;
 import com.lognex.api.model.entity.AgentAccount;
 import com.lognex.api.model.entity.Counterparty;
 import com.lognex.api.model.entity.Organization;
-import com.lognex.api.util.MetaHrefParser;
+import com.lognex.api.util.MetaHrefUtils;
 
 public class PaymentInConverter extends AbstractFinanceInConverter<PaymentIn> {
     @Override
@@ -21,7 +21,7 @@ public class PaymentInConverter extends AbstractFinanceInConverter<PaymentIn> {
 
         if (node.get("agentAccount") != null) {
             result.setAgentAccount(node.get("agentAccount").get("id") == null
-                    ? new AgentAccount(MetaHrefParser.getId(node.get("agentAccount").get("meta").get("href").asText()))
+                    ? new AgentAccount(MetaHrefUtils.getId(node.get("agentAccount").get("meta").get("href").asText()))
                     : new AgentAccountConverter().convert(node.get("agentAccount").toString()));
         }
 
@@ -35,9 +35,9 @@ public class PaymentInConverter extends AbstractFinanceInConverter<PaymentIn> {
 
     private Agent createAgentWithoutExpand(JsonNode agent) {
         if (isCounterpaty(agent.get("meta"))) {
-            return new Counterparty(MetaHrefParser.getId(agent.get("meta").get("href").asText()));
+            return new Counterparty(MetaHrefUtils.getId(agent.get("meta").get("href").asText()));
         } else {
-            return new Organization(MetaHrefParser.getId(agent.get("meta").get("href").asText()));
+            return new Organization(MetaHrefUtils.getId(agent.get("meta").get("href").asText()));
         }
     }
 
