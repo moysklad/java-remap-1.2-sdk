@@ -2,18 +2,22 @@ package com.lognex.api.converter;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.lognex.api.converter.base.Converter;
+import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.util.DateUtils;
 import com.lognex.api.util.ID;
-import com.lognex.api.util.MetaHrefParser;
+import com.lognex.api.util.MetaHrefUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import static org.apache.http.util.TextUtils.isEmpty;
 
-public class ConverterUtill {
-    private static String HREF = "href";
-    private static String META = "meta";
+public class ConverterUtil {
+    private static final String HREF = "href";
+    private static final String META = "meta";
 
     public static String getString(JsonNode node, String fieldName) {
         return getElement(node, fieldName)
@@ -51,7 +55,7 @@ public class ConverterUtill {
         if (metaElement.isPresent()) {
             String href = getString(metaElement.get(), HREF);
             if (!isEmpty(href)) {
-                return MetaHrefParser.getId(href);
+                return MetaHrefUtils.getId(href);
             }
         }
         return null;
@@ -65,6 +69,22 @@ public class ConverterUtill {
     public static Date getDate(JsonNode node, String fieldName) {
         String dateValue = getString(node, fieldName);
         return !isEmpty(dateValue) ? DateUtils.parseDate(dateValue) : null;
+    }
+
+    public static <T extends AbstractEntity> T getObject(JsonNode node, String fieldName, Converter<T> converter) {
+        Optional<JsonNode> element = getElement(node, fieldName);
+        return element.map(jsonNode -> converter.convert(jsonNode.toString())).orElse(null);
+    }
+
+    public static <T extends AbstractEntity> List<T> getList(JsonNode node, String fieldName, Converter<T> converter) {
+        List<T> result = new ArrayList<>();
+        ArrayNode array = getArray(node, fieldName);
+        if (array != null) {
+            for (JsonNode item : array) {
+                result.add(converter.convert(item.toString()));
+            }
+        }
+        return result;
     }
 
     private static Optional<JsonNode> getElement(JsonNode node, String fieldName) {
