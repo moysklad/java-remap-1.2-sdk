@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lognex.api.model.base.field.Meta;
 import com.lognex.api.converter.ConverterUtill;
+import com.lognex.api.model.base.field.Meta;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.util.ID;
@@ -83,20 +84,6 @@ public abstract class AbstractEntityConverter<T extends AbstractEntity> implemen
         Type type = Type.find(fieldValue.getClass());
         jgen.writeObjectField("meta", new Meta<>(type, fieldValue));
         jgen.writeEndObject();
-    }
-
-    protected void convertArrayField(CustomJsonGenerator jgen, String name, List<T> fieldValue) throws IOException {
-        if (fieldValue != null && !fieldValue.isEmpty()) {
-            jgen.writeArrayFieldStart(name);
-            for (T entity : fieldValue) {
-                if (entity != null && entity.getId() != null){
-                    jgen.writeStartObject();
-                    writeMeta(jgen, entity);
-                    jgen.writeEndObject();
-                }
-            }
-            jgen.writeEndArray();
-        }
     }
 
 }
