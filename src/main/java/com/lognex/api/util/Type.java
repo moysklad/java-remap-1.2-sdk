@@ -1,6 +1,8 @@
 package com.lognex.api.util;
 
 import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.document.Demand;
+import com.lognex.api.model.document.FactureOut;
 import com.lognex.api.model.document.PaymentIn;
 import com.lognex.api.model.entity.*;
 import lombok.Getter;
@@ -19,7 +21,11 @@ public enum Type {
     BUNDLE(Bundle.class),
     VARIANT(Variant.class),
     STORE(Store.class),
-    CURRENCY(Currency.class)
+    CURRENCY(Currency.class),
+    DEMAND(Demand.class),
+    ORGANIZATION(Organization.class),
+    FACTUREOUT(FactureOut.class),
+    GROUP(Group.class)
     ;
 
 

@@ -85,5 +85,18 @@ public abstract class AbstractEntityConverter<T extends AbstractEntity> implemen
         jgen.writeEndObject();
     }
 
+    protected void convertArrayField(CustomJsonGenerator jgen, String name, List<T> fieldValue) throws IOException {
+        if (fieldValue != null && !fieldValue.isEmpty()) {
+            jgen.writeArrayFieldStart(name);
+            for (T entity : fieldValue) {
+                if (entity != null && entity.getId() != null){
+                    jgen.writeStartObject();
+                    writeMeta(jgen, entity);
+                    jgen.writeEndObject();
+                }
+            }
+            jgen.writeEndArray();
+        }
+    }
 
 }

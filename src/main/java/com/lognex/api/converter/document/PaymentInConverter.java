@@ -25,31 +25,6 @@ public class PaymentInConverter extends AbstractFinanceInConverter<PaymentIn> {
                     : new AgentAccountConverter().convert(node.get("agentAccount").toString()));
         }
 
-        if (node.get("agent") != null) {
-            result.setAgent(node.get("agent").get("id") == null
-                    ? createAgentWithoutExpand(node.get("agent"))
-                    : createAgentWithExpand(node.get("agent")));
-        }
         return result;
-    }
-
-    private Agent createAgentWithoutExpand(JsonNode agent) {
-        if (isCounterpaty(agent.get("meta"))) {
-            return new Counterparty(MetaHrefUtils.getId(agent.get("meta").get("href").asText()));
-        } else {
-            return new Organization(MetaHrefUtils.getId(agent.get("meta").get("href").asText()));
-        }
-    }
-
-    private Agent createAgentWithExpand(JsonNode agent) {
-        if (isCounterpaty(agent.get("meta"))) {
-            return new CounterpartyConverter().convert(agent.toString());
-        } else {
-            return new OrganizationConverter().convert(agent.toString());
-        }
-    }
-
-    private boolean isCounterpaty(JsonNode meta) {
-        return meta.get("type").asText().equals("counterparty");
     }
 }

@@ -26,14 +26,14 @@ class ResponseParser {
     private ResponseParser(){
 
     }
-
-    static ApiResponse parse(CloseableHttpResponse response){
+    static ApiResponse parse(CloseableHttpResponse response, MSRequest msRequest){
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()))){
             String body = reader.lines().reduce((a, b) -> a+b).orElse("");
+            Type type = typeFromUrl(msRequest.getUrl());
 
             return new ApiResponse(response.getStatusLine().getStatusCode(),
                     parseErrors(body),
-                    parseEntities(body),
+                    parseEntities(body, type),
                     Arrays.asList(response.getAllHeaders()),
                     parseContext(body));
         } catch (IOException e) {
@@ -76,7 +76,7 @@ class ResponseParser {
     }
 
 
-    private static List<AbstractEntity> parseEntities(String body) throws IOException {
+    private static List<AbstractEntity> parseEntities(String body, Type type) throws IOException {
         List<AbstractEntity> result = new ArrayList<>();
         if (body != null && !body.isEmpty()) {
             ObjectMapper mapper = new ObjectMapper();
@@ -93,8 +93,9 @@ class ResponseParser {
 
             } else if (json.isObject()) {
                 // single value
-                String type = json.get("meta").get("type").asText();
-                AbstractEntity entity = ConverterFactory.getConverter(Type.valueOf(type.toUpperCase()).getModelClass()).convert(json.toString());
+                String entityType = json.has("meta") && json.get("meta").has("type")?
+                        json.get("meta").get("type").asText() : type.name().toLowerCase();
+                AbstractEntity entity = ConverterFactory.getConverter(Type.valueOf(entityType.toUpperCase()).getModelClass()).convert(json.toString());
                 result.add(entity);
             }
             return result;
@@ -105,6 +106,14 @@ class ResponseParser {
     private static AbstractEntity parseJsonObject(JsonNode json){
         String type = json.get("meta").get("type").asText();
         return ConverterFactory.getConverter(Type.valueOf(type.toUpperCase()).getModelClass()).convert(json.toString());
+    }
+
+    private static Type typeFromUrl(String url){
+        String[] split = url.split("/");
+        if (split[6].equals("entity")){
+            return Type.valueOf(split[7].toUpperCase());
+        }
+        return null;
     }
 
 }

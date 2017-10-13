@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.lognex.api.util.DateUtils;
 import com.lognex.api.util.ID;
-import com.lognex.api.util.MetaHrefParser;
+import com.lognex.api.util.MetaHrefUtils;
 
 import java.util.Date;
 import java.util.Optional;
@@ -51,7 +51,7 @@ public class ConverterUtill {
         if (metaElement.isPresent()) {
             String href = getString(metaElement.get(), HREF);
             if (!isEmpty(href)) {
-                return MetaHrefParser.getId(href);
+                return MetaHrefUtils.getId(href);
             }
         }
         return null;

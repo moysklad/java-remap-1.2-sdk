@@ -2,7 +2,11 @@ package com.lognex.api;
 
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.document.Demand;
+import com.lognex.api.model.document.FactureOut;
 import com.lognex.api.model.document.PaymentIn;
+import com.lognex.api.model.entity.Counterparty;
+import com.lognex.api.model.entity.Organization;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.Type;
@@ -71,6 +75,23 @@ public class DocumentEndpointTest {
     @Test
     public void testReadCurrencies() throws Exception {
         checkListRequest(Type.CURRENCY);
+    }
+
+
+    @Test
+    public void testCreateFactureOut() throws Exception {
+        FactureOut factureOut = new FactureOut();
+        Demand demand = new Demand();
+        demand.setId(new ID("3208fcc6-afe9-11e7-6b01-4b1d00032837"));
+        factureOut.getDemands().add(demand);
+        ApiResponse templateResponse = api.entity(Type.FACTUREOUT).template(factureOut).execute();
+        assertEquals(templateResponse.getStatus(), 200);
+        factureOut = (FactureOut) templateResponse.getEntities().get(0);
+        factureOut.setApplicable(true);
+
+
+        ApiResponse factureOutResponse = api.entity(Type.FACTUREOUT).create(factureOut).execute();
+        assertEquals(factureOutResponse.getStatus(), 200);
     }
 
     private void checkListRequest(Type type) {
