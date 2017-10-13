@@ -5,6 +5,8 @@ import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.model.document.Demand;
 import com.lognex.api.model.document.FactureOut;
 import com.lognex.api.model.document.PaymentIn;
+import com.lognex.api.model.entity.Counterparty;
+import com.lognex.api.model.entity.Organization;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.Type;
@@ -80,7 +82,12 @@ public class DocumentEndpointTest {
     public void testCreateFactureOut() throws Exception {
         FactureOut factureOut = new FactureOut();
         Demand demand = new Demand();
-        demand.setId(new ID("3208fcc6-afe9-11e7-6b01-4b1d00032837"));
+        demand.setName("0000723");
+        Organization organization = (Organization) api.entity(Type.ORGANIZATION).list().execute().getEntities().get(0);
+        Counterparty agent = (Counterparty) api.entity(Type.COUNTERPARTY).list().execute().getEntities().get(0);
+        demand.setAgent(agent);
+        demand.setOrganization(organization);
+        demand = (Demand) api.entity(Type.DEMAND).create(demand).execute().getEntities().get(0);
         factureOut.getDemands().add(demand);
         ApiResponse templateResponse = api.entity(Type.FACTURE_OUT).template(factureOut).execute();
         assertEquals(templateResponse.getStatus(), 200);
