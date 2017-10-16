@@ -26,6 +26,7 @@ public class Counterparty extends Agent implements IEntityWithAttributes {
     private CompanyType companyType;
     private String email;
     private List<AgentAccount> accounts = new ArrayList<>();
+    private List<String> tags = new ArrayList<>();
 
     public Counterparty(ID id) {
         super(id);
