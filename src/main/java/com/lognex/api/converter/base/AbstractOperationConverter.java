@@ -28,7 +28,6 @@ public abstract class AbstractOperationConverter<T extends AbstractOperation> ex
         entity.setMoment(ConverterUtil.getDate(node, "moment"));
         entity.setApplicable(ConverterUtil.getBoolean(node, "applicable"));
         entity.setSum(ConverterUtil.getDouble(node, "sum"));
-        entity.setSyncId(new ID(ConverterUtil.getString(node, "syncId")));
 
         entity.setContract(ConverterUtil.getObject(node, "contract", contractConverter, new Contract()));
         entity.setProject(ConverterUtil.getObject(node, "project", projectConverter, new Project()));
@@ -56,6 +55,9 @@ public abstract class AbstractOperationConverter<T extends AbstractOperation> ex
         }
         if (entity.getAgent() != null && entity.getAgent().getId() != null) {
             convertMetaField(jgen, "agent", entity.getAgent());
+        }
+        if (entity.getOrganization() != null) {
+            convertMetaField(jgen, "organization", entity.getOrganization());
         }
     }
 }

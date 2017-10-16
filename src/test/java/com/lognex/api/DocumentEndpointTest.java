@@ -84,12 +84,16 @@ public class DocumentEndpointTest {
     public void testCreateFactureOut() throws Exception {
         FactureOut factureOut = new FactureOut();
         Demand demand = new Demand();
-        demand.setName("0000723");
+        demand.setName("211s7232");
         Organization organization = (Organization) api.entity(Type.ORGANIZATION).list().execute().getEntities().get(0);
         Counterparty agent = (Counterparty) api.entity(Type.COUNTERPARTY).list().execute().getEntities().get(0);
+        Store store = (Store) api.entity(Type.STORE).list().limit(1).execute().getEntities().get(0);
         demand.setAgent(agent);
+        demand.setStore(store);
         demand.setOrganization(organization);
-        demand = (Demand) api.entity(Type.DEMAND).create(demand).execute().getEntities().get(0);
+        ApiResponse demandResponse =  api.entity(Type.DEMAND).create(demand).execute();
+        assertEquals(demandResponse.getStatus(), 200);
+        demand = (Demand) demandResponse.getEntities().get(0);
         factureOut.getDemands().add(demand);
         ApiResponse templateResponse = api.entity(Type.FACTURE_OUT).template(factureOut).execute();
         assertEquals(templateResponse.getStatus(), 200);
