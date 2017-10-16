@@ -8,18 +8,14 @@ import com.lognex.api.converter.base.CustomJgenFactory;
 import com.lognex.api.converter.base.CustomJsonGenerator;
 import com.lognex.api.model.base.AbstractEntity;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.entity.StringEntity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
-import static com.lognex.api.util.Constants.APPLICATION_JSON;
 
 @Slf4j
-public class MSTemplateRequest extends MSRequest {
+public class MSTemplateRequest extends MSRequestWithBody {
 
 
     private ObjectMapper mapper = new ObjectMapper();
@@ -31,26 +27,15 @@ public class MSTemplateRequest extends MSRequest {
     }
 
     @Override
-    protected HttpUriRequest buildRequest() {
-        HttpPut putRequest = new HttpPut(getUrl());
-        putRequest.setHeader("ContentType", APPLICATION_JSON);
-        StringEntity entity = null;
-        try {
-            entity = new StringEntity(convertToJsonBody());
-            putRequest.setEntity(entity);
-            entity.setContentType(APPLICATION_JSON);
-        } catch (UnsupportedEncodingException ignored) {
-            log.error("Error while composing create request: ", ignored);
-        } catch (IOException e) {
-            log.error("Error while serializing entity to json", e);
-        }
-        return putRequest;
+    protected HttpEntityEnclosingRequest produceHttpUriRequest() {
+        return new HttpPut(getUrl());
     }
 
-    private String convertToJsonBody() throws IOException {
+    @Override
+    protected String convertToJsonBody() throws IOException {
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()){
             CustomJsonGenerator jsonGenerator = CustomJgenFactory.createJsonGenerator(mapper, out);
-            // important to output utf-8 character instead of fucking '??????????'
+            // important to output utf-8 character instead of '??????????'
             jsonGenerator = (CustomJsonGenerator) jsonGenerator.setHighestNonEscapedChar(127);
             if (entity != null) {
                 AbstractEntityConverter converter =

@@ -8,7 +8,6 @@ import com.lognex.api.converter.entity.OrganizationConverter;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.base.AbstractOperation;
 import com.lognex.api.util.DateUtils;
-import com.lognex.api.util.ID;
 
 import java.io.IOException;
 import com.lognex.api.model.entity.*;
