@@ -18,7 +18,7 @@ public abstract class BaseProduct extends ProductFolder implements IEntityWithAt
     private Set<Price> salePrices = new HashSet<>();
     private Set<Attribute<?>> attributes = new HashSet<>();
 
-    public BaseProduct(ID id) {
+    BaseProduct(ID id) {
         setId(id);
     }
 

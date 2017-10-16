@@ -5,12 +5,11 @@ import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.model.base.Position;
 
 public abstract class PositionConverter<P extends Position> extends AbstractEntityConverter<P> {
-    protected Class<P> positionType;
 
-    public PositionConverter(Class<P> positionType) {
-        this.positionType = positionType;
+    PositionConverter() {
     }
 
+    @Override
     protected void convertToEntity(final Position entity, JsonNode node) {
         entity.setQuantity(ConverterUtil.getInt(node, "quantity"));
         entity.setPrice(ConverterUtil.getLong(node, "price"));
