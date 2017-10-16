@@ -45,7 +45,7 @@ public abstract class AbstractEntityConverter<T extends AbstractEntity> implemen
         }
     }
 
-    protected void convertToEntity(final AbstractEntity entity, JsonNode node) {
+    protected void convertToEntity(final T entity, JsonNode node) {
         ID id = ConverterUtill.getId(node, "id");
         entity.setId(id == null ? ConverterUtill.getIdFromMetaHref(node) : id);
         entity.setAccountId(ConverterUtill.getId(node, "accountId"));
