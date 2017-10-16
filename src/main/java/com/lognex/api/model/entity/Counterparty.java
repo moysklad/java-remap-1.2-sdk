@@ -8,9 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -26,6 +24,8 @@ public class Counterparty extends Agent implements IEntityWithAttributes {
     private String certificateNumber;
     private Date certificateDate;
     private CompanyType companyType;
+    private String email;
+    private List<AgentAccount> accounts = new ArrayList<>();
 
     public Counterparty(ID id) {
         super(id);

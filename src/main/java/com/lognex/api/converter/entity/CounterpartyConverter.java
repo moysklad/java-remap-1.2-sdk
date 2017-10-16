@@ -1,15 +1,17 @@
 package com.lognex.api.converter.entity;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.lognex.api.converter.ConverterFactory;
 import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.converter.base.AttributesConverter;
 import com.lognex.api.converter.base.CustomJsonGenerator;
 import com.lognex.api.model.base.field.CompanyType;
 import com.lognex.api.exception.ConverterException;
+import com.lognex.api.model.entity.AgentAccount;
 import com.lognex.api.model.entity.Counterparty;
-import com.lognex.api.util.DateUtils;
 
 import java.io.IOException;
+import java.util.Collection;
 
 public class CounterpartyConverter extends AgentConverter<Counterparty> {
 
@@ -34,6 +36,9 @@ public class CounterpartyConverter extends AgentConverter<Counterparty> {
         entity.setOkpo(ConverterUtil.getString(node, "okpo"));
         entity.setCertificateNumber(ConverterUtil.getString(node, "certificateNumber"));
         entity.setCertificateDate(ConverterUtil.getDate(node, "certificateDate"));
+        entity.setEmail(ConverterUtil.getString(node, "email"));
+        entity.getAccounts().clear();
+        entity.getAccounts().addAll((Collection<? extends AgentAccount>) ConverterUtil.getListFromExpand(node, "accounts", ConverterFactory.getConverter(AgentAccount.class)));
     }
 
     @Override
@@ -66,5 +71,6 @@ public class CounterpartyConverter extends AgentConverter<Counterparty> {
             }
         }
         attributesConverter.toJson(jgen, entity);
+        jgen.writeStringFieldIfNotEmpty("email", entity.getEmail());
     }
 }

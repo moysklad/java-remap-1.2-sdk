@@ -8,16 +8,14 @@ import com.lognex.api.util.DateUtils;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.MetaHrefUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.apache.http.util.TextUtils.isEmpty;
 
 public class ConverterUtil {
     private static final String HREF = "href";
     private static final String META = "meta";
+    private static final String ROWS = "rows";
 
     public static String getString(JsonNode node, String fieldName) {
         return getElement(node, fieldName)
@@ -37,6 +35,11 @@ public class ConverterUtil {
     public static double getDouble(JsonNode node, String fieldName) {
         return getElement(node, fieldName)
                 .map(JsonNode::asDouble).orElse(0d);
+    }
+
+    public static int getInt(JsonNode node, String fieldName) {
+        return getElement(node, fieldName)
+                .map(JsonNode::asInt).orElse(0);
     }
 
     public static ArrayNode getArray(JsonNode node, String fieldName) {
@@ -85,6 +88,14 @@ public class ConverterUtil {
             }
         }
         return result;
+    }
+
+    public static <T extends AbstractEntity> List<T> getListFromExpand(JsonNode node, String fieldName, Converter<T> converter) {
+        Optional<JsonNode> expandElement = getElement(node, fieldName);
+        if (expandElement.isPresent()) {
+            return getList(expandElement.get(), ROWS, converter);
+        }
+        return Collections.emptyList();
     }
 
     private static Optional<JsonNode> getElement(JsonNode node, String fieldName) {
