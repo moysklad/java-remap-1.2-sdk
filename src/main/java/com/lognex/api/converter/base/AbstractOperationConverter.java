@@ -51,8 +51,9 @@ public abstract class AbstractOperationConverter<T extends AbstractOperation> ex
         if (entity.getSum() != null) {
             jgen.writeNumberField("sum", entity.getSum());
         }
-        jgen.writeStringFieldIfNotEmpty("syncId", entity.getSyncId().getValue());
-
+        if (entity.getSyncId() != null) {
+            jgen.writeStringFieldIfNotEmpty("syncId", entity.getSyncId().getValue());
+        }
         if (entity.getAgent() != null && entity.getAgent().getId() != null) {
             convertMetaField(jgen, "agent", entity.getAgent());
         }
