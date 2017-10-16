@@ -9,16 +9,14 @@ import com.lognex.api.util.ID;
 import com.lognex.api.util.MetaHrefUtils;
 import com.lognex.api.util.Type;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.apache.http.util.TextUtils.isEmpty;
 
 public class ConverterUtil {
     private static final String HREF = "href";
     private static final String META = "meta";
+    private static final String ROWS = "rows";
     private static final String TYPE = "type";
 
     public static String getString(JsonNode node, String fieldName) {
@@ -121,7 +119,15 @@ public class ConverterUtil {
         return result;
     }
 
-    public static Optional<JsonNode> getElement(JsonNode node, String fieldName) {
+    public static <T extends AbstractEntity> List<T> getListFromExpand(JsonNode node, String fieldName, Converter<T> converter) {
+        Optional<JsonNode> expandElement = getElement(node, fieldName);
+        if (expandElement.isPresent()) {
+            return getList(expandElement.get(), ROWS, converter);
+        }
+        return Collections.emptyList();
+    }
+
+    private static Optional<JsonNode> getElement(JsonNode node, String fieldName) {
         return Optional.ofNullable(!isEmpty(fieldName) && node != null && node.has(fieldName) ? node.get(fieldName) : null);
     }
 

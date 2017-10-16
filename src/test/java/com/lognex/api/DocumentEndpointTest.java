@@ -18,7 +18,10 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class DocumentEndpointTest {
     private ApiClient api = new ApiClient(System.getenv("login"), System.getenv("password"), null);
@@ -166,5 +169,15 @@ public class DocumentEndpointTest {
         assertFalse(entities.isEmpty());
         assertTrue(entities.size() <= 10);
         entities.forEach(e -> assertNotNull(e.getId()));
+    }
+
+    @Test
+    public void testCounterpartyWithAccountsExpand() throws Exception {
+        ApiResponse response = api.entity(Type.COUNTERPARTY).id(new ID("4fedbd4c-b26d-11e7-7a6c-d2a9002d0b23"))
+                .read().addExpand("accounts").execute();
+        assertEquals(response.getStatus(), 200);
+        assertTrue(response.getEntities().size() == 1);
+        Counterparty counterparty = ((Counterparty) response.getEntities().get(0));
+        assertFalse(counterparty.getAccounts().isEmpty());
     }
 }
