@@ -6,7 +6,7 @@ import com.lognex.api.model.base.ShipmentOutPosition;
 
 public class ShipmentOutPositionConverter extends PositionConverter<ShipmentOutPosition> {
     public ShipmentOutPositionConverter() {
-        super(ShipmentOutPosition.class);
+        super();
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.lognex.api.converter.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.lognex.api.converter.ConverterFactory;
 import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.model.base.AbstractEntityWithOwner;
 import com.lognex.api.model.entity.Employee;
