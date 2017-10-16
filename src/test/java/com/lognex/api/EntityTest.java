@@ -2,6 +2,7 @@ package com.lognex.api;
 
 import com.lognex.api.model.base.field.CompanyType;
 import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.entity.AgentAccount;
 import com.lognex.api.model.entity.Counterparty;
 import com.lognex.api.model.entity.CustomEntity;
 import com.lognex.api.model.base.IEntityWithAttributes;
@@ -9,6 +10,7 @@ import com.lognex.api.model.entity.attribute.Attribute;
 import com.lognex.api.model.entity.attribute.AttributeValue;
 import com.lognex.api.request.filter.FilterOperator;
 import com.lognex.api.response.ApiResponse;
+import com.lognex.api.util.ID;
 import com.lognex.api.util.Type;
 import org.junit.Test;
 
@@ -75,6 +77,40 @@ public class EntityTest {
         assertEquals(created.getOgrn(), counterparty.getOgrn());
         assertEquals(created.getOkpo(), counterparty.getOkpo());
         checkAttributesEquality(created, counterparty);
+    }
+
+    @Test
+    public void testCreateCounterpartyWithAccountsAndTags() throws Exception {
+        Counterparty counterparty = new Counterparty();
+        counterparty.setName("WoolStore");
+        counterparty.setEmail("woolstore@woolstore.com");
+        AgentAccount agentAccount = new AgentAccount();
+        agentAccount.setAccountNumber("41241421421");
+        agentAccount.setBankLocation("NY");
+        agentAccount.setBankName("YN");
+        agentAccount.setBic("1231412");
+        agentAccount.setCorrespondentAccount("23523532523");
+        agentAccount.setDefault(true);
+        counterparty.getAccounts().add(agentAccount);
+        counterparty.getTags().add("u3");
+
+        ApiResponse response = api.entity(Type.COUNTERPARTY).create(counterparty).execute();
+        ID id = response.getEntities().get(0).getId();
+        response = api.entity(Type.COUNTERPARTY).id(id)
+                .read().addExpand("accounts").execute();
+        Counterparty result = ((Counterparty) response.getEntities().get(0));
+        assertEquals(counterparty.getName(), result.getName());
+        assertEquals(counterparty.getEmail(), result.getEmail());
+        assertEquals(counterparty.getAccounts().size(), result.getAccounts().size());
+        AgentAccount agentAccount1 = result.getAccounts().get(0);
+        assertEquals(agentAccount.getAccountNumber(), agentAccount1.getAccountNumber());
+        assertEquals(agentAccount.getBankLocation(), agentAccount1.getBankLocation());
+        assertEquals(agentAccount.getBankName(), agentAccount1.getBankName());
+        assertEquals(agentAccount.getBic(), agentAccount1.getBic());
+        assertEquals(agentAccount.getCorrespondentAccount(), agentAccount1.getCorrespondentAccount());
+        assertTrue(agentAccount1.isDefault());
+        assertEquals(counterparty.getTags().size(), result.getTags().size());
+        assertEquals(counterparty.getTags().get(0), result.getTags().get(0));
     }
 
     @Test
