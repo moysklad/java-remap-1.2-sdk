@@ -30,7 +30,7 @@ public class AgentAccountConverter extends AbstractEntityInfoableConverter<Agent
     protected void convertFields(CustomJsonGenerator jgen, AgentAccount entity) throws IOException {
         super.convertFields(jgen, entity);
         jgen.writeBooleanField("isDefault", entity.isDefault());
-        jgen.writeStringField("accountNumber", entity.getAccountNumber());
+        jgen.writeStringFieldIfNotEmpty("accountNumber", entity.getAccountNumber());
         jgen.writeStringFieldIfNotEmpty("bankName", entity.getBankName());
         jgen.writeStringFieldIfNotEmpty("bankLocation", entity.getBankLocation());
         jgen.writeStringFieldIfNotEmpty("correspondentAccount", entity.getCorrespondentAccount());
