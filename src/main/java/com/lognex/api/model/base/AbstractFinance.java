@@ -1,5 +1,6 @@
 package com.lognex.api.model.base;
 
+import com.lognex.api.model.entity.ExpenseItem;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,7 @@ import java.util.Date;
 public abstract class AbstractFinance extends AbstractOperation {
     private String paymentPurpose;
     private Double vatSum;
-    //private ID expenseItem;
+    private ExpenseItem expenseItem;
     private String incomingNumber;
     private Date incomingDate;
 }
