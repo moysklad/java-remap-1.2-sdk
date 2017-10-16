@@ -5,11 +5,15 @@ import com.lognex.api.converter.base.Converter;
 import com.lognex.api.converter.base.ShipmentOutPositionConverter;
 import com.lognex.api.converter.document.DemandConverter;
 import com.lognex.api.converter.document.PaymentInConverter;
+import com.lognex.api.converter.entity.AgentAccountConverter;
+import com.lognex.api.converter.entity.CounterpartyConverter;
 import com.lognex.api.converter.entity.*;
 import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.model.base.ShipmentOutPosition;
 import com.lognex.api.model.document.Demand;
 import com.lognex.api.model.document.PaymentIn;
+import com.lognex.api.model.entity.AgentAccount;
+import com.lognex.api.model.entity.Counterparty;
 import com.lognex.api.model.entity.*;
 
 import java.util.LinkedHashMap;
@@ -32,6 +36,7 @@ public final class ConverterFactory {
         converters.put(Organization.class, OrganizationConverter.class);
         converters.put(Demand.class, DemandConverter.class);
         converters.put(PaymentIn.class, PaymentInConverter.class);
+        converters.put(AgentAccount.class, AgentAccountConverter.class);
 
         converters.put(ShipmentOutPosition.class, ShipmentOutPositionConverter.class);
     }
