@@ -19,6 +19,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -28,6 +29,10 @@ public class DocumentEndpointTest {
 
     @Test
     public void testReadPaymentsIn() throws ConverterException {
+        ApiResponse response = api.entity(Type.PAYMENT_IN).list().limit(10).execute();
+        assertFalse(response.hasErrors());
+        assertTrue(response.getEntities().size() <= 10);
+        response.getEntities().forEach(e -> assertNotNull(e.getId()));
         checkListRequest(Type.PAYMENT_IN);
     }
 

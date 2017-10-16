@@ -39,7 +39,6 @@ public final class ConverterFactory {
         converters.put(Counterparty.class, CounterpartyConverter.class);
         converters.put(Currency.class, CurrencyConverter.class);
         converters.put(PaymentIn.class, PaymentInConverter.class);
-        converters.put(AgentAccount.class, AgentAccountConverter.class);
         converters.put(Service.class, ServiceConverter.class);
         converters.put(Project.class, ProjectConverter.class);
         converters.put(Organization.class, OrganizationConverter.class);
@@ -47,7 +46,6 @@ public final class ConverterFactory {
         converters.put(Store.class, StoreConverter.class);
 
         converters.put(Demand.class, DemandConverter.class);
-        converters.put(PaymentIn.class, PaymentInConverter.class);
 
         converters.put(ShipmentOutPosition.class, ShipmentOutPositionConverter.class);
     }
