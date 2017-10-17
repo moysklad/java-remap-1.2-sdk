@@ -1,10 +1,12 @@
 package com.lognex.api.converter.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.lognex.api.converter.ConverterFactory;
+import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.model.base.AbstractEntityWithOwner;
 import com.lognex.api.model.entity.Employee;
 import com.lognex.api.model.entity.Group;
-import com.lognex.api.util.MetaHrefParser;
+import com.lognex.api.util.MetaHrefUtils;
 
 import java.io.IOException;
 
@@ -12,9 +14,9 @@ public abstract class AbstractEntityWithOwnerConverter<T extends AbstractEntityW
     protected void convertToEntity(final AbstractEntityWithOwner entity, JsonNode node) {
         super.convertToEntity(entity, node);
         /*TODO добавить поддержку expand*/
-        entity.setOwner(node.get("owner") == null ? null : new Employee(MetaHrefParser.getId(node.get("owner").get("meta").get("href").asText())));
-        entity.setGroup(node.get("group") == null ? null : new Group(MetaHrefParser.getId(node.get("group").get("meta").get("href").asText())));
-        entity.setShared(node.get("shared") != null && node.get("shared").asBoolean());
+        entity.setOwner(node.get("owner") == null ? null : new Employee(MetaHrefUtils.getId(node.get("owner").get("meta").get("href").asText())));
+        entity.setGroup(node.get("group") == null ? null : new Group(MetaHrefUtils.getId(node.get("group").get("meta").get("href").asText())));
+        entity.setShared(ConverterUtil.getBoolean(node, "shared"));
     }
 
     @Override

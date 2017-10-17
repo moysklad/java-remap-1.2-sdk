@@ -6,17 +6,13 @@ import com.lognex.api.request.MSEntityAuditRequest;
 import com.lognex.api.request.MSReadSingleRequest;
 import com.lognex.api.request.MSUpdateRequest;
 import com.lognex.api.util.ID;
+import com.lognex.api.util.Type;
 
 public class SingleEntityRequestBuilderImpl extends BaseEntityRequestBuilder implements SingleEntityRequestBuilder {
 
-    private String type;
-    private ID id;
-
-    SingleEntityRequestBuilderImpl(ApiClient client, String type, ID id){
-        super(client);
-        this.type = type;
-        this.id = id;
-        url.append("/").append(type).append("/").append(id.getValue());
+    SingleEntityRequestBuilderImpl(ApiClient client, String baseUrl, Type type, ID id){
+        super(client, baseUrl);
+        url.append("/").append(type.getApiName()).append("/").append(id.getValue());
     }
 
     @Override

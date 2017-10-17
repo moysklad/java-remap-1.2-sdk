@@ -2,7 +2,8 @@ package com.lognex.api.converter.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lognex.api.converter.field.Meta;
+import com.lognex.api.converter.ConverterUtil;
+import com.lognex.api.model.base.field.Meta;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.util.ID;
@@ -45,8 +46,8 @@ public abstract class AbstractEntityConverter<T extends AbstractEntity> implemen
     }
 
     protected void convertToEntity(final AbstractEntity entity, JsonNode node) {
-        entity.setId(new ID(node.get("id").textValue()));
-        entity.setAccountId(new ID(node.get("accountId").textValue()));
+        entity.setId(new ID(ConverterUtil.getString(node, "id")));
+        entity.setAccountId(new ID(ConverterUtil.getString(node, "accountId")));
     }
 
     protected abstract T convertFromJson(JsonNode node) throws ConverterException;
@@ -73,13 +74,13 @@ public abstract class AbstractEntityConverter<T extends AbstractEntity> implemen
 
     private void writeMeta(CustomJsonGenerator jgen, T entity) throws IOException {
         Type type = Type.find(entity.getClass());
-        jgen.writeObjectField("meta", new Meta(type, entity));
+        jgen.writeObjectField("meta", new Meta<>(type, entity));
     }
 
-    protected void convertMetaField(CustomJsonGenerator jgen, String name, AbstractEntity fieldValue) throws IOException {
+    void convertMetaField(CustomJsonGenerator jgen, String name, AbstractEntity fieldValue) throws IOException {
         jgen.writeObjectFieldStart(name);
         Type type = Type.find(fieldValue.getClass());
-        jgen.writeObjectField("meta", new Meta(type, fieldValue));
+        jgen.writeObjectField("meta", new Meta<>(type, fieldValue));
         jgen.writeEndObject();
     }
 

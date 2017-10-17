@@ -3,9 +3,11 @@ package com.lognex.api.converter.base;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.lognex.api.converter.field.FileRef;
+import com.lognex.api.model.base.field.FileRef;
+import com.lognex.api.model.base.field.Meta;
 import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.model.base.AbstractEntityLegendable;
+import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.*;
 import com.lognex.api.model.entity.attribute.Attribute;
 import com.lognex.api.model.entity.attribute.AttributeType;
@@ -16,9 +18,13 @@ import com.lognex.api.model.entity.good.Service;
 import com.lognex.api.model.entity.good.Variant;
 import com.lognex.api.util.DateUtils;
 import com.lognex.api.util.ID;
-import com.lognex.api.util.MetaHrefParser;
+import com.lognex.api.util.MetaHrefUtils;
+import com.lognex.api.util.Type;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class AttributesConverter implements CustomFieldsConverter<IEntityWithAttributes>{
@@ -78,7 +84,7 @@ public class AttributesConverter implements CustomFieldsConverter<IEntityWithAtt
     }
 
     private AttributeValue<? extends AbstractEntity> parseEntity(JsonNode node, AttributeType type){
-        ID id = MetaHrefParser.getId(node.get("value").get("meta").get("href").asText());
+        ID id = MetaHrefUtils.getId(node.get("value").get("meta").get("href").asText());
         String name = node.get("value").get("name").asText();
         if (AttributeType.EMBEDDED_ENTITIES.contains(type)){
             switch (type){
@@ -118,7 +124,61 @@ public class AttributesConverter implements CustomFieldsConverter<IEntityWithAtt
     }
 
     @Override
-    public void toJson(CustomJsonGenerator jgen, IEntityWithAttributes entity) {
+    public void toJson(CustomJsonGenerator jgen, IEntityWithAttributes entity) throws IOException {
+        if (entity.getAttributes() != null && entity.getAttributes().size() > 0){
+            jgen.writeArrayFieldStart("attributes");
+            Set<Attribute<?>> attributes = entity.getAttributes().
+                    stream().
+                    filter(a-> !a.getType().equals(AttributeType.FILE.name().toLowerCase())).collect(Collectors.toSet());
+            for (Attribute<?> attribute : attributes){
+                jgen.writeStartObject();
+                jgen.writeStringFieldIfNotEmpty("id", attribute.getId());
+                jgen.writeStringFieldIfNotEmpty("type", attribute.getType());
+                AttributeType type = AttributeType.find(attribute.getType());
+                switch (type){
+                    case TEXT:
+                    case LINK:
+                    case STRING: {
+                        jgen.writeStringFieldIfNotEmpty("value", (String) attribute.getValue().getValue());
+                        break;
+                    }
+                    case LONG: {
+                        jgen.writeNumberField("value", (Long) attribute.getValue().getValue());
+                        break;
+                    }
+                    case DOUBLE: {
+                        jgen.writeNumberField("value", (Double) attribute.getValue().getValue());
+                        break;
+                    }
+                    case TIME:{
+                        jgen.writeObjectField("value", attribute.getValue().getValue());
+                        break;
+                    }
+                    case BOOLEAN:{
+                        jgen.writeBooleanField("value", (Boolean) attribute.getValue().getValue());
+                        break;
+                    }
+                    default: {
+                        serializeEntityValue(jgen, attribute);
+                    }
+                }
+                jgen.writeEndObject();
+            }
+            jgen.writeEndArray();
+        }
+    }
 
+    private void serializeEntityValue(CustomJsonGenerator jgen, Attribute<?> attribute) throws IOException{
+        jgen.writeObjectFieldStart("value");
+        Type type = Type.find(((AbstractEntity)attribute.getValue().getValue()).getClass());
+        if (type.equals(Type.CUSTOM_ENTITY)){
+            if (((AbstractEntity) attribute.getValue().getValue()).getId() != null) {
+                jgen.writeObjectField("meta", new Meta<>(type, attribute.getValue().getValue()));
+            }
+            jgen.writeStringFieldIfNotEmpty("name", ((CustomEntity)attribute.getValue().getValue()).getName());
+        } else {
+            jgen.writeObjectField("meta", new Meta<>(type, attribute.getValue().getValue()));
+        }
+        jgen.writeEndObject();
     }
 }

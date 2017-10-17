@@ -1,4 +1,4 @@
-package com.lognex.api.converter.field;
+package com.lognex.api.model.base.field;
 
 import lombok.Getter;
 
