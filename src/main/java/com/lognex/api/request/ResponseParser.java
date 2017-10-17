@@ -11,6 +11,8 @@ import com.lognex.api.response.ApiResponse;
 import com.lognex.api.response.Context;
 import com.lognex.api.util.MetaHrefUtils;
 import com.lognex.api.util.Type;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
 
@@ -21,11 +23,9 @@ import java.util.*;
 
 
 @Slf4j
-class ResponseParser {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+final class ResponseParser {
 
-    private ResponseParser(){
-
-    }
     static ApiResponse parse(CloseableHttpResponse response, MSRequest msRequest){
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()))){
             String body = reader.lines().reduce((a, b) -> a+b).orElse("");

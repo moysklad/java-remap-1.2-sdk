@@ -23,11 +23,13 @@ import com.lognex.api.model.entity.Currency;
 import com.lognex.api.model.entity.Organization;
 import com.lognex.api.model.entity.Service;
 import com.lognex.api.model.entity.*;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
 
-
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ConverterFactory {
 
     private static final Map<Class<? extends AbstractEntity>, Class<? extends AbstractEntityConverter>> converters;
@@ -48,9 +50,6 @@ public final class ConverterFactory {
         converters.put(PaymentIn.class, PaymentInConverter.class);
 
         converters.put(ShipmentOutPosition.class, ShipmentOutPositionConverter.class);
-    }
-
-    private ConverterFactory() {
     }
 
     @SuppressWarnings("unchecked")

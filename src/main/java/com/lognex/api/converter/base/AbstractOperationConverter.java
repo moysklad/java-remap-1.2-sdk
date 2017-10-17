@@ -15,11 +15,11 @@ import com.lognex.api.model.entity.*;
 
 public abstract class AbstractOperationConverter<T extends AbstractOperation> extends AbstractEntityLegendableConverter<T> {
 
-    private CurrencyConverter currencyConverter = new CurrencyConverter();
-    private OrganizationConverter organizationConverter = new OrganizationConverter();
-    private CounterpartyConverter counterpartyConverter = new CounterpartyConverter();
-    private ContractConverter contractConverter = new ContractConverter();
-    private ProjectConverter projectConverter = new ProjectConverter();
+    private static final CurrencyConverter currencyConverter = new CurrencyConverter();
+    private static final OrganizationConverter organizationConverter = new OrganizationConverter();
+    private static final CounterpartyConverter counterpartyConverter = new CounterpartyConverter();
+    private static final ContractConverter contractConverter = new ContractConverter();
+    private static final ProjectConverter projectConverter = new ProjectConverter();
 
     @Override
     protected void convertToEntity(final T entity, JsonNode node) throws ConverterException {

@@ -39,7 +39,7 @@ public class MSCreateRequest extends MSRequestWithBody {
     protected String convertToJsonBody() throws IOException {
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()){
             CustomJsonGenerator jsonGenerator = CustomJgenFactory.createJsonGenerator(mapper, out);
-            // important to output utf-8 character instead of fucking '??????????'
+            // important to output utf-8
             jsonGenerator = (CustomJsonGenerator) jsonGenerator.setHighestNonEscapedChar(127);
             if (postEntityList.size() > 1){
                 jsonGenerator.writeStartArray();

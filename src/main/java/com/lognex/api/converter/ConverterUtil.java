@@ -8,12 +8,15 @@ import com.lognex.api.util.DateUtils;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.MetaHrefUtils;
 import com.lognex.api.util.Type;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.*;
 
 import static org.apache.http.util.TextUtils.isEmpty;
 
-public class ConverterUtil {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class ConverterUtil {
     private static final String HREF = "href";
     private static final String META = "meta";
     private static final String ROWS = "rows";
@@ -87,8 +90,8 @@ public class ConverterUtil {
             JsonNode field = element.get();
             if (field.has("id")) {
                 return element.map(jsonNode -> converter.convert(jsonNode.toString())).orElse(null);
-            } else if (field.has("meta")) {
-                ID id = MetaHrefUtils.getId(field.get("meta").get("href").asText());
+            } else if (field.has(META)) {
+                ID id = MetaHrefUtils.getId(field.get(META).get(HREF).asText());
                 entity.setId(id);
                 return entity;
             }
