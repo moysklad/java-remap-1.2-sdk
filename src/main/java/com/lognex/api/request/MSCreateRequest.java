@@ -19,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import static com.lognex.api.util.Constants.APPLICATION_JSON;
+import static com.lognex.api.util.Constants.APPLICATION_JSON_UTF8;
 
 @Slf4j
 public class MSCreateRequest extends MSRequest {
@@ -36,12 +36,12 @@ public class MSCreateRequest extends MSRequest {
     @Override
     protected HttpUriRequest buildRequest() {
         HttpPost post = new HttpPost(getUrl());
-        post.setHeader("ContentType", APPLICATION_JSON);
+        post.setHeader("ContentType", APPLICATION_JSON_UTF8);
         StringEntity entity = null;
         try {
             entity = new StringEntity(convertToJsonBody());
             post.setEntity(entity);
-            entity.setContentType(APPLICATION_JSON);
+            entity.setContentType(APPLICATION_JSON_UTF8);
         } catch (UnsupportedEncodingException ignored) {
             log.error("Error while composing create request: ", ignored);
         } catch (IOException e) {
