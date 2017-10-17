@@ -9,7 +9,7 @@ import org.apache.http.entity.StringEntity;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import static com.lognex.api.util.Constants.APPLICATION_JSON;
+import static com.lognex.api.util.Constants.APPLICATION_JSON_UTF8;
 
 @Slf4j
 public abstract class MSRequestWithBody extends MSRequest {
@@ -21,12 +21,12 @@ public abstract class MSRequestWithBody extends MSRequest {
     @Override
     protected HttpUriRequest buildRequest() {
         HttpEntityEnclosingRequest request = produceHttpUriRequest();
-        request.setHeader("ContentType", APPLICATION_JSON);
+        request.setHeader("ContentType", APPLICATION_JSON_UTF8);
         StringEntity entity;
         try {
             entity = new StringEntity(convertToJsonBody());
             request.setEntity(entity);
-            entity.setContentType(APPLICATION_JSON);
+            entity.setContentType(APPLICATION_JSON_UTF8);
         } catch (UnsupportedEncodingException ignored) {
             log.error("Error while composing create request: ", ignored);
         } catch (IOException e) {
