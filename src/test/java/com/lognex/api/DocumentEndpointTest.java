@@ -14,9 +14,11 @@ import com.lognex.api.model.entity.Store;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.Type;
+import org.apache.commons.codec.binary.StringUtils;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.Assert.assertFalse;
 
@@ -92,7 +94,7 @@ public class DocumentEndpointTest {
     public void testCreateFactureOut() throws Exception {
         FactureOut factureOut = new FactureOut();
         Demand demand = new Demand();
-        demand.setName("211s7232s");
+        demand.setName("211s7232s321");
         Organization organization = (Organization) api.entity(Type.ORGANIZATION).list().execute().getEntities().get(0);
         Counterparty agent = (Counterparty) api.entity(Type.COUNTERPARTY).list().execute().getEntities().get(0);
         Store store = (Store) api.entity(Type.STORE).list().limit(1).execute().getEntities().get(0);
@@ -141,7 +143,7 @@ public class DocumentEndpointTest {
         ApiResponse storeResponse = api.entity(Type.STORE).list().limit(1).execute();
         Store store = (Store) storeResponse.getEntities().get(0);
         Demand d = new Demand();
-        d.setName("szname323s5zzsx");
+        d.setName("szname323s5zzsx123");
         d.setOrganization(organization);
         d.setAgent(cp);
         d.setStore(store);
