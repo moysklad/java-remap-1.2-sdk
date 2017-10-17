@@ -16,16 +16,16 @@ import com.lognex.api.model.entity.AgentAccount;
 import com.lognex.api.model.entity.Counterparty;
 import com.lognex.api.model.entity.*;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 
-@SuppressWarnings("unchecked")
+
 public final class ConverterFactory {
 
     private static final Map<Class<? extends AbstractEntity>, Class<? extends AbstractEntityConverter>> converters;
 
     static {
-        converters = new LinkedHashMap<>();
+        converters = new HashMap<>();
         converters.put(AgentAccount.class, AgentAccountConverter.class);
         converters.put(Contract.class, ContractConverter.class);
         converters.put(Counterparty.class, CounterpartyConverter.class);
@@ -36,7 +36,6 @@ public final class ConverterFactory {
         converters.put(Organization.class, OrganizationConverter.class);
         converters.put(Demand.class, DemandConverter.class);
         converters.put(PaymentIn.class, PaymentInConverter.class);
-        converters.put(AgentAccount.class, AgentAccountConverter.class);
 
         converters.put(ShipmentOutPosition.class, ShipmentOutPositionConverter.class);
     }
@@ -44,6 +43,7 @@ public final class ConverterFactory {
     private ConverterFactory() {
     }
 
+    @SuppressWarnings("unchecked")
     public static Converter<? extends AbstractEntity> getConverter(Class<? extends AbstractEntity> clazz){
         Class<? extends AbstractEntityConverter> converterClass = converters.get(clazz);
         try {
@@ -54,3 +54,4 @@ public final class ConverterFactory {
     }
 
 }
+
