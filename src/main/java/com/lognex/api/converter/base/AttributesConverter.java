@@ -35,43 +35,44 @@ public class AttributesConverter implements CustomFieldsConverter<IEntityWithAtt
                     String id = attribute.get("id").asText();
                     String name = attribute.get("name").asText();
                     String type = attribute.get("type").asText();
-                    switch (AttributeType.find(type)){
+                    AttributeType attributeType = AttributeType.find(type);
+                    switch (attributeType){
                         case TEXT:
                         case LINK:
                         case STRING: {
                             String val = attribute.get("value").asText();
-                            entity.getAttributes().add(new Attribute<>(id, name, type, new AttributeValue<>(val)));
+                            entity.getAttributes().add(new Attribute<>(id, name, attributeType, new AttributeValue<>(val)));
                             break;
                         }
                         case LONG: {
                             long val = attribute.get("value").asLong();
-                            entity.getAttributes().add(new Attribute<>(id, name, type, new AttributeValue<>(val)));
+                            entity.getAttributes().add(new Attribute<>(id, name, attributeType, new AttributeValue<>(val)));
                             break;
                         }
                         case DOUBLE: {
                             double val = attribute.get("value").asDouble();
-                            entity.getAttributes().add(new Attribute<>(id, name, type, new AttributeValue<>(val)));
+                            entity.getAttributes().add(new Attribute<>(id, name, attributeType, new AttributeValue<>(val)));
                             break;
                         }
                         case TIME:{
                             Date date = DateUtils.parseDate(attribute.get("value").asText());
-                            entity.getAttributes().add(new Attribute<>(id, name, type, new AttributeValue<>(date)));
+                            entity.getAttributes().add(new Attribute<>(id, name, attributeType, new AttributeValue<>(date)));
                             break;
                         }
                         case BOOLEAN:{
                             boolean value = attribute.get("value").asBoolean();
-                            entity.getAttributes().add(new Attribute<>(id, name, type, new AttributeValue<>(value)));
+                            entity.getAttributes().add(new Attribute<>(id, name, attributeType, new AttributeValue<>(value)));
                             break;
                         }
                         case FILE:{
                             String href = attribute.get("download").get("href").asText();
                             String mediaType = attribute.get("download").get("mediaType").asText();
-                            entity.getAttributes().add(new Attribute<>(id, name, type, new AttributeValue<>(new FileRef(href, mediaType))));
+                            entity.getAttributes().add(new Attribute<>(id, name, attributeType, new AttributeValue<>(new FileRef(href, mediaType))));
                             break;
                         }
                         default: {
                             AttributeValue<? extends AbstractEntity> entityValue = parseEntity(attribute, AttributeType.find(type));
-                            entity.getAttributes().add(new Attribute<>(id, name, type, entityValue));
+                            entity.getAttributes().add(new Attribute<>(id, name, attributeType, entityValue));
                         }
                     }
                 }
@@ -125,37 +126,40 @@ public class AttributesConverter implements CustomFieldsConverter<IEntityWithAtt
             jgen.writeArrayFieldStart("attributes");
             Set<Attribute<?>> attributes = entity.getAttributes().
                     stream().
-                    filter(a-> !a.getType().equals(AttributeType.FILE.name().toLowerCase())).collect(Collectors.toSet());
+                    filter(a-> a.getType() != null && !a.getType().equals(AttributeType.FILE))
+                    .collect(Collectors.toSet());
             for (Attribute<?> attribute : attributes){
                 jgen.writeStartObject();
                 jgen.writeStringFieldIfNotEmpty("id", attribute.getId());
-                jgen.writeStringFieldIfNotEmpty("type", attribute.getType());
-                AttributeType type = AttributeType.find(attribute.getType());
-                switch (type){
-                    case TEXT:
-                    case LINK:
-                    case STRING: {
-                        jgen.writeStringFieldIfNotEmpty("value", (String) attribute.getValue().getValue());
-                        break;
-                    }
-                    case LONG: {
-                        jgen.writeNumberField("value", (Long) attribute.getValue().getValue());
-                        break;
-                    }
-                    case DOUBLE: {
-                        jgen.writeNumberField("value", (Double) attribute.getValue().getValue());
-                        break;
-                    }
-                    case TIME:{
-                        jgen.writeObjectField("value", attribute.getValue().getValue());
-                        break;
-                    }
-                    case BOOLEAN:{
-                        jgen.writeBooleanField("value", (Boolean) attribute.getValue().getValue());
-                        break;
-                    }
-                    default: {
-                        serializeEntityValue(jgen, attribute);
+                AttributeType type = attribute.getType();
+                if (type != null) {
+                    jgen.writeStringFieldIfNotEmpty("type", attribute.getType().name().toLowerCase());
+                    switch (type){
+                        case TEXT:
+                        case LINK:
+                        case STRING: {
+                            jgen.writeStringFieldIfNotEmpty("value", (String) attribute.getValue().getValue());
+                            break;
+                        }
+                        case LONG: {
+                            jgen.writeNumberField("value", (Long) attribute.getValue().getValue());
+                            break;
+                        }
+                        case DOUBLE: {
+                            jgen.writeNumberField("value", (Double) attribute.getValue().getValue());
+                            break;
+                        }
+                        case TIME:{
+                            jgen.writeObjectField("value", attribute.getValue().getValue());
+                            break;
+                        }
+                        case BOOLEAN:{
+                            jgen.writeBooleanField("value", (Boolean) attribute.getValue().getValue());
+                            break;
+                        }
+                        default: {
+                            serializeEntityValue(jgen, attribute);
+                        }
                     }
                 }
                 jgen.writeEndObject();
