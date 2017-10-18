@@ -7,15 +7,20 @@ import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.util.DateUtils;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.MetaHrefUtils;
+import com.lognex.api.util.Type;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.*;
 
 import static org.apache.http.util.TextUtils.isEmpty;
 
-public class ConverterUtil {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class ConverterUtil {
     private static final String HREF = "href";
     private static final String META = "meta";
     private static final String ROWS = "rows";
+    private static final String TYPE = "type";
 
     public static String getString(JsonNode node, String fieldName) {
         return getElement(node, fieldName)
@@ -79,9 +84,36 @@ public class ConverterUtil {
         return element.map(jsonNode -> converter.convert(jsonNode.toString())).orElse(null);
     }
 
+    public static <T extends AbstractEntity> T getObject(JsonNode node, String fieldName, Converter<T> converter, T entity){
+        Optional<JsonNode> element = getElement(node, fieldName);
+        if (element.isPresent()) {
+            JsonNode field = element.get();
+            if (field.has("id")) {
+                return element.map(jsonNode -> converter.convert(jsonNode.toString())).orElse(null);
+            } else if (field.has(META)) {
+                ID id = MetaHrefUtils.getId(field.get(META).get(HREF).asText());
+                entity.setId(id);
+                return entity;
+            }
+        }
+        return null;
+    }
+
+    public static <T extends AbstractEntity> T getObject(JsonNode node, String fieldName) {
+        Optional<JsonNode> element = getElement(node, fieldName);
+        if (element.isPresent()) {
+            JsonNode typeElement = node.findValue(TYPE);
+            if (typeElement != null && !isEmpty(typeElement.asText())) {
+                return ((T) ConverterFactory.getConverter(Type.find(typeElement.asText()).getModelClass())
+                        .convert(node.toString()));
+            }
+        }
+        return null;
+    }
+
     public static <T extends AbstractEntity> List<T> getList(JsonNode node, String fieldName, Converter<T> converter) {
         List<T> result = new ArrayList<>();
-        ArrayNode array = getArray(node, fieldName);
+        ArrayNode array = ConverterUtil.getArray(node, fieldName);
         if (array != null) {
             for (JsonNode item : array) {
                 result.add(converter.convert(item.toString()));

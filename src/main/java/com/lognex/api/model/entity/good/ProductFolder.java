@@ -1,6 +1,7 @@
 package com.lognex.api.model.entity.good;
 
-import com.lognex.api.model.base.AbstractEntityInfoable;
+import com.lognex.api.model.base.AbstractEntityLegendable;
+import com.lognex.api.util.ID;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,11 +9,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProductFolder extends AbstractEntityInfoable {
+public class ProductFolder extends AbstractEntityLegendable {
 
-    private boolean archived;
-    private String pathName;
-    private double vat;
-    private double effectiveVat;
-    private ProductFolder productFolder;
+    protected boolean archived;
+    protected String pathName;
+    protected double vat;
+    protected double effectiveVat;
+    protected ProductFolder productFolder;
+
+    public ProductFolder(ID id) {
+        setId(id);
+    }
 }

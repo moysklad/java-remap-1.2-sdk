@@ -1,7 +1,6 @@
 package com.lognex.api.converter.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.lognex.api.converter.ConverterFactory;
 import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.model.base.AbstractEntityWithOwner;
 import com.lognex.api.model.entity.Employee;
@@ -11,7 +10,8 @@ import com.lognex.api.util.MetaHrefUtils;
 import java.io.IOException;
 
 public abstract class AbstractEntityWithOwnerConverter<T extends AbstractEntityWithOwner> extends AbstractEntityConverter<T> {
-    protected void convertToEntity(final AbstractEntityWithOwner entity, JsonNode node) {
+    @Override
+    protected void convertToEntity(final T entity, JsonNode node) {
         super.convertToEntity(entity, node);
         /*TODO добавить поддержку expand*/
         entity.setOwner(node.get("owner") == null ? null : new Employee(MetaHrefUtils.getId(node.get("owner").get("meta").get("href").asText())));

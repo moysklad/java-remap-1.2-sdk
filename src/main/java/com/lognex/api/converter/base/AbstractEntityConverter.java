@@ -45,9 +45,10 @@ public abstract class AbstractEntityConverter<T extends AbstractEntity> implemen
         }
     }
 
-    protected void convertToEntity(final AbstractEntity entity, JsonNode node) {
-        entity.setId(new ID(ConverterUtil.getString(node, "id")));
-        entity.setAccountId(new ID(ConverterUtil.getString(node, "accountId")));
+    protected void convertToEntity(final T entity, JsonNode node) {
+        ID id = ConverterUtil.getId(node, "id");
+        entity.setId(id == null ? ConverterUtil.getIdFromMetaHref(node) : id);
+        entity.setAccountId(ConverterUtil.getId(node, "accountId"));
     }
 
     protected abstract T convertFromJson(JsonNode node) throws ConverterException;
@@ -78,11 +79,12 @@ public abstract class AbstractEntityConverter<T extends AbstractEntity> implemen
     }
 
     void convertMetaField(CustomJsonGenerator jgen, String name, AbstractEntity fieldValue) throws IOException {
-        jgen.writeObjectFieldStart(name);
-        Type type = Type.find(fieldValue.getClass());
-        jgen.writeObjectField("meta", new Meta<>(type, fieldValue));
-        jgen.writeEndObject();
+        if (fieldValue != null) {
+            jgen.writeObjectFieldStart(name);
+            Type type = Type.find(fieldValue.getClass());
+            jgen.writeObjectField("meta", new Meta<>(type, fieldValue));
+            jgen.writeEndObject();
+        }
     }
-
 
 }

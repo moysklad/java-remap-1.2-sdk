@@ -52,7 +52,7 @@ public abstract class MSRequest {
             HttpUriRequest request = buildRequest();
             headers.forEach(request::addHeader);
             CloseableHttpResponse response = httpclient.execute(request);
-            return ResponseParser.parse(response);
+            return ResponseParser.parse(response, this);
         } catch (IOException e) {
             log.error("Error: ", e);
             throw new RuntimeException(e);

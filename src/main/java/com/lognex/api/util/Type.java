@@ -1,8 +1,14 @@
 package com.lognex.api.util;
 
 import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.document.Demand;
+import com.lognex.api.model.document.FactureOut;
 import com.lognex.api.model.document.PaymentIn;
 import com.lognex.api.model.entity.*;
+import com.lognex.api.model.entity.good.Bundle;
+import com.lognex.api.model.entity.good.Product;
+import com.lognex.api.model.entity.good.Service;
+import com.lognex.api.model.entity.good.Variant;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -19,6 +25,11 @@ public enum Type {
     BUNDLE("bundle", Bundle.class),
     VARIANT("variant", Variant.class),
     STORE("store", Store.class),
+    CURRENCY("currency", Currency.class),
+    DEMAND("demand", Demand.class),
+    ORGANIZATION("organization", Organization.class),
+    FACTURE_OUT("factureout", FactureOut.class),
+    GROUP("group", Group.class)
     ;
 
 

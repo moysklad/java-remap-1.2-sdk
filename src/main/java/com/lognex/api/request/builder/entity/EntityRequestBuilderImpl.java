@@ -6,6 +6,7 @@ import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.request.MSCreateRequest;
 import com.lognex.api.request.MSMetadataRequest;
 import com.lognex.api.request.MSReadListRequest;
+import com.lognex.api.request.MSTemplateRequest;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.Type;
 
@@ -30,6 +31,11 @@ public class EntityRequestBuilderImpl extends BaseEntityRequestBuilder implement
     @Override
     public MSReadListRequest list() {
         return new MSReadListRequest(url.toString(), client, type);
+    }
+
+    @Override
+    public MSTemplateRequest template(AbstractEntity entity) {
+        return new MSTemplateRequest(url.append("/").append("new").toString(), client, entity);
     }
 
     @Override

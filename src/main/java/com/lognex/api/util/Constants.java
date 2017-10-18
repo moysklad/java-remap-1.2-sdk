@@ -8,7 +8,7 @@ import static lombok.AccessLevel.PRIVATE;
 public final class Constants {
     public static final String DEFAULT_HOST_URL = "https://online.moysklad.ru";
 
-    public static final String APPLICATION_JSON = "application/json;charset=utf-8";
+    public static final String APPLICATION_JSON_UTF8 = "application/json;charset=utf-8";
 
 
     public static final String ENTITY_PATH = "entity";

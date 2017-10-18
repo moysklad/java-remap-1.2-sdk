@@ -13,7 +13,7 @@ import java.util.Map;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Variant extends AbstractEntityLegendable {
+public class Variant extends AbstractEntityLegendable implements Assortment {
     private boolean archived;
     private Map<String, String> characteristics = new HashMap<>();//todo
     private double minPrice;
