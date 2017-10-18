@@ -1,4 +1,4 @@
-package com.lognex.api.model.entity.item;
+package com.lognex.api.model.base.field;
 
 public enum EntityAction {
     CREATE,

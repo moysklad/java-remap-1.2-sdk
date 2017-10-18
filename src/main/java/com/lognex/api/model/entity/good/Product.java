@@ -3,7 +3,6 @@ package com.lognex.api.model.entity.good;
 import com.lognex.api.model.entity.Agent;
 import com.lognex.api.model.entity.Barcode;
 import com.lognex.api.model.entity.Country;
-import com.lognex.api.model.entity.Price;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +15,7 @@ import java.util.List;
 public class Product extends AbstractGood {
 
     private ProductImage image;
-    private Price buyPrice; //todo double?
+    private double buyPrice;
     private Agent supplier;
     private Country country;
     private String article;

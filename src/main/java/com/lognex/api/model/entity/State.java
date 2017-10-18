@@ -1,6 +1,6 @@
 package com.lognex.api.model.entity;
 
-import com.lognex.api.model.entity.item.StateType;
+import com.lognex.api.model.base.field.StateType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

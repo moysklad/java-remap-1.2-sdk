@@ -1,7 +1,8 @@
-package com.lognex.api.model.entity;
+package com.lognex.api.model.document;
 
-import com.lognex.api.model.base.AbstractEntityLegendable;
+import com.lognex.api.model.base.AbstractOperationWithPositions;
 import com.lognex.api.model.base.IEntityWithAttributes;
+import com.lognex.api.model.entity.Store;
 import com.lognex.api.model.entity.attribute.Attribute;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +14,10 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Project extends AbstractEntityLegendable implements IEntityWithAttributes {
-    private boolean archived;
+public class Inventory extends AbstractOperationWithPositions implements IEntityWithAttributes {
+    private Store store;
     private Set<Attribute<?>> attributes = new HashSet<>();
+    private String documents;
 
     @Override
     public Attribute<?> getAttribute(String attributeId) {

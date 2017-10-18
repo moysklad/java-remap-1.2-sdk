@@ -1,21 +1,28 @@
-package com.lognex.api.model.entity;
+package com.lognex.api.model.document;
 
-import com.lognex.api.model.base.AbstractEntityLegendable;
+import com.lognex.api.model.base.AbstractFinance;
+import com.lognex.api.model.base.AbstractOperation;
 import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.attribute.Attribute;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class Project extends AbstractEntityLegendable implements IEntityWithAttributes {
-    private boolean archived;
+public class FactureIn extends AbstractOperation implements IEntityWithAttributes {
+
     private Set<Attribute<?>> attributes = new HashSet<>();
+    private String documents;
+
+    private List<Supply> supplies = new ArrayList<>();
+    private List<AbstractFinance> payments = new ArrayList<>();
+
+    private String incomingNumber;
+    private Date incomingDate;
 
     @Override
     public Attribute<?> getAttribute(String attributeId) {

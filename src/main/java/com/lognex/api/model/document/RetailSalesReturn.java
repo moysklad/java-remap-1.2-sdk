@@ -1,9 +1,10 @@
-package com.lognex.api.model.entity;
+package com.lognex.api.model.document;
 
-import com.lognex.api.model.base.AbstractEntityLegendable;
+import com.lognex.api.model.base.AbstractOperationWithPositions;
 import com.lognex.api.model.base.IEntityWithAttributes;
-import com.lognex.api.model.base.field.ContractType;
-import com.lognex.api.model.base.field.RewardType;
+import com.lognex.api.model.entity.AgentAccount;
+import com.lognex.api.model.entity.RetailStore;
+import com.lognex.api.model.entity.Store;
 import com.lognex.api.model.entity.attribute.Attribute;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,19 +16,16 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Contract extends AbstractEntityLegendable implements IEntityWithAttributes {
+public class RetailSalesReturn extends AbstractOperationWithPositions implements IEntityWithAttributes {
 
-    private boolean archived;
-    private ContractType contractType;
-    private RewardType rewardType;
-    private double rewardPercent;
-    private Agent ownAgent;
-    private Agent agent;
-    private State state;
+    private Store store;
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
-    private Currency rate;
     private Set<Attribute<?>> attributes = new HashSet<>();
+    private String documents;
+    private Demand demand;
+    private RetailStore retailStore;
+    private RetailShift retailShift;
 
     @Override
     public Attribute<?> getAttribute(String attributeId) {
