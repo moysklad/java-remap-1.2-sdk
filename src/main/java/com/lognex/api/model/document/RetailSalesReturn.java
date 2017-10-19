@@ -26,10 +26,4 @@ public class RetailSalesReturn extends AbstractOperationWithPositions implements
     private Demand demand;
     private RetailStore retailStore;
     private RetailShift retailShift;
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

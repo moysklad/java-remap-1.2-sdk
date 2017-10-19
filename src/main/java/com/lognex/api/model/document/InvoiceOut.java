@@ -29,10 +29,4 @@ public class InvoiceOut extends AbstractOperationWithPositions implements IEntit
     private CustomerOrder customerOrder;
     private List<AbstractOperation> operations = new ArrayList<>();
     private List<Demand> demands = new ArrayList<>();
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

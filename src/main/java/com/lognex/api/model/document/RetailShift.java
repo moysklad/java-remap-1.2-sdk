@@ -29,10 +29,4 @@ public class RetailShift extends AbstractOperation implements IEntityWithAttribu
     private RetailStore retailStore;
     private List<AbstractOperation> operations = new ArrayList<>();
     private List<AbstractFinance> paymentOperations = new ArrayList<>();
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

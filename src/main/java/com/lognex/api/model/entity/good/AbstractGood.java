@@ -27,10 +27,4 @@ public abstract class AbstractGood extends AbstractEntityLegendable implements I
     private double minPrice;
     private List<Price> salePrices;
     private Set<Attribute<?>> attributes = new HashSet<>();
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

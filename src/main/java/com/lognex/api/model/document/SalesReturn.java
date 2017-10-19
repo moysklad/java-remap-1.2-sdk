@@ -28,10 +28,4 @@ public class SalesReturn extends ComingOutOperation implements IEntityWithAttrib
     private List<Loss> losses = new ArrayList<>();
     private List<AbstractOperation> payments = new ArrayList<>();
     private double payedSum;
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

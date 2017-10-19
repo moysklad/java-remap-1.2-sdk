@@ -30,10 +30,4 @@ public class Processing extends AbstractOperation implements IEntityWithAttribut
     private Store materialsStore;
     private ProcessingPlan processingPlan;
     private ProcessingOrder processingOrder;
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

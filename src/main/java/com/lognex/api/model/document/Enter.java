@@ -19,10 +19,4 @@ public class Enter extends ComingOutOperation implements IEntityWithAttributes {
     private Set<Attribute<?>> attributes = new HashSet<>();
     private String documents;
     private OverheadWithDistribution overhead;
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

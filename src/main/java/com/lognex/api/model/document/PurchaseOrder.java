@@ -31,10 +31,4 @@ public class PurchaseOrder extends AbstractOperationWithPositions implements IEn
     private List<AbstractFinance> payments = new ArrayList<>();
     private List<Supply> supplies = new ArrayList<>();
     private InternalOrder internalOrder;
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

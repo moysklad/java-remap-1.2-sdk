@@ -20,10 +20,4 @@ public class PaymentIn extends AbstractFinanceIn implements IEntityWithAttribute
     private Agent agent;
     private AgentAccount agentAccount;
     private Set<Attribute<?>> attributes = new HashSet<>();
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

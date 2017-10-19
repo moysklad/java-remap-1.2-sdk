@@ -28,10 +28,4 @@ public class Contract extends AbstractEntityLegendable implements IEntityWithAtt
     private AgentAccount agentAccount;
     private Currency rate;
     private Set<Attribute<?>> attributes = new HashSet<>();
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

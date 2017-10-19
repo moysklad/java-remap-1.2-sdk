@@ -28,10 +28,4 @@ public class PurchaseReturn extends AbstractOperationWithPositions implements IE
     private FactureOut factureOut;
     private double payedSum;
     private List<AbstractOperation> payments = new ArrayList<>();
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

@@ -19,10 +19,4 @@ public class RetailDrawerCashIn extends AbstractOperation implements IEntityWith
     private String documents;
 
     private RetailShift retailShift;
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

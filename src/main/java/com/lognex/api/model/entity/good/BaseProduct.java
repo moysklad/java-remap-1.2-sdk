@@ -23,9 +23,5 @@ public abstract class BaseProduct extends ProductFolder implements IEntityWithAt
         setId(id);
     }
 
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
+
 }

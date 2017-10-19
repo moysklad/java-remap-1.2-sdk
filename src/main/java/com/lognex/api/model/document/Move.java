@@ -23,10 +23,4 @@ public class Move extends AbstractOperationWithPositions implements IEntityWithA
     private Store sourceStore;
     private Store targetStore;
     private InternalOrder internalOrder;
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

@@ -30,10 +30,4 @@ public class CustomerOrder extends ComingOutOperation implements IEntityWithAttr
     private List<Demand> demands = new ArrayList<>();
     private List<AbstractFinance> payments = new ArrayList<>();
     private List<InvoiceOut> invoicesOut = new ArrayList<>();
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

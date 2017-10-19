@@ -28,10 +28,4 @@ public class Employee extends Agent implements IEntityWithAttributes {
     public Employee(ID id) {
         setId(id);
     }
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

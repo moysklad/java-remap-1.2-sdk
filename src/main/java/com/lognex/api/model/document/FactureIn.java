@@ -23,10 +23,4 @@ public class FactureIn extends AbstractOperation implements IEntityWithAttribute
 
     private String incomingNumber;
     private Date incomingDate;
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

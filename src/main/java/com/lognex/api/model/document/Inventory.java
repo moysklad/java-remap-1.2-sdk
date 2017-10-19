@@ -18,10 +18,4 @@ public class Inventory extends AbstractOperationWithPositions implements IEntity
     private Store store;
     private Set<Attribute<?>> attributes = new HashSet<>();
     private String documents;
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

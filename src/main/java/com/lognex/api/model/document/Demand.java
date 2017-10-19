@@ -21,10 +21,4 @@ public class Demand extends ComingOutOperation<ShipmentOutPosition> implements I
     private AgentAccount agentAccount;
     private Set<Attribute<?>> attributes = new HashSet<>();
     private String documents;
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

@@ -34,10 +34,4 @@ public class RetailDemand extends AbstractOperationWithPositions implements IEnt
     private RetailShift retailShift;
     private double cashSum;
     private double noCashSum;
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

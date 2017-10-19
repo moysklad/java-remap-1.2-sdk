@@ -21,11 +21,5 @@ public class PriceList extends AbstractOperation implements IEntityWithAttribute
     private List<PriceListColumn> columns = new ArrayList<>();
     private Set<Attribute<?>> attributes = new HashSet<>();
     private String documents;
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }
 

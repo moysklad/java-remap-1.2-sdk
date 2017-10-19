@@ -25,10 +25,4 @@ public class ProcessingOrder extends AbstractOperationWithPositions implements I
     private double quantity;
 
     private List<Processing> processings = new ArrayList<>();
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

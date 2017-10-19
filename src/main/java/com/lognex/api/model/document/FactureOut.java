@@ -27,10 +27,4 @@ public class FactureOut extends AbstractOperation implements IEntityWithAttribut
     private Agent consignee;
     private String paymentNumber;
     private Date paymentDate;
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

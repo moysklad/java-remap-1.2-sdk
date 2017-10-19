@@ -19,10 +19,4 @@ public class Loss extends ComingOutOperation implements IEntityWithAttributes {
     private String documents;
 
     private SalesReturn salesReturn;
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

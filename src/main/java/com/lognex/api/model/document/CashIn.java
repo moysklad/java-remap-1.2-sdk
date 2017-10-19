@@ -24,10 +24,4 @@ public class CashIn extends AbstractFinance implements IEntityWithAttributes {
 
     private FactureOut factureOut;
     private List<AbstractOperation> operations = new ArrayList<>();
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

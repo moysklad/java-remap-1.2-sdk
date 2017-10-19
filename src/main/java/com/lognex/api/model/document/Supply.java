@@ -33,10 +33,4 @@ public class Supply extends ComingOutOperation implements IEntityWithAttributes 
     private InvoiceIn invoicesIn;
     private List<AbstractFinance> payments = new ArrayList<>();
     private List<AbstractOperation> returns = new ArrayList<>();
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

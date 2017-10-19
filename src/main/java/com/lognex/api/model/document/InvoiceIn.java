@@ -32,10 +32,4 @@ public class InvoiceIn extends AbstractOperationWithPositions implements IEntity
     private PurchaseOrder purchaseOrder;
     private List<AbstractOperation> operations;
     private List<Supply> supplies;
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

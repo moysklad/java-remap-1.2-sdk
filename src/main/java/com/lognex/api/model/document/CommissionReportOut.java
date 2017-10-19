@@ -32,10 +32,4 @@ public class CommissionReportOut extends AbstractOperationWithPositions implemen
     private double commitentSum;
 
     private List<AbstractFinance> payments = new ArrayList<>();
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

@@ -19,10 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class EntityTest {
 
@@ -206,8 +203,8 @@ public class EntityTest {
         assertEquals(response.getStatus(), 200);
         list = (List<Counterparty>) response.getEntities();
         list.forEach(c -> {
-            assertNotNull(c.getAttribute(counterpartyAttribute.getId()));
-            Counterparty cpAttr = (Counterparty) c.getAttribute(counterpartyAttribute.getId()).getValue().getValue();
+            assertTrue(c.getAttribute(counterpartyAttribute.getId()).isPresent());
+            Counterparty cpAttr = (Counterparty) c.getAttribute(counterpartyAttribute.getId()).get().getValue().getValue();
             assertEquals(cpAttr.getId().getValue(), counterpartyAttribute.getValue().getValue().getId().getValue());
         });
 
@@ -216,7 +213,7 @@ public class EntityTest {
     private void checkAttributesEquality(IEntityWithAttributes actual, IEntityWithAttributes expected) {
         assertEquals(actual.getAttributes().size(), expected.getAttributes().size());
         for (Attribute<?> attribute : actual.getAttributes()) {
-            Attribute<?> attr2 = expected.getAttribute(attribute.getId());
+            Attribute<?> attr2 = expected.getAttribute(attribute.getId()).get();
             assertTrue(attr2 != null);
             assertEquals(attr2.getType(), attribute.getType());
             if (attribute.getValue().getValue() instanceof AbstractEntity) {

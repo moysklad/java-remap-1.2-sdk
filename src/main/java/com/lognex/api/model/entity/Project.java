@@ -16,10 +16,4 @@ import java.util.Set;
 public class Project extends AbstractEntityLegendable implements IEntityWithAttributes {
     private boolean archived;
     private Set<Attribute<?>> attributes = new HashSet<>();
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }

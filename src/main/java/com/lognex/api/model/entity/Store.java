@@ -20,10 +20,4 @@ public class Store extends AbstractEntityLegendable implements IEntityWithAttrib
     private Store parent;
     private String pathName;
     private Set<Attribute<?>> attributes = new HashSet<>();
-
-    @Override
-    public Attribute<?> getAttribute(String attributeId) {
-        return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
-    }
 }
