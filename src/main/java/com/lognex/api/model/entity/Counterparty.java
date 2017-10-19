@@ -40,7 +40,7 @@ public class Counterparty extends Agent implements IEntityWithAttributes {
     @Override
     public Attribute<?> getAttribute(String attributeId) {
         return attributes.stream().filter(a -> a.getId().equals(attributeId))
-                .findFirst().orElseGet(null);
+                .findFirst().orElse(null);
     }
 
 }
