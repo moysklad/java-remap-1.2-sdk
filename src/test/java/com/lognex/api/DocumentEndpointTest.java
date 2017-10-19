@@ -9,7 +9,7 @@ import com.lognex.api.model.document.FactureOut;
 import com.lognex.api.model.document.PaymentIn;
 import com.lognex.api.model.entity.Counterparty;
 import com.lognex.api.model.entity.Organization;
-import com.lognex.api.model.entity.Service;
+import com.lognex.api.model.entity.good.Service;
 import com.lognex.api.model.entity.Store;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.util.ID;

@@ -21,7 +21,7 @@ import com.lognex.api.model.entity.AgentAccount;
 import com.lognex.api.model.entity.Counterparty;
 import com.lognex.api.model.entity.Currency;
 import com.lognex.api.model.entity.Organization;
-import com.lognex.api.model.entity.Service;
+import com.lognex.api.model.entity.good.Service;
 import com.lognex.api.model.entity.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
