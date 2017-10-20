@@ -10,6 +10,7 @@ import com.lognex.api.model.entity.attribute.Attribute;
 import com.lognex.api.model.entity.attribute.AttributeType;
 import com.lognex.api.model.entity.attribute.AttributeValue;
 import com.lognex.api.request.filter.FilterOperator;
+import com.lognex.api.request.sort.Sort;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.Type;
@@ -18,6 +19,7 @@ import org.junit.Test;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -114,6 +116,62 @@ public class EntityTest {
         assertTrue(agentAccount1.isDefault());
         assertEquals(counterparty.getTags().size(), result.getTags().size());
         assertEquals(counterparty.getTags().get(0), result.getTags().get(0));
+    }
+
+    @Test
+    public void testCounterpartySorted() throws Exception {
+        String demoName = "a" + UUID.randomUUID().toString();
+        Counterparty demo1 = new Counterparty();
+        demo1.setName(demoName);
+        ApiResponse response = api.entity(Type.COUNTERPARTY).create(demo1).execute();
+        assertEquals(200, response.getStatus());
+
+
+        String demo2Name = "b" + UUID.randomUUID().toString();
+        Counterparty demo2 = new Counterparty();
+        demo2.setName(demo2Name);
+        response = api.entity(Type.COUNTERPARTY).create(demo2).execute();
+        assertEquals(200, response.getStatus());
+
+
+        response = api
+                .entity(Type.COUNTERPARTY)
+                .list()
+                // start filter
+                .buildFilter()
+                .filter("name", FilterOperator.EQUALS, demoName)
+                .filter("name", FilterOperator.EQUALS, demo2Name)
+                .build()
+                // end filter
+                .sorts(new Sort("name", Sort.Direction.DESC))
+                .limit(5)
+                .execute();
+
+        assertEquals(200, response.getStatus());
+        List<Counterparty> counterparties = (List<Counterparty>) response.getEntities();
+        assertEquals(2, counterparties.size());
+        assertEquals(demo2Name, counterparties.get(0).getName());
+        assertEquals(demoName, counterparties.get(1).getName());
+
+        response = api
+                .entity(Type.COUNTERPARTY)
+                .list()
+                // start filter
+                .buildFilter()
+                .filter("name", FilterOperator.EQUALS, demoName)
+                .filter("name", FilterOperator.EQUALS, demo2Name)
+                .build()
+                // end filter
+                .sorts(new Sort("name", Sort.Direction.ASC))
+                .limit(5)
+                .execute();
+
+
+        assertEquals(200, response.getStatus());
+        counterparties = (List<Counterparty>) response.getEntities();
+        assertEquals(2, counterparties.size());
+        assertEquals(demoName, counterparties.get(0).getName());
+        assertEquals(demo2Name, counterparties.get(1).getName());
     }
 
     @Test
