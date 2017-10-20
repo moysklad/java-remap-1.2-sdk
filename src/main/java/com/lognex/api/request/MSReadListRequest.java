@@ -20,7 +20,7 @@ public class MSReadListRequest extends MSRequest {
     private Optional<Integer> limit = Optional.empty();
     private Optional<Integer> offset = Optional.empty();
     private Set<Filter> filters = new HashSet<>();
-    private List<Sort> sorts = new ArrayList<>(0);
+    private List<Sort> sorts = Collections.emptyList();
 
     public MSReadListRequest(String url, ApiClient client, Type type) {
         super(url, client);
