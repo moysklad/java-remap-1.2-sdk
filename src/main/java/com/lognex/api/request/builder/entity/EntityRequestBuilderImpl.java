@@ -29,6 +29,11 @@ public class EntityRequestBuilderImpl extends BaseEntityRequestBuilder implement
     }
 
     @Override
+    public SingleEntityRequestBuilder syncId(ID syncId) {
+        return new SingleEntityRequestBuilderImpl(client, baseUrl, type, syncId, true);
+    }
+
+    @Override
     public MSReadListRequest list() {
         return new MSReadListRequest(url.toString(), client, type);
     }

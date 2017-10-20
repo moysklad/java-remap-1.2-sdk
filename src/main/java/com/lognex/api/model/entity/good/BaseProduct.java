@@ -15,6 +15,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public abstract class BaseProduct extends ProductFolder implements IEntityWithAttributes, Assortment {
+    private ID syncId;
     private double minPrice;
     private Set<Price> salePrices = new HashSet<>();
     private Set<Attribute<?>> attributes = new HashSet<>();

@@ -11,8 +11,16 @@ import com.lognex.api.util.Type;
 public class SingleEntityRequestBuilderImpl extends BaseEntityRequestBuilder implements SingleEntityRequestBuilder {
 
     SingleEntityRequestBuilderImpl(ApiClient client, String baseUrl, Type type, ID id){
+        this(client, baseUrl, type, id, false);
+    }
+
+    SingleEntityRequestBuilderImpl(ApiClient client, String baseUrl, Type type, ID id, boolean isSyncId){
         super(client, baseUrl);
-        url.append("/").append(type.getApiName()).append("/").append(id.getValue());
+        url.append("/").append(type.getApiName()).append("/");
+        if (isSyncId) {
+            url.append("syncid").append('/');
+        }
+        url.append(id.getValue());
     }
 
     @Override
