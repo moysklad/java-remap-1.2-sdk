@@ -5,15 +5,14 @@ import com.lognex.api.model.base.AbstractEntity;
 import com.lognex.api.model.entity.attribute.Attribute;
 import com.lognex.api.model.entity.attribute.AttributeValue;
 import com.lognex.api.request.filter.*;
+import com.lognex.api.request.sort.Sort;
 import com.lognex.api.util.Type;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MSReadListRequest extends MSRequest {
 
@@ -21,6 +20,7 @@ public class MSReadListRequest extends MSRequest {
     private Optional<Integer> limit = Optional.empty();
     private Optional<Integer> offset = Optional.empty();
     private Set<Filter> filters = new HashSet<>();
+    private List<Sort> sorts = Collections.emptyList();
 
     public MSReadListRequest(String url, ApiClient client, Type type) {
         super(url, client);
@@ -42,6 +42,11 @@ public class MSReadListRequest extends MSRequest {
         return this;
     }
 
+    public MSReadListRequest sorts(Sort... sorts) {
+        this.sorts = Stream.of(sorts).collect(Collectors.toList());
+        return this;
+    }
+
     public FiltersBuilder buildFilter(){
         return new FiltersBuilder(type);
     }
@@ -53,6 +58,9 @@ public class MSReadListRequest extends MSRequest {
         offset.ifPresent(integer -> appendParam(urldBuilder, "offset", integer));
         if (filters.size() > 0){
             appendParam(urldBuilder, "filter", filters.stream().map(Filter::toFilterString).collect(Collectors.joining(";")));
+        }
+        if (!sorts.isEmpty()) {
+            appendParam(urldBuilder, "order", sorts.stream().map(Sort::toSortString).collect(Collectors.joining(";")));
         }
         addExpandParameter(urldBuilder);
         return new HttpGet(urldBuilder.toString());
