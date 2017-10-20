@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class AbstractEntityWithOwner extends AbstractEntity{
+public abstract class EntityWithOwner extends Entity {
     private Employee owner;
     private Group group;
     private boolean shared = true;

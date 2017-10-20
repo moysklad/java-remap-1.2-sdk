@@ -1,7 +1,7 @@
 package com.lognex.api.model.document;
 
-import com.lognex.api.model.base.AbstractFinance;
-import com.lognex.api.model.base.AbstractOperation;
+import com.lognex.api.model.base.FinanceIn;
+import com.lognex.api.model.base.Operation;
 import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.Agent;
 import com.lognex.api.model.entity.attribute.Attribute;
@@ -17,11 +17,11 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CashIn extends AbstractFinance implements IEntityWithAttributes {
+public class CashIn extends FinanceIn implements IEntityWithAttributes {
     private Agent agent;
     private Set<Attribute<?>> attributes = new HashSet<>();
     private String documents;
 
     private FactureOut factureOut;
-    private List<AbstractOperation> operations = new ArrayList<>();
+    private List<Operation> operations = new ArrayList<>();
 }

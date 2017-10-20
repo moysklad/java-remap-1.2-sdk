@@ -1,6 +1,6 @@
 package com.lognex.api.model.document;
 
-import com.lognex.api.model.base.AbstractOperation;
+import com.lognex.api.model.base.Operation;
 import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.AgentAccount;
 import com.lognex.api.model.entity.Store;
@@ -17,7 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Processing extends AbstractOperation implements IEntityWithAttributes {
+public class Processing extends Operation implements IEntityWithAttributes {
 
     private AgentAccount organizationAccount;
     private Set<Attribute<?>> attributes = new HashSet<>();

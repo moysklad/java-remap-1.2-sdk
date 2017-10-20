@@ -3,14 +3,14 @@ package com.lognex.api.converter.entity;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.lognex.api.converter.ConverterUtil;
-import com.lognex.api.converter.base.AbstractEntityLegendableConverter;
+import com.lognex.api.converter.base.EntityLegendableConverter;
 import com.lognex.api.converter.base.CustomJsonGenerator;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.entity.good.BaseProduct;
 
 import java.io.IOException;
 
-public abstract class BaseProductConverter<T extends BaseProduct> extends AbstractEntityLegendableConverter<T> {
+public abstract class BaseProductConverter<T extends BaseProduct> extends EntityLegendableConverter<T> {
 
     private PriceConverter priceConverter = new PriceConverter();
     private ProductFolderConverter productFolderConverter = new ProductFolderConverter();

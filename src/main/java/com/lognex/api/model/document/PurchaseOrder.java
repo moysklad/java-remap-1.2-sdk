@@ -1,7 +1,7 @@
 package com.lognex.api.model.document;
 
-import com.lognex.api.model.base.AbstractFinance;
-import com.lognex.api.model.base.AbstractOperationWithPositions;
+import com.lognex.api.model.base.Finance;
+import com.lognex.api.model.base.OperationWithPositions;
 import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.AgentAccount;
 import com.lognex.api.model.entity.attribute.Attribute;
@@ -14,7 +14,7 @@ import java.util.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PurchaseOrder extends AbstractOperationWithPositions implements IEntityWithAttributes {
+public class PurchaseOrder extends OperationWithPositions implements IEntityWithAttributes {
 
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
@@ -28,7 +28,7 @@ public class PurchaseOrder extends AbstractOperationWithPositions implements IEn
 
     private List<CustomerOrder> customerOrders = new ArrayList<>();
     private List<InvoiceIn> invoicesIn = new ArrayList<>();
-    private List<AbstractFinance> payments = new ArrayList<>();
+    private List<Finance> payments = new ArrayList<>();
     private List<Supply> supplies = new ArrayList<>();
     private InternalOrder internalOrder;
 }

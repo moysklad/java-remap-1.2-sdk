@@ -1,6 +1,6 @@
 package com.lognex.api.model.document;
 
-import com.lognex.api.model.base.AbstractOperation;
+import com.lognex.api.model.base.Operation;
 import com.lognex.api.model.base.ComingOutOperation;
 import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.AgentAccount;
@@ -26,6 +26,6 @@ public class SalesReturn extends ComingOutOperation implements IEntityWithAttrib
 
     private Demand demand;
     private List<Loss> losses = new ArrayList<>();
-    private List<AbstractOperation> payments = new ArrayList<>();
+    private List<Operation> payments = new ArrayList<>();
     private double payedSum;
 }

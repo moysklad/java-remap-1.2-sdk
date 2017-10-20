@@ -9,6 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AccumulationDiscount extends AbstractDiscount {
+public class AccumulationDiscount extends Discount {
     private List<DiscountLevel> levels;
 }

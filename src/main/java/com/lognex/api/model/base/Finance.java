@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public abstract class AbstractFinance extends AbstractOperation {
+public abstract class Finance extends Operation {
     private String paymentPurpose;
     private Double vatSum;
     private ExpenseItem expenseItem;

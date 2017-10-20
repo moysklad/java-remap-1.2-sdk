@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.lognex.api.converter.ConverterFactory;
 import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.exception.ConverterException;
-import com.lognex.api.model.base.AbstractEntity;
-import com.lognex.api.model.base.AbstractOperationWithPositions;
+import com.lognex.api.model.base.Entity;
+import com.lognex.api.model.base.OperationWithPositions;
 import com.lognex.api.model.base.Position;
 import com.lognex.api.model.base.field.CollectionMeta;
 import com.lognex.api.model.base.field.EmbeddedCollectionRef;
@@ -14,10 +14,10 @@ import com.lognex.api.model.base.field.EmbeddedCollectionRef;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AbstractOperationWithPositionsConverter <T extends AbstractOperationWithPositions, P extends Position> extends AbstractOperationConverter<T> {
+public abstract class OperationWithPositionsConverter<T extends OperationWithPositions, P extends Position> extends OperationConverter<T> {
     private Class<P> positionType;
 
-    AbstractOperationWithPositionsConverter(Class<P> positionType) {
+    OperationWithPositionsConverter(Class<P> positionType) {
         this.positionType = positionType;
     }
 
@@ -43,7 +43,7 @@ public abstract class AbstractOperationWithPositionsConverter <T extends Abstrac
             jgen.writeArrayFieldStart("positions");
             for (Position p : (List<Position>)entity.getPositions()){
                 jgen.writeStartObject();
-                convertMetaField(jgen, "assortment", (AbstractEntity) p.getAssortment());
+                convertMetaField(jgen, "assortment", (Entity) p.getAssortment());
                 jgen.writeNumberField("quantity", p.getQuantity());
                 jgen.writeNumberField("price", p.getPrice());
                 jgen.writeNumberField("vat", p.getVat());

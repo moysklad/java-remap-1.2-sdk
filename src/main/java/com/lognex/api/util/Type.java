@@ -1,6 +1,6 @@
 package com.lognex.api.util;
 
-import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.base.Entity;
 import com.lognex.api.model.document.Demand;
 import com.lognex.api.model.document.FactureOut;
 import com.lognex.api.model.document.PaymentIn;
@@ -34,16 +34,16 @@ public enum Type {
 
 
     @Getter
-    private final Class<? extends AbstractEntity> modelClass;
+    private final Class<? extends Entity> modelClass;
 
     private @Getter final String apiName;
 
-    Type(String apiName, Class<? extends AbstractEntity> clazz){
+    Type(String apiName, Class<? extends Entity> clazz){
         this.modelClass = clazz;
         this.apiName = apiName;
     }
 
-    public static Type find(Class<? extends AbstractEntity> clazz){
+    public static Type find(Class<? extends Entity> clazz){
         return Arrays.stream(values())
                         .filter(t -> t.modelClass.getSimpleName().equals(clazz.getSimpleName()))
                         .findFirst().orElseThrow(() -> new IllegalStateException("No type found for class: " + clazz.getSimpleName()));

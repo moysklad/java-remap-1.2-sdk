@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class SpecialPriceDiscount extends AbstractDiscount {
+public class SpecialPriceDiscount extends Discount {
     private String specialPrice; //Спец. цена (если выбран тип цен)
 
     private boolean usingPriceType;

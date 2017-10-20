@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class AbstractEntityLegendable extends AbstractEntityInfoable {
+public abstract class EntityLegendable extends EntityInfoable {
     private String name;
     private String description;
     private String code;

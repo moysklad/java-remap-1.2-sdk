@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class AbstractEntity {
+public abstract class Entity {
     private ID id;
     private ID accountId;
 }

@@ -1,6 +1,6 @@
 package com.lognex.api.model.entity;
 
-import com.lognex.api.model.base.AbstractEntityInfoable;
+import com.lognex.api.model.base.EntityInfoable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RetailStore extends AbstractEntityInfoable {
+public class RetailStore extends EntityInfoable {
     private boolean archived;
     private String address;
     private boolean controlShippingStock;

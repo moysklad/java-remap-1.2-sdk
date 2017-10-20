@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PersonalDiscount extends AbstractDiscount {
+public class PersonalDiscount extends Discount {
 }

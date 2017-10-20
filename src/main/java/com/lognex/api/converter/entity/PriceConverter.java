@@ -2,11 +2,11 @@ package com.lognex.api.converter.entity;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.lognex.api.converter.ConverterUtil;
-import com.lognex.api.converter.base.AbstractEntityConverter;
+import com.lognex.api.converter.base.EntityConverter;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.entity.Price;
 
-public class PriceConverter extends AbstractEntityConverter<Price> {
+public class PriceConverter extends EntityConverter<Price> {
 
     private CurrencyConverter currencyConverter = new CurrencyConverter();
 

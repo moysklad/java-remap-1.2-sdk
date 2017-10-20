@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Bundle extends AbstractGood {
+public class Bundle extends Good {
 
     private ProductImage image;
     private Country country;

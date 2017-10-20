@@ -1,6 +1,6 @@
 package com.lognex.api.model.entity.good;
 
-import com.lognex.api.model.base.AbstractEntityLegendable;
+import com.lognex.api.model.base.EntityLegendable;
 import com.lognex.api.model.entity.Price;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.Map;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Variant extends AbstractEntityLegendable implements Assortment {
+public class Variant extends EntityLegendable implements Assortment {
     private boolean archived;
     private Map<String, String> characteristics = new HashMap<>();//todo
     private double minPrice;

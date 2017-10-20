@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public abstract class AbstractEntityInfoable extends AbstractEntityWithOwner {
+public abstract class EntityInfoable extends EntityWithOwner {
     private long version;
     private Date updated;
     private Date created;

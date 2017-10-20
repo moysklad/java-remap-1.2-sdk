@@ -1,6 +1,6 @@
 package com.lognex.api.model.document;
 
-import com.lognex.api.model.base.AbstractFinance;
+import com.lognex.api.model.base.Finance;
 import com.lognex.api.model.base.ComingOutOperation;
 import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.AgentAccount;
@@ -28,6 +28,6 @@ public class CustomerOrder extends ComingOutOperation implements IEntityWithAttr
 
     private List<PurchaseOrder> purchaseOrders = new ArrayList<>();
     private List<Demand> demands = new ArrayList<>();
-    private List<AbstractFinance> payments = new ArrayList<>();
+    private List<Finance> payments = new ArrayList<>();
     private List<InvoiceOut> invoicesOut = new ArrayList<>();
 }

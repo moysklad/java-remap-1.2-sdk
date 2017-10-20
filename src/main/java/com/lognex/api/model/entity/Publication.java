@@ -9,6 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Publication {
 
-    private AbstractTemplate template;
+    private Template template;
     private String href;
 }

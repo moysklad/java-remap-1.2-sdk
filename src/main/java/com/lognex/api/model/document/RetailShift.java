@@ -1,7 +1,7 @@
 package com.lognex.api.model.document;
 
-import com.lognex.api.model.base.AbstractFinance;
-import com.lognex.api.model.base.AbstractOperation;
+import com.lognex.api.model.base.Finance;
+import com.lognex.api.model.base.Operation;
 import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.AgentAccount;
 import com.lognex.api.model.entity.RetailStore;
@@ -15,7 +15,7 @@ import java.util.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RetailShift extends AbstractOperation implements IEntityWithAttributes {
+public class RetailShift extends Operation implements IEntityWithAttributes {
 
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
@@ -27,6 +27,6 @@ public class RetailShift extends AbstractOperation implements IEntityWithAttribu
     private double receivedNoCash;
     private double receivedCash;
     private RetailStore retailStore;
-    private List<AbstractOperation> operations = new ArrayList<>();
-    private List<AbstractFinance> paymentOperations = new ArrayList<>();
+    private List<Operation> operations = new ArrayList<>();
+    private List<Finance> paymentOperations = new ArrayList<>();
 }

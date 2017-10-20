@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.lognex.api.converter.ConverterFactory;
 import com.lognex.api.converter.ConverterUtil;
-import com.lognex.api.converter.base.AbstractEntityConverter;
+import com.lognex.api.converter.base.EntityConverter;
 import com.lognex.api.converter.base.AttributesConverter;
 import com.lognex.api.converter.base.CustomJsonGenerator;
 import com.lognex.api.model.base.field.CompanyType;
@@ -82,7 +82,7 @@ public class CounterpartyConverter extends AgentConverter<Counterparty> {
         jgen.writeStringFieldIfNotEmpty("email", entity.getEmail());
 
         jgen.writeArrayFieldStart("accounts");
-        AbstractEntityConverter agentAccountConverter = (AbstractEntityConverter) ConverterFactory.getConverter(AgentAccount.class);
+        EntityConverter agentAccountConverter = (EntityConverter) ConverterFactory.getConverter(AgentAccount.class);
         for (AgentAccount agentAccount : entity.getAccounts()) {
             agentAccountConverter.toJson(jgen, agentAccount);
         }

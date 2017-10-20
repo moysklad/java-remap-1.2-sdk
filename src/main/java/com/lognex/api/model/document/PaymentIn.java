@@ -1,6 +1,6 @@
 package com.lognex.api.model.document;
 
-import com.lognex.api.model.base.AbstractFinanceIn;
+import com.lognex.api.model.base.FinanceIn;
 import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.*;
 import com.lognex.api.model.entity.attribute.Attribute;
@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class PaymentIn extends AbstractFinanceIn implements IEntityWithAttributes {
+public class PaymentIn extends FinanceIn implements IEntityWithAttributes {
     private Organization organization;//!!!
     private Contract contract;
     private State state;

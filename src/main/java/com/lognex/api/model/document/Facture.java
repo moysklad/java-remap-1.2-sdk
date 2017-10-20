@@ -1,8 +1,8 @@
 package com.lognex.api.model.document;
 
-import com.lognex.api.model.base.OperationWithPositions;
+import com.lognex.api.model.base.Finance;
+import com.lognex.api.model.base.Operation;
 import com.lognex.api.model.base.IEntityWithAttributes;
-import com.lognex.api.model.entity.Store;
 import com.lognex.api.model.entity.attribute.Attribute;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,12 +13,9 @@ import java.util.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class InternalOrder extends OperationWithPositions implements IEntityWithAttributes {
+public class Facture extends Operation implements IEntityWithAttributes {
 
-    private Store store;
     private Set<Attribute<?>> attributes = new HashSet<>();
     private String documents;
-    private Date deliveryPlannedMoment;
-    private List<PurchaseOrder> purchaseOrders = new ArrayList<>();
-    private List<Move> moves = new ArrayList<>();
+    private List<Finance> payments = new ArrayList<>();
 }

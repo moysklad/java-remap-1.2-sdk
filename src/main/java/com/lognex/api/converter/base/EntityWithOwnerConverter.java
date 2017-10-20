@@ -2,14 +2,14 @@ package com.lognex.api.converter.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.lognex.api.converter.ConverterUtil;
-import com.lognex.api.model.base.AbstractEntityWithOwner;
+import com.lognex.api.model.base.EntityWithOwner;
 import com.lognex.api.model.entity.Employee;
 import com.lognex.api.model.entity.Group;
 import com.lognex.api.util.MetaHrefUtils;
 
 import java.io.IOException;
 
-public abstract class AbstractEntityWithOwnerConverter<T extends AbstractEntityWithOwner> extends AbstractEntityConverter<T> {
+public abstract class EntityWithOwnerConverter<T extends EntityWithOwner> extends EntityConverter<T> {
     @Override
     protected void convertToEntity(final T entity, JsonNode node) {
         super.convertToEntity(entity, node);

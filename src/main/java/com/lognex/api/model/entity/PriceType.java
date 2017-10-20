@@ -1,7 +1,7 @@
 package com.lognex.api.model.entity;
 
-import com.lognex.api.model.base.AbstractEntityInfoable;
+import com.lognex.api.model.base.EntityInfoable;
 
-public class PriceType extends AbstractEntityInfoable {
+public class PriceType extends EntityInfoable {
     private String name;
 }

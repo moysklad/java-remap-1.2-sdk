@@ -3,10 +3,10 @@ package com.lognex.api.request;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lognex.api.ApiClient;
 import com.lognex.api.converter.ConverterFactory;
-import com.lognex.api.converter.base.AbstractEntityConverter;
+import com.lognex.api.converter.base.EntityConverter;
 import com.lognex.api.converter.base.CustomJgenFactory;
 import com.lognex.api.converter.base.CustomJsonGenerator;
-import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.base.Entity;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.client.methods.HttpPut;
@@ -19,9 +19,9 @@ public class MSTemplateRequest extends MSRequestWithBody {
 
 
     private ObjectMapper mapper = new ObjectMapper();
-    private final AbstractEntity entity;
+    private final Entity entity;
 
-    public <T extends AbstractEntity> MSTemplateRequest(String url, ApiClient client, T entity) {
+    public <T extends Entity> MSTemplateRequest(String url, ApiClient client, T entity) {
         super(url, client);
         this.entity = entity;
     }
@@ -38,8 +38,8 @@ public class MSTemplateRequest extends MSRequestWithBody {
             // important to output utf-8 character instead of '??????????'
             jsonGenerator = (CustomJsonGenerator) jsonGenerator.setHighestNonEscapedChar(127);
             if (entity != null) {
-                AbstractEntityConverter converter =
-                        (AbstractEntityConverter) ConverterFactory.getConverter(entity.getClass());
+                EntityConverter converter =
+                        (EntityConverter) ConverterFactory.getConverter(entity.getClass());
                 converter.toJson(jsonGenerator, entity);
                 jsonGenerator.flush();
             }

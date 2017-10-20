@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-public abstract class AbstractFinanceIn extends AbstractFinance {
+public abstract class FinanceIn extends Finance {
     private InvoiceOut invoiceOut;
     private CustomerOrder customerOrder;
     private Set<Demand> demands;

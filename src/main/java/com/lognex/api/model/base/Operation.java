@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public abstract class AbstractOperation extends AbstractEntityLegendable {
+public abstract class Operation extends EntityLegendable {
     private Date moment;
     private boolean applicable;
     private Double sum;

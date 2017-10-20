@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.model.base.Position;
 
-public abstract class PositionConverter<P extends Position> extends AbstractEntityConverter<P> {
+public abstract class PositionConverter<P extends Position> extends EntityConverter<P> {
 
     @Override
     protected void convertToEntity(final Position entity, JsonNode node) {

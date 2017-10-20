@@ -1,7 +1,7 @@
 package com.lognex.api.model.entity.discount;
 
-import com.lognex.api.model.base.AbstractEntity;
-import com.lognex.api.model.entity.good.AbstractGood;
+import com.lognex.api.model.base.Entity;
+import com.lognex.api.model.entity.good.Good;
 import com.lognex.api.model.entity.good.ProductFolder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AbstractDiscount extends AbstractEntity {
+public class Discount extends Entity {
 
     private String name;
     private boolean active;
@@ -20,6 +20,6 @@ public class AbstractDiscount extends AbstractEntity {
     private boolean allAgents;
     private List<String> agentTags;
     private List<ProductFolder> productfolders;
-    private List<AbstractGood> assortment;
+    private List<Good> assortment;
     private double discount;
 }

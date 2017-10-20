@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class Position extends AbstractEntity {
+public abstract class Position extends Entity {
     private int quantity;
     private long price;
     private double discount;

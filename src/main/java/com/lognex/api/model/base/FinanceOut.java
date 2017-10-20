@@ -5,5 +5,5 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AbstractFinanceOut extends AbstractFinance {
+public class FinanceOut extends Finance {
 }

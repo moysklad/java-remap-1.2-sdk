@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public abstract class AbstractOperationWithPositions <P extends Position> extends AbstractOperation implements IOperationWithPositions<P> {
+public abstract class OperationWithPositions<P extends Position> extends Operation implements IOperationWithPositions<P> {
 
     protected List<P> positions = new ArrayList<>();
     protected EmbeddedCollectionRef positionsRef;

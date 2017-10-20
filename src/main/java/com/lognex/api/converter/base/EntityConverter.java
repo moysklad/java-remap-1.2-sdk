@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.model.base.field.Meta;
 import com.lognex.api.exception.ConverterException;
-import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.base.Entity;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.StreamUtils;
 import com.lognex.api.util.Type;
@@ -18,7 +18,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static java.util.stream.Collectors.toList;
 
 @Slf4j
-public abstract class AbstractEntityConverter<T extends AbstractEntity> implements Converter<T> {
+public abstract class EntityConverter<T extends Entity> implements Converter<T> {
     private static final ObjectMapper om = new ObjectMapper();
 
     @Override
@@ -78,7 +78,7 @@ public abstract class AbstractEntityConverter<T extends AbstractEntity> implemen
         jgen.writeObjectField("meta", new Meta<>(type, entity));
     }
 
-    void convertMetaField(CustomJsonGenerator jgen, String name, AbstractEntity fieldValue) throws IOException {
+    void convertMetaField(CustomJsonGenerator jgen, String name, Entity fieldValue) throws IOException {
         if (fieldValue != null) {
             jgen.writeObjectFieldStart(name);
             Type type = Type.find(fieldValue.getClass());

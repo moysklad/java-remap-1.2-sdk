@@ -3,7 +3,7 @@ package com.lognex.api.converter.document;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.lognex.api.converter.base.AbstractOperationConverter;
+import com.lognex.api.converter.base.OperationConverter;
 import com.lognex.api.converter.base.CustomJsonGenerator;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.base.field.Meta;
@@ -15,7 +15,7 @@ import com.lognex.api.util.Type;
 
 import java.io.IOException;
 
-public class FactureOutConverter extends AbstractOperationConverter<FactureOut> {
+public class FactureOutConverter extends OperationConverter<FactureOut> {
 
     @Override
     protected FactureOut convertFromJson(JsonNode node) throws ConverterException {

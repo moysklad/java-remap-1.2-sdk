@@ -1,7 +1,7 @@
 package com.lognex.api.model.document;
 
-import com.lognex.api.model.base.AbstractOperation;
-import com.lognex.api.model.base.AbstractOperationWithPositions;
+import com.lognex.api.model.base.FinanceOut;
+import com.lognex.api.model.base.Operation;
 import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.Agent;
 import com.lognex.api.model.entity.AgentAccount;
@@ -19,7 +19,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PaymentOut extends AbstractOperationWithPositions implements IEntityWithAttributes {
+public class PaymentOut extends FinanceOut implements IEntityWithAttributes {
 
     private Store store;
     private Agent agent;
@@ -29,5 +29,5 @@ public class PaymentOut extends AbstractOperationWithPositions implements IEntit
     private String documents;
 
     private FactureIn factureIn;
-    private List<AbstractOperation> operations = new ArrayList<>();
+    private List<Operation> operations = new ArrayList<>();
 }

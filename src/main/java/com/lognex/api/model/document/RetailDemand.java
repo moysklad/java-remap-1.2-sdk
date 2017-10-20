@@ -1,6 +1,6 @@
 package com.lognex.api.model.document;
 
-import com.lognex.api.model.base.AbstractOperationWithPositions;
+import com.lognex.api.model.base.OperationWithPositions;
 import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.AgentAccount;
 import com.lognex.api.model.entity.RetailStore;
@@ -15,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RetailDemand extends AbstractOperationWithPositions implements IEntityWithAttributes {
+public class RetailDemand extends OperationWithPositions implements IEntityWithAttributes {
 
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;

@@ -1,5 +1,5 @@
 package com.lognex.api.model.entity;
 
 
-public class CustomTemplate extends AbstractTemplate {
+public class CustomTemplate extends Template {
 }

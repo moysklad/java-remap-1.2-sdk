@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Product extends AbstractGood {
+public class Product extends Good {
 
     private ProductImage image;
     private double buyPrice;

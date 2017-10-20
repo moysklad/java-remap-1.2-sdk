@@ -1,6 +1,6 @@
 package com.lognex.api.model.entity.good;
 
-import com.lognex.api.model.base.AbstractEntityLegendable;
+import com.lognex.api.model.base.EntityLegendable;
 import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.Price;
 import com.lognex.api.model.entity.Uom;
@@ -16,7 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class AbstractGood extends AbstractEntityLegendable implements IEntityWithAttributes {
+public abstract class Good extends EntityLegendable implements IEntityWithAttributes {
 
     private boolean archived;
     private String pathName;

@@ -6,14 +6,14 @@ import com.lognex.api.converter.entity.*;
 import com.lognex.api.converter.entity.CounterpartyConverter;
 import com.lognex.api.converter.entity.OrganizationConverter;
 import com.lognex.api.exception.ConverterException;
-import com.lognex.api.model.base.AbstractOperation;
+import com.lognex.api.model.base.Operation;
 import com.lognex.api.util.DateUtils;
 
 import java.io.IOException;
 import com.lognex.api.model.entity.*;
 
 
-public abstract class AbstractOperationConverter<T extends AbstractOperation> extends AbstractEntityLegendableConverter<T> {
+public abstract class OperationConverter<T extends Operation> extends EntityLegendableConverter<T> {
 
     private static final CurrencyConverter currencyConverter = new CurrencyConverter();
     private static final OrganizationConverter organizationConverter = new OrganizationConverter();

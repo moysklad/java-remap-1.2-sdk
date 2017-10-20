@@ -1,6 +1,6 @@
 package com.lognex.api.model.document;
 
-import com.lognex.api.model.base.AbstractEntityLegendable;
+import com.lognex.api.model.base.EntityLegendable;
 import com.lognex.api.model.entity.Group;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProcessingPlan extends AbstractEntityLegendable {
+public class ProcessingPlan extends EntityLegendable {
 
     private String pathName;
     private Group parent;

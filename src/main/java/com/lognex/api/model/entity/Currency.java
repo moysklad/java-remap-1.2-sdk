@@ -1,6 +1,6 @@
 package com.lognex.api.model.entity;
 
-import com.lognex.api.model.base.AbstractEntityLegendable;
+import com.lognex.api.model.base.EntityLegendable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Currency  extends AbstractEntityLegendable {
+public class Currency  extends EntityLegendable {
 
     private String fullName;
     private String isoCode;

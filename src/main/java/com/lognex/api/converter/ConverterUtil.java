@@ -3,7 +3,7 @@ package com.lognex.api.converter;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.lognex.api.converter.base.Converter;
-import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.base.Entity;
 import com.lognex.api.util.DateUtils;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.MetaHrefUtils;
@@ -79,12 +79,12 @@ public final class ConverterUtil {
         return !isEmpty(dateValue) ? DateUtils.parseDate(dateValue) : null;
     }
 
-    public static <T extends AbstractEntity> T getObject(JsonNode node, String fieldName, Converter<T> converter) {
+    public static <T extends Entity> T getObject(JsonNode node, String fieldName, Converter<T> converter) {
         Optional<JsonNode> element = getElement(node, fieldName);
         return element.map(jsonNode -> converter.convert(jsonNode.toString())).orElse(null);
     }
 
-    public static <T extends AbstractEntity> T getObject(JsonNode node, String fieldName, Converter<T> converter, T entity){
+    public static <T extends Entity> T getObject(JsonNode node, String fieldName, Converter<T> converter, T entity){
         Optional<JsonNode> element = getElement(node, fieldName);
         if (element.isPresent()) {
             JsonNode field = element.get();
@@ -99,7 +99,7 @@ public final class ConverterUtil {
         return null;
     }
 
-    public static <T extends AbstractEntity> T getObject(JsonNode node, String fieldName) {
+    public static <T extends Entity> T getObject(JsonNode node, String fieldName) {
         Optional<JsonNode> element = getElement(node, fieldName);
         if (element.isPresent()) {
             JsonNode typeElement = node.findValue(TYPE);
@@ -111,7 +111,7 @@ public final class ConverterUtil {
         return null;
     }
 
-    public static <T extends AbstractEntity> List<T> getList(JsonNode node, String fieldName, Converter<T> converter) {
+    public static <T extends Entity> List<T> getList(JsonNode node, String fieldName, Converter<T> converter) {
         List<T> result = new ArrayList<>();
         ArrayNode array = ConverterUtil.getArray(node, fieldName);
         if (array != null) {
@@ -122,7 +122,7 @@ public final class ConverterUtil {
         return result;
     }
 
-    public static <T extends AbstractEntity> List<T> getListFromExpand(JsonNode node, String fieldName, Converter<T> converter) {
+    public static <T extends Entity> List<T> getListFromExpand(JsonNode node, String fieldName, Converter<T> converter) {
         Optional<JsonNode> expandElement = getElement(node, fieldName);
         if (expandElement.isPresent()) {
             return getList(expandElement.get(), ROWS, converter);

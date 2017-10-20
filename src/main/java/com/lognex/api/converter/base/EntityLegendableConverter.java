@@ -3,11 +3,11 @@ package com.lognex.api.converter.base;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.exception.ConverterException;
-import com.lognex.api.model.base.AbstractEntityLegendable;
+import com.lognex.api.model.base.EntityLegendable;
 
 import java.io.IOException;
 
-public abstract class AbstractEntityLegendableConverter<T extends AbstractEntityLegendable> extends AbstractEntityInfoableConverter<T> {
+public abstract class EntityLegendableConverter<T extends EntityLegendable> extends EntityInfoableConverter<T> {
     @Override
     protected void convertToEntity(final T entity, JsonNode node) throws ConverterException {
         super.convertToEntity(entity, node);
