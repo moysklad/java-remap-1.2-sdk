@@ -11,6 +11,8 @@ public interface EntityRequestBuilder {
 
     SingleEntityRequestBuilder id(ID id);
 
+    SingleEntityRequestBuilder syncId(ID syncId);
+
     MSReadListRequest list();
 
     MSTemplateRequest template(AbstractEntity entity);
