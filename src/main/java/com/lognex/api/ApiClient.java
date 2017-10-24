@@ -28,6 +28,10 @@ public class ApiClient {
         return new EntityRequestBuilderImpl(host, type, this);
     }
 
+    public String getHost() {
+        return host;
+    }
+
     public void report() {
     }
 

@@ -8,6 +8,11 @@ public class BooleanFilter extends Filter<Boolean>{
 
     @Override
     public String toFilterString() {
+        return toFilterString(null);
+    }
+
+    @Override
+    public String toFilterString(String host) {
         return fieldName + operator.getSign() + String.valueOf(value);
     }
 }
