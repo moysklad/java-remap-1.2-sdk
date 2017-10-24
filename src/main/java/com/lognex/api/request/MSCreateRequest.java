@@ -46,7 +46,7 @@ public class MSCreateRequest extends MSRequestWithBody {
                 for (AbstractEntity e: postEntityList){
                     AbstractEntityConverter converter =
                             (AbstractEntityConverter) ConverterFactory.getConverter(e.getClass());
-                    converter.toJson(jsonGenerator, e);
+                    converter.toJson(jsonGenerator, e, getClient().getHost());
                 }
                 jsonGenerator.writeEndArray();
                 jsonGenerator.flush();
@@ -54,7 +54,7 @@ public class MSCreateRequest extends MSRequestWithBody {
                 AbstractEntity e = postEntityList.get(0);
                 AbstractEntityConverter converter =
                         (AbstractEntityConverter) ConverterFactory.getConverter(e.getClass());
-                converter.toJson(jsonGenerator, e);
+                converter.toJson(jsonGenerator, e, getClient().getHost());
                 jsonGenerator.flush();
             }
             return out.toString();

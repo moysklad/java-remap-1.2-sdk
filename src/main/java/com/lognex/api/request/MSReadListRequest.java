@@ -57,7 +57,7 @@ public class MSReadListRequest extends MSRequest {
         limit.ifPresent(integer -> appendParam(urldBuilder, "limit", integer));
         offset.ifPresent(integer -> appendParam(urldBuilder, "offset", integer));
         if (filters.size() > 0){
-            appendParam(urldBuilder, "filter", filters.stream().map(Filter::toFilterString).collect(Collectors.joining(";")));
+            appendParam(urldBuilder, "filter", filters.stream().map(filter -> filter.toFilterString(getClient().getHost())).collect(Collectors.joining(";")));
         }
         if (!sorts.isEmpty()) {
             appendParam(urldBuilder, "order", sorts.stream().map(Sort::toSortString).collect(Collectors.joining(";")));

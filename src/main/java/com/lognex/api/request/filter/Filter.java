@@ -15,4 +15,5 @@ public abstract class Filter<T> {
     }
 
     public abstract String toFilterString();
+    public abstract String toFilterString(String host);
 }

@@ -11,6 +11,11 @@ public class DateFilter extends Filter<Date> {
 
     @Override
     public String toFilterString() {
+        return toFilterString(null);
+    }
+
+    @Override
+    public String toFilterString(String host) {
         return fieldName + operator.getSign() + DateUtils.format(value);
     }
 }
