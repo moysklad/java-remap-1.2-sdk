@@ -44,7 +44,7 @@ public class FactureOutConverter extends AbstractOperationConverter<FactureOut> 
             for (Demand d : entity.getDemands()){
                 if (d.getId() != null){
                     jgen.writeStartObject();
-                    jgen.writeObjectField("meta", new Meta<>(Type.DEMAND, d));
+                    jgen.writeObjectField("meta", new Meta<>(Type.DEMAND, d, host));
                     jgen.writeEndObject();
                 }
             }

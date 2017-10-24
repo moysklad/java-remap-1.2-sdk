@@ -23,7 +23,7 @@ import static org.apache.http.util.TextUtils.isEmpty;
 public abstract class AbstractEntityConverter<T extends AbstractEntity> implements Converter<T> {
     private static final ObjectMapper om = new ObjectMapper();
 
-    private String host;
+    protected String host;
 
     @Override
     public T convert(String json) throws ConverterException {
