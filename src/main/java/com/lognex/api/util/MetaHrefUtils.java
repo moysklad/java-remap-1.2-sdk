@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import static com.lognex.api.util.Constants.ENTITY_PATH;
 import static lombok.AccessLevel.PRIVATE;
+import static org.apache.http.util.TextUtils.isEmpty;
 
 @NoArgsConstructor(access = PRIVATE)
 public final class MetaHrefUtils {
@@ -15,8 +16,8 @@ public final class MetaHrefUtils {
         return new ID(split[split.length-1]);
     }
 
-    public static <T> String makeHref(Type type, T value) {
-        StringBuilder sb = new StringBuilder(Constants.DEFAULT_HOST_URL);
+    public static <T> String makeHref(Type type, T value, String host) {
+        StringBuilder sb = new StringBuilder(isEmpty(host) ? Constants.DEFAULT_HOST_URL : host);
         if (value instanceof Entity){
             sb.append("/").append(ENTITY_PATH);
         }

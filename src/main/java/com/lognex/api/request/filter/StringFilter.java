@@ -8,6 +8,11 @@ public class StringFilter extends Filter<String> {
 
     @Override
     public String toFilterString() {
+        return toFilterString(null);
+    }
+
+    @Override
+    public String toFilterString(String host) {
         return fieldName + operator.getSign() + value;
     }
 }

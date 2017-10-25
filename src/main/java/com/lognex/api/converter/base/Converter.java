@@ -12,4 +12,6 @@ public interface Converter<T> {
     List<T> convertToList(String json) throws ConverterException;
 
     void toJson(CustomJsonGenerator jgen, T entity) throws IOException;
+
+    void toJson(CustomJsonGenerator jgen, T entity, String host) throws IOException;
 }

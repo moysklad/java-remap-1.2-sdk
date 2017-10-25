@@ -24,10 +24,15 @@ public class AttributeFilter extends Filter<AttributeValue> {
 
     @Override
     public String toFilterString() {
-        return fieldName + operator.getSign() + prepareValue();
+        return toFilterString(Constants.DEFAULT_HOST_URL);
     }
 
-    private String prepareValue(){
+    @Override
+    public String toFilterString(String host) {
+        return fieldName + operator.getSign() + prepareValue(host);
+    }
+
+    private String prepareValue(String host){
         if (value.getValue() instanceof String
                 || value.getValue() instanceof Number
                 || value.getValue() instanceof Boolean){
@@ -37,7 +42,7 @@ public class AttributeFilter extends Filter<AttributeValue> {
         } else if (value.getValue() instanceof Entity){
             Entity entity = (Entity) value.getValue();
             Type t = Type.find(entity.getClass());
-            return MetaHrefUtils.makeHref(t, entity);
+            return MetaHrefUtils.makeHref(t, entity, host);
         } else {
             throw new IllegalStateException("Unknown type of attribute value=" + value.getValue().getClass());
         }
