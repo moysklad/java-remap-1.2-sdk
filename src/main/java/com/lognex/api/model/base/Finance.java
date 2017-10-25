@@ -4,14 +4,10 @@ import com.lognex.api.model.entity.ExpenseItem;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
 public abstract class Finance extends Operation {
     private String paymentPurpose;
     private Double vatSum;
     private ExpenseItem expenseItem;
-    private String incomingNumber;
-    private Date incomingDate;
 }

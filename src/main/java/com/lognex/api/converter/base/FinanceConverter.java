@@ -11,7 +11,5 @@ public abstract class FinanceConverter<T extends Finance> extends OperationConve
         super.convertToEntity(entity, node);
         entity.setPaymentPurpose(ConverterUtil.getString(node, "paymentPurpose"));
         entity.setVatSum(ConverterUtil.getDouble(node, "vatSum"));
-        entity.setIncomingNumber(ConverterUtil.getString(node, "incomingNumber"));
-        entity.setIncomingDate(ConverterUtil.getDate(node, "incomingDate"));
     }
 }

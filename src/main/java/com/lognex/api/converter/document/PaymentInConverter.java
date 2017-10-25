@@ -1,6 +1,7 @@
 package com.lognex.api.converter.document;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.converter.base.FinanceInConverter;
 import com.lognex.api.converter.entity.AgentAccountConverter;
 import com.lognex.api.exception.ConverterException;
@@ -21,5 +22,12 @@ public class PaymentInConverter extends FinanceInConverter<PaymentIn> {
         }
 
         return result;
+    }
+
+    @Override
+    protected void convertToEntity(final PaymentIn entity, JsonNode node) throws ConverterException {
+        super.convertToEntity(entity, node);
+        entity.setIncomingNumber(ConverterUtil.getString(node, "incomingNumber"));
+        entity.setIncomingDate(ConverterUtil.getDate(node, "incomingDate"));
     }
 }

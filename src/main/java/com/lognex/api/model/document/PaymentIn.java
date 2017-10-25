@@ -7,6 +7,7 @@ import com.lognex.api.model.entity.attribute.Attribute;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,4 +21,6 @@ public class PaymentIn extends FinanceIn implements IEntityWithAttributes {
     private Agent agent;
     private AgentAccount agentAccount;
     private Set<Attribute<?>> attributes = new HashSet<>();
+    private String incomingNumber;
+    private Date incomingDate;
 }
