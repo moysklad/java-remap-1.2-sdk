@@ -1,6 +1,6 @@
 package com.lognex.api.util;
 
-import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.base.Entity;
 import com.lognex.api.model.entity.CustomEntity;
 import lombok.NoArgsConstructor;
 
@@ -18,16 +18,16 @@ public final class MetaHrefUtils {
 
     public static <T> String makeHref(Type type, T value, String host) {
         StringBuilder sb = new StringBuilder(isEmpty(host) ? Constants.DEFAULT_HOST_URL : host);
-        if (value instanceof AbstractEntity){
+        if (value instanceof Entity){
             sb.append("/").append(ENTITY_PATH);
         }
         sb.append("/").append(type.getApiName());
-        if (value instanceof AbstractEntity){
+        if (value instanceof Entity){
             if (value instanceof CustomEntity) {
                 sb.append("/").append(((CustomEntity)value).getCustomDictionaryId())
-                        .append("/").append(((AbstractEntity) value).getId().getValue());
+                        .append("/").append(((Entity) value).getId().getValue());
             } else {
-                sb.append("/").append(((AbstractEntity) value).getId().getValue());
+                sb.append("/").append(((Entity) value).getId().getValue());
             }
         }
         return sb.toString();

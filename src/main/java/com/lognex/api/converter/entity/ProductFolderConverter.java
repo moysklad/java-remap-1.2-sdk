@@ -2,12 +2,12 @@ package com.lognex.api.converter.entity;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.lognex.api.converter.ConverterUtil;
-import com.lognex.api.converter.base.AbstractEntityLegendableConverter;
+import com.lognex.api.converter.base.EntityLegendableConverter;
 import com.lognex.api.exception.ConverterException;
-import com.lognex.api.model.entity.ProductFolder;
+import com.lognex.api.model.entity.good.ProductFolder;
 import com.lognex.api.util.ID;
 
-public class ProductFolderConverter extends AbstractEntityLegendableConverter<ProductFolder> {
+public class ProductFolderConverter extends EntityLegendableConverter<ProductFolder> {
 
     @Override
     protected void convertToEntity(ProductFolder entity, JsonNode node) throws ConverterException {

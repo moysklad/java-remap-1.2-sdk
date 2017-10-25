@@ -1,6 +1,6 @@
 package com.lognex.api.request.builder.entity;
 
-import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.base.Entity;
 import com.lognex.api.request.MSCreateRequest;
 import com.lognex.api.request.MSMetadataRequest;
 import com.lognex.api.request.MSReadListRequest;
@@ -15,9 +15,9 @@ public interface EntityRequestBuilder {
 
     MSReadListRequest list();
 
-    MSTemplateRequest template(AbstractEntity entity);
+    MSTemplateRequest template(Entity entity);
 
     MSMetadataRequest metadata();
 
-    MSCreateRequest create(AbstractEntity entity);
+    MSCreateRequest create(Entity entity);
 }

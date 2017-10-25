@@ -1,7 +1,7 @@
 package com.lognex.api.request;
 
 import com.lognex.api.ApiClient;
-import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.base.Entity;
 import com.lognex.api.model.entity.attribute.Attribute;
 import com.lognex.api.model.entity.attribute.AttributeValue;
 import com.lognex.api.request.filter.*;
@@ -100,8 +100,8 @@ public class MSReadListRequest extends MSRequest {
                 return new DateFilter(fieldName, operator, (Date) value);
             } else if (value instanceof Boolean){
                 return new BooleanFilter(fieldName, operator, (Boolean) value);
-            } else if (value instanceof AbstractEntity){
-                return new EntityRefFilter(fieldName, operator, (AbstractEntity) value);
+            } else if (value instanceof Entity){
+                return new EntityRefFilter(fieldName, operator, (Entity) value);
             } else if (value instanceof Attribute){
                 return new AttributeFilter(type, (Attribute)value, operator, ((Attribute) value).getValue());
             } else {

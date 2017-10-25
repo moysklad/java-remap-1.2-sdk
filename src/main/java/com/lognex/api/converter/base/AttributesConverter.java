@@ -5,13 +5,17 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.lognex.api.model.base.field.FileRef;
 import com.lognex.api.model.base.field.Meta;
-import com.lognex.api.model.base.AbstractEntity;
-import com.lognex.api.model.base.AbstractEntityLegendable;
+import com.lognex.api.model.base.Entity;
+import com.lognex.api.model.base.EntityLegendable;
 import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.entity.*;
 import com.lognex.api.model.entity.attribute.Attribute;
 import com.lognex.api.model.entity.attribute.AttributeType;
 import com.lognex.api.model.entity.attribute.AttributeValue;
+import com.lognex.api.model.entity.good.Bundle;
+import com.lognex.api.model.entity.good.Product;
+import com.lognex.api.model.entity.good.Service;
+import com.lognex.api.model.entity.good.Variant;
 import com.lognex.api.util.DateUtils;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.MetaHrefUtils;
@@ -71,7 +75,7 @@ public class AttributesConverter implements CustomFieldsConverter<IEntityWithAtt
                             break;
                         }
                         default: {
-                            AttributeValue<? extends AbstractEntity> entityValue = parseEntity(attribute, AttributeType.find(type));
+                            AttributeValue<? extends Entity> entityValue = parseEntity(attribute, AttributeType.find(type));
                             entity.getAttributes().add(new Attribute<>(id, name, attributeType, entityValue));
                         }
                     }
@@ -80,7 +84,7 @@ public class AttributesConverter implements CustomFieldsConverter<IEntityWithAtt
         }
     }
 
-    private AttributeValue<? extends AbstractEntity> parseEntity(JsonNode node, AttributeType type){
+    private AttributeValue<? extends Entity> parseEntity(JsonNode node, AttributeType type){
         ID id = MetaHrefUtils.getId(node.get("value").get("meta").get("href").asText());
         String name = node.get("value").get("name").asText();
         if (AttributeType.EMBEDDED_ENTITIES.contains(type)){
@@ -114,7 +118,7 @@ public class AttributesConverter implements CustomFieldsConverter<IEntityWithAtt
         }
     }
 
-    private <T extends AbstractEntityLegendable> T fillEntityValue(T entity, ID id, String name){
+    private <T extends EntityLegendable> T fillEntityValue(T entity, ID id, String name){
         entity.setId(id);
         entity.setName(name);
         return entity;
@@ -170,9 +174,9 @@ public class AttributesConverter implements CustomFieldsConverter<IEntityWithAtt
 
     private void serializeEntityValue(CustomJsonGenerator jgen, Attribute<?> attribute) throws IOException{
         jgen.writeObjectFieldStart("value");
-        Type type = Type.find(((AbstractEntity)attribute.getValue().getValue()).getClass());
+        Type type = Type.find(((Entity)attribute.getValue().getValue()).getClass());
         if (type.equals(Type.CUSTOM_ENTITY)){
-            if (((AbstractEntity) attribute.getValue().getValue()).getId() != null) {
+            if (((Entity) attribute.getValue().getValue()).getId() != null) {
                 jgen.writeObjectField("meta", new Meta<>(type, attribute.getValue().getValue()));
             }
             jgen.writeStringFieldIfNotEmpty("name", ((CustomEntity)attribute.getValue().getValue()).getName());

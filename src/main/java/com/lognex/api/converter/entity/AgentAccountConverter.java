@@ -2,14 +2,14 @@ package com.lognex.api.converter.entity;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.lognex.api.converter.ConverterUtil;
-import com.lognex.api.converter.base.AbstractEntityInfoableConverter;
+import com.lognex.api.converter.base.EntityInfoableConverter;
 import com.lognex.api.converter.base.CustomJsonGenerator;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.entity.AgentAccount;
 
 import java.io.IOException;
 
-public class AgentAccountConverter extends AbstractEntityInfoableConverter<AgentAccount> {
+public class AgentAccountConverter extends EntityInfoableConverter<AgentAccount> {
 
     @Override
     protected AgentAccount convertFromJson(JsonNode node) throws ConverterException {

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.lognex.api.converter.ConverterFactory;
-import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.base.Entity;
 import com.lognex.api.model.entity.Employee;
 import com.lognex.api.response.ApiError;
 import com.lognex.api.response.ApiResponse;
@@ -76,8 +76,8 @@ final class ResponseParser {
     }
 
 
-    private static List<AbstractEntity> parseEntities(String body, Type type) throws IOException {
-        List<AbstractEntity> result = new ArrayList<>();
+    private static List<Entity> parseEntities(String body, Type type) throws IOException {
+        List<Entity> result = new ArrayList<>();
         if (body != null && !body.isEmpty()) {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode json = mapper.readTree(body);
@@ -95,7 +95,7 @@ final class ResponseParser {
                 // single value
                 String entityType = json.has("meta") && json.get("meta").has("type")?
                         json.get("meta").get("type").asText() : type.getApiName();
-                AbstractEntity entity = ConverterFactory.getConverter(Type.find(entityType).getModelClass()).convert(json.toString());
+                Entity entity = ConverterFactory.getConverter(Type.find(entityType).getModelClass()).convert(json.toString());
                 result.add(entity);
             }
             return result;
@@ -103,7 +103,7 @@ final class ResponseParser {
         return result;
     }
 
-    private static AbstractEntity parseJsonObject(JsonNode json){
+    private static Entity parseJsonObject(JsonNode json){
         String type = json.get("meta").get("type").asText();
         return ConverterFactory.getConverter(Type.find(type).getModelClass()).convert(json.toString());
     }

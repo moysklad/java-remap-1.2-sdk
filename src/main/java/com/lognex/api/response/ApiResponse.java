@@ -1,6 +1,6 @@
 package com.lognex.api.response;
 
-import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.base.Entity;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.Header;
@@ -13,11 +13,11 @@ public class ApiResponse {
 
     private int status;
     private Set<ApiError> errors;
-    private List<? extends AbstractEntity> entities;
+    private List<? extends Entity> entities;
     private List<Header> headers;
     private Context context;
 
-    public ApiResponse(int status, Set<ApiError> errors, List<AbstractEntity> entities, List<Header> headers, Context context){
+    public ApiResponse(int status, Set<ApiError> errors, List<Entity> entities, List<Header> headers, Context context){
         this.status = status;
         this.errors = errors;
         this.entities = entities;

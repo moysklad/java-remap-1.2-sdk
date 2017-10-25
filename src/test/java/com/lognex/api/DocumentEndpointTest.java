@@ -1,7 +1,7 @@
 package com.lognex.api;
 
 import com.lognex.api.exception.ConverterException;
-import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.base.Entity;
 import com.lognex.api.model.base.Position;
 import com.lognex.api.model.base.ShipmentOutPosition;
 import com.lognex.api.model.document.Demand;
@@ -9,7 +9,7 @@ import com.lognex.api.model.document.FactureOut;
 import com.lognex.api.model.document.PaymentIn;
 import com.lognex.api.model.entity.Counterparty;
 import com.lognex.api.model.entity.Organization;
-import com.lognex.api.model.entity.Service;
+import com.lognex.api.model.entity.good.Service;
 import com.lognex.api.model.entity.Store;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.util.ID;
@@ -120,7 +120,7 @@ public class DocumentEndpointTest {
 
     @Test
     public void testReadDemandsWithPositions() throws Exception {
-        // TODO False-positive test AbstractOperationWithPositionsConverter fix in converter.
+        // TODO False-positive test OperationWithPositionsConverter fix in converter.
         ApiResponse response = api.entity(Type.DEMAND).list().addExpand("positions").execute();
         assertFalse(response.hasErrors());
         List<Demand> entities = (List<Demand>) response.getEntities();
@@ -170,7 +170,7 @@ public class DocumentEndpointTest {
     private void checkListRequest(Type type) {
         ApiResponse response = api.entity(type).list().limit(10).execute();
         assertFalse(response.hasErrors());
-        List<? extends AbstractEntity> entities = response.getEntities();
+        List<? extends Entity> entities = response.getEntities();
         assertFalse(entities.isEmpty());
         assertTrue(entities.size() <= 10);
         entities.forEach(e -> assertNotNull(e.getId()));

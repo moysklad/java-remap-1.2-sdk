@@ -1,6 +1,6 @@
 package com.lognex.api.request.filter;
 
-import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.base.Entity;
 import com.lognex.api.model.entity.attribute.Attribute;
 import com.lognex.api.model.entity.attribute.AttributeValue;
 import com.lognex.api.util.Constants;
@@ -39,10 +39,10 @@ public class AttributeFilter extends Filter<AttributeValue> {
             return String.valueOf(value.getValue());
         } else if (value.getValue() instanceof Date){
             return DateUtils.format((Date) value.getValue());
-        } else if (value.getValue() instanceof AbstractEntity){
-            AbstractEntity abstractEntity = (AbstractEntity) value.getValue();
-            Type t = Type.find(abstractEntity.getClass());
-            return MetaHrefUtils.makeHref(t, abstractEntity, host);
+        } else if (value.getValue() instanceof Entity){
+            Entity entity = (Entity) value.getValue();
+            Type t = Type.find(entity.getClass());
+            return MetaHrefUtils.makeHref(t, entity, host);
         } else {
             throw new IllegalStateException("Unknown type of attribute value=" + value.getValue().getClass());
         }

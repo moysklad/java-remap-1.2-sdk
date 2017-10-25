@@ -2,11 +2,11 @@ package com.lognex.api.converter.entity;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.lognex.api.converter.ConverterUtil;
-import com.lognex.api.converter.base.AbstractEntityLegendableConverter;
+import com.lognex.api.converter.base.EntityLegendableConverter;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.entity.Currency;
 
-public class CurrencyConverter extends AbstractEntityLegendableConverter<Currency> {
+public class CurrencyConverter extends EntityLegendableConverter<Currency> {
 
     @Override
     protected Currency convertFromJson(JsonNode node) throws ConverterException {

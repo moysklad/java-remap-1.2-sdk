@@ -1,7 +1,7 @@
 package com.lognex.api.model.base.field;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.base.Entity;
 import com.lognex.api.util.Constants;
 import com.lognex.api.util.Type;
 import lombok.AccessLevel;
@@ -40,7 +40,7 @@ public class Meta<T> {
     }
 
     private String makeMetadataHref(Type type, T value, String host) {
-        if (value instanceof AbstractEntity) {
+        if (value instanceof Entity) {
             return host + "/" + ENTITY_PATH + "/" + type.getApiName() + "/" + METADATA_PATH;
         }
         return null;

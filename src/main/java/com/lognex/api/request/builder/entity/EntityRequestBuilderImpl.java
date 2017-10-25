@@ -2,7 +2,7 @@ package com.lognex.api.request.builder.entity;
 
 import com.google.common.collect.ImmutableList;
 import com.lognex.api.ApiClient;
-import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.base.Entity;
 import com.lognex.api.request.MSCreateRequest;
 import com.lognex.api.request.MSMetadataRequest;
 import com.lognex.api.request.MSReadListRequest;
@@ -39,7 +39,7 @@ public class EntityRequestBuilderImpl extends BaseEntityRequestBuilder implement
     }
 
     @Override
-    public MSTemplateRequest template(AbstractEntity entity) {
+    public MSTemplateRequest template(Entity entity) {
         return new MSTemplateRequest(url.append("/").append("new").toString(), client, entity);
     }
 
@@ -49,7 +49,7 @@ public class EntityRequestBuilderImpl extends BaseEntityRequestBuilder implement
     }
 
     @Override
-    public MSCreateRequest create(AbstractEntity entity) {
+    public MSCreateRequest create(Entity entity) {
         return new MSCreateRequest(url.toString(), client, ImmutableList.of(entity));
     }
 

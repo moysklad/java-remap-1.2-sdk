@@ -3,7 +3,7 @@ package com.lognex.api.converter.entity;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.lognex.api.converter.base.AttributesConverter;
 import com.lognex.api.exception.ConverterException;
-import com.lognex.api.model.entity.Service;
+import com.lognex.api.model.entity.good.Service;
 
 public class ServiceConverter extends BaseProductConverter<Service> {
     private AttributesConverter attributesConverter = new AttributesConverter();

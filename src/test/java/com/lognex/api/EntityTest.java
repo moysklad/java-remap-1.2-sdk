@@ -1,6 +1,6 @@
 package com.lognex.api;
 
-import com.lognex.api.model.base.AbstractEntity;
+import com.lognex.api.model.base.Entity;
 import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.base.field.CompanyType;
 import com.lognex.api.model.entity.AgentAccount;
@@ -19,6 +19,7 @@ import org.junit.Test;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
@@ -264,8 +265,8 @@ public class EntityTest {
         assertEquals(response.getStatus(), 200);
         list = (List<Counterparty>) response.getEntities();
         list.forEach(c -> {
-            assertNotNull(c.getAttribute(counterpartyAttribute.getId()));
-            Counterparty cpAttr = (Counterparty) c.getAttribute(counterpartyAttribute.getId()).getValue().getValue();
+            assertTrue(c.getAttribute(counterpartyAttribute.getId()).isPresent());
+            Counterparty cpAttr = (Counterparty) c.getAttribute(counterpartyAttribute.getId()).get().getValue().getValue();
             assertEquals(cpAttr.getId().getValue(), counterpartyAttribute.getValue().getValue().getId().getValue());
         });
 
@@ -274,12 +275,13 @@ public class EntityTest {
     private void checkAttributesEquality(IEntityWithAttributes actual, IEntityWithAttributes expected) {
         assertEquals(actual.getAttributes().size(), expected.getAttributes().size());
         for (Attribute<?> attribute : actual.getAttributes()) {
-            Attribute<?> attr2 = expected.getAttribute(attribute.getId());
-            assertTrue(attr2 != null);
+            Optional<Attribute<?>> attributeOptional = expected.getAttribute(attribute.getId());
+            assertTrue(attributeOptional.isPresent());
+            Attribute<?> attr2 =attributeOptional .get();
             assertEquals(attr2.getType(), attribute.getType());
-            if (attribute.getValue().getValue() instanceof AbstractEntity) {
-                AbstractEntity entity = (AbstractEntity) attribute.getValue().getValue();
-                AbstractEntity entity2 = (AbstractEntity) attr2.getValue().getValue();
+            if (attribute.getValue().getValue() instanceof Entity) {
+                Entity entity = (Entity) attribute.getValue().getValue();
+                Entity entity2 = (Entity) attr2.getValue().getValue();
                 assertEquals(Type.find(entity.getClass()), Type.find(entity2.getClass()));
                 if (!(entity instanceof CustomEntity)) {
                     // because CustomEntity might be ensured while put in attributes array
