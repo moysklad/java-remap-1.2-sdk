@@ -1,9 +1,8 @@
 package com.lognex.api.request.builder.entity;
 
-import com.lognex.api.request.MSDeleteRequest;
-import com.lognex.api.request.MSEntityAuditRequest;
-import com.lognex.api.request.MSReadSingleRequest;
-import com.lognex.api.request.MSUpdateRequest;
+import com.lognex.api.model.content.ExportTemplate;
+import com.lognex.api.model.content.ExportTemplateSet;
+import com.lognex.api.request.*;
 
 public interface SingleEntityRequestBuilder {
 
@@ -16,4 +15,8 @@ public interface SingleEntityRequestBuilder {
     MSEntityAuditRequest audit();
 
     MSDeleteRequest delete();
+
+    MSExportRequest export(ExportTemplate template);
+
+    MSExportRequest export(ExportTemplateSet templateSet);
 }

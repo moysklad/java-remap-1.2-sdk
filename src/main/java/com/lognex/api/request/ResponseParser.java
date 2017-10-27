@@ -9,14 +9,18 @@ import com.lognex.api.model.entity.Employee;
 import com.lognex.api.response.ApiError;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.response.Context;
+import com.lognex.api.util.Constants;
 import com.lognex.api.util.MetaHrefUtils;
 import com.lognex.api.util.Type;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
@@ -27,21 +31,50 @@ import java.util.*;
 final class ResponseParser {
 
     static ApiResponse parse(CloseableHttpResponse response, MSRequest msRequest){
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()))){
+        int statusCode = response.getStatusLine().getStatusCode();
+        List<Header> headers = Arrays.asList(response.getAllHeaders());
+
+        HttpEntity entity = response.getEntity();
+        switch (entity.getContentType().getValue()) {
+            case Constants.APPLICATION_OCTET_STREAM:
+                return getResponse(statusCode, headers, entity);
+            case Constants.APPLICATION_JSON_UTF8:
+            default:
+                return getResponse(msRequest, statusCode, headers, entity);
+        }
+    }
+
+    private static ApiResponse getResponse(int statusCode, List<Header> headers, HttpEntity entity) {
+        try {
+            return new ApiResponse(statusCode, headers, getContent(entity));
+        } catch (IOException e) {
+            log.error("Error while reading content from response from server: ", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static byte[] getContent(HttpEntity entity) throws IOException {
+        try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
+            entity.writeTo(stream);
+            return stream.toByteArray();
+        }
+    }
+
+    private static ApiResponse getResponse(MSRequest msRequest, int statusCode, List<Header> headers, HttpEntity entity) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent()))) {
             String body = reader.lines().reduce((a, b) -> a+b).orElse("");
             Type type = typeFromUrl(msRequest.getUrl());
 
-            return new ApiResponse(response.getStatusLine().getStatusCode(),
+            return new ApiResponse(statusCode,
                     parseErrors(body),
                     parseEntities(body, type),
-                    Arrays.asList(response.getAllHeaders()),
+                    headers,
                     parseContext(body));
         } catch (IOException e) {
             log.error("Error while reading response from server: ", e);
             throw new RuntimeException(e);
         }
     }
-
 
     private static Set<ApiError> parseErrors(String body) throws IOException {
         if (body != null && !body.isEmpty()) {
@@ -110,7 +143,9 @@ final class ResponseParser {
 
     private static Type typeFromUrl(String url){
         String[] split = url.split("/");
-        if (split[6].equals("entity")){
+        if (split.length > 9 && split[8].equals("metadata")) {
+            return Type.find(split[9]);
+        } else if (split[6].equals("entity")){
             return Type.find(split[7]);
         }
         return null;

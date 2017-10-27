@@ -88,7 +88,7 @@ public abstract class EntityConverter<T extends Entity> implements Converter<T> 
         jgen.writeObjectField("meta", new Meta<>(type, entity, host));
     }
 
-    void convertMetaField(CustomJsonGenerator jgen, String name, Entity fieldValue) throws IOException {
+    protected void convertMetaField(CustomJsonGenerator jgen, String name, Entity fieldValue) throws IOException {
         if (fieldValue != null) {
             jgen.writeObjectFieldStart(name);
             Type type = Type.find(fieldValue.getClass());

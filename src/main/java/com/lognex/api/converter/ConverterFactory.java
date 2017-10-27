@@ -2,6 +2,8 @@ package com.lognex.api.converter;
 
 import com.lognex.api.converter.base.EntityConverter;
 import com.lognex.api.converter.base.Converter;
+import com.lognex.api.converter.content.ExportTemplateConverter;
+import com.lognex.api.converter.content.ExportTemplateSetConverter;
 import com.lognex.api.converter.document.FactureOutConverter;
 import com.lognex.api.converter.base.ShipmentOutPositionConverter;
 import com.lognex.api.converter.document.DemandConverter;
@@ -13,6 +15,8 @@ import com.lognex.api.converter.entity.OrganizationConverter;
 import com.lognex.api.converter.entity.ServiceConverter;
 import com.lognex.api.converter.entity.*;
 import com.lognex.api.model.base.Entity;
+import com.lognex.api.model.content.ExportTemplate;
+import com.lognex.api.model.content.ExportTemplateSet;
 import com.lognex.api.model.document.Demand;
 import com.lognex.api.model.document.FactureOut;
 import com.lognex.api.model.base.ShipmentOutPosition;
@@ -50,6 +54,12 @@ public final class ConverterFactory {
         converters.put(PaymentIn.class, PaymentInConverter.class);
 
         converters.put(ShipmentOutPosition.class, ShipmentOutPositionConverter.class);
+
+        converters.put(ExportTemplate.class, ExportTemplateConverter.class);
+        converters.put(ExportTemplateSet.class, ExportTemplateSetConverter.class);
+
+        converters.put(CustomTemplate.class, CustomTemplateConverter.class);
+        converters.put(EmbeddedTemplate.class, EmbeddedTemplateConverter.class);
     }
 
     @SuppressWarnings("unchecked")

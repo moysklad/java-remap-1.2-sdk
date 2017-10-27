@@ -59,12 +59,14 @@ public final class ConverterUtil {
     }
 
     public static ID getIdFromMetaHref(JsonNode node) {
+        String href = getMetaHref(node);
+        return !isEmpty(href) ? MetaHrefUtils.getId(href) : null;
+    }
+
+    public static String getMetaHref(JsonNode node) {
         Optional<JsonNode> metaElement = getElement(node, META);
         if (metaElement.isPresent()) {
-            String href = getString(metaElement.get(), HREF);
-            if (!isEmpty(href)) {
-                return MetaHrefUtils.getId(href);
-            }
+            return getString(metaElement.get(), HREF);
         }
         return null;
     }

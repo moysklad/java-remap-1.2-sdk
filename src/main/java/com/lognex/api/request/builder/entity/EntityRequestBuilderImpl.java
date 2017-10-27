@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.lognex.api.ApiClient;
 import com.lognex.api.model.base.Entity;
 import com.lognex.api.request.MSCreateRequest;
-import com.lognex.api.request.MSMetadataRequest;
 import com.lognex.api.request.MSReadListRequest;
 import com.lognex.api.request.MSTemplateRequest;
 import com.lognex.api.util.ID;
@@ -44,8 +43,8 @@ public class EntityRequestBuilderImpl extends BaseEntityRequestBuilder implement
     }
 
     @Override
-    public MSMetadataRequest metadata() {
-        return new MSMetadataRequest(url.toString(), client);
+    public MetadataRequestBuilder metadata() {
+        return new MetadataRequestBuilderImpl(client, url.append('/').append("metadata").toString());
     }
 
     @Override
