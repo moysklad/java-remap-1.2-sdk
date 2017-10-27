@@ -24,8 +24,10 @@ public final class MetaHrefUtils {
             switch (type) {
                 case CUSTOM_TEMPLATE:
                 case EMBEDDED_TEMPLATE:
-                    sb.append('/').append(((Template) value).getEntityType().getApiName())
-                            .append('/').append("metadata");
+                    Type entityType = ((Template) value).getEntityType();
+                    if (entityType != null) {
+                        sb.append('/').append(entityType.getApiName()).append('/').append("metadata");
+                    }
                     break;
                 default:
                     break;

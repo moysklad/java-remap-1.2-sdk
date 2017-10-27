@@ -5,6 +5,8 @@ import com.lognex.api.converter.ConverterUtil;
 import com.lognex.api.model.entity.Template;
 import com.lognex.api.util.Type;
 
+import java.util.Optional;
+
 import static org.apache.http.util.TextUtils.isEmpty;
 
 public abstract class TemplateConverter<T extends Template> extends EntityConverter<T> {
@@ -16,19 +18,19 @@ public abstract class TemplateConverter<T extends Template> extends EntityConver
         entity.setName(ConverterUtil.getString(node, "name"));
         entity.setType(ConverterUtil.getString(node, "type"));
         entity.setContent(ConverterUtil.getString(node, "content"));
-        entity.setEntityType(getEntityType(node));
+        getEntityType(node).ifPresent(type -> entity.setEntityType(type));
     }
 
-    private Type getEntityType(JsonNode node) {
+    private Optional<Type> getEntityType(JsonNode node) {
         String metaHref = ConverterUtil.getMetaHref(node);
         if (isEmpty(metaHref)) {
-            throw new IllegalArgumentException("Empty meta of template");
+            return Optional.empty();
         }
         String[] hrefChunks = metaHref.split("/");
         if (hrefChunks.length < 10) {
-            throw new IllegalArgumentException(String.format("Incomplete href of template: %s", metaHref));
+            return Optional.empty();
         }
-        return Type.find(hrefChunks[7]);
+        return Optional.of(Type.find(hrefChunks[7]));
     }
 
 }
