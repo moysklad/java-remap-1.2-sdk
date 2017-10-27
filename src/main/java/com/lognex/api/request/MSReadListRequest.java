@@ -22,6 +22,10 @@ public class MSReadListRequest extends MSRequest {
     private Set<Filter> filters = new HashSet<>();
     private List<Sort> sorts = Collections.emptyList();
 
+    public MSReadListRequest(String url, ApiClient client) {
+        super(url, client);
+    }
+
     public MSReadListRequest(String url, ApiClient client, Type type) {
         super(url, client);
         this.type = type;

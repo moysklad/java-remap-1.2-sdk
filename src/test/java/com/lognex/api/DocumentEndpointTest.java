@@ -1,21 +1,28 @@
 package com.lognex.api;
 
+import com.google.common.collect.Lists;
 import com.lognex.api.exception.ConverterException;
 import com.lognex.api.model.base.Entity;
 import com.lognex.api.model.base.Position;
 import com.lognex.api.model.base.ShipmentOutPosition;
+import com.lognex.api.model.content.ExportTemplate;
+import com.lognex.api.model.content.ExportTemplateSet;
 import com.lognex.api.model.document.Demand;
 import com.lognex.api.model.document.FactureOut;
 import com.lognex.api.model.document.PaymentIn;
 import com.lognex.api.model.entity.Counterparty;
+import com.lognex.api.model.entity.EmbeddedTemplate;
 import com.lognex.api.model.entity.Organization;
 import com.lognex.api.model.entity.good.Service;
 import com.lognex.api.model.entity.Store;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.Type;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -184,5 +191,76 @@ public class DocumentEndpointTest {
         assertTrue(response.getEntities().size() == 1);
         Counterparty counterparty = ((Counterparty) response.getEntities().get(0));
         assertFalse(counterparty.getAccounts().isEmpty());
+    }
+
+    @Ignore
+    @Test
+    public void testDemandTemplatesExport() {
+        Demand demand = null;
+        List<? extends Entity> demands = api.entity(Type.DEMAND).list().limit(1).execute().getEntities();
+        if (!demands.isEmpty()) {
+            demand = ((Demand) demands.get(0));
+        } else {
+            Service service = (Service) api.entity(Type.SERVICE).list().limit(1).execute().getEntities().get(0);
+            Counterparty cp = (Counterparty) api.entity(Type.COUNTERPARTY).list().limit(1).execute().getEntities().get(0);
+            Organization organization = (Organization) api.entity(Type.ORGANIZATION).list().limit(1).execute().getEntities().get(0);
+            ApiResponse storeResponse = api.entity(Type.STORE).list().limit(1).execute();
+            Store store = (Store) storeResponse.getEntities().get(0);
+            Demand d = new Demand();
+            d.setName(UUID.randomUUID().toString());
+            d.setOrganization(organization);
+            d.setAgent(cp);
+            d.setStore(store);
+
+            ShipmentOutPosition position = new ShipmentOutPosition();
+            position.setAssortment(service);
+            position.setQuantity(1);
+            position.setPrice(1000);
+            d.getPositions().add(position);
+            ShipmentOutPosition position2 = new ShipmentOutPosition();
+            position2.setAssortment(service);
+            position2.setQuantity(2);
+            position2.setPrice(150000);
+            d.getPositions().add(position2);
+
+            ApiResponse response = api.entity(Type.DEMAND).create(d).execute();
+            demand = (Demand) response.getEntities().get(0);
+        }
+
+        ApiResponse response = api.entity(Type.DEMAND).metadata().embeddedTemplate().execute();
+        assertEquals(200, response.getStatus());
+        List<EmbeddedTemplate> embeddedTemplates = (List<EmbeddedTemplate>) response.getEntities();
+        assertFalse(embeddedTemplates.isEmpty());
+
+        response = api.entity(Type.DEMAND).metadata().customTemplate().execute();
+        assertEquals(200, response.getStatus());
+
+        response = api.entity(Type.DEMAND).id(demand.getId())
+                .export(new ExportTemplate(embeddedTemplates.get(0), ExportTemplate.Extension.PDF))
+                .addHeader("X-Lognex-Get-Content", "true").execute();
+        assertEquals(200, response.getStatus());
+        try {
+            File file = File.createTempFile("template", ".pdf");
+            response.saveContent(file);
+            assertTrue(file.exists());
+            assertTrue(file.length() > 0);
+            file.deleteOnExit();
+        } catch (IOException e) {
+        }
+
+        response = api.entity(Type.DEMAND).id(demand.getId())
+                .export(new ExportTemplateSet(Lists.newArrayList(
+                        new ExportTemplateSet.TemplateWithCount(embeddedTemplates.get(0), 1),
+                        new ExportTemplateSet.TemplateWithCount(embeddedTemplates.get(1), 3))))
+                .addHeader("X-Lognex-Get-Content", "true").execute();
+        assertEquals(200, response.getStatus());
+        try {
+            File file = File.createTempFile("templateSet", ".pdf");
+            response.saveContent(file);
+            assertTrue(file.exists());
+            assertTrue(file.length() > 0);
+            file.deleteOnExit();
+        } catch (IOException e) {
+        }
     }
 }

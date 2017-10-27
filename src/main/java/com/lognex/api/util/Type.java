@@ -29,7 +29,9 @@ public enum Type {
     DEMAND("demand", Demand.class),
     ORGANIZATION("organization", Organization.class),
     FACTURE_OUT("factureout", FactureOut.class),
-    GROUP("group", Group.class)
+    GROUP("group", Group.class),
+    EMBEDDED_TEMPLATE("embeddedtemplate", EmbeddedTemplate.class),
+    CUSTOM_TEMPLATE("customtemplate", CustomTemplate.class),
     ;
 
 
