@@ -31,8 +31,8 @@ public class MSCreateRequest extends MSRequestWithBody {
 
 
     @Override
-    protected HttpEntityEnclosingRequest produceHttpUriRequest() {
-        return new HttpPost(getUrl());
+    protected HttpEntityEnclosingRequest produceHttpUriRequest(String url) {
+        return new HttpPost(url);
     }
 
     @Override

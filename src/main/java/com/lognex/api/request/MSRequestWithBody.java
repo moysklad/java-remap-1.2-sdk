@@ -20,7 +20,9 @@ public abstract class MSRequestWithBody extends MSRequest {
 
     @Override
     protected HttpUriRequest buildRequest() {
-        HttpEntityEnclosingRequest request = produceHttpUriRequest();
+        StringBuilder urlBuilder = new StringBuilder(getUrl());
+        addExpandParameter(urlBuilder);
+        HttpEntityEnclosingRequest request = produceHttpUriRequest(urlBuilder.toString());
         request.setHeader("ContentType", APPLICATION_JSON_UTF8);
         StringEntity entity;
         try {
@@ -35,7 +37,7 @@ public abstract class MSRequestWithBody extends MSRequest {
         return (HttpUriRequest) request;
     }
 
-    protected abstract HttpEntityEnclosingRequest produceHttpUriRequest();
+    protected abstract HttpEntityEnclosingRequest produceHttpUriRequest(String url);
 
     protected abstract String convertToJsonBody() throws IOException;
 }

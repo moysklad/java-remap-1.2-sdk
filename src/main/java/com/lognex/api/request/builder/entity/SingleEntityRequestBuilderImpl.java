@@ -1,6 +1,7 @@
 package com.lognex.api.request.builder.entity;
 
 import com.lognex.api.ApiClient;
+import com.lognex.api.model.base.Entity;
 import com.lognex.api.model.content.ExportTemplate;
 import com.lognex.api.model.content.ExportTemplateSet;
 import com.lognex.api.request.MSDeleteRequest;
@@ -37,8 +38,8 @@ public class SingleEntityRequestBuilderImpl extends BaseEntityRequestBuilder imp
     }
 
     @Override
-    public MSUpdateRequest update() {
-        return new MSUpdateRequest(url.toString(), client);
+    public <T extends Entity> MSUpdateRequest update(T t) {
+        return new MSUpdateRequest<>(url.toString(), client, t);
     }
 
     @Override
