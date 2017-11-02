@@ -24,7 +24,6 @@ import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class EntityTest {
@@ -269,6 +268,45 @@ public class EntityTest {
             Counterparty cpAttr = (Counterparty) c.getAttribute(counterpartyAttribute.getId()).get().getValue().getValue();
             assertEquals(cpAttr.getId().getValue(), counterpartyAttribute.getValue().getValue().getId().getValue());
         });
+
+    }
+
+    @Test
+    public void testCounterpartyUpdate() throws Exception{
+        Counterparty counterparty = new Counterparty();
+        counterparty.setName("AwesomeBro");
+        counterparty.setCompanyType(CompanyType.LEGAL);
+        counterparty.setLegalTitle("OOO AwesomeBro");
+        counterparty.setInn("7710152113");
+        counterparty.setKpp("771001001");
+        counterparty.setOgrn("1027700505348");
+        counterparty.setOkpo("02278679");
+        AgentAccount account = new AgentAccount();
+        account.setDefault(true);
+        account.setAccountNumber("1231232131231312311323");
+        counterparty.getAccounts().add(account);
+        Attribute<String> stringAttribute = new Attribute<>("af687f96-adba-11e7-7a34-5acf003d7f35", AttributeType.TEXT, new AttributeValue<>("string"));
+        counterparty.getAttributes().add(stringAttribute);
+        ApiResponse response = api.entity(Type.COUNTERPARTY).create(counterparty).addExpand("accounts").execute();
+        assertEquals(200, response.getStatus());
+        counterparty = (Counterparty) response.getEntities().get(0);
+
+        assertEquals(1, counterparty.getAccounts().size());
+        assertEquals(1, counterparty.getAttributes().size());
+        assertEquals("af687f96-adba-11e7-7a34-5acf003d7f35", counterparty.getAttributes().iterator().next().getId());
+        counterparty.setName("Not very Awesome Bro");
+        counterparty.getAccounts().get(0).setAccountNumber("777777777777");
+        ((Attribute<String>)counterparty.getAttributes().iterator().next()).setValue(new AttributeValue<>("kurica"));
+
+        response = api.entity(Type.COUNTERPARTY).id(counterparty.getId()).update(counterparty).addExpand("accounts").execute();
+        assertEquals(200, response.getStatus());
+        counterparty = (Counterparty) response.getEntities().get(0);
+        assertEquals(1, counterparty.getAccounts().size());
+        assertEquals(1, counterparty.getAttributes().size());
+        assertEquals("Not very Awesome Bro", counterparty.getName());
+        assertEquals("777777777777", counterparty.getAccounts().get(0).getAccountNumber());
+        assertEquals("af687f96-adba-11e7-7a34-5acf003d7f35", counterparty.getAttributes().iterator().next().getId());
+        assertEquals("kurica", ((Attribute<String>)counterparty.getAttributes().iterator().next()).getValue().getValue());
 
     }
 

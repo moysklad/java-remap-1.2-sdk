@@ -32,6 +32,7 @@ public enum Type {
     GROUP("group", Group.class),
     EMBEDDED_TEMPLATE("embeddedtemplate", EmbeddedTemplate.class),
     CUSTOM_TEMPLATE("customtemplate", CustomTemplate.class),
+    AGENT_ACCOUNT("agentaccount", AgentAccount.class)
     ;
 
 

@@ -27,8 +27,8 @@ public class MSTemplateRequest extends MSRequestWithBody {
     }
 
     @Override
-    protected HttpEntityEnclosingRequest produceHttpUriRequest() {
-        return new HttpPut(getUrl());
+    protected HttpEntityEnclosingRequest produceHttpUriRequest(String url) {
+        return new HttpPut(url);
     }
 
     @Override
