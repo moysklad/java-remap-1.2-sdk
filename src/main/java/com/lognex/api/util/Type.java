@@ -27,6 +27,7 @@ public enum Type {
     STORE("store", Store.class),
     CURRENCY("currency", Currency.class),
     DEMAND("demand", Demand.class),
+    STATE("state", State.class),
     ORGANIZATION("organization", Organization.class),
     FACTURE_OUT("factureout", FactureOut.class),
     GROUP("group", Group.class),
