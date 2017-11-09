@@ -22,6 +22,12 @@ public class CustomJsonGenerator extends JsonGenerator {
         }
     }
 
+    public void writeIntegerFieldIfNotNull(String fieldName, Integer value) throws IOException {
+        if (value != null) {
+            delegate.writeNumberField(fieldName, value);
+        }
+    }
+
     // DELEGATE
     @Override
     public JsonGenerator setCodec(ObjectCodec objectCodec) {

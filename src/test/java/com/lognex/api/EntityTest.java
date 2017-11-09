@@ -6,6 +6,7 @@ import com.lognex.api.model.base.field.CompanyType;
 import com.lognex.api.model.entity.AgentAccount;
 import com.lognex.api.model.entity.Counterparty;
 import com.lognex.api.model.entity.CustomEntity;
+import com.lognex.api.model.entity.State;
 import com.lognex.api.model.entity.attribute.Attribute;
 import com.lognex.api.model.entity.attribute.AttributeType;
 import com.lognex.api.model.entity.attribute.AttributeValue;
@@ -28,7 +29,33 @@ import static org.junit.Assert.assertTrue;
 
 public class EntityTest {
 
+    private static final String COUNTERPARTY_CONVERSTAION_STATE = "e7737531-93ce-11e7-7a34-5acf001a6247";
     private ApiClient api = new ApiClient(System.getenv("login"), System.getenv("password"), null);
+
+    @Test
+    public void testCreateCounterpartyWithState() throws Exception {
+        Counterparty counterparty = new Counterparty();
+        counterparty.setName("WoolStore");
+        counterparty.setEmail("woolstore@woolstore.com");
+        AgentAccount agentAccount = new AgentAccount();
+        agentAccount.setAccountNumber("41241421421");
+        agentAccount.setBankLocation("NY");
+        agentAccount.setBankName("YN");
+        agentAccount.setBic("1231412");
+        agentAccount.setCorrespondentAccount("23523532523");
+        agentAccount.setDefault(true);
+        counterparty.getAccounts().add(agentAccount);
+        counterparty.getTags().add("u3");
+
+        State state = new State();
+        state.setId(new ID(COUNTERPARTY_CONVERSTAION_STATE));
+        counterparty.setState(state);
+        ApiResponse response = api.entity(Type.COUNTERPARTY).create(counterparty).execute();
+        assertEquals(response.getStatus(), 200);
+        assertFalse(response.hasErrors());
+        Counterparty actualCounterparty = (Counterparty) response.getEntities().get(0);
+        assertEquals(COUNTERPARTY_CONVERSTAION_STATE, actualCounterparty.getState().getId().getValue());
+    }
 
     @Test
     public void testCreateAndGetCounterparty() throws Exception {

@@ -15,6 +15,8 @@ import static lombok.AccessLevel.PRIVATE;
 public final class StreamUtils {
 
     public static Stream<JsonNode> stream(JsonNode node) {
+        if (node == null) return Stream.empty();
+
         Spliterator<JsonNode> spliterator = Spliterators.spliterator(node.iterator(), node.size(), ORDERED);
         return StreamSupport.stream(spliterator, false);
     }
