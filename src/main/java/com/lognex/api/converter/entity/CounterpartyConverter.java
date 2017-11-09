@@ -16,6 +16,9 @@ import com.lognex.api.model.entity.State;
 import java.io.IOException;
 import java.util.Collection;
 
+import static com.lognex.api.util.StreamUtils.stream;
+import static java.util.stream.Collectors.toList;
+
 public class CounterpartyConverter extends AgentConverter<Counterparty> {
 
     private AttributesConverter attributesConverter = new AttributesConverter();
@@ -45,13 +48,8 @@ public class CounterpartyConverter extends AgentConverter<Counterparty> {
         entity.getAccounts().clear();
         entity.getAccounts().addAll((Collection<? extends AgentAccount>) ConverterUtil.getListFromExpand(node, "accounts", ConverterFactory.getConverter(AgentAccount.class)));
         entity.setState(ConverterUtil.getObject(node, "state", stateConverter));
-        entity.getTags().clear();
         ArrayNode tags = ConverterUtil.getArray(node, "tags");
-        if (tags != null) {
-            for (JsonNode tag : tags) {
-                entity.getTags().add(tag.asText());
-            }
-        }
+        entity.setTags(stream(tags).map(JsonNode::asText).collect(toList()));
     }
 
     @Override
