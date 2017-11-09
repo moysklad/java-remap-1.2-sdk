@@ -4,13 +4,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.lognex.api.converter.ConverterFactory;
 import com.lognex.api.converter.ConverterUtil;
-import com.lognex.api.converter.base.EntityConverter;
 import com.lognex.api.converter.base.AttributesConverter;
 import com.lognex.api.converter.base.CustomJsonGenerator;
-import com.lognex.api.model.base.field.CompanyType;
+import com.lognex.api.converter.base.EntityConverter;
 import com.lognex.api.exception.ConverterException;
+import com.lognex.api.model.base.field.CompanyType;
 import com.lognex.api.model.entity.AgentAccount;
 import com.lognex.api.model.entity.Counterparty;
+import com.lognex.api.model.entity.State;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -18,6 +19,8 @@ import java.util.Collection;
 public class CounterpartyConverter extends AgentConverter<Counterparty> {
 
     private AttributesConverter attributesConverter = new AttributesConverter();
+
+    private StateConverter stateConverter = new StateConverter();
 
     @Override
     protected Counterparty convertFromJson(JsonNode node) throws ConverterException {
@@ -30,7 +33,7 @@ public class CounterpartyConverter extends AgentConverter<Counterparty> {
     @Override
     protected void convertToEntity(Counterparty entity, JsonNode node) throws ConverterException {
         super.convertToEntity(entity, node);
-        entity.setCompanyType(ConverterUtil.getString(node, "companyType") == null? null :
+        entity.setCompanyType(ConverterUtil.getString(node, "companyType") == null ? null :
                 CompanyType.valueOf(ConverterUtil.getString(node, "companyType").toUpperCase()));
         entity.setLegalTitle(ConverterUtil.getString(node, "legalTitle"));
         entity.setOgrn(ConverterUtil.getString(node, "ogrn"));
@@ -41,11 +44,13 @@ public class CounterpartyConverter extends AgentConverter<Counterparty> {
         entity.setEmail(ConverterUtil.getString(node, "email"));
         entity.getAccounts().clear();
         entity.getAccounts().addAll((Collection<? extends AgentAccount>) ConverterUtil.getListFromExpand(node, "accounts", ConverterFactory.getConverter(AgentAccount.class)));
-
+        entity.setState(ConverterUtil.getObject(node, "state", stateConverter));
         entity.getTags().clear();
         ArrayNode tags = ConverterUtil.getArray(node, "tags");
-        for (JsonNode tag : tags) {
-            entity.getTags().add(tag.asText());
+        if (tags != null) {
+            for (JsonNode tag : tags) {
+                entity.getTags().add(tag.asText());
+            }
         }
     }
 
@@ -56,7 +61,7 @@ public class CounterpartyConverter extends AgentConverter<Counterparty> {
         if (entity.getCompanyType() != null) {
             jgen.writeStringFieldIfNotEmpty("companyType", entity.getCompanyType().name().toLowerCase());
 
-            switch (entity.getCompanyType()){
+            switch (entity.getCompanyType()) {
                 case LEGAL: {
                     jgen.writeStringFieldIfNotEmpty("kpp", entity.getKpp());
                     jgen.writeStringFieldIfNotEmpty("ogrn", entity.getOgrn());
@@ -93,5 +98,11 @@ public class CounterpartyConverter extends AgentConverter<Counterparty> {
             jgen.writeString(tag);
         }
         jgen.writeEndArray();
+
+        State state = entity.getState();
+        if (state != null) {
+            jgen.writeFieldName("state");
+            stateConverter.toJson(jgen, state, host);
+        }
     }
 }

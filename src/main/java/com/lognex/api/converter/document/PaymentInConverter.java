@@ -42,11 +42,11 @@ public class PaymentInConverter extends FinanceInConverter<PaymentIn> {
     @Override
     protected void convertFields(CustomJsonGenerator jgen, PaymentIn entity) throws IOException {
         super.convertFields(jgen, entity);
+
         State state = entity.getState();
         if (state != null) {
-            jgen.writeStartObject("state");
+            jgen.writeFieldName("state");
             stateConverter.toJson(jgen, state, host);
-            jgen.writeEndObject();
         }
     }
 }
