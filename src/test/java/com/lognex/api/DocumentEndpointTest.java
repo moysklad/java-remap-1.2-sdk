@@ -94,7 +94,6 @@ public class DocumentEndpointTest {
         checkListRequest(Type.CURRENCY);
     }
 
-
     @Test
     public void testCreateFactureOut() throws Exception {
         FactureOut factureOut = new FactureOut();
@@ -118,6 +117,30 @@ public class DocumentEndpointTest {
 
         ApiResponse factureOutResponse = api.entity(Type.FACTURE_OUT).create(factureOut).execute();
         assertEquals(factureOutResponse.getStatus(), 200);
+    }
+
+    @Test
+    public void testCreateFactureOutByPaymentIn() throws Exception {
+        FactureOut factureOut = new FactureOut();
+        PaymentIn paymentIn = new PaymentIn();
+        paymentIn.setName(UUID.randomUUID().toString());
+        Organization organization = (Organization) api.entity(Type.ORGANIZATION).list().execute().getEntities().get(0);
+        Counterparty agent = (Counterparty) api.entity(Type.COUNTERPARTY).list().execute().getEntities().get(0);
+        paymentIn.setAgent(agent);
+        paymentIn.setOrganization(organization);
+        ApiResponse demandResponse = api.entity(Type.PAYMENT_IN).create(paymentIn).execute();
+        assertEquals(demandResponse.getStatus(), 200);
+        paymentIn = (PaymentIn) demandResponse.getEntities().get(0);
+        factureOut.getPayments().add(paymentIn);
+        ApiResponse templateResponse = api.entity(Type.FACTURE_OUT).template(factureOut).execute();
+        assertEquals(templateResponse.getStatus(), 200);
+        factureOut = (FactureOut) templateResponse.getEntities().get(0);
+        factureOut.setApplicable(true);
+
+        ApiResponse factureOutResponse = api.entity(Type.FACTURE_OUT).create(factureOut).execute();
+        assertEquals(factureOutResponse.getStatus(), 200);
+        FactureOut facture = (FactureOut) factureOutResponse.getEntities().get(0);
+        assertTrue(facture.getPayments().size() > 0);
     }
 
     @Test
