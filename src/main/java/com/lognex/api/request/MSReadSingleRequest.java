@@ -18,8 +18,6 @@ public class MSReadSingleRequest extends MSRequest {
             urldBuilder.append("?");
         }
         addExpandParameter(urldBuilder);
-        String uri = urldBuilder.toString();
-        String escapedUri = UrlEscapers.urlFragmentEscaper().escape(uri);
-        return new HttpGet(escapedUri);
+        return new HttpGet(UrlEscapers.urlFragmentEscaper().escape(urldBuilder.toString()));
     }
 }

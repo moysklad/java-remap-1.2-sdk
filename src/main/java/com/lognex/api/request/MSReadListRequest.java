@@ -68,9 +68,7 @@ public class MSReadListRequest extends MSRequest {
             appendParam(urldBuilder, "order", sorts.stream().map(Sort::toSortString).collect(Collectors.joining(";")));
         }
         addExpandParameter(urldBuilder);
-        String uri = urldBuilder.toString();
-        String escapedUri = UrlEscapers.urlFragmentEscaper().escape(uri);
-        return new HttpGet(escapedUri);
+        return new HttpGet(UrlEscapers.urlFragmentEscaper().escape(urldBuilder.toString()));
     }
 
     @Override
