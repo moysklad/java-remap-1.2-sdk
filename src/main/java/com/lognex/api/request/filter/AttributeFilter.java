@@ -16,7 +16,7 @@ public class AttributeFilter extends Filter<AttributeValue> {
         super(prepareFieldName(entityType, attribute), operator, value);
     }
 
-    private static String prepareFieldName(Type entityType, Attribute attribute){
+    private static String prepareFieldName(Type entityType, Attribute attribute) {
         return Constants.DEFAULT_HOST_URL + "/" + Constants.ENTITY_PATH + "/"
                 + entityType.getApiName() + "/" + Constants.METADATA_PATH + "/attributes/" + attribute.getId();
     }
@@ -32,14 +32,14 @@ public class AttributeFilter extends Filter<AttributeValue> {
         return fieldName + operator.getSign() + prepareValue(host);
     }
 
-    private String prepareValue(String host){
+    private String prepareValue(String host) {
         if (value.getValue() instanceof String
                 || value.getValue() instanceof Number
-                || value.getValue() instanceof Boolean){
+                || value.getValue() instanceof Boolean) {
             return String.valueOf(value.getValue());
-        } else if (value.getValue() instanceof Date){
+        } else if (value.getValue() instanceof Date) {
             return DateUtils.format((Date) value.getValue());
-        } else if (value.getValue() instanceof Entity){
+        } else if (value.getValue() instanceof Entity) {
             Entity entity = (Entity) value.getValue();
             Type t = Type.find(entity.getClass());
             return MetaHrefUtils.makeHref(t, entity, host);

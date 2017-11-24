@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -335,6 +338,34 @@ public class EntityTest {
         assertEquals("af687f96-adba-11e7-7a34-5acf003d7f35", counterparty.getAttributes().iterator().next().getId());
         assertEquals("kurica", ((Attribute<String>)counterparty.getAttributes().iterator().next()).getValue().getValue());
 
+    }
+
+    @Test
+    public void testFilterCounterpartyByEntityId() {
+        Counterparty counterparty = new Counterparty();
+        counterparty.setName("AwesomeBro");
+        AttributeValue<String> attributeValue = new AttributeValue<>("русские буквы и пробелы " + UUID.randomUUID());
+        Attribute<String> stringAttribute = new Attribute<>("af687f96-adba-11e7-7a34-5acf003d7f35", AttributeType.TEXT, attributeValue);
+
+        ApiResponse response = api.entity(Type.COUNTERPARTY)
+                .list().buildFilter()
+                .filter(stringAttribute, FilterOperator.EQUALS, attributeValue)
+                .build()
+                .execute();
+        assertEquals(200, response.getStatus());
+        assertEquals(0, response.getEntities().size());
+
+        counterparty.getAttributes().add(stringAttribute);
+
+        api.entity(Type.COUNTERPARTY).create(counterparty).execute();
+
+        response = api.entity(Type.COUNTERPARTY)
+                .list().buildFilter()
+                .filter(stringAttribute, FilterOperator.EQUALS, attributeValue)
+                .build()
+                .execute();
+        assertEquals(200, response.getStatus());
+        assertEquals(1, response.getEntities().size());
     }
 
     private void checkAttributesEquality(IEntityWithAttributes actual, IEntityWithAttributes expected) {
