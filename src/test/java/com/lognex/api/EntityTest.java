@@ -346,8 +346,6 @@ public class EntityTest {
         counterparty.setName("AwesomeBro");
         AttributeValue<String> attributeValue = new AttributeValue<>("русские буквы и пробелы " + UUID.randomUUID());
         Attribute<String> stringAttribute = new Attribute<>("af687f96-adba-11e7-7a34-5acf003d7f35", AttributeType.TEXT, attributeValue);
-        counterparty.getAttributes().add(stringAttribute);
-        api.entity(Type.COUNTERPARTY).create(counterparty).execute();
 
         ApiResponse response = api.entity(Type.COUNTERPARTY)
                 .list().buildFilter()
@@ -355,7 +353,19 @@ public class EntityTest {
                 .build()
                 .execute();
         assertEquals(200, response.getStatus());
-        assertFalse(response.getEntities().isEmpty());
+        assertEquals(0, response.getEntities().size());
+
+        counterparty.getAttributes().add(stringAttribute);
+
+        api.entity(Type.COUNTERPARTY).create(counterparty).execute();
+
+        response = api.entity(Type.COUNTERPARTY)
+                .list().buildFilter()
+                .filter(stringAttribute, FilterOperator.EQUALS, attributeValue)
+                .build()
+                .execute();
+        assertEquals(200, response.getStatus());
+        assertEquals(1, response.getEntities().size());
     }
 
     private void checkAttributesEquality(IEntityWithAttributes actual, IEntityWithAttributes expected) {
