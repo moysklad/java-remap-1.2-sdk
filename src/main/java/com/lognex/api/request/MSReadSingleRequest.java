@@ -1,5 +1,6 @@
 package com.lognex.api.request;
 
+import com.google.common.net.UrlEscapers;
 import com.lognex.api.ApiClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -17,6 +18,8 @@ public class MSReadSingleRequest extends MSRequest {
             urldBuilder.append("?");
         }
         addExpandParameter(urldBuilder);
-        return new HttpGet(urldBuilder.toString());
+        String uri = urldBuilder.toString();
+        String escapedUri = UrlEscapers.urlFragmentEscaper().escape(uri);
+        return new HttpGet(escapedUri);
     }
 }

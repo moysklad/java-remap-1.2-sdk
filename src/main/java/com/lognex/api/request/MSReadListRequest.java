@@ -1,5 +1,6 @@
 package com.lognex.api.request;
 
+import com.google.common.net.UrlEscapers;
 import com.lognex.api.ApiClient;
 import com.lognex.api.model.base.Entity;
 import com.lognex.api.model.entity.attribute.Attribute;
@@ -67,7 +68,9 @@ public class MSReadListRequest extends MSRequest {
             appendParam(urldBuilder, "order", sorts.stream().map(Sort::toSortString).collect(Collectors.joining(";")));
         }
         addExpandParameter(urldBuilder);
-        return new HttpGet(urldBuilder.toString());
+        String uri = urldBuilder.toString();
+        String escapedUri = UrlEscapers.urlFragmentEscaper().escape(uri);
+        return new HttpGet(escapedUri);
     }
 
     @Override

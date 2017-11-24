@@ -337,6 +337,24 @@ public class EntityTest {
 
     }
 
+    @Test
+    public void testFilterCounterpartyByEntityId() {
+        Counterparty counterparty = new Counterparty();
+        counterparty.setName("AwesomeBro");
+        long someRandomValue = System.currentTimeMillis();
+        Attribute<String> stringAttribute = new Attribute<>("af687f96-adba-11e7-7a34-5acf003d7f35", AttributeType.TEXT, new AttributeValue<>("русские буквы " + someRandomValue));
+        counterparty.getAttributes().add(stringAttribute);
+        api.entity(Type.COUNTERPARTY).create(counterparty).execute();
+
+        ApiResponse response = api.entity(Type.COUNTERPARTY)
+                .list().buildFilter()
+                .filter(stringAttribute, FilterOperator.EQUALS, stringAttribute.getValue())
+                .build()
+                .execute();
+        assertEquals(200, response.getStatus());
+        assertTrue(response.getEntities().size() == 1);
+    }
+
     private void checkAttributesEquality(IEntityWithAttributes actual, IEntityWithAttributes expected) {
         assertEquals(actual.getAttributes().size(), expected.getAttributes().size());
         for (Attribute<?> attribute : actual.getAttributes()) {
