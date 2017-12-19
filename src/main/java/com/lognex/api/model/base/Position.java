@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public abstract class Position extends Entity {
     private int quantity;
-    private long price;
+    private double price;
     private double discount;
     private long vat;
     private Assortment assortment;

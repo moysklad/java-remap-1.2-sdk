@@ -65,7 +65,7 @@ final class ResponseParser {
             String body = reader.lines().reduce((a, b) -> a+b).orElse("");
             Type type = typeFromUrl(msRequest.getUrl());
 
-            return new ApiResponse(statusCode,
+            return new ApiResponse(body.getBytes(), statusCode,
                     parseErrors(body),
                     parseEntities(body, type),
                     headers,

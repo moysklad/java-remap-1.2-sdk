@@ -104,7 +104,7 @@ public final class ConverterUtil {
     public static <T extends Entity> T getObject(JsonNode node, String fieldName) {
         Optional<JsonNode> element = getElement(node, fieldName);
         if (element.isPresent()) {
-            JsonNode typeElement = node.findValue(TYPE);
+            JsonNode typeElement = element.get().findValue(TYPE);
             if (typeElement != null && !isEmpty(typeElement.asText())) {
                 return ((T) ConverterFactory.getConverter(Type.find(typeElement.asText()).getModelClass())
                         .convert(node.toString()));

@@ -21,9 +21,10 @@ public class ApiResponse {
     private Context context;
     private byte[] content;
 
-    public ApiResponse(int status, Set<ApiError> errors, List<Entity> entities, List<Header> headers, Context context){
+    public ApiResponse(byte[] content, int status, Set<ApiError> errors, List<Entity> entities, List<Header> headers, Context context){
         this(status, errors, headers, context);
         this.entities = entities;
+        this.content = content;
     }
 
     public ApiResponse(int status, List<Header> headers, byte[] content){

@@ -9,7 +9,7 @@ public abstract class PositionConverter<P extends Position> extends EntityConver
     @Override
     protected void convertToEntity(final Position entity, JsonNode node) {
         entity.setQuantity(ConverterUtil.getInt(node, "quantity"));
-        entity.setPrice(ConverterUtil.getLong(node, "price"));
+        entity.setPrice(ConverterUtil.getDouble(node, "price"));
         entity.setDiscount(ConverterUtil.getDouble(node, "discount"));
         entity.setVat(ConverterUtil.getLong(node, "vat"));
         entity.setAssortment(ConverterUtil.getObject(node, "assortment"));

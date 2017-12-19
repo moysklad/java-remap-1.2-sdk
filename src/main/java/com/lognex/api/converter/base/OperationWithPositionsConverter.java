@@ -25,8 +25,8 @@ public abstract class OperationWithPositionsConverter<T extends OperationWithPos
     protected void convertToEntity(T entity, JsonNode node) throws ConverterException {
         super.convertToEntity(entity, node);
         entity.setVatSum(ConverterUtil.getDouble(node, "vatSum"));
-        // TODO не прокатит, т.к. даже с expand позиции к нам приходят как объект. Нужно глядеть в rows.
-        entity.getPositions().addAll(ConverterUtil.getList(node, "positions", ConverterFactory.getConverter(positionType)));
+        JsonNode positionRows = node.get("positions");
+        entity.getPositions().addAll(ConverterUtil.getList(positionRows, "rows", ConverterFactory.getConverter(positionType)));
         ObjectNode positionsMetaNode = (ObjectNode) node.get("positions").get("meta");
         String href = ConverterUtil.getString(positionsMetaNode, "href");
         String type = ConverterUtil.getString(positionsMetaNode, "type");

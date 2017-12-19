@@ -1,6 +1,7 @@
 package com.lognex.api.util;
 
 import com.lognex.api.model.base.Entity;
+import com.lognex.api.model.base.ShipmentOutPosition;
 import com.lognex.api.model.document.Demand;
 import com.lognex.api.model.document.FactureOut;
 import com.lognex.api.model.document.PaymentIn;
@@ -33,7 +34,9 @@ public enum Type {
     GROUP("group", Group.class),
     EMBEDDED_TEMPLATE("embeddedtemplate", EmbeddedTemplate.class),
     CUSTOM_TEMPLATE("customtemplate", CustomTemplate.class),
-    AGENT_ACCOUNT("agentaccount", AgentAccount.class)
+    AGENT_ACCOUNT("agentaccount", AgentAccount.class),
+
+    DEMAND_POSITION("demandposition", ShipmentOutPosition.class)
     ;
 
 
