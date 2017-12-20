@@ -28,6 +28,4 @@ public class DemandConverter extends ComingOutOperationConverter<Demand, Shipmen
         entity.setOrganizationAccount(ConverterUtil.getObject(node, "organizationAccount", agentAccountConverter));
         entity.setAgentAccount(ConverterUtil.getObject(node, "agentAccount", agentAccountConverter));
     }
-
-
 }

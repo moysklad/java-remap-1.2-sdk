@@ -15,6 +15,7 @@ import com.lognex.api.model.entity.EmbeddedTemplate;
 import com.lognex.api.model.entity.Organization;
 import com.lognex.api.model.entity.good.Service;
 import com.lognex.api.model.entity.Store;
+import com.lognex.api.request.RequestOption;
 import com.lognex.api.response.ApiResponse;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.Type;
@@ -260,7 +261,7 @@ public class DocumentEndpointTest {
 
         response = api.entity(Type.DEMAND).id(demand.getId())
                 .export(new ExportTemplate(embeddedTemplates.get(0), ExportTemplate.Extension.PDF))
-                .addHeader("X-Lognex-Get-Content", "true").execute();
+                .addOption(RequestOption.PRINT_DOCUMENT_CONTENT).execute();
         assertEquals(200, response.getStatus());
         try {
             File file = File.createTempFile("template", ".pdf");
@@ -275,7 +276,7 @@ public class DocumentEndpointTest {
                 .export(new ExportTemplateSet(Lists.newArrayList(
                         new ExportTemplateSet.TemplateWithCount(embeddedTemplates.get(0), 1),
                         new ExportTemplateSet.TemplateWithCount(embeddedTemplates.get(1), 3))))
-                .addHeader("X-Lognex-Get-Content", "true").execute();
+                .addOption(RequestOption.PRINT_DOCUMENT_CONTENT).execute();
         assertEquals(200, response.getStatus());
         try {
             File file = File.createTempFile("templateSet", ".pdf");

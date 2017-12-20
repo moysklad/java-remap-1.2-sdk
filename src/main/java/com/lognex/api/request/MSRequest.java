@@ -4,7 +4,6 @@ import com.lognex.api.ApiClient;
 import com.lognex.api.response.ApiResponse;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.Header;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
@@ -13,7 +12,6 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicHeader;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -29,16 +27,11 @@ public abstract class MSRequest {
     private String url;
     private ApiClient client;
     private Set<String> expand = new HashSet<>();
-    protected Set<Header> headers = new HashSet<>();
+    protected Set<RequestOption> options = new HashSet<>();
 
     MSRequest(String url, ApiClient client){
         this.url = url;
         this.client = client;
-    }
-
-    public MSRequest addHeader(String name, String value) {
-        headers.add(new BasicHeader(name, value));
-        return this;
     }
 
     public MSRequest addExpand(String expandParam) {
@@ -47,10 +40,15 @@ public abstract class MSRequest {
         return this;
     }
 
+    public MSRequest addOption(RequestOption option) {
+        this.options.add(option);
+        return this;
+    }
+
     public ApiResponse execute() {
         try (CloseableHttpClient httpclient = buildHttpClient(client.getLogin(), client.getPassword())) {
             HttpUriRequest request = buildRequest();
-            headers.forEach(request::addHeader);
+            options.forEach(o -> request.addHeader(o.getHeader(), o.getValue()));
             CloseableHttpResponse response = httpclient.execute(request);
             return ResponseParser.parse(response, this);
         } catch (IOException e) {
