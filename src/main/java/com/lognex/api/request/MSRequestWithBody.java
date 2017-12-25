@@ -19,7 +19,7 @@ public abstract class MSRequestWithBody extends MSRequest {
     }
 
     @Override
-    protected HttpUriRequest buildRequest() {
+    protected HttpUriRequest createRequest() {
         StringBuilder urlBuilder = new StringBuilder(getUrl());
         addExpandParameter(urlBuilder);
         HttpEntityEnclosingRequest request = produceHttpUriRequest(urlBuilder.toString());

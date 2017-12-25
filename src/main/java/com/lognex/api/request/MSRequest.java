@@ -48,7 +48,6 @@ public abstract class MSRequest {
     public ApiResponse execute() {
         try (CloseableHttpClient httpclient = buildHttpClient(client.getLogin(), client.getPassword())) {
             HttpUriRequest request = buildRequest();
-            options.forEach(o -> request.addHeader(o.getHeader(), o.getValue()));
             CloseableHttpResponse response = httpclient.execute(request);
             return ResponseParser.parse(response, this);
         } catch (IOException e) {
@@ -57,7 +56,19 @@ public abstract class MSRequest {
         }
     }
 
-    protected abstract HttpUriRequest buildRequest();
+    public HttpUriRequest buildRequest(){
+        HttpUriRequest result = createRequest();
+        fillHeaders(result);
+        return result;
+    }
+
+    private void fillHeaders(HttpUriRequest request){
+        options.stream()
+                .filter(o-> o != null && (o.getHeader() != null && !o.getHeader().isEmpty()) && (o.getValue() != null && !o.getValue().isEmpty()))
+                .forEach(o -> request.addHeader(o.getHeader(), o.getValue()));
+    }
+
+    protected abstract HttpUriRequest createRequest();
 
     void addExpandParameter(StringBuilder currentUrl){
         if (!expand.isEmpty()) {

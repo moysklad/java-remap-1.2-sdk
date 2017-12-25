@@ -10,7 +10,7 @@ public class MSDeleteRequest extends MSRequest {
     }
 
     @Override
-    protected HttpUriRequest buildRequest() {
+    protected HttpUriRequest createRequest() {
         return null;
     }
 }

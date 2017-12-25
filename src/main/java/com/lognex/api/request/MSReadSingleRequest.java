@@ -12,7 +12,7 @@ public class MSReadSingleRequest extends MSRequest {
     }
 
     @Override
-    protected HttpUriRequest buildRequest() {
+    protected HttpUriRequest createRequest() {
         StringBuilder urldBuilder = new StringBuilder(getUrl());
         if (hasParameters()) {
             urldBuilder.append("?");

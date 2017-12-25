@@ -57,7 +57,7 @@ public class MSReadListRequest extends MSRequest {
     }
 
     @Override
-    protected HttpUriRequest buildRequest() {
+    protected HttpUriRequest createRequest() {
         StringBuilder urldBuilder = new StringBuilder(getUrl());
         limit.ifPresent(integer -> appendParam(urldBuilder, "limit", integer));
         offset.ifPresent(integer -> appendParam(urldBuilder, "offset", integer));
