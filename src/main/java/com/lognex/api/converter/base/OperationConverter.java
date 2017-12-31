@@ -20,6 +20,7 @@ public abstract class OperationConverter<T extends Operation> extends EntityLege
     private static final CounterpartyConverter counterpartyConverter = new CounterpartyConverter();
     private static final ContractConverter contractConverter = new ContractConverter();
     private static final ProjectConverter projectConverter = new ProjectConverter();
+    private static final StateConverter stateConverter = new StateConverter();
 
     @Override
     protected void convertToEntity(final T entity, JsonNode node) throws ConverterException {
@@ -27,9 +28,9 @@ public abstract class OperationConverter<T extends Operation> extends EntityLege
         entity.setMoment(ConverterUtil.getDate(node, "moment"));
         entity.setApplicable(ConverterUtil.getBoolean(node, "applicable"));
         entity.setSum(ConverterUtil.getDouble(node, "sum"));
-
         entity.setContract(ConverterUtil.getObject(node, "contract", contractConverter, new Contract()));
         entity.setProject(ConverterUtil.getObject(node, "project", projectConverter, new Project()));
+        entity.setState(ConverterUtil.getObject(node, "state", stateConverter));
         entity.setSyncId(ConverterUtil.getId(node, "syncId"));
         entity.setRate(ConverterUtil.getObject(node, "rate", currencyConverter, new Currency()));
         entity.setOrganization(ConverterUtil.getObject(node, "organization", organizationConverter, new Organization()));
@@ -57,6 +58,11 @@ public abstract class OperationConverter<T extends Operation> extends EntityLege
         }
         if (entity.getOrganization() != null) {
             convertMetaField(jgen, "organization", entity.getOrganization());
+        }
+        State state = entity.getState();
+        if (state != null) {
+            jgen.writeFieldName("state");
+            stateConverter.toJson(jgen, state, host);
         }
     }
 }

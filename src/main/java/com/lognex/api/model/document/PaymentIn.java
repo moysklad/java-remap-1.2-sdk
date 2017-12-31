@@ -16,7 +16,6 @@ import java.util.Set;
 public class PaymentIn extends FinanceIn implements IEntityWithAttributes {
     private Organization organization;//!!!
     private Contract contract;
-    private State state;
     private AgentAccount organizationAccount;
     private Agent agent;
     private AgentAccount agentAccount;
