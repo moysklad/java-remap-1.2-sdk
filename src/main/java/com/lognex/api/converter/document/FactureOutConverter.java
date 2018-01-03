@@ -11,6 +11,7 @@ import com.lognex.api.model.base.field.Meta;
 import com.lognex.api.model.document.Demand;
 import com.lognex.api.model.document.FactureOut;
 import com.lognex.api.model.document.PaymentIn;
+import com.lognex.api.util.DateUtils;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.MetaHrefUtils;
 import com.lognex.api.util.Type;
@@ -57,7 +58,7 @@ public class FactureOutConverter extends OperationConverter<FactureOut> {
         	jgen.writeStringField("paymentNumber", entity.getPaymentNumber());
         }
         if (entity.getPaymentDate() != null) {
-            jgen.writeDateField("paymentDate", entity.getPaymentDate());
+            jgen.writeStringFieldIfNotEmpty("paymentDate", DateUtils.format(entity.getPaymentDate()));
         }
         if (!entity.getDemands().isEmpty()) {
             jgen.writeArrayFieldStart("demands");
