@@ -17,6 +17,8 @@ import com.lognex.api.util.Type;
 
 import java.io.IOException;
 
+import org.apache.commons.codec.binary.StringUtils;
+
 public class FactureOutConverter extends OperationConverter<FactureOut> {
 
     @Override
@@ -51,6 +53,12 @@ public class FactureOutConverter extends OperationConverter<FactureOut> {
     @Override
     protected void convertFields(CustomJsonGenerator jgen, FactureOut entity) throws IOException {
         super.convertFields(jgen, entity);
+        if (entity.getPaymentNumber() != null && entity.getPaymentNumber().length() > 0) {
+        	jgen.writeStringField("paymentNumber", entity.getPaymentNumber());
+        }
+        if (entity.getPaymentDate() != null) {
+            jgen.writeDateField("paymentDate", entity.getPaymentDate());
+        }
         if (!entity.getDemands().isEmpty()) {
             jgen.writeArrayFieldStart("demands");
             for (Demand d : entity.getDemands()) {
