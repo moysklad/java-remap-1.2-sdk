@@ -28,6 +28,12 @@ public class CustomJsonGenerator extends JsonGenerator {
         }
     }
 
+    public void writeObjectFieldIfNotNull(String fieldName, Object value) throws IOException {
+        if (value != null) {
+            writeObjectField(fieldName, value);
+        }
+    }
+
     // DELEGATE
     @Override
     public JsonGenerator setCodec(ObjectCodec objectCodec) {
