@@ -45,7 +45,7 @@ public class DocumentEndpointTest {
     }
 
     @Test
-    public void testReadPaymentIn() throws Exception {
+    public void testReadPaymentIn() {
         ApiResponse response = api.entity(Type.PAYMENT_IN).id(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0")).read().execute();
         assertEquals(response.getStatus(), 200);
         assertEquals(response.getEntities().size(), 1);
@@ -65,7 +65,7 @@ public class DocumentEndpointTest {
     }
 
     @Test
-    public void testReadPaymentsInWithAgentAccountExpand() throws Exception {
+    public void testReadPaymentsInWithAgentAccountExpand() {
         ApiResponse response = api.entity(Type.PAYMENT_IN).list().addExpand("agentAccount").execute();
         assertEquals(response.getStatus(), 200);
         assertTrue(response.getEntities().size() > 0);
@@ -76,7 +76,7 @@ public class DocumentEndpointTest {
     }
 
     @Test
-    public void testReadPaymentInWithAgentExpand() throws Exception {
+    public void testReadPaymentInWithAgentExpand() {
         ApiResponse response = api.entity(Type.PAYMENT_IN).id(new ID("ac08418c-9482-11e7-7a69-8f550003b1e0"))
                 .read().addExpand("agent").execute();
         assertEquals(response.getStatus(), 200);
@@ -86,17 +86,17 @@ public class DocumentEndpointTest {
     }
 
     @Test
-    public void testReadServices() throws Exception {
+    public void testReadServices() {
         checkListRequest(Type.SERVICE);
     }
 
     @Test
-    public void testReadCurrencies() throws Exception {
+    public void testReadCurrencies() {
         checkListRequest(Type.CURRENCY);
     }
 
     @Test
-    public void testCreateFactureOut() throws Exception {
+    public void testCreateFactureOut() {
         FactureOut factureOut = new FactureOut();
         Demand demand = new Demand();
         demand.setName(UUID.randomUUID().toString());
@@ -121,7 +121,7 @@ public class DocumentEndpointTest {
     }
 
     @Test
-    public void testCreateFactureOutByPaymentIn() throws Exception {
+    public void testCreateFactureOutByPaymentIn() {
         FactureOut factureOut = new FactureOut();
         PaymentIn paymentIn = new PaymentIn();
         paymentIn.setName(UUID.randomUUID().toString());
@@ -145,12 +145,12 @@ public class DocumentEndpointTest {
     }
 
     @Test
-    public void testReadDemands() throws Exception {
+    public void testReadDemands() {
         checkListRequest(Type.DEMAND);
     }
 
     @Test
-    public void testReadDemandsWithPositions() throws Exception {
+    public void testReadDemandsWithPositions() {
         // TODO False-positive test OperationWithPositionsConverter fix in converter.
         ApiResponse response = api.entity(Type.DEMAND).list().addExpand("positions").execute();
         assertFalse(response.hasErrors());
@@ -165,7 +165,7 @@ public class DocumentEndpointTest {
     }
 
     @Test
-    public void testCreateDemand() throws Exception {
+    public void testCreateDemand() {
         Service service = (Service) api.entity(Type.SERVICE).list().limit(1).execute().getEntities().get(0);
         Counterparty cp = (Counterparty) api.entity(Type.COUNTERPARTY).list().limit(1).execute().getEntities().get(0);
         Organization organization = (Organization) api.entity(Type.ORGANIZATION).list().limit(1).execute().getEntities().get(0);
@@ -208,7 +208,7 @@ public class DocumentEndpointTest {
     }
 
     @Test
-    public void testCounterpartyWithAccountsExpand() throws Exception {
+    public void testCounterpartyWithAccountsExpand() {
         ApiResponse response = api.entity(Type.COUNTERPARTY).id(new ID("4fedbd4c-b26d-11e7-7a6c-d2a9002d0b23"))
                 .read().addExpand("accounts").execute();
         assertEquals(response.getStatus(), 200);

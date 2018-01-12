@@ -36,7 +36,7 @@ public class EntityTest {
     private ApiClient api = new ApiClient(System.getenv("login"), System.getenv("password"), null);
 
     @Test
-    public void testCreateCounterpartyWithState() throws Exception {
+    public void testCreateCounterpartyWithState() {
         Counterparty counterparty = new Counterparty();
         counterparty.setName("WoolStore");
         counterparty.setEmail("woolstore@woolstore.com");
@@ -61,7 +61,7 @@ public class EntityTest {
     }
 
     @Test
-    public void testCreateAndGetCounterparty() throws Exception {
+    public void testCreateAndGetCounterparty() {
 
         Counterparty counterparty = new Counterparty();
         counterparty.setName("AwesomeBro");
@@ -115,7 +115,7 @@ public class EntityTest {
     }
 
     @Test
-    public void testCreateCounterpartyWithAccountsAndTags() throws Exception {
+    public void testCreateCounterpartyWithAccountsAndTags() {
         Counterparty counterparty = new Counterparty();
         counterparty.setName("WoolStore");
         counterparty.setEmail("woolstore@woolstore.com");
@@ -149,7 +149,7 @@ public class EntityTest {
     }
 
     @Test
-    public void testCounterpartySorted() throws Exception {
+    public void testCounterpartySorted() {
         String demoName = "a" + UUID.randomUUID().toString();
         Counterparty demo1 = new Counterparty();
         demo1.setName(demoName);
@@ -205,7 +205,7 @@ public class EntityTest {
     }
 
     @Test
-    public void testCounterpartyFilteredListRequest() throws Exception {
+    public void testCounterpartyFilteredListRequest() {
         Counterparty counterparty = new Counterparty();
         counterparty.setName("AwesomeBro");
         counterparty.setCompanyType(CompanyType.LEGAL);
@@ -302,7 +302,7 @@ public class EntityTest {
     }
 
     @Test
-    public void testCounterpartyUpdate() throws Exception{
+    public void testCounterpartyUpdate() {
         Counterparty counterparty = new Counterparty();
         counterparty.setName("AwesomeBro");
         counterparty.setCompanyType(CompanyType.LEGAL);
