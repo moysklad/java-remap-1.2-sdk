@@ -34,7 +34,10 @@ public class PaymentInConverter extends FinanceInConverter<PaymentIn> {
     protected void convertFields(CustomJsonGenerator jgen, PaymentIn entity) throws IOException {
         super.convertFields(jgen, entity);
 
-        jgen.writeObjectFieldIfNotNull("incomingDate", DateUtils.format(entity.getIncomingDate()));
+        if (entity.getIncomingDate() != null) {
+            jgen.writeStringFieldIfNotEmpty("incomingDate", DateUtils.format(entity.getIncomingDate()));
+        }
+        
         jgen.writeStringFieldIfNotEmpty("incomingNumber", entity.getIncomingNumber());
     }
 }
