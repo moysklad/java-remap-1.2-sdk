@@ -3,9 +3,11 @@ package com.lognex.api;
 import com.lognex.api.model.base.Entity;
 import com.lognex.api.model.base.IEntityWithAttributes;
 import com.lognex.api.model.base.field.CompanyType;
+import com.lognex.api.model.document.PaymentIn;
 import com.lognex.api.model.entity.AgentAccount;
 import com.lognex.api.model.entity.Counterparty;
 import com.lognex.api.model.entity.CustomEntity;
+import com.lognex.api.model.entity.Organization;
 import com.lognex.api.model.entity.State;
 import com.lognex.api.model.entity.attribute.Attribute;
 import com.lognex.api.model.entity.attribute.AttributeType;
@@ -13,6 +15,7 @@ import com.lognex.api.model.entity.attribute.AttributeValue;
 import com.lognex.api.request.filter.FilterOperator;
 import com.lognex.api.request.sort.Sort;
 import com.lognex.api.response.ApiResponse;
+import com.lognex.api.util.DateUtils;
 import com.lognex.api.util.ID;
 import com.lognex.api.util.Type;
 import org.junit.Test;
@@ -363,6 +366,44 @@ public class EntityTest {
                 .execute();
         assertEquals(200, response.getStatus());
         assertEquals(1, response.getEntities().size());
+    }
+
+    @Test
+    public void testPaymentInCreation() {
+        Counterparty counterparty = new Counterparty();
+        String counterpartyName = UUID.randomUUID().toString();
+        counterparty.setName(counterpartyName);
+        ApiResponse response = api.entity(Type.COUNTERPARTY).create(counterparty).execute();
+
+        assertEquals(200, response.getStatus());
+        assertEquals(1, response.getEntities().size());
+
+        counterparty = (Counterparty) response.getEntities().get(0);
+
+        response = api.entity(Type.ORGANIZATION).list().execute();
+
+        assertEquals(200, response.getStatus());
+        assertFalse(response.getEntities().isEmpty());
+
+        Organization organization = (Organization) response.getEntities().get(0);
+
+        PaymentIn paymentIn = new PaymentIn();
+        paymentIn.setAgent(counterparty);
+        paymentIn.setOrganization(organization);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2018, Calendar.JANUARY , 1);
+        paymentIn.setIncomingDate(calendar.getTime());
+        paymentIn.setIncomingNumber("123");
+
+        response = api.entity(Type.PAYMENT_IN).create(paymentIn).execute();
+
+        assertEquals(200, response.getStatus());
+        assertEquals(1, response.getEntities().size());
+
+        paymentIn = (PaymentIn) response.getEntities().get(0);
+
+        assertEquals("123", paymentIn.getIncomingNumber());
+        assertEquals(DateUtils.parseDate("2018-01-01 00:00:00"), paymentIn.getIncomingDate());
     }
 
     private void checkAttributesEquality(IEntityWithAttributes actual, IEntityWithAttributes expected) {
