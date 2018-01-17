@@ -55,7 +55,6 @@ public class EntityTest {
         counterparty.setState(state);
         ApiResponse response = api.entity(Type.COUNTERPARTY).create(counterparty).execute();
         assertEquals(response.getStatus(), 200);
-        assertFalse(response.hasErrors());
         Counterparty actualCounterparty = (Counterparty) response.getEntities().get(0);
         assertEquals(COUNTERPARTY_CONVERSTAION_STATE, actualCounterparty.getState().getId().getValue());
     }
@@ -101,7 +100,6 @@ public class EntityTest {
 
         response = api.entity(Type.COUNTERPARTY).create(counterparty).execute();
         assertEquals(response.getStatus(), 200);
-        assertFalse(response.hasErrors());
 
         Counterparty created = (Counterparty) response.getEntities().get(0);
         assertEquals(created.getName(), counterparty.getName());

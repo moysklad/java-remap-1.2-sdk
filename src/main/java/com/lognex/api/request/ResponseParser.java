@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.lognex.api.converter.ConverterFactory;
+import com.lognex.api.exception.ResponseException;
 import com.lognex.api.model.base.Entity;
 import com.lognex.api.model.entity.Employee;
 import com.lognex.api.response.ApiError;
@@ -30,7 +31,7 @@ import java.util.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 final class ResponseParser {
 
-    static ApiResponse parse(CloseableHttpResponse response, MSRequest msRequest){
+    static ApiResponse parse(CloseableHttpResponse response, MSRequest msRequest) throws ResponseException {
         int statusCode = response.getStatusLine().getStatusCode();
         List<Header> headers = Arrays.asList(response.getAllHeaders());
 
@@ -60,13 +61,12 @@ final class ResponseParser {
         }
     }
 
-    private static ApiResponse getResponse(MSRequest msRequest, int statusCode, List<Header> headers, HttpEntity entity) {
+    private static ApiResponse getResponse(MSRequest msRequest, int statusCode, List<Header> headers, HttpEntity entity) throws ResponseException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent()))) {
             String body = reader.lines().reduce((a, b) -> a+b).orElse("");
             Type type = typeFromUrl(msRequest.getUrl());
-
+            parseErrors(body);
             return new ApiResponse(body.getBytes(), statusCode,
-                    parseErrors(body),
                     parseEntities(body, type),
                     headers,
                     parseContext(body));
@@ -76,7 +76,7 @@ final class ResponseParser {
         }
     }
 
-    private static Set<ApiError> parseErrors(String body) throws IOException {
+    private static void parseErrors(String body) throws IOException, ResponseException {
         if (body != null && !body.isEmpty()) {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode json = mapper.readTree(body);
@@ -88,10 +88,9 @@ final class ResponseParser {
                     ApiError parsed = mapper.readValue(error.toString(), ApiError.class);
                     errors.add(parsed);
                 }
-                return errors;
+                throw new ResponseException(errors);
             }
         }
-        return Collections.emptySet();
     }
 
     private static Context parseContext(String body) throws IOException {
