@@ -1,6 +1,7 @@
 package com.lognex.api.request;
 
 import com.lognex.api.ApiClient;
+import com.lognex.api.exception.ResponseException;
 import com.lognex.api.response.ApiResponse;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +46,7 @@ public abstract class MSRequest {
         return this;
     }
 
-    public ApiResponse execute() {
+    public ApiResponse execute() throws ResponseException {
         try (CloseableHttpClient httpclient = buildHttpClient(client.getLogin(), client.getPassword())) {
             HttpUriRequest request = buildRequest();
             CloseableHttpResponse response = httpclient.execute(request);

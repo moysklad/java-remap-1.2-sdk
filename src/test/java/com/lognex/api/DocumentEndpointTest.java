@@ -38,7 +38,6 @@ public class DocumentEndpointTest {
     @Test
     public void testReadPaymentsIn() throws ConverterException {
         ApiResponse response = api.entity(Type.PAYMENT_IN).list().limit(10).execute();
-        assertFalse(response.hasErrors());
         assertTrue(response.getEntities().size() <= 10);
         response.getEntities().forEach(e -> assertNotNull(e.getId()));
         checkListRequest(Type.PAYMENT_IN);
@@ -153,7 +152,6 @@ public class DocumentEndpointTest {
     public void testReadDemandsWithPositions() {
         // TODO False-positive test OperationWithPositionsConverter fix in converter.
         ApiResponse response = api.entity(Type.DEMAND).list().addExpand("positions").execute();
-        assertFalse(response.hasErrors());
         List<Demand> entities = (List<Demand>) response.getEntities();
         for (Demand demand : entities) {
             if (!demand.getPositions().isEmpty()) {
@@ -200,7 +198,6 @@ public class DocumentEndpointTest {
 
     private void checkListRequest(Type type) {
         ApiResponse response = api.entity(type).list().limit(10).execute();
-        assertFalse(response.hasErrors());
         List<? extends Entity> entities = response.getEntities();
         assertFalse(entities.isEmpty());
         assertTrue(entities.size() <= 10);
