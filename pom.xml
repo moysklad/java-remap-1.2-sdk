@@ -12,12 +12,12 @@
         <repository>
             <id>artifactory</id>
             <name>Moysklad Libs Release Repo</name>
-            <url>https://repo.moysklad.ru/artifactory/libs-release-local/</url>
+            <path>https://repo.moysklad.ru/artifactory/libs-release-local/</path>
         </repository>
         <snapshotRepository>
             <id>artifactory</id>
             <name>Moysklad Libs Snapshot Repo</name>
-            <url>https://repo.moysklad.ru/artifactory/libs-snapshot-local/</url>
+            <path>https://repo.moysklad.ru/artifactory/libs-snapshot-local/</path>
         </snapshotRepository>
     </distributionManagement>
 
@@ -27,5 +27,42 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.20</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.5</version>
+        </dependency>
     </dependencies>
 </project>
