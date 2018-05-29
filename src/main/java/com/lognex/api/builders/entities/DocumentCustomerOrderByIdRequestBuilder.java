@@ -12,6 +12,6 @@ public class DocumentCustomerOrderByIdRequestBuilder {
     }
 
     public void get() {
-        // TODO
+        // TODO Реализовать метод
     }
 }

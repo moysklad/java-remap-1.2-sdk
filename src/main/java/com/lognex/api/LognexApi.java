@@ -21,7 +21,10 @@ public final class LognexApi {
      * @param password пароль пользователя
      */
     public LognexApi(String host, String login, String password) {
+        host = host.trim();
         while (host.endsWith("/")) host = host.substring(0, host.lastIndexOf("/"));
+        if (host.startsWith("http://")) host = host.replace("http://", "https://");
+        else if (!host.startsWith("https://")) host = "https://" + host;
 
         this.login = login;
         this.host = host;

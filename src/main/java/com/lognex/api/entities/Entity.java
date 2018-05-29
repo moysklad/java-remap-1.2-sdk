@@ -1,11 +1,17 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.utils.HttpRequestBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.lang.reflect.Field;
 
 /**
  * Класс сущности
  */
 public abstract class Entity implements Cloneable {
+    private static final Logger logger = LogManager.getLogger(HttpRequestBuilder.class);
+
     /**
      * Присваивает полям этой сущности значения полей другой сущности
      */
@@ -22,7 +28,7 @@ public abstract class Entity implements Cloneable {
                 }
                 field.set(this, o);
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                logger.error("Ошибка при копировании полей сущности", e);
             }
         }
 
@@ -43,7 +49,7 @@ public abstract class Entity implements Cloneable {
                 который в свою очередь является наследником Clonable, то данная
                 ошибка вызываться не будет.
              */
-            e.printStackTrace();
+            logger.error("Ошибка при клонировании сущности", e);
             return original;
         }
     }
