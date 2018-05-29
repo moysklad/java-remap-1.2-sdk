@@ -11,19 +11,19 @@ import java.io.IOException;
 public final class OrganizationRequestBuilder {
     private final LognexApi api;
 
-    public OrganizationRequestBuilder(LognexApi api) {
+    OrganizationRequestBuilder(LognexApi api) {
         this.api = api;
     }
 
     /**
-     * Получить список всех Организаций
+     * Получение списка всех Организаций
      *
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка при обращении в API
+     * @throws LognexApiException когда возникла ошибка API
      */
     public ListResponse<Organization> get() throws IOException, LognexApiException {
         return HttpRequestBuilder.
                 path(api, "/entity/organization").
-                getListResponse(Organization.class);
+                list(Organization.class);
     }
 }

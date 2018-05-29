@@ -11,16 +11,16 @@ public final class CounterpartyByIdRequestBuilder {
     private final LognexApi api;
     private final String id;
 
-    public CounterpartyByIdRequestBuilder(LognexApi api, String id) {
+    CounterpartyByIdRequestBuilder(LognexApi api, String id) {
         this.api = api;
         this.id = id;
     }
 
     /**
-     * Возвращает Контрагента с указанным id
+     * Получение Контрагента с указанным id
      *
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка при обращении в API
+     * @throws LognexApiException когда возникла ошибка API
      */
     public Counterparty get() throws IOException, LognexApiException {
         return HttpRequestBuilder.
@@ -29,10 +29,10 @@ public final class CounterpartyByIdRequestBuilder {
     }
 
     /**
-     * Удаляет Контрагента с указанным id
+     * Удаление Контрагента с указанным id
      *
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка при обращении в API
+     * @throws LognexApiException когда возникла ошибка API
      */
     public void delete() throws IOException, LognexApiException {
         HttpRequestBuilder.
@@ -41,15 +41,19 @@ public final class CounterpartyByIdRequestBuilder {
     }
 
     /**
-     * Удаляет Контрагента с указанным id
+     * Обновление данных Контрагента с указанным id
      *
+     * @param updatedEntity сущность с новыми данными (<b>Внимание!</b> В этот объект после успешного
+     *                      выполнения запроса будут записаны полученные от API данные!)
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка при обращении в API
+     * @throws LognexApiException когда возникла ошибка API
      */
-    public void put(Counterparty updatedCounterparty) throws IOException, LognexApiException {
-        HttpRequestBuilder.
+    public void put(Counterparty updatedEntity) throws IOException, LognexApiException {
+        Counterparty responseEntity = HttpRequestBuilder.
                 path(api, "/entity/counterparty/" + id).
-                body(updatedCounterparty).
-                put();
+                body(updatedEntity).
+                put(Counterparty.class);
+
+        updatedEntity.set(responseEntity);
     }
 }

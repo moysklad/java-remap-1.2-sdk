@@ -12,12 +12,12 @@
         <repository>
             <id>artifactory</id>
             <name>Moysklad Libs Release Repo</name>
-            <path>https://repo.moysklad.ru/artifactory/libs-release-local/</path>
+            <url>https://repo.moysklad.ru/artifactory/libs-release-local/</url>
         </repository>
         <snapshotRepository>
             <id>artifactory</id>
             <name>Moysklad Libs Snapshot Repo</name>
-            <path>https://repo.moysklad.ru/artifactory/libs-snapshot-local/</path>
+            <url>https://repo.moysklad.ru/artifactory/libs-snapshot-local/</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -63,6 +63,12 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.8.2</version>
         </dependency>
     </dependencies>
 </project>

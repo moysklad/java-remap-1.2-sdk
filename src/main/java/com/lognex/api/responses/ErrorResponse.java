@@ -2,6 +2,9 @@ package com.lognex.api.responses;
 
 import java.util.List;
 
+/**
+ * Ответ сервера с ошибкой
+ */
 public class ErrorResponse {
     public List<Error> errors;
 

@@ -12,7 +12,7 @@ import java.io.IOException;
 public final class CounterpartyRequestBuilder {
     private final LognexApi api;
 
-    public CounterpartyRequestBuilder(LognexApi api) {
+    CounterpartyRequestBuilder(LognexApi api) {
         this.api = api;
     }
 
@@ -20,12 +20,12 @@ public final class CounterpartyRequestBuilder {
      * Получение списка всех Контрагентов
      *
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка при обращении в API
+     * @throws LognexApiException когда возникла ошибка API
      */
     public ListResponse<Counterparty> get() throws IOException, LognexApiException {
         return HttpRequestBuilder.
                 path(api, "/entity/counterparty").
-                getListResponse(Counterparty.class);
+                list(Counterparty.class);
     }
 
     /**
@@ -34,7 +34,7 @@ public final class CounterpartyRequestBuilder {
      * @param newEntity данные новой сущности (<b>Внимание!</b> В этот объект после успешного
      *                  выполнения запроса будут записаны полученные от API данные!)
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка при обращении в API
+     * @throws LognexApiException когда возникла ошибка API
      */
     public void post(Counterparty newEntity) throws IOException, LognexApiException {
         Counterparty responseEntity = HttpRequestBuilder.
@@ -46,10 +46,10 @@ public final class CounterpartyRequestBuilder {
     }
 
     /**
-     * Возвращает метаданные Контрагентов
+     * Получение списка Метаданных Контрагентов
      *
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка при обращении в API
+     * @throws LognexApiException когда возникла ошибка API
      */
     public CounterpartyMetadataListResponse metadata() throws IOException, LognexApiException {
         return HttpRequestBuilder.

@@ -7,23 +7,25 @@ import com.lognex.api.entities.documents.CustomerOrder;
 import com.lognex.api.responses.CounterpartyMetadataListResponse;
 import com.lognex.api.responses.ListResponse;
 import com.lognex.api.utils.LognexApiException;
+import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
 public class PilotTest {
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private LognexApi api;
 
-    private final LognexApi api = new LognexApi(
-            System.getenv("API_HOST"),
-            System.getenv("API_LOGIN"),
-            System.getenv("API_PASSWORD")
-    );
+    @Before
+    public void init() {
+        api = new LognexApi(
+                System.getenv("API_HOST"),
+                System.getenv("API_LOGIN"),
+                System.getenv("API_PASSWORD")
+        );
+    }
 
     /**
      * Тест на получение списка контрагентов
@@ -287,7 +289,7 @@ public class PilotTest {
 
         ch1.value = "Красивый";
         ch2.value = "В самый раз";
-        ch3.value = "???";
+        ch3.value = UUID.randomUUID().toString().substring(0, 10);
 
         newVariant.characteristics.add(ch1);
         newVariant.characteristics.add(ch2);

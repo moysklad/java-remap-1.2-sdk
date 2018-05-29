@@ -1,8 +1,17 @@
 package com.lognex.api.entities;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * Метаданные
  */
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode
 public final class Meta {
     /**
      * Ссылка на объект

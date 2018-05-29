@@ -11,29 +11,29 @@ import java.io.IOException;
 public final class ProductRequestBuilder {
     private final LognexApi api;
 
-    public ProductRequestBuilder(LognexApi api) {
+    ProductRequestBuilder(LognexApi api) {
         this.api = api;
     }
 
     /**
-     * Получить список всех Товаров
+     * Получение списка всех Товаров
      *
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка при обращении в API
+     * @throws LognexApiException когда возникла ошибка API
      */
     public ListResponse<Product> get() throws IOException, LognexApiException {
         return HttpRequestBuilder.
                 path(api, "/entity/product").
-                getListResponse(Product.class);
+                list(Product.class);
     }
 
     /**
-     * Создать новый Товар
+     * Создание нового Товара
      *
      * @param newEntity данные новой сущности (<b>Внимание!</b> В этот объект после успешного
      *                  выполнения запроса будут записаны полученные от API данные!)
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка при обращении в API
+     * @throws LognexApiException когда возникла ошибка API
      */
     public void post(Product newEntity) throws IOException, LognexApiException {
         Product responseEntity = HttpRequestBuilder.
@@ -49,7 +49,7 @@ public final class ProductRequestBuilder {
      *
      * @param id идентификатор сущности
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка при обращении в API
+     * @throws LognexApiException когда возникла ошибка API
      */
     public void delete(String id) throws IOException, LognexApiException {
         HttpRequestBuilder.

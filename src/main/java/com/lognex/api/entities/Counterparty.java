@@ -1,10 +1,20 @@
 package com.lognex.api.entities;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Контрагент
+ */
+
+@Getter
+@Setter
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public final class Counterparty extends MetaEntity {
     public String id;
     public String accountId;
@@ -33,10 +43,6 @@ public final class Counterparty extends MetaEntity {
     public String discountCardNumber;
     public State state;
     public Integer salesAmount;
-
-    public Counterparty(Meta meta) {
-        super(meta);
-    }
 
     public static class Discount {
         public MetaEntity discount;

@@ -6,6 +6,9 @@ import com.lognex.api.entities.State;
 
 import java.util.List;
 
+/**
+ * Список Метаданных Контрагентов
+ */
 public final class CounterpartyMetadataListResponse {
     public Meta meta;
     public List<Attribute> attributes;

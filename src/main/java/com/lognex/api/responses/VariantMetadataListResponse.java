@@ -6,6 +6,9 @@ import com.lognex.api.entities.Price;
 
 import java.util.List;
 
+/**
+ * Список Метаданных Модификаций
+ */
 public final class VariantMetadataListResponse {
     public Meta meta;
     public List<Characteristic> characteristics;

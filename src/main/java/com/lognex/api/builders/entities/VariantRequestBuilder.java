@@ -12,29 +12,29 @@ import java.io.IOException;
 public final class VariantRequestBuilder {
     private final LognexApi api;
 
-    public VariantRequestBuilder(LognexApi api) {
+    VariantRequestBuilder(LognexApi api) {
         this.api = api;
     }
 
     /**
-     * Получение списка всех Контрагентов
+     * Получение списка всех Модификаций
      *
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка при обращении в API
+     * @throws LognexApiException когда возникла ошибка API
      */
     public ListResponse<Variant> get() throws IOException, LognexApiException {
         return HttpRequestBuilder.
                 path(api, "/entity/variant").
-                getListResponse(Variant.class);
+                list(Variant.class);
     }
 
     /**
-     * Создание нового Контрагента
+     * Создание новой Модификации
      *
      * @param newEntity данные новой сущности (<b>Внимание!</b> В этот объект после успешного
      *                  выполнения запроса будут записаны полученные от API данные!)
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка при обращении в API
+     * @throws LognexApiException когда возникла ошибка API
      */
     public void post(Variant newEntity) throws IOException, LognexApiException {
         Variant responseEntity = HttpRequestBuilder.
@@ -46,10 +46,10 @@ public final class VariantRequestBuilder {
     }
 
     /**
-     * Возвращает метаданные Модификаций
+     * Получение списка Метаданных Модификаций
      *
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка при обращении в API
+     * @throws LognexApiException когда возникла ошибка API
      */
     public VariantMetadataListResponse metadata() throws IOException, LognexApiException {
         return HttpRequestBuilder.

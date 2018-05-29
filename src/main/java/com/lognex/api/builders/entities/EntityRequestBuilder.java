@@ -1,9 +1,6 @@
-package com.lognex.api.builders;
+package com.lognex.api.builders.entities;
 
 import com.lognex.api.LognexApi;
-import com.lognex.api.builders.entities.*;
-import com.lognex.api.builders.entities.document.DocumentCustomerOrderByIdRequestBuilder;
-import com.lognex.api.builders.entities.document.DocumentCustomerOrderRequestBuilder;
 
 public final class EntityRequestBuilder {
     private final LognexApi api;
