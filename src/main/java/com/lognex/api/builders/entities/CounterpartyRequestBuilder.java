@@ -1,6 +1,8 @@
 package com.lognex.api.builders.entities;
 
 import com.lognex.api.LognexApi;
+import com.lognex.api.builders.entities.endpoints.GetListEndpoint;
+import com.lognex.api.builders.entities.endpoints.PostEndpoint;
 import com.lognex.api.entities.Counterparty;
 import com.lognex.api.responses.CounterpartyMetadataListResponse;
 import com.lognex.api.responses.ListResponse;
@@ -9,8 +11,13 @@ import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
 
-public final class CounterpartyRequestBuilder {
+public final class CounterpartyRequestBuilder implements GetListEndpoint<Counterparty>, PostEndpoint<Counterparty> {
     private final LognexApi api;
+
+    @Override
+    public String path() {
+        return "/entity/counterparty";
+    }
 
     CounterpartyRequestBuilder(LognexApi api) {
         this.api = api;
@@ -23,9 +30,7 @@ public final class CounterpartyRequestBuilder {
      * @throws LognexApiException когда возникла ошибка API
      */
     public ListResponse<Counterparty> get() throws IOException, LognexApiException {
-        return HttpRequestBuilder.
-                path(api, "/entity/counterparty").
-                list(Counterparty.class);
+        return get(api, Counterparty.class);
     }
 
     /**
@@ -37,12 +42,7 @@ public final class CounterpartyRequestBuilder {
      * @throws LognexApiException когда возникла ошибка API
      */
     public void post(Counterparty newEntity) throws IOException, LognexApiException {
-        Counterparty responseEntity = HttpRequestBuilder.
-                path(api, "/entity/counterparty").
-                body(newEntity).
-                post(Counterparty.class);
-
-        newEntity.set(responseEntity);
+        post(api, newEntity, Counterparty.class);
     }
 
     /**

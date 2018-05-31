@@ -16,6 +16,11 @@ import lombok.Setter;
 public class Attribute extends MetaEntity {
     public String id;
     public String name;
-    public String type; // TODO enum
+    public AttributeType type;
+    public String value;
     public Boolean required;
+
+    public enum AttributeType {
+        string
+    }
 }

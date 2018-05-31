@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 public class CustomerOrder extends MetaEntity {
     public String id;
     public String accountId;
@@ -29,7 +29,7 @@ public class CustomerOrder extends MetaEntity {
     public Rate rate;
     public Integer sum;
     public MetaEntity store;
-    public Counterparty agent;
+    public Agent agent;
     public Organization organization;
     public State state;
     public MetaEntity documents;

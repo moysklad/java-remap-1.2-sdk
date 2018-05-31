@@ -13,5 +13,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public final class Employee extends MetaEntity {
+public final class Employee extends Agent {
 }

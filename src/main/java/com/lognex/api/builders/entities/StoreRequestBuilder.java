@@ -3,45 +3,43 @@ package com.lognex.api.builders.entities;
 import com.lognex.api.LognexApi;
 import com.lognex.api.builders.entities.endpoints.GetListEndpoint;
 import com.lognex.api.builders.entities.endpoints.PostEndpoint;
-import com.lognex.api.entities.Organization;
+import com.lognex.api.entities.Store;
 import com.lognex.api.responses.ListResponse;
 import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
 
-public final class OrganizationRequestBuilder implements GetListEndpoint<Organization>, PostEndpoint<Organization> {
+public class StoreRequestBuilder implements GetListEndpoint<Store>, PostEndpoint<Store> {
     private final LognexApi api;
 
     @Override
     public String path() {
-        return "/entity/organization";
+        return "/entity/store";
     }
 
-    OrganizationRequestBuilder(LognexApi api) {
+    StoreRequestBuilder(LognexApi api) {
         this.api = api;
     }
 
     /**
-     * Получение списка всех Организаций
+     * Получение списка всех Складов
      *
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    @Override
-    public ListResponse<Organization> get() throws IOException, LognexApiException {
-        return get(api, Organization.class);
+    public ListResponse<Store> get() throws IOException, LognexApiException {
+        return get(api, Store.class);
     }
 
     /**
-     * Создание новой Организации
+     * Создание нового Склада
      *
      * @param newEntity данные новой сущности (<b>Внимание!</b> В этот объект после успешного
      *                  выполнения запроса будут записаны полученные от API данные!)
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    @Override
-    public void post(Organization newEntity) throws IOException, LognexApiException {
-        post(api, newEntity, Organization.class);
+    public void post(Store newEntity) throws IOException, LognexApiException {
+        post(api, newEntity, Store.class);
     }
 }

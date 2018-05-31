@@ -1,7 +1,6 @@
 package com.lognex.api.utils;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.lognex.api.LognexApi;
 import com.lognex.api.entities.MetaEntity;
@@ -35,15 +34,30 @@ public final class HttpRequestBuilder {
     private final CloseableHttpClient client;
     private Object body;
 
+    private HttpRequestBuilder(LognexApi api, String url) {
+        this.client = api.getClient();
+        this.url = api.getHost() + LognexApi.API_PATH + url;
+        query = new HashMap<>();
+        headers = new HashMap<>();
+        body = null;
+        auth(api);
+
+        if (api.isTimeWithMilliseconds()) header("X-Lognex-Format-Millisecond", "true");
+        gson = LognexApi.createGson(false, api.isTimeWithMilliseconds());
+    }
+
     private HttpRequestBuilder(CloseableHttpClient client, String url) {
         this.client = client;
         this.url = url;
         query = new HashMap<>();
         headers = new HashMap<>();
         body = null;
-        gson = new GsonBuilder().create();
+        gson = LognexApi.createGson();
     }
 
+    /**
+     * Задаёт кодировку параметров запроса
+     */
     public static void setQueryParamsCharset(Charset queryParamsCharset) {
         HttpRequestBuilder.queryParamsCharset = queryParamsCharset;
     }
@@ -62,7 +76,7 @@ public final class HttpRequestBuilder {
      * @param path путь к методу API (например <code>/entity/counterparty/metadata</code>)
      */
     public static HttpRequestBuilder path(LognexApi api, String path) {
-        return new HttpRequestBuilder(api.getClient(), api.getHost() + LognexApi.API_PATH + path).auth(api);
+        return new HttpRequestBuilder(api, path);
     }
 
     /**
@@ -201,7 +215,9 @@ public final class HttpRequestBuilder {
         applyHeaders(request);
 
         if (body != null) {
-            StringEntity requestEntity = new StringEntity(gson.toJson(body), ContentType.APPLICATION_JSON);
+            String strBody = gson.toJson(body);
+            logger.debug("Тело запроса        {} {}: {}", request.getMethod(), request.getURI(), strBody);
+            StringEntity requestEntity = new StringEntity(strBody, ContentType.APPLICATION_JSON);
             request.setEntity(requestEntity);
         }
 

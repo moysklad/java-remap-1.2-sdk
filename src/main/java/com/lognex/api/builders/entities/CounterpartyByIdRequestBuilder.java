@@ -1,15 +1,22 @@
 package com.lognex.api.builders.entities;
 
 import com.lognex.api.LognexApi;
+import com.lognex.api.builders.entities.endpoints.DeleteEndpoint;
+import com.lognex.api.builders.entities.endpoints.GetEndpoint;
+import com.lognex.api.builders.entities.endpoints.PutEndpoint;
 import com.lognex.api.entities.Counterparty;
-import com.lognex.api.utils.HttpRequestBuilder;
 import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
 
-public final class CounterpartyByIdRequestBuilder {
+public final class CounterpartyByIdRequestBuilder implements GetEndpoint<Counterparty>, DeleteEndpoint<Counterparty>, PutEndpoint<Counterparty> {
     private final LognexApi api;
     private final String id;
+
+    @Override
+    public String path() {
+        return "/entity/counterparty/" + id;
+    }
 
     CounterpartyByIdRequestBuilder(LognexApi api, String id) {
         this.api = api;
@@ -23,9 +30,7 @@ public final class CounterpartyByIdRequestBuilder {
      * @throws LognexApiException когда возникла ошибка API
      */
     public Counterparty get() throws IOException, LognexApiException {
-        return HttpRequestBuilder.
-                path(api, "/entity/counterparty/" + id).
-                get(Counterparty.class);
+        return get(api, Counterparty.class);
     }
 
     /**
@@ -35,9 +40,7 @@ public final class CounterpartyByIdRequestBuilder {
      * @throws LognexApiException когда возникла ошибка API
      */
     public void delete() throws IOException, LognexApiException {
-        HttpRequestBuilder.
-                path(api, "/entity/counterparty/" + id).
-                delete();
+        delete(api);
     }
 
     /**
@@ -49,11 +52,6 @@ public final class CounterpartyByIdRequestBuilder {
      * @throws LognexApiException когда возникла ошибка API
      */
     public void put(Counterparty updatedEntity) throws IOException, LognexApiException {
-        Counterparty responseEntity = HttpRequestBuilder.
-                path(api, "/entity/counterparty/" + id).
-                body(updatedEntity).
-                put(Counterparty.class);
-
-        updatedEntity.set(responseEntity);
+        put(api, updatedEntity, Counterparty.class);
     }
 }

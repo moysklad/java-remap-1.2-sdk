@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,14 +25,14 @@ public final class Meta {
     public String metadataHref;
 
     /**
-     * Тип объекта
+     * Тип сущности
      */
-    public String type;
+    public Type type;
 
     /**
-     * Тип данных, которые приходят в ответ от сервиса, либо отправляются в теле запроса
+     * Тип данных, которые приходят в ответ от сервера, либо отправляются в теле запроса
      */
-    public String mediaType;
+    public MediaType mediaType;
 
     /**
      * Ссылка на объект на UI. Присутствует не во всех сущностях. Может быть использована для получения uuid
@@ -52,4 +53,18 @@ public final class Meta {
      * Отступ в выданном списке
      */
     public Integer offset;
+
+    /**
+     * Тип сущности
+     */
+    public enum Type {
+        employee, contract, counterparty, organization, group, account, demand, store, demandposition, note, state, currency
+    }
+
+    /**
+     * Тип данных, которые приходят в ответ от сервера, либо отправляются в теле запроса
+     */
+    public enum MediaType {
+        @SerializedName("application/json") json
+    }
 }

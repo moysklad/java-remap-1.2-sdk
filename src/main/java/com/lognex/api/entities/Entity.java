@@ -1,6 +1,5 @@
 package com.lognex.api.entities;
 
-import com.lognex.api.utils.HttpRequestBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,7 +9,7 @@ import java.lang.reflect.Field;
  * Класс сущности
  */
 public abstract class Entity implements Cloneable {
-    private static final Logger logger = LogManager.getLogger(HttpRequestBuilder.class);
+    private static final Logger logger = LogManager.getLogger(Entity.class);
 
     /**
      * Присваивает полям этой сущности значения полей другой сущности

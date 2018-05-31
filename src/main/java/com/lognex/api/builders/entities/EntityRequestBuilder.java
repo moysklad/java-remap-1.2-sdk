@@ -29,11 +29,27 @@ public final class EntityRequestBuilder {
         return new DocumentCustomerOrderByIdRequestBuilder(api, id);
     }
 
+    public DocumentDemandRequestBuilder demand() {
+        return new DocumentDemandRequestBuilder(api);
+    }
+
+    public StoreRequestBuilder store() {
+        return new StoreRequestBuilder(api);
+    }
+
     public ProductRequestBuilder product() {
         return new ProductRequestBuilder(api);
     }
 
     public VariantRequestBuilder variant() {
         return new VariantRequestBuilder(api);
+    }
+
+    public CurrencyRequestBuilder currency() {
+        return new CurrencyRequestBuilder(api);
+    }
+
+    public ContractRequestBuilder contract() {
+        return new ContractRequestBuilder(api);
     }
 }
