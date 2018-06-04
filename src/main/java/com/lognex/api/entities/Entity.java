@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 /**
  * Класс сущности
  */
-public abstract class Entity implements Cloneable {
+public abstract class Entity {
     private static final Logger logger = LogManager.getLogger(Entity.class);
 
     /**
@@ -49,15 +49,10 @@ public abstract class Entity implements Cloneable {
      */
     public static <T extends Entity> T clone(T original) {
         try {
-            T clone = (T) original.clone();
+            T clone = (T) original.getClass().getConstructor().newInstance();
             clone.set(original);
             return clone;
-        } catch (CloneNotSupportedException e) {
-            /*
-                Так как метод клонирования вызывается у объекта-наследника Entity,
-                который в свою очередь является наследником Clonable, то данная
-                ошибка вызываться не будет.
-             */
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
             logger.error("Ошибка при клонировании сущности", e);
             return original;
         }
