@@ -43,16 +43,16 @@ public class DemandTest implements TestRandomizers, TestAsserts {
          */
 
         assertNotNull(list);
-        assertEntityMeta(list.context.employee, Meta.Type.employee, false);
-        assertListMeta(list.meta, Meta.Type.demand);
+        assertEntityMeta(list.getContext().getEmployee(), Meta.Type.employee, false);
+        assertListMeta(list.getMeta(), Meta.Type.demand);
 
-        assertNotNull(list.rows);
-        assertFalse(list.rows.isEmpty());
+        assertNotNull(list.getRows());
+        assertFalse(list.getRows().isEmpty());
 
-        for (MetaEntity row : list.rows) {
-            assertNotNull(row.meta);
-            assertNotNull(row.meta.href);
-            assertEquals(Meta.Type.demand, row.meta.type);
+        for (MetaEntity row : list.getRows()) {
+            assertNotNull(row.getMeta());
+            assertNotNull(row.getMeta().getHref());
+            assertEquals(Meta.Type.demand, row.getMeta().getType());
         }
     }
 
@@ -63,20 +63,23 @@ public class DemandTest implements TestRandomizers, TestAsserts {
          */
 
         Counterparty counterparty = new Counterparty();
-        counterparty.name = randomString(5);
+        counterparty.setName(randomString(5));
         api.entity().counterparty().post(counterparty);
 
         Organization organization = new Organization();
-        organization.name = randomString(5);
+        organization.setName(randomString(5));
         api.entity().organization().post(organization);
 
-        Store store = api.entity().store().get().rows.stream().filter(row -> row.name.equals("Основной склад")).findFirst().get();
+        Store store = api.entity().store().get().getRows().stream().
+                filter(row -> row.getName().equals("Основной склад")).
+                findFirst().
+                get();
 
         Demand entity = new Demand();
-        entity.name = randomString(5);
-        entity.agent = counterparty;
-        entity.organization = organization;
-        entity.store = store;
+        entity.setName(randomString(5));
+        entity.setAgent(counterparty);
+        entity.setOrganization(organization);
+        entity.setStore(store);
 
         Demand origEntity = Entity.clone(entity);
 
@@ -91,28 +94,28 @@ public class DemandTest implements TestRandomizers, TestAsserts {
             Валидация
          */
 
-        assertNull(origEntity.meta);
-        assertNotNull(entity.meta);
+        assertNull(origEntity.getMeta());
+        assertNotNull(entity.getMeta());
 
-        assertEntityMeta(entity.meta, Meta.Type.demand, true);
-        assertEquals(origEntity.name, entity.name);
+        assertEntityMeta(entity.getMeta(), Meta.Type.demand, true);
+        assertEquals(origEntity.getName(), entity.getName());
 
-        assertEquals(false, entity.shared);
-        assertEquals(true, entity.applicable);
-        assertEquals(0, (int) entity.version);
-        assertEquals(0, (int) entity.sum);
-        assertEquals(0, (int) entity.vatSum);
-        assertEquals(0, (int) entity.payedSum);
-        assertNotNull(entity.externalCode);
-        assertNotNull(entity.updated);
-        assertNotNull(entity.created);
+        assertEquals(false, entity.getShared());
+        assertEquals(true, entity.getApplicable());
+        assertEquals(0, (int) entity.getVersion());
+        assertEquals(0, (int) entity.getSum());
+        assertEquals(0, (int) entity.getVatSum());
+        assertEquals(0, (int) entity.getPayedSum());
+        assertNotNull(entity.getExternalCode());
+        assertNotNull(entity.getUpdated());
+        assertNotNull(entity.getCreated());
 
-        assertEntityMeta(entity.group, Meta.Type.group, false);
-        assertEntityMeta(entity.store, Meta.Type.store, true);
-        assertEntityMeta(entity.agent, Meta.Type.counterparty, true);
-        assertEntityMeta(entity.organization, Meta.Type.organization, true);
-        assertEntityMeta(entity.documents, null, false);
-        assertListMeta(entity.positions, Meta.Type.demandposition);
+        assertEntityMeta(entity.getGroup(), Meta.Type.group, false);
+        assertEntityMeta(entity.getStore(), Meta.Type.store, true);
+        assertEntityMeta(entity.getAgent(), Meta.Type.counterparty, true);
+        assertEntityMeta(entity.getOrganization(), Meta.Type.organization, true);
+        assertEntityMeta(entity.getDocuments(), null, false);
+        assertListMeta(entity.getPositions(), Meta.Type.demandposition);
     }
 
     @Test
@@ -122,20 +125,23 @@ public class DemandTest implements TestRandomizers, TestAsserts {
          */
 
         Organization organization1 = new Organization();
-        organization1.name = randomString(5);
+        organization1.setName(randomString(5));
         api.entity().organization().post(organization1);
 
         Organization organization2 = new Organization();
-        organization2.name = randomString(5);
+        organization2.setName(randomString(5));
         api.entity().organization().post(organization2);
 
-        Store store = api.entity().store().get().rows.stream().filter(row -> row.name.equals("Основной склад")).findFirst().get();
+        Store store = api.entity().store().get().getRows().stream().
+                filter(row -> row.getName().equals("Основной склад")).
+                findFirst().
+                get();
 
         Demand entity = new Demand();
-        entity.name = randomString(5);
-        entity.agent = organization1;
-        entity.organization = organization2;
-        entity.store = store;
+        entity.setName(randomString(5));
+        entity.setAgent(organization1);
+        entity.setOrganization(organization2);
+        entity.setStore(store);
 
         Demand origEntity = Entity.clone(entity);
 
@@ -150,19 +156,19 @@ public class DemandTest implements TestRandomizers, TestAsserts {
             Валидация
          */
 
-        assertNull(origEntity.meta);
-        assertNotNull(entity.meta);
+        assertNull(origEntity.getMeta());
+        assertNotNull(entity.getMeta());
 
-        assertNotNull(entity.agent);
-        assertTrue(entity.agent instanceof Organization);
-        assertNotNull(entity.agent.meta);
-        assertEquals(organization1.meta.href, entity.agent.meta.href);
-        assertEquals(Meta.Type.organization, entity.agent.meta.type);
+        assertNotNull(entity.getAgent());
+        assertTrue(entity.getAgent() instanceof Organization);
+        assertNotNull(entity.getAgent().getMeta());
+        assertEquals(organization1.getMeta().getHref(), entity.getAgent().getMeta().getHref());
+        assertEquals(Meta.Type.organization, entity.getAgent().getMeta().getType());
 
-        assertNotNull(entity.organization);
-        assertNotNull(entity.organization.meta);
-        assertEquals(organization2.meta.href, entity.organization.meta.href);
-        assertEquals(Meta.Type.organization, entity.organization.meta.type);
+        assertNotNull(entity.getOrganization());
+        assertNotNull(entity.getOrganization().getMeta());
+        assertEquals(organization2.getMeta().getHref(), entity.getOrganization().getMeta().getHref());
+        assertEquals(Meta.Type.organization, entity.getOrganization().getMeta().getType());
     }
 
     @Test

@@ -3,45 +3,43 @@ package com.lognex.api.builders.entities;
 import com.lognex.api.LognexApi;
 import com.lognex.api.builders.entities.endpoints.GetListEndpoint;
 import com.lognex.api.builders.entities.endpoints.PostEndpoint;
-import com.lognex.api.entities.Currency;
+import com.lognex.api.entities.Contract;
 import com.lognex.api.responses.ListResponse;
 import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
 
-public final class CurrencyRequestBuilder implements GetListEndpoint<Currency>, PostEndpoint<Currency> {
+public final class ContractClient implements GetListEndpoint<Contract>, PostEndpoint<Contract> {
     private final LognexApi api;
 
     @Override
     public String path() {
-        return "/entity/currency";
+        return "/entity/contract";
     }
 
-    CurrencyRequestBuilder(LognexApi api) {
+    ContractClient(LognexApi api) {
         this.api = api;
     }
 
     /**
-     * Получение списка всех Валют
+     * Получение списка всех Договоров
      *
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    @Override
-    public ListResponse<Currency> get() throws IOException, LognexApiException {
-        return get(api, Currency.class);
+    public ListResponse<Contract> get() throws IOException, LognexApiException {
+        return get(api, Contract.class);
     }
 
     /**
-     * Создание новой Валюты
+     * Создание нового Договора
      *
      * @param newEntity данные новой сущности (<b>Внимание!</b> В этот объект после успешного
      *                  выполнения запроса будут записаны полученные от API данные!)
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    @Override
-    public void post(Currency newEntity) throws IOException, LognexApiException {
-        post(api, newEntity, Currency.class);
+    public void post(Contract newEntity) throws IOException, LognexApiException {
+        post(api, newEntity, Contract.class);
     }
 }

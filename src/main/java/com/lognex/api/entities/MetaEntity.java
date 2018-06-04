@@ -14,9 +14,5 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class MetaEntity extends Entity {
-    public Meta meta;
-
-    public MetaEntity(Meta meta) {
-        this.meta = meta;
-    }
+    protected Meta meta;
 }

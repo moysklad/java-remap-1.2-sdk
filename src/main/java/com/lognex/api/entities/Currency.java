@@ -21,89 +21,93 @@ public class Currency extends MetaEntity implements Fetchable {
     /**
      * Краткое наименование
      */
-    public String name;
+    private String name;
 
     /**
      * Полное наименование
      */
-    public String fullName;
+    private String fullName;
 
     /**
      * Курс
      */
-    public Double rate;
+    private Double rate;
 
     /**
      * Кратность курса
      */
-    public MultiplicityType multiplicity;
+    private MultiplicityType multiplicity;
 
     /**
      * Способ обновления курса
      */
-    public UpdateType rateUpdateType;
+    private UpdateType rateUpdateType;
 
     /**
      * Флаг обратного курса
      */
-    public Boolean indirect;
+    private Boolean indirect;
 
     /**
      * Цифровой код
      */
-    public String code;
+    private String code;
 
     /**
      * Буквенный код
      */
-    public String isoCode;
+    private String isoCode;
 
     /**
      * Основана ли эта Валюта на Валюте из системного справочника
      */
-    public Boolean system;
+    private Boolean system;
 
     /**
      * Лексические формы единиц целой части (рубль, рубля, рублей)
      */
-    public Unit majorUnit;
+    private Unit majorUnit;
 
     /**
      * Лексические формы единиц дробной части (копейка, копейки, копеек)
      */
-    public Unit minorUnit;
+    private Unit minorUnit;
 
     /**
      * Флаг нахождения валюты в архиве
      */
-    public Boolean archived;
+    private Boolean archived;
 
     /**
      * Флаг Валюты учёта
      */
     @SerializedName("default")
-    public Boolean def;
+    private Boolean def;
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @EqualsAndHashCode
     public static class Unit {
         /**
          * Грамматический род единицы Валюты
          */
-        public Gender gender;
+        private Gender gender;
 
         /**
          * Форма единицы Валюты, используемая при числительном, <b>заканчивающимся</b> на 1, <b>кроме</b> заканчивающихся на 11 <i>(например: <code>рубль</code>)</i>
          */
-        public String s1;
+        private String s1;
 
         /**
          * Форма единицы Валюты, используемая при числительном, <b>заканчивающимся</b> на 2, 3 или 4, <b>кроме</b> заканчивающихся на 12, 13, 14 <i>(например: <code>рубля</code>)</i>
          */
-        public String s2;
+        private String s2;
 
         /**
          * Форма единицы Валюты, используемая при числительных, <b>не заканчивающихся</b> на 1, 2, 3 и 4, <b>включая</b> заканчивающиеся на 11, 12, 13, 14 <i>(например: <code>рублей</code>)</i>
          */
-        public String s5;
+        private String s5;
 
         /**
          * Грамматический род единицы Валюты

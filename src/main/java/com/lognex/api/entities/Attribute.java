@@ -14,11 +14,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Attribute extends MetaEntity {
-    public String id;
-    public String name;
-    public AttributeType type;
-    public String value;
-    public Boolean required;
+    private String id;
+    private String name;
+    private AttributeType type;
+    private String value;
+    private Boolean required;
 
     public enum AttributeType {
         string

@@ -16,10 +16,10 @@ public class AgentDeserializer implements JsonDeserializer<Agent> {
     public Agent deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         MetaEntity me = gson.fromJson(json, MetaEntity.class);
 
-        if (me.meta == null) throw new JsonParseException("Can't parse field 'agent': meta is null");
-        if (me.meta.type == null) throw new JsonParseException("Can't parse field 'agent': meta.type is null");
+        if (me.getMeta() == null) throw new JsonParseException("Can't parse field 'agent': meta is null");
+        if (me.getMeta().getType() == null) throw new JsonParseException("Can't parse field 'agent': meta.type is null");
 
-        switch (me.meta.type) {
+        switch (me.getMeta().getType()) {
             case organization:
                 return context.deserialize(json, Organization.class);
 

@@ -1,59 +1,59 @@
 package com.lognex.api.builders.entities;
 
 import com.lognex.api.LognexApi;
-import com.lognex.api.entities.Variant;
+import com.lognex.api.entities.Product;
 import com.lognex.api.responses.ListResponse;
-import com.lognex.api.responses.VariantMetadataListResponse;
-import com.lognex.api.utils.HttpRequestBuilder;
+import com.lognex.api.utils.HttpRequestExecutor;
 import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
 
-public final class VariantRequestBuilder {
+public final class ProductClient {
     private final LognexApi api;
 
-    VariantRequestBuilder(LognexApi api) {
+    ProductClient(LognexApi api) {
         this.api = api;
     }
 
     /**
-     * Получение списка всех Модификаций
+     * Получение списка всех Товаров
      *
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public ListResponse<Variant> get() throws IOException, LognexApiException {
-        return HttpRequestBuilder.
-                path(api, "/entity/variant").
-                list(Variant.class);
+    public ListResponse<Product> get() throws IOException, LognexApiException {
+        return HttpRequestExecutor.
+                path(api, "/entity/product").
+                list(Product.class);
     }
 
     /**
-     * Создание новой Модификации
+     * Создание нового Товара
      *
      * @param newEntity данные новой сущности (<b>Внимание!</b> В этот объект после успешного
      *                  выполнения запроса будут записаны полученные от API данные!)
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public void post(Variant newEntity) throws IOException, LognexApiException {
-        Variant responseEntity = HttpRequestBuilder.
-                path(api, "/entity/variant").
+    public void post(Product newEntity) throws IOException, LognexApiException {
+        Product responseEntity = HttpRequestExecutor.
+                path(api, "/entity/product").
                 body(newEntity).
-                post(Variant.class);
+                post(Product.class);
 
         newEntity.set(responseEntity);
     }
 
     /**
-     * Получение списка Метаданных Модификаций
+     * Удаление Товара
      *
+     * @param id идентификатор сущности
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public VariantMetadataListResponse metadata() throws IOException, LognexApiException {
-        return HttpRequestBuilder.
-                path(api, "/entity/variant/metadata").
-                get(VariantMetadataListResponse.class);
+    public void delete(String id) throws IOException, LognexApiException {
+        HttpRequestExecutor.
+                path(api, "/entity/product/" + id).
+                delete();
     }
 }

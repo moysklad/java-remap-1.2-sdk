@@ -3,7 +3,8 @@ package com.lognex.api.entities;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Класс сущности
@@ -19,18 +20,27 @@ public abstract class Entity implements Cloneable {
             throw new RuntimeException("Невозможно установить поля объекта класса " + other.getClass().getSimpleName() + " объекту класса " + this.getClass().getSimpleName() + "!");
         }
 
-        for (Field field : other.getClass().getFields()) {
+        for (Method method : other.getClass().getMethods()) {
+            if (!method.getName().startsWith("get")) continue;
+
+            Method setter;
             try {
-                Object o = field.get(other);
+                setter = (this.getClass().getMethod(method.getName().replace("get", "set"), method.getReturnType()));
+            } catch (NoSuchMethodException e) {
+                logger.trace("Не удалось найти метод " + method.getName().replace("get", "set") + ". Поле не будет скопировано.");
+                continue;
+            }
+
+            try {
+                Object o = method.invoke(other);
                 if (o instanceof Entity) {
                     o = clone((Entity) o);
                 }
-                field.set(this, o);
-            } catch (IllegalAccessException e) {
+                setter.invoke(this, o);
+            } catch (IllegalAccessException | InvocationTargetException e) {
                 logger.error("Ошибка при копировании полей сущности", e);
             }
         }
-
     }
 
     /**

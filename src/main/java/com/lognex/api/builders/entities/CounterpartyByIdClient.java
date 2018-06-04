@@ -9,7 +9,7 @@ import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
 
-public final class CounterpartyByIdRequestBuilder implements GetEndpoint<Counterparty>, DeleteEndpoint<Counterparty>, PutEndpoint<Counterparty> {
+public final class CounterpartyByIdClient implements GetEndpoint<Counterparty>, DeleteEndpoint<Counterparty>, PutEndpoint<Counterparty> {
     private final LognexApi api;
     private final String id;
 
@@ -18,7 +18,7 @@ public final class CounterpartyByIdRequestBuilder implements GetEndpoint<Counter
         return "/entity/counterparty/" + id;
     }
 
-    CounterpartyByIdRequestBuilder(LognexApi api, String id) {
+    CounterpartyByIdClient(LognexApi api, String id) {
         this.api = api;
         this.id = id;
     }

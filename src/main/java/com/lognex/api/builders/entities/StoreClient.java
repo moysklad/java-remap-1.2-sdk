@@ -9,7 +9,7 @@ import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
 
-public class StoreRequestBuilder implements GetListEndpoint<Store>, PostEndpoint<Store> {
+public class StoreClient implements GetListEndpoint<Store>, PostEndpoint<Store> {
     private final LognexApi api;
 
     @Override
@@ -17,7 +17,7 @@ public class StoreRequestBuilder implements GetListEndpoint<Store>, PostEndpoint
         return "/entity/store";
     }
 
-    StoreRequestBuilder(LognexApi api) {
+    StoreClient(LognexApi api) {
         this.api = api;
     }
 

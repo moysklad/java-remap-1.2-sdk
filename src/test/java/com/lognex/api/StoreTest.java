@@ -44,16 +44,16 @@ public class StoreTest implements TestRandomizers, TestAsserts {
          */
 
         assertNotNull(list);
-        assertEntityMeta(list.context.employee, Meta.Type.employee, false);
-        assertListMeta(list.meta, Meta.Type.store);
+        assertEntityMeta(list.getContext().getEmployee(), Meta.Type.employee, false);
+        assertListMeta(list.getMeta(), Meta.Type.store);
 
-        assertNotNull(list.rows);
-        assertFalse(list.rows.isEmpty());
+        assertNotNull(list.getRows());
+        assertFalse(list.getRows().isEmpty());
 
-        for (MetaEntity row : list.rows) {
-            assertNotNull(row.meta);
-            assertNotNull(row.meta.href);
-            assertEquals(Meta.Type.store, row.meta.type);
+        for (MetaEntity row : list.getRows()) {
+            assertNotNull(row.getMeta());
+            assertNotNull(row.getMeta().getHref());
+            assertEquals(Meta.Type.store, row.getMeta().getType());
         }
     }
 

@@ -14,5 +14,5 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode
 public final class Context {
-    public Employee employee;
+    private Employee employee;
 }

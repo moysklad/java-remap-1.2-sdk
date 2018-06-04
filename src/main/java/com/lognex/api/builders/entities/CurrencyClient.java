@@ -1,46 +1,47 @@
 package com.lognex.api.builders.entities;
 
 import com.lognex.api.LognexApi;
-import com.lognex.api.entities.documents.CustomerOrder;
+import com.lognex.api.builders.entities.endpoints.GetListEndpoint;
+import com.lognex.api.builders.entities.endpoints.PostEndpoint;
+import com.lognex.api.entities.Currency;
 import com.lognex.api.responses.ListResponse;
-import com.lognex.api.utils.HttpRequestBuilder;
 import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
 
-public class DocumentCustomerOrderRequestBuilder {
+public final class CurrencyClient implements GetListEndpoint<Currency>, PostEndpoint<Currency> {
     private final LognexApi api;
 
-    DocumentCustomerOrderRequestBuilder(LognexApi api) {
+    @Override
+    public String path() {
+        return "/entity/currency";
+    }
+
+    CurrencyClient(LognexApi api) {
         this.api = api;
     }
 
     /**
-     * Получение списка всех Заказов Покупателей
+     * Получение списка всех Валют
      *
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public ListResponse<CustomerOrder> get() throws IOException, LognexApiException {
-        return HttpRequestBuilder.
-                path(api, "/entity/customerorder").
-                list(CustomerOrder.class);
+    @Override
+    public ListResponse<Currency> get() throws IOException, LognexApiException {
+        return get(api, Currency.class);
     }
 
     /**
-     * Создание нового Заказа Покупателя
+     * Создание новой Валюты
      *
      * @param newEntity данные новой сущности (<b>Внимание!</b> В этот объект после успешного
      *                  выполнения запроса будут записаны полученные от API данные!)
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public void post(CustomerOrder newEntity) throws IOException, LognexApiException {
-        CustomerOrder responseEntity = HttpRequestBuilder.
-                path(api, "/entity/customerorder").
-                body(newEntity).
-                post(CustomerOrder.class);
-
-        newEntity.set(responseEntity);
+    @Override
+    public void post(Currency newEntity) throws IOException, LognexApiException {
+        post(api, newEntity, Currency.class);
     }
 }

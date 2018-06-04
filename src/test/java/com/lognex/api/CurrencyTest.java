@@ -44,16 +44,16 @@ public class CurrencyTest implements TestRandomizers, TestAsserts {
          */
 
         assertNotNull(list);
-        assertEntityMeta(list.context.employee, Meta.Type.employee, false);
-        assertListMeta(list.meta, Meta.Type.contract);
+        assertEntityMeta(list.getContext().getEmployee(), Meta.Type.employee, false);
+        assertListMeta(list.getMeta(), Meta.Type.contract);
 
-        assertNotNull(list.rows);
-        assertFalse(list.rows.isEmpty());
+        assertNotNull(list.getRows());
+        assertFalse(list.getRows().isEmpty());
 
-        for (MetaEntity row : list.rows) {
-            assertNotNull(row.meta);
-            assertNotNull(row.meta.href);
-            assertEquals(Meta.Type.currency, row.meta.type);
+        for (MetaEntity row : list.getRows()) {
+            assertNotNull(row.getMeta());
+            assertNotNull(row.getMeta().getHref());
+            assertEquals(Meta.Type.currency, row.getMeta().getType());
         }
     }
 
@@ -65,9 +65,9 @@ public class CurrencyTest implements TestRandomizers, TestAsserts {
 
         Currency entity = new Currency();
 
-        entity.name = randomString(5);
-        entity.code = String.valueOf(100 + rnd.nextInt(900));
-        entity.isoCode = randomString(3).toUpperCase();
+        entity.setName(randomString(5));
+        entity.setCode(String.valueOf(100 + rnd.nextInt(900)));
+        entity.setIsoCode(randomString(3).toUpperCase());
 
         Currency origEntity = Entity.clone(entity);
 
@@ -82,32 +82,32 @@ public class CurrencyTest implements TestRandomizers, TestAsserts {
             Валидация
          */
 
-        assertNull(origEntity.meta);
-        assertNotNull(entity.meta);
+        assertNull(origEntity.getMeta());
+        assertNotNull(entity.getMeta());
 
-        assertEntityMeta(entity.meta, Meta.Type.currency, true);
-        assertEquals(origEntity.name, entity.name);
-        assertEquals(origEntity.code, entity.code);
-        assertEquals(origEntity.isoCode, entity.isoCode);
+        assertEntityMeta(entity.getMeta(), Meta.Type.currency, true);
+        assertEquals(origEntity.getName(), entity.getName());
+        assertEquals(origEntity.getCode(), entity.getCode());
+        assertEquals(origEntity.getIsoCode(), entity.getIsoCode());
 
-        assertEquals(false, entity.system);
-        assertEquals(false, entity.indirect);
-        assertEquals(false, entity.archived);
-        assertEquals(false, entity.def);
+        assertEquals(false, entity.getSystem());
+        assertEquals(false, entity.getIndirect());
+        assertEquals(false, entity.getArchived());
+        assertEquals(false, entity.getDef());
 
-        assertNotNull(entity.minorUnit);
-        assertNotNull(entity.majorUnit);
+        assertNotNull(entity.getMinorUnit());
+        assertNotNull(entity.getMajorUnit());
 
-        assertEquals(Currency.Unit.Gender.masculine, entity.minorUnit.gender);
-        assertEquals(Currency.Unit.Gender.masculine, entity.majorUnit.gender);
+        assertEquals(Currency.Unit.Gender.masculine, entity.getMajorUnit().getGender());
+        assertEquals(Currency.Unit.Gender.masculine, entity.getMajorUnit().getGender());
 
-        assertNull(entity.fullName);
+        assertNull(entity.getFullName());
 
-        assertNotNull(entity.rate);
-        assertNotNull(entity.multiplicity);
-        assertEquals(1.0, entity.rate, 0);
-        assertEquals(Currency.MultiplicityType._1, entity.multiplicity);
-        assertEquals(false, entity.indirect);
+        assertNotNull(entity.getRate());
+        assertNotNull(entity.getMultiplicity());
+        assertEquals(1.0, entity.getRate(), 0);
+        assertEquals(Currency.MultiplicityType._1, entity.getMultiplicity());
+        assertEquals(false, entity.getIndirect());
     }
 
     @Test
@@ -118,29 +118,29 @@ public class CurrencyTest implements TestRandomizers, TestAsserts {
 
         Currency entity = new Currency();
 
-        entity.name = randomString(5);
-        entity.fullName = randomString(10);
-        entity.code = String.valueOf(100 + rnd.nextInt(900));
-        entity.isoCode = randomString(3).toUpperCase();
-        entity.indirect = true;
-        entity.rate = randomDouble(10, 100, 2);
-        entity.multiplicity = randomEnum(Currency.MultiplicityType.class);
-        entity.rateUpdateType = Currency.UpdateType.auto;
-        entity.system = true;
-        entity.archived = true;
-        entity.def = true;
+        entity.setName(randomString(5));
+        entity.setFullName(randomString(10));
+        entity.setCode(String.valueOf(100 + rnd.nextInt(900)));
+        entity.setIsoCode(randomString(3).toUpperCase());
+        entity.setIndirect(true);
+        entity.setRate(randomDouble(10, 100, 2));
+        entity.setMultiplicity(randomEnum(Currency.MultiplicityType.class));
+        entity.setRateUpdateType(Currency.UpdateType.auto);
+        entity.setSystem(true);
+        entity.setArchived(true);
+        entity.setDef(true);
 
-        entity.minorUnit = new Currency.Unit();
-        entity.minorUnit.gender = Currency.Unit.Gender.feminine;
-        entity.minorUnit.s1 = randomString(3);
-        entity.minorUnit.s2 = randomString(4);
-        entity.minorUnit.s5 = randomString(5);
+        entity.setMinorUnit(new Currency.Unit());
+        entity.getMinorUnit().setGender(Currency.Unit.Gender.feminine);
+        entity.getMinorUnit().setS1(randomString(3));
+        entity.getMinorUnit().setS2(randomString(4));
+        entity.getMinorUnit().setS5(randomString(5));
 
-        entity.majorUnit = new Currency.Unit();
-        entity.majorUnit.gender = Currency.Unit.Gender.feminine;
-        entity.majorUnit.s1 = randomString(6);
-        entity.majorUnit.s2 = randomString(7);
-        entity.majorUnit.s5 = randomString(8);
+        entity.setMajorUnit(new Currency.Unit());
+        entity.getMajorUnit().setGender(Currency.Unit.Gender.feminine);
+        entity.getMajorUnit().setS1(randomString(6));
+        entity.getMajorUnit().setS2(randomString(7));
+        entity.getMajorUnit().setS5(randomString(8));
 
         Currency origEntity = Entity.clone(entity);
 
@@ -155,31 +155,24 @@ public class CurrencyTest implements TestRandomizers, TestAsserts {
             Валидация
          */
 
-        assertNull(origEntity.meta);
-        assertNotNull(entity.meta);
+        assertNull(origEntity.getMeta());
+        assertNotNull(entity.getMeta());
 
-        assertEntityMeta(entity.meta, Meta.Type.currency, true);
-        assertEquals(origEntity.name, entity.name);
-        assertEquals(origEntity.fullName, entity.fullName);
-        assertEquals(origEntity.code, entity.code);
-        assertEquals(origEntity.isoCode, entity.isoCode);
-        assertEquals(origEntity.indirect, entity.indirect);
-        assertEquals(origEntity.rate, entity.rate);
-        assertEquals(origEntity.multiplicity, entity.multiplicity);
-        assertEquals(Currency.UpdateType.manual, entity.rateUpdateType);
+        assertEntityMeta(entity.getMeta(), Meta.Type.currency, true);
+        assertEquals(origEntity.getName(), entity.getName());
+        assertEquals(origEntity.getFullName(), entity.getFullName());
+        assertEquals(origEntity.getCode(), entity.getCode());
+        assertEquals(origEntity.getIsoCode(), entity.getIsoCode());
+        assertEquals(origEntity.getIndirect(), entity.getIndirect());
+        assertEquals(origEntity.getRate(), entity.getRate());
+        assertEquals(origEntity.getMultiplicity(), entity.getMultiplicity());
+        assertEquals(Currency.UpdateType.manual, entity.getRateUpdateType());
 
-        assertEquals(false, entity.system);
-        assertEquals(origEntity.archived, entity.archived);
-        assertEquals(false, entity.def);
+        assertEquals(false, entity.getSystem());
+        assertEquals(origEntity.getArchived(), entity.getArchived());
+        assertEquals(false, entity.getDef());
 
-        assertEquals(origEntity.minorUnit.gender, entity.minorUnit.gender);
-        assertEquals(origEntity.minorUnit.s1, entity.minorUnit.s1);
-        assertEquals(origEntity.minorUnit.s2, entity.minorUnit.s2);
-        assertEquals(origEntity.minorUnit.s5, entity.minorUnit.s5);
-
-        assertEquals(origEntity.majorUnit.gender, entity.majorUnit.gender);
-        assertEquals(origEntity.majorUnit.s1, entity.majorUnit.s1);
-        assertEquals(origEntity.majorUnit.s2, entity.majorUnit.s2);
-        assertEquals(origEntity.majorUnit.s5, entity.majorUnit.s5);
+        assertEquals(origEntity.getMinorUnit(), entity.getMinorUnit());
+        assertEquals(origEntity.getMajorUnit(), entity.getMajorUnit());
     }
 }

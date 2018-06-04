@@ -6,12 +6,12 @@ import com.lognex.api.builders.entities.endpoints.PostEndpoint;
 import com.lognex.api.entities.Counterparty;
 import com.lognex.api.responses.CounterpartyMetadataListResponse;
 import com.lognex.api.responses.ListResponse;
-import com.lognex.api.utils.HttpRequestBuilder;
+import com.lognex.api.utils.HttpRequestExecutor;
 import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
 
-public final class CounterpartyRequestBuilder implements GetListEndpoint<Counterparty>, PostEndpoint<Counterparty> {
+public final class CounterpartyClient implements GetListEndpoint<Counterparty>, PostEndpoint<Counterparty> {
     private final LognexApi api;
 
     @Override
@@ -19,7 +19,7 @@ public final class CounterpartyRequestBuilder implements GetListEndpoint<Counter
         return "/entity/counterparty";
     }
 
-    CounterpartyRequestBuilder(LognexApi api) {
+    CounterpartyClient(LognexApi api) {
         this.api = api;
     }
 
@@ -52,7 +52,7 @@ public final class CounterpartyRequestBuilder implements GetListEndpoint<Counter
      * @throws LognexApiException когда возникла ошибка API
      */
     public CounterpartyMetadataListResponse metadata() throws IOException, LognexApiException {
-        return HttpRequestBuilder.
+        return HttpRequestExecutor.
                 path(api, "/entity/counterparty/metadata").
                 get(CounterpartyMetadataListResponse.class);
     }

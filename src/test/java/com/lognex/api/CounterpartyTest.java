@@ -42,16 +42,16 @@ public class CounterpartyTest implements TestRandomizers, TestAsserts {
          */
 
         assertNotNull(list);
-        assertEntityMeta(list.context.employee, Meta.Type.employee, false);
-        assertListMeta(list.meta, Meta.Type.counterparty);
+        assertEntityMeta(list.getContext().getEmployee(), Meta.Type.employee, false);
+        assertListMeta(list.getMeta(), Meta.Type.counterparty);
 
-        assertNotNull(list.rows);
-        assertFalse(list.rows.isEmpty());
+        assertNotNull(list.getRows());
+        assertFalse(list.getRows().isEmpty());
 
-        for (MetaEntity row : list.rows) {
-            assertNotNull(row.meta);
-            assertNotNull(row.meta.href);
-            assertEquals(Meta.Type.counterparty, row.meta.type);
+        for (MetaEntity row : list.getRows()) {
+            assertNotNull(row.getMeta());
+            assertNotNull(row.getMeta().getHref());
+            assertEquals(Meta.Type.counterparty, row.getMeta().getType());
         }
     }
 
@@ -62,7 +62,7 @@ public class CounterpartyTest implements TestRandomizers, TestAsserts {
          */
 
         Counterparty entity = new Counterparty();
-        entity.name = randomString(5);
+        entity.setName(randomString(5));
         Counterparty origEntity = Entity.clone(entity);
 
         /*
@@ -76,29 +76,29 @@ public class CounterpartyTest implements TestRandomizers, TestAsserts {
             Валидация
          */
 
-        assertNull(origEntity.meta);
-        assertNotNull(entity.meta);
+        assertNull(origEntity.getMeta());
+        assertNotNull(entity.getMeta());
 
-        assertEntityMeta(entity.meta, Meta.Type.counterparty, true);
-        assertEquals(origEntity.name, entity.name);
+        assertEntityMeta(entity.getMeta(), Meta.Type.counterparty, true);
+        assertEquals(origEntity.getName(), entity.getName());
 
-        assertEquals(origEntity.name, entity.name);
+        assertEquals(origEntity.getName(), entity.getName());
 
-        assertEquals(false, entity.shared);
-        assertEquals(false, entity.archived);
-        assertEquals(0, (int) entity.version);
-        assertEquals(0, (int) entity.salesAmount);
-        assertEquals(CompanyType.legal, entity.companyType);
-        assertNotNull(entity.externalCode);
-        assertNotNull(entity.updated);
-        assertNotNull(entity.created);
+        assertEquals(false, entity.getShared());
+        assertEquals(false, entity.getArchived());
+        assertEquals(0, (int) entity.getVersion());
+        assertEquals(0, (int) entity.getSalesAmount());
+        assertEquals(CompanyType.legal, entity.getCompanyType());
+        assertNotNull(entity.getExternalCode());
+        assertNotNull(entity.getUpdated());
+        assertNotNull(entity.getCreated());
 
-        assertListMeta(entity.accounts, Meta.Type.account);
-        assertListMeta(entity.notes, Meta.Type.note);
-        assertEntityMeta(entity.state, Meta.Type.state, false);
+        assertListMeta(entity.getAccounts(), Meta.Type.account);
+        assertListMeta(entity.getNotes(), Meta.Type.note);
+        assertEntityMeta(entity.getState(), Meta.Type.state, false);
 
-        assertNotNull(entity.tags);
-        assertTrue(entity.tags.isEmpty());
+        assertNotNull(entity.getTags());
+        assertTrue(entity.getTags().isEmpty());
     }
 
     @Test

@@ -14,9 +14,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Characteristic extends MetaEntity {
-    public String id;
-    public String name;
-    public String type;
-    public Boolean required;
-    public String value;
+    private String id;
+    private String name;
+    private String type;
+    private Boolean required;
+    private String value;
 }

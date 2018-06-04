@@ -22,8 +22,8 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class HttpRequestBuilder {
-    private static final Logger logger = LogManager.getLogger(HttpRequestBuilder.class);
+public final class HttpRequestExecutor {
+    private static final Logger logger = LogManager.getLogger(HttpRequestExecutor.class);
     private static final Base64.Encoder b64enc = Base64.getEncoder();
     private static Charset queryParamsCharset = Charset.forName("UTF-8");
 
@@ -34,7 +34,7 @@ public final class HttpRequestBuilder {
     private final CloseableHttpClient client;
     private Object body;
 
-    private HttpRequestBuilder(LognexApi api, String url) {
+    private HttpRequestExecutor(LognexApi api, String url) {
         this.client = api.getClient();
         this.url = api.getHost() + LognexApi.API_PATH + url;
         query = new HashMap<>();
@@ -46,7 +46,7 @@ public final class HttpRequestBuilder {
         gson = LognexApi.createGson(false, api.isTimeWithMilliseconds());
     }
 
-    private HttpRequestBuilder(CloseableHttpClient client, String url) {
+    private HttpRequestExecutor(CloseableHttpClient client, String url) {
         this.client = client;
         this.url = url;
         query = new HashMap<>();
@@ -59,14 +59,14 @@ public final class HttpRequestBuilder {
      * Задаёт кодировку параметров запроса
      */
     public static void setQueryParamsCharset(Charset queryParamsCharset) {
-        HttpRequestBuilder.queryParamsCharset = queryParamsCharset;
+        HttpRequestExecutor.queryParamsCharset = queryParamsCharset;
     }
 
     /**
      * Создаёт билдер запроса к URL
      */
-    public static HttpRequestBuilder url(LognexApi api, String url) {
-        return new HttpRequestBuilder(api.getClient(), url).auth(api);
+    public static HttpRequestExecutor url(LognexApi api, String url) {
+        return new HttpRequestExecutor(api.getClient(), url).auth(api);
     }
 
     /**
@@ -75,14 +75,14 @@ public final class HttpRequestBuilder {
      * @param api  проинициализированный экземпляр класса с данными API
      * @param path путь к методу API (например <code>/entity/counterparty/metadata</code>)
      */
-    public static HttpRequestBuilder path(LognexApi api, String path) {
-        return new HttpRequestBuilder(api, path);
+    public static HttpRequestExecutor path(LognexApi api, String path) {
+        return new HttpRequestExecutor(api, path);
     }
 
     /**
      * Добавляет авторизационный заголовок с данными доступа API
      */
-    private HttpRequestBuilder auth(LognexApi api) {
+    private HttpRequestExecutor auth(LognexApi api) {
         return this.header(
                 "Authorization",
                 "Basic " + b64enc.encodeToString((api.getLogin() + ":" + api.getPassword()).getBytes())
@@ -92,7 +92,7 @@ public final class HttpRequestBuilder {
     /**
      * Добавить параметр в строку запроса после URL в формате <code>key=value&</code>
      */
-    public HttpRequestBuilder query(String key, Object value) {
+    public HttpRequestExecutor query(String key, Object value) {
         query.put(key, value);
         return this;
     }
@@ -100,7 +100,7 @@ public final class HttpRequestBuilder {
     /**
      * Добавить параметр в заголовки запроса
      */
-    public HttpRequestBuilder header(String key, Object value) {
+    public HttpRequestExecutor header(String key, Object value) {
         headers.put(key, value);
         return this;
     }
@@ -108,7 +108,7 @@ public final class HttpRequestBuilder {
     /**
      * Добавить тело запроса (для запросов, поддерживающих отправку данных в теле)
      */
-    public HttpRequestBuilder body(Object o) {
+    public HttpRequestExecutor body(Object o) {
         body = o;
         return this;
     }

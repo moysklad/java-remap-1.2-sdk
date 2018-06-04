@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class Price {
-    public String priceType;
-    public MetaEntity currency;
-    public Double value;
+    private String priceType;
+    private MetaEntity currency;
+    private Double value;
 }

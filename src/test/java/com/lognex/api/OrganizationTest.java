@@ -46,24 +46,24 @@ public class OrganizationTest implements TestRandomizers, TestAsserts {
 
         assertNotNull(list);
 
-        assertNotNull(list.context);
-        assertNotNull(list.context.employee);
-        assertNotNull(list.context.employee.meta);
-        assertEquals(Meta.Type.employee, list.context.employee.meta.type);
+        assertNotNull(list.getContext());
+        assertNotNull(list.getContext().getEmployee());
+        assertNotNull(list.getContext().getEmployee().getMeta());
+        assertEquals(Meta.Type.employee, list.getContext().getEmployee().getMeta().getType());
 
-        assertNotNull(list.meta);
-        assertNotNull(list.meta.size);
-        assertNotNull(list.meta.limit);
-        assertNotNull(list.meta.offset);
-        assertEquals(Meta.Type.organization, list.meta.type);
+        assertNotNull(list.getMeta());
+        assertNotNull(list.getMeta().getSize());
+        assertNotNull(list.getMeta().getLimit());
+        assertNotNull(list.getMeta().getOffset());
+        assertEquals(Meta.Type.organization, list.getMeta().getType());
 
-        assertNotNull(list.rows);
-        assertFalse(list.rows.isEmpty());
+        assertNotNull(list.getRows());
+        assertFalse(list.getRows().isEmpty());
 
-        for (Organization row : list.rows) {
-            assertNotNull(row.meta);
-            assertNotNull(row.meta.href);
-            assertEquals(Meta.Type.organization, row.meta.type);
+        for (Organization row : list.getRows()) {
+            assertNotNull(row.getMeta());
+            assertNotNull(row.getMeta().getHref());
+            assertEquals(Meta.Type.organization, row.getMeta().getType());
         }
     }
 
@@ -75,7 +75,7 @@ public class OrganizationTest implements TestRandomizers, TestAsserts {
 
         Organization entity = new Organization();
 
-        entity.name = randomString(5);
+        entity.setName(randomString(5));
 
         Organization origEntity = Entity.clone(entity);
 
@@ -90,27 +90,27 @@ public class OrganizationTest implements TestRandomizers, TestAsserts {
             Валидация
          */
 
-        assertNull(origEntity.meta);
-        assertNotNull(entity.meta);
+        assertNull(origEntity.getMeta());
+        assertNotNull(entity.getMeta());
 
-        assertEntityMeta(entity.meta, Meta.Type.organization, true);
-        assertEquals(origEntity.name, entity.name);
+        assertEntityMeta(entity.getMeta(), Meta.Type.organization, true);
+        assertEquals(origEntity.getName(), entity.getName());
 
-        assertNotNull(entity.id);
-        assertNotNull(entity.accountId);
-        assertEquals(true, entity.shared);
-        assertEquals(true, entity.payerVat);
-        assertEquals(false, entity.archived);
-        assertEquals(false, entity.isEgaisEnable);
-        assertEquals(0, (int) entity.version);
-        assertEquals(CompanyType.legal, entity.companyType);
-        assertNotNull(entity.externalCode);
-        assertNotNull(entity.updated);
-        assertNotNull(entity.created);
+        assertNotNull(entity.getId());
+        assertNotNull(entity.getAccountId());
+        assertEquals(true, entity.getShared());
+        assertEquals(true, entity.getPayerVat());
+        assertEquals(false, entity.getArchived());
+        assertEquals(false, entity.getIsEgaisEnable());
+        assertEquals(0, (int) entity.getVersion());
+        assertEquals(CompanyType.legal, entity.getCompanyType());
+        assertNotNull(entity.getExternalCode());
+        assertNotNull(entity.getUpdated());
+        assertNotNull(entity.getCreated());
 
-        assertEntityMeta(entity.accounts, Meta.Type.account, false);
-        assertEntityMeta(entity.group, Meta.Type.group, false);
-        assertEntityMeta(entity.owner, Meta.Type.employee, false);
+        assertEntityMeta(entity.getAccounts(), Meta.Type.account, false);
+        assertEntityMeta(entity.getGroup(), Meta.Type.group, false);
+        assertEntityMeta(entity.getOwner(), Meta.Type.employee, false);
     }
 
     @Test

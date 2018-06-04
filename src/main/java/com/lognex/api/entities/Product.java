@@ -16,39 +16,39 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Product extends MetaEntity {
-    public String id;
-    public String accountId;
-    public MetaEntity owner;
-    public Boolean shared;
-    public MetaEntity group;
+    private String id;
+    private String accountId;
+    private MetaEntity owner;
+    private Boolean shared;
+    private MetaEntity group;
     // syncId
-    public Integer version;
-    public String updated;
-    public String name;
-    public String description;
-    public String code;
-    public String externalCode;
-    public Boolean archived;
-    public String pathName;
+    private Integer version;
+    private String updated;
+    private String name;
+    private String description;
+    private String code;
+    private String externalCode;
+    private Boolean archived;
+    private String pathName;
     // vat
-    public MetaEntity uom;
+    private MetaEntity uom;
     // image
-    public Double minPrice;
-    public Price buyPrice;
-    public List<Price> salePrices;
+    private Double minPrice;
+    private Price buyPrice;
+    private List<Price> salePrices;
     // supplier
     // attributes
     // country
-    public String article;
+    private String article;
     // weighted
     // tobacco
-    public Double weight;
-    public Double volume;
+    private Double weight;
+    private Double volume;
     // packs
-    public List<String> barcodes;
+    private List<String> barcodes;
     // alcoholic
-    public Integer modificationsCount;
+    private Integer modificationsCount;
     // minimumBalance
-    public Boolean isSerialTrackable;
-    public List<String> things;
+    private Boolean isSerialTrackable;
+    private List<String> things;
 }

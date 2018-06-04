@@ -16,18 +16,18 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Variant extends MetaEntity {
-    public String id;
-    public String accountId;
-    public Integer version;
-    public String updated;
-    public String name;
-    public String externalCode;
-    public Boolean archived;
-    public List<Characteristic> characteristics;
-    public Double minPrice;
-    public Price buyPrice;
-    public List<Price> salePrices;
-    public List<String> barcodes;
-    public Product product;
-    public List<String> things;
+    private String id;
+    private String accountId;
+    private Integer version;
+    private String updated;
+    private String name;
+    private String externalCode;
+    private Boolean archived;
+    private List<Characteristic> characteristics;
+    private Double minPrice;
+    private Price buyPrice;
+    private List<Price> salePrices;
+    private List<String> barcodes;
+    private Product product;
+    private List<String> things;
 }

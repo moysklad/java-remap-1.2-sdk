@@ -17,42 +17,42 @@ public final class Meta {
     /**
      * Ссылка на объект
      */
-    public String href;
+    private String href;
 
     /**
      * Ссылка на метаданные сущности
      */
-    public String metadataHref;
+    private String metadataHref;
 
     /**
      * Тип сущности
      */
-    public Type type;
+    private Type type;
 
     /**
      * Тип данных, которые приходят в ответ от сервера, либо отправляются в теле запроса
      */
-    public MediaType mediaType;
+    private MediaType mediaType;
 
     /**
      * Ссылка на объект на UI. Присутствует не во всех сущностях. Может быть использована для получения uuid
      */
-    public String uuidHref;
+    private String uuidHref;
 
     /**
      * Размер выданного списка
      */
-    public Integer size;
+    private Integer size;
 
     /**
      * Максимальное количество элементов в выданном списке
      */
-    public Integer limit;
+    private Integer limit;
 
     /**
      * Отступ в выданном списке
      */
-    public Integer offset;
+    private Integer offset;
 
     /**
      * Тип сущности

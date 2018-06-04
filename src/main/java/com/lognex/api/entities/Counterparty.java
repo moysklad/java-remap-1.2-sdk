@@ -17,36 +17,36 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public final class Counterparty extends Agent {
-    public String id;
-    public String accountId;
-    public MetaEntity owner;
-    public Boolean shared;
-    public MetaEntity group;
-    public Integer version;
-    public LocalDateTime updated;
-    public String name;
-    public String code;
-    public String externalCode;
-    public Boolean archived;
-    public LocalDateTime created;
-    public CompanyType companyType;
-    public String legalTitle;
-    public String legalAddress;
-    public String inn;
-    public String email;
-    public String phone;
-    public String fax;
-    public MetaEntity accounts;
-    public List<String> tags;
-    public List<Discount> discounts;
-    public MetaEntity contactpersons;
-    public MetaEntity notes;
-    public String discountCardNumber;
-    public State state;
-    public Integer salesAmount;
+    private String id;
+    private String accountId;
+    private MetaEntity owner;
+    private Boolean shared;
+    private MetaEntity group;
+    private Integer version;
+    private LocalDateTime updated;
+    private String name;
+    private String code;
+    private String externalCode;
+    private Boolean archived;
+    private LocalDateTime created;
+    private CompanyType companyType;
+    private String legalTitle;
+    private String legalAddress;
+    private String inn;
+    private String email;
+    private String phone;
+    private String fax;
+    private MetaEntity accounts;
+    private List<String> tags;
+    private List<Discount> discounts;
+    private MetaEntity contactpersons;
+    private MetaEntity notes;
+    private String discountCardNumber;
+    private State state;
+    private Integer salesAmount;
 
     public static class Discount {
-        public MetaEntity discount;
-        public Integer personalDiscount;
+        private MetaEntity discount;
+        private Integer personalDiscount;
     }
 }

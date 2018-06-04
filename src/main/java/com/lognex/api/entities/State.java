@@ -1,7 +1,7 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.LognexApi;
-import com.lognex.api.utils.HttpRequestBuilder;
+import com.lognex.api.utils.HttpRequestExecutor;
 import com.lognex.api.utils.LognexApiException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,17 +19,17 @@ import java.io.IOException;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class State extends MetaEntity implements Fetchable {
-    public String id;
-    public String accountId;
-    public String name;
-    public Integer color;
-    public String stateType;    // TODO enum
-    public String entityType;   // TODO enum
+    private String id;
+    private String accountId;
+    private String name;
+    private Integer color;
+    private String stateType;    // TODO enum
+    private String entityType;   // TODO enum
 
     @Override
     public void fetch(LognexApi api) throws IOException, LognexApiException {
         this.set(
-                HttpRequestBuilder.url(api, meta.href).get(State.class)
+                HttpRequestExecutor.url(api, meta.getHref()).get(State.class)
         );
     }
 }

@@ -42,16 +42,16 @@ public class ContractTest implements TestRandomizers, TestAsserts {
          */
 
         assertNotNull(list);
-        assertEntityMeta(list.context.employee, Meta.Type.employee, false);
-        assertListMeta(list.meta, Meta.Type.contract);
+        assertEntityMeta(list.getContext().getEmployee(), Meta.Type.employee, false);
+        assertListMeta(list.getMeta(), Meta.Type.contract);
 
-        assertNotNull(list.rows);
-        assertFalse(list.rows.isEmpty());
+        assertNotNull(list.getRows());
+        assertFalse(list.getRows().isEmpty());
 
-        for (MetaEntity row : list.rows) {
-            assertNotNull(row.meta);
-            assertNotNull(row.meta.href);
-            assertEquals(Meta.Type.contract, row.meta.type);
+        for (MetaEntity row : list.getRows()) {
+            assertNotNull(row.getMeta());
+            assertNotNull(row.getMeta().getHref());
+            assertEquals(Meta.Type.contract, row.getMeta().getType());
         }
     }
 
@@ -62,18 +62,18 @@ public class ContractTest implements TestRandomizers, TestAsserts {
          */
 
         Counterparty counterparty = new Counterparty();
-        counterparty.name = randomString(5);
+        counterparty.setName(randomString(5));
         api.entity().counterparty().post(counterparty);
 
         Organization organization = new Organization();
-        organization.name = randomString(5);
+        organization.setName(randomString(5));
         api.entity().organization().post(organization);
 
         Contract entity = new Contract();
 
-        entity.name = randomString(5);
-        entity.agent = counterparty;
-        entity.ownAgent = organization;
+        entity.setName(randomString(5));
+        entity.setAgent(counterparty);
+        entity.setOwnAgent(organization);
 
         Contract origEntity = Entity.clone(entity);
 
@@ -88,29 +88,29 @@ public class ContractTest implements TestRandomizers, TestAsserts {
             Валидация
          */
 
-        assertNull(origEntity.meta);
-        assertNotNull(entity.meta);
+        assertNull(origEntity.getMeta());
+        assertNotNull(entity.getMeta());
 
-        assertEntityMeta(entity.meta, Meta.Type.contract, true);
-        assertEquals(origEntity.name, entity.name);
+        assertEntityMeta(entity.getMeta(), Meta.Type.contract, true);
+        assertEquals(origEntity.getName(), entity.getName());
 
-        assertEquals(false, entity.shared);
-        assertEquals(false, entity.archived);
-        assertEquals(Contract.Type.sales, entity.contractType);
-        assertNotNull(entity.externalCode);
-        assertNotNull(entity.updated);
-        assertNotNull(entity.moment);
+        assertEquals(false, entity.getShared());
+        assertEquals(false, entity.getArchived());
+        assertEquals(Contract.Type.sales, entity.getContractType());
+        assertNotNull(entity.getExternalCode());
+        assertNotNull(entity.getUpdated());
+        assertNotNull(entity.getMoment());
 
-        assertEntityMeta(entity.group, Meta.Type.group, false);
-        assertEntityMeta(entity.owner, Meta.Type.employee, true);
+        assertEntityMeta(entity.getGroup(), Meta.Type.group, false);
+        assertEntityMeta(entity.getOwner(), Meta.Type.employee, true);
 
-        assertNotNull(entity.agent);
-        assertNotNull(entity.agent.meta);
-        assertEquals(counterparty.meta, entity.agent.meta);
+        assertNotNull(entity.getAgent());
+        assertNotNull(entity.getAgent().getMeta());
+        assertEquals(counterparty.getMeta(), entity.getAgent().getMeta());
 
-        assertNotNull(entity.ownAgent);
-        assertNotNull(entity.ownAgent.meta);
-        assertEquals(organization.meta, entity.ownAgent.meta);
+        assertNotNull(entity.getOwnAgent());
+        assertNotNull(entity.getOwnAgent().getMeta());
+        assertEquals(organization.getMeta(), entity.getOwnAgent().getMeta());
     }
 
     @Test

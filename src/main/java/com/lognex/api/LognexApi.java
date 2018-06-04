@@ -2,7 +2,7 @@ package com.lognex.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.lognex.api.builders.entities.EntityRequestBuilder;
+import com.lognex.api.builders.entities.EntityClient;
 import com.lognex.api.entities.Agent;
 import com.lognex.api.entities.Currency;
 import com.lognex.api.utils.json.AgentDeserializer;
@@ -66,8 +66,8 @@ public final class LognexApi {
      * возможности избегайте их сохранения в переменные в долгоживущих объектах или не забывайте
      * про них, так как неосторожное использование может вызвать <b>утечку памяти</b>!<br/><br/>
      */
-    public EntityRequestBuilder entity() {
-        return new EntityRequestBuilder(this);
+    public EntityClient entity() {
+        return new EntityClient(this);
     }
 
     /**

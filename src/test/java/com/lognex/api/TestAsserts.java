@@ -9,30 +9,30 @@ import static org.junit.Assert.assertNotNull;
 public interface TestAsserts {
     default void assertListMeta(MetaEntity me, Meta.Type expectedType) {
         assertNotNull(me);
-        assertNotNull(me.meta);
-        assertListMeta(me.meta, expectedType);
+        assertNotNull(me.getMeta());
+        assertListMeta(me.getMeta(), expectedType);
     }
 
     default void assertListMeta(Meta meta, Meta.Type expectedType) {
         assertNotNull(meta);
-        assertNotNull(meta.href);
-        assertNotNull(meta.size);
-        assertNotNull(meta.limit);
-        assertNotNull(meta.offset);
-        assertEquals(Meta.MediaType.json, meta.mediaType);
-        assertEquals(expectedType, meta.type);
+        assertNotNull(meta.getHref());
+        assertNotNull(meta.getSize());
+        assertNotNull(meta.getLimit());
+        assertNotNull(meta.getOffset());
+        assertEquals(Meta.MediaType.json, meta.getMediaType());
+        assertEquals(expectedType, meta.getType());
     }
 
     default void assertEntityMeta(MetaEntity me, Meta.Type expectedType, boolean withUuid) {
         assertNotNull(me);
-        assertNotNull(me.meta);
-        assertEntityMeta(me.meta, expectedType, withUuid);
+        assertNotNull(me.getMeta());
+        assertEntityMeta(me.getMeta(), expectedType, withUuid);
     }
 
     default void assertEntityMeta(Meta meta, Meta.Type expectedType, boolean withUuid) {
-        assertNotNull(meta.href);
-        assertEquals(expectedType, meta.type);
-        assertEquals(Meta.MediaType.json, meta.mediaType);
-        if (withUuid) assertNotNull(meta.uuidHref);
+        assertNotNull(meta.getHref());
+        assertEquals(expectedType, meta.getType());
+        assertEquals(Meta.MediaType.json, meta.getMediaType());
+        if (withUuid) assertNotNull(meta.getUuidHref());
     }
 }

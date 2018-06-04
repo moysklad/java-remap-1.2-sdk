@@ -2,11 +2,11 @@ package com.lognex.api.builders.entities;
 
 import com.lognex.api.LognexApi;
 
-public class DocumentCustomerOrderByIdRequestBuilder {
+public class DocumentCustomerOrderByIdClient {
     private final LognexApi api;
     private final String id;
 
-    DocumentCustomerOrderByIdRequestBuilder(LognexApi api, String id) {
+    DocumentCustomerOrderByIdClient(LognexApi api, String id) {
         this.api = api;
         this.id = id;
     }

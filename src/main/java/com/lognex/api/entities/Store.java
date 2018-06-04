@@ -10,20 +10,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Store extends MetaEntity {
-    public String id;
-    public String accountId;
-    public MetaEntity owner;
-    public Boolean shared;
-    public MetaEntity group;
-    public Integer version;
-    public String updated;
-    public String name;
-    public String description;
-    public String code;
-    public String externalCode;
-    public Boolean archived;
-    public String address;
-    public MetaEntity parent;
-    public String pathName;
-    public MetaEntity attributes;
+    private String id;
+    private String accountId;
+    private MetaEntity owner;
+    private Boolean shared;
+    private MetaEntity group;
+    private Integer version;
+    private String updated;
+    private String name;
+    private String description;
+    private String code;
+    private String externalCode;
+    private Boolean archived;
+    private String address;
+    private MetaEntity parent;
+    private String pathName;
+    private MetaEntity attributes;
 }
