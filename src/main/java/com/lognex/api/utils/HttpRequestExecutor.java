@@ -5,7 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.lognex.api.LognexApi;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ErrorResponse;
-import com.lognex.api.responses.ListResponse;
+import com.lognex.api.responses.ListEntity;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -35,6 +35,8 @@ public final class HttpRequestExecutor {
     private Object body;
 
     private HttpRequestExecutor(LognexApi api, String url) {
+        if (api == null) throw new NullPointerException("Для выполнения запроса к API нужен проинициализированный экземпляр LognexApi!");
+
         this.client = api.getClient();
         this.url = api.getHost() + LognexApi.API_PATH + url;
         query = new HashMap<>();
@@ -47,6 +49,8 @@ public final class HttpRequestExecutor {
     }
 
     private HttpRequestExecutor(CloseableHttpClient client, String url) {
+        if (client == null) throw new NullPointerException("Для выполнения запроса нужен проинициализированный экземпляр CloseableHttpClient!");
+
         this.client = client;
         this.url = url;
         query = new HashMap<>();
@@ -199,8 +203,8 @@ public final class HttpRequestExecutor {
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public <T extends MetaEntity> ListResponse<T> list(Class<T> cl) throws IOException, LognexApiException {
-        return gson.fromJson(get(), TypeToken.getParameterized(ListResponse.class, cl).getType());
+    public <T extends MetaEntity> ListEntity<T> list(Class<T> cl) throws IOException, LognexApiException {
+        return gson.fromJson(get(), TypeToken.getParameterized(ListEntity.class, cl).getType());
     }
 
     /**

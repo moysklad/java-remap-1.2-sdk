@@ -1,8 +1,8 @@
 package com.lognex.api.responses;
 
-import com.lognex.api.entities.Attribute;
+import com.lognex.api.entities.AttributeEntity;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.State;
+import com.lognex.api.entities.StateEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +19,8 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public final class CounterpartyMetadataListResponse extends MetaEntity {
-    private List<Attribute> attributes;
-    private List<State> states;
+    private List<AttributeEntity> attributes;
+    private List<StateEntity> states;
     private List<String> groups;
     private Boolean createShared;
 }

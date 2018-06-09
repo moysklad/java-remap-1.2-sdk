@@ -58,7 +58,10 @@ public final class Meta {
      * Тип сущности
      */
     public enum Type {
-        employee, contract, counterparty, organization, group, account, demand, store, demandposition, note, state, currency
+        employee, contract, counterparty, organization, group,
+        account, demand, store, demandposition, note, state,
+        product, service, bundle, currency, uom, productfolder,
+        supplyposition, country, variant
     }
 
     /**

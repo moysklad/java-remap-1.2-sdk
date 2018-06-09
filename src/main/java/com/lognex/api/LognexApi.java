@@ -2,9 +2,9 @@ package com.lognex.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.lognex.api.builders.entities.EntityClient;
-import com.lognex.api.entities.Agent;
-import com.lognex.api.entities.Currency;
+import com.lognex.api.clients.EntityClient;
+import com.lognex.api.entities.CurrencyEntity;
+import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.utils.json.AgentDeserializer;
 import com.lognex.api.utils.json.LocalDateTimeSerializer;
 import lombok.Getter;
@@ -30,7 +30,11 @@ public final class LognexApi {
      * @param password пароль пользователя
      */
     public LognexApi(String host, String login, String password) {
+        if (host == null) throw new NullPointerException("Адрес хоста API не может быть null!");
         host = host.trim();
+
+        if (host.isEmpty()) throw new IllegalArgumentException("Адрес хоста API не может быть пустым!");
+
         while (host.endsWith("/")) host = host.substring(0, host.lastIndexOf("/"));
         if (host.startsWith("http://")) host = host.replace("http://", "https://");
         else if (!host.startsWith("https://")) host = "https://" + host;
@@ -99,9 +103,9 @@ public final class LognexApi {
             gb.setPrettyPrinting();
         }
 
-        gb.registerTypeAdapter(Currency.MultiplicityType.class, new Currency.MultiplicityType.Serializer());
+        gb.registerTypeAdapter(CurrencyEntity.MultiplicityType.class, new CurrencyEntity.MultiplicityType.Serializer());
         gb.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer(timeWithMilliseconds));
-        gb.registerTypeAdapter(Agent.class, new AgentDeserializer());
+        gb.registerTypeAdapter(AgentEntity.class, new AgentDeserializer());
 
         return gb.create();
     }

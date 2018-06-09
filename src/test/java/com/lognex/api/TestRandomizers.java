@@ -8,13 +8,17 @@ public interface TestRandomizers {
     Random rnd = new Random();
 
     default String randomString() {
-        return randomString(rnd.nextInt(16));
+        return randomString(5 + rnd.nextInt(10));
     }
 
     default double randomDouble(double from, double len, int decimals) {
         Integer mult = (int) Math.pow(10, decimals);
         len++;
         return ((double) rnd.nextInt((int) (len * mult)) / mult) + from;
+    }
+
+    default int randomInteger(int fromIncl, int toIncl) {
+        return fromIncl + rnd.nextInt(toIncl - fromIncl + 1);
     }
 
     default String randomString(int length) {

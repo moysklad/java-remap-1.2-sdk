@@ -14,5 +14,42 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class DocumentEntity extends MetaEntity {
+public abstract class DocumentEntity extends MetaEntity {
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Gtd {
+        private String name;
+    }
+
+    /**
+     * Накладные расходы
+     */
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Overhead {
+        private Integer sum;
+        private DistributionType distribution;
+
+        /**
+         * Тип распределения накладных расходов
+         */
+        public enum DistributionType {
+            /**
+             * Распределение накладных расходов по весу
+             */
+            weight,
+
+            /**
+             * Распределение накладных расходов по объёму
+             */
+            volume,
+
+            /**
+             * Распределение накладных расходов по цене
+             */
+            price
+        }
+    }
 }
