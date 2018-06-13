@@ -48,7 +48,7 @@ public class StateEntity extends MetaEntity implements Fetchable {
     /**
      * Тип сущности, к которой относится Статус
      */
-    private String entityType;   // TODO enum
+    private Meta.Type entityType;
 
     @Override
     public void fetch(LognexApi api) throws IOException, LognexApiException {

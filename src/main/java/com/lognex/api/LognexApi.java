@@ -30,10 +30,8 @@ public final class LognexApi {
      * @param password пароль пользователя
      */
     public LognexApi(String host, String login, String password) {
-        if (host == null) throw new NullPointerException("Адрес хоста API не может быть null!");
+        if (host == null || host.trim().isEmpty()) throw new IllegalArgumentException("Адрес хоста API не может быть пустым или null!");
         host = host.trim();
-
-        if (host.isEmpty()) throw new IllegalArgumentException("Адрес хоста API не может быть пустым!");
 
         while (host.endsWith("/")) host = host.substring(0, host.lastIndexOf("/"));
         if (host.startsWith("http://")) host = host.replace("http://", "https://");

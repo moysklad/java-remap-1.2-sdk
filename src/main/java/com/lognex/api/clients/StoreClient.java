@@ -27,6 +27,7 @@ public class StoreClient implements GetListEndpoint<StoreEntity>, PostEndpoint<S
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public ListEntity<StoreEntity> get() throws IOException, LognexApiException {
         return get(api, StoreEntity.class);
     }
@@ -39,7 +40,8 @@ public class StoreClient implements GetListEndpoint<StoreEntity>, PostEndpoint<S
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public void post(StoreEntity newEntity) throws IOException, LognexApiException {
-        post(api, newEntity, StoreEntity.class);
+    @Override
+    public StoreEntity post(StoreEntity newEntity) throws IOException, LognexApiException {
+        return post(api, newEntity, StoreEntity.class);
     }
 }

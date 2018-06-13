@@ -90,9 +90,9 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
                     null,
                     randomString() + "@" + randomString(), randomString()
             );
-            fail("Ожидалось исключение NullPointerException!");
-        } catch (NullPointerException e) {
-            assertEquals("Адрес хоста API не может быть null!", e.getMessage());
+            fail("Ожидалось исключение IllegalArgumentException!");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Адрес хоста API не может быть пустым или null!", e.getMessage());
         }
     }
 
@@ -105,7 +105,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
             );
             fail("Ожидалось исключение IllegalArgumentException!");
         } catch (IllegalArgumentException e) {
-            assertEquals("Адрес хоста API не может быть пустым!", e.getMessage());
+            assertEquals("Адрес хоста API не может быть пустым или null!", e.getMessage());
         }
     }
 }

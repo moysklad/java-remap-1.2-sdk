@@ -27,6 +27,7 @@ public final class ProductFolderClient implements GetListEndpoint<ProductFolderE
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public ListEntity<ProductFolderEntity> get() throws IOException, LognexApiException {
         return get(api, ProductFolderEntity.class);
     }
@@ -39,7 +40,8 @@ public final class ProductFolderClient implements GetListEndpoint<ProductFolderE
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public void post(ProductFolderEntity newEntity) throws IOException, LognexApiException {
-        post(api, newEntity, ProductFolderEntity.class);
+    @Override
+    public ProductFolderEntity post(ProductFolderEntity newEntity) throws IOException, LognexApiException {
+        return post(api, newEntity, ProductFolderEntity.class);
     }
 }

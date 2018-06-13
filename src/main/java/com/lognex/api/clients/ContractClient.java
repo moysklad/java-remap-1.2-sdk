@@ -27,6 +27,7 @@ public final class ContractClient implements GetListEndpoint<ContractEntity>, Po
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public ListEntity<ContractEntity> get() throws IOException, LognexApiException {
         return get(api, ContractEntity.class);
     }
@@ -39,7 +40,8 @@ public final class ContractClient implements GetListEndpoint<ContractEntity>, Po
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public void post(ContractEntity newEntity) throws IOException, LognexApiException {
-        post(api, newEntity, ContractEntity.class);
+    @Override
+    public ContractEntity post(ContractEntity newEntity) throws IOException, LognexApiException {
+        return post(api, newEntity, ContractEntity.class);
     }
 }

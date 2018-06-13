@@ -35,7 +35,7 @@ public final class HttpRequestExecutor {
     private Object body;
 
     private HttpRequestExecutor(LognexApi api, String url) {
-        if (api == null) throw new NullPointerException("Для выполнения запроса к API нужен проинициализированный экземпляр LognexApi!");
+        if (api == null) throw new IllegalArgumentException("Для выполнения запроса к API нужен проинициализированный экземпляр LognexApi!");
 
         this.client = api.getClient();
         this.url = api.getHost() + LognexApi.API_PATH + url;
@@ -49,7 +49,7 @@ public final class HttpRequestExecutor {
     }
 
     private HttpRequestExecutor(CloseableHttpClient client, String url) {
-        if (client == null) throw new NullPointerException("Для выполнения запроса нужен проинициализированный экземпляр CloseableHttpClient!");
+        if (client == null) throw new IllegalArgumentException("Для выполнения запроса нужен проинициализированный экземпляр CloseableHttpClient!");
 
         this.client = client;
         this.url = url;

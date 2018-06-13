@@ -28,6 +28,7 @@ public final class ProductClient implements GetListEndpoint<ProductEntity>, Post
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public ListEntity<ProductEntity> get() throws IOException, LognexApiException {
         return get(api, ProductEntity.class);
     }
@@ -40,8 +41,9 @@ public final class ProductClient implements GetListEndpoint<ProductEntity>, Post
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public void post(ProductEntity newEntity) throws IOException, LognexApiException {
-        post(api, newEntity, ProductEntity.class);
+    @Override
+    public ProductEntity post(ProductEntity newEntity) throws IOException, LognexApiException {
+        return post(api, newEntity, ProductEntity.class);
     }
 
     /**
@@ -51,6 +53,7 @@ public final class ProductClient implements GetListEndpoint<ProductEntity>, Post
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public void delete(String id) throws IOException, LognexApiException {
         delete(api, id);
     }

@@ -27,6 +27,7 @@ public class DocumentCustomerOrderClient implements GetListEndpoint<CustomerOrde
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public ListEntity<CustomerOrder> get() throws IOException, LognexApiException {
         return get(api, CustomerOrder.class);
     }
@@ -39,7 +40,8 @@ public class DocumentCustomerOrderClient implements GetListEndpoint<CustomerOrde
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public void post(CustomerOrder newEntity) throws IOException, LognexApiException {
-        post(api, newEntity, CustomerOrder.class);
+    @Override
+    public CustomerOrder post(CustomerOrder newEntity) throws IOException, LognexApiException {
+        return post(api, newEntity, CustomerOrder.class);
     }
 }

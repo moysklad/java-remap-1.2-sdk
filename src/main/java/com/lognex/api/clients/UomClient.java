@@ -27,6 +27,7 @@ public final class UomClient implements GetListEndpoint<UomEntity>, PostEndpoint
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public ListEntity<UomEntity> get() throws IOException, LognexApiException {
         return get(api, UomEntity.class);
     }
@@ -39,7 +40,8 @@ public final class UomClient implements GetListEndpoint<UomEntity>, PostEndpoint
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public void post(UomEntity newEntity) throws IOException, LognexApiException {
-        post(api, newEntity, UomEntity.class);
+    @Override
+    public UomEntity post(UomEntity newEntity) throws IOException, LognexApiException {
+        return post(api, newEntity, UomEntity.class);
     }
 }

@@ -27,6 +27,7 @@ public class DocumentSupplyClient implements GetListEndpoint<SupplyDocumentEntit
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public ListEntity<SupplyDocumentEntity> get() throws IOException, LognexApiException {
         return get(api, SupplyDocumentEntity.class);
     }
@@ -39,7 +40,8 @@ public class DocumentSupplyClient implements GetListEndpoint<SupplyDocumentEntit
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public void post(SupplyDocumentEntity newEntity) throws IOException, LognexApiException {
-        post(api, newEntity, SupplyDocumentEntity.class);
+    @Override
+    public SupplyDocumentEntity post(SupplyDocumentEntity newEntity) throws IOException, LognexApiException {
+        return post(api, newEntity, SupplyDocumentEntity.class);
     }
 }

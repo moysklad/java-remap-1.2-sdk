@@ -29,6 +29,7 @@ public final class VariantClient implements GetListEndpoint<VariantEntity>, Post
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public ListEntity<VariantEntity> get() throws IOException, LognexApiException {
         return get(api, VariantEntity.class);
     }
@@ -41,8 +42,9 @@ public final class VariantClient implements GetListEndpoint<VariantEntity>, Post
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public void post(VariantEntity newEntity) throws IOException, LognexApiException {
-        post(api, newEntity, VariantEntity.class);
+    @Override
+    public VariantEntity post(VariantEntity newEntity) throws IOException, LognexApiException {
+        return post(api, newEntity, VariantEntity.class);
     }
 
     /**

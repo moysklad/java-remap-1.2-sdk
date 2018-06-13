@@ -29,6 +29,7 @@ public final class CounterpartyClient implements GetListEndpoint<CounterpartyEnt
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public ListEntity<CounterpartyEntity> get() throws IOException, LognexApiException {
         return get(api, CounterpartyEntity.class);
     }
@@ -41,8 +42,9 @@ public final class CounterpartyClient implements GetListEndpoint<CounterpartyEnt
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public void post(CounterpartyEntity newEntity) throws IOException, LognexApiException {
-        post(api, newEntity, CounterpartyEntity.class);
+    @Override
+    public CounterpartyEntity post(CounterpartyEntity newEntity) throws IOException, LognexApiException {
+        return post(api, newEntity, CounterpartyEntity.class);
     }
 
     /**

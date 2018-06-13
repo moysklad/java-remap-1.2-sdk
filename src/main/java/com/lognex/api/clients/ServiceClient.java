@@ -27,6 +27,7 @@ public final class ServiceClient implements GetListEndpoint<ServiceEntity>, Post
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public ListEntity<ServiceEntity> get() throws IOException, LognexApiException {
         return get(api, ServiceEntity.class);
     }
@@ -39,7 +40,8 @@ public final class ServiceClient implements GetListEndpoint<ServiceEntity>, Post
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public void post(ServiceEntity newEntity) throws IOException, LognexApiException {
-        post(api, newEntity, ServiceEntity.class);
+    @Override
+    public ServiceEntity post(ServiceEntity newEntity) throws IOException, LognexApiException {
+        return post(api, newEntity, ServiceEntity.class);
     }
 }

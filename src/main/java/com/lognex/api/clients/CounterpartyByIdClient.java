@@ -29,6 +29,7 @@ public final class CounterpartyByIdClient implements GetEndpoint<CounterpartyEnt
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public CounterpartyEntity get() throws IOException, LognexApiException {
         return get(api, CounterpartyEntity.class);
     }
@@ -39,6 +40,7 @@ public final class CounterpartyByIdClient implements GetEndpoint<CounterpartyEnt
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public void delete() throws IOException, LognexApiException {
         delete(api);
     }
@@ -51,6 +53,7 @@ public final class CounterpartyByIdClient implements GetEndpoint<CounterpartyEnt
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public void put(CounterpartyEntity updatedEntity) throws IOException, LognexApiException {
         put(api, updatedEntity, CounterpartyEntity.class);
     }

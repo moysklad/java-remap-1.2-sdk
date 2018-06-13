@@ -27,6 +27,7 @@ public final class BundleClient implements GetListEndpoint<BundleEntity>, PostEn
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public ListEntity<BundleEntity> get() throws IOException, LognexApiException {
         return get(api, BundleEntity.class);
     }
@@ -39,7 +40,8 @@ public final class BundleClient implements GetListEndpoint<BundleEntity>, PostEn
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
-    public void post(BundleEntity newEntity) throws IOException, LognexApiException {
-        post(api, newEntity, BundleEntity.class);
+    @Override
+    public BundleEntity post(BundleEntity newEntity) throws IOException, LognexApiException {
+        return post(api, newEntity, BundleEntity.class);
     }
 }
