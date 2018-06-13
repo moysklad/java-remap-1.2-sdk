@@ -11,21 +11,20 @@ public class LognexApiException extends Exception {
     private final String reasonPhrase;
     private final ErrorResponse errorResponse;
 
-    public LognexApiException(int statusCode, String reasonPhrase) {
-        super(statusCode + " " + reasonPhrase);
+    public LognexApiException(String uri, int statusCode, String reasonPhrase) {
+        super(uri + ": " + statusCode + " " + reasonPhrase);
 
         this.statusCode = statusCode;
         this.reasonPhrase = reasonPhrase;
         this.errorResponse = null;
     }
 
-    public LognexApiException(int statusCode, String reasonPhrase, ErrorResponse er) {
+    public LognexApiException(String uri, int statusCode, String reasonPhrase, ErrorResponse er) {
         super(
                 er.getErrors().isEmpty() ?
                         statusCode + " " + reasonPhrase :
-                        "При запросе произошли следующие ошибки (" + statusCode + " " + reasonPhrase + "):\n" +
-                                er.getErrors().stream().map(e -> " - " + e.getCode() + " " + e.getError()).
-                                        collect(Collectors.joining("\n"))
+                        "При запросе '" + uri + "' произошли следующие ошибки (" + statusCode + " " + reasonPhrase + "):\n" +
+                                er.getErrors().stream().map(e -> " - " + e.getCode() + " " + e.getError()).collect(Collectors.joining("\n"))
         );
 
         this.statusCode = statusCode;

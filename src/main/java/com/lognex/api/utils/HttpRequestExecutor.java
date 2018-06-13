@@ -162,6 +162,7 @@ public final class HttpRequestExecutor {
                 ErrorResponse er = gson.fromJson(json, ErrorResponse.class);
 
                 throw new LognexApiException(
+                        request.getMethod() + " " + request.getURI(),
                         response.getStatusLine().getStatusCode(),
                         response.getStatusLine().getReasonPhrase(),
                         er
