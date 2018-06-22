@@ -7,13 +7,12 @@ import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
 
-public interface GetEndpoint<T extends MetaEntity> extends Endpoint {
-    T get(String... expand) throws IOException, LognexApiException;
+public interface GetMetadataEndpoint<T extends MetaEntity> extends Endpoint {
+    T metadata() throws IOException, LognexApiException;
 
-    default T get(LognexApi api, Class<T> cl, String... expand) throws IOException, LognexApiException {
+    default T metadata(LognexApi api, Class<T> cl) throws IOException, LognexApiException {
         return HttpRequestExecutor.
-                path(api, path()).
-                expand(expand).
+                path(api, path() + "/metadata").
                 get(cl);
     }
 }

@@ -2,35 +2,71 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 2.0-ALPHA4 (xx.xx.2018)
+
+### Добавлено
+
+* Механизм `expand`
+* Сущности:
+  * `RetailShiftEntity`
+  * `RetailStoreEntity`
+  * `CashInDocumentEntity`
+  * `RetailSalesReturnEntity`
+  * `RetailDrawerCashInEntity`
+  * `RetailDrawerCashOutEntity`
+  * `RetailDemandDocumentEntity`
+  * `DocumentMetadataStatesListResponse`
+* Методы API: 
+  * `GET /entity/cashin/`
+  * `GET /entity/employee/`
+  * `GET /entity/retailshift/`
+  * `GET /entity/retailstore/`  
+  * `GET /entity/retaildemand/`
+  * `GET /entity/retailsalesreturn/`
+  * `GET /entity/retaildrawercashin/`
+  * `GET /entity/retaildrawercashout/`  
+  * `POST /entity/cashin/`
+  * `POST /entity/retaildemand/`
+  * `POST /entity/retailsalesreturn/`
+  * `POST /entity/retaildrawercashin/`
+  * `POST /entity/retaildrawercashout/`  
+  * `DELETE /entity/cashin/{id}`  
+  * `DELETE /entity/retailshift/{id}`    
+  * `DELETE /entity/retaildemand/{id}`
+  * `DELETE /entity/retailsalesreturn/{id}`  
+  * `DELETE /entity/retaildrawercashin/{id}`  
+  * `DELETE /entity/retaildrawercashout/{id}`  
+* (Де)сериализаторы для `ListResponse` и `ProductMarker`
+
 ## 2.0-ALPHA3 (21.06.2018)
 
 ### Добавлено
 
 * Сущности:
+  * `Price`
+  * `Bundle`
   * `Account`
   * `Country`
-  * `Discount`
-  * `DocumentPosition`
-  * `Price`
-  * `ProductFolder`
-  * `UnitOfMeasurement`
-  * `Bundle`
   * `Service`
+  * `Discount`
+  * `ProductFolder`
+  * `DocumentPosition`
+  * `UnitOfMeasurement`
 * Методы API: 
-  * `GET /entity/bundle/`
-  * `POST /entity/bundle/`
-  * `GET /entity/discount/`
-  * `GET /entity/supply/`
-  * `POST /entity/supply/`
-  * `GET /entity/productfolder/`
-  * `POST /entity/productfolder/`
-  * `GET /entity/service/`
-  * `POST /entity/service/`
   * `GET /entity/uom/`
+  * `GET /entity/bundle/`
+  * `GET /entity/supply/`
+  * `GET /entity/service/`
+  * `GET /entity/discount/`
+  * `GET /entity/variant/{id}`
+  * `GET /entity/productfolder/`
   * `POST /entity/uom/`
-  * `GET /entity/variant/{id}/`
-  * `PUT /entity/variant/{id}/`
-  * `DELETE /entity/variant/{id}/`
+  * `POST /entity/bundle/`
+  * `POST /entity/supply/`
+  * `POST /entity/service/`
+  * `POST /entity/productfolder/`
+  * `DELETE /entity/variant/{id}`
+  * `PUT /entity/variant/{id}`
 
 ### Изменено
 
@@ -41,13 +77,13 @@
 
 ### Добавлено
 * Методы API: 
-  * `GET /entity/currency/`
-  * `POST /entity/currency/`
-  * `GET /entity/demand/`
-  * `POST /entity/demand/`
-  * `GET /entity/contract/`
-  * `POST /entity/contract/`
   * `GET /entity/store/`
+  * `GET /entity/demand/`
+  * `GET /entity/contract/`
+  * `GET /entity/currency/`
+  * `POST /entity/demand/`
+  * `POST /entity/contract/`
+  * `POST /entity/currency/`
   * `POST /entity/organization/`
 * Возможность изменять данные доступа к API у экземпляра класса LognexAPI
 * Статический конструктор парсера GSON с настроенными сериализаторами и десериализаторами сущностей проекта

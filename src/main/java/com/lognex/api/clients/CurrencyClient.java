@@ -28,8 +28,8 @@ public final class CurrencyClient implements GetListEndpoint<CurrencyEntity>, Po
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public ListEntity<CurrencyEntity> get() throws IOException, LognexApiException {
-        return get(api, CurrencyEntity.class);
+    public ListEntity<CurrencyEntity> get(String... expand) throws IOException, LognexApiException {
+        return get(api, CurrencyEntity.class, expand);
     }
 
     /**

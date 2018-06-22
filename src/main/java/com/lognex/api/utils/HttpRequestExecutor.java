@@ -18,9 +18,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public final class HttpRequestExecutor {
     private static final Logger logger = LogManager.getLogger(HttpRequestExecutor.class);
@@ -28,8 +27,9 @@ public final class HttpRequestExecutor {
     private static Charset queryParamsCharset = Charset.forName("UTF-8");
 
     private final String url;
-    private final Map<String, Object> query;
-    private final Map<String, Object> headers;
+    private Map<String, Object> query;
+    private List<String> expand;
+    private Map<String, Object> headers;
     private final Gson gson;
     private final CloseableHttpClient client;
     private Object body;
@@ -97,6 +97,7 @@ public final class HttpRequestExecutor {
      * Добавить параметр в строку запроса после URL в формате <code>key=value&</code>
      */
     public HttpRequestExecutor query(String key, Object value) {
+        if (query == null) query = new HashMap<>();
         query.put(key, value);
         return this;
     }
@@ -105,7 +106,19 @@ public final class HttpRequestExecutor {
      * Добавить параметр в заголовки запроса
      */
     public HttpRequestExecutor header(String key, Object value) {
+        if (headers == null) headers = new HashMap<>();
         headers.put(key, value);
+        return this;
+    }
+
+    /**
+     * Добавить поля ответа, которые необходимо получить с сервера сразу с данными (параметр <code>expand</code>)
+     */
+    public HttpRequestExecutor expand(String... fields) {
+        if (fields == null || fields.length == 0) return this;
+
+        if (expand == null) expand = new ArrayList<>();
+        Collections.addAll(expand, fields);
         return this;
     }
 
@@ -121,6 +134,12 @@ public final class HttpRequestExecutor {
      * Строит полный URL запроса с учётом добавленных ранее параметров запроса
      */
     private String getFullUrl() {
+        if (expand != null && !expand.isEmpty()) {
+            query("expand", expand.stream().collect(Collectors.joining(",")));
+        }
+
+        if (query == null || query.isEmpty()) return url;
+
         StringBuilder queryBuilder = new StringBuilder();
         for (Map.Entry<String, Object> e : query.entrySet()) {
             if (queryBuilder.length() == 0) queryBuilder.append("&");
@@ -155,10 +174,21 @@ public final class HttpRequestExecutor {
     private String executeRequest(HttpUriRequest request) throws IOException, LognexApiException {
         logger.debug("Выполнение запроса  {} {}...", request.getMethod(), request.getURI());
         try (CloseableHttpResponse response = client.execute(request)) {
-            String json = EntityUtils.toString(response.getEntity());
-            logger.debug("Ответ на запрос     {} {}: {}", request.getMethod(), request.getURI(), json);
+            String json = response.getStatusLine().getStatusCode() == 204 ?
+                    "" :
+                    EntityUtils.toString(response.getEntity());
 
-            if (response.getStatusLine().getStatusCode() != 200) {
+            logger.debug(
+                    "Ответ на запрос     {} {}: ({}) {}",
+                    request.getMethod(),
+                    request.getURI(),
+                    response.getStatusLine().getStatusCode(),
+                    json
+            );
+
+            if (response.getStatusLine().getStatusCode() != 200 &&
+                    response.getStatusLine().getStatusCode() != 201 &&
+                    response.getStatusLine().getStatusCode() != 204) {
                 ErrorResponse er = gson.fromJson(json, ErrorResponse.class);
 
                 throw new LognexApiException(

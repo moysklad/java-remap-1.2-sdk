@@ -10,7 +10,10 @@ import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
 
-public final class ProductClient implements GetListEndpoint<ProductEntity>, PostEndpoint<ProductEntity>, DeleteByIdEndpoint<ProductEntity> {
+public final class ProductClient implements
+        GetListEndpoint<ProductEntity>,
+        PostEndpoint<ProductEntity>,
+        DeleteByIdEndpoint<ProductEntity> {
     private final LognexApi api;
 
     @Override
@@ -29,8 +32,8 @@ public final class ProductClient implements GetListEndpoint<ProductEntity>, Post
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public ListEntity<ProductEntity> get() throws IOException, LognexApiException {
-        return get(api, ProductEntity.class);
+    public ListEntity<ProductEntity> get(String... expand) throws IOException, LognexApiException {
+        return get(api, ProductEntity.class, expand);
     }
 
     /**

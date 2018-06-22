@@ -28,7 +28,9 @@ public class AgentDeserializerTest implements TestAsserts, TestRandomizers {
         try {
             gson.fromJson(data, AgentEntity.class);
             fail("Ожидалось исключение RuntimeException!");
-        } catch (RuntimeException ex) {
+        } catch (Exception ex) {
+            if (!(ex instanceof RuntimeException)) fail("Ожидалось исключение RuntimeException!");
+
             assertEquals(
                     "Failed to invoke public " + AgentEntity.class.getName() + "() with no args",
                     ex.getMessage()

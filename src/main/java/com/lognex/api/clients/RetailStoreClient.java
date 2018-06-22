@@ -2,32 +2,32 @@ package com.lognex.api.clients;
 
 import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.GetListEndpoint;
-import com.lognex.api.entities.DiscountEntity;
+import com.lognex.api.entities.RetailStoreEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
 
-public final class DiscountClient implements GetListEndpoint<DiscountEntity> {
+public final class RetailStoreClient implements GetListEndpoint<RetailStoreEntity> {
     private final LognexApi api;
 
     @Override
     public String path() {
-        return "/entity/discount";
+        return "/entity/retailstore";
     }
 
-    DiscountClient(LognexApi api) {
+    RetailStoreClient(LognexApi api) {
         this.api = api;
     }
 
     /**
-     * Получение списка всех Скидок
+     * Получение списка всех Точек Продаж
      *
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public ListEntity<DiscountEntity> get(String... expand) throws IOException, LognexApiException {
-        return get(api, DiscountEntity.class, expand);
+    public ListEntity<RetailStoreEntity> get(String... expand) throws IOException, LognexApiException {
+        return get(api, RetailStoreEntity.class, expand);
     }
 }

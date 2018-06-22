@@ -1,8 +1,7 @@
 package com.lognex.api.responses;
 
-import com.lognex.api.entities.ContextEntity;
-import com.lognex.api.entities.Fetchable;
 import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.StateEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,14 +10,13 @@ import lombok.Setter;
 import java.util.List;
 
 /**
- * Список сущностей
+ * Список Метаданных Документов, у которые возвращаются только статусы
  */
 
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public final class ListEntity<T extends MetaEntity> extends MetaEntity implements Fetchable {
-    private ContextEntity context;
-    private List<T> rows;
+public final class DocumentMetadataStatesListResponse extends MetaEntity {
+    private List<StateEntity> states;
 }

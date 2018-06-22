@@ -28,8 +28,8 @@ public class DocumentSupplyClient implements GetListEndpoint<SupplyDocumentEntit
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public ListEntity<SupplyDocumentEntity> get() throws IOException, LognexApiException {
-        return get(api, SupplyDocumentEntity.class);
+    public ListEntity<SupplyDocumentEntity> get(String... expand) throws IOException, LognexApiException {
+        return get(api, SupplyDocumentEntity.class, expand);
     }
 
     /**

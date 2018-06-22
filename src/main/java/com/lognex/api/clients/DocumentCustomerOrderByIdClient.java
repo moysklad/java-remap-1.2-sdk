@@ -10,8 +10,4 @@ public class DocumentCustomerOrderByIdClient {
         this.api = api;
         this.id = id;
     }
-
-    public void get() {
-        // TODO Реализовать метод
-    }
 }

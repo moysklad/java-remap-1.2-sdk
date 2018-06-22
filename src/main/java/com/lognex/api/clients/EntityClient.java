@@ -21,6 +21,10 @@ public final class EntityClient {
         return new OrganizationClient(api);
     }
 
+    public EmployeeClient employee() {
+        return new EmployeeClient(api);
+    }
+
     public DocumentCustomerOrderClient customerorder() {
         return new DocumentCustomerOrderClient(api);
     }
@@ -79,5 +83,33 @@ public final class EntityClient {
 
     public UomClient uom() {
         return new UomClient(api);
+    }
+
+    public DocumentCashInClient cashin() {
+        return new DocumentCashInClient(api);
+    }
+
+    public RetailShiftClient retailshift() {
+        return new RetailShiftClient(api);
+    }
+
+    public RetailStoreClient retailstore() {
+        return new RetailStoreClient(api);
+    }
+
+    public DocumentRetailDemandClient retaildemand() {
+        return new DocumentRetailDemandClient(api);
+    }
+
+    public DocumentRetailSalesReturnClient retailsalesreturn() {
+        return new DocumentRetailSalesReturnClient(api);
+    }
+
+    public DocumentRetailDrawerCashInClient retaildrawercashin() {
+        return new DocumentRetailDrawerCashInClient(api);
+    }
+
+    public DocumentRetailDrawerCashOutClient retaildrawercashout() {
+        return new DocumentRetailDrawerCashOutClient(api);
     }
 }

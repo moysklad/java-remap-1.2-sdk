@@ -2,21 +2,21 @@ package com.lognex.api.clients;
 
 import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.GetListEndpoint;
-import com.lognex.api.entities.DiscountEntity;
+import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
 
-public final class DiscountClient implements GetListEndpoint<DiscountEntity> {
+public final class EmployeeClient implements GetListEndpoint<EmployeeEntity> {
     private final LognexApi api;
 
     @Override
     public String path() {
-        return "/entity/discount";
+        return "/entity/employee";
     }
 
-    DiscountClient(LognexApi api) {
+    EmployeeClient(LognexApi api) {
         this.api = api;
     }
 
@@ -27,7 +27,7 @@ public final class DiscountClient implements GetListEndpoint<DiscountEntity> {
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public ListEntity<DiscountEntity> get(String... expand) throws IOException, LognexApiException {
-        return get(api, DiscountEntity.class, expand);
+    public ListEntity<EmployeeEntity> get(String... expand) throws IOException, LognexApiException {
+        return get(api, EmployeeEntity.class, expand);
     }
 }

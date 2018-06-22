@@ -28,8 +28,8 @@ public class StoreClient implements GetListEndpoint<StoreEntity>, PostEndpoint<S
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public ListEntity<StoreEntity> get() throws IOException, LognexApiException {
-        return get(api, StoreEntity.class);
+    public ListEntity<StoreEntity> get(String... expand) throws IOException, LognexApiException {
+        return get(api, StoreEntity.class, expand);
     }
 
     /**

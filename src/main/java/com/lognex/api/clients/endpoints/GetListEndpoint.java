@@ -9,11 +9,12 @@ import com.lognex.api.utils.LognexApiException;
 import java.io.IOException;
 
 public interface GetListEndpoint<T extends MetaEntity> extends Endpoint {
-    ListEntity<T> get() throws IOException, LognexApiException;
+    ListEntity<T> get(String... expand) throws IOException, LognexApiException;
 
-    default ListEntity<T> get(LognexApi api, Class<T> cl) throws IOException, LognexApiException {
+    default ListEntity<T> get(LognexApi api, Class<T> cl, String... expand) throws IOException, LognexApiException {
         return HttpRequestExecutor.
                 path(api, path()).
+                expand(expand).
                 list(cl);
     }
 }

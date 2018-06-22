@@ -30,8 +30,8 @@ public final class VariantClient implements GetListEndpoint<VariantEntity>, Post
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public ListEntity<VariantEntity> get() throws IOException, LognexApiException {
-        return get(api, VariantEntity.class);
+    public ListEntity<VariantEntity> get(String... expand) throws IOException, LognexApiException {
+        return get(api, VariantEntity.class, expand);
     }
 
     /**

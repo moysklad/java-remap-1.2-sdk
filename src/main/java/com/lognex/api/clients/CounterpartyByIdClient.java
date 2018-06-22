@@ -30,8 +30,8 @@ public final class CounterpartyByIdClient implements GetEndpoint<CounterpartyEnt
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public CounterpartyEntity get() throws IOException, LognexApiException {
-        return get(api, CounterpartyEntity.class);
+    public CounterpartyEntity get(String... expand) throws IOException, LognexApiException {
+        return get(api, CounterpartyEntity.class, expand);
     }
 
     /**

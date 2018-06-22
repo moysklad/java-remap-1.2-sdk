@@ -28,8 +28,8 @@ public final class ProductFolderClient implements GetListEndpoint<ProductFolderE
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public ListEntity<ProductFolderEntity> get() throws IOException, LognexApiException {
-        return get(api, ProductFolderEntity.class);
+    public ListEntity<ProductFolderEntity> get(String... expand) throws IOException, LognexApiException {
+        return get(api, ProductFolderEntity.class, expand);
     }
 
     /**

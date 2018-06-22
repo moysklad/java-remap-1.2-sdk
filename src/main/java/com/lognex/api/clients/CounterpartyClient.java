@@ -2,16 +2,20 @@ package com.lognex.api.clients;
 
 import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.GetListEndpoint;
+import com.lognex.api.clients.endpoints.GetMetadataEndpoint;
 import com.lognex.api.clients.endpoints.PostEndpoint;
 import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.responses.CounterpartyMetadataListResponse;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.HttpRequestExecutor;
 import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
 
-public final class CounterpartyClient implements GetListEndpoint<CounterpartyEntity>, PostEndpoint<CounterpartyEntity> {
+public final class CounterpartyClient implements
+        GetListEndpoint<CounterpartyEntity>,
+        PostEndpoint<CounterpartyEntity>,
+        GetMetadataEndpoint<CounterpartyMetadataListResponse> {
+
     private final LognexApi api;
 
     @Override
@@ -30,8 +34,8 @@ public final class CounterpartyClient implements GetListEndpoint<CounterpartyEnt
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public ListEntity<CounterpartyEntity> get() throws IOException, LognexApiException {
-        return get(api, CounterpartyEntity.class);
+    public ListEntity<CounterpartyEntity> get(String... expand) throws IOException, LognexApiException {
+        return get(api, CounterpartyEntity.class, expand);
     }
 
     /**
@@ -53,9 +57,8 @@ public final class CounterpartyClient implements GetListEndpoint<CounterpartyEnt
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
+    @Override
     public CounterpartyMetadataListResponse metadata() throws IOException, LognexApiException {
-        return HttpRequestExecutor.
-                path(api, "/entity/counterparty/metadata").
-                get(CounterpartyMetadataListResponse.class);
+        return metadata(api, CounterpartyMetadataListResponse.class);
     }
 }

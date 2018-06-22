@@ -28,8 +28,8 @@ public final class ContractClient implements GetListEndpoint<ContractEntity>, Po
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public ListEntity<ContractEntity> get() throws IOException, LognexApiException {
-        return get(api, ContractEntity.class);
+    public ListEntity<ContractEntity> get(String... expand) throws IOException, LognexApiException {
+        return get(api, ContractEntity.class, expand);
     }
 
     /**

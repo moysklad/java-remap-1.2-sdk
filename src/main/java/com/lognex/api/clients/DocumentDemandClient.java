@@ -28,8 +28,8 @@ public class DocumentDemandClient implements GetListEndpoint<DemandDocumentEntit
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public ListEntity<DemandDocumentEntity> get() throws IOException, LognexApiException {
-        return get(api, DemandDocumentEntity.class);
+    public ListEntity<DemandDocumentEntity> get(String... expand) throws IOException, LognexApiException {
+        return get(api, DemandDocumentEntity.class, expand);
     }
 
     /**

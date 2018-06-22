@@ -28,8 +28,8 @@ public final class BundleClient implements GetListEndpoint<BundleEntity>, PostEn
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public ListEntity<BundleEntity> get() throws IOException, LognexApiException {
-        return get(api, BundleEntity.class);
+    public ListEntity<BundleEntity> get(String... expand) throws IOException, LognexApiException {
+        return get(api, BundleEntity.class, expand);
     }
 
     /**

@@ -30,8 +30,8 @@ public final class VariantByIdClient implements GetEndpoint<VariantEntity>, Dele
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public VariantEntity get() throws IOException, LognexApiException {
-        return get(api, VariantEntity.class);
+    public VariantEntity get(String... expand) throws IOException, LognexApiException {
+        return get(api, VariantEntity.class, expand);
     }
 
     /**

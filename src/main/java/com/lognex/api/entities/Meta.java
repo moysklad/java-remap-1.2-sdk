@@ -61,7 +61,8 @@ public final class Meta {
         employee, contract, counterparty, organization, group,
         account, demand, store, demandposition, note, state,
         product, service, bundle, currency, uom, productfolder,
-        supplyposition, country, variant
+        supplyposition, country, variant, retailstore, retailshift,
+        retaildemand, salesreturnposition
     }
 
     /**

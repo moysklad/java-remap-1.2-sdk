@@ -127,6 +127,11 @@ public class ProductEntity extends AbstractProductEntity implements SingleProduc
     private Boolean isSerialTrackable;
 
     /**
+     * Флаг весового товара
+     */
+    private Boolean weighed;
+
+    /**
      * Серийные номера
      */
     private List<String> things;

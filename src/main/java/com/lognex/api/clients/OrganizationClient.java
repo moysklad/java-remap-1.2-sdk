@@ -28,8 +28,8 @@ public final class OrganizationClient implements GetListEndpoint<OrganizationEnt
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public ListEntity<OrganizationEntity> get() throws IOException, LognexApiException {
-        return get(api, OrganizationEntity.class);
+    public ListEntity<OrganizationEntity> get(String... expand) throws IOException, LognexApiException {
+        return get(api, OrganizationEntity.class, expand);
     }
 
     /**

@@ -28,8 +28,8 @@ public final class ServiceClient implements GetListEndpoint<ServiceEntity>, Post
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public ListEntity<ServiceEntity> get() throws IOException, LognexApiException {
-        return get(api, ServiceEntity.class);
+    public ListEntity<ServiceEntity> get(String... expand) throws IOException, LognexApiException {
+        return get(api, ServiceEntity.class, expand);
     }
 
     /**

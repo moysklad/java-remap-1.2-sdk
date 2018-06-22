@@ -28,8 +28,8 @@ public final class UomClient implements GetListEndpoint<UomEntity>, PostEndpoint
      * @throws LognexApiException когда возникла ошибка API
      */
     @Override
-    public ListEntity<UomEntity> get() throws IOException, LognexApiException {
-        return get(api, UomEntity.class);
+    public ListEntity<UomEntity> get(String... expand) throws IOException, LognexApiException {
+        return get(api, UomEntity.class, expand);
     }
 
     /**
