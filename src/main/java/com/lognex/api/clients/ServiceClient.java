@@ -24,6 +24,7 @@ public final class ServiceClient implements GetListEndpoint<ServiceEntity>, Post
     /**
      * Получение списка всех Услуг
      *
+     * @param expand              поля, которые будут получены сразу во время запроса
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */

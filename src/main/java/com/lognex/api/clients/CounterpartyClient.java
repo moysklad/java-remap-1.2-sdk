@@ -30,6 +30,7 @@ public final class CounterpartyClient implements
     /**
      * Получение списка всех Контрагентов
      *
+     * @param expand              поля, которые будут получены сразу во время запроса
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */

@@ -23,6 +23,7 @@ public final class RetailStoreClient implements GetListEndpoint<RetailStoreEntit
     /**
      * Получение списка всех Точек Продаж
      *
+     * @param expand              поля, которые будут получены сразу во время запроса
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */

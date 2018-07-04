@@ -24,6 +24,7 @@ public final class CurrencyClient implements GetListEndpoint<CurrencyEntity>, Po
     /**
      * Получение списка всех Валют
      *
+     * @param expand              поля, которые будут получены сразу во время запроса
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */

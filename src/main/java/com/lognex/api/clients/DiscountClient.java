@@ -23,6 +23,7 @@ public final class DiscountClient implements GetListEndpoint<DiscountEntity> {
     /**
      * Получение списка всех Скидок
      *
+     * @param expand              поля, которые будут получены сразу во время запроса
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */

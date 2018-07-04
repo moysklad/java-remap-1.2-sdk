@@ -24,6 +24,7 @@ public class StoreClient implements GetListEndpoint<StoreEntity>, PostEndpoint<S
     /**
      * Получение списка всех Складов
      *
+     * @param expand              поля, которые будут получены сразу во время запроса
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */

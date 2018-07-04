@@ -26,6 +26,7 @@ public final class VariantClient implements GetListEndpoint<VariantEntity>, Post
     /**
      * Получение списка всех Модификаций
      *
+     * @param expand              поля, которые будут получены сразу во время запроса
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */

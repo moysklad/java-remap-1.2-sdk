@@ -28,6 +28,7 @@ public class DocumentRetailDrawerCashOutClient implements
     /**
      * Получение списка всех Выплат
      *
+     * @param expand              поля, которые будут получены сразу во время запроса
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */

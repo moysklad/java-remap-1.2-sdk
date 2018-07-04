@@ -26,6 +26,7 @@ public final class CounterpartyByIdClient implements GetEndpoint<CounterpartyEnt
     /**
      * Получение Контрагента с указанным id
      *
+     * @param expand              поля, которые будут получены сразу во время запроса
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */

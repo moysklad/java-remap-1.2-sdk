@@ -28,6 +28,7 @@ public final class ProductClient implements
     /**
      * Получение списка всех Товаров
      *
+     * @param expand              поля, которые будут получены сразу во время запроса
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */

@@ -29,6 +29,7 @@ public class DocumentCashInClient implements
     /**
      * Получение списка всех Приходных Ордеров
      *
+     * @param expand              поля, которые будут получены сразу во время запроса
      * @throws IOException        когда возникла сетевая ошибка
      * @throws LognexApiException когда возникла ошибка API
      */
