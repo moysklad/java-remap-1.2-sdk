@@ -10,7 +10,7 @@ import static org.junit.Assert.fail;
 
 public class ApiInitTest implements TestAsserts, TestRandomizers {
     @Test
-    public void test_emptyAuthData() throws IOException {
+    public void test_emptyAuthData() throws IOException, InterruptedException {
         LognexApi api = new LognexApi(
                 System.getenv("API_HOST"),
                 "", ""
@@ -24,11 +24,13 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
                     e, 401, 1056,
                     "Ошибка аутентификации: Неправильный пароль или имя пользователя"
             );
+
+            Thread.sleep(1500); // Защита от лимитов
         }
     }
 
     @Test
-    public void test_nullAuthData() throws IOException {
+    public void test_nullAuthData() throws IOException, InterruptedException {
         LognexApi api = new LognexApi(
                 System.getenv("API_HOST"),
                 null, null
@@ -42,11 +44,13 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
                     e, 401, 1056,
                     "Ошибка аутентификации: Неверный формат имени пользователя: null"
             );
+
+            Thread.sleep(1500); // Защита от лимитов
         }
     }
 
     @Test
-    public void test_loginFormat() throws IOException {
+    public void test_loginFormat() throws IOException, InterruptedException {
         String login = randomString();
 
         LognexApi api = new LognexApi(
@@ -62,11 +66,13 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
                     e, 401, 1056,
                     "Ошибка аутентификации: Неверный формат имени пользователя: " + login
             );
+
+            Thread.sleep(1500); // Защита от лимитов
         }
     }
 
     @Test
-    public void test_correctLoginFormatWrongCredentials() throws IOException {
+    public void test_correctLoginFormatWrongCredentials() throws IOException, InterruptedException {
         LognexApi api = new LognexApi(
                 System.getenv("API_HOST"),
                 randomString() + "@" + randomString(), randomString()
@@ -80,6 +86,8 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
                     e, 401, 1056,
                     "Ошибка аутентификации: Неправильный пароль или имя пользователя"
             );
+
+            Thread.sleep(1500); // Защита от лимитов
         }
     }
 
