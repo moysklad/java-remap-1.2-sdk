@@ -25,7 +25,7 @@ public class SupplyDocumentEntity extends DocumentEntity {
     private MetaEntity documents;
     private LocalDateTime created;
     private Boolean applicable;
-    private Integer sum;
+    private Long sum;
     private ListEntity<DocumentPosition> positions;
     private Integer vatSum;
     private StoreEntity store;
