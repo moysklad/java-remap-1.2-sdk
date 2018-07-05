@@ -43,6 +43,11 @@ public class BundleEntity extends AbstractProductEntity {
     private String externalCode;
 
     /**
+     * Артикул
+     */
+    private String article;
+
+    /**
      * Вес
      */
     private Integer weight;
