@@ -1,9 +1,6 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.ContractEntity;
-import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.RateEntity;
-import com.lognex.api.entities.StateEntity;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
@@ -42,18 +39,18 @@ public class CustomerOrderDocumentEntity extends DocumentEntity {
     private ContractEntity contract;
     private EmployeeEntity owner;
     private Boolean shared;
-    private MetaEntity group;
-    private Integer vatSum;
-    private Integer payedSum;
+    private GroupEntity group;
+    private Long vatSum;
+    private Long payedSum;
     private OrganizationEntity organization;
-    private Integer sum;
+    private Long sum;
     private RateEntity rate;
     private AgentEntity agent;
     private MetaEntity store;
     private MetaEntity documents;
     private StateEntity state;
 
-    private Integer shippedSum;
-    private Integer invoicedSum;
-    private Integer reservedSum;
+    private Long shippedSum;
+    private Long invoicedSum;
+    private Long reservedSum;
 }

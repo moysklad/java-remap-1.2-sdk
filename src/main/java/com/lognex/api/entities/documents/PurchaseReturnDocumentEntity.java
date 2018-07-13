@@ -1,0 +1,42 @@
+package com.lognex.api.entities.documents;
+
+import com.lognex.api.entities.*;
+import com.lognex.api.entities.agents.AgentEntity;
+import com.lognex.api.responses.ListEntity;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+public class PurchaseReturnDocumentEntity extends DocumentEntity {
+    private Boolean vatEnabled;
+    private Boolean shared;
+    private AgentEntity agent;
+    private String externalCode;
+    private MetaEntity documents;
+    private Long sum;
+    private Long vatSum;
+    private SupplyDocumentEntity supply;
+    private LocalDateTime moment;
+    private RateEntity rate;
+    private String id;
+    private GroupEntity group;
+    private OwnerEntity owner;
+    private LocalDateTime created;
+    private Boolean applicable;
+    private ListEntity<DocumentPosition> positions;
+    private StoreEntity store;
+    private Integer version;
+    private String accountId;
+    private AgentEntity organization;
+    private String name;
+    private Boolean vatIncluded;
+    private Long payedSum;
+    private LocalDateTime updated;
+}

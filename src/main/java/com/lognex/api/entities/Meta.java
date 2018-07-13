@@ -62,7 +62,11 @@ public final class Meta {
         account, demand, store, demandposition, note, state,
         product, service, bundle, currency, uom, productfolder,
         supplyposition, country, variant, retailstore, retailshift,
-        retaildemand, salesreturnposition
+        retaildemand, salesreturnposition, consignment, move,
+        purchasereturnposition, enter, supply, purchaseorder,
+        purchaseorderposition, customerorder, processingplanmaterial,
+        processingplanresult, processingplan, processingorder,
+        processingorderposition
     }
 
     /**

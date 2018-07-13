@@ -41,5 +41,8 @@ public class SupplyDocumentEntity extends DocumentEntity {
     private LocalDateTime updated;
     private GroupEntity group;
     private ContractEntity contract;
+
     private Overhead overhead;
+
+    private PurchaseOrderDocumentEntity purchaseOrder;
 }

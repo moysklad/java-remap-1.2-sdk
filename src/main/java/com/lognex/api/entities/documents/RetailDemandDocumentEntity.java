@@ -23,7 +23,7 @@ public class RetailDemandDocumentEntity extends DocumentEntity {
     private AgentEntity agent;
     private String externalCode;
     private MetaEntity documents;
-    private Integer sum;
+    private Long sum;
     private Integer vatSum;
     private Integer cashSum;
     private String syncId;

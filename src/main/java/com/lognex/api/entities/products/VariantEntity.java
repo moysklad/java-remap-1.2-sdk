@@ -2,6 +2,7 @@ package com.lognex.api.entities.products;
 
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.PriceEntity;
+import com.lognex.api.entities.products.markers.ProductOrModMarker;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,7 +20,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class VariantEntity extends MetaEntity implements SingleProductMarker {
+public class VariantEntity extends MetaEntity implements SingleProductMarker, ProductOrModMarker {
     /**
      * Идентификатор сущности
      */

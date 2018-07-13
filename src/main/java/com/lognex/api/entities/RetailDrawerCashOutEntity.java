@@ -22,7 +22,7 @@ public class RetailDrawerCashOutEntity extends DocumentEntity {
     private MetaEntity documents;
     private String created;
     private Boolean applicable;
-    private Integer sum;
+    private Long sum;
     private Integer version;
     private String moment;
     private String accountId;

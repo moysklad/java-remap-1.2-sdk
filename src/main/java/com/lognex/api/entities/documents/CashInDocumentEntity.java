@@ -19,15 +19,15 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class CashInDocumentEntity extends DocumentEntity {
     private EmployeeEntity owner;
-    private boolean shared;
+    private Boolean shared;
     private AgentEntity agent;
     private String externalCode;
     private MetaEntity documents;
     private String created;
-    private boolean applicable;
-    private int sum;
-    private int vatSum;
-    private int version;
+    private Boolean applicable;
+    private Long sum;
+    private Integer vatSum;
+    private Integer version;
     private String moment;
     private String accountId;
     private List<MetaEntity> operations;

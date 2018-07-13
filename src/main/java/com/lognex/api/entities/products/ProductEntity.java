@@ -3,6 +3,7 @@ package com.lognex.api.entities.products;
 import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.EmployeeEntity;
+import com.lognex.api.entities.products.markers.ProductOrModMarker;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,7 +20,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ProductEntity extends AbstractProductEntity implements SingleProductMarker {
+public class ProductEntity extends AbstractProductEntity implements SingleProductMarker, ProductOrModMarker {
     /**
      * Идентификатор сущности
      */

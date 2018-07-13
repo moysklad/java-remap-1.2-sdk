@@ -43,7 +43,7 @@ public class DemandDocumentEntity extends DocumentEntity {
     private Integer vatSum;
     private Integer payedSum;
     private OrganizationEntity organization;
-    private Integer sum;
+    private Long sum;
     private RateEntity rate;
     private AgentEntity agent;
     private StoreEntity store;
@@ -54,4 +54,8 @@ public class DemandDocumentEntity extends DocumentEntity {
     private MetaEntity organizationAccount;
     private MetaEntity agentAccount;
     private MetaEntity attributes;
+
+    private Overhead overhead;
+
+    private CustomerOrderDocumentEntity customerOrder;
 }

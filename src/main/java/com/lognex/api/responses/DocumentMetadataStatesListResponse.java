@@ -1,6 +1,5 @@
 package com.lognex.api.responses;
 
-import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.StateEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -17,6 +16,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public final class DocumentMetadataStatesListResponse extends MetaEntity {
+public final class DocumentMetadataStatesListResponse extends MetadataListResponse {
     private List<StateEntity> states;
 }
