@@ -5,7 +5,7 @@ import com.lognex.api.clients.endpoints.GetListEndpoint;
 import com.lognex.api.clients.endpoints.PostEndpoint;
 import com.lognex.api.entities.documents.SupplyDocumentEntity;
 
-public class DocumentSupplyClient
+public final class DocumentSupplyClient
         extends ApiClient
         implements
         GetListEndpoint<SupplyDocumentEntity>,

@@ -5,7 +5,7 @@ import com.lognex.api.clients.endpoints.GetListEndpoint;
 import com.lognex.api.clients.endpoints.PostEndpoint;
 import com.lognex.api.entities.StoreEntity;
 
-public class StoreClient
+public final class StoreClient
         extends ApiClient
         implements
         GetListEndpoint<StoreEntity>,

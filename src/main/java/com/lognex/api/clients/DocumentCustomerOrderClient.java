@@ -7,7 +7,7 @@ import com.lognex.api.clients.endpoints.PostEndpoint;
 import com.lognex.api.entities.documents.CustomerOrderDocumentEntity;
 import com.lognex.api.responses.DocumentMetadataStatesListResponse;
 
-public class DocumentCustomerOrderClient
+public final class DocumentCustomerOrderClient
         extends ApiClient
         implements
         GetListEndpoint<CustomerOrderDocumentEntity>,

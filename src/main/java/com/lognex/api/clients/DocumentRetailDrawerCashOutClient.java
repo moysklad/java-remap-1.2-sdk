@@ -6,7 +6,7 @@ import com.lognex.api.clients.endpoints.GetListEndpoint;
 import com.lognex.api.clients.endpoints.PostEndpoint;
 import com.lognex.api.entities.RetailDrawerCashOutEntity;
 
-public class DocumentRetailDrawerCashOutClient
+public final class DocumentRetailDrawerCashOutClient
         extends ApiClient
         implements
         GetListEndpoint<RetailDrawerCashOutEntity>,

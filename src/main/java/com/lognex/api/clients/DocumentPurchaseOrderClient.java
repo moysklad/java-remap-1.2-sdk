@@ -5,7 +5,7 @@ import com.lognex.api.clients.endpoints.GetListEndpoint;
 import com.lognex.api.clients.endpoints.PostEndpoint;
 import com.lognex.api.entities.documents.PurchaseOrderDocumentEntity;
 
-public class DocumentPurchaseOrderClient
+public final class DocumentPurchaseOrderClient
         extends ApiClient
         implements
         GetListEndpoint<PurchaseOrderDocumentEntity>,

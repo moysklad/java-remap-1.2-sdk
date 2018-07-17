@@ -1,7 +1,7 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.entities.products.markers.ConsignmentParentMarker;
 import com.lognex.api.entities.products.markers.ProductMarker;
-import com.lognex.api.entities.products.markers.ProductOrModMarker;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ import lombok.Setter;
 public class ConsignmentEntity extends MetaEntity implements ProductMarker {
     private String accountId;
     private String externalCode;
-    private ProductOrModMarker assortment;
+    private ConsignmentParentMarker assortment;
     private String name;
     private String id;
     private String label;

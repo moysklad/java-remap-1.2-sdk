@@ -5,7 +5,7 @@ import com.lognex.api.clients.endpoints.GetListEndpoint;
 import com.lognex.api.clients.endpoints.PostEndpoint;
 import com.lognex.api.entities.documents.MoveDocumentEntity;
 
-public class DocumentMoveClient
+public final class DocumentMoveClient
         extends ApiClient
         implements
         GetListEndpoint<MoveDocumentEntity>,

@@ -5,7 +5,7 @@ import com.lognex.api.clients.endpoints.GetListEndpoint;
 import com.lognex.api.clients.endpoints.PostEndpoint;
 import com.lognex.api.entities.documents.ProcessingOrderDocumentEntity;
 
-public class DocumentProcessingOrderClient
+public final class DocumentProcessingOrderClient
         extends ApiClient
         implements
         GetListEndpoint<ProcessingOrderDocumentEntity>,

@@ -6,7 +6,7 @@ import com.lognex.api.clients.endpoints.GetListEndpoint;
 import com.lognex.api.clients.endpoints.PostEndpoint;
 import com.lognex.api.entities.RetailSalesReturnEntity;
 
-public class DocumentRetailSalesReturnClient
+public final class DocumentRetailSalesReturnClient
         extends ApiClient
         implements
         GetListEndpoint<RetailSalesReturnEntity>,

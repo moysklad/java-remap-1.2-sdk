@@ -5,8 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.lognex.api.clients.EntityClient;
 import com.lognex.api.entities.CurrencyEntity;
 import com.lognex.api.entities.agents.AgentEntity;
+import com.lognex.api.entities.products.markers.ConsignmentParentMarker;
 import com.lognex.api.entities.products.markers.ProductMarker;
-import com.lognex.api.entities.products.markers.ProductOrModMarker;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.json.AgentDeserializer;
@@ -109,7 +109,7 @@ public final class LognexApi {
 
         gb.registerTypeAdapter(ProductMarker.class, new ProductMarkerSerializer());
         gb.registerTypeAdapter(SingleProductMarker.class, new ProductMarkerSerializer());
-        gb.registerTypeAdapter(ProductOrModMarker.class, new ProductMarkerSerializer());
+        gb.registerTypeAdapter(ConsignmentParentMarker.class, new ProductMarkerSerializer());
         gb.registerTypeAdapter(ListEntity.class, new ListEntityDeserializer());
         gb.registerTypeAdapter(CurrencyEntity.MultiplicityType.class, new CurrencyEntity.MultiplicityType.Serializer());
         gb.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer(timeWithMilliseconds));
