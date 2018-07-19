@@ -22,7 +22,7 @@ public class RetailSalesReturnEntity extends DocumentEntity {
     private AgentEntity agent;
     private String externalCode;
     private MetaEntity documents;
-    private Integer sum;
+    private Long sum;
     private Integer vatSum;
     private String syncId;
     private LocalDateTime moment;

@@ -2,6 +2,43 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 2.0-ALPHA5 (XX.XX.2018)
+
+### Добавлено
+
+* Сущности:
+  * `ConsignmentEntity`
+  * `LossDocumentEntity`
+  * `MoveDocumentEntity`
+  * `EnterDocumentEntity`
+  * `SalesReturnDocumentEntity`
+  * `PurchaseOrderDocumentEntity`
+  * `ProcessingPlanDocumentEntity`
+  * `PurchaseReturnDocumentEntity`
+  * `ProcessingOrderDocumentEntity`
+* Методы API: 
+  * `GET /entity/loss/`
+  * `GET /entity/move/`
+  * `GET /entity/enter/`
+  * `GET /entity/consignment/`
+  * `GET /entity/salesreturn/`
+  * `GET /entity/purchaseorder/`
+  * `GET /entity/processingplan/`
+  * `GET /entity/processingorder/`
+  * `POST /entity/loss/`
+  * `POST /entity/move/`
+  * `POST /entity/enter/`
+  * `POST /entity/consignment/`
+  * `POST /entity/salesreturn/`
+  * `POST /entity/purchaseorder/`
+  * `POST /entity/processingplan/`
+  * `POST /entity/purchasereturn/`
+  * `POST /entity/processingorder/`
+  
+### Изменено
+* Рефакторинг клиентов
+* Тип полей для сумм во всех сущностях (`Integer` ⇒ `Long`)
+
 ## 2.0-ALPHA4.1 (13.07.2018)
 
 ### Добавлено

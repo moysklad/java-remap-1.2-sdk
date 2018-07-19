@@ -29,12 +29,40 @@ public final class EntityClient {
         return new DocumentCustomerOrderClient(api);
     }
 
-    public DocumentCustomerOrderByIdClient customerorder(String id) {
-        return new DocumentCustomerOrderByIdClient(api, id);
-    }
-
     public DocumentDemandClient demand() {
         return new DocumentDemandClient(api);
+    }
+
+    public DocumentEnterClient enter() {
+        return new DocumentEnterClient(api);
+    }
+
+    public DocumentLossClient loss() {
+        return new DocumentLossClient(api);
+    }
+
+    public DocumentMoveClient move() {
+        return new DocumentMoveClient(api);
+    }
+
+    public DocumentPurchaseOrderClient purchaseorder() {
+        return new DocumentPurchaseOrderClient(api);
+    }
+
+    public DocumentProcessingOrderClient processingorder() {
+        return new DocumentProcessingOrderClient(api);
+    }
+
+    public DocumentProcessingPlanClient processingplan() {
+        return new DocumentProcessingPlanClient(api);
+    }
+
+    public DocumentSalesReturnClient salesreturn() {
+        return new DocumentSalesReturnClient(api);
+    }
+
+    public DocumentPurchaseReturnClient purchasereturn() {
+        return new DocumentPurchaseReturnClient(api);
     }
 
     public DocumentSupplyClient supply() {
@@ -67,6 +95,10 @@ public final class EntityClient {
 
     public ContractClient contract() {
         return new ContractClient(api);
+    }
+
+    public ConsignmentClient consignment() {
+        return new ConsignmentClient(api);
     }
 
     public ProductFolderClient productfolder() {

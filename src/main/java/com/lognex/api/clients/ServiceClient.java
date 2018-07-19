@@ -4,45 +4,14 @@ import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.GetListEndpoint;
 import com.lognex.api.clients.endpoints.PostEndpoint;
 import com.lognex.api.entities.products.ServiceEntity;
-import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.LognexApiException;
 
-import java.io.IOException;
+public final class ServiceClient
+        extends ApiClient
+        implements
+        GetListEndpoint<ServiceEntity>,
+        PostEndpoint<ServiceEntity> {
 
-public final class ServiceClient implements GetListEndpoint<ServiceEntity>, PostEndpoint<ServiceEntity> {
-    private final LognexApi api;
-
-    @Override
-    public String path() {
-        return "/entity/service/";
-    }
-
-    ServiceClient(LognexApi api) {
-        this.api = api;
-    }
-
-    /**
-     * Получение списка всех Услуг
-     *
-     * @param expand              поля, которые будут получены сразу во время запроса
-     * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка API
-     */
-    @Override
-    public ListEntity<ServiceEntity> get(String... expand) throws IOException, LognexApiException {
-        return get(api, ServiceEntity.class, expand);
-    }
-
-    /**
-     * Создание новой Услуги
-     *
-     * @param newEntity данные новой сущности (<b>Внимание!</b> В этот объект после успешного
-     *                  выполнения запроса будут записаны полученные от API данные!)
-     * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка API
-     */
-    @Override
-    public ServiceEntity post(ServiceEntity newEntity) throws IOException, LognexApiException {
-        return post(api, newEntity, ServiceEntity.class);
+    public ServiceClient(LognexApi api) {
+        super(api, "/entity/service/", ServiceEntity.class);
     }
 }

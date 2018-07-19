@@ -85,7 +85,7 @@ public class ContractEntity extends MetaEntity {
     /**
      * Сумма Договора,
      */
-    private Integer sum;
+    private Long sum;
 
     /**
      * Тип Договора

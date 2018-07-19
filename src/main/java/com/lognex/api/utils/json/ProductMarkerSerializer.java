@@ -1,6 +1,7 @@
 package com.lognex.api.utils.json;
 
 import com.google.gson.*;
+import com.lognex.api.entities.ConsignmentEntity;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.products.BundleEntity;
 import com.lognex.api.entities.products.ProductEntity;
@@ -42,8 +43,11 @@ public class ProductMarkerSerializer implements JsonSerializer<ProductMarker>, J
             case variant:
                 return context.deserialize(json, VariantEntity.class);
 
+            case consignment:
+                return context.deserialize(json, ConsignmentEntity.class);
+
             default:
-                throw new JsonParseException("Can't parse field 'agent': meta.type must be one of [organization, counterparty, employee]");
+                throw new JsonParseException("Can't parse field 'product': meta.type must be one of [product, service, bundle, variant, consignment]");
         }
     }
 }

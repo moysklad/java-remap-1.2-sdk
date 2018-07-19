@@ -43,6 +43,7 @@ public class ListEntityDeserializer implements JsonDeserializer<ListEntity> {
 
                         switch (metaType) {
                             case demandposition:
+                            case supplyposition:
                                 metaClass = DocumentPosition.class;
                                 break;
                         }

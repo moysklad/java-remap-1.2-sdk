@@ -29,7 +29,7 @@ public abstract class DocumentEntity extends MetaEntity {
     @Setter
     @NoArgsConstructor
     public static class Overhead {
-        private Integer sum;
+        private Long sum;
         private DistributionType distribution;
 
         /**
