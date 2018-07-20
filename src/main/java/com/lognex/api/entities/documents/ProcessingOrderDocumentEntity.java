@@ -1,7 +1,11 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.*;
+import com.lognex.api.entities.GroupEntity;
+import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.StateEntity;
+import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.AgentEntity;
+import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,7 +19,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ProcessingOrderDocumentEntity extends DocumentEntity {
-    private OwnerEntity owner;
+    private EmployeeEntity owner;
     private Boolean shared;
     private Integer quantity;
     private String externalCode;

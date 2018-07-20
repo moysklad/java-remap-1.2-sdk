@@ -2,6 +2,7 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
+import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
@@ -32,7 +33,7 @@ public class PurchaseOrderDocumentEntity extends DocumentEntity {
     private String description;
     private GroupEntity group;
     private Long waitSum;
-    private OwnerEntity owner;
+    private EmployeeEntity owner;
     private LocalDateTime created;
     private Boolean applicable;
     private StateEntity state;

@@ -1,6 +1,7 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.entities.agents.AgentEntity;
+import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.documents.DocumentEntity;
 import com.lognex.api.entities.documents.DocumentPosition;
 import com.lognex.api.entities.documents.RetailDemandDocumentEntity;
@@ -30,7 +31,7 @@ public class RetailSalesReturnEntity extends DocumentEntity {
     private String id;
     private RetailShiftEntity retailShift;
     private GroupEntity group;
-    private OwnerEntity owner;
+    private EmployeeEntity owner;
     private String created;
     private Boolean applicable;
     private ListEntity<DocumentPosition> positions;

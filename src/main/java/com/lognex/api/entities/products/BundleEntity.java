@@ -2,7 +2,7 @@ package com.lognex.api.entities.products;
 
 import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.OwnerEntity;
+import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
@@ -20,7 +20,7 @@ public class BundleEntity extends AbstractProductEntity {
     /**
      * Ссылка на Владельца (Сотрудника) в формате Метаданных
      */
-    private OwnerEntity owner;
+    private EmployeeEntity owner;
 
     /**
      * Наименование группы, в которую входит Комплект

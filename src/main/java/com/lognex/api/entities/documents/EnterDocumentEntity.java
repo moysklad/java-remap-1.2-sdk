@@ -1,6 +1,7 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.*;
+import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
@@ -32,7 +33,7 @@ public class EnterDocumentEntity extends DocumentEntity {
     private LocalDateTime moment;
     private Boolean applicable;
     private ListEntity<DocumentPosition> positions;
-    private OwnerEntity owner;
+    private EmployeeEntity owner;
     private Boolean shared;
     private GroupEntity group;
     private OrganizationEntity organization;

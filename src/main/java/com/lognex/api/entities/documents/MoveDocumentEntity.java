@@ -2,6 +2,7 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
+import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class MoveDocumentEntity extends DocumentEntity {
-    private OwnerEntity owner;
+    private EmployeeEntity owner;
     private Boolean shared;
     private String externalCode;
     private MetaEntity documents;

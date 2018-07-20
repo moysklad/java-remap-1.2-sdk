@@ -1,7 +1,7 @@
 package com.lognex.api.entities.products;
 
 import com.lognex.api.entities.GroupEntity;
-import com.lognex.api.entities.OwnerEntity;
+import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.products.markers.ProductMarker;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
 import lombok.EqualsAndHashCode;
@@ -19,7 +19,7 @@ public class ServiceEntity extends AbstractProductEntity implements SingleProduc
     /**
      * Ссылка на Владельца (Сотрудника) в формате Метаданных
      */
-    private OwnerEntity owner;
+    private EmployeeEntity owner;
 
     /**
      * Наименование группы, в которую входит Услуга
