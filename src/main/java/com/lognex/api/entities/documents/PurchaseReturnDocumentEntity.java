@@ -1,7 +1,11 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.*;
+import com.lognex.api.entities.GroupEntity;
+import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.RateEntity;
+import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.AgentEntity;
+import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,7 +31,7 @@ public class PurchaseReturnDocumentEntity extends DocumentEntity {
     private RateEntity rate;
     private String id;
     private GroupEntity group;
-    private OwnerEntity owner;
+    private EmployeeEntity owner;
     private LocalDateTime created;
     private Boolean applicable;
     private ListEntity<DocumentPosition> positions;

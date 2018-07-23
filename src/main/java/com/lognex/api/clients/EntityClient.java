@@ -21,6 +21,10 @@ public final class EntityClient {
         return new OrganizationClient(api);
     }
 
+    public GroupClient group() {
+        return new GroupClient(api);
+    }
+
     public EmployeeClient employee() {
         return new EmployeeClient(api);
     }

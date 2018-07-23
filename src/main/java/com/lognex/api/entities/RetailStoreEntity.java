@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,7 +26,7 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     private String id;
     private State state;
     private GroupEntity group;
-    private OwnerEntity owner;
+    private EmployeeEntity owner;
     private Boolean allowCustomPrice;
     private String priceType;
     private MetaEntity cashiers;
