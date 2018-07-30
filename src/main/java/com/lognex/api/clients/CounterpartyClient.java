@@ -16,7 +16,7 @@ public final class CounterpartyClient
 
     public CounterpartyClient(LognexApi api) {
         super(
-                api, "/entity/counterparty",
+                api, "/entity/counterparty/",
                 CounterpartyEntity.class,
                 CounterpartyMetadataListResponse.class
         );

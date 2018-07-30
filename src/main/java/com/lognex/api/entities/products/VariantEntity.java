@@ -70,7 +70,7 @@ public class VariantEntity extends MetaEntity implements SingleProductMarker, Co
     /**
      * Минимальная цена
      */
-    private Integer minPrice;
+    private Long minPrice;
 
     /**
      * Закупочная цена

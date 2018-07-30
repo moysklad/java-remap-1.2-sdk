@@ -19,7 +19,7 @@ public class DocumentPosition extends MetaEntity {
     private CountryEntity country;
     private Double quantity;
     private ProductMarker assortment;
-    private Integer price;
+    private Long price;
     private DocumentEntity.Gtd gtd;
     private Integer overhead;
     private Integer vat;

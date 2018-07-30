@@ -66,7 +66,8 @@ public final class Meta {
         purchasereturnposition, enter, supply, purchaseorder,
         purchaseorderposition, customerorder, processingplanmaterial,
         processingplanresult, processingplan, processingorder,
-        processingorderposition
+        processingorderposition, expenseitem, cashin, cashout,
+        paymentin, paymentout, project
     }
 
     /**

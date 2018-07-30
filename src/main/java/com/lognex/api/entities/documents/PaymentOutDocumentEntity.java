@@ -15,11 +15,12 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class CashInDocumentEntity extends DocumentEntity {
+public class PaymentOutDocumentEntity extends DocumentEntity {
     private String id;
     private String accountId;
     private EmployeeEntity owner;
     private Boolean shared;
+    private StateEntity state;
     private GroupEntity group;
     private Integer version;
     private LocalDateTime updated;
@@ -29,11 +30,11 @@ public class CashInDocumentEntity extends DocumentEntity {
     private Boolean applicable;
     private RateEntity rate;
     private Long sum;
-    private StateEntity state;
     private AgentEntity agent;
     private OrganizationEntity organization;
     private MetaEntity documents;
     private LocalDateTime created;
     private Integer vatSum;
+    private ExpenseItemEntity expenseItem;
     private ProjectEntity project;
 }

@@ -16,34 +16,34 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class RetailDemandDocumentEntity extends DocumentEntity {
+public class CommissionReportInDocumentEntity extends DocumentEntity {
     private Boolean vatEnabled;
     private Boolean shared;
-    private Long noCashSum;
     private AgentEntity agent;
     private String externalCode;
+    private StateEntity state;
     private MetaEntity documents;
+    private RewardType rewardType;
+    private Long commitentSum;
     private Long sum;
     private Long vatSum;
-    private Long cashSum;
-    private String syncId;
     private LocalDateTime moment;
+    private LocalDateTime commissionPeriodStart;
+    private Double rewardPercent;
     private RateEntity rate;
     private String id;
-    private RetailShiftEntity retailShift;
     private GroupEntity group;
     private EmployeeEntity owner;
-    private LocalDateTime created;
+    private String created;
+    private ContractEntity contract;
     private Boolean applicable;
     private ListEntity<DocumentPosition> positions;
-    private StoreEntity store;
     private Integer version;
     private String accountId;
-    private Boolean fiscal;
+    private LocalDateTime commissionPeriodEnd;
     private OrganizationEntity organization;
     private String name;
     private Boolean vatIncluded;
-    private RetailStoreEntity retailStore;
     private Integer payedSum;
     private LocalDateTime updated;
 }

@@ -53,7 +53,7 @@ public abstract class AbstractProductEntity extends MetaEntity implements Produc
     /**
      * Минимальная цена
      */
-    private Integer minPrice;
+    private Long minPrice;
 
     /**
      * Закупочная цена

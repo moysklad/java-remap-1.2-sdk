@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class ProcessingOrderDocumentEntity extends DocumentEntity {
     private EmployeeEntity owner;
     private Boolean shared;
-    private Integer quantity;
+    private Double quantity;
     private String externalCode;
     private String description;
     private StateEntity state;

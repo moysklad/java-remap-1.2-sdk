@@ -26,5 +26,5 @@ public class PriceEntity {
     /**
      * Значение (в копейках)
      */
-    private Integer value;
+    private Long value;
 }

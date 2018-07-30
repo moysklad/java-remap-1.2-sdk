@@ -1,9 +1,11 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.*;
-import com.lognex.api.entities.agents.AgentEntity;
+import com.lognex.api.entities.GroupEntity;
+import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
+import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +17,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class CashInDocumentEntity extends DocumentEntity {
+public class ProcessingDocumentEntity extends DocumentEntity {
     private String id;
     private String accountId;
     private EmployeeEntity owner;
@@ -27,13 +29,14 @@ public class CashInDocumentEntity extends DocumentEntity {
     private String externalCode;
     private LocalDateTime moment;
     private Boolean applicable;
-    private RateEntity rate;
-    private Long sum;
-    private StateEntity state;
-    private AgentEntity agent;
     private OrganizationEntity organization;
     private MetaEntity documents;
     private LocalDateTime created;
-    private Integer vatSum;
-    private ProjectEntity project;
+    private Long processingSum;
+    private Double quantity;
+    private ProcessingPlanDocumentEntity processingPlan;
+    private StoreEntity productsStore;
+    private StoreEntity materialsStore;
+    private ListEntity<DocumentPosition> products;
+    private ListEntity<DocumentPosition> materials;
 }

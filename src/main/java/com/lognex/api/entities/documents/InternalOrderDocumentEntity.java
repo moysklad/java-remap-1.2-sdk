@@ -1,7 +1,9 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.*;
-import com.lognex.api.entities.agents.AgentEntity;
+import com.lognex.api.entities.GroupEntity;
+import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.RateEntity;
+import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
@@ -16,34 +18,26 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class RetailDemandDocumentEntity extends DocumentEntity {
+public class InternalOrderDocumentEntity extends DocumentEntity {
+    private EmployeeEntity owner;
     private Boolean vatEnabled;
     private Boolean shared;
-    private Long noCashSum;
-    private AgentEntity agent;
     private String externalCode;
     private MetaEntity documents;
-    private Long sum;
-    private Long vatSum;
-    private Long cashSum;
-    private String syncId;
-    private LocalDateTime moment;
-    private RateEntity rate;
-    private String id;
-    private RetailShiftEntity retailShift;
-    private GroupEntity group;
-    private EmployeeEntity owner;
     private LocalDateTime created;
     private Boolean applicable;
+    private Long sum;
     private ListEntity<DocumentPosition> positions;
+    private Long vatSum;
     private StoreEntity store;
     private Integer version;
+    private LocalDateTime moment;
     private String accountId;
-    private Boolean fiscal;
+    private RateEntity rate;
     private OrganizationEntity organization;
     private String name;
     private Boolean vatIncluded;
-    private RetailStoreEntity retailStore;
-    private Integer payedSum;
+    private String id;
     private LocalDateTime updated;
+    private GroupEntity group;
 }
