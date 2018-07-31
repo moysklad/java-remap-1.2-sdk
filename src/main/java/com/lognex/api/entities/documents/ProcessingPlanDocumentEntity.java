@@ -17,19 +17,19 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ProcessingPlanDocumentEntity extends DocumentEntity {
-    private EmployeeEntity owner;
-    private String pathName;
-    private Boolean shared;
+    private String accountId;
     private Long cost;
     private String externalCode;
-    private Integer version;
-    private ListEntity<PlanItem> products;
-    private String accountId;
-    private ListEntity<PlanItem> materials;
-    private String name;
-    private String id;
-    private LocalDateTime updated;
     private GroupEntity group;
+    private String id;
+    private ListEntity materials;
+    private String name;
+    private EmployeeEntity owner;
+    private String pathName;
+    private ListEntity products;
+    private Boolean shared;
+    private LocalDateTime updated;
+    private Integer version;
 
     @Getter
     @Setter

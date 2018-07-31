@@ -18,25 +18,25 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ProcessingDocumentEntity extends DocumentEntity {
-    private String id;
     private String accountId;
-    private EmployeeEntity owner;
-    private Boolean shared;
-    private GroupEntity group;
-    private Integer version;
-    private LocalDateTime updated;
-    private String name;
-    private String externalCode;
-    private LocalDateTime moment;
     private Boolean applicable;
-    private OrganizationEntity organization;
-    private MetaEntity documents;
     private LocalDateTime created;
-    private Long processingSum;
-    private Double quantity;
-    private ProcessingPlanDocumentEntity processingPlan;
-    private StoreEntity productsStore;
+    private MetaEntity documents;
+    private String externalCode;
+    private GroupEntity group;
+    private String id;
+    private ListEntity materials;
     private StoreEntity materialsStore;
-    private ListEntity<DocumentPosition> products;
-    private ListEntity<DocumentPosition> materials;
+    private LocalDateTime moment;
+    private String name;
+    private OrganizationEntity organization;
+    private EmployeeEntity owner;
+    private ProcessingPlanDocumentEntity processingPlan;
+    private Long processingSum;
+    private ListEntity products;
+    private StoreEntity productsStore;
+    private Double quantity;
+    private Boolean shared;
+    private LocalDateTime updated;
+    private Integer version;
 }

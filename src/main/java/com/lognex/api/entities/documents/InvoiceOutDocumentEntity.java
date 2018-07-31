@@ -20,28 +20,28 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class InvoiceOutDocumentEntity extends DocumentEntity {
-    private Boolean vatEnabled;
-    private Boolean shared;
-    private AgentEntity agent;
-    private String externalCode;
-    private MetaEntity documents;
-    private Long shippedSum;
-    private Long sum;
-    private Long vatSum;
-    private LocalDateTime moment;
-    private RateEntity rate;
-    private String id;
-    private GroupEntity group;
-    private EmployeeEntity owner;
-    private LocalDateTime created;
-    private Boolean applicable;
-    private ListEntity<DocumentPosition> positions;
-    private StoreEntity store;
-    private Integer version;
     private String accountId;
-    private OrganizationEntity organization;
+    private AgentEntity agent;
+    private Boolean applicable;
+    private LocalDateTime created;
+    private MetaEntity documents;
+    private String externalCode;
+    private GroupEntity group;
+    private String id;
+    private LocalDateTime moment;
     private String name;
-    private Boolean vatIncluded;
+    private OrganizationEntity organization;
+    private EmployeeEntity owner;
     private Long payedSum;
+    private ListEntity positions;
+    private RateEntity rate;
+    private Boolean shared;
+    private Long shippedSum;
+    private StoreEntity store;
+    private Long sum;
     private LocalDateTime updated;
+    private Boolean vatEnabled;
+    private Boolean vatIncluded;
+    private Long vatSum;
+    private Integer version;
 }

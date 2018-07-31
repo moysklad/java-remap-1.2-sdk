@@ -19,23 +19,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ProcessingOrderDocumentEntity extends DocumentEntity {
-    private EmployeeEntity owner;
-    private Boolean shared;
-    private Double quantity;
-    private String externalCode;
-    private String description;
-    private StateEntity state;
-    private MetaEntity documents;
-    private Boolean applicable;
-    private ListEntity<DocumentPosition> positions;
-    private StoreEntity store;
-    private Integer version;
-    private LocalDateTime moment;
-    private ProcessingPlanDocumentEntity processingPlan;
     private String accountId;
-    private AgentEntity organization;
-    private String name;
-    private String id;
-    private LocalDateTime updated;
+    private Boolean applicable;
+    private String description;
+    private MetaEntity documents;
+    private String externalCode;
     private GroupEntity group;
+    private String id;
+    private LocalDateTime moment;
+    private String name;
+    private AgentEntity organization;
+    private EmployeeEntity owner;
+    private ListEntity positions;
+    private ProcessingPlanDocumentEntity processingPlan;
+    private Double quantity;
+    private Boolean shared;
+    private StateEntity state;
+    private StoreEntity store;
+    private LocalDateTime updated;
+    private Integer version;
 }

@@ -17,32 +17,30 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class SupplyDocumentEntity extends DocumentEntity {
-    private EmployeeEntity owner;
-    private Boolean vatEnabled;
-    private Boolean shared;
-    private AgentEntity agent;
-    private String externalCode;
-    private MetaEntity documents;
-    private LocalDateTime created;
-    private Boolean applicable;
-    private Long sum;
-    private ListEntity<DocumentPosition> positions;
-    private Integer vatSum;
-    private StoreEntity store;
-    private Integer version;
-    private LocalDateTime moment;
     private String accountId;
-    private RateEntity rate;
-    private OrganizationEntity organization;
-    private String name;
-    private Boolean vatIncluded;
-    private String id;
-    private Integer payedSum;
-    private LocalDateTime updated;
-    private GroupEntity group;
+    private AgentEntity agent;
+    private Boolean applicable;
     private ContractEntity contract;
-
+    private LocalDateTime created;
+    private MetaEntity documents;
+    private String externalCode;
+    private GroupEntity group;
+    private String id;
+    private LocalDateTime moment;
+    private String name;
+    private OrganizationEntity organization;
     private Overhead overhead;
-
+    private EmployeeEntity owner;
+    private Integer payedSum;
+    private ListEntity positions;
     private PurchaseOrderDocumentEntity purchaseOrder;
+    private RateEntity rate;
+    private Boolean shared;
+    private StoreEntity store;
+    private Long sum;
+    private LocalDateTime updated;
+    private Boolean vatEnabled;
+    private Boolean vatIncluded;
+    private Integer vatSum;
+    private Integer version;
 }

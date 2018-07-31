@@ -16,24 +16,24 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class PaymentInDocumentEntity extends DocumentEntity {
-    private String id;
     private String accountId;
+    private AgentEntity agent;
+    private Boolean applicable;
+    private LocalDateTime created;
+    private MetaEntity documents;
+    private String externalCode;
+    private GroupEntity group;
+    private String id;
+    private LocalDateTime moment;
+    private String name;
+    private OrganizationEntity organization;
     private EmployeeEntity owner;
+    private ProjectEntity project;
+    private RateEntity rate;
     private Boolean shared;
     private StateEntity state;
-    private GroupEntity group;
-    private Integer version;
-    private LocalDateTime updated;
-    private String name;
-    private String externalCode;
-    private LocalDateTime moment;
-    private Boolean applicable;
-    private RateEntity rate;
     private Long sum;
-    private AgentEntity agent;
-    private OrganizationEntity organization;
-    private MetaEntity documents;
-    private LocalDateTime created;
+    private LocalDateTime updated;
     private Integer vatSum;
-    private ProjectEntity project;
+    private Integer version;
 }

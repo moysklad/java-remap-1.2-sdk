@@ -18,19 +18,19 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class InventoryDocumentEntity extends DocumentEntity {
-    private EmployeeEntity owner;
-    private Boolean shared;
-    private String externalCode;
-    private MetaEntity documents;
-    private Long sum;
-    private ListEntity<DocumentPosition> positions;
-    private StoreEntity store;
-    private Integer version;
-    private LocalDateTime moment;
     private String accountId;
-    private OrganizationEntity organization;
-    private String name;
-    private String id;
-    private LocalDateTime updated;
+    private MetaEntity documents;
+    private String externalCode;
     private GroupEntity group;
+    private String id;
+    private LocalDateTime moment;
+    private String name;
+    private OrganizationEntity organization;
+    private EmployeeEntity owner;
+    private ListEntity positions;
+    private Boolean shared;
+    private StoreEntity store;
+    private Long sum;
+    private LocalDateTime updated;
+    private Integer version;
 }

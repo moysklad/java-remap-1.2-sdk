@@ -20,26 +20,26 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class EnterDocumentEntity extends DocumentEntity {
-    private String id;
     private String accountId;
-    private String syncId;
-    private Integer version;
-    private LocalDateTime updated;
-    private LocalDateTime deleted;
-    private LocalDateTime created;
-    private String name;
-    private String description;
-    private String externalCode;
-    private LocalDateTime moment;
     private Boolean applicable;
-    private ListEntity<DocumentPosition> positions;
-    private EmployeeEntity owner;
-    private Boolean shared;
-    private GroupEntity group;
-    private OrganizationEntity organization;
-    private Long sum;
-    private RateEntity rate;
-    private StoreEntity store;
+    private LocalDateTime created;
+    private LocalDateTime deleted;
+    private String description;
     private MetaEntity documents;
+    private String externalCode;
+    private GroupEntity group;
+    private String id;
+    private LocalDateTime moment;
+    private String name;
+    private OrganizationEntity organization;
+    private EmployeeEntity owner;
+    private ListEntity positions;
+    private RateEntity rate;
+    private Boolean shared;
     private StateEntity state;
+    private StoreEntity store;
+    private Long sum;
+    private String syncId;
+    private LocalDateTime updated;
+    private Integer version;
 }

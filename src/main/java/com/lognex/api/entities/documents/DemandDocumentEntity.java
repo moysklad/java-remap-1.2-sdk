@@ -21,41 +21,38 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class DemandDocumentEntity extends DocumentEntity {
-    private String id;
     private String accountId;
-    private String syncId;
-    private Integer version;
-    private LocalDateTime updated;
-    private LocalDateTime deleted;
-    private LocalDateTime created;
-    private String name;
-    private String description;
-    private String externalCode;
-    private LocalDateTime moment;
+    private AgentEntity agent;
+    private MetaEntity agentAccount;
     private Boolean applicable;
-    private ListEntity<DocumentPosition> positions;
+    private MetaEntity attributes;
+    private ContractEntity contract;
+    private LocalDateTime created;
+    private CustomerOrderDocumentEntity customerOrder;
+    private LocalDateTime deleted;
+    private String description;
+    private MetaEntity documents;
+    private String externalCode;
+    private MetaEntity group;
+    private String id;
+    private LocalDateTime moment;
+    private String name;
+    private OrganizationEntity organization;
+    private MetaEntity organizationAccount;
+    private Overhead overhead;
+    private EmployeeEntity owner;
+    private Integer payedSum;
+    private ListEntity positions;
+    private MetaEntity project;
+    private RateEntity rate;
+    private Boolean shared;
+    private StateEntity state;
+    private StoreEntity store;
+    private Long sum;
+    private String syncId;
+    private LocalDateTime updated;
     private Boolean vatEnabled;
     private Boolean vatIncluded;
-    private ContractEntity contract;
-    private EmployeeEntity owner;
-    private Boolean shared;
-    private MetaEntity group;
     private Integer vatSum;
-    private Integer payedSum;
-    private OrganizationEntity organization;
-    private Long sum;
-    private RateEntity rate;
-    private AgentEntity agent;
-    private StoreEntity store;
-    private MetaEntity documents;
-    private StateEntity state;
-
-    private MetaEntity project;
-    private MetaEntity organizationAccount;
-    private MetaEntity agentAccount;
-    private MetaEntity attributes;
-
-    private Overhead overhead;
-
-    private CustomerOrderDocumentEntity customerOrder;
+    private Integer version;
 }
