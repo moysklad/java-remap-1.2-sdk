@@ -2,7 +2,6 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,26 +14,25 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class PurchaseOrderDocumentEntity extends DocumentEntity {
+public class RetailSalesReturnEntity extends DocumentEntity {
     private AgentEntity agent;
     private Boolean applicable;
-    private ContractEntity contract;
-    private LocalDateTime created;
-    private String description;
+    private Integer cashSum;
+    private String created;
+    private RetailDemandDocumentEntity demand;
     private MetaEntity documents;
     private String externalCode;
-    private Long invoicedSum;
     private LocalDateTime moment;
-    private OrganizationEntity organization;
-    private Long payedSum;
+    private Integer noCashSum;
+    private AgentEntity organization;
     private ListEntity positions;
     private RateEntity rate;
-    private Long shippedSum;
-    private StateEntity state;
+    private RetailShiftEntity retailShift;
+    private RetailStoreEntity retailStore;
     private StoreEntity store;
     private Long sum;
+    private String syncId;
     private Boolean vatEnabled;
     private Boolean vatIncluded;
-    private Long vatSum;
-    private Long waitSum;
+    private Integer vatSum;
 }

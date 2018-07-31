@@ -1,8 +1,10 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.*;
+import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.RateEntity;
+import com.lognex.api.entities.StateEntity;
+import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.AgentEntity;
-import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,24 +18,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class LossDocumentEntity extends DocumentEntity {
-    private String accountId;
     private Boolean applicable;
     private LocalDateTime created;
     private String description;
     private MetaEntity documents;
     private String externalCode;
-    private GroupEntity group;
-    private String id;
     private LocalDateTime moment;
-    private String name;
     private AgentEntity organization;
-    private EmployeeEntity owner;
     private ListEntity positions;
     private RateEntity rate;
-    private Boolean shared;
     private StateEntity state;
     private StoreEntity store;
     private Long sum;
-    private LocalDateTime updated;
-    private Integer version;
 }
