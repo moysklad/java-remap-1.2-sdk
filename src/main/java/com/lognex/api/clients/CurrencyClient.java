@@ -12,6 +12,6 @@ public final class CurrencyClient
         PostEndpoint<CurrencyEntity> {
 
     public CurrencyClient(LognexApi api) {
-        super(api, "/entity/currency", CurrencyEntity.class);
+        super(api, "/entity/currency/", CurrencyEntity.class);
     }
 }

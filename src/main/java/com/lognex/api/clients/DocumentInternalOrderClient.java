@@ -12,6 +12,6 @@ public final class DocumentInternalOrderClient
         PostEndpoint<InternalOrderDocumentEntity> {
 
     public DocumentInternalOrderClient(LognexApi api) {
-        super(api, "/entity/internalorder", InternalOrderDocumentEntity.class);
+        super(api, "/entity/internalorder/", InternalOrderDocumentEntity.class);
     }
 }

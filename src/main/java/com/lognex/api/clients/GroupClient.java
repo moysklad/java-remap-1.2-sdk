@@ -12,6 +12,6 @@ public final class GroupClient
         PostEndpoint<GroupEntity> {
 
     public GroupClient(LognexApi api) {
-        super(api, "/entity/group", GroupEntity.class);
+        super(api, "/entity/group/", GroupEntity.class);
     }
 }

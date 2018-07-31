@@ -12,6 +12,6 @@ public final class ExpenseItemClient
         PostEndpoint<ExpenseItemEntity> {
 
     public ExpenseItemClient(LognexApi api) {
-        super(api, "/entity/expenseitem", ExpenseItemEntity.class);
+        super(api, "/entity/expenseitem/", ExpenseItemEntity.class);
     }
 }

@@ -12,6 +12,6 @@ public final class DocumentEnterClient
         PostEndpoint<EnterDocumentEntity> {
 
     public DocumentEnterClient(LognexApi api) {
-        super(api, "/entity/enter", EnterDocumentEntity.class);
+        super(api, "/entity/enter/", EnterDocumentEntity.class);
     }
 }

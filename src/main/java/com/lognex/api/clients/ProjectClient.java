@@ -12,6 +12,6 @@ public final class ProjectClient
         PostEndpoint<ProjectEntity> {
 
     public ProjectClient(LognexApi api) {
-        super(api, "/entity/project", ProjectEntity.class);
+        super(api, "/entity/project/", ProjectEntity.class);
     }
 }

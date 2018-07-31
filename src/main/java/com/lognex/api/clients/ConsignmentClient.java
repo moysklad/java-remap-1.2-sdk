@@ -12,6 +12,6 @@ public final class ConsignmentClient
         PostEndpoint<ConsignmentEntity> {
 
     public ConsignmentClient(LognexApi api) {
-        super(api, "/entity/consignment", ConsignmentEntity.class);
+        super(api, "/entity/consignment/", ConsignmentEntity.class);
     }
 }

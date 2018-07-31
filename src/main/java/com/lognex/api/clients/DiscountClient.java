@@ -9,6 +9,6 @@ public final class DiscountClient
         implements GetListEndpoint<DiscountEntity> {
 
     public DiscountClient(LognexApi api) {
-        super(api, "/entity/discount", DiscountEntity.class);
+        super(api, "/entity/discount/", DiscountEntity.class);
     }
 }

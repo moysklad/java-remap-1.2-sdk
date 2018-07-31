@@ -12,6 +12,6 @@ public final class DocumentProcessingClient
         PostEndpoint<ProcessingDocumentEntity> {
 
     public DocumentProcessingClient(LognexApi api) {
-        super(api, "/entity/processing", ProcessingDocumentEntity.class);
+        super(api, "/entity/processing/", ProcessingDocumentEntity.class);
     }
 }
