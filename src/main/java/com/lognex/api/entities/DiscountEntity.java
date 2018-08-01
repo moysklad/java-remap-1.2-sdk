@@ -11,21 +11,6 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class DiscountEntity extends MetaEntity {
     /**
-     * ID скидки в формате UUID
-     */
-    private String id;
-
-    /**
-     * ID учетной записи
-     */
-    private String accountId;
-
-    /**
-     * Наименование скидки
-     */
-    private String name;
-
-    /**
      * Индикатор, является ли скидка активной на данный момент
      */
     private Boolean active;

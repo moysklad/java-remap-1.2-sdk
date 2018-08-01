@@ -20,17 +20,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public final class CounterpartyEntity extends AgentEntity {
     /**
-     * ID в формате UUID
-     */
-    private String id;
-
-    /**
-     * ID учетной записи
-     */
-    private String accountId;
-
-    /**
-     * Владелеца
+     * Владелец
      */
     private EmployeeEntity owner;
 
@@ -38,6 +28,11 @@ public final class CounterpartyEntity extends AgentEntity {
      * Общий доступ
      */
     private Boolean shared;
+
+    /**
+     * Код
+     */
+    private String code;
 
     /**
      * Отдел сотрудника
@@ -50,29 +45,14 @@ public final class CounterpartyEntity extends AgentEntity {
     private String syncId;
 
     /**
-     * Версия сущности
-     */
-    private Integer version;
-
-    /**
      * Момент последнего обновления
      */
     private LocalDateTime updated;
 
     /**
-     * Наименование
-     */
-    private String name;
-
-    /**
      * Комментарий
      */
     private String description;
-
-    /**
-     * Код
-     */
-    private String code;
 
     /**
      * Внешний код
@@ -202,7 +182,7 @@ public final class CounterpartyEntity extends AgentEntity {
     /**
      * Дополнительные поля
      */
-    private MetaEntity attributes;
+    private List<AttributeEntity> attributes;
 
     /**
      * Цена

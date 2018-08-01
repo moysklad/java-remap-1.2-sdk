@@ -1,11 +1,8 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.GroupEntity;
-import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.RateEntity;
 import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.AgentEntity;
-import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,28 +16,17 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class PurchaseReturnDocumentEntity extends DocumentEntity {
-    private Boolean vatEnabled;
-    private Boolean shared;
     private AgentEntity agent;
-    private String externalCode;
-    private MetaEntity documents;
-    private Long sum;
-    private Long vatSum;
-    private SupplyDocumentEntity supply;
-    private LocalDateTime moment;
-    private RateEntity rate;
-    private String id;
-    private GroupEntity group;
-    private EmployeeEntity owner;
     private LocalDateTime created;
-    private Boolean applicable;
-    private ListEntity<DocumentPosition> positions;
-    private StoreEntity store;
-    private Integer version;
-    private String accountId;
+    private ListEntity<DocumentEntity> documents;
+    private String externalCode;
     private AgentEntity organization;
-    private String name;
-    private Boolean vatIncluded;
     private Long payedSum;
-    private LocalDateTime updated;
+    private ListEntity positions;
+    private RateEntity rate;
+    private StoreEntity store;
+    private SupplyDocumentEntity supply;
+    private Boolean vatEnabled;
+    private Boolean vatIncluded;
+    private Long vatSum;
 }

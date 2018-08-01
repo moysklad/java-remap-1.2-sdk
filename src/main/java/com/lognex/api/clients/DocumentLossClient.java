@@ -12,6 +12,6 @@ public final class DocumentLossClient
         PostEndpoint<LossDocumentEntity> {
 
     public DocumentLossClient(LognexApi api) {
-        super(api, "/entity/loss", LossDocumentEntity.class);
+        super(api, "/entity/loss/", LossDocumentEntity.class);
     }
 }

@@ -12,6 +12,6 @@ public final class ContractClient
         PostEndpoint<ContractEntity> {
 
     public ContractClient(LognexApi api) {
-        super(api, "/entity/contract", ContractEntity.class);
+        super(api, "/entity/contract/", ContractEntity.class);
     }
 }

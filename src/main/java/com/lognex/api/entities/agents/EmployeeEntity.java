@@ -19,13 +19,9 @@ public final class EmployeeEntity extends AgentEntity {
     private String shortFio;
     private String created;
     private String fullName;
-    private Integer version;
-    private String accountId;
     private Boolean archived;
     private Boolean uid;
     private MetaEntity cashier;
-    private String name;
-    private String id;
     private String updated;
     private String email;
     private GroupEntity group;

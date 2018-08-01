@@ -53,29 +53,14 @@ public class BundleEntity extends AbstractProductEntity {
     private Integer weight;
 
     /**
-     * Версия сущности
-     */
-    private Integer version;
-
-    /**
      * Объём
      */
     private Integer volume;
 
     /**
-     * ID учетной записи
-     */
-    private String accountId;
-
-    /**
      * Отметка о том, добавлен ли Комплект в архив
      */
     private Boolean archived;
-
-    /**
-     * ID Комплекта в формате UUID
-     */
-    private String id;
 
     /**
      * Момент последнего обновления сущности

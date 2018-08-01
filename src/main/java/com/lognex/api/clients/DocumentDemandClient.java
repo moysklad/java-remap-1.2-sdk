@@ -12,6 +12,6 @@ public final class DocumentDemandClient
         PostEndpoint<DemandDocumentEntity> {
 
     public DocumentDemandClient(LognexApi api) {
-        super(api, "/entity/demand", DemandDocumentEntity.class);
+        super(api, "/entity/demand/", DemandDocumentEntity.class);
     }
 }

@@ -18,16 +18,6 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class ContractEntity extends MetaEntity {
     /**
-     * ID в формате UUID
-     */
-    private String id;
-
-    /**
-     * ID учетной записи
-     */
-    private String accountId;
-
-    /**
      * Ссылка на Владельца (Сотрудника) в формате Метаданных
      */
     private EmployeeEntity owner;
@@ -43,19 +33,9 @@ public class ContractEntity extends MetaEntity {
     private MetaEntity group;
 
     /**
-     * Версия сущности
-     */
-    private Integer version;
-
-    /**
      * Момент последнего обновления сущности
      */
     private LocalDateTime updated;
-
-    /**
-     * номер Договора
-     */
-    private String name;
 
     /**
      * Комментарий к Договору
@@ -150,20 +130,5 @@ public class ContractEntity extends MetaEntity {
          * Договор купли-продажи
          */
         @SerializedName("Sales") sales
-    }
-
-    /**
-     * Тип Вознаграждения
-     */
-    public enum RewardType {
-        /**
-         * Процент от суммы продажи
-         */
-        @SerializedName("PercentOfSales") percentOfSales,
-
-        /**
-         * Не рассчитывать
-         */
-        @SerializedName("None") none
     }
 }

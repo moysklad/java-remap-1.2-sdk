@@ -4,7 +4,7 @@ import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.DeleteByIdEndpoint;
 import com.lognex.api.clients.endpoints.GetListEndpoint;
 import com.lognex.api.clients.endpoints.PostEndpoint;
-import com.lognex.api.entities.RetailDrawerCashOutEntity;
+import com.lognex.api.entities.documents.RetailDrawerCashOutEntity;
 
 public final class DocumentRetailDrawerCashOutClient
         extends ApiClient

@@ -37,24 +37,9 @@ public class ServiceEntity extends AbstractProductEntity implements SingleProduc
     private String externalCode;
 
     /**
-     * Версия сущности
-     */
-    private Integer version;
-
-    /**
-     * ID учетной записи
-     */
-    private String accountId;
-
-    /**
      * Отметка о том, добавлен ли Услуга в архив
      */
     private Boolean archived;
-
-    /**
-     * ID Услуги в формате UUID
-     */
-    private String id;
 
     /**
      * Момент последнего обновления сущности

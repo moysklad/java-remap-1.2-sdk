@@ -12,6 +12,6 @@ public final class DocumentSupplyClient
         PostEndpoint<SupplyDocumentEntity> {
 
     public DocumentSupplyClient(LognexApi api) {
-        super(api, "/entity/supply", SupplyDocumentEntity.class);
+        super(api, "/entity/supply/", SupplyDocumentEntity.class);
     }
 }

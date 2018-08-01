@@ -12,6 +12,6 @@ public final class StoreClient
         PostEndpoint<StoreEntity> {
 
     public StoreClient(LognexApi api) {
-        super(api, "/entity/store", StoreEntity.class);
+        super(api, "/entity/store/", StoreEntity.class);
     }
 }

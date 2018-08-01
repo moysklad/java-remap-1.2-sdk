@@ -9,6 +9,6 @@ public final class RetailStoreClient
         implements GetListEndpoint<RetailStoreEntity> {
 
     public RetailStoreClient(LognexApi api) {
-        super(api, "/entity/retailstore", RetailStoreEntity.class);
+        super(api, "/entity/retailstore/", RetailStoreEntity.class);
     }
 }

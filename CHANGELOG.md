@@ -2,6 +2,53 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 2.0-ALPHA7 (xx.xx.2018)
+
+### Добавлено
+* Сущности:
+  * `ProjectEntity`
+  * `ExpenseItemEntity`
+  * `CashOutDocumentEntity`
+  * `InventoryDocumentEntity`
+  * `InvoiceInDocumentEntity`
+  * `PaymentInDocumentEntity`
+  * `InvoiceOutDocumentEntity`
+  * `PaymentOutDocumentEntity`
+  * `ProcessingDocumentEntity`
+  * `InternalOrderDocumentEntity`
+  * `CommissionReportInDocumentEntity`
+  * `CommissionReportOutDocumentEntity`
+* Методы API: 
+  * `GET /entity/group/`
+  * `GET /entity/cashout/`
+  * `GET /entity/project/`
+  * `GET /entity/inventory/`
+  * `GET /entity/invoicein/`
+  * `GET /entity/paymentin/`
+  * `GET /entity/invoiceout/`
+  * `GET /entity/paymentout/`
+  * `GET /entity/processing/`
+  * `GET /entity/expenseitem/`
+  * `GET /entity/internalorder/`
+  * `GET /entity/commissionreportin/`
+  * `GET /entity/commissionreportout/`
+  * `GET /entity/cashout/metadata`
+  * `GET /entity/project/metadata`
+  * `GET /entity/paymentin/metadata`
+  * `GET /entity/paymentout/metadata`
+  * `POST /entity/group/`
+  * `POST /entity/cashout/`
+  * `POST /entity/invoicein/`
+  * `POST /entity/inventory/`
+  * `POST /entity/paymentin/`
+  * `POST /entity/invoiceout/`
+  * `POST /entity/paymentout/`
+  * `POST /entity/processing/`
+  * `POST /entity/expenseitem/`
+  * `POST /entity/internalorder/`
+  * `POST /entity/commissionreportin/`
+  * `POST /entity/commissionreportout/`
+
 ## 2.0-ALPHA6 (26.07.2018)
 
 ### Добавлено
@@ -10,7 +57,7 @@
   * `POST /entity/group/`
 
 ### Изменено
-* Тип поля owner во всех сущностях (`OwnerEntity` ⇒ `EmployeeEntity`)
+* Тип поля `owner` во всех сущностях (`OwnerEntity` ⇒ `EmployeeEntity`)
 
 ### Удалено
 * Сущность `OwnerEntity`

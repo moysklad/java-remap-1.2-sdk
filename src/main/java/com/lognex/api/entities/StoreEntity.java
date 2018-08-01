@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Склад
@@ -16,16 +17,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class StoreEntity extends MetaEntity {
-    /**
-     * ID в формате UUID
-     */
-    private String id;
-
-    /**
-     * ID учетной записи
-     */
-    private String accountId;
-
     /**
      * Ссылка на Владельца (Сотрудника) в формате Метаданных
      */
@@ -42,19 +33,9 @@ public class StoreEntity extends MetaEntity {
     private MetaEntity group;
 
     /**
-     * Версия сущности
-     */
-    private Integer version;
-
-    /**
      * Момент последнего обновления сущности
      */
     private LocalDateTime updated;
-
-    /**
-     * Наименование Склада
-     */
-    private String name;
 
     /**
      * комментарий к Складу
@@ -94,5 +75,5 @@ public class StoreEntity extends MetaEntity {
     /**
      * Дополнительные поля Склада в формате Метаданных
      */
-    private MetaEntity attributes;
+    private List<AttributeEntity> attributes;
 }

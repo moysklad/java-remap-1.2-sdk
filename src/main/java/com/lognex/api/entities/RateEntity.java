@@ -14,5 +14,5 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class RateEntity {
-    private MetaEntity currency;
+    private CurrencyEntity currency;
 }

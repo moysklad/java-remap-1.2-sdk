@@ -41,6 +41,10 @@ public final class EntityClient {
         return new DocumentEnterClient(api);
     }
 
+    public DocumentInternalOrderClient internalorder() {
+        return new DocumentInternalOrderClient(api);
+    }
+
     public DocumentLossClient loss() {
         return new DocumentLossClient(api);
     }
@@ -125,6 +129,10 @@ public final class EntityClient {
         return new DocumentCashInClient(api);
     }
 
+    public DocumentCashOutClient cashout() {
+        return new DocumentCashOutClient(api);
+    }
+
     public RetailShiftClient retailshift() {
         return new RetailShiftClient(api);
     }
@@ -147,5 +155,45 @@ public final class EntityClient {
 
     public DocumentRetailDrawerCashOutClient retaildrawercashout() {
         return new DocumentRetailDrawerCashOutClient(api);
+    }
+
+    public DocumentCommissionReportInClient commissionreportin() {
+        return new DocumentCommissionReportInClient(api);
+    }
+
+    public DocumentInvoiceInClient invoicein() {
+        return new DocumentInvoiceInClient(api);
+    }
+
+    public DocumentInvoiceOutClient invoiceout() {
+        return new DocumentInvoiceOutClient(api);
+    }
+
+    public DocumentInventoryClient inventory() {
+        return new DocumentInventoryClient(api);
+    }
+
+    public DocumentCommissionReportOutClient commissionreportout() {
+        return new DocumentCommissionReportOutClient(api);
+    }
+
+    public DocumentPaymentInClient paymentin() {
+        return new DocumentPaymentInClient(api);
+    }
+
+    public DocumentPaymentOutClient paymentout() {
+        return new DocumentPaymentOutClient(api);
+    }
+
+    public ProjectClient project() {
+        return new ProjectClient(api);
+    }
+
+    public ExpenseItemClient expenseitem() {
+        return new ExpenseItemClient(api);
+    }
+
+    public DocumentProcessingClient processing() {
+        return new DocumentProcessingClient(api);
     }
 }

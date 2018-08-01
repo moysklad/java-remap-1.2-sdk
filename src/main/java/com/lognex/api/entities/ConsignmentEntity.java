@@ -12,12 +12,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ConsignmentEntity extends MetaEntity implements ProductMarker {
-    private String accountId;
     private String externalCode;
     private ConsignmentParentMarker assortment;
-    private String name;
-    private String id;
     private String label;
-    private Integer version;
     private String updated;
 }

@@ -9,6 +9,6 @@ public final class EmployeeClient
         implements GetListEndpoint<EmployeeEntity> {
 
     public EmployeeClient(LognexApi api) {
-        super(api, "/entity/employee", EmployeeEntity.class);
+        super(api, "/entity/employee/", EmployeeEntity.class);
     }
 }

@@ -23,29 +23,9 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class VariantEntity extends MetaEntity implements SingleProductMarker, ConsignmentParentMarker, ProductMarker {
     /**
-     * Идентификатор сущности
-     */
-    private String id;
-
-    /**
-     * Идентификатор учётной записи
-     */
-    private String accountId;
-
-    /**
-     * Версия сущности
-     */
-    private Integer version;
-
-    /**
      * Дата последнего обновления сущности
      */
     private LocalDateTime updated;
-
-    /**
-     * Наименование товара с Модификацией
-     */
-    private String name;
 
     /**
      * Код модификации
@@ -70,7 +50,7 @@ public class VariantEntity extends MetaEntity implements SingleProductMarker, Co
     /**
      * Минимальная цена
      */
-    private Integer minPrice;
+    private Long minPrice;
 
     /**
      * Закупочная цена
@@ -105,16 +85,6 @@ public class VariantEntity extends MetaEntity implements SingleProductMarker, Co
     @NoArgsConstructor
     @EqualsAndHashCode(callSuper = true)
     public static class Characteristic extends MetaEntity {
-        /**
-         * Идентификатор сущности
-         */
-        private String id;
-
-        /**
-         * Наименование характеристики
-         */
-        private String name;
-
         /**
          * Тип характеристики
          */

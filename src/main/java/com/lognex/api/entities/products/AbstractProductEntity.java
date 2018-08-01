@@ -21,11 +21,6 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public abstract class AbstractProductEntity extends MetaEntity implements ProductMarker {
     /**
-     * Наименование Товара
-     */
-    private String name;
-
-    /**
      * Код Товара
      */
     private String code;
@@ -53,7 +48,7 @@ public abstract class AbstractProductEntity extends MetaEntity implements Produc
     /**
      * Минимальная цена
      */
-    private Integer minPrice;
+    private Long minPrice;
 
     /**
      * Закупочная цена

@@ -21,21 +21,6 @@ import java.io.IOException;
 @EqualsAndHashCode(callSuper = true)
 public class StateEntity extends MetaEntity implements Fetchable {
     /**
-     * ID в формате UUID
-     */
-    private String id;
-
-    /**
-     * ID учетной записи
-     */
-    private String accountId;
-
-    /**
-     * Наименование Статуса
-     */
-    private String name;
-
-    /**
      * Цвет Статуса
      */
     private Integer color;

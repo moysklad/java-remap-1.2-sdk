@@ -22,16 +22,6 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class ProductEntity extends AbstractProductEntity implements SingleProductMarker, ConsignmentParentMarker {
     /**
-     * Идентификатор сущности
-     */
-    private String id;
-
-    /**
-     * Идентификатор
-     */
-    private String accountId;
-
-    /**
      * Сотрудник-владелец
      */
     private EmployeeEntity owner;
@@ -50,11 +40,6 @@ public class ProductEntity extends AbstractProductEntity implements SingleProduc
      * Идентификатор синхронизации
      */
     private String syncId;
-
-    /**
-     * Версия сущности
-     */
-    private Integer version;
 
     /**
      * Последнее обновление

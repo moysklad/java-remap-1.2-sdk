@@ -12,6 +12,6 @@ public final class OrganizationClient
         PostEndpoint<OrganizationEntity> {
 
     public OrganizationClient(LognexApi api) {
-        super(api, "/entity/organization", OrganizationEntity.class);
+        super(api, "/entity/organization/", OrganizationEntity.class);
     }
 }
