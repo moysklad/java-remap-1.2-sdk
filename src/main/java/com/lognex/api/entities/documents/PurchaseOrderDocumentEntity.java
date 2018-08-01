@@ -1,6 +1,9 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.*;
+import com.lognex.api.entities.ContractEntity;
+import com.lognex.api.entities.RateEntity;
+import com.lognex.api.entities.StateEntity;
+import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
@@ -20,7 +23,7 @@ public class PurchaseOrderDocumentEntity extends DocumentEntity {
     private ContractEntity contract;
     private LocalDateTime created;
     private String description;
-    private MetaEntity documents;
+    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private Long invoicedSum;
     private OrganizationEntity organization;

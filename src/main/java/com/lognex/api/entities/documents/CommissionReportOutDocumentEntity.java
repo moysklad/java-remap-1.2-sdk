@@ -22,7 +22,7 @@ public class CommissionReportOutDocumentEntity extends DocumentEntity {
     private Long commitentSum;
     private ContractEntity contract;
     private LocalDateTime created;
-    private MetaEntity documents;
+    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private OrganizationEntity organization;
     private MetaEntity organizationAccount;

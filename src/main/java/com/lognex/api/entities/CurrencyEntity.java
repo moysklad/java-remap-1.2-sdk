@@ -19,11 +19,6 @@ import java.lang.reflect.Type;
 @EqualsAndHashCode(callSuper = true)
 public class CurrencyEntity extends MetaEntity implements Fetchable {
     /**
-     * Краткое наименование
-     */
-    private String name;
-
-    /**
      * Полное наименование
      */
     private String fullName;

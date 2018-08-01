@@ -10,8 +10,4 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class GroupEntity extends MetaEntity {
-    /**
-     * Название отдела
-     */
-    private String name;
 }

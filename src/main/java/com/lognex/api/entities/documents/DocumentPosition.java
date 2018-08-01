@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class DocumentPosition extends MetaEntity {
-    private String accountId;
     private CountryEntity country;
     private Double quantity;
     private ProductMarker assortment;
@@ -24,6 +23,5 @@ public class DocumentPosition extends MetaEntity {
     private Integer overhead;
     private Integer vat;
     private Double discount;
-    private String id;
     private List<String> things;
 }

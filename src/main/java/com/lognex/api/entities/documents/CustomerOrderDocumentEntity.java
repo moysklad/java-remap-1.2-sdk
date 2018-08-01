@@ -28,7 +28,7 @@ public class CustomerOrderDocumentEntity extends DocumentEntity {
     private LocalDateTime created;
     private LocalDateTime deleted;
     private String description;
-    private MetaEntity documents;
+    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private Long invoicedSum;
     private OrganizationEntity organization;

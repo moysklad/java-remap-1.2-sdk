@@ -1,6 +1,9 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.*;
+import com.lognex.api.entities.RateEntity;
+import com.lognex.api.entities.RetailShiftEntity;
+import com.lognex.api.entities.RetailStoreEntity;
+import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
@@ -19,7 +22,7 @@ public class RetailDemandDocumentEntity extends DocumentEntity {
     private AgentEntity agent;
     private Long cashSum;
     private LocalDateTime created;
-    private MetaEntity documents;
+    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private Boolean fiscal;
     private Long noCashSum;

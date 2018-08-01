@@ -18,16 +18,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public final class OrganizationEntity extends AgentEntity {
     /**
-     * ID сущности
-     */
-    private String id;
-
-    /**
-     * ID учетной записи
-     */
-    private String accountId;
-
-    /**
      * Ссылка на Владельца (Сотрудника) в формате Метаданных
      */
     private EmployeeEntity owner;
@@ -43,19 +33,9 @@ public final class OrganizationEntity extends AgentEntity {
     private MetaEntity group;
 
     /**
-     * Версия сущности
-     */
-    private Integer version;
-
-    /**
      * Момент последнего обновления сущности
      */
     private LocalDateTime updated;
-
-    /**
-     * Краткое наименование юрлица
-     */
-    private String name;
 
     /**
      * Внешний код юрлица

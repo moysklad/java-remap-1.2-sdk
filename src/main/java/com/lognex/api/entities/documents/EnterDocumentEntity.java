@@ -1,6 +1,5 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.RateEntity;
 import com.lognex.api.entities.StateEntity;
 import com.lognex.api.entities.StoreEntity;
@@ -25,7 +24,7 @@ public class EnterDocumentEntity extends DocumentEntity {
     private LocalDateTime created;
     private LocalDateTime deleted;
     private String description;
-    private MetaEntity documents;
+    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private OrganizationEntity organization;
     private ListEntity positions;

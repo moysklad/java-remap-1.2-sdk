@@ -23,7 +23,6 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     private Boolean archived;
     private Boolean issueOrders;
     private List<LastOperationNamesItem> lastOperationNames;
-    private String id;
     private State state;
     private GroupEntity group;
     private EmployeeEntity owner;
@@ -32,15 +31,12 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     private MetaEntity cashiers;
     private Boolean active;
     private StoreEntity store;
-    private Integer version;
     private Boolean discountEnable;
-    private String accountId;
     private Environment environment;
     private Boolean sellReserves;
     private Boolean authTokenAttached;
     private Boolean egaisEnabled;
     private OrganizationEntity organization;
-    private String name;
     private Integer discountMaxPercent;
     private String updated;
 

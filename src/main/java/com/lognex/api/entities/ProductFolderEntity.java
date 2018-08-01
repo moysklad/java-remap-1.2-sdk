@@ -24,11 +24,6 @@ public class ProductFolderEntity extends MetaEntity {
     private String pathName;
 
     /**
-     * ID учетной записи
-     */
-    private String accountId;
-
-    /**
      * Общий доступ
      */
     private Boolean shared;
@@ -57,21 +52,6 @@ public class ProductFolderEntity extends MetaEntity {
      * Ссылка на Группу товаров данной Группы товаров в формате Метаданных
      */
     private ProductFolderEntity productFolder;
-
-    /**
-     * Наименование Группы товаров
-     */
-    private String name;
-
-    /**
-     * ID в формате UUID
-     */
-    private String id;
-
-    /**
-     * Версия сущности
-     */
-    private Integer version;
 
     /**
      * Момент последнего обновления сущности

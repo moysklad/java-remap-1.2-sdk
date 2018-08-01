@@ -16,11 +16,7 @@ public class ProjectEntity extends MetaEntity {
     private String code;
     private String externalCode;
     private String description;
-    private Integer version;
-    private String accountId;
     private Boolean archived;
-    private String name;
-    private String id;
     private String updated;
     private GroupEntity group;
 }

@@ -1,6 +1,5 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.RateEntity;
 import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.AgentEntity;
@@ -20,7 +19,7 @@ import java.time.LocalDateTime;
 public class InvoiceOutDocumentEntity extends DocumentEntity {
     private AgentEntity agent;
     private LocalDateTime created;
-    private MetaEntity documents;
+    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private OrganizationEntity organization;
     private Long payedSum;

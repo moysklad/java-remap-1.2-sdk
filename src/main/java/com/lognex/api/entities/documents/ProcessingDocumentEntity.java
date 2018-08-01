@@ -1,6 +1,5 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
@@ -17,7 +16,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class ProcessingDocumentEntity extends DocumentEntity {
     private LocalDateTime created;
-    private MetaEntity documents;
+    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private ListEntity materials;
     private StoreEntity materialsStore;

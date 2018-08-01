@@ -29,7 +29,7 @@ public class DemandDocumentEntity extends DocumentEntity {
     private CustomerOrderDocumentEntity customerOrder;
     private LocalDateTime deleted;
     private String description;
-    private MetaEntity documents;
+    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private OrganizationEntity organization;
     private MetaEntity organizationAccount;

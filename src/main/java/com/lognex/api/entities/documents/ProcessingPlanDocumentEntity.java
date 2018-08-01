@@ -24,8 +24,6 @@ public class ProcessingPlanDocumentEntity extends DocumentEntity {
     @NoArgsConstructor
     @EqualsAndHashCode(callSuper = true)
     public static class PlanItem extends MetaEntity {
-        private String id;
-        private String accountId;
         private ProductMarker product;
         private Double quantity;
     }

@@ -16,16 +16,6 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class AttributeEntity extends MetaEntity {
     /**
-     * Id доп. поля
-     */
-    private String id;
-
-    /**
-     * Наименование доп. поля
-     */
-    private String name;
-
-    /**
      * Тип доп. поля
      */
     private Type type;

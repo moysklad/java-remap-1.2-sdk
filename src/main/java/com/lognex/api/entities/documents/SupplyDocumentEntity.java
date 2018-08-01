@@ -1,7 +1,6 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.ContractEntity;
-import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.RateEntity;
 import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.AgentEntity;
@@ -22,7 +21,7 @@ public class SupplyDocumentEntity extends DocumentEntity {
     private AgentEntity agent;
     private ContractEntity contract;
     private LocalDateTime created;
-    private MetaEntity documents;
+    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private OrganizationEntity organization;
     private Overhead overhead;

@@ -18,21 +18,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class AccountEntity extends MetaEntity {
     /**
-     * ID в формате UUID
-     */
-    private String id;
-
-    /**
-     * ID учетной записи
-     */
-    private String accountId;
-
-    /**
-     * Версия сущности.
-     */
-    private Integer version;
-
-    /**
      * Момент последнего обновления сущности
      */
     private LocalDateTime updated;

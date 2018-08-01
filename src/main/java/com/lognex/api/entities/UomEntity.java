@@ -16,24 +16,9 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class UomEntity extends MetaEntity {
     /**
-     * Идентификатор сущности
-     */
-    private String id;
-
-    /**
-     * Версия
-     */
-    private Integer version;
-
-    /**
      * Дата последнего обновления
      */
     private LocalDateTime update;
-
-    /**
-     * Название
-     */
-    private String name;
 
     /**
      * Описание

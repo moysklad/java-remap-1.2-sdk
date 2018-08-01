@@ -1,10 +1,10 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.RateEntity;
 import com.lognex.api.entities.RetailShiftEntity;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
+import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,7 @@ public class RetailDrawerCashInEntity extends DocumentEntity {
     private AgentEntity agent;
     private String created;
     private String description;
-    private MetaEntity documents;
+    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private OrganizationEntity organization;
     private RateEntity rate;

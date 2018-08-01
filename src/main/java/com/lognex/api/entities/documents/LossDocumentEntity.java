@@ -1,6 +1,5 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.RateEntity;
 import com.lognex.api.entities.StateEntity;
 import com.lognex.api.entities.StoreEntity;
@@ -20,7 +19,7 @@ import java.time.LocalDateTime;
 public class LossDocumentEntity extends DocumentEntity {
     private LocalDateTime created;
     private String description;
-    private MetaEntity documents;
+    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private AgentEntity organization;
     private ListEntity positions;

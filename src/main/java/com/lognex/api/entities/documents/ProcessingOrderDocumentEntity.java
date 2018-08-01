@@ -1,6 +1,5 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.StateEntity;
 import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.AgentEntity;
@@ -16,7 +15,7 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class ProcessingOrderDocumentEntity extends DocumentEntity {
     private String description;
-    private MetaEntity documents;
+    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private AgentEntity organization;
     private ListEntity positions;

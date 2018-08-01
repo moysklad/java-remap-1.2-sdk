@@ -25,15 +25,11 @@ public class RetailShiftEntity extends MetaEntity {
     private Double receivedCash;
     private Boolean applicable;
     private StoreEntity store;
-    private Integer version;
     private String syncId;
     private LocalDateTime moment;
-    private String accountId;
     private Double proceedsNoCash;
     private OrganizationEntity organization;
-    private String name;
     private RetailStoreEntity retailStore;
-    private String id;
     private Double proceedsCash;
     private Double receivedNoCash;
     private LocalDateTime updated;
