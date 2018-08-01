@@ -16,14 +16,11 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class RetailDrawerCashOutEntity extends DocumentEntity {
     private AgentEntity agent;
-    private Boolean applicable;
     private String created;
     private String description;
     private MetaEntity documents;
     private String externalCode;
-    private String moment;
     private OrganizationEntity organization;
     private RateEntity rate;
     private RetailShiftEntity retailShift;
-    private Long sum;
 }

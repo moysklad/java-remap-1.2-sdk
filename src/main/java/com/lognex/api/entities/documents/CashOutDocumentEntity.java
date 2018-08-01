@@ -16,16 +16,13 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class CashOutDocumentEntity extends DocumentEntity {
     private AgentEntity agent;
-    private Boolean applicable;
     private LocalDateTime created;
     private MetaEntity documents;
     private ExpenseItemEntity expenseItem;
     private String externalCode;
-    private LocalDateTime moment;
     private OrganizationEntity organization;
     private ProjectEntity project;
     private RateEntity rate;
     private StateEntity state;
-    private Long sum;
     private Integer vatSum;
 }

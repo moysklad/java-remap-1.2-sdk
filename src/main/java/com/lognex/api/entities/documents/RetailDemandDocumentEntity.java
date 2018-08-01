@@ -17,13 +17,11 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class RetailDemandDocumentEntity extends DocumentEntity {
     private AgentEntity agent;
-    private Boolean applicable;
     private Long cashSum;
     private LocalDateTime created;
     private MetaEntity documents;
     private String externalCode;
     private Boolean fiscal;
-    private LocalDateTime moment;
     private Long noCashSum;
     private OrganizationEntity organization;
     private Integer payedSum;
@@ -32,7 +30,6 @@ public class RetailDemandDocumentEntity extends DocumentEntity {
     private RetailShiftEntity retailShift;
     private RetailStoreEntity retailStore;
     private StoreEntity store;
-    private Long sum;
     private String syncId;
     private Boolean vatEnabled;
     private Boolean vatIncluded;

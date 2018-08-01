@@ -16,13 +16,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ProcessingDocumentEntity extends DocumentEntity {
-    private Boolean applicable;
     private LocalDateTime created;
     private MetaEntity documents;
     private String externalCode;
     private ListEntity materials;
     private StoreEntity materialsStore;
-    private LocalDateTime moment;
     private OrganizationEntity organization;
     private ProcessingPlanDocumentEntity processingPlan;
     private Long processingSum;

@@ -18,16 +18,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class LossDocumentEntity extends DocumentEntity {
-    private Boolean applicable;
     private LocalDateTime created;
     private String description;
     private MetaEntity documents;
     private String externalCode;
-    private LocalDateTime moment;
     private AgentEntity organization;
     private ListEntity positions;
     private RateEntity rate;
     private StateEntity state;
     private StoreEntity store;
-    private Long sum;
 }

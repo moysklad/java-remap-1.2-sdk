@@ -14,5 +14,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class MetaEntity extends Entity {
+    private String id;
+    private Integer version;
+    private String accountId;
+    private String name;
+
     protected Meta meta;
 }

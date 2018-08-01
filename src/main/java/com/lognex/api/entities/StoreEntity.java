@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Склад
@@ -94,5 +95,5 @@ public class StoreEntity extends MetaEntity {
     /**
      * Дополнительные поля Склада в формате Метаданных
      */
-    private MetaEntity attributes;
+    private List<AttributeEntity> attributes;
 }

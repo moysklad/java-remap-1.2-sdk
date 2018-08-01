@@ -9,8 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,9 +16,7 @@ import java.time.LocalDateTime;
 public class InventoryDocumentEntity extends DocumentEntity {
     private MetaEntity documents;
     private String externalCode;
-    private LocalDateTime moment;
     private OrganizationEntity organization;
     private ListEntity positions;
     private StoreEntity store;
-    private Long sum;
 }

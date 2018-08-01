@@ -18,17 +18,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class MoveDocumentEntity extends DocumentEntity {
-    private Boolean applicable;
     private LocalDateTime created;
     private String description;
     private MetaEntity documents;
     private String externalCode;
-    private LocalDateTime moment;
     private AgentEntity organization;
     private ListEntity positions;
     private RateEntity rate;
     private StoreEntity sourceStore;
     private StateEntity state;
-    private Long sum;
     private StoreEntity targetStore;
 }

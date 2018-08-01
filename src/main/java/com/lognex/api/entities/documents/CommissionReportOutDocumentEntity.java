@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class CommissionReportOutDocumentEntity extends DocumentEntity {
     private AgentEntity agent;
-    private Boolean applicable;
     private LocalDateTime commissionPeriodEnd;
     private LocalDateTime commissionPeriodStart;
     private Long commitentSum;
@@ -25,7 +24,6 @@ public class CommissionReportOutDocumentEntity extends DocumentEntity {
     private LocalDateTime created;
     private MetaEntity documents;
     private String externalCode;
-    private LocalDateTime moment;
     private OrganizationEntity organization;
     private MetaEntity organizationAccount;
     private Long payedSum;
@@ -34,7 +32,6 @@ public class CommissionReportOutDocumentEntity extends DocumentEntity {
     private Double rewardPercent;
     private RewardType rewardType;
     private StateEntity state;
-    private Long sum;
     private Boolean vatEnabled;
     private Boolean vatIncluded;
     private Long vatSum;

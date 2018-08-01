@@ -17,16 +17,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class InternalOrderDocumentEntity extends DocumentEntity {
-    private Boolean applicable;
     private LocalDateTime created;
     private MetaEntity documents;
     private String externalCode;
-    private LocalDateTime moment;
     private OrganizationEntity organization;
     private ListEntity positions;
     private RateEntity rate;
     private StoreEntity store;
-    private Long sum;
     private Boolean vatEnabled;
     private Boolean vatIncluded;
     private Long vatSum;

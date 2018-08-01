@@ -202,7 +202,7 @@ public final class CounterpartyEntity extends AgentEntity {
     /**
      * Дополнительные поля
      */
-    private MetaEntity attributes;
+    private List<AttributeEntity> attributes;
 
     /**
      * Цена

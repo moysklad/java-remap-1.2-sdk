@@ -19,19 +19,16 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class SalesReturnDocumentEntity extends DocumentEntity {
     private AgentEntity agent;
-    private Boolean applicable;
     private LocalDateTime created;
     private DemandDocumentEntity demand;
     private String description;
     private MetaEntity documents;
     private String externalCode;
-    private LocalDateTime moment;
     private OrganizationEntity organization;
     private Long payedSum;
     private ListEntity positions;
     private RateEntity rate;
     private StoreEntity store;
-    private Long sum;
     private Boolean vatEnabled;
     private Boolean vatIncluded;
     private Long vatSum;

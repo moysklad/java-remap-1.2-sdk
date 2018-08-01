@@ -10,18 +10,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ProcessingOrderDocumentEntity extends DocumentEntity {
-    private Boolean applicable;
     private String description;
     private MetaEntity documents;
     private String externalCode;
-    private LocalDateTime moment;
     private AgentEntity organization;
     private ListEntity positions;
     private ProcessingPlanDocumentEntity processingPlan;

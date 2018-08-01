@@ -19,14 +19,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public abstract class DocumentEntity extends MetaEntity {
-    private String id;
     private GroupEntity group;
-    private Integer version;
-    private String accountId;
-    private String name;
     private LocalDateTime updated;
     private Boolean shared;
     private EmployeeEntity owner;
+    private LocalDateTime moment;
+    private Boolean applicable;
+    private Long sum;
 
     @Getter
     @Setter

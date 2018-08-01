@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Отгрузка
@@ -22,8 +23,7 @@ import java.time.LocalDateTime;
 public class DemandDocumentEntity extends DocumentEntity {
     private AgentEntity agent;
     private MetaEntity agentAccount;
-    private Boolean applicable;
-    private MetaEntity attributes;
+    private List<AttributeEntity> attributes;
     private ContractEntity contract;
     private LocalDateTime created;
     private CustomerOrderDocumentEntity customerOrder;
@@ -31,7 +31,6 @@ public class DemandDocumentEntity extends DocumentEntity {
     private String description;
     private MetaEntity documents;
     private String externalCode;
-    private LocalDateTime moment;
     private OrganizationEntity organization;
     private MetaEntity organizationAccount;
     private Overhead overhead;
@@ -41,7 +40,6 @@ public class DemandDocumentEntity extends DocumentEntity {
     private RateEntity rate;
     private StateEntity state;
     private StoreEntity store;
-    private Long sum;
     private String syncId;
     private Boolean vatEnabled;
     private Boolean vatIncluded;

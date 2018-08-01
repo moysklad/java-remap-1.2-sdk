@@ -8,21 +8,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class RetailSalesReturnEntity extends DocumentEntity {
     private AgentEntity agent;
-    private Boolean applicable;
     private Integer cashSum;
     private String created;
     private RetailDemandDocumentEntity demand;
     private MetaEntity documents;
     private String externalCode;
-    private LocalDateTime moment;
     private Integer noCashSum;
     private AgentEntity organization;
     private ListEntity positions;
@@ -30,7 +26,6 @@ public class RetailSalesReturnEntity extends DocumentEntity {
     private RetailShiftEntity retailShift;
     private RetailStoreEntity retailStore;
     private StoreEntity store;
-    private Long sum;
     private String syncId;
     private Boolean vatEnabled;
     private Boolean vatIncluded;

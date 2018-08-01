@@ -20,12 +20,10 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class SupplyDocumentEntity extends DocumentEntity {
     private AgentEntity agent;
-    private Boolean applicable;
     private ContractEntity contract;
     private LocalDateTime created;
     private MetaEntity documents;
     private String externalCode;
-    private LocalDateTime moment;
     private OrganizationEntity organization;
     private Overhead overhead;
     private Integer payedSum;
@@ -33,7 +31,6 @@ public class SupplyDocumentEntity extends DocumentEntity {
     private PurchaseOrderDocumentEntity purchaseOrder;
     private RateEntity rate;
     private StoreEntity store;
-    private Long sum;
     private Boolean vatEnabled;
     private Boolean vatIncluded;
     private Integer vatSum;

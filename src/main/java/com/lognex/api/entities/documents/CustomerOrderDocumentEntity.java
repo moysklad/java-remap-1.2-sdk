@@ -24,7 +24,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class CustomerOrderDocumentEntity extends DocumentEntity {
     private AgentEntity agent;
-    private Boolean applicable;
     private ContractEntity contract;
     private LocalDateTime created;
     private LocalDateTime deleted;
@@ -32,7 +31,6 @@ public class CustomerOrderDocumentEntity extends DocumentEntity {
     private MetaEntity documents;
     private String externalCode;
     private Long invoicedSum;
-    private LocalDateTime moment;
     private OrganizationEntity organization;
     private Long payedSum;
     private ListEntity positions;
@@ -41,7 +39,6 @@ public class CustomerOrderDocumentEntity extends DocumentEntity {
     private Long shippedSum;
     private StateEntity state;
     private MetaEntity store;
-    private Long sum;
     private String syncId;
     private Boolean vatEnabled;
     private Boolean vatIncluded;

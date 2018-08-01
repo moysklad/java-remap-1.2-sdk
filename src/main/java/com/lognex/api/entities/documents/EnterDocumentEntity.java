@@ -22,18 +22,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class EnterDocumentEntity extends DocumentEntity {
-    private Boolean applicable;
     private LocalDateTime created;
     private LocalDateTime deleted;
     private String description;
     private MetaEntity documents;
     private String externalCode;
-    private LocalDateTime moment;
     private OrganizationEntity organization;
     private ListEntity positions;
     private RateEntity rate;
     private StateEntity state;
     private StoreEntity store;
-    private Long sum;
     private String syncId;
 }
