@@ -1,0 +1,16 @@
+{
+  "title":"objectMeta1",
+  "type":"object",
+  "fields":{
+    "href":{
+      "type":"string",
+      "format":"uri"
+    },
+    "type":{
+      "type":"string"
+    },
+    "mediaType":{
+      "type":"string"
+    }
+  }
+}
