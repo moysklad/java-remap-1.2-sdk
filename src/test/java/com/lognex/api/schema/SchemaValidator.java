@@ -57,17 +57,16 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
     public void check() throws Exception {
         fieldsMap.putAll(SchemaReflectionUtils.allFields(schema, clazz));
         schemaReport.chapter("Start checking");
-//        checkRequired();
-//        checkNotRequiredFields();
-////        checkIncorrectValues();
-//        checkUpdate();
-//        checkFilter();
+        checkRequired();
+        checkNotRequiredFields();
+//        checkIncorrectValues();
+        checkUpdate();
+        checkFilter();
         checkSort();
         schemaReport.endChapter();
 
-
         if (logger.isDebugEnabled()) {
-            logger.debug(schemaReport.toString());
+            logger.debug(schemaReport.allLog());
         } else {
             logger.info(schemaReport.problemLog());
         }
@@ -692,10 +691,15 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
                     post(entity);
                     fail("Ожидалось исключение LognexApiException! На создание " + clazz.getSimpleName() + " не было передано обязательное поле " + removedField.getValue().getName());
                 } catch (LognexApiException e) {
-                    assertApiError(
-                            e, 412, 3000,
-                            "Ошибка сохранения объекта: поле '" + removedField.getValue().getName() + "' не может быть пустым или отсутствовать"
-                    );
+                    assertWrap(() -> {
+                        Optional<ErrorResponse.Error> error = e.getErrorResponse().getErrors().stream()
+                                .filter(err -> err.getError().equals("Ошибка сохранения объекта: поле '" + removedField.getValue().getName() + "' не может быть пустым или отсутствовать"))
+                                .findAny();
+                        assertTrue("Ожидалась на отсутствие обязательного поля" +
+                                        ", а получены " +
+                                        e.getErrorResponse().getErrors().stream().map(ErrorResponse.Error::getError).collect(joining("; ")),
+                                error.isPresent());
+                    });
                 }
             }
         }

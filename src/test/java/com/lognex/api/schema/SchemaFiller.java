@@ -5,7 +5,10 @@ import com.lognex.api.TestRandomizers;
 import com.lognex.api.entities.CompanyType;
 import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.agents.AgentEntity;
+import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.entities.agents.EmployeeEntity;
+import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.utils.LognexApiException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,10 +27,14 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
 
     private EmployeeEntity employeeEntity;
     private GroupEntity groupEntity;
+    private CounterpartyEntity counterpartyEntity;
+    private OrganizationEntity organizationEntity;
 
     public SchemaFiller(LognexApi api) throws IOException, LognexApiException {
         employeeEntity = api.entity().employee().get().getRows().get(0);
         groupEntity = api.entity().group().get().getRows().get(0);
+        counterpartyEntity = api.entity().counterparty().get().getRows().get(0);
+        organizationEntity = api.entity().organization().get().getRows().get(0);
         //todo get state, and other metadata
     }
 
@@ -111,6 +118,12 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
         if (GroupEntity.class.equals(field.getType())) {
             return Collections.singletonList(groupEntity);
         }
+        if (OrganizationEntity.class.equals(field.getType())) {
+            return Collections.singletonList(organizationEntity);
+        }
+        if (AgentEntity.class.equals(field.getType())) {
+            return Collections.singletonList(counterpartyEntity);
+        }
         if (field.getType().isAssignableFrom(List.class)) {
             if (String.class.equals(((ParameterizedType) field.getGenericType()).getActualTypeArguments()[0])) {
                 List<String> result = new ArrayList<>();
@@ -150,6 +163,12 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
         }
         if (GroupEntity.class.equals(entry.getValue().getType())) {
             return groupEntity;
+        }
+        if (OrganizationEntity.class.equals(entry.getValue().getType())) {
+            return organizationEntity;
+        }
+        if (AgentEntity.class.equals(entry.getValue().getType())) {
+            return counterpartyEntity;
         }
         if (LocalDateTime.class.equals(entry.getValue().getType())) {
             return LocalDateTime.now();

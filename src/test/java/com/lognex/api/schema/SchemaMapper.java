@@ -101,8 +101,8 @@ public class SchemaMapper {
         ClassLoader classLoader = SchemaMapper.class.getClassLoader();
         try {
             result = IOUtils.toString(classLoader.getResourceAsStream(fileName), Charset.forName("UTF-8"));
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to get file " + fileName, e);
         }
 
         return result;
