@@ -1,5 +1,7 @@
 package com.lognex.api.schema;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.lognex.api.LognexApi;
 import com.lognex.api.TestRandomizers;
 import com.lognex.api.entities.CompanyType;
@@ -38,17 +40,17 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
         //todo get state, and other metadata
     }
 
-    T prepareEntity(Class<T> clazz, List<AbstractMap.SimpleEntry<SchemaField, Field>> fields) throws Exception {
+    T prepareEntity(Class<T> clazz, List<Map.Entry<SchemaField, Field>> fields) throws Exception {
         T entity = clazz.newInstance();
-        for (AbstractMap.SimpleEntry<SchemaField, Field> entry : fields) {
+        for (Map.Entry<SchemaField, Field> entry : fields) {
             fill(entity, entry);
         }
         return entity;
     }
-    List<T> prepareEntities(Class<T> clazz, List<AbstractMap.SimpleEntry<SchemaField,Field>> fields) throws Exception {
-        Map<Field, List<Object>> valuesMap = new HashMap<>();
-        for (AbstractMap.SimpleEntry<SchemaField, Field> entry : fields) {
-            valuesMap.put(entry.getValue(), formValues(entry));
+    List<T> prepareEntities(Class<T> clazz, List<Map.Entry<SchemaField,Field>> fields) throws Exception {
+        Multimap<Field, Object> valuesMap = ArrayListMultimap.create();
+        for (Map.Entry<SchemaField, Field> entry : fields) {
+            valuesMap.putAll(entry.getValue(), formValues(entry));
         }
         List<Map<Field, Object>> valuesSets = split(valuesMap);
         List<T> entities = new ArrayList<>();
@@ -66,9 +68,9 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
         return entity;
     }
 
-    private List<Map<Field, Object>> split(Map<Field, List<Object>> valuesMap) {
+    private List<Map<Field, Object>> split(Multimap<Field, Object> valuesMap) {
         List<Map<Field, Object>> valuesSets = new ArrayList<>();
-        for (Map.Entry<Field, List<Object>> entry : valuesMap.entrySet()) {
+        for (Map.Entry<Field, Collection<Object>> entry : valuesMap.asMap().entrySet()) {
             if (valuesSets.isEmpty()) {
                 for (Object value : entry.getValue()) {
                     Map<Field, Object> valueSet = new HashMap<>();
@@ -85,7 +87,7 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
         }
         return valuesSets;
     }
-    private List<Map<Field, Object>> split(Map<Field, Object> valuesSet, Field field, List<Object> values) {
+    private List<Map<Field, Object>> split(Map<Field, Object> valuesSet, Field field, Collection<Object> values) {
         if (values.isEmpty()) {
             return Collections.singletonList(valuesSet);
         }
@@ -99,7 +101,7 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
     }
 
 
-    private List<Object> formValues(AbstractMap.SimpleEntry<SchemaField, Field> entry) {
+    private List<Object> formValues(Map.Entry<SchemaField, Field> entry) {
         //todo fill value according to type and format
         //todo формировать даты
         Field field = entry.getValue();
@@ -140,12 +142,12 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
 
 
 
-    private void fill(T entity, AbstractMap.SimpleEntry<SchemaField, Field> entry) throws IllegalAccessException {
+    private void fill(T entity, Map.Entry<SchemaField, Field> entry) throws IllegalAccessException {
         //todo fill value according to type and format
         entry.getValue().set(entity, formFieldValue(entry));
     }
 
-    private Object formFieldValue(AbstractMap.SimpleEntry<SchemaField, Field> entry) {
+    private Object formFieldValue(Map.Entry<SchemaField, Field> entry) {
         if (String.class.equals(entry.getValue().getType())) {
             if ("uuid".equals(entry.getKey().getFormat())) {
                 return UUID.randomUUID().toString();
@@ -188,12 +190,12 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
         return null;
     }
 
-    public void set(T entity, AbstractMap.SimpleEntry<SchemaField, Field> entry) throws Exception {
+    public void set(T entity, Map.Entry<SchemaField, Field> entry) throws Exception {
         entry.getValue().set(entity, formFieldValue(entry));
     }
 
     //todo for ~ filters cut value
-    public String getFilterValue(T entity, AbstractMap.SimpleEntry<SchemaField, Field> entry) throws Exception {
+    public String getFilterValue(T entity, Map.Entry<SchemaField, Field> entry) throws Exception {
         Field field = entry.getValue();
         if (String.class.equals(field.getType())) {
             return (String) field.get(entity);
