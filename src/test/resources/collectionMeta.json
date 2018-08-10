@@ -1,0 +1,25 @@
+{
+  "title":"collectionMeta",
+  "type":"object",
+  "fields":{
+    "href":{
+      "type":"string",
+      "format":"uri"
+    },
+    "type":{
+      "type":"string"
+    },
+    "mediaType":{
+      "type":"string"
+    },
+    "size":{
+      "type":"integer"
+    },
+    "limit":{
+      "type":"integer"
+    },
+    "offset":{
+      "type":"integer"
+    }
+  }
+}

@@ -37,7 +37,7 @@ public final class CounterpartyEntity extends AgentEntity {
     /**
      * Отдел сотрудника
      */
-    private MetaEntity group;
+    private GroupEntity group;
 
     /**
      * ID синхронизации
