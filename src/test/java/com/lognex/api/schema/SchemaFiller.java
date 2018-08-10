@@ -40,14 +40,14 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
         //todo get state, and other metadata
     }
 
-    T prepareEntity(Class<T> clazz, List<Map.Entry<SchemaField, Field>> fields) throws Exception {
+    T prepareEntity(Class<T> clazz, List<? extends Map.Entry<SchemaField, Field>> fields) throws Exception {
         T entity = clazz.newInstance();
         for (Map.Entry<SchemaField, Field> entry : fields) {
             fill(entity, entry);
         }
         return entity;
     }
-    List<T> prepareEntities(Class<T> clazz, List<Map.Entry<SchemaField,Field>> fields) throws Exception {
+    List<T> prepareEntities(Class<T> clazz, List<? extends Map.Entry<SchemaField,Field>> fields) throws Exception {
         Multimap<Field, Object> valuesMap = ArrayListMultimap.create();
         for (Map.Entry<SchemaField, Field> entry : fields) {
             valuesMap.putAll(entry.getValue(), formValues(entry));
