@@ -130,6 +130,10 @@ public class ProductEntity extends AbstractProductEntity implements SingleProduc
     /**
      * Объект, содержащий данные алкогольной продукции
      */
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @EqualsAndHashCode
     public static class AlcoholEntity {
         /**
          * Содержит акцизную марку
@@ -144,11 +148,11 @@ public class ProductEntity extends AbstractProductEntity implements SingleProduc
         /**
          * Крепость
          */
-        private Integer strength;
+        private Double strength;
 
         /**
          * Объём тары
          */
-        private Integer volume;
+        private Double volume;
     }
 }
