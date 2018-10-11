@@ -1,9 +1,6 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.ExpenseItemEntity;
-import com.lognex.api.entities.ProjectEntity;
-import com.lognex.api.entities.RateEntity;
-import com.lognex.api.entities.StateEntity;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
@@ -28,5 +25,7 @@ public class PaymentOutDocumentEntity extends DocumentEntity {
     private ProjectEntity project;
     private RateEntity rate;
     private StateEntity state;
-    private Integer vatSum;
+    private Long vatSum;
+    private ContractEntity contract;
+    private String paymentPurpose;
 }

@@ -1,5 +1,6 @@
 package com.lognex.api.entities.documents;
 
+import com.lognex.api.entities.ContractEntity;
 import com.lognex.api.entities.ProjectEntity;
 import com.lognex.api.entities.RateEntity;
 import com.lognex.api.entities.StateEntity;
@@ -26,5 +27,7 @@ public class PaymentInDocumentEntity extends DocumentEntity {
     private ProjectEntity project;
     private RateEntity rate;
     private StateEntity state;
-    private Integer vatSum;
+    private Long vatSum;
+    private ContractEntity contract;
+    private String paymentPurpose;
 }

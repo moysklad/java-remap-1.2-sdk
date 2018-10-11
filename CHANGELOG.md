@@ -2,10 +2,22 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
-## 2.0-ALPHA7.1 (xx.xx.2018)
+## 2.0-ALPHA7.1 (xx.10.2018)
 
 ### Добавлено
 * Аннотации Lombok над сущностью `AlcoholEntity`
+* Поля `contract` и `paymentPurpose` в сущностях:
+  * `CashInDocumentEntity` 
+  * `CashOutDocumentEntity` 
+  * `PaymentInDocumentEntity` 
+  * `PaymentOutDocumentEntity` 
+    
+### Изменено
+* Тип поля `vatSum` (`Integer` ⇒ `Long`) в сущностях:
+  * `CashInDocumentEntity` 
+  * `CashOutDocumentEntity` 
+  * `PaymentInDocumentEntity` 
+  * `PaymentOutDocumentEntity` 
 
 ## 2.0-ALPHA7 (03.08.2018)
 
