@@ -31,17 +31,23 @@ public final class LognexApi {
     /**
      * Создаёт экземпляр коннектора API
      *
-     * @param host     хост, на котором располагается API
-     * @param login    логин пользователя
-     * @param password пароль пользователя
+     * @param host       хост, на котором располагается API
+     * @param forceHttps форсировать запрос через HTTPS
+     * @param login      логин пользователя
+     * @param password   пароль пользователя
      */
-    public LognexApi(String host, String login, String password) {
+    public LognexApi(String host, boolean forceHttps, String login, String password) {
         if (host == null || host.trim().isEmpty()) throw new IllegalArgumentException("Адрес хоста API не может быть пустым или null!");
         host = host.trim();
 
         while (host.endsWith("/")) host = host.substring(0, host.lastIndexOf("/"));
-        if (host.startsWith("http://")) host = host.replace("http://", "https://");
-        else if (!host.startsWith("https://")) host = "https://" + host;
+
+        if (forceHttps) {
+            if (host.startsWith("http://")) host = host.replace("http://", "https://");
+            else if (!host.startsWith("https://")) host = "https://" + host;
+        } else {
+            if (!host.startsWith("https://") && !host.startsWith("http://")) host = "http://" + host;
+        }
 
         this.host = host;
         this.client = HttpClients.createDefault();
