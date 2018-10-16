@@ -4,6 +4,7 @@ import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.DeleteByIdEndpoint;
 import com.lognex.api.clients.endpoints.GetListEndpoint;
 import com.lognex.api.clients.endpoints.PostEndpoint;
+import com.lognex.api.clients.endpoints.PutEndpoint;
 import com.lognex.api.entities.products.ProductEntity;
 
 public final class ProductClient
@@ -11,6 +12,7 @@ public final class ProductClient
         implements
         GetListEndpoint<ProductEntity>,
         PostEndpoint<ProductEntity>,
+        PutEndpoint<ProductEntity>,
         DeleteByIdEndpoint {
 
     public ProductClient(LognexApi api) {
