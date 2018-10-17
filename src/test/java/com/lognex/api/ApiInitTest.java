@@ -13,7 +13,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
     public void test_emptyAuthData() throws IOException, InterruptedException {
         LognexApi api = new LognexApi(
                 System.getenv("API_HOST"),
-                "", ""
+                true, "", ""
         );
 
         try {
@@ -33,7 +33,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
     public void test_nullAuthData() throws IOException, InterruptedException {
         LognexApi api = new LognexApi(
                 System.getenv("API_HOST"),
-                null, null
+                true, null, null
         );
 
         try {
@@ -55,7 +55,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
 
         LognexApi api = new LognexApi(
                 System.getenv("API_HOST"),
-                login, randomString()
+                true, login, randomString()
         );
 
         try {
@@ -75,7 +75,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
     public void test_correctLoginFormatWrongCredentials() throws IOException, InterruptedException {
         LognexApi api = new LognexApi(
                 System.getenv("API_HOST"),
-                randomString() + "@" + randomString(), randomString()
+                true, randomString() + "@" + randomString(), randomString()
         );
 
         try {
@@ -96,7 +96,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
         try {
             new LognexApi(
                     null,
-                    randomString() + "@" + randomString(), randomString()
+                    true, randomString() + "@" + randomString(), randomString()
             );
             fail("Ожидалось исключение IllegalArgumentException!");
         } catch (IllegalArgumentException e) {
@@ -109,7 +109,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
         try {
             new LognexApi(
                     "",
-                    randomString() + "@" + randomString(), randomString()
+                    true, randomString() + "@" + randomString(), randomString()
             );
             fail("Ожидалось исключение IllegalArgumentException!");
         } catch (IllegalArgumentException e) {
