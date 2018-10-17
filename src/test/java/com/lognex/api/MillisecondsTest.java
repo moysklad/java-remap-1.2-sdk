@@ -15,13 +15,13 @@ public class MillisecondsTest implements TestAsserts, TestRandomizers {
     public void test_millisecondsHeader() throws IOException, LognexApiException {
         LognexApi api_s = new LognexApi(
                 System.getenv("API_HOST"),
-                System.getenv("API_LOGIN"),
+                true, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
         );
 
         LognexApi api_ms = new LognexApi(
                 System.getenv("API_HOST"),
-                System.getenv("API_LOGIN"),
+                true, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
         ).timeWithMilliseconds();
 

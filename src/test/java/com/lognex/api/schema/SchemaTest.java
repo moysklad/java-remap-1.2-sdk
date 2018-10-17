@@ -1,7 +1,5 @@
 package com.lognex.api.schema;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.lognex.api.LognexApi;
 import com.lognex.api.TestAsserts;
 import com.lognex.api.TestRandomizers;
@@ -20,7 +18,7 @@ public class SchemaTest implements TestAsserts, TestRandomizers {
         //todo register new company
         LognexApi api = new LognexApi(
                 System.getenv("API_HOST"),
-                System.getenv("API_LOGIN"),
+                true, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
         ).timeWithMilliseconds();
         Schema schema = SchemaMapper.readSchema("counterparty.json");
@@ -36,7 +34,7 @@ public class SchemaTest implements TestAsserts, TestRandomizers {
         //todo register new company
         LognexApi api = new LognexApi(
                 System.getenv("API_HOST"),
-                System.getenv("API_LOGIN"),
+                true, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
         ).timeWithMilliseconds();
         Schema schema = SchemaMapper.readSchema("customerorder.json");
