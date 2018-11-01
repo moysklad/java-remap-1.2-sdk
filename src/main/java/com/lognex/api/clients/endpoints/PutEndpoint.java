@@ -9,7 +9,7 @@ import java.io.IOException;
 public interface PutEndpoint<T extends MetaEntity> extends Endpoint {
     default void put(T updatedEntity) throws IOException, LognexApiException {
         T responseEntity = HttpRequestExecutor
-                .path(api(), path() + updatedEntity.getId())
+                .path(api(), path())
                 .body(updatedEntity)
                 .put((Class<T>) entityClass());
 

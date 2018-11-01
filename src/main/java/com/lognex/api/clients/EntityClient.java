@@ -85,6 +85,10 @@ public final class EntityClient {
         return new ProductClient(api);
     }
 
+    public ProductByIdClient product(String id) {
+        return new ProductByIdClient(api, id);
+    }
+
     public VariantClient variant() {
         return new VariantClient(api);
     }
@@ -113,8 +117,16 @@ public final class EntityClient {
         return new ProductFolderClient(api);
     }
 
+    public ProductFolderByIdClient productfolder(String id) {
+        return new ProductFolderByIdClient(api, id);
+    }
+
     public ServiceClient service() {
         return new ServiceClient(api);
+    }
+
+    public ServiceByIdClient service(String id) {
+        return new ServiceByIdClient(api, id);
     }
 
     public BundleClient bundle() {
