@@ -2,6 +2,7 @@ package com.lognex.api.entities.products;
 
 import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.ProductImageEntity;
 import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
 import com.lognex.api.responses.ListEntity;
@@ -71,6 +72,11 @@ public class BundleEntity extends AbstractProductEntity {
      * Отдел сотрудника в формате Метаданных
      */
     private GroupEntity group;
+
+    /**
+     * Изображение товара
+     */
+    private ProductImageEntity image;
 
     @Getter
     @Setter

@@ -2,6 +2,7 @@ package com.lognex.api.entities;
 
 import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
+import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     private Boolean shared;
     private Boolean controlCashierChoice;
     private String externalCode;
-    private Object frNumber;
+    private String frNumber;
     private Boolean controlShippingStock;
     private Boolean ofdEnabled;
     private Boolean archived;
@@ -28,7 +29,7 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     private EmployeeEntity owner;
     private Boolean allowCustomPrice;
     private String priceType;
-    private MetaEntity cashiers;
+    private ListEntity<CashierEntity> cashiers;
     private Boolean active;
     private StoreEntity store;
     private Boolean discountEnable;

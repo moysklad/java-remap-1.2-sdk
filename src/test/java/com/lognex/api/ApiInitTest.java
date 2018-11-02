@@ -1,6 +1,8 @@
 package com.lognex.api;
 
 import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.TestAsserts;
+import com.lognex.api.utils.TestRandomizers;
 import org.junit.Test;
 
 import java.io.IOException;

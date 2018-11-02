@@ -1,6 +1,5 @@
 package com.lognex.api.entities;
 
-import com.google.gson.annotations.SerializedName;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -67,13 +66,9 @@ public final class Meta {
         purchaseorderposition, customerorder, processingplanmaterial,
         processingplanresult, processingplan, processingorder,
         processingorderposition, expenseitem, cashin, cashout,
-        paymentin, paymentout, project
-    }
-
-    /**
-     * Тип данных, которые приходят в ответ от сервера, либо отправляются в теле запроса
-     */
-    public enum MediaType {
-        @SerializedName("application/json") json
+        paymentin, paymentout, project, embeddedtemplate,
+        attributemetadata, customentity, personaldiscount,
+        specialpricediscount, discount, bonusprogram,
+        accumulationdiscount, contactperson
     }
 }

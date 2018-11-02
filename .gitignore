@@ -10,5 +10,12 @@ buildNumber.properties
 .idea/
 *.iml
 
+# Files made by tests
+test*.pdf
+test*.pdf
+test*.xls
+test*.html
+test_single_without_ext
+
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar

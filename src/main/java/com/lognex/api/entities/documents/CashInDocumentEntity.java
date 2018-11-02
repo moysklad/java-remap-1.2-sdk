@@ -6,6 +6,7 @@ import com.lognex.api.entities.RateEntity;
 import com.lognex.api.entities.StateEntity;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
+import com.lognex.api.entities.documents.markers.FinanceInDocumentMarker;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class CashInDocumentEntity extends DocumentEntity {
+public class CashInDocumentEntity extends DocumentEntity implements FinanceInDocumentMarker {
     private AgentEntity agent;
     private LocalDateTime created;
     private ListEntity<DocumentEntity> documents;

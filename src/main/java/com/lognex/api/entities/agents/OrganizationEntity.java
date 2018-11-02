@@ -1,7 +1,9 @@
 package com.lognex.api.entities.agents;
 
+import com.lognex.api.entities.AccountEntity;
 import com.lognex.api.entities.CompanyType;
 import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -70,7 +72,7 @@ public final class OrganizationEntity extends AgentEntity {
     /**
      * Метаданные, представляющие собой ссылку на счета юрлица
      */
-    private MetaEntity accounts;
+    private ListEntity<AccountEntity> accounts;
 
     /**
      * Включен ли ЕГАИС для данного юрлица

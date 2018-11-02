@@ -3,16 +3,18 @@ package com.lognex.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lognex.api.clients.EntityClient;
+import com.lognex.api.entities.AttributeEntity;
 import com.lognex.api.entities.CurrencyEntity;
 import com.lognex.api.entities.agents.AgentEntity;
+import com.lognex.api.entities.discounts.DiscountEntity;
+import com.lognex.api.entities.documents.markers.FinanceDocumentMarker;
+import com.lognex.api.entities.documents.markers.FinanceInDocumentMarker;
+import com.lognex.api.entities.documents.markers.FinanceOutDocumentMarker;
 import com.lognex.api.entities.products.markers.ConsignmentParentMarker;
 import com.lognex.api.entities.products.markers.ProductMarker;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.json.AgentDeserializer;
-import com.lognex.api.utils.json.ListEntityDeserializer;
-import com.lognex.api.utils.json.LocalDateTimeSerializer;
-import com.lognex.api.utils.json.ProductMarkerSerializer;
+import com.lognex.api.utils.json.*;
 import lombok.Getter;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -27,6 +29,9 @@ public final class LognexApi {
     private String password;
     private CloseableHttpClient client;
     private boolean timeWithMilliseconds = false;
+    private boolean prettyPrintJson = false;
+    private boolean pricePrecision = false;
+    private boolean withoutWebhookContent = false;
 
     /**
      * Создаёт экземпляр коннектора API
@@ -37,6 +42,19 @@ public final class LognexApi {
      * @param password   пароль пользователя
      */
     public LognexApi(String host, boolean forceHttps, String login, String password) {
+        this(host, forceHttps, login, password, HttpClients.createDefault());
+    }
+
+    /**
+     * Создаёт экземпляр коннектора API
+     *
+     * @param host       хост, на котором располагается API
+     * @param forceHttps форсировать запрос через HTTPS
+     * @param login      логин пользователя
+     * @param password   пароль пользователя
+     * @param client     HTTP-клиент
+     */
+    public LognexApi(String host, boolean forceHttps, String login, String password, CloseableHttpClient client) {
         if (host == null || host.trim().isEmpty()) throw new IllegalArgumentException("Адрес хоста API не может быть пустым или null!");
         host = host.trim();
 
@@ -50,7 +68,7 @@ public final class LognexApi {
         }
 
         this.host = host;
-        this.client = HttpClients.createDefault();
+        this.client = client;
         setCredentials(login, password);
     }
 
@@ -113,13 +131,22 @@ public final class LognexApi {
             gb.setPrettyPrinting();
         }
 
-        gb.registerTypeAdapter(ProductMarker.class, new ProductMarkerSerializer());
-        gb.registerTypeAdapter(SingleProductMarker.class, new ProductMarkerSerializer());
-        gb.registerTypeAdapter(ConsignmentParentMarker.class, new ProductMarkerSerializer());
-        gb.registerTypeAdapter(ListEntity.class, new ListEntityDeserializer());
-        gb.registerTypeAdapter(CurrencyEntity.MultiplicityType.class, new CurrencyEntity.MultiplicityType.Serializer());
-        gb.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer(timeWithMilliseconds));
+        ProductMarkerSerializer pmse = new ProductMarkerSerializer();
+        gb.registerTypeAdapter(ProductMarker.class, pmse);
+        gb.registerTypeAdapter(SingleProductMarker.class, pmse);
+        gb.registerTypeAdapter(ConsignmentParentMarker.class, pmse);
+
+        FinanceDocumentMarkerSerializer fdms = new FinanceDocumentMarkerSerializer();
+        gb.registerTypeAdapter(FinanceDocumentMarker.class, fdms);
+        gb.registerTypeAdapter(FinanceInDocumentMarker.class, fdms);
+        gb.registerTypeAdapter(FinanceOutDocumentMarker.class, fdms);
+
         gb.registerTypeAdapter(AgentEntity.class, new AgentDeserializer());
+        gb.registerTypeAdapter(AttributeEntity.class, new AttributeSerializer(timeWithMilliseconds));
+        gb.registerTypeAdapter(CurrencyEntity.MultiplicityType.class, new CurrencyEntity.MultiplicityType.Serializer());
+        gb.registerTypeAdapter(DiscountEntity.class, new DiscountDeserializer());
+        gb.registerTypeAdapter(ListEntity.class, new ListEntityDeserializer());
+        gb.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer(timeWithMilliseconds));
 
         return gb.create();
     }
@@ -130,6 +157,33 @@ public final class LognexApi {
 
     public LognexApi timeWithMilliseconds(boolean value) {
         this.timeWithMilliseconds = value;
+        return this;
+    }
+
+    public LognexApi prettyPrintJson() {
+        return prettyPrintJson(true);
+    }
+
+    public LognexApi prettyPrintJson(boolean value) {
+        this.prettyPrintJson = value;
+        return this;
+    }
+
+    public LognexApi precision() {
+        return precision(true);
+    }
+
+    public LognexApi precision(boolean value) {
+        this.pricePrecision = value;
+        return this;
+    }
+
+    public LognexApi withoutWebhookContent() {
+        return withoutWebhookContent(true);
+    }
+
+    public LognexApi withoutWebhookContent(boolean without) {
+        this.withoutWebhookContent = without;
         return this;
     }
 }
