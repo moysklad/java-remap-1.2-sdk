@@ -2,15 +2,62 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
-## 2.0-ALPHA7.2.1 (xx.10.2018)
+## 2.0-ALPHA8.0 (xx.11.2018)
+### Совместимость
+* `metadata()` теперь возвращает `DocumentMetadataClient`
+* `expand` из параметров метода `get()` переоформлен в виде списка API-параметров `expand()`
+* Все эндпоинты `[entity]([entity.id]).method(...)` заменены на `[entity].method([entity.id], ...)`
+
+# Добавлено
+* Аттрибуты выборки для `get()` запросов:
+  * expand
+  * filter
+  * limit
+  * offset
+  * order
+  * search
+* Сущности:
+  * `CashierEntity`
+  * `ContactPersonEntity`
+  * `ExportRequestEntity`
+  * `NoteEntity`
+  * `ProductImageEntity`
+  * `TemplateEntity`
+  * `WebHookEntity`
+  * Скидки
+    * `AccumulationDiscountEntity`
+    * `BonusProgramDiscountEntity`
+    * `DiscountEntity`
+    * `PersonalDiscountEntity`
+    * `SpecialPriceDiscountEntity`
+  * Документы
+    * `FactureInDocumentEntity`
+    * `FactureOutDocumentEntity`
+    * `PricelistDocumentEntity`
+* Сущности и клиенты для
+  * `CompanySettings`
+  * `CustomEntity`
+  * `Metadata`
+* Конечные звенья запросов
+  * `DocumentMetadataEndpoint`
+  * `DocumentNewEndpoint`
+  * `DocumentPositionsEndpoint`
+  * `ExportEndpoint`
+  * `GetByIdEndpoint`
+  * `MetadataAttributeEndpoint`
+  * `MetadataTemplatesEndpoint`
+  * `PostByIdEndpoint`
+  * `PutByIdEndpoint`
+
+## 2.0-ALPHA7.2.1 (01.11.2018)
 ### Исправлено
 * Ошибка с `PutEndpoint` 
 
-## 2.0-ALPHA7.2 (xx.10.2018)
+## 2.0-ALPHA7.2 (17.10.2018)
 ### Добавлено
 * Возможность отключать форсирование HTTPS при создании экземпляра LognexApi 
 
-## 2.0-ALPHA7.1 (xx.10.2018)
+## 2.0-ALPHA7.1 (15.10.2018)
 
 ### Добавлено
 * Аннотации Lombok над сущностью `AlcoholEntity`
