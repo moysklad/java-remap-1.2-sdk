@@ -16,9 +16,9 @@ public abstract class Entity {
      * Присваивает полям этой сущности значения полей другой сущности
      */
     public <T extends Entity> void set(T other) {
-        if (other.getClass() != this.getClass()) {
-            throw new RuntimeException("Невозможно установить поля объекта класса " + other.getClass().getSimpleName() + " объекту класса " + this.getClass().getSimpleName() + "!");
-        }
+//        if (other.getClass() != this.getClass()) {
+//            throw new RuntimeException("Невозможно установить поля объекта класса " + other.getClass().getSimpleName() + " объекту класса " + this.getClass().getSimpleName() + "!");
+//        }
 
         for (Method method : other.getClass().getMethods()) {
             if (!method.getName().startsWith("get")) continue;

@@ -47,11 +47,6 @@ public class FactureOutDocumentEntity extends DocumentEntity {
     private LocalDateTime created;
 
     /**
-     * Сумма
-     */
-    private Long sum;
-
-    /**
      * Идентификатор гос. контракта
      */
     private String stateContractId;

@@ -1,11 +1,13 @@
 package com.lognex.api;
 
-import com.lognex.api.clients.ApiClient;
 import com.lognex.api.clients.endpoints.ApiChainElement;
 import com.lognex.api.clients.endpoints.ApiEndpoint;
 import com.lognex.api.clients.endpoints.ExportEndpoint;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.TemplateEntity;
+import com.lognex.api.entities.documents.DemandDocumentEntity;
+import com.lognex.api.entities.documents.DocumentEntity;
+import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.MockHttpClient;
 import com.lognex.api.utils.TestRandomizers;
 import com.lognex.api.utils.params.ApiParam;
@@ -86,47 +88,41 @@ public class EndpointsTest implements TestRandomizers {
             if (method1.isAnnotationPresent(ApiEndpoint.class)) {
                 mockHttpClient.reset();
 
-                Object resp = null;
-                if (method1.getParameterCount() == 0) {
-                    resp = method1.invoke(client);
-                } else if (method1.getParameterCount() == 1) {
-                    if (method1.getParameterTypes()[0] == ApiParam[].class) {
-                        resp = method1.invoke(client, new Object[]{new ApiParam[0]});
-                    } else if (method1.getParameterTypes()[0] == String.class) {
-                        resp = method1.invoke(client, "ID");
+                Object resp;
+                ArrayList<Object> params = new ArrayList<>();
+                for (int i = 0; i < method1.getParameterCount(); i++) {
+                    if (method1.getParameterTypes()[i] == File.class) {
+                        params.add(new File("test.xls"));
+                    } else if (method1.getParameterTypes()[0] == Collection.class) {
+                        params.add(new ArrayList());
+                    } else if (method1.getParameterTypes()[i] == String.class) {
+                        params.add("ID");
+                    } else if (method1.getParameterTypes()[i] == ApiParam[].class) {
+                        params.add(new ApiParam[0]);
+                    } else if (method1.getParameterTypes()[i] == TemplateEntity.class) {
+                        params.add(new TemplateEntity());
+                    } else if (method1.getParameterTypes()[i] == ExportEndpoint.PrintRequest[].class) {
+                        params.add(new ExportEndpoint.PrintRequest[0]);
+                    } else if (method1.getParameterTypes()[i] == boolean.class) {
+                        params.add(false);
+                    } else if (method1.getParameterTypes()[i] == ListEntity.class) {
+                        params.add(new ListEntity());
+                    } else if (DocumentEntity.class.isAssignableFrom(method1.getParameterTypes()[i])) {
+                        DocumentEntity me = new DemandDocumentEntity();
+                        me.setId("DOCUMENT_ID");
+                        params.add(me);
+                    } else if (MetaEntity.class.isAssignableFrom(method1.getParameterTypes()[i])) {
+                        MetaEntity me = (MetaEntity) method1.getParameterTypes()[i].newInstance();
+                        me.setId("ENTITY_ID");
+                        params.add(me);
+                    } else if (method1.getParameterTypes()[i].isEnum()) {
+                        params.add(randomEnum((Class<? extends Enum>) method1.getParameterTypes()[i]));
                     } else {
-                        if (client instanceof ApiClient) {
-                            resp = method1.invoke(client, ((ApiClient) client).entityClass().newInstance());
-                        } else {
-                            resp = method1.invoke(client, new Object());
-                        }
+                        params.add(method1.getParameterTypes()[i].newInstance());
                     }
-                } else {
-                    ArrayList<Object> params = new ArrayList<>();
-                    for (int i = 0; i < method1.getParameterCount(); i++) {
-                        if (method1.getParameterTypes()[i] == File.class) {
-                            if (method1.getName().equals("export")) {
-                                params.add(new File("1.xls"));
-                            } else {
-                                params.add(new File("/"));
-                            }
-                        } else if (method1.getParameterTypes()[i] == TemplateEntity.class) {
-                            params.add(new TemplateEntity());
-                        } else if (method1.getParameterTypes()[i] == ExportEndpoint.PrintRequest[].class) {
-                            params.add(new ExportEndpoint.PrintRequest[0]);
-                        } else if (method1.getParameterTypes()[i] == boolean.class) {
-                            params.add(false);
-                        } else if (MetaEntity.class.isAssignableFrom(method1.getParameterTypes()[i])) {
-                            params.add(new MetaEntity());
-                        } else if (method1.getParameterTypes()[i].isEnum()) {
-                            params.add(randomEnum((Class<? extends Enum>) method1.getParameterTypes()[i]));
-                        } else {
-                            params.add(method1.getParameterTypes()[i].newInstance());
-                        }
-                    }
-
-                    resp = method1.invoke(client, params.toArray(new Object[params.size()]));
                 }
+
+                resp = method1.invoke(client, params.toArray(new Object[params.size()]));
 
                 if (mockHttpClient.getLastExecutedRequest() == null) continue;
 
