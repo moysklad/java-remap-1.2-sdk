@@ -37,9 +37,6 @@ public final class HttpRequestExecutor {
     private final CloseableHttpClient client;
     private Object body;
 
-    @Deprecated
-    private List<String> expand;
-
     private HttpRequestExecutor(LognexApi api, String url) {
         if (api == null) throw new IllegalArgumentException("Для выполнения запроса к API нужен проинициализированный экземпляр LognexApi!");
 
@@ -122,21 +119,6 @@ public final class HttpRequestExecutor {
     }
 
     /**
-     * Добавить поля ответа, которые необходимо получить с сервера сразу с данными (параметр <code>expand</code>)
-     *
-     * @deprecated С версии 2.0-ALPHA8 настоятельно рекомендуется пользоваться методом <code>apiParams()</code>.
-     * Данный метод будет удалён в ближайших версиях.
-     */
-    @Deprecated
-    public HttpRequestExecutor expand(String... fields) {
-        if (fields == null || fields.length == 0) return this;
-
-        if (expand == null) expand = new ArrayList<>();
-        Collections.addAll(expand, fields);
-        return this;
-    }
-
-    /**
      * Добавить параметр API (например order, filter, offset и т. п.)
      */
     public HttpRequestExecutor apiParams(ApiParam... params) {
@@ -160,10 +142,6 @@ public final class HttpRequestExecutor {
      * Строит полный URL запроса с учётом добавленных ранее параметров запроса
      */
     private String getFullUrl() {
-        if (expand != null && !expand.isEmpty()) {
-            query("expand", expand.stream().collect(Collectors.joining(",")));
-        }
-
         if (apiParams != null && !apiParams.isEmpty()) {
             Map<ApiParam.Type, List<ApiParam>> pm = apiParams.stream().collect(Collectors.groupingBy(ApiParam::getType));
             for (Map.Entry<ApiParam.Type, List<ApiParam>> e : pm.entrySet()) {
