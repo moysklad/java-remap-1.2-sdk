@@ -23,6 +23,7 @@ import static com.lognex.api.utils.params.FilterParam.FilterType.equivalence;
 import static com.lognex.api.utils.params.FilterParam.*;
 import static com.lognex.api.utils.params.LimitParam.limit;
 import static com.lognex.api.utils.params.OffsetParam.offset;
+import static com.lognex.api.utils.params.OrderParam.Direction.asc;
 import static com.lognex.api.utils.params.OrderParam.Direction.desc;
 import static com.lognex.api.utils.params.OrderParam.order;
 import static com.lognex.api.utils.params.SearchParam.search;
@@ -260,6 +261,10 @@ public class ApiParamsTest {
         ListEntity<UomEntity> uomPlain = api.entity().uom().get(limit(100));
         List<String> listAsIs = uomPlain.getRows().stream().map(MetaEntity::getName).collect(Collectors.toList());
 
+        /*
+            Сортировка по одному параметру без указания направления сортировки
+         */
+
         ListEntity<UomEntity> uomOrderByNameAsc = api.entity().uom().get(limit(100), order("name"));
         List<String> listSortedByNameAsc = uomOrderByNameAsc.getRows().stream().map(MetaEntity::getName).collect(Collectors.toList());
         assertNotEquals(listAsIs, listSortedByNameAsc);
@@ -269,6 +274,10 @@ public class ApiParamsTest {
                 host + "/api/remap/1.1/entity/uom/?limit=100&order=name",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
+
+        /*
+            Сортировка по одному параметру с указанием направления сортировки
+         */
 
         ListEntity<UomEntity> uomOrderByNameDesc = api.entity().uom().get(limit(100), order("name", desc));
         List<String> listSortedByNameDesc = uomOrderByNameDesc.getRows().stream().map(MetaEntity::getName).collect(Collectors.toList());
@@ -283,6 +292,20 @@ public class ApiParamsTest {
         assertEquals(listSortedByNameAsc, listSortedByNameDesc);
         assertEquals(
                 host + "/api/remap/1.1/entity/uom/?limit=100&order=name%2Cdesc",
+                logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
+        );
+
+        /*
+            Сортировка по нескольким параметрам
+         */
+
+        ListEntity<UomEntity> uomOrderByTwoParams = api.entity().uom().get(limit(100), order("name", desc), order("id"), order("version", asc));
+        List<String> listSortedByTwoParams = uomOrderByTwoParams.getRows().stream().map(MetaEntity::getName).collect(Collectors.toList());
+        assertNotEquals(listAsIs, listSortedByTwoParams);
+        assertTrue(listSortedByTwoParams.containsAll(listAsIs));
+        assertTrue(listAsIs.containsAll(listSortedByTwoParams));
+        assertEquals(
+                host + "/api/remap/1.1/entity/uom/?limit=100&order=name%2Cdesc%3Bid%3Bversion%2Casc",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
     }
