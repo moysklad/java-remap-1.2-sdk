@@ -1,6 +1,7 @@
 package com.lognex.api.clients;
 
 import com.lognex.api.LognexApi;
+import com.lognex.api.clients.endpoints.ApiEndpoint;
 import com.lognex.api.entities.GlobalMetadataEntity;
 import com.lognex.api.utils.HttpRequestExecutor;
 import com.lognex.api.utils.LognexApiException;
@@ -13,6 +14,7 @@ public class MetadataClient extends ApiClient {
         super(api, "/entity/metadata/");
     }
 
+    @ApiEndpoint
     public GlobalMetadataEntity get(ApiParam... params) throws IOException, LognexApiException {
         return HttpRequestExecutor.
                 path(api(), path()).

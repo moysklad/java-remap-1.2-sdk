@@ -261,7 +261,13 @@ public final class EntityClient {
         return new CustomEntityClient(api);
     }
 
+    @ApiChainElement
     public MetadataClient metadata() {
         return new MetadataClient(api);
+    }
+
+    @ApiChainElement
+    public CompanySettingsClient companysettings() {
+        return new CompanySettingsClient(api);
     }
 }

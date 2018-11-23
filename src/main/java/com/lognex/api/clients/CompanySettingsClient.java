@@ -10,7 +10,7 @@ import com.lognex.api.responses.metadata.CompanySettingsMetadataResponse;
 public final class CompanySettingsClient
         extends ApiClient
         implements GetEndpoint<CompanySettingsResponse>,
-        MetadataEndpoint {
+        MetadataEndpoint<CompanySettingsMetadataResponse> {
 
     public CompanySettingsClient(LognexApi api) {
         super(api, "/entity/companysettings/");
