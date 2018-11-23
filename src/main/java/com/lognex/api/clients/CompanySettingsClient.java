@@ -5,12 +5,12 @@ import com.lognex.api.clients.endpoints.GetEndpoint;
 import com.lognex.api.clients.endpoints.MetadataEndpoint;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.CompanySettingsResponse;
-import com.lognex.api.responses.metadata.CompanySettingsMetadataResponse;
+import com.lognex.api.responses.metadata.CompanySettingsMetadata;
 
 public final class CompanySettingsClient
         extends ApiClient
         implements GetEndpoint<CompanySettingsResponse>,
-        MetadataEndpoint<CompanySettingsMetadataResponse> {
+        MetadataEndpoint<CompanySettingsMetadata> {
 
     public CompanySettingsClient(LognexApi api) {
         super(api, "/entity/companysettings/");
@@ -23,6 +23,6 @@ public final class CompanySettingsClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return CompanySettingsMetadataResponse.class;
+        return CompanySettingsMetadata.class;
     }
 }

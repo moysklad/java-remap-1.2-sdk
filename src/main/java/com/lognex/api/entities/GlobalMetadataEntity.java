@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.responses.metadata.CompanySettingsMetadata;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.List;
 public class GlobalMetadataEntity extends Entity {
     private MetaEntity assortment;
     private MetaEntity bonusprogram;
-    private MetaEntity companysettings;
+    private CompanySettingsMetadata companysettings;
     private MetaEntity consignment;
 
     private ProductMetadata bundle;

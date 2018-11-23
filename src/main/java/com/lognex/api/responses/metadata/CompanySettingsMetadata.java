@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class CompanySettingsMetadataResponse extends MetaEntity {
+public class CompanySettingsMetadata extends MetaEntity {
     /**
      * Пользовательские справочники
      */
