@@ -15,4 +15,5 @@ import lombok.Setter;
 @EqualsAndHashCode
 public class RateEntity {
     private CurrencyEntity currency;
+    private Double value;
 }

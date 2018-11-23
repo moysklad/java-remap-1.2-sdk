@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
@@ -40,6 +41,12 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     private OrganizationEntity organization;
     private Integer discountMaxPercent;
     private String updated;
+    private String description;
+    private String address;
+    private Boolean onlyInStock;
+    private AgentEntity acquire;
+    private StateEntity orderToState;
+    private ListEntity<StateEntity> customerOrderStates;
 
     @Getter
     @Setter

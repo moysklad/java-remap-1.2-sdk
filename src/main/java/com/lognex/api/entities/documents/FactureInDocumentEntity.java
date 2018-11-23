@@ -1,6 +1,8 @@
 package com.lognex.api.entities.documents;
 
+import com.lognex.api.entities.AttributeEntity;
 import com.lognex.api.entities.RateEntity;
+import com.lognex.api.entities.StateEntity;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.entities.documents.markers.FinanceOutDocumentMarker;
@@ -70,4 +72,24 @@ public class FactureInDocumentEntity extends DocumentEntity {
      * Входящая дата
      */
     private LocalDateTime incomingDate;
+
+    /**
+     * Флаг удалённого документа
+     */
+    private Boolean isDeleted;
+
+    /**
+     * Комментарий
+     */
+    private String description;
+
+    /**
+     * Статус
+     */
+    private StateEntity state;
+
+    /**
+     * Коллекция доп. полей
+     */
+    private List<AttributeEntity> attributes;
 }
