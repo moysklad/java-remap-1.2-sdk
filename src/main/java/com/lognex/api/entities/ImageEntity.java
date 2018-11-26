@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ProductImageEntity extends MetaEntity {
+public class ImageEntity extends MetaEntity {
     /**
      * Название изображения
      */

@@ -1,8 +1,6 @@
 package com.lognex.api.entities.products;
 
-import com.lognex.api.entities.GroupEntity;
-import com.lognex.api.entities.ProductImageEntity;
-import com.lognex.api.entities.UomEntity;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.products.markers.ConsignmentParentMarker;
@@ -66,21 +64,27 @@ public class ProductEntity extends AbstractProductEntity implements SingleProduc
     /**
      * Изображение товара
      */
-    private ProductImageEntity image;
+    private ImageEntity image;
 
     /**
      * Поставщик
      */
     private AgentEntity supplier;
 
-    // attributes
-    // country
+    /**
+     * Дополнительные поля
+     */
+    private List<AttributeEntity> attributes;
+
+    /**
+     * Страна
+     */
+    private CountryEntity country;
+
     /**
      * Артикул
      */
     private String article;
-
-    // weighted
 
     /**
      * Флаг табачной продукции

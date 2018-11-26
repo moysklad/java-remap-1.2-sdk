@@ -1,9 +1,6 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.RateEntity;
-import com.lognex.api.entities.RetailShiftEntity;
-import com.lognex.api.entities.RetailStoreEntity;
-import com.lognex.api.entities.StoreEntity;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
@@ -12,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,4 +33,10 @@ public class RetailSalesReturnEntity extends DocumentEntity {
     private Boolean vatEnabled;
     private Boolean vatIncluded;
     private Long vatSum;
+    private LocalDateTime deleted;
+    private String description;
+    private ProjectEntity project;
+    private AccountEntity organizationAccount;
+    private AccountEntity agentAccount;
+    private List<AttributeEntity> attributes;
 }

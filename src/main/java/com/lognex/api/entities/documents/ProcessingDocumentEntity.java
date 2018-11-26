@@ -1,6 +1,6 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.StoreEntity;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,4 +27,13 @@ public class ProcessingDocumentEntity extends DocumentEntity {
     private ListEntity<DocumentPosition> products;
     private StoreEntity productsStore;
     private Double quantity;
+    private String syncId;
+    private LocalDateTime deleted;
+    private String description;
+    private AccountEntity organizationAccount;
+    private AccountEntity agentAccount;
+    private StateEntity state;
+    private List<AttributeEntity> attributes;
+    private ProjectEntity project;
+    private ProcessingOrderDocumentEntity processingOrder;
 }

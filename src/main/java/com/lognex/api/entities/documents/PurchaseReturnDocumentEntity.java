@@ -1,8 +1,8 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.RateEntity;
-import com.lognex.api.entities.StoreEntity;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
+import com.lognex.api.entities.documents.markers.FinanceDocumentMarker;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,4 +30,15 @@ public class PurchaseReturnDocumentEntity extends DocumentEntity {
     private Boolean vatEnabled;
     private Boolean vatIncluded;
     private Long vatSum;
+    private String syncId;
+    private LocalDateTime deleted;
+    private String description;
+    private ContractEntity contract;
+    private ProjectEntity project;
+    private StateEntity state;
+    private AccountEntity organizationAccount;
+    private AccountEntity agentAccount;
+    private List<AttributeEntity> attributes;
+    private FactureOutDocumentEntity factureOut;
+    private List<FinanceDocumentMarker> payments;
 }

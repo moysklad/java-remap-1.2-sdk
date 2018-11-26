@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,4 +30,10 @@ public class CashOutDocumentEntity extends DocumentEntity implements FinanceOutD
     private Long vatSum;
     private ContractEntity contract;
     private String paymentPurpose;
+    private String syncId;
+    private LocalDateTime deleted;
+    private String description;
+    private List<AttributeEntity> attributes;
+    private List<OperationEntity> operations;
+    private FactureInDocumentEntity factureIn;
 }

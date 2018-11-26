@@ -38,5 +38,5 @@ public class ConsignmentEntity extends MetaEntity implements ProductMarker {
     /**
      * Изображение товара
      */
-    private ProductImageEntity image;
+    private ImageEntity image;
 }

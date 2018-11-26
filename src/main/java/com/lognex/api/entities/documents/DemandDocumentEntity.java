@@ -3,6 +3,7 @@ package com.lognex.api.entities.documents;
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
+import com.lognex.api.entities.documents.markers.FinanceDocumentMarker;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -44,4 +45,16 @@ public class DemandDocumentEntity extends DocumentEntity {
     private Boolean vatEnabled;
     private Boolean vatIncluded;
     private Long vatSum;
+    private FactureOutDocumentEntity factureOut;
+    private ListEntity<OperationEntity> returns;
+    private List<FinanceDocumentMarker> payments;
+    private List<InvoiceOutDocumentEntity> invoicesOut;
+    private AgentEntity consignee;
+    private String transportFacilityNumber;
+    private String shippingInstructions;
+    private String cargoName;
+    private String transportFacility;
+    private Integer goodPackQuantity;
+    private AgentEntity carrier;
+    private String stateContractId;
 }

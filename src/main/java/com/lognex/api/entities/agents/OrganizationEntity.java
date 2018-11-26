@@ -3,7 +3,6 @@ package com.lognex.api.entities.agents;
 import com.lognex.api.entities.AccountEntity;
 import com.lognex.api.entities.CompanyType;
 import com.lognex.api.entities.GroupEntity;
-import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -94,4 +93,44 @@ public final class OrganizationEntity extends AgentEntity {
      * Главный бухгалтер
      */
     private String chiefAccountant;
+
+    /**
+     * Юридический адрес юрлица
+     */
+    private String legalAddress;
+
+    /**
+     * ИНН
+     */
+    private String inn;
+
+    /**
+     * КПП
+     */
+    private String kpp;
+
+    /**
+     * ОГРН
+     */
+    private String ogrn;
+
+    /**
+     * ОГРНИП
+     */
+    private String ogrnip;
+
+    /**
+     * ОКПО
+     */
+    private String okpo;
+
+    /**
+     * Номер свидетельства
+     */
+    private String certificateNumber;
+
+    /**
+     * Дата свидетельства
+     */
+    private LocalDateTime certificateDate;
 }

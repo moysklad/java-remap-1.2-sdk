@@ -92,4 +92,9 @@ public class FactureInDocumentEntity extends DocumentEntity {
      * Коллекция доп. полей
      */
     private List<AttributeEntity> attributes;
+
+    private String syncId;
+    private LocalDateTime deleted;
+    private String stateContractId;
+    private AgentEntity consignee;
 }

@@ -107,4 +107,7 @@ public class FactureOutDocumentEntity extends DocumentEntity {
      * Коллекция доп. полей
      */
     private List<AttributeEntity> attributes;
+
+    private String syncId;
+    private LocalDateTime deleted;
 }
