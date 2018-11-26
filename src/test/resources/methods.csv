@@ -455,6 +455,6 @@ GET;https://test.moysklad/api/remap/1.1/entity/commissionreportout/metadata/cust
 GET;https://test.moysklad/api/remap/1.1/entity/commissionreportout/metadata/embeddedtemplate/ID;String;TemplateEntity
 GET;https://test.moysklad/api/remap/1.1/entity/commissionreportout/metadata/embeddedtemplate/;;ListEntity
 GET;https://test.moysklad/api/remap/1.1/entity/commissionreportout/metadata/attributes/ID;String;AttributeEntity
-GET;https://test.moysklad/api/remap/1.1/entity/companysettings/metadata;;CompanySettingsMetadataResponse
 GET;https://test.moysklad/api/remap/1.1/entity/companysettings/;ApiParam[];CompanySettingsResponse
 GET;https://test.moysklad/api/remap/1.1/entity/metadata/;ApiParam[];GlobalMetadataEntity
+GET;https://test.moysklad/api/remap/1.1/entity/companysettings/metadata;;CompanySettingsMetadata
