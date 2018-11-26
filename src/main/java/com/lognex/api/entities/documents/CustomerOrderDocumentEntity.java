@@ -1,9 +1,6 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.ContractEntity;
-import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.RateEntity;
-import com.lognex.api.entities.StateEntity;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
@@ -33,12 +30,12 @@ public class CustomerOrderDocumentEntity extends DocumentEntity {
     private Long invoicedSum;
     private OrganizationEntity organization;
     private Long payedSum;
-    private ListEntity positions;
+    private ListEntity<DocumentPosition> positions;
     private RateEntity rate;
     private Long reservedSum;
     private Long shippedSum;
     private StateEntity state;
-    private MetaEntity store;
+    private StoreEntity store;
     private String syncId;
     private Boolean vatEnabled;
     private Boolean vatIncluded;

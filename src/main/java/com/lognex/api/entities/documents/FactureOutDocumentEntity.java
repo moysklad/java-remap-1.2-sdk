@@ -54,7 +54,7 @@ public class FactureOutDocumentEntity extends DocumentEntity {
     private String stateContractId;
 
     /**
-     * Валюта
+     * Валюта документа
      */
     private RateEntity rate;
 

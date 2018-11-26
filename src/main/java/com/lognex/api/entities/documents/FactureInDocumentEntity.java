@@ -54,7 +54,7 @@ public class FactureInDocumentEntity extends DocumentEntity {
     private List<SupplyDocumentEntity> supplies;
 
     /**
-     * Валюта
+     * Валюта документа
      */
     private RateEntity rate;
 

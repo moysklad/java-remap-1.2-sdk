@@ -22,7 +22,7 @@ public class PurchaseReturnDocumentEntity extends DocumentEntity {
     private String externalCode;
     private AgentEntity organization;
     private Long payedSum;
-    private ListEntity positions;
+    private ListEntity<DocumentPosition> positions;
     private RateEntity rate;
     private StoreEntity store;
     private SupplyDocumentEntity supply;

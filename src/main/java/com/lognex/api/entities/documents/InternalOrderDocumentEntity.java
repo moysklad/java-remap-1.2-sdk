@@ -20,7 +20,7 @@ public class InternalOrderDocumentEntity extends DocumentEntity {
     private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private OrganizationEntity organization;
-    private ListEntity positions;
+    private ListEntity<DocumentPosition> positions;
     private RateEntity rate;
     private StoreEntity store;
     private Boolean vatEnabled;

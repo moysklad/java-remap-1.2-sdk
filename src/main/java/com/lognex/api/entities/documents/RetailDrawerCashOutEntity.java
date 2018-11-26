@@ -10,13 +10,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class RetailDrawerCashOutEntity extends DocumentEntity {
     private AgentEntity agent;
-    private String created;
+    private LocalDateTime created;
     private String description;
     private ListEntity<DocumentEntity> documents;
     private String externalCode;

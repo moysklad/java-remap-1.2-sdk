@@ -25,9 +25,9 @@ public class CommissionReportOutDocumentEntity extends DocumentEntity {
     private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private OrganizationEntity organization;
-    private MetaEntity organizationAccount;
+    private AccountEntity organizationAccount;
     private Long payedSum;
-    private ListEntity positions;
+    private ListEntity<DocumentPosition> positions;
     private RateEntity rate;
     private Double rewardPercent;
     private RewardType rewardType;

@@ -2,6 +2,7 @@ package com.lognex.api.entities.agents;
 
 import com.lognex.api.entities.AccountEntity;
 import com.lognex.api.entities.CompanyType;
+import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
@@ -32,7 +33,7 @@ public final class OrganizationEntity extends AgentEntity {
     /**
      * Отдел сотрудника в формате Метаданных
      */
-    private MetaEntity group;
+    private GroupEntity group;
 
     /**
      * Момент последнего обновления сущности

@@ -24,12 +24,12 @@ public class CommissionReportInDocumentEntity extends DocumentEntity {
     private LocalDateTime commissionPeriodStart;
     private Long commitentSum;
     private ContractEntity contract;
-    private String created;
+    private LocalDateTime created;
     private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private OrganizationEntity organization;
-    private Integer payedSum;
-    private ListEntity positions;
+    private Long payedSum;
+    private ListEntity<DocumentPosition> positions;
     private RateEntity rate;
     private Double rewardPercent;
     private RewardType rewardType;

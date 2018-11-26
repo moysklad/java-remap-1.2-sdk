@@ -30,7 +30,7 @@ public class ContractEntity extends MetaEntity {
     /**
      * Отдел сотрудника в формате Метаданных
      */
-    private MetaEntity group;
+    private GroupEntity group;
 
     /**
      * Момент последнего обновления сущности
@@ -100,15 +100,15 @@ public class ContractEntity extends MetaEntity {
     /**
      * Ссылка на счёт вашего юрлица в формате Метаданных
      */
-    private MetaEntity organizationAccount;
+    private AccountEntity organizationAccount;
 
     /**
      * Ссылка на счёт контрагента в формате Метаданных
      */
-    private MetaEntity agentAccount;
+    private AccountEntity agentAccount;
 
     /**
-     * Ссылка на валюту
+     * Валюта документа
      */
     private RateEntity rate;
 

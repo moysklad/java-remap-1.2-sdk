@@ -27,7 +27,7 @@ public class RetailDemandDocumentEntity extends DocumentEntity {
     private Boolean fiscal;
     private Long noCashSum;
     private OrganizationEntity organization;
-    private Integer payedSum;
+    private Long payedSum;
     private ListEntity<DocumentPosition> positions;
     private RateEntity rate;
     private RetailShiftEntity retailShift;

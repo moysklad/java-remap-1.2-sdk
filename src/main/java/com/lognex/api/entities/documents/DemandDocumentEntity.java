@@ -22,7 +22,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class DemandDocumentEntity extends DocumentEntity {
     private AgentEntity agent;
-    private MetaEntity agentAccount;
+    private AccountEntity agentAccount;
     private List<AttributeEntity> attributes;
     private ContractEntity contract;
     private LocalDateTime created;
@@ -32,16 +32,16 @@ public class DemandDocumentEntity extends DocumentEntity {
     private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private OrganizationEntity organization;
-    private MetaEntity organizationAccount;
+    private AccountEntity organizationAccount;
     private Overhead overhead;
-    private Integer payedSum;
-    private ListEntity positions;
-    private MetaEntity project;
+    private Long payedSum;
+    private ListEntity<DocumentPosition> positions;
+    private ProjectEntity project;
     private RateEntity rate;
     private StateEntity state;
     private StoreEntity store;
     private String syncId;
     private Boolean vatEnabled;
     private Boolean vatIncluded;
-    private Integer vatSum;
+    private Long vatSum;
 }

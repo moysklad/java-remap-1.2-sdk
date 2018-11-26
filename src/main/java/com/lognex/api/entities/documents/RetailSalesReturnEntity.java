@@ -11,20 +11,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class RetailSalesReturnEntity extends DocumentEntity {
     private AgentEntity agent;
-    private Integer cashSum;
-    private String created;
+    private Long cashSum;
+    private LocalDateTime created;
     private RetailDemandDocumentEntity demand;
     private ListEntity<DocumentEntity> documents;
     private String externalCode;
-    private Integer noCashSum;
+    private Long noCashSum;
     private AgentEntity organization;
-    private ListEntity positions;
+    private ListEntity<DocumentPosition> positions;
     private RateEntity rate;
     private RetailShiftEntity retailShift;
     private RetailStoreEntity retailStore;
@@ -32,5 +34,5 @@ public class RetailSalesReturnEntity extends DocumentEntity {
     private String syncId;
     private Boolean vatEnabled;
     private Boolean vatIncluded;
-    private Integer vatSum;
+    private Long vatSum;
 }

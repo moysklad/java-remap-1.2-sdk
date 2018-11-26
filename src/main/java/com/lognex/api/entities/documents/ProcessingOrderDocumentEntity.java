@@ -18,7 +18,7 @@ public class ProcessingOrderDocumentEntity extends DocumentEntity {
     private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private AgentEntity organization;
-    private ListEntity positions;
+    private ListEntity<DocumentPosition> positions;
     private ProcessingPlanDocumentEntity processingPlan;
     private Double quantity;
     private StateEntity state;

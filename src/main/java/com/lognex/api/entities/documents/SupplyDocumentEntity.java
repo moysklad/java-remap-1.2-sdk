@@ -25,12 +25,12 @@ public class SupplyDocumentEntity extends DocumentEntity {
     private String externalCode;
     private OrganizationEntity organization;
     private Overhead overhead;
-    private Integer payedSum;
-    private ListEntity positions;
+    private Long payedSum;
+    private ListEntity<DocumentPosition> positions;
     private PurchaseOrderDocumentEntity purchaseOrder;
     private RateEntity rate;
     private StoreEntity store;
     private Boolean vatEnabled;
     private Boolean vatIncluded;
-    private Integer vatSum;
+    private Long vatSum;
 }

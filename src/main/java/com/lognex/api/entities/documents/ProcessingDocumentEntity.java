@@ -18,12 +18,12 @@ public class ProcessingDocumentEntity extends DocumentEntity {
     private LocalDateTime created;
     private ListEntity<DocumentEntity> documents;
     private String externalCode;
-    private ListEntity materials;
+    private ListEntity<DocumentPosition> materials;
     private StoreEntity materialsStore;
     private OrganizationEntity organization;
     private ProcessingPlanDocumentEntity processingPlan;
     private Long processingSum;
-    private ListEntity products;
+    private ListEntity<DocumentPosition> products;
     private StoreEntity productsStore;
     private Double quantity;
 }

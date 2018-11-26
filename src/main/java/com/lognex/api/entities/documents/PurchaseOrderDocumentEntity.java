@@ -28,7 +28,7 @@ public class PurchaseOrderDocumentEntity extends DocumentEntity {
     private Long invoicedSum;
     private OrganizationEntity organization;
     private Long payedSum;
-    private ListEntity positions;
+    private ListEntity<DocumentPosition> positions;
     private RateEntity rate;
     private Long shippedSum;
     private StateEntity state;

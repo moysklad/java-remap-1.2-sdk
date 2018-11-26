@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,11 +19,11 @@ public final class EmployeeEntity extends AgentEntity {
     private String lastName;
     private String externalCode;
     private String shortFio;
-    private String created;
+    private LocalDateTime created;
     private String fullName;
     private Boolean archived;
     private Boolean uid;
-    private MetaEntity cashier;
+    private EmployeeEntity cashier;
     private String updated;
     private String email;
     private GroupEntity group;
