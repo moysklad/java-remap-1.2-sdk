@@ -31,7 +31,6 @@ public class ProcessingDocumentEntity extends DocumentEntity {
     private LocalDateTime deleted;
     private String description;
     private AccountEntity organizationAccount;
-    private AccountEntity agentAccount;
     private StateEntity state;
     private List<AttributeEntity> attributes;
     private ProjectEntity project;

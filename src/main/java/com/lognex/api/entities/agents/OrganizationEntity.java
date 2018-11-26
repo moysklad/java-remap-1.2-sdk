@@ -1,6 +1,7 @@
 package com.lognex.api.entities.agents;
 
 import com.lognex.api.entities.AccountEntity;
+import com.lognex.api.entities.AttributeEntity;
 import com.lognex.api.entities.CompanyType;
 import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.responses.ListEntity;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Юридическое Лицо
@@ -133,4 +135,15 @@ public final class OrganizationEntity extends AgentEntity {
      * Дата свидетельства
      */
     private LocalDateTime certificateDate;
+
+    /**
+     * Коллекция доп. полей
+     */
+    private List<AttributeEntity> attributes;
+
+    private String phone;
+    private String fax;
+    private String fsrarId;
+    private String utmUrl;
+    private String actualAddress;
 }

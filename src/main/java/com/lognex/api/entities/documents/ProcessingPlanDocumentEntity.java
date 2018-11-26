@@ -2,7 +2,6 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.products.markers.ProductMarker;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
@@ -20,10 +19,8 @@ public class ProcessingPlanDocumentEntity extends DocumentEntity {
     private Long cost;
     private String externalCode;
     private ListEntity<DocumentPosition> materials;
-    private StoreEntity materialsStore;
     private String pathName;
     private ListEntity<DocumentPosition> products;
-    private StoreEntity productsStore;
     private LocalDateTime deleted;
     private GroupEntity parent;
 
