@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 /**
  * Серия
  */
@@ -33,7 +35,7 @@ public class ConsignmentEntity extends MetaEntity implements ProductMarker {
     /**
      * Момент последнего обновления сущности
      */
-    private String updated;
+    private LocalDateTime updated;
 
     /**
      * Изображение товара

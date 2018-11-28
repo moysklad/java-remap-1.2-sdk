@@ -28,7 +28,7 @@ public class RetailDemandDocumentEntity extends DocumentEntity {
     private Long payedSum;
     private ListEntity<DocumentPosition> positions;
     private RateEntity rate;
-    private RetailShiftEntity retailShift;
+    private RetailShiftDocumentEntity retailShift;
     private RetailStoreEntity retailStore;
     private StoreEntity store;
     private String syncId;

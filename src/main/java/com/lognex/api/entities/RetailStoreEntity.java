@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -40,7 +41,7 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     private Boolean egaisEnabled;
     private OrganizationEntity organization;
     private Integer discountMaxPercent;
-    private String updated;
+    private LocalDateTime updated;
     private String description;
     private String address;
     private Boolean onlyInStock;
@@ -67,18 +68,29 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
         @Setter
         @NoArgsConstructor
         public static class Software {
-
+            private String name;
+            private String vendor;
+            private String version;
         }
 
         @Getter
         @Setter
         @NoArgsConstructor
         public static class ChequePrinter {
+            private String vendor;
+            private String name;
+            private String serial;
+            private String fiscalDataVersion;
             private Driver driver;
             private FiscalMemory fiscalMemory;
+            private String firmwareVersion;
 
+            @Getter
+            @Setter
+            @NoArgsConstructor
             public class Driver {
-
+                private String name;
+                private String version;
             }
         }
     }
@@ -88,10 +100,15 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     @NoArgsConstructor
     public static class State {
         private Sync sync;
+        private LocalDateTime lastCheckMoment;
         private FiscalMemory fiscalMemory;
 
+        @Getter
+        @Setter
+        @NoArgsConstructor
         public static class Sync {
-
+            private String message;
+            private String lastAttempMoment;
         }
     }
 
@@ -100,9 +117,15 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     @NoArgsConstructor
     public static class FiscalMemory {
         private Error error;
+        private Integer notSendDocCount;
+        private LocalDateTime notSendFirstDocMoment;
 
+        @Getter
+        @Setter
+        @NoArgsConstructor
         public static class Error {
-
+            private String code;
+            private String message;
         }
     }
 }

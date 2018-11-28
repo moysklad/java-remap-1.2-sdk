@@ -26,7 +26,7 @@ public final class EmployeeEntity extends AgentEntity {
     private Boolean archived;
     private String uid;
     private EmployeeEntity cashier;
-    private String updated;
+    private LocalDateTime updated;
     private String email;
     private GroupEntity group;
     private String description;

@@ -2,7 +2,6 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.AttributeEntity;
 import com.lognex.api.entities.RateEntity;
-import com.lognex.api.entities.RetailShiftEntity;
 import com.lognex.api.entities.StateEntity;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
@@ -27,7 +26,7 @@ public class RetailDrawerCashOutEntity extends DocumentEntity {
     private String externalCode;
     private OrganizationEntity organization;
     private RateEntity rate;
-    private RetailShiftEntity retailShift;
+    private RetailShiftDocumentEntity retailShift;
     private String syncId;
     private LocalDateTime deleted;
     private StateEntity state;

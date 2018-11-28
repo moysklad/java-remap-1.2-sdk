@@ -26,7 +26,7 @@ public class RetailSalesReturnEntity extends DocumentEntity {
     private AgentEntity organization;
     private ListEntity<DocumentPosition> positions;
     private RateEntity rate;
-    private RetailShiftEntity retailShift;
+    private RetailShiftDocumentEntity retailShift;
     private RetailStoreEntity retailStore;
     private StoreEntity store;
     private String syncId;

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,6 +19,6 @@ public class ProjectEntity extends MetaEntity {
     private String externalCode;
     private String description;
     private Boolean archived;
-    private String updated;
+    private LocalDateTime updated;
     private GroupEntity group;
 }

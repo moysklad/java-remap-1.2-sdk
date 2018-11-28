@@ -1,8 +1,8 @@
-package com.lognex.api.entities;
+package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.agents.EmployeeEntity;
+import com.lognex.api.entities.RetailStoreEntity;
+import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
-import com.lognex.api.entities.documents.DocumentEntity;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,23 +15,17 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class RetailShiftEntity extends MetaEntity {
-    private EmployeeEntity owner;
-    private Boolean shared;
+public class RetailShiftDocumentEntity extends DocumentEntity {
     private String externalCode;
     private ListEntity<DocumentEntity> documents;
     private LocalDateTime created;
     private LocalDateTime closeDate;
     private Double receivedCash;
-    private Boolean applicable;
     private StoreEntity store;
     private String syncId;
-    private LocalDateTime moment;
     private Double proceedsNoCash;
     private OrganizationEntity organization;
     private RetailStoreEntity retailStore;
     private Double proceedsCash;
     private Double receivedNoCash;
-    private LocalDateTime updated;
-    private GroupEntity group;
 }

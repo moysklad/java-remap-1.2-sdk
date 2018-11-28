@@ -6,13 +6,13 @@ import com.lognex.api.clients.endpoints.GetListEndpoint;
 import com.lognex.api.clients.endpoints.MetadataAttributeEndpoint;
 import com.lognex.api.clients.endpoints.MetadataEndpoint;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.RetailShiftEntity;
+import com.lognex.api.entities.documents.RetailShiftDocumentEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class RetailShiftClient
         extends ApiClient
         implements
-        GetListEndpoint<RetailShiftEntity>,
+        GetListEndpoint<RetailShiftDocumentEntity>,
         DeleteByIdEndpoint,
         MetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint {
@@ -23,7 +23,7 @@ public final class RetailShiftClient
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return RetailShiftEntity.class;
+        return RetailShiftDocumentEntity.class;
     }
 
     @Override

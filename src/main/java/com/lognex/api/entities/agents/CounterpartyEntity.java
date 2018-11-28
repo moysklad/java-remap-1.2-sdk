@@ -207,5 +207,10 @@ public final class CounterpartyEntity extends AgentEntity {
          * Значение скидки
          */
         private Double personalDiscount;
+
+        /**
+         * Коррекция суммы накоплений по скидке
+         */
+        private Double demandSumCorrection;
     }
 }
