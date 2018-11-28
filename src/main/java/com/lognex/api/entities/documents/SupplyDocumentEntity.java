@@ -45,5 +45,5 @@ public class SupplyDocumentEntity extends DocumentEntity {
     private FactureInDocumentEntity factureIn;
     private List<InvoiceInDocumentEntity> invoicesIn;
     private List<FinanceDocumentMarker> payments;
-    private ListEntity<MetaEntity> returns;
+    private ListEntity<PurchaseReturnDocumentEntity> returns;
 }
