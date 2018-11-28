@@ -37,5 +37,5 @@ public class PaymentOutDocumentEntity extends DocumentEntity implements FinanceO
     private AccountEntity agentAccount;
     private List<AttributeEntity> attributes;
     private FactureInDocumentEntity factureIn;
-    private List<OperationEntity> operations;
+    private List<MetaEntity> operations;
 }

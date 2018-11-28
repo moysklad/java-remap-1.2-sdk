@@ -46,7 +46,7 @@ public class DemandDocumentEntity extends DocumentEntity {
     private Boolean vatIncluded;
     private Long vatSum;
     private FactureOutDocumentEntity factureOut;
-    private ListEntity<OperationEntity> returns;
+    private ListEntity<MetaEntity> returns;
     private List<FinanceDocumentMarker> payments;
     private List<InvoiceOutDocumentEntity> invoicesOut;
     private AgentEntity consignee;

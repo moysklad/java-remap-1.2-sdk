@@ -34,6 +34,6 @@ public class CashOutDocumentEntity extends DocumentEntity implements FinanceOutD
     private LocalDateTime deleted;
     private String description;
     private List<AttributeEntity> attributes;
-    private List<OperationEntity> operations;
+    private List<MetaEntity> operations;
     private FactureInDocumentEntity factureIn;
 }

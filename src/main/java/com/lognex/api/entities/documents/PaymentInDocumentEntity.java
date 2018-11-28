@@ -38,5 +38,5 @@ public class PaymentInDocumentEntity extends DocumentEntity implements FinanceIn
     private LocalDateTime incomingDate;
     private String incomingNumber;
     private FactureOutDocumentEntity factureOut;
-    private List<OperationEntity> operations;
+    private List<MetaEntity> operations;
 }
