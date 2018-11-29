@@ -30,7 +30,7 @@ public class StoreEntity extends MetaEntity {
     /**
      * Отдел сотрудника в формате Метаданных
      */
-    private MetaEntity group;
+    private GroupEntity group;
 
     /**
      * Момент последнего обновления сущности
@@ -65,7 +65,7 @@ public class StoreEntity extends MetaEntity {
     /**
      * Родительский склад (Группа)
      */
-    private MetaEntity parent;
+    private StoreEntity parent;
 
     /**
      * Группа Склада

@@ -7,13 +7,17 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+/**
+ * Страна
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class CountryEntity extends MetaEntity {
     /**
-     * Внешний код Страны
+     * Внешний код
      */
     private String externalCode;
 
@@ -21,4 +25,14 @@ public class CountryEntity extends MetaEntity {
      * Момент последнего обновления сущности
      */
     private LocalDateTime updated;
+
+    /**
+     * Описание
+     */
+    private String description;
+
+    /**
+     * Код
+     */
+    private String code;
 }

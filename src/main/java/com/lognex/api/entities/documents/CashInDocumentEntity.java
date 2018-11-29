@@ -1,11 +1,9 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.ContractEntity;
-import com.lognex.api.entities.ProjectEntity;
-import com.lognex.api.entities.RateEntity;
-import com.lognex.api.entities.StateEntity;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
+import com.lognex.api.entities.documents.markers.FinanceInDocumentMarker;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,12 +11,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class CashInDocumentEntity extends DocumentEntity {
+public class CashInDocumentEntity extends DocumentEntity implements FinanceInDocumentMarker {
     private AgentEntity agent;
     private LocalDateTime created;
     private ListEntity<DocumentEntity> documents;
@@ -30,4 +29,10 @@ public class CashInDocumentEntity extends DocumentEntity {
     private Long vatSum;
     private ContractEntity contract;
     private String paymentPurpose;
+    private String syncId;
+    private LocalDateTime deleted;
+    private String description;
+    private List<AttributeEntity> attributes;
+    private List<MetaEntity> operations;
+    private FactureOutDocumentEntity factureOut;
 }

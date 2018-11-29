@@ -1,9 +1,6 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.RateEntity;
-import com.lognex.api.entities.RetailShiftEntity;
-import com.lognex.api.entities.RetailStoreEntity;
-import com.lognex.api.entities.StoreEntity;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
@@ -13,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,14 +25,26 @@ public class RetailDemandDocumentEntity extends DocumentEntity {
     private Boolean fiscal;
     private Long noCashSum;
     private OrganizationEntity organization;
-    private Integer payedSum;
-    private ListEntity positions;
+    private Long payedSum;
+    private ListEntity<DocumentPosition> positions;
     private RateEntity rate;
-    private RetailShiftEntity retailShift;
+    private RetailShiftDocumentEntity retailShift;
     private RetailStoreEntity retailStore;
     private StoreEntity store;
     private String syncId;
     private Boolean vatEnabled;
     private Boolean vatIncluded;
     private Long vatSum;
+    private LocalDateTime deleted;
+    private String description;
+    private AccountEntity organizationAccount;
+    private AccountEntity agentAccount;
+    private List<AttributeEntity> attributes;
+    private String fiscalPrinterInfo;
+    private String documentNumber;
+    private String checkNumber;
+    private Long checkSum;
+    private String sessionNumber;
+    private String ofdCode;
+    private CustomerOrderDocumentEntity customerOrder;
 }

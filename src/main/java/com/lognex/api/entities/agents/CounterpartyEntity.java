@@ -1,6 +1,7 @@
 package com.lognex.api.entities.agents;
 
 import com.lognex.api.entities.*;
+import com.lognex.api.entities.discounts.DiscountEntity;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -157,12 +158,12 @@ public final class CounterpartyEntity extends AgentEntity {
     /**
      * Контактные лица фирмы Контрагента
      */
-    private MetaEntity contactpersons;
+    private ListEntity<ContactPersonEntity> contactpersons;
 
     /**
      * События
      */
-    private MetaEntity notes;
+    private ListEntity<NoteEntity> notes;
 
     /**
      * Номер дисконтной карты
@@ -206,5 +207,10 @@ public final class CounterpartyEntity extends AgentEntity {
          * Значение скидки
          */
         private Double personalDiscount;
+
+        /**
+         * Коррекция суммы накоплений по скидке
+         */
+        private Double demandSumCorrection;
     }
 }

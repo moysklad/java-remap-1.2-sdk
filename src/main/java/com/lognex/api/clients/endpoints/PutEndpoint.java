@@ -7,6 +7,7 @@ import com.lognex.api.utils.LognexApiException;
 import java.io.IOException;
 
 public interface PutEndpoint<T extends MetaEntity> extends Endpoint {
+    @ApiEndpoint
     default void put(T updatedEntity) throws IOException, LognexApiException {
         T responseEntity = HttpRequestExecutor
                 .path(api(), path())

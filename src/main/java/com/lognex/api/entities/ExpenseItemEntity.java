@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,5 +16,5 @@ public class ExpenseItemEntity extends MetaEntity {
     private String code;
     private String externalCode;
     private String description;
-    private String updated;
+    private LocalDateTime updated;
 }

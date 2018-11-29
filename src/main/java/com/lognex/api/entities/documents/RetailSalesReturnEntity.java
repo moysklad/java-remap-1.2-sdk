@@ -1,9 +1,6 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.RateEntity;
-import com.lognex.api.entities.RetailShiftEntity;
-import com.lognex.api.entities.RetailStoreEntity;
-import com.lognex.api.entities.StoreEntity;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
@@ -11,26 +8,35 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class RetailSalesReturnEntity extends DocumentEntity {
     private AgentEntity agent;
-    private Integer cashSum;
-    private String created;
+    private Long cashSum;
+    private LocalDateTime created;
     private RetailDemandDocumentEntity demand;
     private ListEntity<DocumentEntity> documents;
     private String externalCode;
-    private Integer noCashSum;
+    private Long noCashSum;
     private AgentEntity organization;
-    private ListEntity positions;
+    private ListEntity<DocumentPosition> positions;
     private RateEntity rate;
-    private RetailShiftEntity retailShift;
+    private RetailShiftDocumentEntity retailShift;
     private RetailStoreEntity retailStore;
     private StoreEntity store;
     private String syncId;
     private Boolean vatEnabled;
     private Boolean vatIncluded;
-    private Integer vatSum;
+    private Long vatSum;
+    private LocalDateTime deleted;
+    private String description;
+    private ProjectEntity project;
+    private AccountEntity organizationAccount;
+    private AccountEntity agentAccount;
+    private List<AttributeEntity> attributes;
 }

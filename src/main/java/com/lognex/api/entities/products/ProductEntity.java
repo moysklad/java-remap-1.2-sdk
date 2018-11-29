@@ -1,6 +1,6 @@
 package com.lognex.api.entities.products;
 
-import com.lognex.api.entities.GroupEntity;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.products.markers.ConsignmentParentMarker;
@@ -64,21 +64,27 @@ public class ProductEntity extends AbstractProductEntity implements SingleProduc
     /**
      * Изображение товара
      */
-    private String image;
+    private ImageEntity image;
 
     /**
      * Поставщик
      */
     private AgentEntity supplier;
 
-    // attributes
-    // country
+    /**
+     * Дополнительные поля
+     */
+    private List<AttributeEntity> attributes;
+
+    /**
+     * Страна
+     */
+    private CountryEntity country;
+
     /**
      * Артикул
      */
     private String article;
-
-    // weighted
 
     /**
      * Флаг табачной продукции
@@ -95,7 +101,10 @@ public class ProductEntity extends AbstractProductEntity implements SingleProduc
      */
     private Double volume;
 
-    // packs
+    /**
+     * Упаковка
+     */
+    private List<ProductPack> packs;
 
     /**
      * Данные алкогольной продукции
@@ -154,5 +163,18 @@ public class ProductEntity extends AbstractProductEntity implements SingleProduc
          * Объём тары
          */
         private Double volume;
+    }
+
+    /**
+     * Объект, содержащий данные упаковки
+     */
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @EqualsAndHashCode
+    private class ProductPack {
+        private String id;
+        private UomEntity uom;
+        private Double quantity;
     }
 }

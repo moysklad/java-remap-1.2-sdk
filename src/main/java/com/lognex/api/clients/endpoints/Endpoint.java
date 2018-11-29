@@ -2,7 +2,6 @@ package com.lognex.api.clients.endpoints;
 
 import com.lognex.api.LognexApi;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.responses.MetadataListResponse;
 
 public interface Endpoint {
     String path();
@@ -11,5 +10,7 @@ public interface Endpoint {
 
     Class<? extends MetaEntity> entityClass();
 
-    Class<? extends MetadataListResponse> metaEntityClass();
+    Class<? extends MetaEntity> metaEntityClass();
+
+    Class<? extends MetaEntity> positionEntityClass();
 }

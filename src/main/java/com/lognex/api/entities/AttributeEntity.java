@@ -22,8 +22,6 @@ public class AttributeEntity extends MetaEntity {
 
     /**
      * Тип сущности справочника, если тип поля — Справочник
-     * <p>
-     * (TODO) Нужно настроить (де)сериализацию для этого поля
      */
     private Meta.Type entityType;
 
@@ -36,6 +34,11 @@ public class AttributeEntity extends MetaEntity {
      * Флажок о том, является ли доп. поле обязательным
      */
     private Boolean required;
+
+    /**
+     * (для поля типа "Файл") Метаданные файла
+     */
+    private Meta download;
 
     /**
      * Тип дополнительного поля
@@ -62,11 +65,27 @@ public class AttributeEntity extends MetaEntity {
         @SerializedName("file") fileValue,
 
         /**
-         *
+         * Число дробное
          */
         @SerializedName("double") doubleValue,
+
+        /**
+         * Флажок
+         */
         @SerializedName("boolean") booleanValue,
+
+        /**
+         * Текст
+         */
         @SerializedName("text") textValue,
-        @SerializedName("link") lingValue
+
+        /**
+         * Ссылка
+         */
+        @SerializedName("link") linkValue
+    }
+
+    public <T> T getValueAs(Class<T> tClass) {
+        return (T) value;
     }
 }

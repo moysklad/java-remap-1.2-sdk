@@ -27,8 +27,9 @@ public class ProductMarkerSerializer implements JsonSerializer<ProductMarker>, J
     public ProductMarker deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         MetaEntity me = gson.fromJson(json, MetaEntity.class);
 
-        if (me.getMeta() == null) throw new JsonParseException("Can't parse field 'agent': meta is null");
-        if (me.getMeta().getType() == null) throw new JsonParseException("Can't parse field 'agent': meta.type is null");
+        if (me.getMeta() == null) throw new JsonParseException("Can't parse field 'product': meta is null");
+        if (me.getMeta().getType() == null)
+            throw new JsonParseException("Can't parse field 'product': meta.type is null");
 
         switch (me.getMeta().getType()) {
             case product:

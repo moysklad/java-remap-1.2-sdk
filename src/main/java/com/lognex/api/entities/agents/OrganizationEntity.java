@@ -1,13 +1,17 @@
 package com.lognex.api.entities.agents;
 
+import com.lognex.api.entities.AccountEntity;
+import com.lognex.api.entities.AttributeEntity;
 import com.lognex.api.entities.CompanyType;
-import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.GroupEntity;
+import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Юридическое Лицо
@@ -30,7 +34,7 @@ public final class OrganizationEntity extends AgentEntity {
     /**
      * Отдел сотрудника в формате Метаданных
      */
-    private MetaEntity group;
+    private GroupEntity group;
 
     /**
      * Момент последнего обновления сущности
@@ -70,7 +74,7 @@ public final class OrganizationEntity extends AgentEntity {
     /**
      * Метаданные, представляющие собой ссылку на счета юрлица
      */
-    private MetaEntity accounts;
+    private ListEntity<AccountEntity> accounts;
 
     /**
      * Включен ли ЕГАИС для данного юрлица
@@ -91,4 +95,55 @@ public final class OrganizationEntity extends AgentEntity {
      * Главный бухгалтер
      */
     private String chiefAccountant;
+
+    /**
+     * Юридический адрес юрлица
+     */
+    private String legalAddress;
+
+    /**
+     * ИНН
+     */
+    private String inn;
+
+    /**
+     * КПП
+     */
+    private String kpp;
+
+    /**
+     * ОГРН
+     */
+    private String ogrn;
+
+    /**
+     * ОГРНИП
+     */
+    private String ogrnip;
+
+    /**
+     * ОКПО
+     */
+    private String okpo;
+
+    /**
+     * Номер свидетельства
+     */
+    private String certificateNumber;
+
+    /**
+     * Дата свидетельства
+     */
+    private LocalDateTime certificateDate;
+
+    /**
+     * Коллекция доп. полей
+     */
+    private List<AttributeEntity> attributes;
+
+    private String phone;
+    private String fax;
+    private String fsrarId;
+    private String utmUrl;
+    private String actualAddress;
 }

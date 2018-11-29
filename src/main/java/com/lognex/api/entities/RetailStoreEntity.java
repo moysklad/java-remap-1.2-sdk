@@ -1,12 +1,15 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
+import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -17,7 +20,7 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     private Boolean shared;
     private Boolean controlCashierChoice;
     private String externalCode;
-    private Object frNumber;
+    private String frNumber;
     private Boolean controlShippingStock;
     private Boolean ofdEnabled;
     private Boolean archived;
@@ -28,7 +31,7 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     private EmployeeEntity owner;
     private Boolean allowCustomPrice;
     private String priceType;
-    private MetaEntity cashiers;
+    private ListEntity<CashierEntity> cashiers;
     private Boolean active;
     private StoreEntity store;
     private Boolean discountEnable;
@@ -38,7 +41,13 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     private Boolean egaisEnabled;
     private OrganizationEntity organization;
     private Integer discountMaxPercent;
-    private String updated;
+    private LocalDateTime updated;
+    private String description;
+    private String address;
+    private Boolean onlyInStock;
+    private AgentEntity acquire;
+    private StateEntity orderToState;
+    private ListEntity<StateEntity> customerOrderStates;
 
     @Getter
     @Setter
@@ -59,18 +68,29 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
         @Setter
         @NoArgsConstructor
         public static class Software {
-
+            private String name;
+            private String vendor;
+            private String version;
         }
 
         @Getter
         @Setter
         @NoArgsConstructor
         public static class ChequePrinter {
+            private String vendor;
+            private String name;
+            private String serial;
+            private String fiscalDataVersion;
             private Driver driver;
             private FiscalMemory fiscalMemory;
+            private String firmwareVersion;
 
+            @Getter
+            @Setter
+            @NoArgsConstructor
             public class Driver {
-
+                private String name;
+                private String version;
             }
         }
     }
@@ -80,10 +100,15 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     @NoArgsConstructor
     public static class State {
         private Sync sync;
+        private LocalDateTime lastCheckMoment;
         private FiscalMemory fiscalMemory;
 
+        @Getter
+        @Setter
+        @NoArgsConstructor
         public static class Sync {
-
+            private String message;
+            private String lastAttempMoment;
         }
     }
 
@@ -92,9 +117,15 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     @NoArgsConstructor
     public static class FiscalMemory {
         private Error error;
+        private Integer notSendDocCount;
+        private LocalDateTime notSendFirstDocMoment;
 
+        @Getter
+        @Setter
+        @NoArgsConstructor
         public static class Error {
-
+            private String code;
+            private String message;
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.lognex.api.entities.documents;
 
+import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.products.markers.ProductMarker;
 import com.lognex.api.responses.ListEntity;
@@ -8,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,9 +18,11 @@ import lombok.Setter;
 public class ProcessingPlanDocumentEntity extends DocumentEntity {
     private Long cost;
     private String externalCode;
-    private ListEntity materials;
+    private ListEntity<DocumentPosition> materials;
     private String pathName;
-    private ListEntity products;
+    private ListEntity<DocumentPosition> products;
+    private LocalDateTime deleted;
+    private GroupEntity parent;
 
     @Getter
     @Setter

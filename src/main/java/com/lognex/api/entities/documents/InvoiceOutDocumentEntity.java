@@ -23,7 +23,7 @@ public class InvoiceOutDocumentEntity extends DocumentEntity {
     private String externalCode;
     private OrganizationEntity organization;
     private Long payedSum;
-    private ListEntity positions;
+    private ListEntity<DocumentPosition> positions;
     private RateEntity rate;
     private Long shippedSum;
     private StoreEntity store;

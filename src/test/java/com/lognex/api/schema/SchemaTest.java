@@ -1,10 +1,10 @@
 package com.lognex.api.schema;
 
 import com.lognex.api.LognexApi;
-import com.lognex.api.TestAsserts;
-import com.lognex.api.TestRandomizers;
 import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.entities.documents.CustomerOrderDocumentEntity;
+import com.lognex.api.utils.TestAsserts;
+import com.lognex.api.utils.TestRandomizers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;

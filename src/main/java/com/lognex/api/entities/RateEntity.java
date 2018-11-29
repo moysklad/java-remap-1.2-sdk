@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Валюта
+ * Валюта документа
  */
 
 @Getter
@@ -15,4 +15,5 @@ import lombok.Setter;
 @EqualsAndHashCode
 public class RateEntity {
     private CurrencyEntity currency;
+    private Double value;
 }

@@ -3,7 +3,6 @@ package com.lognex.api.schema;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.lognex.api.LognexApi;
-import com.lognex.api.TestRandomizers;
 import com.lognex.api.entities.CompanyType;
 import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.MetaEntity;
@@ -12,6 +11,7 @@ import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.TestRandomizers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

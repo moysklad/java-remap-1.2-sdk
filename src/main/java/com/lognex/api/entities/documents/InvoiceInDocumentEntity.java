@@ -24,7 +24,7 @@ public class InvoiceInDocumentEntity extends DocumentEntity {
     private String incomingNumber;
     private OrganizationEntity organization;
     private Long payedSum;
-    private ListEntity positions;
+    private ListEntity<DocumentPosition> positions;
     private RateEntity rate;
     private Long shippedSum;
     private StoreEntity store;

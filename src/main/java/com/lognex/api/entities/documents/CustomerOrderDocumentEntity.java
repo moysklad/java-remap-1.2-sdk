@@ -1,11 +1,9 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.ContractEntity;
-import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.RateEntity;
-import com.lognex.api.entities.StateEntity;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
+import com.lognex.api.entities.documents.markers.FinanceDocumentMarker;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Заказ Покупателя
@@ -33,14 +32,23 @@ public class CustomerOrderDocumentEntity extends DocumentEntity {
     private Long invoicedSum;
     private OrganizationEntity organization;
     private Long payedSum;
-    private ListEntity positions;
+    private ListEntity<DocumentPosition> positions;
     private RateEntity rate;
     private Long reservedSum;
     private Long shippedSum;
     private StateEntity state;
-    private MetaEntity store;
+    private StoreEntity store;
     private String syncId;
     private Boolean vatEnabled;
     private Boolean vatIncluded;
     private Long vatSum;
+    private AccountEntity organizationAccount;
+    private AccountEntity agentAccount;
+    private List<AttributeEntity> attributes;
+    private LocalDateTime deliveryPlannedMoment;
+    private ProjectEntity project;
+    private ListEntity<PurchaseOrderDocumentEntity> purchaseOrders;
+    private List<DemandDocumentEntity> demands;
+    private List<FinanceDocumentMarker> payments;
+    private List<InvoiceOutDocumentEntity> invoicesOut;
 }

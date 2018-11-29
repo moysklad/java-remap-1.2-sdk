@@ -1,10 +1,10 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.entities.agents.AgentEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sun.management.Agent;
 
 import java.time.LocalDateTime;
 
@@ -55,5 +55,5 @@ public class AccountEntity extends MetaEntity {
     /**
      * Ссылка на юрлицо
      */
-    private Agent agent;
+    private AgentEntity agent;
 }

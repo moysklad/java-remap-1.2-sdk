@@ -1,5 +1,6 @@
 package com.lognex.api.entities.products;
 
+import com.lognex.api.entities.AttributeEntity;
 import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.products.markers.ProductMarker;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -50,4 +52,14 @@ public class ServiceEntity extends AbstractProductEntity implements SingleProduc
      * Отдел сотрудника в формате Метаданных
      */
     private GroupEntity group;
+
+    /**
+     * Идентификатор синхронизации
+     */
+    private String syncId;
+
+    /**
+     * Дополнительные поля
+     */
+    private List<AttributeEntity> attributes;
 }

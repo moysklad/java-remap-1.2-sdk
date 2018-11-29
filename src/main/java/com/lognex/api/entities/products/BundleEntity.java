@@ -1,7 +1,6 @@
 package com.lognex.api.entities.products;
 
-import com.lognex.api.entities.GroupEntity;
-import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
 import com.lognex.api.responses.ListEntity;
@@ -11,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -72,6 +72,31 @@ public class BundleEntity extends AbstractProductEntity {
      */
     private GroupEntity group;
 
+    /**
+     * Изображение товара
+     */
+    private ImageEntity image;
+
+    /**
+     * Идентификатор синхронизации
+     */
+    private String syncId;
+
+    /**
+     * Дополнительные поля
+     */
+    private List<AttributeEntity> attributes;
+
+    /**
+     * Страна
+     */
+    private CountryEntity country;
+
+    /**
+     * Дополнительные расходы
+     */
+    private Overhead overhead;
+
     @Getter
     @Setter
     @NoArgsConstructor
@@ -79,5 +104,14 @@ public class BundleEntity extends AbstractProductEntity {
     public static class ComponentEntity extends MetaEntity {
         private SingleProductMarker assortment;
         private Double quantity;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @EqualsAndHashCode
+    public static class Overhead {
+        private CurrencyEntity currency;
+        private Long value;
     }
 }
