@@ -2,6 +2,17 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 2.0-ALPHA8.1 (xx.12.2018)
+# Добавлено
+* Сущности:
+  * `TaskEntity`
+* Методы API: 
+  * `GET /entity/task/`
+  * `POST /entity/task/`
+  * `GET /entity/task/{ID}`
+  * `PUT /entity/task/{ID}`
+  * `DELETE /entity/task/{ID}`
+
 ## 2.0-ALPHA8 (03.12.2018)
 ### Совместимость
 * `metadata()` теперь возвращает `DocumentMetadataClient`
