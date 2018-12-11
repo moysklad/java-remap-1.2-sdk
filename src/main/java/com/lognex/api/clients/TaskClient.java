@@ -9,12 +9,12 @@ public final class TaskClient
         extends ApiClient
         implements
         GetListEndpoint<TaskEntity>,
-        PostEndpoint<TaskEntity>,
-        DeleteByIdEndpoint,
         GetByIdEndpoint<TaskEntity>,
-        PutByIdEndpoint<TaskEntity> {
+        PostEndpoint<TaskEntity>,
+        PutByIdEndpoint<TaskEntity>,
+        DeleteByIdEndpoint {
 
-    public TaskClient(LognexApi api) {
+    TaskClient(LognexApi api) {
         super(api, "/entity/task/");
     }
 
