@@ -1,18 +1,13 @@
 package com.lognex.api.entities;
 
-import com.lognex.api.LognexApi;
 import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.LognexApiException;
-import com.lognex.api.utils.MockHttpClient;
-import com.lognex.api.utils.TestAsserts;
-import com.lognex.api.utils.TestRandomizers;
 import com.lognex.api.utils.params.FilterParam;
 import com.lognex.api.utils.params.OrderParam;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.RequestLine;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -29,22 +24,7 @@ import static com.lognex.api.utils.params.OffsetParam.offset;
 import static com.lognex.api.utils.params.OrderParam.order;
 import static org.junit.Assert.*;
 
-public class TaskEntityTest implements TestRandomizers, TestAsserts {
-    private LognexApi api, mockApi;
-    private MockHttpClient mockHttpClient;
-
-    @Before
-    public void init() {
-        api = new LognexApi(
-                System.getenv("API_HOST"),
-                true, System.getenv("API_LOGIN"),
-                System.getenv("API_PASSWORD")
-        );
-
-        mockHttpClient = new MockHttpClient();
-        mockApi = new LognexApi("test.moysklad", true, "[API_LOGIN]", "[API_PASSWORD]", mockHttpClient);
-    }
-
+public class TaskEntityTest extends EntityTestBase {
     @Test
     public void createTest() throws IOException, LognexApiException {
         EmployeeEntity adminEmpl = api.entity().employee().get(filterEq("name", "Администратор")).getRows().get(0);
