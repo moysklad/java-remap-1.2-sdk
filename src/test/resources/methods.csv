@@ -458,3 +458,11 @@ GET;https://test.moysklad/api/remap/1.1/entity/commissionreportout/metadata/attr
 GET;https://test.moysklad/api/remap/1.1/entity/companysettings/;ApiParam[];CompanySettingsResponse
 GET;https://test.moysklad/api/remap/1.1/entity/metadata/;ApiParam[];GlobalMetadataEntity
 GET;https://test.moysklad/api/remap/1.1/entity/companysettings/metadata;;CompanySettingsMetadata
+GET;https://test.moysklad/api/remap/1.1/entity/task/;ApiParam[];ListEntity
+PUT;https://test.moysklad/api/remap/1.1/entity/task/ENTITY_ID;MetaEntity;void
+DELETE;https://test.moysklad/api/remap/1.1/entity/task/ID;String;void
+PUT;https://test.moysklad/api/remap/1.1/entity/task/ID;String,MetaEntity;void
+GET;https://test.moysklad/api/remap/1.1/entity/task/ID;String,ApiParam[];TaskEntity
+GET;https://test.moysklad/api/remap/1.1/entity/task/ENTITY_ID;MetaEntity,ApiParam[];TaskEntity
+DELETE;https://test.moysklad/api/remap/1.1/entity/task/ENTITY_ID;MetaEntity;void
+POST;https://test.moysklad/api/remap/1.1/entity/task/;MetaEntity;MetaEntity

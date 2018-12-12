@@ -270,4 +270,9 @@ public final class EntityClient {
     public CompanySettingsClient companysettings() {
         return new CompanySettingsClient(api);
     }
+
+    @ApiChainElement
+    public TaskClient task() {
+        return new TaskClient(api);
+    }
 }

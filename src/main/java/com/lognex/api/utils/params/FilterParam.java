@@ -45,5 +45,9 @@ public class FilterParam extends ApiParam {
         FilterType(String str) {
             this.str = str;
         }
+
+        public String getStr() {
+            return str;
+        }
     }
 }
