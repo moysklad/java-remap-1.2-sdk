@@ -18,7 +18,7 @@ public class SchemaTest implements TestAsserts, TestRandomizers {
         //todo register new company
         LognexApi api = new LognexApi(
                 System.getenv("API_HOST"),
-                true, System.getenv("API_LOGIN"),
+                false, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
         ).timeWithMilliseconds();
         Schema schema = SchemaMapper.readSchema("counterparty.json");
@@ -34,7 +34,7 @@ public class SchemaTest implements TestAsserts, TestRandomizers {
         //todo register new company
         LognexApi api = new LognexApi(
                 System.getenv("API_HOST"),
-                true, System.getenv("API_LOGIN"),
+                false, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
         ).timeWithMilliseconds();
         Schema schema = SchemaMapper.readSchema("customerorder.json");
