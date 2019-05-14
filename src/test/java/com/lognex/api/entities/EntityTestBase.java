@@ -14,7 +14,7 @@ public abstract class EntityTestBase implements TestRandomizers, TestAsserts {
     public void init() {
         api = new LognexApi(
                 System.getenv("API_HOST"),
-                true, System.getenv("API_LOGIN"),
+                false, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
         );
 
