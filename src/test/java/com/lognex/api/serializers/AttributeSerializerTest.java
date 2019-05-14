@@ -61,7 +61,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
         e.setType(AttributeEntity.Type.timeValue);
 
         LocalDateTime date = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         e.setValue(date);
 
         String data = gsonCustom.toJson(e);
@@ -70,7 +70,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
         AttributeEntity parsed = gsonCustom.fromJson(data, AttributeEntity.class);
         assertEquals(AttributeEntity.Type.timeValue, parsed.getType());
         assertNull(parsed.getEntityType());
-        assertEquals(date.withNano(0), parsed.getValue());
+        assertEquals(date, parsed.getValue());
         assertEquals(LocalDateTime.class, parsed.getValue().getClass());
     }
 

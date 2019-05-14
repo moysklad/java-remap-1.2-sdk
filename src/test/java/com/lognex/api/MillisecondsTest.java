@@ -25,7 +25,7 @@ public class MillisecondsTest implements TestAsserts, TestRandomizers {
                 System.getenv("API_HOST"),
                 false, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
-        ).timeWithMilliseconds();
+        );
 
         CounterpartyEntity cag = api_s.entity().counterparty().get().getRows().get(0);
         assertEquals(0, cag.getCreated().get(ChronoField.MILLI_OF_SECOND));

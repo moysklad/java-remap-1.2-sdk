@@ -14,8 +14,8 @@ public class AttributeSerializer implements JsonSerializer<AttributeEntity>, Jso
     private final Gson gson = new GsonBuilder().create();
     private final DateTimeFormatter formatter;
 
-    public AttributeSerializer(boolean dateWithMilliseconds) {
-        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss" + (dateWithMilliseconds ? ".SSS" : ""));
+    public AttributeSerializer() {
+        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
     }
 
     @Override

@@ -47,12 +47,11 @@ public final class HttpRequestExecutor {
         body = null;
         auth(api);
 
-        if (api.isTimeWithMilliseconds()) header("X-Lognex-Format-Millisecond", "true");
         if (api.isPrettyPrintJson()) header("Lognex-Pretty-Print-JSON", "true");
         if (api.isPricePrecision()) header("X-Lognex-Precision", "true");
         if (api.isWithoutWebhookContent()) header("X-Lognex-WebHook-Disable", "true");
 
-        gson = LognexApi.createGson(false, api.isTimeWithMilliseconds());
+        gson = LognexApi.createGson(false);
     }
 
     private HttpRequestExecutor(CloseableHttpClient client, String url) {

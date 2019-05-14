@@ -28,7 +28,6 @@ public final class LognexApi {
     private String login;
     private String password;
     private CloseableHttpClient client;
-    private boolean timeWithMilliseconds = false;
     private boolean prettyPrintJson = false;
     private boolean pricePrecision = false;
     private boolean withoutWebhookContent = false;
@@ -116,15 +115,6 @@ public final class LognexApi {
      * вывод)
      */
     public static Gson createGson(boolean prettyPrinting) {
-        return createGson(prettyPrinting, false);
-    }
-
-    /**
-     * Создаёт экземпляр GSON с настроенными сериализаторами и десериализаторами для
-     * некоторых классов и сущностей (с возможностью настроить форматированный
-     * вывод и даты с миллисекундами)
-     */
-    public static Gson createGson(boolean prettyPrinting, boolean timeWithMilliseconds) {
         GsonBuilder gb = new GsonBuilder();
 
         if (prettyPrinting) {
@@ -142,22 +132,13 @@ public final class LognexApi {
         gb.registerTypeAdapter(FinanceOutDocumentMarker.class, fdms);
 
         gb.registerTypeAdapter(AgentEntity.class, new AgentDeserializer());
-        gb.registerTypeAdapter(AttributeEntity.class, new AttributeSerializer(timeWithMilliseconds));
+        gb.registerTypeAdapter(AttributeEntity.class, new AttributeSerializer());
         gb.registerTypeAdapter(CurrencyEntity.MultiplicityType.class, new CurrencyEntity.MultiplicityType.Serializer());
         gb.registerTypeAdapter(DiscountEntity.class, new DiscountDeserializer());
         gb.registerTypeAdapter(ListEntity.class, new ListEntityDeserializer());
-        gb.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer(timeWithMilliseconds));
+        gb.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
 
         return gb.create();
-    }
-
-    public LognexApi timeWithMilliseconds() {
-        return timeWithMilliseconds(true);
-    }
-
-    public LognexApi timeWithMilliseconds(boolean value) {
-        this.timeWithMilliseconds = value;
-        return this;
     }
 
     public LognexApi prettyPrintJson() {

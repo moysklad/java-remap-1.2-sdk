@@ -20,7 +20,7 @@ public class SchemaTest implements TestAsserts, TestRandomizers {
                 System.getenv("API_HOST"),
                 false, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
-        ).timeWithMilliseconds();
+        );
         Schema schema = SchemaMapper.readSchema("counterparty.json");
         SchemaValidator<CounterpartyEntity> schemaValidator = new SchemaValidator<>(
                 schema,
@@ -36,7 +36,7 @@ public class SchemaTest implements TestAsserts, TestRandomizers {
                 System.getenv("API_HOST"),
                 false, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
-        ).timeWithMilliseconds();
+        );
         Schema schema = SchemaMapper.readSchema("customerorder.json");
         SchemaValidator<CustomerOrderDocumentEntity> schemaValidator = new SchemaValidator<>(
                 schema,
