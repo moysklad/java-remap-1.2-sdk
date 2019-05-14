@@ -217,9 +217,9 @@ public class ApiParamsTest {
     public void test_limitOffset() throws IOException, LognexApiException {
         ListEntity<UomEntity> uomPlain = api.entity().uom().get();
         assertEquals(58, (int) uomPlain.getMeta().getSize());
-        assertEquals(25, (int) uomPlain.getMeta().getLimit());
+        assertEquals(1000, (int) uomPlain.getMeta().getLimit());
         assertEquals(0, (int) uomPlain.getMeta().getOffset());
-        assertEquals(25, uomPlain.getRows().size());
+        assertEquals(58, uomPlain.getRows().size());
         assertEquals(
                 host + "/api/remap/1.2/entity/uom/",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
@@ -237,7 +237,7 @@ public class ApiParamsTest {
 
         ListEntity<UomEntity> uomOffset = api.entity().uom().get(offset(50));
         assertEquals(58, (int) uomOffset.getMeta().getSize());
-        assertEquals(25, (int) uomOffset.getMeta().getLimit());
+        assertEquals(1000, (int) uomOffset.getMeta().getLimit());
         assertEquals(50, (int) uomOffset.getMeta().getOffset());
         assertEquals(8, uomOffset.getRows().size());
         assertEquals(
@@ -299,13 +299,13 @@ public class ApiParamsTest {
             Сортировка по нескольким параметрам
          */
 
-        ListEntity<UomEntity> uomOrderByTwoParams = api.entity().uom().get(limit(100), order("name", desc), order("id"), order("version", asc));
+        ListEntity<UomEntity> uomOrderByTwoParams = api.entity().uom().get(limit(100), order("name", desc), order("id"), order("updated", asc));
         List<String> listSortedByTwoParams = uomOrderByTwoParams.getRows().stream().map(MetaEntity::getName).collect(Collectors.toList());
         assertNotEquals(listAsIs, listSortedByTwoParams);
         assertTrue(listSortedByTwoParams.containsAll(listAsIs));
         assertTrue(listAsIs.containsAll(listSortedByTwoParams));
         assertEquals(
-                host + "/api/remap/1.2/entity/uom/?limit=100&order=name%2Cdesc%3Bid%3Bversion%2Casc",
+                host + "/api/remap/1.2/entity/uom/?limit=100&order=name%2Cdesc%3Bid%3Bupdated%2Casc",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
     }
