@@ -46,8 +46,7 @@ public class TaskEntityTest extends EntityTestBase {
         assertEquals(adminEmpl.getMeta().getHref(), retrievedEntity.getAssignee().getMeta().getHref());
         assertEquals(buyerAgent.getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(dueDate, retrievedEntity.getDueToDate());
-        assertEquals((Integer) 0, retrievedEntity.getVersion());
-        assertEquals(retrievedEntity.getCreated(), retrievedEntity.getUpdated());
+        assertEquals(retrievedEntity.getCreated().withNano(0), retrievedEntity.getUpdated().withNano(0));
         assertFalse(retrievedEntity.getDone());
     }
 
@@ -244,8 +243,8 @@ public class TaskEntityTest extends EntityTestBase {
     private void getAsserts(TaskEntity e, TaskEntity retrievedEntity) {
         assertEquals(e.getId(), retrievedEntity.getId());
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getCreated(), retrievedEntity.getCreated());
-        assertEquals(e.getUpdated(), retrievedEntity.getUpdated());
+        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
+        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
         assertEquals(e.getAuthor().getMeta().getHref(), retrievedEntity.getAuthor().getMeta().getHref());
         assertEquals(e.getAssignee().getMeta().getHref(), retrievedEntity.getAssignee().getMeta().getHref());
         assertNull(retrievedEntity.getAgent());
