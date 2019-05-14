@@ -32,30 +32,6 @@ public class HeadersTest {
     }
 
     @Test
-    public void msecHeaderTest() throws IOException, LognexApiException {
-        api = new LognexApi("test.moysklad", true, "[API_LOGIN]", "[API_PASSWORD]", mockHttpClient);
-        api.entity().counterparty().get();
-
-        HttpRequest req0 = mockHttpClient.getLastExecutedRequest();
-        assertNotNull(req0);
-        assertNull(req0.getFirstHeader("X-Lognex-Format-Millisecond"));
-
-        api.timeWithMilliseconds();
-        api.entity().counterparty().get();
-
-        HttpRequest req1 = mockHttpClient.getLastExecutedRequest();
-        assertNotNull(req1);
-        assertEquals("true", req1.getFirstHeader("X-Lognex-Format-Millisecond").getValue());
-
-        api.timeWithMilliseconds(false);
-        api.entity().counterparty().get();
-
-        HttpRequest req2 = mockHttpClient.getLastExecutedRequest();
-        assertNotNull(req2);
-        assertNull(req2.getFirstHeader("X-Lognex-Format-Millisecond"));
-    }
-
-    @Test
     public void prettyPrintHeaderTest() throws IOException, LognexApiException {
         api = new LognexApi("test.moysklad", true, "[API_LOGIN]", "[API_PASSWORD]", mockHttpClient);
         api.entity().counterparty().get();
