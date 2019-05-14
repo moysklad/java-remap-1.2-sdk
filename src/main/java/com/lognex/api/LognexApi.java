@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public final class LognexApi {
-    public static final String API_PATH = "/api/remap/1.1";
+    public static final String API_PATH = "/api/remap/1.2";
     private final String host;
     private String login;
     private String password;

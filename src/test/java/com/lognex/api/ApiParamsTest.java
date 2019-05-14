@@ -62,7 +62,7 @@ public class ApiParamsTest {
         CounterpartyEntity elementWithoutExpand = listWithoutExpand.getRows().get(0);
         assertNull(elementWithoutExpand.getGroup().getName());
         assertEquals(
-                host + "/api/remap/1.1/entity/counterparty/",
+                host + "/api/remap/1.2/entity/counterparty/",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
@@ -74,7 +74,7 @@ public class ApiParamsTest {
         CounterpartyEntity elementWithExpand = listWithExpand.getRows().get(0);
         assertNotNull(elementWithExpand.getGroup().getName());
         assertEquals(
-                host + "/api/remap/1.1/entity/counterparty/?expand=group",
+                host + "/api/remap/1.2/entity/counterparty/?expand=group",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
@@ -88,7 +88,7 @@ public class ApiParamsTest {
         assertNotNull(elementWithNestedExpand.getOwner().getName());
         assertNotNull(elementWithNestedExpand.getOwner().getGroup().getName());
         assertEquals(
-                host + "/api/remap/1.1/entity/counterparty/?expand=owner.group",
+                host + "/api/remap/1.2/entity/counterparty/?expand=owner.group",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
     }
@@ -104,7 +104,7 @@ public class ApiParamsTest {
         assertNotNull(expandElement2.getGroup().getName());
         assertNotNull(expandElement2.getOwner().getName());
         assertEquals(
-                host + "/api/remap/1.1/entity/counterparty/?expand=group%2Cowner",
+                host + "/api/remap/1.2/entity/counterparty/?expand=group%2Cowner",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
@@ -117,7 +117,7 @@ public class ApiParamsTest {
         assertNotNull(expandElementNested.getGroup().getName());
         assertNotNull(expandElementNested.getOwner().getGroup().getName());
         assertEquals(
-                host + "/api/remap/1.1/entity/counterparty/?expand=group%2Cowner.group",
+                host + "/api/remap/1.2/entity/counterparty/?expand=group%2Cowner.group",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
@@ -130,7 +130,7 @@ public class ApiParamsTest {
         assertNotNull(expandElement22.getGroup().getName());
         assertNotNull(expandElement22.getOwner().getName());
         assertEquals(
-                host + "/api/remap/1.1/entity/counterparty/?expand=group%2Cowner",
+                host + "/api/remap/1.2/entity/counterparty/?expand=group%2Cowner",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
     }
@@ -144,7 +144,7 @@ public class ApiParamsTest {
         ListEntity<CounterpartyEntity> dataWithoutFilter = api.entity().counterparty().get();
         int size = dataWithoutFilter.getMeta().getSize();
         assertEquals(
-                host + "/api/remap/1.1/entity/counterparty/",
+                host + "/api/remap/1.2/entity/counterparty/",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
@@ -158,7 +158,7 @@ public class ApiParamsTest {
         assertEquals(1, dataWithEqFilter1.getRows().size());
         assertEquals("ООО \"Поставщик\"", dataWithEqFilter1.getRows().get(0).getName());
         assertEquals(
-                host + "/api/remap/1.1/entity/counterparty/?filter=name" + URLEncoder.encode("=ООО \"Поставщик\"", "UTF-8"),
+                host + "/api/remap/1.2/entity/counterparty/?filter=name" + URLEncoder.encode("=ООО \"Поставщик\"", "UTF-8"),
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
@@ -173,7 +173,7 @@ public class ApiParamsTest {
         assertNotEquals("ООО \"Поставщик\"", dataWithEqFilter2.getRows().get(0).getName());
         assertNotEquals("ООО \"Поставщик\"", dataWithEqFilter2.getRows().get(1).getName());
         assertEquals(
-                host + "/api/remap/1.1/entity/counterparty/?filter=name" + URLEncoder.encode("!=ООО \"Поставщик\"", "UTF-8"),
+                host + "/api/remap/1.2/entity/counterparty/?filter=name" + URLEncoder.encode("!=ООО \"Поставщик\"", "UTF-8"),
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
@@ -188,7 +188,7 @@ public class ApiParamsTest {
         assertNotEquals("Розничный покупатель", dataWithEqFilter3.getRows().get(0).getName());
         assertNotEquals("Розничный покупатель", dataWithEqFilter3.getRows().get(1).getName());
         assertEquals(
-                host + "/api/remap/1.1/entity/counterparty/?filter=name" + URLEncoder.encode("~ООО", "UTF-8"),
+                host + "/api/remap/1.2/entity/counterparty/?filter=name" + URLEncoder.encode("~ООО", "UTF-8"),
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
     }
@@ -205,7 +205,7 @@ public class ApiParamsTest {
         assertNotNull(metadataWithFilter.getService());
         assertNotNull(metadataWithFilter.getDemand());
         assertEquals(
-                host + "/api/remap/1.1/entity/metadata/?filter=" +
+                host + "/api/remap/1.2/entity/metadata/?filter=" +
                         "type" + URLEncoder.encode("=product;", "UTF-8") +
                         "type" + URLEncoder.encode("=service;", "UTF-8") +
                         "type" + URLEncoder.encode("=", "UTF-8") + "demand",
@@ -221,7 +221,7 @@ public class ApiParamsTest {
         assertEquals(0, (int) uomPlain.getMeta().getOffset());
         assertEquals(25, uomPlain.getRows().size());
         assertEquals(
-                host + "/api/remap/1.1/entity/uom/",
+                host + "/api/remap/1.2/entity/uom/",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
@@ -231,7 +231,7 @@ public class ApiParamsTest {
         assertEquals(0, (int) uomLimit.getMeta().getOffset());
         assertEquals(10, uomLimit.getRows().size());
         assertEquals(
-                host + "/api/remap/1.1/entity/uom/?limit=10",
+                host + "/api/remap/1.2/entity/uom/?limit=10",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
@@ -241,7 +241,7 @@ public class ApiParamsTest {
         assertEquals(50, (int) uomOffset.getMeta().getOffset());
         assertEquals(8, uomOffset.getRows().size());
         assertEquals(
-                host + "/api/remap/1.1/entity/uom/?offset=50",
+                host + "/api/remap/1.2/entity/uom/?offset=50",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
@@ -251,7 +251,7 @@ public class ApiParamsTest {
         assertEquals(52, (int) uomLimitOffset.getMeta().getOffset());
         assertEquals(6, uomLimitOffset.getRows().size());
         assertEquals(
-                host + "/api/remap/1.1/entity/uom/?offset=52&limit=8",
+                host + "/api/remap/1.2/entity/uom/?offset=52&limit=8",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
     }
@@ -271,7 +271,7 @@ public class ApiParamsTest {
         assertTrue(listSortedByNameAsc.containsAll(listAsIs));
         assertTrue(listAsIs.containsAll(listSortedByNameAsc));
         assertEquals(
-                host + "/api/remap/1.1/entity/uom/?limit=100&order=name",
+                host + "/api/remap/1.2/entity/uom/?limit=100&order=name",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
@@ -291,7 +291,7 @@ public class ApiParamsTest {
         Collections.reverse(listSortedByNameAsc);
         assertEquals(listSortedByNameAsc, listSortedByNameDesc);
         assertEquals(
-                host + "/api/remap/1.1/entity/uom/?limit=100&order=name%2Cdesc",
+                host + "/api/remap/1.2/entity/uom/?limit=100&order=name%2Cdesc",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
@@ -305,7 +305,7 @@ public class ApiParamsTest {
         assertTrue(listSortedByTwoParams.containsAll(listAsIs));
         assertTrue(listAsIs.containsAll(listSortedByTwoParams));
         assertEquals(
-                host + "/api/remap/1.1/entity/uom/?limit=100&order=name%2Cdesc%3Bid%3Bversion%2Casc",
+                host + "/api/remap/1.2/entity/uom/?limit=100&order=name%2Cdesc%3Bid%3Bversion%2Casc",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
     }
@@ -319,7 +319,7 @@ public class ApiParamsTest {
         assertTrue(uomSearch.getRows().stream().allMatch(searchPredicate));
         assertEquals(uomPlain.getRows().stream().filter(searchPredicate).count(), uomSearch.getRows().size());
         assertEquals(
-                host + "/api/remap/1.1/entity/uom/?search=" + URLEncoder.encode("мил", "UTF-8"),
+                host + "/api/remap/1.2/entity/uom/?search=" + URLEncoder.encode("мил", "UTF-8"),
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
     }

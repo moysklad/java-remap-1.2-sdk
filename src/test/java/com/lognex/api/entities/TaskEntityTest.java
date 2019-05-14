@@ -132,7 +132,7 @@ public class TaskEntityTest extends EntityTestBase {
 
         RequestLine rl = mockHttpClient.getLastExecutedRequest().getRequestLine();
         assertEquals("GET", rl.getMethod());
-        assertEquals("https://test.moysklad/api/remap/1.1/entity/task/?offset=" + value, rl.getUri());
+        assertEquals("https://test.moysklad/api/remap/1.2/entity/task/?offset=" + value, rl.getUri());
     }
 
     @Test
@@ -142,7 +142,7 @@ public class TaskEntityTest extends EntityTestBase {
 
         RequestLine rl = mockHttpClient.getLastExecutedRequest().getRequestLine();
         assertEquals("GET", rl.getMethod());
-        assertEquals("https://test.moysklad/api/remap/1.1/entity/task/?limit=" + value, rl.getUri());
+        assertEquals("https://test.moysklad/api/remap/1.2/entity/task/?limit=" + value, rl.getUri());
     }
 
     @Test
@@ -153,7 +153,7 @@ public class TaskEntityTest extends EntityTestBase {
 
             RequestLine rl = mockHttpClient.getLastExecutedRequest().getRequestLine();
             assertEquals("GET", rl.getMethod());
-            assertEquals("https://test.moysklad/api/remap/1.1/entity/task/?expand=" + value, rl.getUri());
+            assertEquals("https://test.moysklad/api/remap/1.2/entity/task/?expand=" + value, rl.getUri());
         }
 
         {
@@ -164,7 +164,7 @@ public class TaskEntityTest extends EntityTestBase {
             RequestLine rl = mockHttpClient.getLastExecutedRequest().getRequestLine();
             assertEquals("GET", rl.getMethod());
             assertEquals(
-                    "https://test.moysklad/api/remap/1.1/entity/task/?order=" +
+                    "https://test.moysklad/api/remap/1.2/entity/task/?order=" +
                             URLEncoder.encode(value + "," + dir.name(), "UTF-8"),
                     rl.getUri()
             );
@@ -179,7 +179,7 @@ public class TaskEntityTest extends EntityTestBase {
             RequestLine rl = mockHttpClient.getLastExecutedRequest().getRequestLine();
             assertEquals("GET", rl.getMethod());
             assertEquals(
-                    "https://test.moysklad/api/remap/1.1/entity/task/?filter=" +
+                    "https://test.moysklad/api/remap/1.2/entity/task/?filter=" +
                             URLEncoder.encode(key + op.getStr() + value, "UTF-8"),
                     rl.getUri()
             );
@@ -203,7 +203,7 @@ public class TaskEntityTest extends EntityTestBase {
             RequestLine rl = mockHttpClient.getLastExecutedRequest().getRequestLine();
             assertEquals("GET", rl.getMethod());
             assertEquals(
-                    "https://test.moysklad/api/remap/1.1/entity/task/?filter=" +
+                    "https://test.moysklad/api/remap/1.2/entity/task/?filter=" +
                             URLEncoder.encode(filterKey + filterOp.getStr() + filterValue, "UTF-8") + "&" +
                             "expand=" + expandValue + "&" +
                             "order=" + URLEncoder.encode(orderValue + "," + orderDir.name(), "UTF-8"),
