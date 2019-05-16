@@ -15,7 +15,6 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = false)
 public class MetaEntity extends Entity {
     private String id;
-    private Integer version;
     private String accountId;
     private String name;
 
