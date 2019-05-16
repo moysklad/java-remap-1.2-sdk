@@ -13,7 +13,7 @@ public final class CompanySettingsClient
         MetadataEndpoint<CompanySettingsMetadata> {
 
     public CompanySettingsClient(LognexApi api) {
-        super(api, "/entity/companysettings/");
+        super(api, "/context/companysettings/");
     }
 
     @Override
