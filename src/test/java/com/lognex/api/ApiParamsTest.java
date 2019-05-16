@@ -70,11 +70,11 @@ public class ApiParamsTest {
             С expand
          */
 
-        ListEntity<CounterpartyEntity> listWithExpand = api.entity().counterparty().get(expand("group"));
+        ListEntity<CounterpartyEntity> listWithExpand = api.entity().counterparty().get(limit(10), expand("group"));
         CounterpartyEntity elementWithExpand = listWithExpand.getRows().get(0);
         assertNotNull(elementWithExpand.getGroup().getName());
         assertEquals(
-                host + "/api/remap/1.2/entity/counterparty/?expand=group",
+                host + "/api/remap/1.2/entity/counterparty/?expand=group&limit=10",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
@@ -82,13 +82,13 @@ public class ApiParamsTest {
             С вложенным expand
          */
 
-        ListEntity<CounterpartyEntity> listWithNestedExpand = api.entity().counterparty().get(expand("owner.group"));
+        ListEntity<CounterpartyEntity> listWithNestedExpand = api.entity().counterparty().get(limit(10), expand("owner.group"));
         CounterpartyEntity elementWithNestedExpand = listWithNestedExpand.getRows().get(0);
         assertNull(elementWithNestedExpand.getGroup().getName());
         assertNotNull(elementWithNestedExpand.getOwner().getName());
         assertNotNull(elementWithNestedExpand.getOwner().getGroup().getName());
         assertEquals(
-                host + "/api/remap/1.2/entity/counterparty/?expand=owner.group",
+                host + "/api/remap/1.2/entity/counterparty/?expand=owner.group&limit=10",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
     }
@@ -99,12 +99,12 @@ public class ApiParamsTest {
             expand двух полей
          */
 
-        ListEntity<CounterpartyEntity> expand2 = api.entity().counterparty().get(expand("group", "owner"));
+        ListEntity<CounterpartyEntity> expand2 = api.entity().counterparty().get(limit(10), expand("group", "owner"));
         CounterpartyEntity expandElement2 = expand2.getRows().get(0);
         assertNotNull(expandElement2.getGroup().getName());
         assertNotNull(expandElement2.getOwner().getName());
         assertEquals(
-                host + "/api/remap/1.2/entity/counterparty/?expand=group%2Cowner",
+                host + "/api/remap/1.2/entity/counterparty/?expand=group%2Cowner&limit=10",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
@@ -112,12 +112,12 @@ public class ApiParamsTest {
             expand двух полей, одно из которых -- вложенное
          */
 
-        ListEntity<CounterpartyEntity> expandNested = api.entity().counterparty().get(expand("group", "owner.group"));
+        ListEntity<CounterpartyEntity> expandNested = api.entity().counterparty().get(limit(10), expand("group", "owner.group"));
         CounterpartyEntity expandElementNested = expandNested.getRows().get(0);
         assertNotNull(expandElementNested.getGroup().getName());
         assertNotNull(expandElementNested.getOwner().getGroup().getName());
         assertEquals(
-                host + "/api/remap/1.2/entity/counterparty/?expand=group%2Cowner.group",
+                host + "/api/remap/1.2/entity/counterparty/?expand=group%2Cowner.group&limit=10",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
@@ -125,12 +125,12 @@ public class ApiParamsTest {
             expand двух полей двумя отдельными параметрами
          */
 
-        ListEntity<CounterpartyEntity> expand22 = api.entity().counterparty().get(expand("group"), expand("owner"));
+        ListEntity<CounterpartyEntity> expand22 = api.entity().counterparty().get(limit(10), expand("group"), expand("owner"));
         CounterpartyEntity expandElement22 = expand22.getRows().get(0);
         assertNotNull(expandElement22.getGroup().getName());
         assertNotNull(expandElement22.getOwner().getName());
         assertEquals(
-                host + "/api/remap/1.2/entity/counterparty/?expand=group%2Cowner",
+                host + "/api/remap/1.2/entity/counterparty/?expand=group%2Cowner&limit=10",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
     }
