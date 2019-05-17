@@ -3,6 +3,7 @@ package com.lognex.api.clients;
 import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.CustomEntity;
+import com.lognex.api.entities.CustomEntityElement;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.HttpRequestExecutor;
@@ -15,9 +16,7 @@ public final class CustomEntityClient
         implements
         PostEndpoint<CustomEntity>,
         PutByIdEndpoint<CustomEntity>,
-        DeleteByIdEndpoint,
-        GetByIdEndpoint<ListEntity<CustomEntity>>,
-        PostByIdEndpoint<CustomEntity> {
+        DeleteByIdEndpoint {
 
     public CustomEntityClient(LognexApi api) {
         super(api, "/entity/customentity/");
@@ -29,36 +28,60 @@ public final class CustomEntityClient
     }
 
     @ApiEndpoint
-    public CustomEntity getCustomEntityElement(String customEntityMetadataId, String customEntityId) throws IOException, LognexApiException {
-        return HttpRequestExecutor.
-                path(api(), path() + customEntityMetadataId + "/" + customEntityId).
-                get(CustomEntity.class);
+    public CustomEntityElement postCustomEntityElement(String customEntityMetadataId, CustomEntityElement customEntityElement) throws IOException, LognexApiException {
+         CustomEntityElement responseEntity = HttpRequestExecutor.
+                path(api(), path() + customEntityMetadataId).
+                body(customEntityElement).
+                post(CustomEntityElement.class);
+
+         customEntityElement.set(responseEntity);
+         return customEntityElement;
     }
 
     @ApiEndpoint
-    public void deleteCustomEntityElement(String customEntityMetadataId, String customEntityId) throws IOException, LognexApiException {
-        HttpRequestExecutor.
+    public CustomEntityElement getCustomEntityElement(String customEntityMetadataId, String customEntityId) throws IOException, LognexApiException {
+        return HttpRequestExecutor.
                 path(api(), path() + customEntityMetadataId + "/" + customEntityId).
+                get(CustomEntityElement.class);
+    }
+
+    @ApiEndpoint
+    public ListEntity<CustomEntityElement> getCustomEntityElements(String customEntityMetadataId) throws IOException, LognexApiException {
+        return HttpRequestExecutor.
+                path(api(), path() + customEntityMetadataId).
+                list(CustomEntityElement.class);
+    }
+
+    @ApiEndpoint
+    public ListEntity<CustomEntityElement> getCustomEntityElements(CustomEntity customEntity) throws IOException, LognexApiException {
+        return getCustomEntityElements(customEntity.getId());
+    }
+
+    @ApiEndpoint
+    public CustomEntityElement putCustomEntityElement(String customEntityMetadataId, String customEntityId, CustomEntityElement updatedEntity) throws IOException, LognexApiException {
+        CustomEntityElement responseEntity = HttpRequestExecutor.
+                path(api(), path() + customEntityMetadataId + "/" + customEntityId).
+                body(updatedEntity).
+                put(CustomEntityElement.class);
+
+        updatedEntity.set(responseEntity);
+        return updatedEntity;
+    }
+
+    @ApiEndpoint
+    public CustomEntityElement putCustomEntityElement(String customEntityMetadataId, CustomEntityElement customEntityElement) throws IOException, LognexApiException {
+        return putCustomEntityElement(customEntityMetadataId, customEntityElement.getId(), customEntityElement);
+    }
+
+    @ApiEndpoint
+    public void deleteCustomEntityElement(String customEntityMetadataId, String customEntityElementId) throws IOException, LognexApiException {
+        HttpRequestExecutor.
+                path(api(), path() + customEntityMetadataId + "/" + customEntityElementId).
                 delete();
     }
 
     @ApiEndpoint
-    public void deleteCustomEntityElement(String customEntityMetadataId, CustomEntity customEntity) throws IOException, LognexApiException {
-        deleteCustomEntityElement(customEntityMetadataId, customEntity.getId());
-    }
-
-    @ApiEndpoint
-    public void putCustomEntityElement(String customEntityMetadataId, String customEntityId, CustomEntity updatedEntity) throws IOException, LognexApiException {
-        CustomEntity responseEntity = HttpRequestExecutor
-                .path(api(), path() + customEntityMetadataId + "/" + customEntityId)
-                .body(updatedEntity)
-                .put(CustomEntity.class);
-
-        updatedEntity.set(responseEntity);
-    }
-
-    @ApiEndpoint
-    public void putCustomEntityElement(String customEntityMetadataId, CustomEntity customEntity) throws IOException, LognexApiException {
-        putCustomEntityElement(customEntityMetadataId, customEntity.getId(), customEntity);
+    public void deleteCustomEntityElement(String customEntityMetadataId, CustomEntityElement customEntityElement) throws IOException, LognexApiException {
+        deleteCustomEntityElement(customEntityMetadataId, customEntityElement.getId());
     }
 }

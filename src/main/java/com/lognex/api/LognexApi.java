@@ -14,6 +14,7 @@ import com.lognex.api.entities.products.markers.ConsignmentParentMarker;
 import com.lognex.api.entities.products.markers.ProductMarker;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
 import com.lognex.api.responses.ListEntity;
+import com.lognex.api.responses.metadata.CompanySettingsMetadata;
 import com.lognex.api.utils.json.*;
 import lombok.Getter;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -137,6 +138,7 @@ public final class LognexApi {
         gb.registerTypeAdapter(DiscountEntity.class, new DiscountDeserializer());
         gb.registerTypeAdapter(ListEntity.class, new ListEntityDeserializer());
         gb.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
+        gb.registerTypeAdapter(CompanySettingsMetadata.CustomEntityMetadata.class, new CustomEntityMetadataDeserializer());
 
         return gb.create();
     }
