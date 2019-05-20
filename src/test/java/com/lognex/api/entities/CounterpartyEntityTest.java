@@ -61,7 +61,7 @@ public class CounterpartyEntityTest extends EntityTestBase {
         api.entity().counterparty().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
-        retrievedOriginalEntity = e;
+        retrievedOriginalEntity.set(e);
 
         name = "counterparty_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
@@ -391,6 +391,7 @@ public class CounterpartyEntityTest extends EntityTestBase {
         assertEquals(retrievedEntity.getDescription(), updNoteByPrevObject.getDescription());
     }
 
+    // не работает, так как не работает метод post у событий
     @Test
     public void deleteNoteTest() throws IOException, LognexApiException {
         CounterpartyEntity e = new CounterpartyEntity();
