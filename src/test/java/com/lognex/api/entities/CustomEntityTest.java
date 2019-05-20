@@ -296,5 +296,6 @@ public class CustomEntityTest extends EntityTestBase {
         assertEquals(retrievedUpdatedEntity.getExternalCode(), retrievedOriginalEntity.getExternalCode());
         assertEquals(retrievedUpdatedEntity.getMeta().getHref(), retrievedOriginalEntity.getMeta().getHref());
         assertEquals(retrievedUpdatedEntity.getMeta().getType(), retrievedOriginalEntity.getMeta().getType());
+        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
     }
 }

@@ -53,12 +53,13 @@ public class CounterpartyEntityTest extends EntityTestBase {
     }
 
     @Test
-    public void putTest() throws IOException, LognexApiException {
+    public void putTest() throws IOException, LognexApiException, InterruptedException {
         CounterpartyEntity e = createSimpleCounterparty();
 
         CounterpartyEntity retrievedOriginalEntity = api.entity().counterparty().get(e.getId());
         String name = "counterparty_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
+        Thread.sleep(1500);
         api.entity().counterparty().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -66,6 +67,7 @@ public class CounterpartyEntityTest extends EntityTestBase {
 
         name = "counterparty_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
+        Thread.sleep(1500);
         api.entity().counterparty().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -94,31 +96,6 @@ public class CounterpartyEntityTest extends EntityTestBase {
 
         entitiesList = api.entity().counterparty().get(filterEq("name", e.getName()));
         assertEquals(0, entitiesList.getRows().size());
-    }
-
-    private CounterpartyEntity createSimpleCounterparty() throws IOException, LognexApiException {
-        CounterpartyEntity e = new CounterpartyEntity();
-        e.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
-        e.setDescription(randomString());
-        e.setArchived(false);
-        e.setCompanyType(CompanyType.legal);
-
-//        ListEntity<AccountEntity> accounts = new ListEntity<>();
-//        accounts.setRows(new ArrayList<>());
-//        AccountEntity ae = new AccountEntity();
-//        ae.setIsDefault(true);
-//        ae.setAccountNumber(randomString());
-//        accounts.getRows().add(ae);
-//        e.setAccounts(accounts);
-
-        e.setInn(randomString());
-        e.setOgrn(randomString());
-        e.setLegalAddress(randomString());
-        e.setLegalTitle(randomString());
-
-        api.entity().counterparty().post(e);
-//        e.setAccounts(null);
-        return e;
     }
 
     @Test
@@ -431,6 +408,31 @@ public class CounterpartyEntityTest extends EntityTestBase {
         assertEquals(0, notesAfter.getRows().size());
     }
 
+    private CounterpartyEntity createSimpleCounterparty() throws IOException, LognexApiException {
+        CounterpartyEntity e = new CounterpartyEntity();
+        e.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
+        e.setDescription(randomString());
+        e.setArchived(false);
+        e.setCompanyType(CompanyType.legal);
+
+//        ListEntity<AccountEntity> accounts = new ListEntity<>();
+//        accounts.setRows(new ArrayList<>());
+//        AccountEntity ae = new AccountEntity();
+//        ae.setIsDefault(true);
+//        ae.setAccountNumber(randomString());
+//        accounts.getRows().add(ae);
+//        e.setAccounts(accounts);
+
+        e.setInn(randomString());
+        e.setOgrn(randomString());
+        e.setLegalAddress(randomString());
+        e.setLegalTitle(randomString());
+
+        api.entity().counterparty().post(e);
+//        e.setAccounts(null);
+        return e;
+    }
+
     private void getAsserts(CounterpartyEntity e, CounterpartyEntity retrievedEntity) {
         assertEquals(e.getName(), retrievedEntity.getName());
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
@@ -456,5 +458,7 @@ public class CounterpartyEntityTest extends EntityTestBase {
         assertEquals(retrievedUpdatedEntity.getOgrn(), retrievedOriginalEntity.getOgrn());
         assertEquals(retrievedUpdatedEntity.getLegalAddress(), retrievedOriginalEntity.getLegalAddress());
         assertEquals(retrievedUpdatedEntity.getLegalTitle(), retrievedOriginalEntity.getLegalTitle());
+        assertEquals(retrievedOriginalEntity.getCreated(), retrievedUpdatedEntity.getCreated());
+        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
     }
 }

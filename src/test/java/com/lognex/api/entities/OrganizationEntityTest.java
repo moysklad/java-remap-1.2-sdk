@@ -49,37 +49,14 @@ public class OrganizationEntityTest extends EntityTestBase {
         getAsserts(e, retrievedEntity);
     }
 
-    private OrganizationEntity createSimpleOrganization() throws IOException, LognexApiException {
-        OrganizationEntity e = new OrganizationEntity();
-        e.setName("organization_" + randomString(3) + "_" + new Date().getTime());
-        e.setArchived(false);
-        e.setCompanyType(CompanyType.legal);
-
-//        ListEntity<AccountEntity> accounts = new ListEntity<>();
-//        accounts.setRows(new ArrayList<>());
-//        AccountEntity ae = new AccountEntity();
-//        ae.setIsDefault(true);
-//        ae.setAccountNumber(randomString());
-//        accounts.getRows().add(ae);
-//        e.setAccounts(accounts);
-
-        e.setInn(randomString());
-        e.setOgrn(randomString());
-        e.setLegalAddress(randomString());
-        e.setLegalTitle(randomString());
-
-        api.entity().organization().post(e);
-//        e.setAccounts(null);
-        return e;
-    }
-
     @Test
-    public void putTest() throws IOException, LognexApiException {
+    public void putTest() throws IOException, LognexApiException, InterruptedException {
         OrganizationEntity e = createSimpleOrganization();
 
         OrganizationEntity retrievedOriginalEntity = api.entity().organization().get(e.getId());
         String name = "organization_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
+        Thread.sleep(1500);
         api.entity().organization().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -87,6 +64,7 @@ public class OrganizationEntityTest extends EntityTestBase {
 
         name = "organization_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
+        Thread.sleep(1500);
         api.entity().organization().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -176,6 +154,30 @@ public class OrganizationEntityTest extends EntityTestBase {
         assertFalse(accountList.getRows().get(1).getIsDefault());
     }
 
+    private OrganizationEntity createSimpleOrganization() throws IOException, LognexApiException {
+        OrganizationEntity e = new OrganizationEntity();
+        e.setName("organization_" + randomString(3) + "_" + new Date().getTime());
+        e.setArchived(false);
+        e.setCompanyType(CompanyType.legal);
+
+//        ListEntity<AccountEntity> accounts = new ListEntity<>();
+//        accounts.setRows(new ArrayList<>());
+//        AccountEntity ae = new AccountEntity();
+//        ae.setIsDefault(true);
+//        ae.setAccountNumber(randomString());
+//        accounts.getRows().add(ae);
+//        e.setAccounts(accounts);
+
+        e.setInn(randomString());
+        e.setOgrn(randomString());
+        e.setLegalAddress(randomString());
+        e.setLegalTitle(randomString());
+
+        api.entity().organization().post(e);
+//        e.setAccounts(null);
+        return e;
+    }
+
     private void getAsserts(OrganizationEntity e, OrganizationEntity retrievedEntity) {
         assertEquals(e.getName(), retrievedEntity.getName());
         assertEquals(e.getArchived(), retrievedEntity.getArchived());
@@ -199,5 +201,7 @@ public class OrganizationEntityTest extends EntityTestBase {
         assertEquals(retrievedUpdatedEntity.getOgrn(), retrievedOriginalEntity.getOgrn());
         assertEquals(retrievedUpdatedEntity.getLegalAddress(), retrievedOriginalEntity.getLegalAddress());
         assertEquals(retrievedUpdatedEntity.getLegalTitle(), retrievedOriginalEntity.getLegalTitle());
+        assertEquals(retrievedOriginalEntity.getCreated(), retrievedUpdatedEntity.getCreated());
+        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
     }
 }

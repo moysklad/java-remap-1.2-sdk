@@ -10,6 +10,7 @@ public final class EmployeeClient
         extends ApiClient
         implements
         GetListEndpoint<EmployeeEntity>,
+        PostEndpoint<EmployeeEntity>,
         DeleteByIdEndpoint,
         MetadataEndpoint<MetadataAttributeSharedResponse>,
         MetadataAttributeEndpoint,
