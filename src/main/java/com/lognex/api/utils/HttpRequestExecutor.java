@@ -368,7 +368,9 @@ public final class HttpRequestExecutor {
         applyHeaders(request);
 
         if (body != null) {
-            StringEntity requestEntity = new StringEntity(gson.toJson(body), ContentType.APPLICATION_JSON);
+            String strBody = gson.toJson(body);
+            logger.debug("Тело запроса        {} {}: {}", request.getMethod(), request.getURI(), strBody);
+            StringEntity requestEntity = new StringEntity(strBody, ContentType.APPLICATION_JSON);
             request.setEntity(requestEntity);
         }
 
