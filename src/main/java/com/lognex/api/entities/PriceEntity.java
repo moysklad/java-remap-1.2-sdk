@@ -16,7 +16,7 @@ public class PriceEntity {
     /**
      * Название цены
      */
-    private String priceType;
+    private PriceTypeEntity priceType;
 
     /**
      * Валюта цены
