@@ -1,5 +1,6 @@
 package com.lognex.api.entities.products;
 
+import com.lognex.api.entities.BarcodeEntity;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.PriceEntity;
 import com.lognex.api.entities.products.markers.ConsignmentParentMarker;
@@ -50,7 +51,7 @@ public class VariantEntity extends MetaEntity implements SingleProductMarker, Co
     /**
      * Минимальная цена
      */
-    private Long minPrice;
+    private PriceEntity minPrice;
 
     /**
      * Закупочная цена
@@ -65,7 +66,7 @@ public class VariantEntity extends MetaEntity implements SingleProductMarker, Co
     /**
      * Штрихкоды
      */
-    private List<String> barcodes;
+    private List<BarcodeEntity> barcodes;
 
     /**
      * Товар, к которому привязана данная модификация
