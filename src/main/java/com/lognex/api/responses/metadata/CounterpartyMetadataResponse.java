@@ -1,5 +1,6 @@
 package com.lognex.api.responses.metadata;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,5 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public final class CounterpartyMetadataResponse extends MetadataAttributeSharedStatesResponse {
+    @SerializedName("tags")
     private List<String> groups;
 }
