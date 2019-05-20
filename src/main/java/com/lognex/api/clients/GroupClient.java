@@ -11,8 +11,7 @@ public final class GroupClient
         extends ApiClient
         implements
         GetListEndpoint<GroupEntity>,
-        GetByIdEndpoint<GroupEntity>,
-        PostEndpoint<GroupEntity> {
+        GetByIdEndpoint<GroupEntity> {
 
     public GroupClient(LognexApi api) {
         super(api, "/entity/group/");
