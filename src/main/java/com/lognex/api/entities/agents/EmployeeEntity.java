@@ -1,6 +1,7 @@
 package com.lognex.api.entities.agents;
 
 import com.lognex.api.entities.AttributeEntity;
+import com.lognex.api.entities.CashierEntity;
 import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.ImageEntity;
 import lombok.EqualsAndHashCode;
@@ -25,7 +26,7 @@ public final class EmployeeEntity extends AgentEntity {
     private String fullName;
     private Boolean archived;
     private String uid;
-    private EmployeeEntity cashier;
+    private CashierEntity cashier;
     private LocalDateTime updated;
     private String email;
     private GroupEntity group;
