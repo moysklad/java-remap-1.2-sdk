@@ -1,9 +1,6 @@
 package com.lognex.api.entities.products;
 
-import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.PriceEntity;
-import com.lognex.api.entities.ProductFolderEntity;
-import com.lognex.api.entities.UomEntity;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.products.markers.ProductMarker;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -48,7 +45,7 @@ public abstract class AbstractProductEntity extends MetaEntity implements Produc
     /**
      * Минимальная цена
      */
-    private Long minPrice;
+    private PriceEntity minPrice;
 
     /**
      * Закупочная цена
@@ -68,5 +65,5 @@ public abstract class AbstractProductEntity extends MetaEntity implements Produc
     /**
      * Массив штрихкодов товара
      */
-    private List<String> barcodes;
+    private List<BarcodeEntity> barcodes;
 }

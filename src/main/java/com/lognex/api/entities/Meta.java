@@ -69,6 +69,6 @@ public final class Meta {
         paymentin, paymentout, project, embeddedtemplate,
         attributemetadata, customentity, personaldiscount,
         specialpricediscount, discount, bonusprogram,
-        accumulationdiscount, contactperson
+        accumulationdiscount, contactperson, pricetype
     }
 }
