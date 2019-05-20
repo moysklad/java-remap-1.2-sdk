@@ -96,7 +96,7 @@ public class EmployeeEntityTest extends EntityTestBase {
 
     @Test
     public void metadataTest() throws IOException, LognexApiException {
-        MetadataAttributeSharedResponse metadata = api.entity().organization().metadata();
+        MetadataAttributeSharedResponse metadata = api.entity().employee().metadata();
         assertTrue(metadata.getCreateShared());
     }
 
