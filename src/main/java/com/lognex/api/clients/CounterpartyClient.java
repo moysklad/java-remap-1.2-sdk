@@ -70,9 +70,9 @@ public final class CounterpartyClient
     }
 
     @ApiEndpoint
-    public ContactPersonEntity postContactPerson(ContactPersonEntity newEntity) throws IOException, LognexApiException {
+    public ContactPersonEntity postContactPerson(String counterpartyId, ContactPersonEntity newEntity) throws IOException, LognexApiException {
         ContactPersonEntity responseEntity = HttpRequestExecutor.
-                path(api(), path() + "/contactpersons").
+                path(api(), path() + counterpartyId + "/contactpersons").
                 body(newEntity).
                 post(ContactPersonEntity.class);
 
@@ -137,9 +137,9 @@ public final class CounterpartyClient
     }
 
     @ApiEndpoint
-    public NoteEntity postNote(NoteEntity newEntity) throws IOException, LognexApiException {
+    public NoteEntity postNote(String counterpartyId, NoteEntity newEntity) throws IOException, LognexApiException {
         NoteEntity responseEntity = HttpRequestExecutor.
-                path(api(), path() + "/notes").
+                path(api(), path() + counterpartyId + "/notes").
                 body(newEntity).
                 post(NoteEntity.class);
 
