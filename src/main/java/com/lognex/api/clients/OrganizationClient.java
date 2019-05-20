@@ -48,9 +48,9 @@ public final class OrganizationClient
     }
 
     @ApiEndpoint
-    public void postAccounts(Collection<AccountEntity> entities) throws IOException, LognexApiException {
+    public void postAccounts(String organizationId, Collection<AccountEntity> entities) throws IOException, LognexApiException {
         HttpRequestExecutor.
-                path(api(), path()).
+                path(api(), path() + organizationId + "/accounts").
                 body(entities).
                 post();
     }
