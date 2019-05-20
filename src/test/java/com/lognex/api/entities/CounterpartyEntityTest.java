@@ -2,6 +2,7 @@ package com.lognex.api.entities;
 
 import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.responses.ListEntity;
+import com.lognex.api.responses.metadata.CounterpartyMetadataResponse;
 import com.lognex.api.utils.LognexApiException;
 import org.junit.Test;
 
@@ -389,6 +390,14 @@ public class CounterpartyEntityTest extends EntityTestBase {
         assertNotEquals(notesList.getRows().get(3).getDescription(), updNoteByPrevObject.getDescription());
         assertEquals(descriptions.get(3), updNoteByPrevObject.getDescription());
         assertEquals(retrievedEntity.getDescription(), updNoteByPrevObject.getDescription());
+    }
+
+    @Test
+    public void metadataTest() throws IOException, LognexApiException {
+        CounterpartyMetadataResponse metadata = api.entity().counterparty().metadata();
+        assertFalse(metadata.getCreateShared());
+        assertEquals(5, metadata.getStates().size());
+        assertEquals(10, metadata.getGroups().size());
     }
 
     // не работает, так как не работает метод post у событий
