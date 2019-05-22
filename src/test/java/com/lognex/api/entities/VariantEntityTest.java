@@ -3,10 +3,8 @@ package com.lognex.api.entities;
 import com.lognex.api.entities.products.ProductEntity;
 import com.lognex.api.entities.products.VariantEntity;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
 import com.lognex.api.responses.metadata.VariantMetadataResponse;
 import com.lognex.api.utils.LognexApiException;
-import com.lognex.api.utils.params.ExpandParam;
 import org.junit.Test;
 
 import java.io.IOException;
