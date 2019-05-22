@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lognex.api.clients.EntityClient;
 import com.lognex.api.entities.AttributeEntity;
+import com.lognex.api.entities.BarcodeEntity;
 import com.lognex.api.entities.CurrencyEntity;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.discounts.DiscountEntity;
@@ -139,6 +140,7 @@ public final class LognexApi {
         gb.registerTypeAdapter(ListEntity.class, new ListEntityDeserializer());
         gb.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
         gb.registerTypeAdapter(CompanySettingsMetadata.CustomEntityMetadata.class, new CustomEntityMetadataDeserializer());
+        gb.registerTypeAdapter(BarcodeEntity.class, new BarcodeEntity.Serializer());
 
         return gb.create();
     }

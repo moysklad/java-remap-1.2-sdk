@@ -4,7 +4,7 @@ import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.products.ServiceEntity;
-import com.lognex.api.responses.metadata.MetadataAttributeSharedPriceTypesResponse;
+import com.lognex.api.responses.metadata.MetadataAttributeResponse;
 
 public final class ServiceClient
         extends ApiClient
@@ -12,7 +12,7 @@ public final class ServiceClient
         GetListEndpoint<ServiceEntity>,
         PostEndpoint<ServiceEntity>,
         DeleteByIdEndpoint,
-        MetadataEndpoint<MetadataAttributeSharedPriceTypesResponse>,
+        MetadataEndpoint<MetadataAttributeResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<ServiceEntity>,
         PutByIdEndpoint<ServiceEntity> {
@@ -28,6 +28,6 @@ public final class ServiceClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeSharedPriceTypesResponse.class;
+        return MetadataAttributeResponse.class;
     }
 }
