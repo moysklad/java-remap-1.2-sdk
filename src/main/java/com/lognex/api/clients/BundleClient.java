@@ -5,7 +5,7 @@ import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.products.BundleEntity;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.responses.metadata.MetadataAttributeSharedPriceTypesResponse;
+import com.lognex.api.responses.metadata.MetadataAttributeResponse;
 import com.lognex.api.utils.HttpRequestExecutor;
 import com.lognex.api.utils.LognexApiException;
 import com.lognex.api.utils.params.ApiParam;
@@ -17,7 +17,7 @@ public final class BundleClient
         implements
         GetListEndpoint<BundleEntity>,
         PostEndpoint<BundleEntity>,
-        MetadataEndpoint<MetadataAttributeSharedPriceTypesResponse>,
+        MetadataEndpoint<MetadataAttributeResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<BundleEntity>,
         PutByIdEndpoint<BundleEntity>,
@@ -34,7 +34,7 @@ public final class BundleClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeSharedPriceTypesResponse.class;
+        return MetadataAttributeResponse.class;
     }
 
     @ApiEndpoint
