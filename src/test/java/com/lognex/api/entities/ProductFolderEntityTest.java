@@ -1,8 +1,6 @@
 package com.lognex.api.entities;
 
-import com.lognex.api.entities.products.ProductEntity;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
 import com.lognex.api.utils.LognexApiException;
 import org.junit.Test;
 
