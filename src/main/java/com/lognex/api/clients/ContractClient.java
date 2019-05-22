@@ -1,10 +1,7 @@
 package com.lognex.api.clients;
 
 import com.lognex.api.LognexApi;
-import com.lognex.api.clients.endpoints.GetListEndpoint;
-import com.lognex.api.clients.endpoints.MetadataAttributeEndpoint;
-import com.lognex.api.clients.endpoints.MetadataEndpoint;
-import com.lognex.api.clients.endpoints.PostEndpoint;
+import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.ContractEntity;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -14,8 +11,11 @@ public final class ContractClient
         implements
         GetListEndpoint<ContractEntity>,
         PostEndpoint<ContractEntity>,
+        DeleteByIdEndpoint,
         MetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint {
+        MetadataAttributeEndpoint,
+        GetByIdEndpoint<ContractEntity>,
+        PutByIdEndpoint<ContractEntity> {
 
     public ContractClient(LognexApi api) {
         super(api, "/entity/contract/");
