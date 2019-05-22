@@ -18,7 +18,7 @@ public class UomEntity extends MetaEntity {
     /**
      * Дата последнего обновления
      */
-    private LocalDateTime update;
+    private LocalDateTime updated;
 
     /**
      * Описание
