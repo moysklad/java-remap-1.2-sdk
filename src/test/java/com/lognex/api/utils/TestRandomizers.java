@@ -22,7 +22,7 @@ public interface TestRandomizers {
     }
 
     default long randomLong(long fromIncl, long toIncl) {
-        return fromIncl + rnd.nextLong() % (toIncl - fromIncl + 1);
+        return fromIncl + (long) (rnd.nextDouble() * (toIncl - fromIncl + 1));
     }
 
     default String randomString(int length) {

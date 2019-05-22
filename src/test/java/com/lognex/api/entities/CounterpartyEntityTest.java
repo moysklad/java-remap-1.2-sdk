@@ -415,21 +415,13 @@ public class CounterpartyEntityTest extends EntityTestBase {
         e.setArchived(false);
         e.setCompanyType(CompanyType.legal);
 
-//        ListEntity<AccountEntity> accounts = new ListEntity<>();
-//        accounts.setRows(new ArrayList<>());
-//        AccountEntity ae = new AccountEntity();
-//        ae.setIsDefault(true);
-//        ae.setAccountNumber(randomString());
-//        accounts.getRows().add(ae);
-//        e.setAccounts(accounts);
-
         e.setInn(randomString());
         e.setOgrn(randomString());
         e.setLegalAddress(randomString());
         e.setLegalTitle(randomString());
 
         api.entity().counterparty().post(e);
-//        e.setAccounts(null);
+
         return e;
     }
 
