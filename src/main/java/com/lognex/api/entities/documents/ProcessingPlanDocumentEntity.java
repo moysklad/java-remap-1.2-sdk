@@ -18,9 +18,9 @@ import java.time.LocalDateTime;
 public class ProcessingPlanDocumentEntity extends DocumentEntity {
     private Long cost;
     private String externalCode;
-    private ListEntity<DocumentPosition> materials;
+    private ListEntity<PlanItem> materials;
     private String pathName;
-    private ListEntity<DocumentPosition> products;
+    private ListEntity<PlanItem> products;
     private LocalDateTime deleted;
     private GroupEntity parent;
 
