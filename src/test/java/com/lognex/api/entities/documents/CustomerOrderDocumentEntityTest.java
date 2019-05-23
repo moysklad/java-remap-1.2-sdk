@@ -42,6 +42,8 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getMoment(), retrievedEntity.getMoment());
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
+        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -136,7 +138,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
-        assertEquals(e.getCreated(), retrievedEntity.getCreated());
+        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
     }
 
     private void putAsserts(CustomerOrderDocumentEntity e, CustomerOrderDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
