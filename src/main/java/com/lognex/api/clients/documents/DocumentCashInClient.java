@@ -14,7 +14,9 @@ public final class DocumentCashInClient
         PostEndpoint<CashInDocumentEntity>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint {
+        MetadataAttributeEndpoint,
+        GetByIdEndpoint<CashInDocumentEntity>,
+        PutByIdEndpoint<CashInDocumentEntity> {
 
     public DocumentCashInClient(LognexApi api) {
         super(api, "/entity/cashin/");
