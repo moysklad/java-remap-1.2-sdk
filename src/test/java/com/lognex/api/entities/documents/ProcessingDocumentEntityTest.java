@@ -164,7 +164,7 @@ public class ProcessingDocumentEntityTest extends EntityTestBase {
     @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedStatesResponse response = api.entity().processing().metadata().get();
-        
+
         assertFalse(response.getCreateShared());
     }
 
