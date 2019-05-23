@@ -5,7 +5,6 @@ import com.lognex.api.clients.ApiClient;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.ProcessingPlanDocumentEntity;
-import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class DocumentProcessingPlanClient
         extends ApiClient
