@@ -1,0 +1,164 @@
+package com.lognex.api.entities.documents;
+
+import com.lognex.api.entities.EntityTestBase;
+import com.lognex.api.entities.ExpenseItemEntity;
+import com.lognex.api.entities.agents.CounterpartyEntity;
+import com.lognex.api.entities.agents.OrganizationEntity;
+import com.lognex.api.responses.ListEntity;
+import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
+import com.lognex.api.utils.LognexApiException;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+import static com.lognex.api.utils.params.FilterParam.filterEq;
+import static org.junit.Assert.*;
+
+public class PaymentOutDocumentEntityTest extends EntityTestBase {
+    @Test
+    public void createTest() throws IOException, LognexApiException {
+        PaymentOutDocumentEntity e = new PaymentOutDocumentEntity();
+        e.setName("paymentout_" + randomString(3) + "_" + new Date().getTime());
+        e.setMoment(LocalDateTime.now());
+        e.setSum(randomLong(10, 10000));
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        assertNotEquals(0, orgList.getRows().size());
+        e.setOrganization(orgList.getRows().get(0));
+
+        CounterpartyEntity agent = new CounterpartyEntity();
+        agent.setName(randomString());
+        api.entity().counterparty().post(agent);
+        e.setAgent(agent);
+
+        ExpenseItemEntity expenseItem = new ExpenseItemEntity();
+        expenseItem.setName(randomString());
+        api.entity().expenseitem().post(expenseItem);
+        e.setExpenseItem(expenseItem);
+
+        api.entity().paymentout().post(e);
+
+        ListEntity<PaymentOutDocumentEntity> updatedEntitiesList = api.entity().paymentout().get(filterEq("name", e.getName()));
+        assertEquals(1, updatedEntitiesList.getRows().size());
+
+        PaymentOutDocumentEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
+        assertEquals(e.getName(), retrievedEntity.getName());
+        assertEquals(e.getMoment(), retrievedEntity.getMoment());
+        assertEquals(e.getSum(), retrievedEntity.getSum());
+        assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
+        assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+        assertEquals(e.getExpenseItem().getMeta().getHref(), retrievedEntity.getExpenseItem().getMeta().getHref());
+        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
+        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
+    }
+
+    @Test
+    public void getTest() throws IOException, LognexApiException {
+        PaymentOutDocumentEntity e = createSimpleDocumentPaymentOut();
+
+        PaymentOutDocumentEntity retrievedEntity = api.entity().paymentout().get(e.getId());
+        getAsserts(e, retrievedEntity);
+
+        retrievedEntity = api.entity().paymentout().get(e);
+        getAsserts(e, retrievedEntity);
+    }
+
+    @Test
+    public void putTest() throws IOException, LognexApiException, InterruptedException {
+        PaymentOutDocumentEntity e = createSimpleDocumentPaymentOut();
+
+        PaymentOutDocumentEntity retrievedOriginalEntity = api.entity().paymentout().get(e.getId());
+        String name = "paymentout_" + randomString(3) + "_" + new Date().getTime();
+        e.setName(name);
+        Thread.sleep(1500);
+        api.entity().paymentout().put(e.getId(), e);
+        putAsserts(e, retrievedOriginalEntity, name);
+
+        retrievedOriginalEntity.set(e);
+
+        name = "paymentout_" + randomString(3) + "_" + new Date().getTime();
+        e.setName(name);
+        Thread.sleep(1500);
+        api.entity().paymentout().put(e);
+        putAsserts(e, retrievedOriginalEntity, name);
+    }
+
+    @Test
+    public void deleteTest() throws IOException, LognexApiException {
+        PaymentOutDocumentEntity e = createSimpleDocumentPaymentOut();
+
+        ListEntity<PaymentOutDocumentEntity> entitiesList = api.entity().paymentout().get(filterEq("name", e.getName()));
+        assertEquals(1, entitiesList.getRows().size());
+
+        api.entity().paymentout().delete(e.getId());
+
+        entitiesList = api.entity().paymentout().get(filterEq("name", e.getName()));
+        assertEquals(0, entitiesList.getRows().size());
+    }
+
+    @Test
+    public void deleteByIdTest() throws IOException, LognexApiException {
+        PaymentOutDocumentEntity e = createSimpleDocumentPaymentOut();
+
+        ListEntity<PaymentOutDocumentEntity> entitiesList = api.entity().paymentout().get(filterEq("name", e.getName()));
+        assertEquals(1, entitiesList.getRows().size());
+
+        api.entity().paymentout().delete(e);
+
+        entitiesList = api.entity().paymentout().get(filterEq("name", e.getName()));
+        assertEquals(0, entitiesList.getRows().size());
+    }
+
+    @Test
+    public void metadataTest() throws IOException, LognexApiException {
+        MetadataAttributeSharedStatesResponse response = api.entity().paymentout().metadata().get();
+
+        assertFalse(response.getCreateShared());
+    }
+
+    private PaymentOutDocumentEntity createSimpleDocumentPaymentOut() throws IOException, LognexApiException {
+        PaymentOutDocumentEntity e = new PaymentOutDocumentEntity();
+        e.setName("paymentout_" + randomString(3) + "_" + new Date().getTime());
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        assertNotEquals(0, orgList.getRows().size());
+        e.setOrganization(orgList.getRows().get(0));
+
+        CounterpartyEntity agent = new CounterpartyEntity();
+        agent.setName(randomString());
+        api.entity().counterparty().post(agent);
+        e.setAgent(agent);
+
+        ExpenseItemEntity expenseItem = new ExpenseItemEntity();
+        expenseItem.setName(randomString());
+        api.entity().expenseitem().post(expenseItem);
+        e.setExpenseItem(expenseItem);
+
+        api.entity().paymentout().post(e);
+
+        return e;
+    }
+
+    private void getAsserts(PaymentOutDocumentEntity e, PaymentOutDocumentEntity retrievedEntity) {
+        assertEquals(e.getName(), retrievedEntity.getName());
+        assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
+        assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+        assertEquals(e.getExpenseItem().getMeta().getHref(), retrievedEntity.getExpenseItem().getMeta().getHref());
+        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
+        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
+    }
+
+    private void putAsserts(PaymentOutDocumentEntity e, PaymentOutDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
+        PaymentOutDocumentEntity retrievedUpdatedEntity = api.entity().paymentout().get(e.getId());
+
+        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
+        assertEquals(name, retrievedUpdatedEntity.getName());
+        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
+        assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
+        assertEquals(retrievedOriginalEntity.getExpenseItem().getMeta().getHref(), retrievedUpdatedEntity.getExpenseItem().getMeta().getHref());
+        assertEquals(retrievedOriginalEntity.getCreated().withNano(0), retrievedUpdatedEntity.getCreated().withNano(0));
+        assertNotEquals(retrievedOriginalEntity.getUpdated().withNano(0), retrievedUpdatedEntity.getUpdated().withNano(0));
+    }
+}
