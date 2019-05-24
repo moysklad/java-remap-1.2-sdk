@@ -21,16 +21,16 @@ public class VariantEntityTest extends EntityTestBase {
         VariantEntity e = new VariantEntity();
         e.setArchived(false);
 
-        ProductEntity p = new ProductEntity();
-        p.setName("product_" + randomString(3) + "_" + new Date().getTime());
-        api.entity().product().post(p);
-        e.setProduct(p);
+        ProductEntity product = new ProductEntity();
+        product.setName("product_" + randomString(3) + "_" + new Date().getTime());
+        api.entity().product().post(product);
+        e.setProduct(product);
 
-        VariantEntity.Characteristic c = new VariantEntity.Characteristic();
-        c.setName(randomString());
-        c.setValue(randomString());
+        VariantEntity.Characteristic characteristic = new VariantEntity.Characteristic();
+        characteristic.setName(randomString());
+        characteristic.setValue(randomString());
         e.setCharacteristics(new ArrayList<>());
-        e.getCharacteristics().add(c);
+        e.getCharacteristics().add(characteristic);
 
         api.entity().variant().post(e);
 
@@ -66,11 +66,11 @@ public class VariantEntityTest extends EntityTestBase {
 
         retrievedOriginalEntity.set(e);
         e.setCharacteristics(new ArrayList<>());
-        VariantEntity.Characteristic c = new VariantEntity.Characteristic();
-        c.setName(randomString());
+        VariantEntity.Characteristic characteristic = new VariantEntity.Characteristic();
+        characteristic.setName(randomString());
         value = "mod_" + randomString(3) + "_" + new Date().getTime();
-        c.setValue(value);
-        e.getCharacteristics().add(c);
+        characteristic.setValue(value);
+        e.getCharacteristics().add(characteristic);
 
         Thread.sleep(1500);
         api.entity().variant().put(e);
@@ -118,16 +118,16 @@ public class VariantEntityTest extends EntityTestBase {
         VariantEntity e = new VariantEntity();
         e.setArchived(false);
 
-        ProductEntity p = new ProductEntity();
-        p.setName("product_" + randomString(3) + "_" + new Date().getTime());
-        api.entity().product().post(p);
-        e.setProduct(p);
+        ProductEntity product = new ProductEntity();
+        product.setName("product_" + randomString(3) + "_" + new Date().getTime());
+        api.entity().product().post(product);
+        e.setProduct(product);
 
-        VariantEntity.Characteristic c = new VariantEntity.Characteristic();
-        c.setName(randomString());
-        c.setValue("mod_" + randomString(3) + "_" + new Date().getTime());
+        VariantEntity.Characteristic characteristic = new VariantEntity.Characteristic();
+        characteristic.setName(randomString());
+        characteristic.setValue(randomString());
         e.setCharacteristics(new ArrayList<>());
-        e.getCharacteristics().add(c);
+        e.getCharacteristics().add(characteristic);
 
         api.entity().variant().post(e);
 
