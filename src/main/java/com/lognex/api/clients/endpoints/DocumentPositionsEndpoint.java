@@ -8,16 +8,35 @@ import com.lognex.api.utils.LognexApiException;
 import com.lognex.api.utils.params.ApiParam;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public interface DocumentPositionsEndpoint extends Endpoint {
     @ApiEndpoint
-    default DocumentPosition postPosition(String documentId, DocumentPosition updatedEntity) throws IOException, LognexApiException {
-        DocumentPosition responseEntity = HttpRequestExecutor.
+    default List<DocumentPosition> postPositions(String documentId, List<DocumentPosition> updatedEntities) throws IOException, LognexApiException {
+        List<DocumentPosition> responseEntity = HttpRequestExecutor.
                 path(api(), path() + documentId + "/positions/").
-                body(updatedEntity).
-                post(DocumentPosition.class);
+                body(updatedEntities).
+                postList(DocumentPosition.class);
 
-        updatedEntity.set(responseEntity);
+        for (int i = 0; i < responseEntity.size(); i++) {
+            updatedEntities.set(i, responseEntity.get(i));
+        }
+        return updatedEntities;
+    }
+
+    @ApiEndpoint
+    default List<DocumentPosition> postPositions(DocumentEntity document, List<DocumentPosition> updatedEntities) throws IOException, LognexApiException {
+        return postPositions(document.getId(), updatedEntities);
+    }
+
+    @ApiEndpoint
+    default DocumentPosition postPosition(String documentId, DocumentPosition updatedEntity) throws IOException, LognexApiException {
+        List<DocumentPosition> positionList = new ArrayList<>(Collections.singletonList(updatedEntity));
+        List<DocumentPosition> newPosition = postPositions(documentId, positionList);
+
+        updatedEntity.set(newPosition.get(0));
         return updatedEntity;
     }
 
