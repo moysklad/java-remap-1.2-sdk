@@ -11,6 +11,22 @@ import java.io.IOException;
 
 public interface DocumentPositionsEndpoint extends Endpoint {
     @ApiEndpoint
+    default DocumentPosition postPosition(String documentId, DocumentPosition updatedEntity) throws IOException, LognexApiException {
+        DocumentPosition responseEntity = HttpRequestExecutor.
+                path(api(), path() + documentId + "/positions/").
+                body(updatedEntity).
+                post(DocumentPosition.class);
+
+        updatedEntity.set(responseEntity);
+        return updatedEntity;
+    }
+
+    @ApiEndpoint
+    default DocumentPosition postPosition(DocumentEntity document, DocumentPosition updatedEntity) throws IOException, LognexApiException {
+        return postPosition(document.getId(), updatedEntity);
+    }
+
+    @ApiEndpoint
     default ListEntity<DocumentPosition> getPositions(String documentId, ApiParam... params) throws IOException, LognexApiException {
         return HttpRequestExecutor.
                 path(api(), path() + documentId + "/positions").
