@@ -345,6 +345,17 @@ public final class HttpRequestExecutor {
     }
 
     /**
+     * Выполняет POST-запрос с указанными ранее параметрами и конвертирует ответ в <b>массив</b> объектов указанного класса
+     *
+     * @param cl класс объектов массива, в который нужно сконвертировать ответ на запрос
+     * @throws IOException        когда возникла сетевая ошибка
+     * @throws LognexApiException когда возникла ошибка API
+     */
+    public <T extends MetaEntity> List<T> postList(Class<T> cl) throws IOException, LognexApiException {
+        return gson.fromJson(post(), TypeToken.getParameterized(List.class, cl).getType());
+    }
+
+    /**
      * Выполняет DELETE-запрос с указанными ранее параметрами
      *
      * @throws IOException        когда возникла сетевая ошибка
