@@ -12,6 +12,7 @@ public interface DocumentNewEndpoint<T extends MetaEntity> extends Endpoint {
     default T newDocument() throws IOException, LognexApiException {
         return HttpRequestExecutor.
                 path(api(), path() + "new").
+                body(new Object()).
                 put((Class<T>) entityClass());
     }
 
