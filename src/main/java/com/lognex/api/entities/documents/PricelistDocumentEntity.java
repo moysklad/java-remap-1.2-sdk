@@ -1,6 +1,7 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.PriceTypeEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
 import com.lognex.api.responses.ListEntity;
@@ -29,7 +30,7 @@ public class PricelistDocumentEntity extends DocumentEntity {
     /**
      * Тип цены
      */
-    private String priceType;
+    private PriceTypeEntity priceType;
 
     /**
      * Позиции в Прайс-листе
