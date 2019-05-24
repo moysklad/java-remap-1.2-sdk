@@ -1,6 +1,7 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.EntityTestBase;
+import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
@@ -10,9 +11,12 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.Optional;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
+import static com.lognex.api.utils.params.SearchParam.search;
 import static org.junit.Assert.*;
 
 public class PaymentInDocumentEntityTest extends EntityTestBase {
@@ -109,6 +113,36 @@ public class PaymentInDocumentEntityTest extends EntityTestBase {
         MetadataAttributeSharedStatesResponse response = api.entity().paymentin().metadata().get();
 
         assertFalse(response.getCreateShared());
+    }
+
+    @Test
+    public void newTest() throws IOException, LognexApiException {
+        LocalDateTime time = LocalDateTime.now().withNano(0);
+        MoveDocumentEntity e = api.entity().move().newDocument();
+
+        assertEquals("", e.getName());
+        assertEquals(Long.valueOf(0), e.getSum());
+        assertFalse(e.getShared());
+        assertTrue(e.getApplicable());
+        assertEquals(time, e.getMoment().withNano(0));
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
+                min(Comparator.comparing(OrganizationEntity::getCreated));
+
+        OrganizationEntity org = null;
+        if (orgOptional.isPresent()) {
+            org = orgOptional.get();
+        } else {
+            // Должно быть первое созданное юрлицо
+            fail();
+        }
+
+        assertEquals(e.getOrganization().getMeta().getHref(), org.getMeta().getHref());
+
+        ListEntity<GroupEntity> group = api.entity().group().get(search("Основной"));
+        assertEquals(1, group.getRows().size());
+        assertEquals(e.getGroup().getMeta().getHref(), group.getRows().get(0).getMeta().getHref());
     }
 
     private PaymentInDocumentEntity createSimpleDocumentPaymentIn() throws IOException, LognexApiException {

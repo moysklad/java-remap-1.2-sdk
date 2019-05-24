@@ -157,7 +157,7 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getStore().getMeta().getHref(), store.getRows().get(0).getMeta().getHref());
 
         ListEntity<GroupEntity> group = api.entity().group().get(search("Основной"));
-        assertEquals(1, store.getRows().size());
+        assertEquals(1, group.getRows().size());
         assertEquals(e.getGroup().getMeta().getHref(), group.getRows().get(0).getMeta().getHref());
     }
 
