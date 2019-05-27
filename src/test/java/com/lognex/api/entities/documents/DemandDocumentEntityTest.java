@@ -195,6 +195,10 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         assertTrue(e.getApplicable());
         assertEquals(time, e.getMoment().withNano(0));
         assertEquals(customerOrder.getMeta().getHref(), e.getCustomerOrder().getMeta().getHref());
+        assertEquals(customerOrder.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
+        assertEquals(customerOrder.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
+        assertEquals(customerOrder.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
+        assertEquals(customerOrder.getOrganizationAccount().getMeta().getHref(), e.getOrganizationAccount().getMeta().getHref());
     }
 
     @Test
@@ -230,6 +234,9 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         assertEquals(time, e.getMoment().withNano(0));
         assertEquals(1, e.getInvoicesOut().size());
         assertEquals(invoiceOut.getMeta().getHref(), e.getInvoicesOut().get(0).getMeta().getHref());
+        assertEquals(invoiceOut.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
+        assertEquals(invoiceOut.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
+        assertEquals(invoiceOut.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
     }
 
     private DemandDocumentEntity createSimpleDocumentDemand() throws IOException, LognexApiException {

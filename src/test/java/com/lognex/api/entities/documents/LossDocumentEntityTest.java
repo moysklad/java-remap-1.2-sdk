@@ -188,6 +188,9 @@ public class LossDocumentEntityTest extends EntityTestBase {
         assertTrue(e.getApplicable());
         assertEquals(time, e.getMoment().withNano(0));
         assertEquals(salesReturn.getMeta().getHref(), e.getSalesReturn().getMeta().getHref());
+        assertEquals(salesReturn.getStore().getMeta().getHref(), e.getStore().getMeta().getHref());
+        assertEquals(salesReturn.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
+        assertEquals(salesReturn.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
     }
 
     private LossDocumentEntity createSimpleDocumentLoss() throws IOException, LognexApiException {
