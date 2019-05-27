@@ -15,6 +15,7 @@ public final class DocumentFactureInClient
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
+        DocumentNewEndpoint<FactureInDocumentEntity>,
         GetByIdEndpoint<FactureInDocumentEntity>,
         PutByIdEndpoint<FactureInDocumentEntity> {
 
