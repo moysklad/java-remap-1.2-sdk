@@ -17,7 +17,8 @@ public final class DocumentMoveClient
         MetadataAttributeEndpoint,
         DocumentNewEndpoint<MoveDocumentEntity>,
         GetByIdEndpoint<MoveDocumentEntity>,
-        PutByIdEndpoint<MoveDocumentEntity> {
+        PutByIdEndpoint<MoveDocumentEntity>,
+        DocumentPositionsEndpoint {
 
     public DocumentMoveClient(LognexApi api) {
         super(api, "/entity/move/");
