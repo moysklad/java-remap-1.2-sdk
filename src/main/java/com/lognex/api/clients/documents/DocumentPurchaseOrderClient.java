@@ -17,7 +17,8 @@ public final class DocumentPurchaseOrderClient
         MetadataAttributeEndpoint,
         DocumentNewEndpoint<PurchaseOrderDocumentEntity>,
         GetByIdEndpoint<PurchaseOrderDocumentEntity>,
-        PutByIdEndpoint<PurchaseOrderDocumentEntity> {
+        PutByIdEndpoint<PurchaseOrderDocumentEntity>,
+        DocumentPositionsEndpoint {
 
     public DocumentPurchaseOrderClient(LognexApi api) {
         super(api, "/entity/purchaseorder/");
