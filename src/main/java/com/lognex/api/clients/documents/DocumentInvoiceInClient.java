@@ -7,6 +7,8 @@ import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.InvoiceInDocumentEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
+import javax.print.Doc;
+
 public final class DocumentInvoiceInClient
         extends ApiClient
         implements
@@ -16,7 +18,8 @@ public final class DocumentInvoiceInClient
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<InvoiceInDocumentEntity>,
-        PutByIdEndpoint<InvoiceInDocumentEntity> {
+        PutByIdEndpoint<InvoiceInDocumentEntity>,
+        DocumentPositionsEndpoint {
 
     public DocumentInvoiceInClient(LognexApi api) {
         super(api, "/entity/invoicein/");
