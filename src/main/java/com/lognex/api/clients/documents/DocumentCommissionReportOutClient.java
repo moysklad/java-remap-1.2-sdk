@@ -16,7 +16,8 @@ public final class DocumentCommissionReportOutClient
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<CommissionReportOutDocumentEntity>,
-        PutByIdEndpoint<CommissionReportOutDocumentEntity> {
+        PutByIdEndpoint<CommissionReportOutDocumentEntity>,
+        DocumentPositionsEndpoint {
 
     public DocumentCommissionReportOutClient(LognexApi api) {
         super(api, "/entity/commissionreportout/");
