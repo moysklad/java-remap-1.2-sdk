@@ -15,6 +15,7 @@ public final class DocumentSupplyClient
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
+        DocumentNewEndpoint<SupplyDocumentEntity>,
         GetByIdEndpoint<SupplyDocumentEntity>,
         PutByIdEndpoint<SupplyDocumentEntity> {
 
