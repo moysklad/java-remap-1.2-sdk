@@ -17,7 +17,8 @@ public final class DocumentLossClient
         MetadataAttributeEndpoint,
         DocumentNewEndpoint<LossDocumentEntity>,
         GetByIdEndpoint<LossDocumentEntity>,
-        PutByIdEndpoint<LossDocumentEntity> {
+        PutByIdEndpoint<LossDocumentEntity>,
+        DocumentPositionsEndpoint {
 
     public DocumentLossClient(LognexApi api) {
         super(api, "/entity/loss/");
