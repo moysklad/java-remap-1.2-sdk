@@ -15,6 +15,7 @@ public final class DocumentPaymentOutClient
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
+        DocumentNewEndpoint<PaymentOutDocumentEntity>,
         GetByIdEndpoint<PaymentOutDocumentEntity>,
         PutByIdEndpoint<PaymentOutDocumentEntity> {
 
