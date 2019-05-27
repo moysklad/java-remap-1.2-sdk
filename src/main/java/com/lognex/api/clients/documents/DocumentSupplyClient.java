@@ -17,7 +17,8 @@ public final class DocumentSupplyClient
         MetadataAttributeEndpoint,
         DocumentNewEndpoint<SupplyDocumentEntity>,
         GetByIdEndpoint<SupplyDocumentEntity>,
-        PutByIdEndpoint<SupplyDocumentEntity> {
+        PutByIdEndpoint<SupplyDocumentEntity>,
+        DocumentPositionsEndpoint {
 
     public DocumentSupplyClient(LognexApi api) {
         super(api, "/entity/supply/");
