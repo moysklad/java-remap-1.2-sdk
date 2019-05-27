@@ -287,7 +287,7 @@ public class CashInDocumentEntityTest extends EntityTestBase {
     }
 
     @Test
-    public void newByCommissionsReportInTest() throws IOException, LognexApiException {
+    public void newByCommissionReportsInTest() throws IOException, LognexApiException {
         CommissionReportInDocumentEntity commissionReportIn = new CommissionReportInDocumentEntity();
         commissionReportIn.setName("commissionreportin_" + randomString(3) + "_" + new Date().getTime());
 
