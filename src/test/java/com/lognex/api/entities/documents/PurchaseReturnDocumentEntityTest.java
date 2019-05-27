@@ -1,6 +1,7 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.EntityTestBase;
+import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
@@ -11,9 +12,12 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.Optional;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
+import static com.lognex.api.utils.params.SearchParam.search;
 import static org.junit.Assert.*;
 
 public class PurchaseReturnDocumentEntityTest extends EntityTestBase {
@@ -129,6 +133,81 @@ public class PurchaseReturnDocumentEntityTest extends EntityTestBase {
         MetadataAttributeSharedStatesResponse response = api.entity().purchasereturn().metadata().get();
 
         assertFalse(response.getCreateShared());
+    }
+
+    @Test
+    public void newTest() throws IOException, LognexApiException {
+        LocalDateTime time = LocalDateTime.now().withNano(0);
+        PurchaseReturnDocumentEntity e = api.entity().purchasereturn().newDocument();
+
+        assertEquals("", e.getName());
+        assertTrue(e.getVatEnabled());
+        assertTrue(e.getVatIncluded());
+        assertEquals(Long.valueOf(0), e.getSum());
+        assertFalse(e.getShared());
+        assertTrue(e.getApplicable());
+        assertEquals(time, e.getMoment().withNano(0));
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
+                min(Comparator.comparing(OrganizationEntity::getCreated));
+
+        OrganizationEntity org = null;
+        if (orgOptional.isPresent()) {
+            org = orgOptional.get();
+        } else {
+            // Должно быть первое созданное юрлицо
+            fail();
+        }
+
+        assertEquals(e.getOrganization().getMeta().getHref(), org.getMeta().getHref());
+
+        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
+        assertEquals(1, store.getRows().size());
+        assertEquals(e.getStore().getMeta().getHref(), store.getRows().get(0).getMeta().getHref());
+
+        ListEntity<GroupEntity> group = api.entity().group().get(search("Основной"));
+        assertEquals(1, group.getRows().size());
+        assertEquals(e.getGroup().getMeta().getHref(), group.getRows().get(0).getMeta().getHref());
+    }
+
+    @Test
+    public void newBySupplyTest() throws IOException, LognexApiException {
+        SupplyDocumentEntity supply = new SupplyDocumentEntity();
+        supply.setName("supply_" + randomString(3) + "_" + new Date().getTime());
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        assertNotEquals(0, orgList.getRows().size());
+        supply.setOrganization(orgList.getRows().get(0));
+
+        CounterpartyEntity agent = new CounterpartyEntity();
+        agent.setName(randomString());
+        api.entity().counterparty().post(agent);
+        supply.setAgent(agent);
+
+        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
+        assertEquals(1, store.getRows().size());
+        supply.setStore(store.getRows().get(0));
+
+        api.entity().supply().post(supply);
+
+        LocalDateTime time = LocalDateTime.now().withNano(0);
+        PurchaseReturnDocumentEntity e = api.entity().purchasereturn().newDocument("supply", supply);
+
+        assertEquals("", e.getName());
+        assertEquals(supply.getVatEnabled(), e.getVatEnabled());
+        assertEquals(supply.getVatIncluded(), e.getVatIncluded());
+        assertEquals(supply.getPayedSum(), e.getPayedSum());
+        assertEquals(supply.getSum(), e.getSum());
+        assertFalse(e.getShared());
+        assertTrue(e.getApplicable());
+        assertEquals(time, e.getMoment().withNano(0));
+        assertEquals(supply.getMeta().getHref(), e.getSupply().getMeta().getHref());
+        assertEquals(supply.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
+        assertEquals(supply.getStore().getMeta().getHref(), e.getStore().getMeta().getHref());
+        assertEquals(supply.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
+        assertEquals(supply.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
+        assertEquals(supply.getOrganizationAccount().getMeta().getHref(), e.getOrganizationAccount().getMeta().getHref());
     }
 
     private PurchaseReturnDocumentEntity createSimpleDocumentPurchaseReturn() throws IOException, LognexApiException {
