@@ -17,7 +17,8 @@ public final class DocumentInternalOrderClient
         MetadataAttributeEndpoint,
         DocumentNewEndpoint<InternalOrderDocumentEntity>,
         GetByIdEndpoint<InternalOrderDocumentEntity>,
-        PutByIdEndpoint<InternalOrderDocumentEntity> {
+        PutByIdEndpoint<InternalOrderDocumentEntity>,
+        DocumentPositionsEndpoint {
 
     public DocumentInternalOrderClient(LognexApi api) {
         super(api, "/entity/internalorder/");
