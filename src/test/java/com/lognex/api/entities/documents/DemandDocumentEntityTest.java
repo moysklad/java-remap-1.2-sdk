@@ -163,7 +163,6 @@ public class DemandDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newByCustomerOrderTest() throws IOException, LognexApiException {
-
         CustomerOrderDocumentEntity customerOrder = new CustomerOrderDocumentEntity();
         customerOrder.setName("customerorder_" + randomString(3) + "_" + new Date().getTime());
         customerOrder.setDescription(randomString());
@@ -171,7 +170,6 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         customerOrder.setVatIncluded(true);
         customerOrder.setPayedSum(randomLong(1, 10000));
         customerOrder.setSum(randomLong(1, 10000));
-        customerOrder.setApplicable(false);
 
         ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
         assertNotEquals(0, orgList.getRows().size());
@@ -186,22 +184,52 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         api.entity().customerorder().post(customerOrder);
 
         LocalDateTime time = LocalDateTime.now().withNano(0);
-        DemandDocumentEntity e = api.entity().demand().newDocument(customerOrder);
+        DemandDocumentEntity e = api.entity().demand().newDocument("customerOrder", customerOrder);
 
         assertEquals("", e.getName());
         assertEquals(customerOrder.getVatEnabled(), e.getVatEnabled());
         assertEquals(customerOrder.getVatIncluded(), e.getVatIncluded());
         assertEquals(customerOrder.getPayedSum(), e.getPayedSum());
         assertEquals(customerOrder.getSum(), e.getSum());
-        assertEquals(customerOrder.getShared(), e.getShared());
-        assertEquals(customerOrder.getApplicable(), e.getApplicable());
+        assertFalse(e.getShared());
+        assertTrue(e.getApplicable());
         assertEquals(time, e.getMoment().withNano(0));
         assertEquals(customerOrder.getMeta().getHref(), e.getCustomerOrder().getMeta().getHref());
     }
 
     @Test
     public void newByInvoicesOutTest() throws IOException, LognexApiException {
-        //нужно создать объект с полем invoicesOut
+        InvoiceOutDocumentEntity invoiceOut = new InvoiceOutDocumentEntity();
+        invoiceOut.setName("invoiceout_" + randomString(3) + "_" + new Date().getTime());
+        invoiceOut.setVatEnabled(true);
+        invoiceOut.setVatIncluded(true);
+        invoiceOut.setPayedSum(randomLong(1, 10000));
+        invoiceOut.setSum(randomLong(1, 10000));
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        assertNotEquals(0, orgList.getRows().size());
+        invoiceOut.setOrganization(orgList.getRows().get(0));
+
+        CounterpartyEntity agent = new CounterpartyEntity();
+        agent.setName(randomString());
+        api.entity().counterparty().post(agent);
+        invoiceOut.setAgent(agent);
+
+        api.entity().invoiceout().post(invoiceOut);
+
+        LocalDateTime time = LocalDateTime.now().withNano(0);
+        DemandDocumentEntity e = api.entity().demand().newDocument("invoicesOut", Collections.singletonList(invoiceOut));
+
+        assertEquals("", e.getName());
+        assertEquals(invoiceOut.getVatEnabled(), e.getVatEnabled());
+        assertEquals(invoiceOut.getVatIncluded(), e.getVatIncluded());
+        assertEquals(invoiceOut.getPayedSum(), e.getPayedSum());
+        assertEquals(invoiceOut.getSum(), e.getSum());
+        assertFalse(e.getShared());
+        assertTrue(e.getApplicable());
+        assertEquals(time, e.getMoment().withNano(0));
+        assertEquals(1, e.getInvoicesOut().size());
+        assertEquals(invoiceOut.getMeta().getHref(), e.getInvoicesOut().get(0).getMeta().getHref());
     }
 
     private DemandDocumentEntity createSimpleDocumentDemand() throws IOException, LognexApiException {
