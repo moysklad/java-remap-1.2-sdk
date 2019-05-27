@@ -3,6 +3,7 @@ package com.lognex.api.entities.documents;
 import com.lognex.api.entities.EntityTestBase;
 import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.StoreEntity;
+import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -146,6 +147,48 @@ public class LossDocumentEntityTest extends EntityTestBase {
         ListEntity<GroupEntity> group = api.entity().group().get(search("Основной"));
         assertEquals(1, group.getRows().size());
         assertEquals(e.getGroup().getMeta().getHref(), group.getRows().get(0).getMeta().getHref());
+    }
+
+    @Test
+    public void newBySalesReturnTest() throws IOException, LognexApiException {
+        SalesReturnDocumentEntity salesReturn = new SalesReturnDocumentEntity();
+        salesReturn.setName("salesreturn_" + randomString(3) + "_" + new Date().getTime());
+        salesReturn.setSum(randomLong(1, 10000));
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        assertNotEquals(0, orgList.getRows().size());
+        salesReturn.setOrganization(orgList.getRows().get(0));
+
+        CounterpartyEntity agent = new CounterpartyEntity();
+        agent.setName(randomString());
+        api.entity().counterparty().post(agent);
+        salesReturn.setAgent(agent);
+
+        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
+        assertEquals(1, store.getRows().size());
+        salesReturn.setStore(store.getRows().get(0));
+
+        DemandDocumentEntity demand = new DemandDocumentEntity();
+        demand.setName("demand_" + randomString(3) + "_" + new Date().getTime());
+        demand.setDescription(randomString());
+        demand.setOrganization(orgList.getRows().get(0));
+        demand.setAgent(agent);
+        demand.setStore(store.getRows().get(0));
+
+        api.entity().demand().post(demand);
+        salesReturn.setDemand(demand);
+
+        api.entity().salesreturn().post(salesReturn);
+
+        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LossDocumentEntity e = api.entity().loss().newDocument("salesReturn", salesReturn);
+
+        assertEquals("", e.getName());
+        assertEquals(salesReturn.getSum(), e.getSum());
+        assertFalse(e.getShared());
+        assertTrue(e.getApplicable());
+        assertEquals(time, e.getMoment().withNano(0));
+        assertEquals(salesReturn.getMeta().getHref(), e.getSalesReturn().getMeta().getHref());
     }
 
     private LossDocumentEntity createSimpleDocumentLoss() throws IOException, LognexApiException {
