@@ -12,6 +12,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -130,6 +131,107 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
         MetadataAttributeSharedStatesResponse response = api.entity().factureout().metadata().get();
 
         assertFalse(response.getCreateShared());
+    }
+
+    @Test
+    public void newByDemandsTest() throws IOException, LognexApiException {
+        DemandDocumentEntity demand = new DemandDocumentEntity();
+        demand.setName("demand_" + randomString(3) + "_" + new Date().getTime());
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        assertNotEquals(0, orgList.getRows().size());
+        demand.setOrganization(orgList.getRows().get(0));
+
+        CounterpartyEntity agent = new CounterpartyEntity();
+        agent.setName(randomString());
+        api.entity().counterparty().post(agent);
+        demand.setAgent(agent);
+
+        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
+        assertEquals(1, store.getRows().size());
+        demand.setStore(store.getRows().get(0));
+
+        api.entity().demand().post(demand);
+
+        LocalDateTime time = LocalDateTime.now().withNano(0);
+        FactureOutDocumentEntity e = api.entity().factureout().newDocument("demands", Collections.singletonList(demand));
+
+        assertEquals("", e.getName());
+        assertEquals(demand.getSum(), e.getSum());
+        assertFalse(e.getShared());
+        assertTrue(e.getApplicable());
+        assertEquals(time, e.getMoment().withNano(0));
+        assertEquals(1, e.getDemands().size());
+        assertEquals(demand.getMeta().getHref(), e.getDemands().get(0).getMeta().getHref());
+        assertEquals(demand.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
+        assertEquals(demand.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
+        assertEquals(demand.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
+    }
+
+    @Test
+    public void newByPurchaseReturnsTest() throws IOException, LognexApiException {
+        PurchaseReturnDocumentEntity purchaseReturn = new PurchaseReturnDocumentEntity();
+        purchaseReturn.setName("purchasereturn_" + randomString(3) + "_" + new Date().getTime());
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        assertNotEquals(0, orgList.getRows().size());
+        purchaseReturn.setOrganization(orgList.getRows().get(0));
+
+        CounterpartyEntity agent = new CounterpartyEntity();
+        agent.setName(randomString());
+        api.entity().counterparty().post(agent);
+        purchaseReturn.setAgent(agent);
+
+        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
+        assertEquals(1, store.getRows().size());
+        purchaseReturn.setStore(store.getRows().get(0));
+
+        api.entity().purchasereturn().post(purchaseReturn);
+
+        LocalDateTime time = LocalDateTime.now().withNano(0);
+        FactureOutDocumentEntity e = api.entity().factureout().newDocument("returns", Collections.singletonList(purchaseReturn));
+
+        assertEquals("", e.getName());
+        assertEquals(purchaseReturn.getSum(), e.getSum());
+        assertFalse(e.getShared());
+        assertTrue(e.getApplicable());
+        assertEquals(time, e.getMoment().withNano(0));
+        assertEquals(1, e.getReturns().size());
+        assertEquals(purchaseReturn.getMeta().getHref(), e.getReturns().get(0).getMeta().getHref());
+        assertEquals(purchaseReturn.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
+        assertEquals(purchaseReturn.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
+        assertEquals(purchaseReturn.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
+    }
+
+    @Test
+    public void newByPaymentsInTest() throws IOException, LognexApiException {
+        PaymentInDocumentEntity paymentIn = new PaymentInDocumentEntity();
+        paymentIn.setName("paymentin_" + randomString(3) + "_" + new Date().getTime());
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        assertNotEquals(0, orgList.getRows().size());
+        paymentIn.setOrganization(orgList.getRows().get(0));
+
+        CounterpartyEntity agent = new CounterpartyEntity();
+        agent.setName(randomString());
+        api.entity().counterparty().post(agent);
+        paymentIn.setAgent(agent);
+
+        api.entity().paymentin().post(paymentIn);
+
+        LocalDateTime time = LocalDateTime.now().withNano(0);
+        FactureOutDocumentEntity e = api.entity().factureout().newDocument("payments", Collections.singletonList(paymentIn));
+
+        assertEquals("", e.getName());
+        assertEquals(paymentIn.getSum(), e.getSum());
+        assertFalse(e.getShared());
+        assertTrue(e.getApplicable());
+        assertEquals(time, e.getMoment().withNano(0));
+        assertEquals(1, e.getPayments().size());
+        assertEquals(paymentIn.getMeta().getHref(), ((PaymentInDocumentEntity) e.getPayments().get(0)).getMeta().getHref());
+        assertEquals(paymentIn.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
+        assertEquals(paymentIn.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
+        assertEquals(paymentIn.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
     }
 
     private FactureOutDocumentEntity createSimpleDocumentFactureOut() throws IOException, LognexApiException {
