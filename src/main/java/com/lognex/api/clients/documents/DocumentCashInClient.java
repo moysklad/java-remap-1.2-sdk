@@ -15,6 +15,7 @@ public final class DocumentCashInClient
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
+        DocumentNewEndpoint<CashInDocumentEntity>,
         GetByIdEndpoint<CashInDocumentEntity>,
         PutByIdEndpoint<CashInDocumentEntity> {
 
