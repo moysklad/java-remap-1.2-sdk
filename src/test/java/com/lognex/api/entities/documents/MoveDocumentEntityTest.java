@@ -176,6 +176,9 @@ public class MoveDocumentEntityTest extends EntityTestBase {
         assertTrue(e.getApplicable());
         assertEquals(time, e.getMoment().withNano(0));
         assertEquals(internalOrder.getMeta().getHref(), e.getInternalOrder().getMeta().getHref());
+        assertEquals(internalOrder.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
+        assertEquals(internalOrder.getStore().getMeta().getHref(), e.getTargetStore().getMeta().getHref());
+        assertEquals(internalOrder.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
     }
 
     private MoveDocumentEntity createSimpleDocumentMove() throws IOException, LognexApiException {
