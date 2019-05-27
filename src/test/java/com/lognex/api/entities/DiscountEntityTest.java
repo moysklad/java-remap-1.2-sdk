@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class DiscountEntityTest extends EntityTestBase {
     @Test
-    public void getTest() throws IOException, LognexApiException {
+    public void getDiscountTest() throws IOException, LognexApiException {
         ListEntity<DiscountEntity> discountList = api.entity().discount().get();
         assertEquals(1, discountList.getRows().size());
         assertEquals(Meta.Type.discount, discountList.getRows().get(0).getMeta().getType());
