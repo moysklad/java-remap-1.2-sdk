@@ -154,8 +154,6 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getGroup().getMeta().getHref(), group.getRows().get(0).getMeta().getHref());
     }
 
-
-
     private InternalOrderDocumentEntity createSimpleDocumentInternalOrder() throws IOException, LognexApiException {
         InternalOrderDocumentEntity e = new InternalOrderDocumentEntity();
         e.setName("internalorder_" + randomString(3) + "_" + new Date().getTime());

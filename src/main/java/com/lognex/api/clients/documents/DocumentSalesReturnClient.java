@@ -15,6 +15,7 @@ public final class DocumentSalesReturnClient
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
+        DocumentNewEndpoint<SalesReturnDocumentEntity>,
         GetByIdEndpoint<SalesReturnDocumentEntity>,
         PutByIdEndpoint<SalesReturnDocumentEntity> {
 

@@ -11,7 +11,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.Optional;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
@@ -130,6 +132,76 @@ public class SalesReturnDocumentEntityTest extends EntityTestBase {
         MetadataAttributeSharedStatesResponse response = api.entity().salesreturn().metadata().get();
 
         assertFalse(response.getCreateShared());
+    }
+
+    @Test
+    public void newTest() throws IOException, LognexApiException {
+        LocalDateTime time = LocalDateTime.now().withNano(0);
+        SalesReturnDocumentEntity e = api.entity().salesreturn().newDocument();
+
+        assertEquals("", e.getName());
+        assertTrue(e.getVatEnabled());
+        assertTrue(e.getVatIncluded());
+        assertEquals(Long.valueOf(0), e.getSum());
+        assertFalse(e.getShared());
+        assertTrue(e.getApplicable());
+        assertEquals(time, e.getMoment().withNano(0));
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
+                min(Comparator.comparing(OrganizationEntity::getCreated));
+
+        OrganizationEntity org = null;
+        if (orgOptional.isPresent()) {
+            org = orgOptional.get();
+        } else {
+            // Должно быть первое созданное юрлицо
+            fail();
+        }
+
+        assertEquals(e.getOrganization().getMeta().getHref(), org.getMeta().getHref());
+
+        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
+        assertEquals(1, store.getRows().size());
+        assertEquals(e.getStore().getMeta().getHref(), store.getRows().get(0).getMeta().getHref());
+    }
+
+    @Test
+    public void newByDemandTest() throws IOException, LognexApiException {
+        DemandDocumentEntity demand = new DemandDocumentEntity();
+        demand.setName("demand_" + randomString(3) + "_" + new Date().getTime());
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        assertNotEquals(0, orgList.getRows().size());
+        demand.setOrganization(orgList.getRows().get(0));
+
+        CounterpartyEntity agent = new CounterpartyEntity();
+        agent.setName(randomString());
+        api.entity().counterparty().post(agent);
+        demand.setAgent(agent);
+
+        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
+        assertEquals(1, store.getRows().size());
+        demand.setStore(store.getRows().get(0));
+
+        api.entity().demand().post(demand);
+
+        LocalDateTime time = LocalDateTime.now().withNano(0);
+        SalesReturnDocumentEntity e = api.entity().salesreturn().newDocument("demand", demand);
+
+        assertEquals("", e.getName());
+        assertEquals(demand.getVatEnabled(), e.getVatEnabled());
+        assertEquals(demand.getVatIncluded(), e.getVatIncluded());
+        assertEquals(demand.getPayedSum(), e.getPayedSum());
+        assertEquals(demand.getSum(), e.getSum());
+        assertFalse(e.getShared());
+        assertTrue(e.getApplicable());
+        assertEquals(time, e.getMoment().withNano(0));
+        assertEquals(demand.getMeta().getHref(), e.getDemand().getMeta().getHref());
+        assertEquals(demand.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
+        assertEquals(demand.getStore().getMeta().getHref(), e.getStore().getMeta().getHref());
+        assertEquals(demand.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
+        assertEquals(demand.getOrganizationAccount().getMeta().getHref(), e.getOrganizationAccount().getMeta().getHref());
     }
 
     private SalesReturnDocumentEntity createSimpleDocumentSalesReturn() throws IOException, LognexApiException {
