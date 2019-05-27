@@ -16,7 +16,8 @@ public final class DocumentInvoiceOutClient
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<InvoiceOutDocumentEntity>,
-        PutByIdEndpoint<InvoiceOutDocumentEntity> {
+        PutByIdEndpoint<InvoiceOutDocumentEntity>,
+        DocumentPositionsEndpoint {
 
     public DocumentInvoiceOutClient(LognexApi api) {
         super(api, "/entity/invoiceout/");
