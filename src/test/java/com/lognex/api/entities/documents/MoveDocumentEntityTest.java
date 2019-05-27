@@ -3,7 +3,6 @@ package com.lognex.api.entities.documents;
 import com.lognex.api.entities.EntityTestBase;
 import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.StoreEntity;
-import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;

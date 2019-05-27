@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Date;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
@@ -121,7 +122,6 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
         assertFalse(response.getCreateShared());
     }
 
-    // не работает, так как post не указывает заголовок Content-type при пустом теле
     @Test
     public void newTest() throws IOException, LognexApiException {
         LocalDateTime time = LocalDateTime.now().withNano(0);
@@ -145,6 +145,67 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
         ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
         assertEquals(1, store.getRows().size());
         assertEquals(e.getStore().getMeta().getHref(), store.getRows().get(0).getMeta().getHref());
+    }
+
+    @Test
+    public void newByInternalOrderTest() throws IOException, LognexApiException {
+        InternalOrderDocumentEntity internalOrder = new InternalOrderDocumentEntity();
+        internalOrder.setName("internalorder_" + randomString(3) + "_" + new Date().getTime());
+        internalOrder.setVatEnabled(true);
+        internalOrder.setVatIncluded(true);
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        assertNotEquals(0, orgList.getRows().size());
+        internalOrder.setOrganization(orgList.getRows().get(0));
+
+        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
+        assertEquals(1, store.getRows().size());
+        internalOrder.setStore(store.getRows().get(0));
+
+        api.entity().internalorder().post(internalOrder);
+
+        LocalDateTime time = LocalDateTime.now().withNano(0);
+        PurchaseOrderDocumentEntity e = api.entity().purchaseorder().newDocument("internalOrder", internalOrder);
+
+        assertEquals("", e.getName());
+        assertEquals(internalOrder.getSum(), e.getSum());
+        assertEquals(internalOrder.getVatEnabled(), e.getVatEnabled());
+        assertEquals(internalOrder.getVatIncluded(), e.getVatIncluded());
+        assertFalse(e.getShared());
+        assertTrue(e.getApplicable());
+        assertEquals(time, e.getMoment().withNano(0));
+        assertEquals(internalOrder.getMeta().getHref(), e.getInternalOrder().getMeta().getHref());
+    }
+
+    @Test
+    public void newByCustomerOrdersTest() throws IOException, LognexApiException {
+        CustomerOrderDocumentEntity customerOrder = new CustomerOrderDocumentEntity();
+        customerOrder.setName("customerorder_" + randomString(3) + "_" + new Date().getTime());
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        assertNotEquals(0, orgList.getRows().size());
+        customerOrder.setOrganization(orgList.getRows().get(0));
+
+        CounterpartyEntity agent = new CounterpartyEntity();
+        agent.setName(randomString());
+        api.entity().counterparty().post(agent);
+        customerOrder.setAgent(agent);
+
+        api.entity().customerorder().post(customerOrder);
+
+        LocalDateTime time = LocalDateTime.now().withNano(0);
+        PurchaseOrderDocumentEntity e = api.entity().purchaseorder().newDocument("customerOrders", Collections.singletonList(customerOrder));
+
+        assertEquals("", e.getName());
+        assertEquals(customerOrder.getVatEnabled(), e.getVatEnabled());
+        assertEquals(customerOrder.getVatIncluded(), e.getVatIncluded());
+        assertEquals(customerOrder.getPayedSum(), e.getPayedSum());
+        assertEquals(customerOrder.getSum(), e.getSum());
+        assertFalse(e.getShared());
+        assertTrue(e.getApplicable());
+        assertEquals(time, e.getMoment().withNano(0));
+        assertEquals(1, e.getCustomerOrders().size());
+        assertEquals(customerOrder.getMeta().getHref(), e.getCustomerOrders().get(0).getMeta().getHref());
     }
 
     private PurchaseOrderDocumentEntity createSimpleDocumentPurchaseOrder() throws IOException, LognexApiException {
