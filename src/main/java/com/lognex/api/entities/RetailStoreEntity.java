@@ -30,7 +30,7 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     private GroupEntity group;
     private EmployeeEntity owner;
     private Boolean allowCustomPrice;
-    private String priceType;
+    private PriceTypeEntity priceType;
     private ListEntity<CashierEntity> cashiers;
     private Boolean active;
     private StoreEntity store;
