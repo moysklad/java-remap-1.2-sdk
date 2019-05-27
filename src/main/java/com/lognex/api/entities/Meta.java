@@ -62,7 +62,7 @@ public final class Meta {
         product, service, bundle, currency, uom, productfolder,
         supplyposition, country, variant, retailstore, retailshift,
         retaildemand, salesreturn, salesreturnposition, consignment, move,
-        purchasereturnposition, enter, supply, purchaseorder,
+        purchasereturn, purchasereturnposition, enter, supply, purchaseorder,
         purchaseorderposition, customerorder, processingplanmaterial,
         processingplanresult, processingplan, processingorder,
         processingorderposition, expenseitem, cashin, cashout,
@@ -70,6 +70,7 @@ public final class Meta {
         attributemetadata, customentity, personaldiscount,
         specialpricediscount, discount, bonusprogram,
         accumulationdiscount, contactperson, pricetype,
-        invoicein, invoiceout, invoiceposition, internalorder
+        invoicein, invoiceout, invoiceposition, internalorder,
+        commissionreportin, commissionreportout
     }
 }
