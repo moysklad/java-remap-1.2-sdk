@@ -15,6 +15,7 @@ public final class DocumentCashOutClient
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
+        DocumentNewEndpoint<CashOutDocumentEntity>,
         GetByIdEndpoint<CashOutDocumentEntity>,
         PutByIdEndpoint<CashOutDocumentEntity> {
 
