@@ -3,6 +3,7 @@ package com.lognex.api.entities.documents;
 import com.lognex.api.entities.EntityTestBase;
 import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.StoreEntity;
+import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -148,6 +149,34 @@ public class MoveDocumentEntityTest extends EntityTestBase {
         ListEntity<GroupEntity> group = api.entity().group().get(search("Основной"));
         assertEquals(1, group.getRows().size());
         assertEquals(e.getGroup().getMeta().getHref(), group.getRows().get(0).getMeta().getHref());
+    }
+
+    @Test
+    public void newByInternalOrderTest() throws IOException, LognexApiException {
+        InternalOrderDocumentEntity internalOrder = new InternalOrderDocumentEntity();
+        internalOrder.setName("internalorder_" + randomString(3) + "_" + new Date().getTime());
+        internalOrder.setVatEnabled(true);
+        internalOrder.setVatIncluded(true);
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        assertNotEquals(0, orgList.getRows().size());
+        internalOrder.setOrganization(orgList.getRows().get(0));
+
+        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
+        assertEquals(1, store.getRows().size());
+        internalOrder.setStore(store.getRows().get(0));
+
+        api.entity().internalorder().post(internalOrder);
+
+        LocalDateTime time = LocalDateTime.now().withNano(0);
+        MoveDocumentEntity e = api.entity().move().newDocument("internalOrder", internalOrder);
+
+        assertEquals("", e.getName());
+        assertEquals(internalOrder.getSum(), e.getSum());
+        assertFalse(e.getShared());
+        assertTrue(e.getApplicable());
+        assertEquals(time, e.getMoment().withNano(0));
+        assertEquals(internalOrder.getMeta().getHref(), e.getInternalOrder().getMeta().getHref());
     }
 
     private MoveDocumentEntity createSimpleDocumentMove() throws IOException, LognexApiException {

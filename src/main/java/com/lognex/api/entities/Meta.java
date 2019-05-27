@@ -70,6 +70,6 @@ public final class Meta {
         attributemetadata, customentity, personaldiscount,
         specialpricediscount, discount, bonusprogram,
         accumulationdiscount, contactperson, pricetype,
-        invoicein, invoiceout, invoiceposition
+        invoicein, invoiceout, invoiceposition, internalorder
     }
 }

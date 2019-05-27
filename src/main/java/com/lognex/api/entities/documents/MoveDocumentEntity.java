@@ -27,4 +27,5 @@ public class MoveDocumentEntity extends DocumentEntity {
     private StoreEntity sourceStore;
     private StateEntity state;
     private StoreEntity targetStore;
+    private InternalOrderDocumentEntity internalOrder;
 }
