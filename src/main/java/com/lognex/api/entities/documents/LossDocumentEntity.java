@@ -26,4 +26,5 @@ public class LossDocumentEntity extends DocumentEntity {
     private RateEntity rate;
     private StateEntity state;
     private StoreEntity store;
+    private SalesReturnDocumentEntity salesReturn;
 }

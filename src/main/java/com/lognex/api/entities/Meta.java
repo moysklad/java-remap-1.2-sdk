@@ -61,7 +61,7 @@ public final class Meta {
         account, demand, store, demandposition, note, state,
         product, service, bundle, currency, uom, productfolder,
         supplyposition, country, variant, retailstore, retailshift,
-        retaildemand, salesreturnposition, consignment, move,
+        retaildemand, salesreturn, salesreturnposition, consignment, move,
         purchasereturnposition, enter, supply, purchaseorder,
         purchaseorderposition, customerorder, processingplanmaterial,
         processingplanresult, processingplan, processingorder,
@@ -70,6 +70,6 @@ public final class Meta {
         attributemetadata, customentity, personaldiscount,
         specialpricediscount, discount, bonusprogram,
         accumulationdiscount, contactperson, pricetype,
-        invoicein, invoiceout
+        invoicein, invoiceout, invoiceposition
     }
 }
