@@ -15,6 +15,7 @@ public final class DocumentPurchaseReturnClient
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
+        DocumentNewEndpoint<PurchaseReturnDocumentEntity>,
         GetByIdEndpoint<PurchaseReturnDocumentEntity>,
         PutByIdEndpoint<PurchaseReturnDocumentEntity> {
 
