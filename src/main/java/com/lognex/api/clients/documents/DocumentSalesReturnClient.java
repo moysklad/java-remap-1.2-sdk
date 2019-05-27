@@ -17,7 +17,8 @@ public final class DocumentSalesReturnClient
         MetadataAttributeEndpoint,
         DocumentNewEndpoint<SalesReturnDocumentEntity>,
         GetByIdEndpoint<SalesReturnDocumentEntity>,
-        PutByIdEndpoint<SalesReturnDocumentEntity> {
+        PutByIdEndpoint<SalesReturnDocumentEntity>,
+        DocumentPositionsEndpoint {
 
     public DocumentSalesReturnClient(LognexApi api) {
         super(api, "/entity/salesreturn/");
