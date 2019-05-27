@@ -175,6 +175,9 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
         assertTrue(e.getApplicable());
         assertEquals(time, e.getMoment().withNano(0));
         assertEquals(internalOrder.getMeta().getHref(), e.getInternalOrder().getMeta().getHref());
+        assertEquals(internalOrder.getStore().getMeta().getHref(), e.getStore().getMeta().getHref());
+        assertEquals(internalOrder.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
+        assertEquals(internalOrder.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
     }
 
     @Test
@@ -206,6 +209,9 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(time, e.getMoment().withNano(0));
         assertEquals(1, e.getCustomerOrders().size());
         assertEquals(customerOrder.getMeta().getHref(), e.getCustomerOrders().get(0).getMeta().getHref());
+        assertEquals(customerOrder.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
+        assertEquals(customerOrder.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
+        assertEquals(customerOrder.getOrganizationAccount().getMeta().getHref(), e.getOrganizationAccount().getMeta().getHref());
     }
 
     private PurchaseOrderDocumentEntity createSimpleDocumentPurchaseOrder() throws IOException, LognexApiException {
