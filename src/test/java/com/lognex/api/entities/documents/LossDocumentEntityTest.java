@@ -153,7 +153,6 @@ public class LossDocumentEntityTest extends EntityTestBase {
     public void newBySalesReturnTest() throws IOException, LognexApiException {
         SalesReturnDocumentEntity salesReturn = new SalesReturnDocumentEntity();
         salesReturn.setName("salesreturn_" + randomString(3) + "_" + new Date().getTime());
-        salesReturn.setSum(randomLong(1, 10000));
 
         ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
         assertNotEquals(0, orgList.getRows().size());
