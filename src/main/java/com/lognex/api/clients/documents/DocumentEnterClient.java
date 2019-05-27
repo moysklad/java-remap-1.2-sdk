@@ -16,7 +16,8 @@ public final class DocumentEnterClient
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<EnterDocumentEntity>,
-        PutByIdEndpoint<EnterDocumentEntity> {
+        PutByIdEndpoint<EnterDocumentEntity>,
+        DocumentPositionsEndpoint {
 
     public DocumentEnterClient(LognexApi api) {
         super(api, "/entity/enter/");
