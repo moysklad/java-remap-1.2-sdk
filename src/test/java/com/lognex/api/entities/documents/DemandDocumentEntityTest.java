@@ -57,8 +57,6 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(e.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -79,7 +77,7 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         DemandDocumentEntity retrievedOriginalEntity = api.entity().demand().get(e.getId());
         String name = "demand_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().demand().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -87,7 +85,7 @@ public class DemandDocumentEntityTest extends EntityTestBase {
 
         name = "demand_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().demand().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -199,7 +197,6 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         assertEquals(customerOrder.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(customerOrder.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
         assertEquals(customerOrder.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-        assertEquals(customerOrder.getOrganizationAccount().getMeta().getHref(), e.getOrganizationAccount().getMeta().getHref());
     }
 
     @Test
@@ -269,8 +266,6 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(e.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(DemandDocumentEntity e, DemandDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -282,8 +277,6 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getStore().getMeta().getHref(), retrievedUpdatedEntity.getStore().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getCreated().withNano(0), retrievedUpdatedEntity.getCreated().withNano(0));
-        assertNotEquals(retrievedOriginalEntity.getUpdated().withNano(0), retrievedUpdatedEntity.getUpdated().withNano(0));
     }
 
     @Test

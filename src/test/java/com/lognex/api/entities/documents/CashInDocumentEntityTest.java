@@ -44,6 +44,7 @@ public class CashInDocumentEntityTest extends EntityTestBase {
         api.entity().cashin().post(e);
 
         ListEntity<CashInDocumentEntity> updatedEntitiesList = api.entity().cashin().get(filterEq("name", e.getName()));
+        updatedEntitiesList = api.entity().cashin().get(filterEq("name", e.getName()));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         CashInDocumentEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
@@ -53,8 +54,6 @@ public class CashInDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getSum(), retrievedEntity.getSum());
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -75,7 +74,7 @@ public class CashInDocumentEntityTest extends EntityTestBase {
         CashInDocumentEntity retrievedOriginalEntity = api.entity().cashin().get(e.getId());
         String name = "cashin_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().cashin().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -83,7 +82,7 @@ public class CashInDocumentEntityTest extends EntityTestBase {
 
         name = "cashin_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().cashin().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -354,8 +353,6 @@ public class CashInDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(CashInDocumentEntity e, CashInDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -366,7 +363,5 @@ public class CashInDocumentEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
         assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getCreated().withNano(0), retrievedUpdatedEntity.getCreated().withNano(0));
-        assertNotEquals(retrievedOriginalEntity.getUpdated().withNano(0), retrievedUpdatedEntity.getUpdated().withNano(0));
     }
 }

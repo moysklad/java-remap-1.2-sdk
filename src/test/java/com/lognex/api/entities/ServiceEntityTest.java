@@ -58,7 +58,7 @@ public class ServiceEntityTest extends EntityTestBase {
         ServiceEntity retrievedOriginalEntity = api.entity().service().get(e.getId());
         String name = "service_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().service().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -66,7 +66,7 @@ public class ServiceEntityTest extends EntityTestBase {
 
         name = "service_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().service().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -128,6 +128,5 @@ public class ServiceEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getArchived(), retrievedUpdatedEntity.getArchived());
         assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
         assertEquals(retrievedOriginalEntity.getBarcodes(), retrievedUpdatedEntity.getBarcodes());
-        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
     }
 }

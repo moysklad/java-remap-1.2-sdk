@@ -70,7 +70,7 @@ public class ContractEntityTest extends EntityTestBase {
         ContractEntity retrievedOriginalEntity = api.entity().contract().get(e.getId());
         String name = "contract_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().contract().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -78,7 +78,7 @@ public class ContractEntityTest extends EntityTestBase {
         retrievedOriginalEntity = api.entity().contract().get(e.getId());
         name = "contract_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().contract().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -164,7 +164,6 @@ public class ContractEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getRewardType(), retrievedUpdatedEntity.getRewardType());
         assertEquals(retrievedOriginalEntity.getOwnAgent().getMeta().getHref(), retrievedUpdatedEntity.getOwnAgent().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
-        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
     }
 }
 

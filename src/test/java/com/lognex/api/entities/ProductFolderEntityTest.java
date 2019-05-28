@@ -54,7 +54,7 @@ public class ProductFolderEntityTest extends EntityTestBase {
         ProductFolderEntity retrievedOriginalEntity = api.entity().productfolder().get(e.getId());
         String name = "productfolder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().productfolder().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -62,7 +62,7 @@ public class ProductFolderEntityTest extends EntityTestBase {
         retrievedOriginalEntity = api.entity().productfolder().get(e.getId());
         name = "productfolder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().productfolder().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -108,7 +108,6 @@ public class ProductFolderEntityTest extends EntityTestBase {
         assertEquals(e.getName(), retrievedEntity.getName());
         assertEquals(e.getArchived(), retrievedEntity.getArchived());
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(ProductFolderEntity e, ProductFolderEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -118,7 +117,6 @@ public class ProductFolderEntityTest extends EntityTestBase {
         assertEquals(name, retrievedUpdatedEntity.getName());
         assertEquals(retrievedOriginalEntity.getArchived(), retrievedUpdatedEntity.getArchived());
         assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
-        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
     }
 }
 

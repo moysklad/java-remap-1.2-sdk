@@ -53,7 +53,7 @@ public class ProductEntityTest extends EntityTestBase {
         ProductEntity retrievedOriginalEntity = api.entity().product().get(e.getId());
         String name = "product_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().product().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -61,7 +61,7 @@ public class ProductEntityTest extends EntityTestBase {
 
         name = "product_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().product().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -127,6 +127,5 @@ public class ProductEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
         assertEquals(retrievedOriginalEntity.getArticle(), retrievedUpdatedEntity.getArticle());
         assertEquals(retrievedOriginalEntity.getWeight(), retrievedUpdatedEntity.getWeight());
-        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
     }
 }

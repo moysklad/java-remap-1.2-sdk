@@ -30,7 +30,6 @@ public class ConsignmentEntityTest extends EntityTestBase {
         ConsignmentEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
         assertEquals(e.getName(), retrievedEntity.getName());
         assertEquals(e.getLabel(), retrievedEntity.getLabel());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
         assertEquals(e.getAssortment(), retrievedEntity.getAssortment());
     }
 
@@ -52,7 +51,7 @@ public class ConsignmentEntityTest extends EntityTestBase {
         ConsignmentEntity retrievedOriginalEntity = api.entity().consignment().get(e.getId());
         String label = "consignment_" + randomString(3) + "_" + new Date().getTime();
         e.setLabel(label);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().consignment().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, label);
 
@@ -60,7 +59,7 @@ public class ConsignmentEntityTest extends EntityTestBase {
         retrievedOriginalEntity = api.entity().consignment().get(e.getId());
         label = "consignment_" + randomString(3) + "_" + new Date().getTime();
         e.setLabel(label);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().consignment().put(e);
         putAsserts(e, retrievedOriginalEntity, label);
     }
@@ -108,7 +107,6 @@ public class ConsignmentEntityTest extends EntityTestBase {
     private void getAsserts(ConsignmentEntity e, ConsignmentEntity retrievedEntity) {
         assertEquals(e.getName(), retrievedEntity.getName());
         assertEquals(e.getLabel(), retrievedEntity.getLabel());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
         assertEquals(e.getAssortment(), retrievedEntity.getAssortment());
     }
 
@@ -119,7 +117,6 @@ public class ConsignmentEntityTest extends EntityTestBase {
         assertNotEquals(retrievedOriginalEntity.getLabel(), retrievedUpdatedEntity.getLabel());
         assertEquals(label, retrievedUpdatedEntity.getLabel());
         // Баг: не обновляется поле updated со стороны API
-//        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
         assertEquals(retrievedOriginalEntity.getAssortment(), retrievedUpdatedEntity.getAssortment());
     }
 }
