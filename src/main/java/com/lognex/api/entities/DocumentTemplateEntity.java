@@ -29,7 +29,7 @@ public class DocumentTemplateEntity {
                 element.add("meta", context.serialize(src.getDocument().getMeta()));
 
                 e.add(src.getDocumentType(), element);
-            } else {
+            } else if (src.getDocuments() != null) {
                 JsonArray metaArray = new JsonArray();
 
                 for (DocumentEntity document: src.getDocuments()) {

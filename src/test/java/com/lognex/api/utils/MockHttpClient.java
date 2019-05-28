@@ -63,6 +63,10 @@ public class MockHttpClient extends CloseableHttpClient {
                 try {
                     if (httpRequest.getRequestLine().getUri().contains("metadata/attributes/")) {
                         se = new StringEntity("{\"type\":\"string\",\"value\":\"STRING\"}");
+                    } else if (httpRequest.getRequestLine().getUri().contains("positions") &&
+                            httpRequest.getRequestLine().getMethod().equals("POST")
+                    ) {
+                        se = new StringEntity("[]");
                     } else {
                         se = new StringEntity("{}");
                     }
