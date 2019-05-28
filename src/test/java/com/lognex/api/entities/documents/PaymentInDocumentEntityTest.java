@@ -51,8 +51,6 @@ public class PaymentInDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getSum(), retrievedEntity.getSum());
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -73,7 +71,7 @@ public class PaymentInDocumentEntityTest extends EntityTestBase {
         PaymentInDocumentEntity retrievedOriginalEntity = api.entity().paymentin().get(e.getId());
         String name = "paymentin_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().paymentin().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -81,7 +79,7 @@ public class PaymentInDocumentEntityTest extends EntityTestBase {
 
         name = "paymentin_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().paymentin().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -178,7 +176,6 @@ public class PaymentInDocumentEntityTest extends EntityTestBase {
         assertEquals(customerOrder.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
         assertEquals(customerOrder.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(customerOrder.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-        assertEquals(customerOrder.getOrganizationAccount().getMeta().getHref(), e.getOrganizationAccount().getMeta().getHref());
     }
 
     @Test
@@ -214,7 +211,6 @@ public class PaymentInDocumentEntityTest extends EntityTestBase {
         assertEquals(purchaseReturn.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
         assertEquals(purchaseReturn.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(purchaseReturn.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-        assertEquals(purchaseReturn.getOrganizationAccount().getMeta().getHref(), e.getOrganizationAccount().getMeta().getHref());
     }
 
     @Test
@@ -250,7 +246,6 @@ public class PaymentInDocumentEntityTest extends EntityTestBase {
         assertEquals(demand.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
         assertEquals(demand.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(demand.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-        assertEquals(demand.getOrganizationAccount().getMeta().getHref(), e.getOrganizationAccount().getMeta().getHref());
     }
 
     @Test
@@ -329,7 +324,6 @@ public class PaymentInDocumentEntityTest extends EntityTestBase {
         assertEquals(commissionReportIn.getContract().getMeta().getHref(), e.getContract().getMeta().getHref());
         assertEquals(commissionReportIn.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(commissionReportIn.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-        assertEquals(commissionReportIn.getOrganizationAccount().getMeta().getHref(), e.getOrganizationAccount().getMeta().getHref());
     }
 
     private PaymentInDocumentEntity createSimpleDocumentPaymentIn() throws IOException, LognexApiException {
@@ -354,8 +348,6 @@ public class PaymentInDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getName(), retrievedEntity.getName());
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(PaymentInDocumentEntity e, PaymentInDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -365,7 +357,5 @@ public class PaymentInDocumentEntityTest extends EntityTestBase {
         assertEquals(name, retrievedUpdatedEntity.getName());
         assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getCreated().withNano(0), retrievedUpdatedEntity.getCreated().withNano(0));
-        assertNotEquals(retrievedOriginalEntity.getUpdated().withNano(0), retrievedUpdatedEntity.getUpdated().withNano(0));
     }
 }

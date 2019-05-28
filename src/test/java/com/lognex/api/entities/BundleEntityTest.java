@@ -47,7 +47,6 @@ public class BundleEntityTest extends EntityTestBase {
         assertTrue(retrievedEntity.getComponents().getRows().get(0).getAssortment() instanceof ProductEntity);
         assertEquals(product.getName(), ((ProductEntity) retrievedEntity.getComponents().getRows().get(0).getAssortment()).getName());
         assertEquals(components.getRows().get(0).getQuantity(), retrievedEntity.getComponents().getRows().get(0).getQuantity());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -69,7 +68,7 @@ public class BundleEntityTest extends EntityTestBase {
         String name = "bundle_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
         e.setComponents(null);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().bundle().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -78,7 +77,7 @@ public class BundleEntityTest extends EntityTestBase {
         name = "bundle_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
         e.setComponents(null);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().bundle().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -133,7 +132,6 @@ public class BundleEntityTest extends EntityTestBase {
         assertEquals(e.getName(), retrievedEntity.getName());
         assertEquals(e.getArticle(), retrievedEntity.getArticle());
         assertEquals(e.getComponents().getMeta().getSize(), retrievedEntity.getComponents().getMeta().getSize());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(BundleEntity e, BundleEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -143,7 +141,6 @@ public class BundleEntityTest extends EntityTestBase {
         assertEquals(name, retrievedUpdatedEntity.getName());
         assertEquals(retrievedOriginalEntity.getArticle(), retrievedUpdatedEntity.getArticle());
         assertEquals(retrievedOriginalEntity.getComponents().getMeta().getSize(), retrievedUpdatedEntity.getComponents().getMeta().getSize());
-        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
     }
 }
 

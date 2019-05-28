@@ -29,7 +29,6 @@ public class ExpenseItemEntityTest extends EntityTestBase {
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
         assertEquals(e.getCode(), retrievedEntity.getCode());
         assertEquals(e.getExternalCode(), retrievedEntity.getExternalCode());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -50,7 +49,7 @@ public class ExpenseItemEntityTest extends EntityTestBase {
         ExpenseItemEntity retrievedOriginalEntity = api.entity().expenseitem().get(e.getId());
         String name = "expenseitem_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().expenseitem().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -58,7 +57,7 @@ public class ExpenseItemEntityTest extends EntityTestBase {
         retrievedOriginalEntity = api.entity().expenseitem().get(e.getId());
         name = "expenseitem_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().expenseitem().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -106,7 +105,6 @@ public class ExpenseItemEntityTest extends EntityTestBase {
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
         assertEquals(e.getCode(), retrievedEntity.getCode());
         assertEquals(e.getExternalCode(), retrievedEntity.getExternalCode());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(ExpenseItemEntity e, ExpenseItemEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -118,7 +116,6 @@ public class ExpenseItemEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getCode(), retrievedUpdatedEntity.getCode());
         assertEquals(retrievedOriginalEntity.getExternalCode(), retrievedUpdatedEntity.getExternalCode());
         // Баг: не обновляется поле updated со стороны API
-//        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
     }
 }
 

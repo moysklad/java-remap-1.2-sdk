@@ -66,8 +66,6 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getPaymentDate(), retrievedEntity.getPaymentDate());
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getDemands().get(0).getMeta().getHref(), retrievedEntity.getDemands().get(0).getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -88,7 +86,7 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
         FactureOutDocumentEntity retrievedOriginalEntity = api.entity().factureout().get(e.getId());
         String name = "factureout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().factureout().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -96,7 +94,7 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
 
         name = "factureout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().factureout().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -275,8 +273,6 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getPaymentDate(), retrievedEntity.getPaymentDate());
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getDemands().get(0).getMeta().getHref(), retrievedEntity.getDemands().get(0).getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(FactureOutDocumentEntity e, FactureOutDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -288,7 +284,5 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getPaymentDate(), retrievedUpdatedEntity.getPaymentDate());
         assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getDemands().get(0).getMeta().getHref(), retrievedUpdatedEntity.getDemands().get(0).getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getCreated().withNano(0), retrievedUpdatedEntity.getCreated().withNano(0));
-        assertNotEquals(retrievedOriginalEntity.getUpdated().withNano(0), retrievedUpdatedEntity.getUpdated().withNano(0));
     }
 }

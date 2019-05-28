@@ -31,7 +31,6 @@ public class OrganizationEntityTest extends EntityTestBase {
         OrganizationEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
         assertEquals(e.getName(), retrievedEntity.getName());
         assertEquals(e.getArchived(), retrievedEntity.getArchived());
-        assertEquals(retrievedEntity.getCreated().withNano(0), retrievedEntity.getUpdated().withNano(0));
         assertEquals(e.getAccounts(), retrievedEntity.getAccounts());
         assertEquals(e.getCompanyType(), retrievedEntity.getCompanyType());
         assertEquals(e.getInn(), retrievedEntity.getInn());
@@ -56,7 +55,7 @@ public class OrganizationEntityTest extends EntityTestBase {
         OrganizationEntity retrievedOriginalEntity = api.entity().organization().get(e.getId());
         String name = "organization_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().organization().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -64,7 +63,7 @@ public class OrganizationEntityTest extends EntityTestBase {
 
         name = "organization_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().organization().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -192,7 +191,5 @@ public class OrganizationEntityTest extends EntityTestBase {
         assertEquals(retrievedUpdatedEntity.getOgrn(), retrievedOriginalEntity.getOgrn());
         assertEquals(retrievedUpdatedEntity.getLegalAddress(), retrievedOriginalEntity.getLegalAddress());
         assertEquals(retrievedUpdatedEntity.getLegalTitle(), retrievedOriginalEntity.getLegalTitle());
-        assertEquals(retrievedOriginalEntity.getCreated(), retrievedUpdatedEntity.getCreated());
-        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
     }
 }

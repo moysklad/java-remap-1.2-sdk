@@ -60,7 +60,7 @@ public class VariantEntityTest extends EntityTestBase {
         VariantEntity retrievedOriginalEntity = api.entity().variant().get(e.getId());
         String value = "mod_" + randomString(3) + "_" + new Date().getTime();
         e.getCharacteristics().get(0).setValue(value);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().variant().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, value);
 
@@ -72,7 +72,7 @@ public class VariantEntityTest extends EntityTestBase {
         characteristic.setValue(value);
         e.getCharacteristics().add(characteristic);
 
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().variant().put(e);
         putAsserts(e, retrievedOriginalEntity, value);
     }

@@ -52,8 +52,6 @@ public class MoveDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getSourceStore().getMeta().getHref(), retrievedEntity.getSourceStore().getMeta().getHref());
         assertEquals(e.getTargetStore().getMeta().getHref(), retrievedEntity.getTargetStore().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -74,7 +72,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
         MoveDocumentEntity retrievedOriginalEntity = api.entity().move().get(e.getId());
         String name = "move_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().move().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -82,7 +80,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
         name = "move_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().move().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -210,8 +208,6 @@ public class MoveDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getSourceStore().getMeta().getHref(), retrievedEntity.getSourceStore().getMeta().getHref());
         assertEquals(e.getTargetStore().getMeta().getHref(), retrievedEntity.getTargetStore().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(MoveDocumentEntity e, MoveDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -223,8 +219,6 @@ public class MoveDocumentEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getSourceStore().getMeta().getHref(), retrievedUpdatedEntity.getSourceStore().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getTargetStore().getMeta().getHref(), retrievedUpdatedEntity.getTargetStore().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getCreated().withNano(0), retrievedUpdatedEntity.getCreated().withNano(0));
-        assertNotEquals(retrievedOriginalEntity.getUpdated().withNano(0), retrievedUpdatedEntity.getUpdated().withNano(0));
     }
 
     @Test

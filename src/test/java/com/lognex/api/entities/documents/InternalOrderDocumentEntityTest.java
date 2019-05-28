@@ -50,8 +50,6 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getMoment(), retrievedEntity.getMoment());
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -72,7 +70,7 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
         InternalOrderDocumentEntity retrievedOriginalEntity = api.entity().internalorder().get(e.getId());
         String name = "internalorder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().internalorder().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -80,7 +78,7 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
 
         name = "internalorder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().internalorder().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -177,8 +175,6 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(InternalOrderDocumentEntity e, InternalOrderDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -189,8 +185,6 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
         assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getStore().getMeta().getHref(), retrievedUpdatedEntity.getStore().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getCreated().withNano(0), retrievedUpdatedEntity.getCreated().withNano(0));
-        assertNotEquals(retrievedOriginalEntity.getUpdated().withNano(0), retrievedUpdatedEntity.getUpdated().withNano(0));
     }
 
     private void getAsserts(EnterDocumentEntity e, EnterDocumentEntity retrievedEntity) {
@@ -198,8 +192,6 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
     }
 
     private void putAsserts(EnterDocumentEntity e, EnterDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -210,8 +202,6 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
         assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getStore().getMeta().getHref(), retrievedUpdatedEntity.getStore().getMeta().getHref());
-        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
-        assertEquals(retrievedOriginalEntity.getCreated(), retrievedUpdatedEntity.getCreated());
     }
 
     @Test

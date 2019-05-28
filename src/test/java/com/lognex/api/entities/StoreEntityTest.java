@@ -50,7 +50,7 @@ public class StoreEntityTest extends EntityTestBase {
         StoreEntity retrievedOriginalEntity = api.entity().store().get(e.getId());
         String name = "store_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().store().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -58,7 +58,7 @@ public class StoreEntityTest extends EntityTestBase {
 
         name = "store_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().store().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

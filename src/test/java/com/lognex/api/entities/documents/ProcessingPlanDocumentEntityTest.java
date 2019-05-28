@@ -57,7 +57,6 @@ public class ProcessingPlanDocumentEntityTest extends EntityTestBase {
         assertEquals(productItem.getQuantity(), retrievedEntity.getProducts().getRows().get(0).getQuantity());
         ProductEntity retrievedProduct = (ProductEntity) retrievedEntity.getProducts().getRows().get(0).getProduct();
         assertEquals(product.getMeta().getHref(), retrievedProduct.getMeta().getHref());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -78,7 +77,7 @@ public class ProcessingPlanDocumentEntityTest extends EntityTestBase {
         ProcessingPlanDocumentEntity retrievedOriginalEntity = api.entity().processingplan().get(e.getId());
         String name = "processingplan_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         //Хак для того, чтобы при методе put не было попытки удалить материалы/продукты (должно быть исправлено)
         e.setMaterials(null);
         e.setProducts(null);
@@ -89,7 +88,7 @@ public class ProcessingPlanDocumentEntityTest extends EntityTestBase {
 
         name = "processingplan_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         e.setMaterials(null);
         e.setProducts(null);
         api.entity().processingplan().put(e);
@@ -155,7 +154,6 @@ public class ProcessingPlanDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getName(), retrievedEntity.getName());
         assertEquals(e.getMaterials().getMeta().getSize(), retrievedEntity.getMaterials().getMeta().getSize());
         assertEquals(e.getProducts().getMeta().getSize(), retrievedEntity.getProducts().getMeta().getSize());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(ProcessingPlanDocumentEntity e, ProcessingPlanDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -165,6 +163,5 @@ public class ProcessingPlanDocumentEntityTest extends EntityTestBase {
         assertEquals(name, retrievedUpdatedEntity.getName());
         assertEquals(retrievedOriginalEntity.getMaterials().getMeta().getSize(), retrievedUpdatedEntity.getMaterials().getMeta().getSize());
         assertEquals(retrievedOriginalEntity.getProducts().getMeta().getSize(), retrievedUpdatedEntity.getProducts().getMeta().getSize());
-        assertNotEquals(retrievedOriginalEntity.getUpdated().withNano(0), retrievedUpdatedEntity.getUpdated().withNano(0));
     }
 }
