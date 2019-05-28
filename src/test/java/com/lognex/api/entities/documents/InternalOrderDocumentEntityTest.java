@@ -11,6 +11,7 @@ import com.lognex.api.utils.LognexApiException;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -362,7 +363,8 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
         DocumentPosition p = positions.get(0);
         DocumentPosition retrievedPosition = api.entity().internalorder().getPosition(e.getId(), p.getId());
 
-        double quantity = p.getQuantity() + randomDouble(1, 1, 2);
+        DecimalFormat df = new DecimalFormat("#.###");
+        double quantity = Double.valueOf(df.format(p.getQuantity() + randomDouble(1, 1, 3)));
         p.setQuantity(quantity);
         api.entity().internalorder().putPosition(e.getId(), p.getId(), p);
 
@@ -377,7 +379,8 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
         DocumentPosition p = positions.get(0);
         DocumentPosition retrievedPosition = api.entity().internalorder().getPosition(e.getId(), p.getId());
 
-        double quantity = p.getQuantity() + randomDouble(1, 1, 2);
+        DecimalFormat df = new DecimalFormat("#.###");
+        double quantity = Double.valueOf(df.format(p.getQuantity() + randomDouble(1, 1, 3)));
         p.setQuantity(quantity);
         api.entity().internalorder().putPosition(e, p.getId(), p);
 
@@ -392,7 +395,8 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
         DocumentPosition p = positions.get(0);
         DocumentPosition retrievedPosition = api.entity().internalorder().getPosition(e.getId(), p.getId());
 
-        double quantity = p.getQuantity() + randomDouble(1, 1, 2);
+        DecimalFormat df = new DecimalFormat("#.###");
+        double quantity = Double.valueOf(df.format(p.getQuantity() + randomDouble(1, 1, 3)));
         p.setQuantity(quantity);
         api.entity().internalorder().putPosition(e, p, p);
 
@@ -407,7 +411,8 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
         DocumentPosition p = positions.get(0);
         DocumentPosition retrievedPosition = api.entity().internalorder().getPosition(e.getId(), p.getId());
 
-        Double quantity = p.getQuantity() + randomDouble(1, 1, 2);
+        DecimalFormat df = new DecimalFormat("#.###");
+        double quantity = Double.valueOf(df.format(p.getQuantity() + randomDouble(1, 1, 3)));
         p.setQuantity(quantity);
         api.entity().internalorder().putPosition(e, p);
 
