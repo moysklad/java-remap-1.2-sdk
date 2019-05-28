@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -160,7 +161,7 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
         assertEquals(demand.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(1, e.getDemands().size());
         assertEquals(demand.getMeta().getHref(), e.getDemands().get(0).getMeta().getHref());
         assertEquals(demand.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
@@ -195,7 +196,7 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
         assertEquals(purchaseReturn.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(1, e.getReturns().size());
         assertEquals(purchaseReturn.getMeta().getHref(), e.getReturns().get(0).getMeta().getHref());
         assertEquals(purchaseReturn.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
@@ -226,7 +227,7 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
         assertEquals(paymentIn.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(1, e.getPayments().size());
         assertEquals(paymentIn.getMeta().getHref(), ((PaymentInDocumentEntity) e.getPayments().get(0)).getMeta().getHref());
         assertEquals(paymentIn.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());

@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -125,14 +126,14 @@ public class CashOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newTest() throws IOException, LognexApiException {
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         CashOutDocumentEntity e = api.entity().cashout().newDocument();
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertEquals(Long.valueOf(0), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
 
         ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
         Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
@@ -173,14 +174,14 @@ public class CashOutDocumentEntityTest extends EntityTestBase {
 
         api.entity().purchaseorder().post(purchaseOrder);
 
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         CashOutDocumentEntity e = api.entity().cashout().newDocument("operations", Collections.singletonList(purchaseOrder));
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertEquals(purchaseOrder.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(1, e.getOperations().size());
         assertEquals(purchaseOrder.getMeta().getHref(), e.getOperations().get(0).getMeta().getHref());
         assertEquals(purchaseOrder.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
@@ -218,14 +219,14 @@ public class CashOutDocumentEntityTest extends EntityTestBase {
 
         api.entity().salesreturn().post(salesReturn);
 
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         CashOutDocumentEntity e = api.entity().cashout().newDocument("operations", Collections.singletonList(salesReturn));
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertEquals(salesReturn.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(1, e.getOperations().size());
         assertEquals(salesReturn.getMeta().getHref(), e.getOperations().get(0).getMeta().getHref());
         assertEquals(salesReturn.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
@@ -253,14 +254,14 @@ public class CashOutDocumentEntityTest extends EntityTestBase {
 
         api.entity().supply().post(supply);
 
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         CashOutDocumentEntity e = api.entity().cashout().newDocument("operations", Collections.singletonList(supply));
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertEquals(supply.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(1, e.getOperations().size());
         assertEquals(supply.getMeta().getHref(), e.getOperations().get(0).getMeta().getHref());
         assertEquals(supply.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
@@ -286,14 +287,14 @@ public class CashOutDocumentEntityTest extends EntityTestBase {
 
         api.entity().invoicein().post(invoiceIn);
 
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         CashOutDocumentEntity e = api.entity().cashout().newDocument("operations", Collections.singletonList(invoiceIn));
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertEquals(invoiceIn.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(1, e.getOperations().size());
         assertEquals(invoiceIn.getMeta().getHref(), e.getOperations().get(0).getMeta().getHref());
         assertEquals(invoiceIn.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
@@ -328,14 +329,14 @@ public class CashOutDocumentEntityTest extends EntityTestBase {
 
         api.entity().commissionreportout().post(commissionReportOut);
 
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         CashOutDocumentEntity e = api.entity().cashout().newDocument("operations", Collections.singletonList(commissionReportOut));
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertEquals(commissionReportOut.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(1, e.getOperations().size());
         assertEquals(commissionReportOut.getMeta().getHref(), e.getOperations().get(0).getMeta().getHref());
         assertEquals(commissionReportOut.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
