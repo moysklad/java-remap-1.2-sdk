@@ -35,7 +35,7 @@ public class CustomEntityTest extends EntityTestBase {
         String name = "custom_entity_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
 
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().customentity().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -50,7 +50,7 @@ public class CustomEntityTest extends EntityTestBase {
         String name = "custom_entity_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
 
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().customentity().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -171,7 +171,7 @@ public class CustomEntityTest extends EntityTestBase {
         e.setCode(code);
         e.setDescription("");
 
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().customentity().putCustomEntityElement(customEntity.getId(), e.getId(), e);
         putAsserts(customEntity, e, retrievedOriginalEntity, code);
     }
@@ -188,7 +188,7 @@ public class CustomEntityTest extends EntityTestBase {
         e.setCode(code);
         e.setDescription("");
 
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().customentity().putCustomEntityElement(customEntity.getId(), e);
         putAsserts(customEntity, e, retrievedOriginalEntity, code);
     }
@@ -296,6 +296,5 @@ public class CustomEntityTest extends EntityTestBase {
         assertEquals(retrievedUpdatedEntity.getExternalCode(), retrievedOriginalEntity.getExternalCode());
         assertEquals(retrievedUpdatedEntity.getMeta().getHref(), retrievedOriginalEntity.getMeta().getHref());
         assertEquals(retrievedUpdatedEntity.getMeta().getType(), retrievedOriginalEntity.getMeta().getType());
-        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
     }
 }

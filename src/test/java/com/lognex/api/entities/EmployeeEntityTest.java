@@ -32,7 +32,6 @@ public class EmployeeEntityTest extends EntityTestBase {
         assertEquals(e.getFirstName(), retrievedEntity.getFirstName());
         assertEquals(e.getLastName(), retrievedEntity.getLastName());
         assertEquals(e.getArchived(), retrievedEntity.getArchived());
-        assertEquals(retrievedEntity.getCreated().withNano(0), retrievedEntity.getUpdated().withNano(0));
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
         assertEquals(e.getInn(), retrievedEntity.getInn());
     }
@@ -55,7 +54,7 @@ public class EmployeeEntityTest extends EntityTestBase {
         EmployeeEntity retrievedOriginalEntity = api.entity().employee().get(e.getId());
         String name = "employee_" + randomString(3) + "_" + new Date().getTime();
         e.setLastName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().employee().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -63,7 +62,7 @@ public class EmployeeEntityTest extends EntityTestBase {
 
         name = "employee_" + randomString(3) + "_" + new Date().getTime();
         e.setLastName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().employee().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -118,7 +117,6 @@ public class EmployeeEntityTest extends EntityTestBase {
         assertEquals(e.getFirstName(), retrievedEntity.getFirstName());
         assertEquals(e.getMiddleName(), retrievedEntity.getMiddleName());
         assertEquals(e.getArchived(), retrievedEntity.getArchived());
-        assertEquals(retrievedEntity.getCreated().withNano(0), retrievedEntity.getUpdated().withNano(0));
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
     }
 
@@ -131,7 +129,5 @@ public class EmployeeEntityTest extends EntityTestBase {
         assertEquals(retrievedUpdatedEntity.getMiddleName(), retrievedOriginalEntity.getMiddleName());
         assertEquals(retrievedUpdatedEntity.getArchived(), retrievedOriginalEntity.getArchived());
         assertEquals(retrievedUpdatedEntity.getDescription(), retrievedOriginalEntity.getDescription());
-        assertEquals(retrievedOriginalEntity.getCreated(), retrievedUpdatedEntity.getCreated());
-        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
     }
 }

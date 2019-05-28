@@ -78,7 +78,6 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(position.getQuantity(), retrievedEntity.getPositions().getRows().get(0).getQuantity());
         ProductEntity retrievedProduct = (ProductEntity) retrievedEntity.getPositions().getRows().get(0).getAssortment();
         assertEquals(material.getMeta().getHref(), retrievedProduct.getMeta().getHref());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -99,7 +98,7 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
         ProcessingOrderDocumentEntity retrievedOriginalEntity = api.entity().processingorder().get(e.getId());
         String name = "processingorder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         //Хак для того, чтобы при методе put не было попытки удалить материалы/продукты (должно быть исправлено)
         e.setPositions(null);
         api.entity().processingorder().put(e.getId(), e);
@@ -109,7 +108,7 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
 
         name = "processingorder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         e.setPositions(null);
         api.entity().processingorder().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
@@ -199,7 +198,6 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getProcessingPlan().getMeta().getHref(), retrievedEntity.getProcessingPlan().getMeta().getHref());
         assertEquals(e.getPositions().getMeta().getSize(), retrievedEntity.getPositions().getMeta().getSize());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(ProcessingOrderDocumentEntity e, ProcessingOrderDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -210,6 +208,5 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getProcessingPlan().getMeta().getHref(), retrievedUpdatedEntity.getProcessingPlan().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getPositions().getMeta().getSize(), retrievedUpdatedEntity.getPositions().getMeta().getSize());
-        assertNotEquals(retrievedOriginalEntity.getUpdated().withNano(0), retrievedUpdatedEntity.getUpdated().withNano(0));
     }
 }

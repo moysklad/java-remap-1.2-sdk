@@ -63,8 +63,6 @@ public class CommissionReportOutDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(e.getContract().getMeta().getHref(), retrievedEntity.getContract().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -85,7 +83,7 @@ public class CommissionReportOutDocumentEntityTest extends EntityTestBase {
         CommissionReportOutDocumentEntity retrievedOriginalEntity = api.entity().commissionreportout().get(e.getId());
         String name = "commissionreportout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().commissionreportout().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -93,7 +91,7 @@ public class CommissionReportOutDocumentEntityTest extends EntityTestBase {
 
         name = "commissionreportout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().commissionreportout().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -165,8 +163,6 @@ public class CommissionReportOutDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(e.getContract().getMeta().getHref(), retrievedEntity.getContract().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(CommissionReportOutDocumentEntity e, CommissionReportOutDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -177,8 +173,6 @@ public class CommissionReportOutDocumentEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getContract().getMeta().getHref(), retrievedUpdatedEntity.getContract().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getCreated().withNano(0), retrievedUpdatedEntity.getCreated().withNano(0));
-        assertNotEquals(retrievedOriginalEntity.getUpdated().withNano(0), retrievedUpdatedEntity.getUpdated().withNano(0));
     }
 
     @Test

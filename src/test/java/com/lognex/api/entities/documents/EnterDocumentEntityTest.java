@@ -45,8 +45,6 @@ public class EnterDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getMoment(), retrievedEntity.getMoment());
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -67,7 +65,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
         EnterDocumentEntity retrievedOriginalEntity = api.entity().enter().get(e.getId());
         String name = "enter_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().enter().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -75,7 +73,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
         name = "enter_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().enter().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -136,8 +134,6 @@ public class EnterDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
     }
 
     private void putAsserts(EnterDocumentEntity e, EnterDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -148,8 +144,6 @@ public class EnterDocumentEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
         assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getStore().getMeta().getHref(), retrievedUpdatedEntity.getStore().getMeta().getHref());
-        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
-        assertEquals(retrievedOriginalEntity.getCreated(), retrievedUpdatedEntity.getCreated());
     }
 
     @Test

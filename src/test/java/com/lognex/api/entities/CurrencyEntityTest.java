@@ -65,7 +65,7 @@ public class CurrencyEntityTest extends EntityTestBase {
         CurrencyEntity retrievedOriginalEntity = api.entity().currency().get(e.getId());
         String name = "mod_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().currency().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -73,7 +73,7 @@ public class CurrencyEntityTest extends EntityTestBase {
         name = "mod_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
 
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().currency().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

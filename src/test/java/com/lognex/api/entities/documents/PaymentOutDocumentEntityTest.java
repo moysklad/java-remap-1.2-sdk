@@ -54,8 +54,6 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(e.getExpenseItem().getMeta().getHref(), retrievedEntity.getExpenseItem().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -76,7 +74,7 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
         PaymentOutDocumentEntity retrievedOriginalEntity = api.entity().paymentout().get(e.getId());
         String name = "paymentout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().paymentout().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -84,7 +82,7 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
 
         name = "paymentout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().paymentout().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -185,7 +183,6 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
         assertEquals(purchaseOrder.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
         assertEquals(purchaseOrder.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(purchaseOrder.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-        assertEquals(purchaseOrder.getOrganizationAccount().getMeta().getHref(), e.getOrganizationAccount().getMeta().getHref());
     }
 
     @Test
@@ -231,7 +228,6 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
         assertEquals(salesReturn.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
         assertEquals(salesReturn.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(salesReturn.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-        assertEquals(salesReturn.getOrganizationAccount().getMeta().getHref(), e.getOrganizationAccount().getMeta().getHref());
     }
 
     @Test
@@ -267,7 +263,6 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
         assertEquals(supply.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
         assertEquals(supply.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(supply.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-        assertEquals(supply.getOrganizationAccount().getMeta().getHref(), e.getOrganizationAccount().getMeta().getHref());
     }
 
     @Test
@@ -344,7 +339,6 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
         assertEquals(commissionReportOut.getContract().getMeta().getHref(), e.getContract().getMeta().getHref());
         assertEquals(commissionReportOut.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(commissionReportOut.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-        assertEquals(commissionReportOut.getOrganizationAccount().getMeta().getHref(), e.getOrganizationAccount().getMeta().getHref());
     }
 
     private PaymentOutDocumentEntity createSimpleDocumentPaymentOut() throws IOException, LognexApiException {
@@ -375,8 +369,6 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(e.getExpenseItem().getMeta().getHref(), retrievedEntity.getExpenseItem().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(PaymentOutDocumentEntity e, PaymentOutDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -387,7 +379,5 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getExpenseItem().getMeta().getHref(), retrievedUpdatedEntity.getExpenseItem().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getCreated().withNano(0), retrievedUpdatedEntity.getCreated().withNano(0));
-        assertNotEquals(retrievedOriginalEntity.getUpdated().withNano(0), retrievedUpdatedEntity.getUpdated().withNano(0));
     }
 }

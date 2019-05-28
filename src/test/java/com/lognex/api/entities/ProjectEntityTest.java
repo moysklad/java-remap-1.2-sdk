@@ -30,7 +30,6 @@ public class ProjectEntityTest extends EntityTestBase {
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
         assertEquals(e.getCode(), retrievedEntity.getCode());
         assertEquals(e.getExternalCode(), retrievedEntity.getExternalCode());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -51,7 +50,7 @@ public class ProjectEntityTest extends EntityTestBase {
         ProjectEntity retrievedOriginalEntity = api.entity().project().get(e.getId());
         String name = "project_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().project().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -59,7 +58,7 @@ public class ProjectEntityTest extends EntityTestBase {
         retrievedOriginalEntity = api.entity().project().get(e.getId());
         name = "project_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().project().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -113,7 +112,6 @@ public class ProjectEntityTest extends EntityTestBase {
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
         assertEquals(e.getCode(), retrievedEntity.getCode());
         assertEquals(e.getExternalCode(), retrievedEntity.getExternalCode());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(ProjectEntity e, ProjectEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -124,7 +122,6 @@ public class ProjectEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
         assertEquals(retrievedOriginalEntity.getCode(), retrievedUpdatedEntity.getCode());
         assertEquals(retrievedOriginalEntity.getExternalCode(), retrievedUpdatedEntity.getExternalCode());
-        assertNotEquals(retrievedOriginalEntity.getUpdated(), retrievedUpdatedEntity.getUpdated());
     }
 }
 

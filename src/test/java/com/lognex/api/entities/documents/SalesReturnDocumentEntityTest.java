@@ -66,8 +66,6 @@ public class SalesReturnDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(e.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
         assertEquals(e.getDemand().getMeta().getHref(), retrievedEntity.getDemand().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -88,7 +86,7 @@ public class SalesReturnDocumentEntityTest extends EntityTestBase {
         SalesReturnDocumentEntity retrievedOriginalEntity = api.entity().salesreturn().get(e.getId());
         String name = "salesreturn_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().salesreturn().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -96,7 +94,7 @@ public class SalesReturnDocumentEntityTest extends EntityTestBase {
 
         name = "salesreturn_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().salesreturn().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -201,7 +199,6 @@ public class SalesReturnDocumentEntityTest extends EntityTestBase {
         assertEquals(demand.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(demand.getStore().getMeta().getHref(), e.getStore().getMeta().getHref());
         assertEquals(demand.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-        assertEquals(demand.getOrganizationAccount().getMeta().getHref(), e.getOrganizationAccount().getMeta().getHref());
     }
 
     private SalesReturnDocumentEntity createSimpleDocumentSalesReturn() throws IOException, LognexApiException {
@@ -231,8 +228,6 @@ public class SalesReturnDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(e.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(SalesReturnDocumentEntity e, SalesReturnDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -243,8 +238,6 @@ public class SalesReturnDocumentEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getStore().getMeta().getHref(), retrievedUpdatedEntity.getStore().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getCreated().withNano(0), retrievedUpdatedEntity.getCreated().withNano(0));
-        assertNotEquals(retrievedOriginalEntity.getUpdated().withNano(0), retrievedUpdatedEntity.getUpdated().withNano(0));
     }
 
     @Test

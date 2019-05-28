@@ -56,8 +56,6 @@ public class InvoiceInDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(e.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     @Test
@@ -78,7 +76,7 @@ public class InvoiceInDocumentEntityTest extends EntityTestBase {
         InvoiceInDocumentEntity retrievedOriginalEntity = api.entity().invoicein().get(e.getId());
         String name = "invoicein_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().invoicein().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -86,7 +84,7 @@ public class InvoiceInDocumentEntityTest extends EntityTestBase {
 
         name = "invoicein_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         api.entity().invoicein().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -146,8 +144,6 @@ public class InvoiceInDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getName(), retrievedEntity.getName());
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-        assertEquals(e.getCreated().withNano(0), retrievedEntity.getCreated().withNano(0));
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(InvoiceInDocumentEntity e, InvoiceInDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -157,8 +153,6 @@ public class InvoiceInDocumentEntityTest extends EntityTestBase {
         assertEquals(name, retrievedUpdatedEntity.getName());
         assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getCreated().withNano(0), retrievedUpdatedEntity.getCreated().withNano(0));
-        assertNotEquals(retrievedOriginalEntity.getUpdated().withNano(0), retrievedUpdatedEntity.getUpdated().withNano(0));
     }
 
     @Test

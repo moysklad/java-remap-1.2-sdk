@@ -77,7 +77,6 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         PricelistDocumentEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
         assertEquals(e.getName(), retrievedEntity.getName());
         assertEquals(e.getMoment(), retrievedEntity.getMoment());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
         ProductEntity retrievedProduct = (ProductEntity) retrievedEntity.getPositions().getRows().get(0).getAssortment();
         assertEquals(products.get(0).getMeta().getHref(), retrievedProduct.getMeta().getHref());
         assertEquals(positions.getRows().get(0).getCells().get(0).getColumn(), columns.get(0).getName());
@@ -107,7 +106,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         PricelistDocumentEntity retrievedOriginalEntity = api.entity().pricelist().get(e.getId());
         String name = "pricelist_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         //Хак для того, чтобы при методе put не было попытки удалить материалы/продукты (должно быть исправлено)
         e.setPositions(null);
         api.entity().pricelist().put(e.getId(), e);
@@ -117,7 +116,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
         name = "pricelist_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(1500);
+        Thread.sleep(500);
         e.setPositions(null);
         api.entity().pricelist().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
@@ -190,7 +189,6 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getName(), retrievedEntity.getName());
         assertEquals(e.getPositions().getMeta().getSize(), retrievedEntity.getPositions().getMeta().getSize());
         assertEquals(e.getColumns(), retrievedEntity.getColumns());
-        assertEquals(e.getUpdated().withNano(0), retrievedEntity.getUpdated().withNano(0));
     }
 
     private void putAsserts(PricelistDocumentEntity e, PricelistDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -200,7 +198,6 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         assertEquals(name, retrievedUpdatedEntity.getName());
         assertEquals(retrievedOriginalEntity.getPositions().getMeta().getSize(), retrievedUpdatedEntity.getPositions().getMeta().getSize());
         assertEquals(retrievedOriginalEntity.getColumns(), retrievedUpdatedEntity.getColumns());
-        assertNotEquals(retrievedOriginalEntity.getUpdated().withNano(0), retrievedUpdatedEntity.getUpdated().withNano(0));
     }
 
     @Test
