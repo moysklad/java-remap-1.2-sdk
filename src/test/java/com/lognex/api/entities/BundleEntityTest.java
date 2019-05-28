@@ -7,6 +7,7 @@ import com.lognex.api.utils.LognexApiException;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -46,7 +47,8 @@ public class BundleEntityTest extends EntityTestBase {
         assertEquals(e.getComponents().getMeta().getSize(), retrievedEntity.getComponents().getMeta().getSize());
         assertTrue(retrievedEntity.getComponents().getRows().get(0).getAssortment() instanceof ProductEntity);
         assertEquals(product.getName(), ((ProductEntity) retrievedEntity.getComponents().getRows().get(0).getAssortment()).getName());
-        assertEquals(components.getRows().get(0).getQuantity(), retrievedEntity.getComponents().getRows().get(0).getQuantity());
+        DecimalFormat df = new DecimalFormat("#.####");
+        assertEquals(df.format(components.getRows().get(0).getQuantity()), retrievedEntity.getComponents().getRows().get(0).getQuantity().toString());
     }
 
     @Test
