@@ -373,7 +373,6 @@ public class CounterpartyEntityTest extends EntityTestBase {
         CounterpartyMetadataResponse metadata = api.entity().counterparty().metadata();
         assertFalse(metadata.getCreateShared());
         assertEquals(5, metadata.getStates().size());
-        assertEquals(10, metadata.getGroups().size());
     }
 
     // не работает, так как не работает метод post у событий
