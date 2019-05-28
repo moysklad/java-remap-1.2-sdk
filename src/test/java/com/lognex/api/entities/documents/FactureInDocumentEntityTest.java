@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -154,14 +155,14 @@ public class FactureInDocumentEntityTest extends EntityTestBase {
 
         api.entity().supply().post(supply);
 
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         FactureInDocumentEntity e = api.entity().facturein().newDocument("supplies", Collections.singletonList(supply));
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertEquals(supply.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(1, e.getSupplies().size());
         assertEquals(supply.getMeta().getHref(), e.getSupplies().get(0).getMeta().getHref());
         assertEquals(supply.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
@@ -190,14 +191,14 @@ public class FactureInDocumentEntityTest extends EntityTestBase {
 
         api.entity().paymentout().post(paymentOut);
 
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         FactureInDocumentEntity e = api.entity().facturein().newDocument("payments", Collections.singletonList(paymentOut));
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertEquals(paymentOut.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(1, e.getPayments().size());
         assertEquals(paymentOut.getMeta().getHref(), ((PaymentOutDocumentEntity) e.getPayments().get(0)).getMeta().getHref());
         assertEquals(paymentOut.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
