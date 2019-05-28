@@ -216,17 +216,18 @@ public class ApiParamsTest {
     @Test
     public void test_limitOffset() throws IOException, LognexApiException {
         ListEntity<UomEntity> uomPlain = api.entity().uom().get();
-        assertEquals(58, (int) uomPlain.getMeta().getSize());
+        int actualSize = uomPlain.getMeta().getSize();
+        assertTrue(actualSize >= 58);
         assertEquals(1000, (int) uomPlain.getMeta().getLimit());
         assertEquals(0, (int) uomPlain.getMeta().getOffset());
-        assertEquals(58, uomPlain.getRows().size());
+        assertEquals(actualSize, uomPlain.getRows().size());
         assertEquals(
                 host + "/api/remap/1.2/entity/uom/",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
         ListEntity<UomEntity> uomLimit = api.entity().uom().get(limit(10));
-        assertEquals(58, (int) uomLimit.getMeta().getSize());
+        assertEquals(actualSize, (int) uomLimit.getMeta().getSize());
         assertEquals(10, (int) uomLimit.getMeta().getLimit());
         assertEquals(0, (int) uomLimit.getMeta().getOffset());
         assertEquals(10, uomLimit.getRows().size());
@@ -236,22 +237,23 @@ public class ApiParamsTest {
         );
 
         ListEntity<UomEntity> uomOffset = api.entity().uom().get(offset(50));
-        assertEquals(58, (int) uomOffset.getMeta().getSize());
+        assertEquals(actualSize, (int) uomOffset.getMeta().getSize());
         assertEquals(1000, (int) uomOffset.getMeta().getLimit());
         assertEquals(50, (int) uomOffset.getMeta().getOffset());
-        assertEquals(8, uomOffset.getRows().size());
+        assertEquals(actualSize - 50, uomOffset.getRows().size());
         assertEquals(
                 host + "/api/remap/1.2/entity/uom/?offset=50",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
 
-        ListEntity<UomEntity> uomLimitOffset = api.entity().uom().get(limit(8), offset(52));
-        assertEquals(58, (int) uomLimitOffset.getMeta().getSize());
-        assertEquals(8, (int) uomLimitOffset.getMeta().getLimit());
+        int limit = actualSize - 55;
+        ListEntity<UomEntity> uomLimitOffset = api.entity().uom().get(limit(limit), offset(52));
+        assertEquals(actualSize, (int) uomLimitOffset.getMeta().getSize());
+        assertEquals(limit, (int) uomLimitOffset.getMeta().getLimit());
         assertEquals(52, (int) uomLimitOffset.getMeta().getOffset());
-        assertEquals(6, uomLimitOffset.getRows().size());
+        assertEquals(limit, uomLimitOffset.getRows().size());
         assertEquals(
-                host + "/api/remap/1.2/entity/uom/?offset=52&limit=8",
+                host + "/api/remap/1.2/entity/uom/?offset=52&limit=" + limit,
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );
     }
