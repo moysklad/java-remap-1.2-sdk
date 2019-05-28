@@ -93,7 +93,9 @@ public class EndpointsTest implements TestRandomizers {
                 for (int i = 0; i < method1.getParameterCount(); i++) {
                     if (method1.getParameterTypes()[i] == File.class) {
                         params.add(new File("test.xls"));
-                    } else if (method1.getParameterTypes()[0] == Collection.class) {
+                    } else if (method1.getParameterTypes()[i] == Collection.class) {
+                        params.add(new ArrayList());
+                    } else if (method1.getParameterTypes()[i] == List.class) {
                         params.add(new ArrayList());
                     } else if (method1.getParameterTypes()[i] == String.class) {
                         params.add("ID");
@@ -107,8 +109,22 @@ public class EndpointsTest implements TestRandomizers {
                         params.add(false);
                     } else if (method1.getParameterTypes()[i] == ListEntity.class) {
                         params.add(new ListEntity());
+                    } else if (method1.getParameterTypes()[i] == DocumentEntity.class) {
+                        DocumentEntity me = new DocumentEntity() {
+                            @Override
+                            public String getId() {
+                                return super.getId();
+                            }
+
+                            @Override
+                            public void setId(String id) {
+                                super.setId(id);
+                            }
+                        };
+                        me.setId("DOCUMENT_ID");
+                        params.add(me);
                     } else if (DocumentEntity.class.isAssignableFrom(method1.getParameterTypes()[i])) {
-                        DocumentEntity me = new DemandDocumentEntity();
+                        DocumentEntity me = (DocumentEntity) method1.getParameterTypes()[i].newInstance();
                         me.setId("DOCUMENT_ID");
                         params.add(me);
                     } else if (MetaEntity.class.isAssignableFrom(method1.getParameterTypes()[i])) {
