@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
@@ -121,14 +122,14 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newTest() throws IOException, LognexApiException {
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         MoveDocumentEntity e = api.entity().move().newDocument();
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertEquals(Long.valueOf(0), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
 
         ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
         Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
@@ -166,14 +167,14 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
         api.entity().internalorder().post(internalOrder);
 
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         MoveDocumentEntity e = api.entity().move().newDocument("internalOrder", internalOrder);
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertEquals(internalOrder.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(internalOrder.getMeta().getHref(), e.getInternalOrder().getMeta().getHref());
         assertEquals(internalOrder.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
         assertEquals(internalOrder.getStore().getMeta().getHref(), e.getTargetStore().getMeta().getHref());

@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
@@ -126,8 +127,8 @@ public class DemandDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newTest() throws IOException, LognexApiException {
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         DemandDocumentEntity e = api.entity().demand().newDocument();
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertTrue(e.getVatEnabled());
@@ -136,7 +137,7 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         assertEquals(Long.valueOf(0), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
 
         ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
         Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
@@ -183,8 +184,8 @@ public class DemandDocumentEntityTest extends EntityTestBase {
 
         api.entity().customerorder().post(customerOrder);
 
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         DemandDocumentEntity e = api.entity().demand().newDocument("customerOrder", customerOrder);
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertEquals(customerOrder.getVatEnabled(), e.getVatEnabled());
@@ -193,7 +194,7 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         assertEquals(customerOrder.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(customerOrder.getMeta().getHref(), e.getCustomerOrder().getMeta().getHref());
         assertEquals(customerOrder.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(customerOrder.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
@@ -221,8 +222,8 @@ public class DemandDocumentEntityTest extends EntityTestBase {
 
         api.entity().invoiceout().post(invoiceOut);
 
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         DemandDocumentEntity e = api.entity().demand().newDocument("invoicesOut", Collections.singletonList(invoiceOut));
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertEquals(invoiceOut.getVatEnabled(), e.getVatEnabled());
@@ -231,7 +232,7 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         assertEquals(invoiceOut.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(1, e.getInvoicesOut().size());
         assertEquals(invoiceOut.getMeta().getHref(), e.getInvoicesOut().get(0).getMeta().getHref());
         assertEquals(invoiceOut.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());

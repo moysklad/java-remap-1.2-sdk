@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
@@ -126,8 +127,8 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newTest() throws IOException, LognexApiException {
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         SupplyDocumentEntity e = api.entity().supply().newDocument();
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertTrue(e.getVatEnabled());
@@ -136,7 +137,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
         assertEquals(Long.valueOf(0), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
 
         ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
         Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
@@ -181,8 +182,8 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
         api.entity().purchaseorder().post(purchaseOrder);
 
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         SupplyDocumentEntity e = api.entity().supply().newDocument("purchaseOrder", purchaseOrder);
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertEquals(purchaseOrder.getVatEnabled(), e.getVatEnabled());
@@ -191,7 +192,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
         assertEquals(purchaseOrder.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(purchaseOrder.getMeta().getHref(), e.getPurchaseOrder().getMeta().getHref());
         assertEquals(purchaseOrder.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(purchaseOrder.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
@@ -217,8 +218,8 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
         api.entity().invoicein().post(invoiceIn);
 
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         SupplyDocumentEntity e = api.entity().supply().newDocument("invoicesIn", Collections.singletonList(invoiceIn));
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertEquals(invoiceIn.getVatEnabled(), e.getVatEnabled());
@@ -227,7 +228,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
         assertEquals(invoiceIn.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(1, e.getInvoicesIn().size());
         assertEquals(invoiceIn.getMeta().getHref(), e.getInvoicesIn().get(0).getMeta().getHref());
         assertEquals(invoiceIn.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());

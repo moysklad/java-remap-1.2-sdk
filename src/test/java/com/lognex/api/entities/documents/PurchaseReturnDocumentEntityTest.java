@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
@@ -136,8 +137,8 @@ public class PurchaseReturnDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newTest() throws IOException, LognexApiException {
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         PurchaseReturnDocumentEntity e = api.entity().purchasereturn().newDocument();
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertTrue(e.getVatEnabled());
@@ -145,7 +146,7 @@ public class PurchaseReturnDocumentEntityTest extends EntityTestBase {
         assertEquals(Long.valueOf(0), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
 
         ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
         Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
@@ -190,8 +191,8 @@ public class PurchaseReturnDocumentEntityTest extends EntityTestBase {
 
         api.entity().supply().post(supply);
 
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         PurchaseReturnDocumentEntity e = api.entity().purchasereturn().newDocument("supply", supply);
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertEquals(supply.getVatEnabled(), e.getVatEnabled());
@@ -200,7 +201,7 @@ public class PurchaseReturnDocumentEntityTest extends EntityTestBase {
         assertEquals(supply.getSum(), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
         assertEquals(supply.getMeta().getHref(), e.getSupply().getMeta().getHref());
         assertEquals(supply.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(supply.getStore().getMeta().getHref(), e.getStore().getMeta().getHref());

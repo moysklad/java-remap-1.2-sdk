@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
@@ -119,8 +120,8 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newTest() throws IOException, LognexApiException {
-        LocalDateTime time = LocalDateTime.now().withNano(0);
         InternalOrderDocumentEntity e = api.entity().internalorder().newDocument();
+        LocalDateTime time = LocalDateTime.now().withNano(0);
 
         assertEquals("", e.getName());
         assertTrue(e.getVatEnabled());
@@ -128,7 +129,7 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(Long.valueOf(0), e.getSum());
         assertFalse(e.getShared());
         assertTrue(e.getApplicable());
-        assertEquals(time, e.getMoment().withNano(0));
+        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
 
         ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
         Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
