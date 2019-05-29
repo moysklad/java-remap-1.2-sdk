@@ -48,6 +48,8 @@ public class BundleEntityTest extends EntityTestBase {
         assertTrue(retrievedEntity.getComponents().getRows().get(0).getAssortment() instanceof ProductEntity);
         assertEquals(product.getName(), ((ProductEntity) retrievedEntity.getComponents().getRows().get(0).getAssortment()).getName());
         DecimalFormat df = new DecimalFormat("#.####");
+        df.setDecimalSeparatorAlwaysShown(true);
+        df.setMinimumFractionDigits(1);
         assertEquals(df.format(components.getRows().get(0).getQuantity()), retrievedEntity.getComponents().getRows().get(0).getQuantity().toString());
     }
 
