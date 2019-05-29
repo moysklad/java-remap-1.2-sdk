@@ -58,7 +58,6 @@ public class CounterpartyEntityTest extends EntityTestBase {
         CounterpartyEntity retrievedOriginalEntity = api.entity().counterparty().get(e.getId());
         String name = "counterparty_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().counterparty().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -66,7 +65,6 @@ public class CounterpartyEntityTest extends EntityTestBase {
 
         name = "counterparty_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().counterparty().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

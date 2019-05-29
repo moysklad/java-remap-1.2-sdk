@@ -76,7 +76,6 @@ public class CashOutDocumentEntityTest extends EntityTestBase {
         CashOutDocumentEntity retrievedOriginalEntity = api.entity().cashout().get(e.getId());
         String name = "cashout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().cashout().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -84,7 +83,6 @@ public class CashOutDocumentEntityTest extends EntityTestBase {
 
         name = "cashout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().cashout().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

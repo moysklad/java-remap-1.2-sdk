@@ -54,7 +54,6 @@ public class ProductFolderEntityTest extends EntityTestBase {
         ProductFolderEntity retrievedOriginalEntity = api.entity().productfolder().get(e.getId());
         String name = "productfolder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().productfolder().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -62,7 +61,6 @@ public class ProductFolderEntityTest extends EntityTestBase {
         retrievedOriginalEntity = api.entity().productfolder().get(e.getId());
         name = "productfolder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().productfolder().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

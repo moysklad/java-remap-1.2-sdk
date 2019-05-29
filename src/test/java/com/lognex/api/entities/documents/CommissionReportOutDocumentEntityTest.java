@@ -84,7 +84,6 @@ public class CommissionReportOutDocumentEntityTest extends EntityTestBase {
         CommissionReportOutDocumentEntity retrievedOriginalEntity = api.entity().commissionreportout().get(e.getId());
         String name = "commissionreportout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().commissionreportout().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -92,7 +91,6 @@ public class CommissionReportOutDocumentEntityTest extends EntityTestBase {
 
         name = "commissionreportout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().commissionreportout().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

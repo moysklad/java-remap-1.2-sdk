@@ -51,7 +51,6 @@ public class ConsignmentEntityTest extends EntityTestBase {
         ConsignmentEntity retrievedOriginalEntity = api.entity().consignment().get(e.getId());
         String label = "consignment_" + randomString(3) + "_" + new Date().getTime();
         e.setLabel(label);
-        Thread.sleep(500);
         api.entity().consignment().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, label);
 
@@ -59,7 +58,6 @@ public class ConsignmentEntityTest extends EntityTestBase {
         retrievedOriginalEntity = api.entity().consignment().get(e.getId());
         label = "consignment_" + randomString(3) + "_" + new Date().getTime();
         e.setLabel(label);
-        Thread.sleep(500);
         api.entity().consignment().put(e);
         putAsserts(e, retrievedOriginalEntity, label);
     }

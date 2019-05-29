@@ -70,7 +70,6 @@ public class BundleEntityTest extends EntityTestBase {
         String name = "bundle_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
         e.setComponents(null);
-        Thread.sleep(500);
         api.entity().bundle().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -79,7 +78,6 @@ public class BundleEntityTest extends EntityTestBase {
         name = "bundle_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
         e.setComponents(null);
-        Thread.sleep(500);
         api.entity().bundle().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

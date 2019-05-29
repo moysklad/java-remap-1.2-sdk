@@ -49,7 +49,6 @@ public class ExpenseItemEntityTest extends EntityTestBase {
         ExpenseItemEntity retrievedOriginalEntity = api.entity().expenseitem().get(e.getId());
         String name = "expenseitem_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().expenseitem().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -57,7 +56,6 @@ public class ExpenseItemEntityTest extends EntityTestBase {
         retrievedOriginalEntity = api.entity().expenseitem().get(e.getId());
         name = "expenseitem_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().expenseitem().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

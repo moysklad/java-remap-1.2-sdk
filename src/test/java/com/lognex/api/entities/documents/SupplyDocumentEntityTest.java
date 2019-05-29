@@ -79,7 +79,6 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
         SupplyDocumentEntity retrievedOriginalEntity = api.entity().supply().get(e.getId());
         String name = "supply_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().supply().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -87,7 +86,6 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
         name = "supply_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().supply().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

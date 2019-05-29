@@ -50,7 +50,6 @@ public class ProjectEntityTest extends EntityTestBase {
         ProjectEntity retrievedOriginalEntity = api.entity().project().get(e.getId());
         String name = "project_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().project().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -58,7 +57,6 @@ public class ProjectEntityTest extends EntityTestBase {
         retrievedOriginalEntity = api.entity().project().get(e.getId());
         name = "project_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().project().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
