@@ -926,3 +926,7 @@ PUT;https://test.moysklad/api/remap/1.2/entity/loss/DOCUMENT_ID/positions/ENTITY
 PUT;https://test.moysklad/api/remap/1.2/entity/customerorder/ID;String,MetaEntity;void
 GET;https://test.moysklad/api/remap/1.2/entity/purchaseorder/ID/positions/ID;String,String,ApiParam[];DocumentPosition
 POST;https://test.moysklad/api/remap/1.2/entity/commissionreportout/ID/positions/;String,DocumentPosition;DocumentPosition
+PUT;https://test.moysklad/api/remap/1.2/entity/processingorder/new;String,DocumentEntity;ProcessingOrderDocumentEntity
+PUT;https://test.moysklad/api/remap/1.2/entity/processingorder/new;;ProcessingOrderDocumentEntity
+PUT;https://test.moysklad/api/remap/1.2/entity/processingorder/new;String,List;ProcessingOrderDocumentEntity
+PUT;https://test.moysklad/api/remap/1.2/entity/processingorder/new;DocumentTemplateEntity;ProcessingOrderDocumentEntity
