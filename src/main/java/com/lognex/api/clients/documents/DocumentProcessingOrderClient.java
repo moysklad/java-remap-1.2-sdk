@@ -15,6 +15,7 @@ public final class DocumentProcessingOrderClient
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
+        DocumentNewEndpoint<ProcessingOrderDocumentEntity>,
         GetByIdEndpoint<ProcessingOrderDocumentEntity>,
         PutByIdEndpoint<ProcessingOrderDocumentEntity> {
 
