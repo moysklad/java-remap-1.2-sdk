@@ -73,7 +73,6 @@ public class MoveDocumentEntityTest extends EntityTestBase {
         MoveDocumentEntity retrievedOriginalEntity = api.entity().move().get(e.getId());
         String name = "move_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().move().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -81,7 +80,6 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
         name = "move_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().move().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

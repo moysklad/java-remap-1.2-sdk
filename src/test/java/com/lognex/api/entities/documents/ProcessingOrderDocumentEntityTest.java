@@ -98,7 +98,6 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
         ProcessingOrderDocumentEntity retrievedOriginalEntity = api.entity().processingorder().get(e.getId());
         String name = "processingorder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         //Хак для того, чтобы при методе put не было попытки удалить материалы/продукты (должно быть исправлено)
         e.setPositions(null);
         api.entity().processingorder().put(e.getId(), e);
@@ -108,7 +107,6 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
 
         name = "processingorder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         e.setPositions(null);
         api.entity().processingorder().put(e);
         putAsserts(e, retrievedOriginalEntity, name);

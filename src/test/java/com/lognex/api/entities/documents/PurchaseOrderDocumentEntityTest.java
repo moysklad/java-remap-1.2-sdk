@@ -76,7 +76,6 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
         PurchaseOrderDocumentEntity retrievedOriginalEntity = api.entity().purchaseorder().get(e.getId());
         String name = "purchaseorder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().purchaseorder().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -84,7 +83,6 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
         name = "purchaseorder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().purchaseorder().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

@@ -86,7 +86,6 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
         FactureOutDocumentEntity retrievedOriginalEntity = api.entity().factureout().get(e.getId());
         String name = "factureout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().factureout().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -94,7 +93,6 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
 
         name = "factureout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().factureout().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

@@ -68,7 +68,6 @@ public class LossDocumentEntityTest extends EntityTestBase {
         LossDocumentEntity retrievedOriginalEntity = api.entity().loss().get(e.getId());
         String name = "loss_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().loss().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -76,7 +75,6 @@ public class LossDocumentEntityTest extends EntityTestBase {
 
         name = "loss_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().loss().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

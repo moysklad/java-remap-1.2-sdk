@@ -70,7 +70,6 @@ public class ContractEntityTest extends EntityTestBase {
         ContractEntity retrievedOriginalEntity = api.entity().contract().get(e.getId());
         String name = "contract_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().contract().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -78,7 +77,6 @@ public class ContractEntityTest extends EntityTestBase {
         retrievedOriginalEntity = api.entity().contract().get(e.getId());
         name = "contract_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().contract().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

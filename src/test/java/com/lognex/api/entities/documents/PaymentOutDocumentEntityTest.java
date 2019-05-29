@@ -74,7 +74,6 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
         PaymentOutDocumentEntity retrievedOriginalEntity = api.entity().paymentout().get(e.getId());
         String name = "paymentout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().paymentout().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -82,7 +81,6 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
 
         name = "paymentout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().paymentout().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

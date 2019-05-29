@@ -75,7 +75,6 @@ public class TaskEntityTest extends EntityTestBase {
         e.setDueToDate(dueDate);
         e.setDone(true);
 
-        Thread.sleep(500);
         api.entity().task().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, dueDate);
     }
@@ -90,7 +89,6 @@ public class TaskEntityTest extends EntityTestBase {
         e.setDueToDate(dueDate);
         e.setDone(true);
 
-        Thread.sleep(500);
         api.entity().task().put(e);
         putAsserts(e, retrievedOriginalEntity, dueDate);
     }

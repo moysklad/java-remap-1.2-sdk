@@ -88,7 +88,6 @@ public class PurchaseReturnDocumentEntityTest extends EntityTestBase {
         PurchaseReturnDocumentEntity retrievedOriginalEntity = api.entity().purchasereturn().get(e.getId());
         String name = "purchasereturn_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().purchasereturn().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -96,7 +95,6 @@ public class PurchaseReturnDocumentEntityTest extends EntityTestBase {
 
         name = "purchasereturn_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().purchasereturn().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

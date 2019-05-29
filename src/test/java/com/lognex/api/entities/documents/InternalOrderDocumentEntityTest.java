@@ -71,7 +71,6 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
         InternalOrderDocumentEntity retrievedOriginalEntity = api.entity().internalorder().get(e.getId());
         String name = "internalorder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().internalorder().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -79,7 +78,6 @@ public class InternalOrderDocumentEntityTest extends EntityTestBase {
 
         name = "internalorder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().internalorder().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

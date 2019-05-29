@@ -106,7 +106,6 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         PricelistDocumentEntity retrievedOriginalEntity = api.entity().pricelist().get(e.getId());
         String name = "pricelist_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         //Хак для того, чтобы при методе put не было попытки удалить материалы/продукты (должно быть исправлено)
         e.setPositions(null);
         api.entity().pricelist().put(e.getId(), e);
@@ -116,7 +115,6 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
         name = "pricelist_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         e.setPositions(null);
         api.entity().pricelist().put(e);
         putAsserts(e, retrievedOriginalEntity, name);

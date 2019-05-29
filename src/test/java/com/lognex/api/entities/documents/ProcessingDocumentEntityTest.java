@@ -115,7 +115,6 @@ public class ProcessingDocumentEntityTest extends EntityTestBase {
         ProcessingDocumentEntity retrievedOriginalEntity = api.entity().processing().get(e.getId());
         String name = "processing_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         //Хак для того, чтобы при методе put не было попытки удалить материалы/продукты (должно быть исправлено)
         e.setMaterials(null);
         e.setProducts(null);
@@ -126,7 +125,6 @@ public class ProcessingDocumentEntityTest extends EntityTestBase {
 
         name = "processing_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         e.setMaterials(null);
         e.setProducts(null);
         api.entity().processing().put(e);
