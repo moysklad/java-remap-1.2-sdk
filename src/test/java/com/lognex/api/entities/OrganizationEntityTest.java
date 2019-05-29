@@ -55,7 +55,6 @@ public class OrganizationEntityTest extends EntityTestBase {
         OrganizationEntity retrievedOriginalEntity = api.entity().organization().get(e.getId());
         String name = "organization_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().organization().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -63,7 +62,6 @@ public class OrganizationEntityTest extends EntityTestBase {
 
         name = "organization_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().organization().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

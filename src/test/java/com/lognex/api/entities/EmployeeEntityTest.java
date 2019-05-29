@@ -54,7 +54,6 @@ public class EmployeeEntityTest extends EntityTestBase {
         EmployeeEntity retrievedOriginalEntity = api.entity().employee().get(e.getId());
         String name = "employee_" + randomString(3) + "_" + new Date().getTime();
         e.setLastName(name);
-        Thread.sleep(500);
         api.entity().employee().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -62,7 +61,6 @@ public class EmployeeEntityTest extends EntityTestBase {
 
         name = "employee_" + randomString(3) + "_" + new Date().getTime();
         e.setLastName(name);
-        Thread.sleep(500);
         api.entity().employee().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

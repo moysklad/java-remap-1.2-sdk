@@ -74,7 +74,6 @@ public class CashInDocumentEntityTest extends EntityTestBase {
         CashInDocumentEntity retrievedOriginalEntity = api.entity().cashin().get(e.getId());
         String name = "cashin_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().cashin().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -82,7 +81,6 @@ public class CashInDocumentEntityTest extends EntityTestBase {
 
         name = "cashin_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().cashin().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

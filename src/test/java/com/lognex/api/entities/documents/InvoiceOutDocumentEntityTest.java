@@ -77,7 +77,6 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
         InvoiceOutDocumentEntity retrievedOriginalEntity = api.entity().invoiceout().get(e.getId());
         String name = "invoiceout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().invoiceout().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -85,7 +84,6 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
         name = "invoiceout_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().invoiceout().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

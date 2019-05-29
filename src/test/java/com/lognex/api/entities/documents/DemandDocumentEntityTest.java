@@ -78,7 +78,6 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         DemandDocumentEntity retrievedOriginalEntity = api.entity().demand().get(e.getId());
         String name = "demand_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().demand().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -86,7 +85,6 @@ public class DemandDocumentEntityTest extends EntityTestBase {
 
         name = "demand_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().demand().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

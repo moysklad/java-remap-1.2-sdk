@@ -66,7 +66,6 @@ public class EnterDocumentEntityTest extends EntityTestBase {
         EnterDocumentEntity retrievedOriginalEntity = api.entity().enter().get(e.getId());
         String name = "enter_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().enter().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -74,7 +73,6 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
         name = "enter_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().enter().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

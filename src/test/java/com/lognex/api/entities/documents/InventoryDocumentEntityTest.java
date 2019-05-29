@@ -64,7 +64,6 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
         InventoryDocumentEntity retrievedOriginalEntity = api.entity().inventory().get(e.getId());
         String name = "inventory_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().inventory().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -72,7 +71,6 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
         name = "inventory_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().inventory().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

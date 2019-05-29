@@ -49,7 +49,6 @@ public class UomEntityTest extends EntityTestBase {
         UomEntity retrievedOriginalEntity = api.entity().uom().get(e.getId());
         String name = "uom_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().uom().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -57,7 +56,6 @@ public class UomEntityTest extends EntityTestBase {
 
         name = "uom_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().uom().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }

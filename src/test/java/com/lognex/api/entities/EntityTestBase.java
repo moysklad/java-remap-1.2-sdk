@@ -4,6 +4,7 @@ import com.lognex.api.LognexApi;
 import com.lognex.api.utils.MockHttpClient;
 import com.lognex.api.utils.TestAsserts;
 import com.lognex.api.utils.TestRandomizers;
+import org.junit.After;
 import org.junit.Before;
 
 public abstract class EntityTestBase implements TestRandomizers, TestAsserts {
@@ -20,5 +21,10 @@ public abstract class EntityTestBase implements TestRandomizers, TestAsserts {
 
         mockHttpClient = new MockHttpClient();
         mockApi = new LognexApi("test.moysklad", true, "[API_LOGIN]", "[API_PASSWORD]", mockHttpClient);
+    }
+
+    @After
+    public void antiLimits() throws InterruptedException {
+        Thread.sleep(200); // Защита от лимитов
     }
 }

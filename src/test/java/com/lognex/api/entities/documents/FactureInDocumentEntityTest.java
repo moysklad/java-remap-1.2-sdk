@@ -87,7 +87,6 @@ public class FactureInDocumentEntityTest extends EntityTestBase {
         FactureInDocumentEntity retrievedOriginalEntity = api.entity().facturein().get(e.getId());
         String name = "facturein_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().facturein().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -95,7 +94,6 @@ public class FactureInDocumentEntityTest extends EntityTestBase {
 
         name = "facturein_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        Thread.sleep(500);
         api.entity().facturein().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
