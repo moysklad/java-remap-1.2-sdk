@@ -1,5 +1,6 @@
 package com.lognex.api.entities.discounts;
 
+import com.lognex.api.entities.PriceTypeEntity;
 import com.lognex.api.entities.ProductFolderEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,6 +24,6 @@ public class SpecialPriceDiscountEntity extends DiscountEntity {
     @EqualsAndHashCode
     public static class SpecialPriceData {
         private Long value;
-        private String priceType;
+        private PriceTypeEntity priceType;
     }
 }
