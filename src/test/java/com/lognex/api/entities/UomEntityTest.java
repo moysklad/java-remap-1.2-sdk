@@ -65,12 +65,12 @@ public class UomEntityTest extends EntityTestBase {
         UomEntity e = createSimpleUom();
 
         ListEntity<UomEntity> entitiesList = api.entity().uom().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().uom().delete(e.getId());
 
         entitiesList = api.entity().uom().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -78,12 +78,12 @@ public class UomEntityTest extends EntityTestBase {
         UomEntity e = createSimpleUom();
 
         ListEntity<UomEntity> entitiesList = api.entity().uom().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().uom().delete(e);
 
         entitiesList = api.entity().uom().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     private UomEntity createSimpleUom() throws IOException, LognexApiException {

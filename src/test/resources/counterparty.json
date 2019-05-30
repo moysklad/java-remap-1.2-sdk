@@ -459,7 +459,6 @@
         "=",
         "!="
       ],
-      "orderable":true,
       "nullable":true
     },
     "salesAmount":{

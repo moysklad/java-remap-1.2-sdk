@@ -84,12 +84,12 @@ public class LossDocumentEntityTest extends EntityTestBase {
         LossDocumentEntity e = createSimpleDocumentLoss();
 
         ListEntity<LossDocumentEntity> entitiesList = api.entity().loss().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().loss().delete(e.getId());
 
         entitiesList = api.entity().loss().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -97,12 +97,12 @@ public class LossDocumentEntityTest extends EntityTestBase {
         LossDocumentEntity e = createSimpleDocumentLoss();
 
         ListEntity<LossDocumentEntity> entitiesList = api.entity().loss().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().loss().delete(e);
 
         entitiesList = api.entity().loss().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test

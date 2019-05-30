@@ -14,6 +14,7 @@ import com.lognex.api.utils.LognexApiException;
 import com.lognex.api.utils.params.ApiParam;
 
 import java.io.IOException;
+import java.util.List;
 
 public final class CounterpartyClient
         extends ApiClient
@@ -71,12 +72,12 @@ public final class CounterpartyClient
 
     @ApiEndpoint
     public ContactPersonEntity postContactPerson(String counterpartyId, ContactPersonEntity newEntity) throws IOException, LognexApiException {
-        ContactPersonEntity responseEntity = HttpRequestExecutor.
+        List<ContactPersonEntity> responseEntity = HttpRequestExecutor.
                 path(api(), path() + counterpartyId + "/contactpersons").
                 body(newEntity).
-                post(ContactPersonEntity.class);
+                postList(ContactPersonEntity.class);
 
-        newEntity.set(responseEntity);
+        newEntity.set(responseEntity.get(0));
         return newEntity;
     }
 
@@ -138,12 +139,12 @@ public final class CounterpartyClient
 
     @ApiEndpoint
     public NoteEntity postNote(String counterpartyId, NoteEntity newEntity) throws IOException, LognexApiException {
-        NoteEntity responseEntity = HttpRequestExecutor.
+        List<NoteEntity> responseEntity = HttpRequestExecutor.
                 path(api(), path() + counterpartyId + "/notes").
                 body(newEntity).
-                post(NoteEntity.class);
+                postList(NoteEntity.class);
 
-        newEntity.set(responseEntity);
+        newEntity.set(responseEntity.get(0));
         return newEntity;
     }
 

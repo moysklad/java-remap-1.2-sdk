@@ -66,12 +66,12 @@ public class StoreEntityTest extends EntityTestBase {
         StoreEntity e = createSimpleStore();
 
         ListEntity<StoreEntity> entitiesList = api.entity().store().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().store().delete(e.getId());
 
         entitiesList = api.entity().store().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -79,12 +79,12 @@ public class StoreEntityTest extends EntityTestBase {
         StoreEntity e = createSimpleStore();
 
         ListEntity<StoreEntity> entitiesList = api.entity().store().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().store().delete(e);
 
         entitiesList = api.entity().store().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test

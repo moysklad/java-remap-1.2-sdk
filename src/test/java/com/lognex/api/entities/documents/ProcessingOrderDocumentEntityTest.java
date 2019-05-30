@@ -102,8 +102,6 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
         ProcessingOrderDocumentEntity retrievedOriginalEntity = api.entity().processingorder().get(e.getId());
         String name = "processingorder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        //Хак для того, чтобы при методе put не было попытки удалить материалы/продукты (должно быть исправлено)
-        e.setPositions(null);
         api.entity().processingorder().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -111,7 +109,6 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
 
         name = "processingorder_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        e.setPositions(null);
         api.entity().processingorder().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -121,12 +118,12 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
         ProcessingOrderDocumentEntity e = createSimpleDocumentProcessingOrder();
 
         ListEntity<ProcessingOrderDocumentEntity> entitiesList = api.entity().processingorder().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().processingorder().delete(e.getId());
 
         entitiesList = api.entity().processingorder().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -134,12 +131,12 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
         ProcessingOrderDocumentEntity e = createSimpleDocumentProcessingOrder();
 
         ListEntity<ProcessingOrderDocumentEntity> entitiesList = api.entity().processingorder().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().processingorder().delete(e);
 
         entitiesList = api.entity().processingorder().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test

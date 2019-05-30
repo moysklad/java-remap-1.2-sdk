@@ -106,8 +106,6 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         PricelistDocumentEntity retrievedOriginalEntity = api.entity().pricelist().get(e.getId());
         String name = "pricelist_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        //Хак для того, чтобы при методе put не было попытки удалить материалы/продукты (должно быть исправлено)
-        e.setPositions(null);
         api.entity().pricelist().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -115,7 +113,6 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
         name = "pricelist_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        e.setPositions(null);
         api.entity().pricelist().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -125,12 +122,12 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         PricelistDocumentEntity e = createSimpleDocumentPricelist();
 
         ListEntity<PricelistDocumentEntity> entitiesList = api.entity().pricelist().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().pricelist().delete(e.getId());
 
         entitiesList = api.entity().pricelist().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -138,12 +135,12 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         PricelistDocumentEntity e = createSimpleDocumentPricelist();
 
         ListEntity<PricelistDocumentEntity> entitiesList = api.entity().pricelist().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().pricelist().delete(e);
 
         entitiesList = api.entity().pricelist().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test

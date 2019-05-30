@@ -92,12 +92,12 @@ public class CashOutDocumentEntityTest extends EntityTestBase {
         CashOutDocumentEntity e = createSimpleDocumentCashOut();
 
         ListEntity<CashOutDocumentEntity> entitiesList = api.entity().cashout().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().cashout().delete(e.getId());
 
         entitiesList = api.entity().cashout().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -105,12 +105,12 @@ public class CashOutDocumentEntityTest extends EntityTestBase {
         CashOutDocumentEntity e = createSimpleDocumentCashOut();
 
         ListEntity<CashOutDocumentEntity> entitiesList = api.entity().cashout().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().cashout().delete(e);
 
         entitiesList = api.entity().cashout().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test

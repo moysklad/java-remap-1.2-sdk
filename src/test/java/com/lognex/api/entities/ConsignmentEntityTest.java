@@ -67,12 +67,12 @@ public class ConsignmentEntityTest extends EntityTestBase {
         ConsignmentEntity e = createSimpleConsignment();
 
         ListEntity<ConsignmentEntity> entitiesList = api.entity().consignment().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().consignment().delete(e.getId());
 
         entitiesList = api.entity().consignment().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -80,12 +80,12 @@ public class ConsignmentEntityTest extends EntityTestBase {
         ConsignmentEntity e = createSimpleConsignment();
 
         ListEntity<ConsignmentEntity> entitiesList = api.entity().consignment().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().consignment().delete(e);
 
         entitiesList = api.entity().consignment().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     private ConsignmentEntity createSimpleConsignment() throws IOException, LognexApiException {

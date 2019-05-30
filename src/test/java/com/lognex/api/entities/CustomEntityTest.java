@@ -200,7 +200,7 @@ public class CustomEntityTest extends EntityTestBase {
         api.entity().customentity().deleteCustomEntityElement(customEntity.getId(), e.getId());
 
         ListEntity<CustomEntityElement> emptyElementList = api.entity().customentity().getCustomEntityElements(customEntity.getId());
-        assertEquals(0, emptyElementList.getRows().size());
+        assertEquals((Integer) 0, emptyElementList.getMeta().getSize());
     }
 
     @Test
@@ -214,7 +214,7 @@ public class CustomEntityTest extends EntityTestBase {
         api.entity().customentity().deleteCustomEntityElement(customEntity.getId(), e);
 
         ListEntity<CustomEntityElement> emptyElementList = api.entity().customentity().getCustomEntityElements(customEntity.getId());
-        assertEquals(0, emptyElementList.getRows().size());
+        assertEquals((Integer) 0, emptyElementList.getMeta().getSize());
     }
 
 

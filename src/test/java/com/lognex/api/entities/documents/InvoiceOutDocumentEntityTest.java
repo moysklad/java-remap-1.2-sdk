@@ -93,12 +93,12 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
         InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
 
         ListEntity<InvoiceOutDocumentEntity> entitiesList = api.entity().invoiceout().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().invoiceout().delete(e.getId());
 
         entitiesList = api.entity().invoiceout().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -106,12 +106,12 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
         InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
 
         ListEntity<InvoiceOutDocumentEntity> entitiesList = api.entity().invoiceout().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().invoiceout().delete(e);
 
         entitiesList = api.entity().invoiceout().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test

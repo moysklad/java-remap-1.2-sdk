@@ -98,13 +98,13 @@ public class TaskEntityTest extends EntityTestBase {
         TaskEntity e = createSimpleTask();
 
         int oldCount = api.entity().task().get().getMeta().getSize();
-        assertEquals(1, api.entity().task().get(filterEq("description", e.getDescription())).getRows().size());
+        assertEquals((Integer) 1, api.entity().task().get(filterEq("description", e.getDescription())).getMeta().getSize());
 
         api.entity().task().delete(e.getId());
 
         int newCount = api.entity().task().get().getMeta().getSize();
         assertEquals(oldCount - 1, newCount);
-        assertEquals(0, api.entity().task().get(filterEq("description", e.getDescription())).getRows().size());
+        assertEquals((Integer) 0, api.entity().task().get(filterEq("description", e.getDescription())).getMeta().getSize());
     }
 
     @Test
@@ -112,13 +112,13 @@ public class TaskEntityTest extends EntityTestBase {
         TaskEntity e = createSimpleTask();
 
         int oldCount = api.entity().task().get().getMeta().getSize();
-        assertEquals(1, api.entity().task().get(filterEq("description", e.getDescription())).getRows().size());
+        assertEquals((Integer) 1, api.entity().task().get(filterEq("description", e.getDescription())).getMeta().getSize());
 
         api.entity().task().delete(e);
 
         int newCount = api.entity().task().get().getMeta().getSize();
         assertEquals(oldCount - 1, newCount);
-        assertEquals(0, api.entity().task().get(filterEq("description", e.getDescription())).getRows().size());
+        assertEquals((Integer) 0, api.entity().task().get(filterEq("description", e.getDescription())).getMeta().getSize());
     }
 
     @Test

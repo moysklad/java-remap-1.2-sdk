@@ -74,12 +74,12 @@ public class CounterpartyEntityTest extends EntityTestBase {
         CounterpartyEntity e = createSimpleCounterparty();
 
         ListEntity<CounterpartyEntity> entitiesList = api.entity().counterparty().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().counterparty().delete(e.getId());
 
         entitiesList = api.entity().counterparty().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -87,12 +87,12 @@ public class CounterpartyEntityTest extends EntityTestBase {
         CounterpartyEntity e = createSimpleCounterparty();
 
         ListEntity<CounterpartyEntity> entitiesList = api.entity().counterparty().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().counterparty().delete(e);
 
         entitiesList = api.entity().counterparty().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -149,22 +149,29 @@ public class CounterpartyEntityTest extends EntityTestBase {
         e.setContactpersons(contactPersonList);
 
         api.entity().counterparty().post(e);
-        ListEntity<ContactPersonEntity> contactList = api.entity().counterparty().getContactPersons(e.getId());
-        assertEquals(contactList.getRows().get(1).getName(), contactPerson1.getName());
-        assertEquals(contactList.getRows().get(0).getName(), contactPerson2.getName());
+        ListEntity<ContactPersonEntity> retrievedContactPersonList = api.entity().counterparty().getContactPersons(e.getId());
+        assertEquals((Integer) 2, retrievedContactPersonList.getMeta().getSize());
+
+        for (ContactPersonEntity person : retrievedContactPersonList.getRows()) {
+            for (ContactPersonEntity otherPerson : contactPersonList.getRows()) {
+                if (person.getId().equals(otherPerson.getId())) {
+                    assertEquals(otherPerson.getName(), person.getName());
+                    break;
+                }
+            }
+        }
 
         ListEntity<ContactPersonEntity> contactListByEntity = api.entity().counterparty().getContactPersons(e);
-        assertEquals(contactList, contactListByEntity);
+        assertEquals(retrievedContactPersonList, contactListByEntity);
 
-        ContactPersonEntity entityByIds = api.entity().counterparty().getContactPerson(e.getId(), contactList.getRows().get(0).getId());
-        assertEquals(entityByIds, contactList.getRows().get(0));
-        ContactPersonEntity entityByEntityId = api.entity().counterparty().getContactPerson(e, contactList.getRows().get(0).getId());
-        assertEquals(entityByEntityId, contactList.getRows().get(0));
-        ContactPersonEntity entityByEntities = api.entity().counterparty().getContactPerson(e, contactList.getRows().get(1));
-        assertEquals(entityByEntities, contactList.getRows().get(1));
+        ContactPersonEntity entityByIds = api.entity().counterparty().getContactPerson(e.getId(), retrievedContactPersonList.getRows().get(0).getId());
+        assertEquals(entityByIds, retrievedContactPersonList.getRows().get(0));
+        ContactPersonEntity entityByEntityId = api.entity().counterparty().getContactPerson(e, retrievedContactPersonList.getRows().get(0).getId());
+        assertEquals(entityByEntityId, retrievedContactPersonList.getRows().get(0));
+        ContactPersonEntity entityByEntities = api.entity().counterparty().getContactPerson(e, retrievedContactPersonList.getRows().get(1));
+        assertEquals(entityByEntities, retrievedContactPersonList.getRows().get(1));
     }
 
-    // не работает, так как ответ на post - json массив, а парсер ожидает один объект
     @Test
     public void postContactPersonTest() throws IOException, LognexApiException {
         CounterpartyEntity e = createSimpleCounterparty();
@@ -234,7 +241,6 @@ public class CounterpartyEntityTest extends EntityTestBase {
         assertEquals(updByPrevObject.getName(), retrievedEntity.getName());
     }
 
-    // не работает, так как не работает метод post у событий
     @Test
     public void getNotesTest() throws IOException, LognexApiException {
         CounterpartyEntity e = new CounterpartyEntity();
@@ -256,8 +262,15 @@ public class CounterpartyEntityTest extends EntityTestBase {
         ListEntity<NoteEntity> retrievedNotesById = api.entity().counterparty().getNotes(e.getId());
 
         assertEquals(2, retrievedNotesById.getRows().size());
-        assertEquals(note1.getDescription(), retrievedNotesById.getRows().get(0).getDescription());
-        assertEquals(note2.getDescription(), retrievedNotesById.getRows().get(1).getDescription());
+
+        for (NoteEntity note : retrievedNotesById.getRows()) {
+            for (NoteEntity otherNote : notesList.getRows()) {
+                if (note.getId().equals(otherNote.getId())) {
+                    assertEquals(otherNote.getName(), note.getName());
+                    break;
+                }
+            }
+        }
 
         ListEntity<NoteEntity> retrievedNotesByEntity = api.entity().counterparty().getNotes(e);
 
@@ -266,7 +279,6 @@ public class CounterpartyEntityTest extends EntityTestBase {
         assertEquals(note2.getDescription(), retrievedNotesByEntity.getRows().get(1).getDescription());
     }
 
-    // не работает, так как ответ на post - json массив, а парсер ожидает один объект
     @Test
     public void postNoteTest() throws IOException, LognexApiException {
         CounterpartyEntity e = createSimpleCounterparty();
@@ -281,7 +293,6 @@ public class CounterpartyEntityTest extends EntityTestBase {
         assertEquals(retrievedNote.getDescription(), name);
     }
 
-    // не работает, так как не работает метод post у событий
     @Test
     public void getNoteTest() throws IOException, LognexApiException {
         CounterpartyEntity e = new CounterpartyEntity();
@@ -311,7 +322,6 @@ public class CounterpartyEntityTest extends EntityTestBase {
         assertEquals(descriptions.get(2), retrievedNoteByEntities.getDescription());
     }
 
-    // не работает, так как не работает метод post у событий
     @Test
     public void putNoteTest() throws IOException, LognexApiException {
         CounterpartyEntity e = new CounterpartyEntity();
@@ -340,7 +350,7 @@ public class CounterpartyEntityTest extends EntityTestBase {
         assertEquals(retrievedEntity.getDescription(), updNoteByIds.getDescription());
 
         NoteEntity updNoteByEntityId = new NoteEntity();
-        updNoteByIds.setDescription(descriptions.get(1));
+        updNoteByEntityId.setDescription(descriptions.get(1));
         api.entity().counterparty().putNote(e, notesList.getRows().get(1).getId(), updNoteByEntityId);
         retrievedEntity = api.entity().counterparty().getNote(e.getId(), notesList.getRows().get(1).getId());
         assertNotEquals(notesList.getRows().get(1).getDescription(), updNoteByEntityId.getDescription());
@@ -373,7 +383,6 @@ public class CounterpartyEntityTest extends EntityTestBase {
         assertEquals(5, metadata.getStates().size());
     }
 
-    // не работает, так как не работает метод post у событий
     @Test
     public void deleteNoteTest() throws IOException, LognexApiException {
         CounterpartyEntity e = new CounterpartyEntity();
@@ -389,19 +398,19 @@ public class CounterpartyEntityTest extends EntityTestBase {
         }
 
         ListEntity<NoteEntity> notesBefore = api.entity().counterparty().getNotes(e.getId());
-        assertEquals(3, notesBefore.getRows().size());
+        assertEquals((Integer) 3, notesBefore.getMeta().getSize());
 
         api.entity().counterparty().deleteNote(e.getId(), notesBefore.getRows().get(0).getId());
         ListEntity<NoteEntity> notesAfter = api.entity().counterparty().getNotes(e.getId());
-        assertEquals(2, notesAfter.getRows().size());
+        assertEquals((Integer) 2, notesAfter.getMeta().getSize());
 
         api.entity().counterparty().deleteNote(e, notesBefore.getRows().get(1).getId());
         notesAfter = api.entity().counterparty().getNotes(e.getId());
-        assertEquals(1, notesAfter.getRows().size());
+        assertEquals((Integer) 1, notesAfter.getMeta().getSize());
 
         api.entity().counterparty().deleteNote(e, notesBefore.getRows().get(2));
         notesAfter = api.entity().counterparty().getNotes(e.getId());
-        assertEquals(0, notesAfter.getRows().size());
+        assertEquals((Integer) 0, notesAfter.getMeta().getSize());
     }
 
     private CounterpartyEntity createSimpleCounterparty() throws IOException, LognexApiException {

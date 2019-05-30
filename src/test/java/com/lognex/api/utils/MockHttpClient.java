@@ -64,10 +64,14 @@ public class MockHttpClient extends CloseableHttpClient {
                     if (httpRequest.getRequestLine().getUri().contains("metadata/attributes/")) {
                         se = new StringEntity("{\"type\":\"string\",\"value\":\"STRING\"}");
                     } else if (httpRequest.getRequestLine().getUri().contains("positions") &&
-                            httpRequest.getRequestLine().getMethod().equals("POST")
-                    ) {
+                            httpRequest.getRequestLine().getMethod().equals("POST")) {
                         se = new StringEntity("[]");
-                    } else {
+                    } else if ((httpRequest.getRequestLine().getUri().endsWith("contactpersons") ||
+                                httpRequest.getRequestLine().getUri().endsWith("notes")) &&
+                            httpRequest.getRequestLine().getMethod().equals("POST")) {
+                        se = new StringEntity("[{}]");
+                    }
+                    else {
                         se = new StringEntity("{}");
                     }
                 } catch (UnsupportedEncodingException e) {

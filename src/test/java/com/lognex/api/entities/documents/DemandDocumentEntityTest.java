@@ -94,12 +94,12 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         DemandDocumentEntity e = createSimpleDocumentDemand();
 
         ListEntity<DemandDocumentEntity> entitiesList = api.entity().demand().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().demand().delete(e.getId());
 
         entitiesList = api.entity().demand().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -107,12 +107,12 @@ public class DemandDocumentEntityTest extends EntityTestBase {
         DemandDocumentEntity e = createSimpleDocumentDemand();
 
         ListEntity<DemandDocumentEntity> entitiesList = api.entity().demand().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().demand().delete(e);
 
         entitiesList = api.entity().demand().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test

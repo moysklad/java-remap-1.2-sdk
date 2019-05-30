@@ -89,12 +89,12 @@ public class MoveDocumentEntityTest extends EntityTestBase {
         MoveDocumentEntity e = createSimpleDocumentMove();
 
         ListEntity<MoveDocumentEntity> entitiesList = api.entity().move().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().move().delete(e.getId());
 
         entitiesList = api.entity().move().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -102,12 +102,12 @@ public class MoveDocumentEntityTest extends EntityTestBase {
         MoveDocumentEntity e = createSimpleDocumentMove();
 
         ListEntity<MoveDocumentEntity> entitiesList = api.entity().move().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().move().delete(e);
 
         entitiesList = api.entity().move().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test

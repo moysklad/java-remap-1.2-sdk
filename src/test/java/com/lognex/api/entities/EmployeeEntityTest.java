@@ -70,12 +70,12 @@ public class EmployeeEntityTest extends EntityTestBase {
         EmployeeEntity e = createSimpleEmployee();
 
         ListEntity<EmployeeEntity> entitiesList = api.entity().employee().get(filterEq("lastName", e.getLastName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().employee().delete(e.getId());
 
         entitiesList = api.entity().employee().get(filterEq("lastName", e.getLastName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -83,12 +83,12 @@ public class EmployeeEntityTest extends EntityTestBase {
         EmployeeEntity e = createSimpleEmployee();
 
         ListEntity<EmployeeEntity> entitiesList = api.entity().employee().get(filterEq("lastName", e.getLastName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().employee().delete(e);
 
         entitiesList = api.entity().employee().get(filterEq("lastName", e.getLastName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test

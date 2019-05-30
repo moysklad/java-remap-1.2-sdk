@@ -71,7 +71,6 @@ public class BundleEntityTest extends EntityTestBase {
         BundleEntity retrievedOriginalEntity = api.entity().bundle().get(e.getId());
         String name = "bundle_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        e.setComponents(null);
         api.entity().bundle().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -79,7 +78,6 @@ public class BundleEntityTest extends EntityTestBase {
         retrievedOriginalEntity = api.entity().bundle().get(e.getId());
         name = "bundle_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        e.setComponents(null);
         api.entity().bundle().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -89,12 +87,12 @@ public class BundleEntityTest extends EntityTestBase {
         BundleEntity e = createSimpleBundle();
 
         ListEntity<BundleEntity> entitiesList = api.entity().bundle().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().bundle().delete(e.getId());
 
         entitiesList = api.entity().bundle().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -102,12 +100,12 @@ public class BundleEntityTest extends EntityTestBase {
         BundleEntity e = createSimpleBundle();
 
         ListEntity<BundleEntity> entitiesList = api.entity().bundle().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().bundle().delete(e);
 
         entitiesList = api.entity().bundle().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     private BundleEntity createSimpleBundle() throws IOException, LognexApiException {

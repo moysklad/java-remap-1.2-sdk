@@ -220,6 +220,8 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
                 .map(sf -> new AbstractMap.SimpleEntry<>(sf, fieldsMap.get(sf)))
                 .collect(Collectors.toList());
         List<T> allEntities = getAll();
+        if (allEntities == null)
+            fail("No entities present");
         for (AbstractMap.SimpleEntry<SchemaField, Field> entry : filterableFields) {
             schemaReport.chapter("Фильтрация по " + entry.getKey().getName());
             // positive filtration
@@ -239,8 +241,9 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
                                 path(api, path).
                                 query("filter", filter).
                                 list(clazz).getRows();
+                        Integer filteredSize = filtered == null ? 0 : filtered.size();
                         List<T> expectedFiltered = filter(filterOperator, allEntities, entry.getValue().get(entityOptional.get()), entry);
-                        assertWrap(() -> assertEquals("Сравниваем размер отфильтрованного списка (" + filter + ") ", expectedFiltered.size(), filtered.size()));
+                        assertWrap(() -> assertEquals("Сравниваем размер отфильтрованного списка (" + filter + ") ", (Integer) expectedFiltered.size(), filteredSize));
                     } catch (LognexApiException e) {
                         schemaReport.log(e.getMessage());
                     } catch (UnsupportedOperationException e) {
@@ -262,8 +265,9 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
                                 path(api, path).
                                 query("filter", filter).
                                 list(clazz).getRows();
+                        Integer filteredSize = filtered == null ? 0 : filtered.size();
                         List<T> expectedFiltered = filter(filterOperator, allEntities, null, entry);
-                        assertWrap(() -> assertEquals("Сравниваем размер отфильтрованного списка (" + filter + ") ", expectedFiltered.size(), filtered.size()));
+                        assertWrap(() -> assertEquals("Сравниваем размер отфильтрованного списка (" + filter + ") ", (Integer) expectedFiltered.size(), filteredSize));
                     } catch (LognexApiException e) {
                         schemaReport.log(e.getMessage());
                     }  catch (UnsupportedOperationException e) {
@@ -339,6 +343,8 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
                 .map(sf -> new AbstractMap.SimpleEntry<>(sf, fieldsMap.get(sf)))
                 .collect(Collectors.toList());
         List<T> allEntities = getAll();
+        if (allEntities == null)
+            fail("No entities present");
         //Сортировка по одному полю в разных направлениях
         for (AbstractMap.SimpleEntry<SchemaField, Field> entry : orderableFields) {
             schemaReport.chapter("Сортировка по " + entry.getKey().getName());
@@ -362,14 +368,22 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
                 path(api, path).
                 query("order", order).
                 list(clazz).getRows();
-        compareOrder(order, expectedOrdered, ordered, orderMap.keySet());
+        if (ordered != null) {
+            compareOrder(order, expectedOrdered, ordered, orderMap.keySet());
+        } else {
+            assertEquals(0, expectedOrdered.size());
+        }
         if (order.contains(",asc")) {
             order = order.replaceAll(",asc", "");
             ordered = HttpRequestExecutor.
                     path(api, path).
                     query("order", order).
                     list(clazz).getRows();
-            compareOrder(order, expectedOrdered, ordered, orderMap.keySet());
+            if (ordered != null) {
+                compareOrder(order, expectedOrdered, ordered, orderMap.keySet());
+            } else {
+                assertEquals(0, expectedOrdered.size());
+            }
         }
     }
 

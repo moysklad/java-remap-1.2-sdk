@@ -77,9 +77,6 @@ public class ProcessingPlanDocumentEntityTest extends EntityTestBase {
         ProcessingPlanDocumentEntity retrievedOriginalEntity = api.entity().processingplan().get(e.getId());
         String name = "processingplan_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        //Хак для того, чтобы при методе put не было попытки удалить материалы/продукты (должно быть исправлено)
-        e.setMaterials(null);
-        e.setProducts(null);
         api.entity().processingplan().put(e.getId(), e);
         putAsserts(e, retrievedOriginalEntity, name);
 
@@ -87,8 +84,6 @@ public class ProcessingPlanDocumentEntityTest extends EntityTestBase {
 
         name = "processingplan_" + randomString(3) + "_" + new Date().getTime();
         e.setName(name);
-        e.setMaterials(null);
-        e.setProducts(null);
         api.entity().processingplan().put(e);
         putAsserts(e, retrievedOriginalEntity, name);
     }
@@ -98,12 +93,12 @@ public class ProcessingPlanDocumentEntityTest extends EntityTestBase {
         ProcessingPlanDocumentEntity e = createSimpleDocumentProcessingPlan();
 
         ListEntity<ProcessingPlanDocumentEntity> entitiesList = api.entity().processingplan().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().processingplan().delete(e.getId());
 
         entitiesList = api.entity().processingplan().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -111,12 +106,12 @@ public class ProcessingPlanDocumentEntityTest extends EntityTestBase {
         ProcessingPlanDocumentEntity e = createSimpleDocumentProcessingPlan();
 
         ListEntity<ProcessingPlanDocumentEntity> entitiesList = api.entity().processingplan().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().processingplan().delete(e);
 
         entitiesList = api.entity().processingplan().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     private ProcessingPlanDocumentEntity createSimpleDocumentProcessingPlan() throws IOException, LognexApiException {

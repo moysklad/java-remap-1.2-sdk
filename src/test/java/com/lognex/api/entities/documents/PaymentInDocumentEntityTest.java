@@ -87,12 +87,12 @@ public class PaymentInDocumentEntityTest extends EntityTestBase {
         PaymentInDocumentEntity e = createSimpleDocumentPaymentIn();
 
         ListEntity<PaymentInDocumentEntity> entitiesList = api.entity().paymentin().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().paymentin().delete(e.getId());
 
         entitiesList = api.entity().paymentin().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -100,12 +100,12 @@ public class PaymentInDocumentEntityTest extends EntityTestBase {
         PaymentInDocumentEntity e = createSimpleDocumentPaymentIn();
 
         ListEntity<PaymentInDocumentEntity> entitiesList = api.entity().paymentin().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().paymentin().delete(e);
 
         entitiesList = api.entity().paymentin().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test

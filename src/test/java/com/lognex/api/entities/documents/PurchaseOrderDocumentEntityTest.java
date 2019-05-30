@@ -92,12 +92,12 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
         PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
 
         ListEntity<PurchaseOrderDocumentEntity> entitiesList = api.entity().purchaseorder().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().purchaseorder().delete(e.getId());
 
         entitiesList = api.entity().purchaseorder().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -105,12 +105,12 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
         PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
 
         ListEntity<PurchaseOrderDocumentEntity> entitiesList = api.entity().purchaseorder().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().purchaseorder().delete(e);
 
         entitiesList = api.entity().purchaseorder().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test

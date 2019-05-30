@@ -69,12 +69,12 @@ public class ProductEntityTest extends EntityTestBase {
         ProductEntity e = createSimpleProduct();
 
         ListEntity<ProductEntity> entitiesList = api.entity().product().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().product().delete(e.getId());
 
         entitiesList = api.entity().product().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -82,12 +82,12 @@ public class ProductEntityTest extends EntityTestBase {
         ProductEntity e = createSimpleProduct();
 
         ListEntity<ProductEntity> entitiesList = api.entity().product().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().product().delete(e);
 
         entitiesList = api.entity().product().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test

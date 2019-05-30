@@ -100,12 +100,12 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
         CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
 
         ListEntity<CommissionReportInDocumentEntity> entitiesList = api.entity().commissionreportin().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().commissionreportin().delete(e.getId());
 
         entitiesList = api.entity().commissionreportin().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -113,12 +113,12 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
         CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
 
         ListEntity<CommissionReportInDocumentEntity> entitiesList = api.entity().commissionreportin().get(filterEq("name", e.getName()));
-        assertEquals(1, entitiesList.getRows().size());
+        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
         api.entity().commissionreportin().delete(e);
 
         entitiesList = api.entity().commissionreportin().get(filterEq("name", e.getName()));
-        assertEquals(0, entitiesList.getRows().size());
+        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
