@@ -6,8 +6,6 @@ import com.lognex.api.utils.LognexApiException;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
@@ -22,9 +20,7 @@ public class ServiceEntityTest extends EntityTestBase {
         e.setDescription(randomString());
         PriceEntity minPrice = new PriceEntity();
         minPrice.setValue(randomLong(10, 10000));
-        ListEntity<CurrencyEntity> currencyEntityList = api.entity().currency().get();
-        assertNotEquals(0, currencyEntityList.getRows().size());
-        minPrice.setCurrency(currencyEntityList.getRows().get(0));
+        minPrice.setCurrency(getFirstCurrency());
         e.setMinPrice(minPrice);
 
         api.entity().service().post(e);
@@ -95,27 +91,11 @@ public class ServiceEntityTest extends EntityTestBase {
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
-    @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
-    private ServiceEntity createSimpleService() throws IOException, LognexApiException {
-        ServiceEntity e = new ServiceEntity();
-        e.setName("service_" + randomString(3) + "_" + new Date().getTime());
-        e.setArchived(false);
-        e.setDescription(randomString());
-        BarcodeEntity barcode = new BarcodeEntity();
-        barcode.setType(BarcodeEntity.Type.ean8);
-        barcode.setBarcode(randomString(8));
-        e.setBarcodes(new ArrayList<>(Arrays.asList(barcode)));
 
-        api.entity().service().post(e);
-
-        return e;
-    }
 
     private void getAsserts(ServiceEntity e, ServiceEntity retrievedEntity) {
         assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getArchived(), retrievedEntity.getArchived());
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getBarcodes(), retrievedEntity.getBarcodes());
     }
 
     private void putAsserts(ServiceEntity e, ServiceEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -123,8 +103,6 @@ public class ServiceEntityTest extends EntityTestBase {
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getArchived(), retrievedUpdatedEntity.getArchived());
         assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
-        assertEquals(retrievedOriginalEntity.getBarcodes(), retrievedUpdatedEntity.getBarcodes());
     }
 }

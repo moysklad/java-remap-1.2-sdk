@@ -1,8 +1,6 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.EntityTestBase;
-import com.lognex.api.entities.StoreEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.entities.products.ProductEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -26,14 +24,8 @@ public class EnterDocumentEntityTest extends EntityTestBase {
         e.setName("enter_" + randomString(3) + "_" + new Date().getTime());
         e.setDescription(randomString());
         e.setMoment(LocalDateTime.now());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        e.setStore(store.getRows().get(0));
+        e.setOrganization(getOwnOrganization());
+        e.setStore(getMainStore());
 
         api.entity().enter().post(e);
 
@@ -50,7 +42,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
 
         EnterDocumentEntity retrievedEntity = api.entity().enter().get(e.getId());
         getAsserts(e, retrievedEntity);
@@ -61,7 +53,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putTest() throws IOException, LognexApiException, InterruptedException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
 
         EnterDocumentEntity retrievedOriginalEntity = api.entity().enter().get(e.getId());
         String name = "enter_" + randomString(3) + "_" + new Date().getTime();
@@ -79,7 +71,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
 
         ListEntity<EnterDocumentEntity> entitiesList = api.entity().enter().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -92,7 +84,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
 
         ListEntity<EnterDocumentEntity> entitiesList = api.entity().enter().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -108,24 +100,6 @@ public class EnterDocumentEntityTest extends EntityTestBase {
         MetadataAttributeSharedStatesResponse response = api.entity().enter().metadata().get();
 
         assertFalse(response.getCreateShared());
-    }
-
-    private EnterDocumentEntity createSimpleDocumentEnter() throws IOException, LognexApiException {
-        EnterDocumentEntity e = new EnterDocumentEntity();
-        e.setName("enter_" + randomString(3) + "_" + new Date().getTime());
-        e.setDescription(randomString());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        e.setStore(store.getRows().get(0));
-
-        api.entity().enter().post(e);
-
-        return e;
     }
 
     private void getAsserts(EnterDocumentEntity e, EnterDocumentEntity retrievedEntity) {
@@ -147,7 +121,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByIdTest() throws IOException, LognexApiException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().enter().getPositions(e.getId());
 
@@ -175,7 +149,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByEntityTest() throws IOException, LognexApiException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().enter().getPositions(e.getId());
 
@@ -203,7 +177,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByIdTest() throws IOException, LognexApiException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().enter().getPositions(e.getId());
 
@@ -244,7 +218,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByEntityTest() throws IOException, LognexApiException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().enter().getPositions(e.getId());
 
@@ -285,7 +259,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getPositionTest() throws IOException, LognexApiException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition retrievedPosition = api.entity().enter().getPosition(e.getId(), positions.get(0).getId());
@@ -297,7 +271,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByIdsTest() throws IOException, LognexApiException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -313,7 +287,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntityIdTest() throws IOException, LognexApiException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -329,7 +303,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntitiesTest() throws IOException, LognexApiException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -345,7 +319,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionBySelfTest() throws IOException, LognexApiException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -361,7 +335,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByIdsTest() throws IOException, LognexApiException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().enter().getPositions(e);
@@ -379,7 +353,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntityIdTest() throws IOException, LognexApiException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().enter().getPositions(e);
@@ -397,7 +371,7 @@ public class EnterDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntitiesTest() throws IOException, LognexApiException {
-        EnterDocumentEntity e = createSimpleDocumentEnter();
+        EnterDocumentEntity e = createSimpleEnter();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().enter().getPositions(e);

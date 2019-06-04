@@ -86,23 +86,9 @@ public class ExpenseItemEntityTest extends EntityTestBase {
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
-    private ExpenseItemEntity createSimpleExpenseItem() throws IOException, LognexApiException {
-        ExpenseItemEntity e = new ExpenseItemEntity();
-        e.setName("expenseitem_" + randomString(3) + "_" + new Date().getTime());
-        e.setDescription(randomString());
-        e.setCode(randomString());
-        e.setExternalCode(randomString());
-
-        api.entity().expenseitem().post(e);
-
-        return e;
-    }
-
     private void getAsserts(ExpenseItemEntity e, ExpenseItemEntity retrievedEntity) {
         assertEquals(e.getName(), retrievedEntity.getName());
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getCode(), retrievedEntity.getCode());
-        assertEquals(e.getExternalCode(), retrievedEntity.getExternalCode());
     }
 
     private void putAsserts(ExpenseItemEntity e, ExpenseItemEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -111,9 +97,6 @@ public class ExpenseItemEntityTest extends EntityTestBase {
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());
         assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
-        assertEquals(retrievedOriginalEntity.getCode(), retrievedUpdatedEntity.getCode());
-        assertEquals(retrievedOriginalEntity.getExternalCode(), retrievedUpdatedEntity.getExternalCode());
-        // Баг: не обновляется поле updated со стороны API
     }
 }
 

@@ -1,9 +1,6 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.EntityTestBase;
-import com.lognex.api.entities.GroupEntity;
-import com.lognex.api.entities.StoreEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.entities.products.ProductEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -17,7 +14,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
-import static com.lognex.api.utils.params.SearchParam.search;
 import static org.junit.Assert.*;
 
 public class MoveDocumentEntityTest extends EntityTestBase {
@@ -27,19 +23,9 @@ public class MoveDocumentEntityTest extends EntityTestBase {
         e.setName("move_" + randomString(3) + "_" + new Date().getTime());
         e.setDescription(randomString());
         e.setMoment(LocalDateTime.now());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        ListEntity<StoreEntity> sourceStore = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, sourceStore.getRows().size());
-        e.setSourceStore(sourceStore.getRows().get(0));
-
-        StoreEntity targetStore = new StoreEntity();
-        targetStore.setName(randomString());
-        api.entity().store().post(targetStore);
-        e.setTargetStore(targetStore);
+        e.setOrganization(getOwnOrganization());
+        e.setSourceStore(getMainStore());
+        e.setTargetStore(createSimpleStore());
 
         api.entity().move().post(e);
 
@@ -57,7 +43,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
 
         MoveDocumentEntity retrievedEntity = api.entity().move().get(e.getId());
         getAsserts(e, retrievedEntity);
@@ -68,7 +54,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putTest() throws IOException, LognexApiException, InterruptedException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
 
         MoveDocumentEntity retrievedOriginalEntity = api.entity().move().get(e.getId());
         String name = "move_" + randomString(3) + "_" + new Date().getTime();
@@ -86,7 +72,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
 
         ListEntity<MoveDocumentEntity> entitiesList = api.entity().move().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -99,7 +85,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
 
         ListEntity<MoveDocumentEntity> entitiesList = api.entity().move().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -120,7 +106,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
     @Test
     public void newTest() throws IOException, LognexApiException {
         MoveDocumentEntity e = api.entity().move().newDocument();
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(Long.valueOf(0), e.getSum());
@@ -128,44 +114,16 @@ public class MoveDocumentEntityTest extends EntityTestBase {
         assertTrue(e.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
 
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
-                min(Comparator.comparing(OrganizationEntity::getCreated));
-
-        OrganizationEntity org = null;
-        if (orgOptional.isPresent()) {
-            org = orgOptional.get();
-        } else {
-            // Должно быть первое созданное юрлицо
-            fail();
-        }
-
-        assertEquals(e.getOrganization().getMeta().getHref(), org.getMeta().getHref());
-
-        ListEntity<GroupEntity> group = api.entity().group().get(search("Основной"));
-        assertEquals(1, group.getRows().size());
-        assertEquals(e.getGroup().getMeta().getHref(), group.getRows().get(0).getMeta().getHref());
+        assertEquals(e.getOrganization().getMeta().getHref(), getOwnOrganization().getMeta().getHref());
+        assertEquals(e.getGroup().getMeta().getHref(), getMainGroup().getMeta().getHref());
     }
 
     @Test
     public void newByInternalOrderTest() throws IOException, LognexApiException {
-        InternalOrderDocumentEntity internalOrder = new InternalOrderDocumentEntity();
-        internalOrder.setName("internalorder_" + randomString(3) + "_" + new Date().getTime());
-        internalOrder.setVatEnabled(true);
-        internalOrder.setVatIncluded(true);
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        internalOrder.setOrganization(orgList.getRows().get(0));
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        internalOrder.setStore(store.getRows().get(0));
-
-        api.entity().internalorder().post(internalOrder);
+        InternalOrderDocumentEntity internalOrder = createSimpleInternalOrder();
 
         MoveDocumentEntity e = api.entity().move().newDocument("internalOrder", internalOrder);
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(internalOrder.getSum(), e.getSum());
@@ -176,29 +134,6 @@ public class MoveDocumentEntityTest extends EntityTestBase {
         assertEquals(internalOrder.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
         assertEquals(internalOrder.getStore().getMeta().getHref(), e.getTargetStore().getMeta().getHref());
         assertEquals(internalOrder.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-    }
-
-    private MoveDocumentEntity createSimpleDocumentMove() throws IOException, LognexApiException {
-        MoveDocumentEntity e = new MoveDocumentEntity();
-        e.setName("move_" + randomString(3) + "_" + new Date().getTime());
-        e.setDescription(randomString());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        ListEntity<StoreEntity> sourceStore = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, sourceStore.getRows().size());
-        e.setSourceStore(sourceStore.getRows().get(0));
-
-        StoreEntity targetStore = new StoreEntity();
-        targetStore.setName(randomString());
-        api.entity().store().post(targetStore);
-        e.setTargetStore(targetStore);
-
-        api.entity().move().post(e);
-
-        return e;
     }
 
     private void getAsserts(MoveDocumentEntity e, MoveDocumentEntity retrievedEntity) {
@@ -222,7 +157,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByIdTest() throws IOException, LognexApiException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().move().getPositions(e.getId());
 
@@ -250,7 +185,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByEntityTest() throws IOException, LognexApiException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().move().getPositions(e.getId());
 
@@ -278,7 +213,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByIdTest() throws IOException, LognexApiException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().move().getPositions(e.getId());
 
@@ -319,7 +254,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByEntityTest() throws IOException, LognexApiException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().move().getPositions(e.getId());
 
@@ -360,7 +295,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getPositionTest() throws IOException, LognexApiException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition retrievedPosition = api.entity().move().getPosition(e.getId(), positions.get(0).getId());
@@ -372,7 +307,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByIdsTest() throws IOException, LognexApiException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -388,7 +323,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntityIdTest() throws IOException, LognexApiException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -404,7 +339,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntitiesTest() throws IOException, LognexApiException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -420,7 +355,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionBySelfTest() throws IOException, LognexApiException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -436,7 +371,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByIdsTest() throws IOException, LognexApiException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().move().getPositions(e);
@@ -454,7 +389,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntityIdTest() throws IOException, LognexApiException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().move().getPositions(e);
@@ -472,7 +407,7 @@ public class MoveDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntitiesTest() throws IOException, LognexApiException {
-        MoveDocumentEntity e = createSimpleDocumentMove();
+        MoveDocumentEntity e = createSimpleMove();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().move().getPositions(e);

@@ -1,8 +1,6 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.EntityTestBase;
-import com.lognex.api.entities.StoreEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.entities.products.ProductEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -25,14 +23,8 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
         InventoryDocumentEntity e = new InventoryDocumentEntity();
         e.setName("inventory_" + randomString(3) + "_" + new Date().getTime());
         e.setMoment(LocalDateTime.now());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        e.setStore(store.getRows().get(0));
+        e.setOrganization(getOwnOrganization());
+        e.setStore(getMainStore());
 
         api.entity().inventory().post(e);
 
@@ -48,7 +40,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
 
         InventoryDocumentEntity retrievedEntity = api.entity().inventory().get(e.getId());
         getAsserts(e, retrievedEntity);
@@ -59,7 +51,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putTest() throws IOException, LognexApiException, InterruptedException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
 
         InventoryDocumentEntity retrievedOriginalEntity = api.entity().inventory().get(e.getId());
         String name = "inventory_" + randomString(3) + "_" + new Date().getTime();
@@ -77,7 +69,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
 
         ListEntity<InventoryDocumentEntity> entitiesList = api.entity().inventory().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -90,7 +82,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
 
         ListEntity<InventoryDocumentEntity> entitiesList = api.entity().inventory().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -106,23 +98,6 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
         MetadataAttributeSharedStatesResponse response = api.entity().inventory().metadata().get();
 
         assertFalse(response.getCreateShared());
-    }
-
-    private InventoryDocumentEntity createSimpleDocumentInventory() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = new InventoryDocumentEntity();
-        e.setName("inventory_" + randomString(3) + "_" + new Date().getTime());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        e.setStore(store.getRows().get(0));
-
-        api.entity().inventory().post(e);
-
-        return e;
     }
 
     private void getAsserts(InventoryDocumentEntity e, InventoryDocumentEntity retrievedEntity) {
@@ -142,7 +117,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByIdTest() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().inventory().getPositions(e.getId());
 
@@ -170,7 +145,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByEntityTest() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().inventory().getPositions(e.getId());
 
@@ -198,7 +173,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByIdTest() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().inventory().getPositions(e.getId());
 
@@ -239,7 +214,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByEntityTest() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().inventory().getPositions(e.getId());
 
@@ -280,7 +255,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getPositionTest() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition retrievedPosition = api.entity().inventory().getPosition(e.getId(), positions.get(0).getId());
@@ -292,7 +267,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByIdsTest() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -308,7 +283,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntityIdTest() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -324,7 +299,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntitiesTest() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -340,7 +315,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionBySelfTest() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -356,7 +331,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByIdsTest() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().inventory().getPositions(e);
@@ -374,7 +349,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntityIdTest() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().inventory().getPositions(e);
@@ -392,7 +367,7 @@ public class InventoryDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntitiesTest() throws IOException, LognexApiException {
-        InventoryDocumentEntity e = createSimpleDocumentInventory();
+        InventoryDocumentEntity e = createSimpleInventory();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().inventory().getPositions(e);

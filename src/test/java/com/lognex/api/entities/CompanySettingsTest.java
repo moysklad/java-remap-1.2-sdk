@@ -24,9 +24,7 @@ public class CompanySettingsTest extends EntityTestBase {
 
     @Test
     public void metadataTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = new CustomEntity();
-        customEntity.setName(randomString());
-        api.entity().customentity().post(customEntity);
+        CustomEntity customEntity = createSimpleCustomEntity();
         CompanySettingsMetadata metadata = api.entity().companysettings().metadata();
 
         assertTrue(metadata.getCustomEntities().stream().

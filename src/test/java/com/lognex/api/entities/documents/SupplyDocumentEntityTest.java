@@ -1,10 +1,6 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.EntityTestBase;
-import com.lognex.api.entities.GroupEntity;
-import com.lognex.api.entities.StoreEntity;
-import com.lognex.api.entities.agents.CounterpartyEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.entities.products.ProductEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -18,7 +14,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
-import static com.lognex.api.utils.params.SearchParam.search;
 import static org.junit.Assert.*;
 
 public class SupplyDocumentEntityTest extends EntityTestBase {
@@ -30,19 +25,9 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
         e.setVatEnabled(true);
         e.setVatIncluded(true);
         e.setMoment(LocalDateTime.now());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        e.setAgent(agent);
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        e.setStore(store.getRows().get(0));
+        e.setOrganization(getOwnOrganization());
+        e.setAgent(createSimpleCounterparty());
+        e.setStore(getMainStore());
 
         api.entity().supply().post(e);
 
@@ -58,12 +43,11 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(e.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
-
     }
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
 
         SupplyDocumentEntity retrievedEntity = api.entity().supply().get(e.getId());
         getAsserts(e, retrievedEntity);
@@ -74,7 +58,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putTest() throws IOException, LognexApiException, InterruptedException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
 
         SupplyDocumentEntity retrievedOriginalEntity = api.entity().supply().get(e.getId());
         String name = "supply_" + randomString(3) + "_" + new Date().getTime();
@@ -92,7 +76,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
 
         ListEntity<SupplyDocumentEntity> entitiesList = api.entity().supply().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -105,7 +89,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
 
         ListEntity<SupplyDocumentEntity> entitiesList = api.entity().supply().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -126,7 +110,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
     @Test
     public void newTest() throws IOException, LognexApiException {
         SupplyDocumentEntity e = api.entity().supply().newDocument();
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertTrue(e.getVatEnabled());
@@ -137,51 +121,17 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
         assertTrue(e.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
 
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
-                min(Comparator.comparing(OrganizationEntity::getCreated));
-
-        OrganizationEntity org = null;
-        if (orgOptional.isPresent()) {
-            org = orgOptional.get();
-        } else {
-            // Должно быть первое созданное юрлицо
-            fail();
-        }
-
-        assertEquals(e.getOrganization().getMeta().getHref(), org.getMeta().getHref());
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        assertEquals(e.getStore().getMeta().getHref(), store.getRows().get(0).getMeta().getHref());
-
-        ListEntity<GroupEntity> group = api.entity().group().get(search("Основной"));
-        assertEquals(1, group.getRows().size());
-        assertEquals(e.getGroup().getMeta().getHref(), group.getRows().get(0).getMeta().getHref());
+        assertEquals(e.getOrganization().getMeta().getHref(), getOwnOrganization().getMeta().getHref());
+        assertEquals(e.getStore().getMeta().getHref(), getMainStore().getMeta().getHref());
+        assertEquals(e.getGroup().getMeta().getHref(), getMainGroup().getMeta().getHref());
     }
 
     @Test
     public void newByPurchaseOrderTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity purchaseOrder = new PurchaseOrderDocumentEntity();
-        purchaseOrder.setName("purchaseorder_" + randomString(3) + "_" + new Date().getTime());
-        purchaseOrder.setDescription(randomString());
-        purchaseOrder.setVatEnabled(true);
-        purchaseOrder.setVatIncluded(true);
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        purchaseOrder.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        purchaseOrder.setAgent(agent);
-        purchaseOrder.setMoment(LocalDateTime.now().withNano(0));
-
-        api.entity().purchaseorder().post(purchaseOrder);
+        PurchaseOrderDocumentEntity purchaseOrder = createSimplePurchaseOrder();
 
         SupplyDocumentEntity e = api.entity().supply().newDocument("purchaseOrder", purchaseOrder);
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(purchaseOrder.getVatEnabled(), e.getVatEnabled());
@@ -199,24 +149,10 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newByInvoicesInTest() throws IOException, LognexApiException {
-        InvoiceInDocumentEntity invoiceIn = new InvoiceInDocumentEntity();
-        invoiceIn.setName("invoiceout_" + randomString(3) + "_" + new Date().getTime());
-        invoiceIn.setVatEnabled(true);
-        invoiceIn.setVatIncluded(true);
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        invoiceIn.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        invoiceIn.setAgent(agent);
-
-        api.entity().invoicein().post(invoiceIn);
+        InvoiceInDocumentEntity invoiceIn = createSimpleInvoiceIn();
 
         SupplyDocumentEntity e = api.entity().supply().newDocument("invoicesIn", Collections.singletonList(invoiceIn));
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(invoiceIn.getVatEnabled(), e.getVatEnabled());
@@ -231,29 +167,6 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
         assertEquals(invoiceIn.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(invoiceIn.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
         assertEquals(invoiceIn.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-    }
-
-    private SupplyDocumentEntity createSimpleDocumentSupply() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = new SupplyDocumentEntity();
-        e.setName("supply_" + randomString(3) + "_" + new Date().getTime());
-        e.setDescription(randomString());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        e.setAgent(agent);
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        e.setStore(store.getRows().get(0));
-
-        api.entity().supply().post(e);
-
-        return e;
     }
 
     private void getAsserts(SupplyDocumentEntity e, SupplyDocumentEntity retrievedEntity) {
@@ -277,7 +190,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByIdTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().supply().getPositions(e.getId());
 
@@ -305,7 +218,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByEntityTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().supply().getPositions(e.getId());
 
@@ -333,7 +246,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByIdTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().supply().getPositions(e.getId());
 
@@ -374,7 +287,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByEntityTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().supply().getPositions(e.getId());
 
@@ -415,7 +328,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getPositionTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition retrievedPosition = api.entity().supply().getPosition(e.getId(), positions.get(0).getId());
@@ -427,7 +340,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByIdsTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -443,7 +356,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntityIdTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -459,7 +372,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntitiesTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -475,7 +388,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionBySelfTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -491,7 +404,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByIdsTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().supply().getPositions(e);
@@ -509,7 +422,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntityIdTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().supply().getPositions(e);
@@ -527,7 +440,7 @@ public class SupplyDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntitiesTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity e = createSimpleDocumentSupply();
+        SupplyDocumentEntity e = createSimpleSupply();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().supply().getPositions(e);

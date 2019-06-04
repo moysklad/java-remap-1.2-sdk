@@ -1,8 +1,6 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.EntityTestBase;
-import com.lognex.api.entities.agents.CounterpartyEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.entities.products.ProductEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -24,15 +22,8 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
         CustomerOrderDocumentEntity e = new CustomerOrderDocumentEntity();
         e.setName("customerorder_" + randomString(3) + "_" + new Date().getTime());
         e.setDescription(randomString());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        e.setAgent(agent);
+        e.setOrganization(getOwnOrganization());
+        e.setAgent(createSimpleCounterparty());
 
         api.entity().customerorder().post(e);
 
@@ -50,7 +41,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
 
         CustomerOrderDocumentEntity retrievedEntity = api.entity().customerorder().get(e.getId());
         getAsserts(e, retrievedEntity);
@@ -61,7 +52,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putTest() throws IOException, LognexApiException, InterruptedException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
 
         CustomerOrderDocumentEntity retrievedOriginalEntity = api.entity().customerorder().get(e.getId());
         String name = "customerorder_" + randomString(3) + "_" + new Date().getTime();
@@ -79,7 +70,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
 
         ListEntity<CustomerOrderDocumentEntity> entitiesList = api.entity().customerorder().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -92,7 +83,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
 
         ListEntity<CustomerOrderDocumentEntity> entitiesList = api.entity().customerorder().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -109,25 +100,6 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
         assertEquals(7, response.getStates().size());
         assertFalse(response.getCreateShared());
-    }
-
-    private CustomerOrderDocumentEntity createSimpleDocumentCustomerOrder() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = new CustomerOrderDocumentEntity();
-        e.setName("customerorder_" + randomString(3) + "_" + new Date().getTime());
-        e.setDescription(randomString());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        e.setAgent(agent);
-
-        api.entity().customerorder().post(e);
-
-        return e;
     }
 
     private void getAsserts(CustomerOrderDocumentEntity e, CustomerOrderDocumentEntity retrievedEntity) {
@@ -153,7 +125,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByIdTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().customerorder().getPositions(e.getId());
 
@@ -181,7 +153,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByEntityTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().customerorder().getPositions(e.getId());
 
@@ -209,7 +181,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByIdTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().customerorder().getPositions(e.getId());
 
@@ -250,7 +222,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByEntityTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().customerorder().getPositions(e.getId());
 
@@ -291,7 +263,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getPositionTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition retrievedPosition = api.entity().customerorder().getPosition(e.getId(), positions.get(0).getId());
@@ -303,7 +275,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByIdsTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -319,7 +291,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntityIdTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -335,7 +307,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntitiesTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -351,7 +323,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionBySelfTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -367,7 +339,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByIdsTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().customerorder().getPositions(e);
@@ -385,7 +357,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntityIdTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().customerorder().getPositions(e);
@@ -403,7 +375,7 @@ public class CustomerOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntitiesTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity e = createSimpleDocumentCustomerOrder();
+        CustomerOrderDocumentEntity e = createSimpleCustomerOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().customerorder().getPositions(e);

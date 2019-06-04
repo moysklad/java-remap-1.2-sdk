@@ -24,9 +24,7 @@ public class BundleEntityTest extends EntityTestBase {
         e.setArchived(false);
         e.setArticle(randomString());
 
-        ProductEntity product = new ProductEntity();
-        product.setName(randomString());
-        api.entity().product().post(product);
+        ProductEntity product = createSimpleProduct();
         ListEntity<BundleEntity.ComponentEntity> components = new ListEntity<>();
         components.setRows(new ArrayList<>());
         components.getRows().add(new BundleEntity.ComponentEntity());
@@ -106,26 +104,6 @@ public class BundleEntityTest extends EntityTestBase {
 
         entitiesList = api.entity().bundle().get(filterEq("name", e.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    private BundleEntity createSimpleBundle() throws IOException, LognexApiException {
-        BundleEntity e = new BundleEntity();
-        e.setName("bundle_" + randomString(3) + "_" + new Date().getTime());
-        e.setArticle(randomString());
-
-        ProductEntity product = new ProductEntity();
-        product.setName(randomString());
-        api.entity().product().post(product);
-        ListEntity<BundleEntity.ComponentEntity> components = new ListEntity<>();
-        components.setRows(new ArrayList<>());
-        components.getRows().add(new BundleEntity.ComponentEntity());
-        components.getRows().get(0).setQuantity(randomDouble(1, 5, 2));
-        components.getRows().get(0).setAssortment(product);
-        e.setComponents(components);
-
-        api.entity().bundle().post(e);
-
-        return e;
     }
 
     private void getAsserts(BundleEntity e, BundleEntity retrievedEntity) {

@@ -29,19 +29,15 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
         e.setName("processingorder_" + randomString(3) + "_" + new Date().getTime());
         e.setDescription(randomString());
         e.setMoment(LocalDateTime.now());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
+        e.setOrganization(getOwnOrganization());
+        e.setStore(getMainStore());
 
         ProcessingPlanDocumentEntity processingPlan = new ProcessingPlanDocumentEntity();
         processingPlan.setName("processingplan_" + randomString(3) + "_" + new Date().getTime());
 
         processingPlan.setMaterials(new ListEntity<>());
         processingPlan.getMaterials().setRows(new ArrayList<>());
-        ProductEntity material = new ProductEntity();
-        material.setName(randomString());
-        api.entity().product().post(material);
+        ProductEntity material = createSimpleProduct();
         ProcessingPlanDocumentEntity.PlanItem materialItem = new ProcessingPlanDocumentEntity.PlanItem();
         materialItem.setProduct(material);
         materialItem.setQuantity(randomDouble(1, 5, 10));
@@ -49,9 +45,7 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
 
         processingPlan.setProducts(new ListEntity<>());
         processingPlan.getProducts().setRows(new ArrayList<>());
-        ProductEntity product = new ProductEntity();
-        product.setName(randomString());
-        api.entity().product().post(product);
+        ProductEntity product = createSimpleProduct();
         ProcessingPlanDocumentEntity.PlanItem productItem = new ProcessingPlanDocumentEntity.PlanItem();
         productItem.setProduct(product);
         productItem.setQuantity(randomDouble(1, 5, 10));
@@ -78,6 +72,7 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
         assertEquals(e.getMoment(), retrievedEntity.getMoment());
         assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
+        assertEquals(e.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
         assertEquals(e.getProcessingPlan().getMeta().getHref(), retrievedEntity.getProcessingPlan().getMeta().getHref());
         assertEquals(position.getQuantity(), retrievedEntity.getPositions().getRows().get(0).getQuantity());
         ProductEntity retrievedProduct = (ProductEntity) retrievedEntity.getPositions().getRows().get(0).getAssortment();
@@ -86,7 +81,7 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        ProcessingOrderDocumentEntity e = createSimpleDocumentProcessingOrder();
+        ProcessingOrderDocumentEntity e = createSimpleProcessingOrder();
 
         ProcessingOrderDocumentEntity retrievedEntity = api.entity().processingorder().get(e.getId());
         getAsserts(e, retrievedEntity);
@@ -97,7 +92,7 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putTest() throws IOException, LognexApiException, InterruptedException {
-        ProcessingOrderDocumentEntity e = createSimpleDocumentProcessingOrder();
+        ProcessingOrderDocumentEntity e = createSimpleProcessingOrder();
 
         ProcessingOrderDocumentEntity retrievedOriginalEntity = api.entity().processingorder().get(e.getId());
         String name = "processingorder_" + randomString(3) + "_" + new Date().getTime();
@@ -115,7 +110,7 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        ProcessingOrderDocumentEntity e = createSimpleDocumentProcessingOrder();
+        ProcessingOrderDocumentEntity e = createSimpleProcessingOrder();
 
         ListEntity<ProcessingOrderDocumentEntity> entitiesList = api.entity().processingorder().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -128,7 +123,7 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        ProcessingOrderDocumentEntity e = createSimpleDocumentProcessingOrder();
+        ProcessingOrderDocumentEntity e = createSimpleProcessingOrder();
 
         ListEntity<ProcessingOrderDocumentEntity> entitiesList = api.entity().processingorder().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -153,9 +148,7 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
 
         processingPlan.setMaterials(new ListEntity<>());
         processingPlan.getMaterials().setRows(new ArrayList<>());
-        ProductEntity material = new ProductEntity();
-        material.setName(randomString());
-        api.entity().product().post(material);
+        ProductEntity material = createSimpleProduct();
         ProcessingPlanDocumentEntity.PlanItem materialItem = new ProcessingPlanDocumentEntity.PlanItem();
         materialItem.setProduct(material);
         DecimalFormat df = new DecimalFormat("#.####");
@@ -164,9 +157,7 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
 
         processingPlan.setProducts(new ListEntity<>());
         processingPlan.getProducts().setRows(new ArrayList<>());
-        ProductEntity product = new ProductEntity();
-        product.setName(randomString());
-        api.entity().product().post(product);
+        ProductEntity product = createSimpleProduct();
         ProcessingPlanDocumentEntity.PlanItem productItem = new ProcessingPlanDocumentEntity.PlanItem();
         productItem.setProduct(product);
         productItem.setQuantity(Double.valueOf(df.format(randomDouble(1, 5, 4))));
@@ -200,52 +191,6 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
         ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
         assertEquals(1, store.getRows().size());
         assertEquals(e.getStore().getMeta().getHref(), store.getRows().get(0).getMeta().getHref());
-    }
-
-    private ProcessingOrderDocumentEntity createSimpleDocumentProcessingOrder() throws IOException, LognexApiException {
-        ProcessingOrderDocumentEntity e = new ProcessingOrderDocumentEntity();
-        e.setName("processingorder_" + randomString(3) + "_" + new Date().getTime());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        ProcessingPlanDocumentEntity processingPlan = new ProcessingPlanDocumentEntity();
-        processingPlan.setName("processingplan_" + randomString(3) + "_" + new Date().getTime());
-
-        processingPlan.setMaterials(new ListEntity<>());
-        processingPlan.getMaterials().setRows(new ArrayList<>());
-        ProductEntity material = new ProductEntity();
-        material.setName(randomString());
-        api.entity().product().post(material);
-        ProcessingPlanDocumentEntity.PlanItem materialItem = new ProcessingPlanDocumentEntity.PlanItem();
-        materialItem.setProduct(material);
-        materialItem.setQuantity(randomDouble(1, 5, 4));
-        processingPlan.getMaterials().getRows().add(materialItem);
-
-        processingPlan.setProducts(new ListEntity<>());
-        processingPlan.getProducts().setRows(new ArrayList<>());
-        ProductEntity product = new ProductEntity();
-        product.setName(randomString());
-        api.entity().product().post(product);
-        ProcessingPlanDocumentEntity.PlanItem productItem = new ProcessingPlanDocumentEntity.PlanItem();
-        productItem.setProduct(product);
-        productItem.setQuantity(randomDouble(1, 5, 4));
-        processingPlan.getProducts().getRows().add(productItem);
-
-        api.entity().processingplan().post(processingPlan);
-        e.setProcessingPlan(processingPlan);
-
-        e.setPositions(new ListEntity<>());
-        e.getPositions().setRows(new ArrayList<>());
-        DocumentPosition position = new DocumentPosition();
-        position.setQuantity(3.1234);
-        position.setAssortment(material);
-        e.getPositions().getRows().add(position);
-
-        api.entity().processingorder().post(e);
-
-        return e;
     }
 
     private void getAsserts(ProcessingOrderDocumentEntity e, ProcessingOrderDocumentEntity retrievedEntity) {

@@ -1,9 +1,6 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.EntityTestBase;
-import com.lognex.api.entities.StoreEntity;
-import com.lognex.api.entities.agents.CounterpartyEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.entities.products.ProductEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -29,19 +26,9 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
         e.setVatIncluded(true);
         e.setMoment(LocalDateTime.now());
         e.setSum(randomLong(10, 10000));
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        e.setAgent(agent);
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        e.setStore(store.getRows().get(0));
+        e.setOrganization(getOwnOrganization());
+        e.setAgent(createSimpleCounterparty());
+        e.setStore(getMainStore());
 
         api.entity().invoiceout().post(e);
 
@@ -61,7 +48,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
 
         InvoiceOutDocumentEntity retrievedEntity = api.entity().invoiceout().get(e.getId());
         getAsserts(e, retrievedEntity);
@@ -72,7 +59,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putTest() throws IOException, LognexApiException, InterruptedException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
 
         InvoiceOutDocumentEntity retrievedOriginalEntity = api.entity().invoiceout().get(e.getId());
         String name = "invoiceout_" + randomString(3) + "_" + new Date().getTime();
@@ -90,7 +77,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
 
         ListEntity<InvoiceOutDocumentEntity> entitiesList = api.entity().invoiceout().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -103,7 +90,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
 
         ListEntity<InvoiceOutDocumentEntity> entitiesList = api.entity().invoiceout().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -119,24 +106,6 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
         MetadataAttributeSharedStatesResponse response = api.entity().invoiceout().metadata().get();
 
         assertFalse(response.getCreateShared());
-    }
-
-    private InvoiceOutDocumentEntity createSimpleDocumentInvoiceOut() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = new InvoiceOutDocumentEntity();
-        e.setName("invoiceout_" + randomString(3) + "_" + new Date().getTime());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        e.setAgent(agent);
-
-        api.entity().invoiceout().post(e);
-
-        return e;
     }
 
     private void getAsserts(InvoiceOutDocumentEntity e, InvoiceOutDocumentEntity retrievedEntity) {
@@ -156,7 +125,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByIdTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().invoiceout().getPositions(e.getId());
 
@@ -184,7 +153,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByEntityTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().invoiceout().getPositions(e.getId());
 
@@ -212,7 +181,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByIdTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().invoiceout().getPositions(e.getId());
 
@@ -253,7 +222,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByEntityTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().invoiceout().getPositions(e.getId());
 
@@ -294,7 +263,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getPositionTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition retrievedPosition = api.entity().invoiceout().getPosition(e.getId(), positions.get(0).getId());
@@ -306,7 +275,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByIdsTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -322,7 +291,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntityIdTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -338,7 +307,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntitiesTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -354,7 +323,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionBySelfTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -370,7 +339,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByIdsTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().invoiceout().getPositions(e);
@@ -388,7 +357,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntityIdTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().invoiceout().getPositions(e);
@@ -406,7 +375,7 @@ public class InvoiceOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntitiesTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity e = createSimpleDocumentInvoiceOut();
+        InvoiceOutDocumentEntity e = createSimpleInvoiceOut();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().invoiceout().getPositions(e);

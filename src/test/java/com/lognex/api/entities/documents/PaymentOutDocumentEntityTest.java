@@ -1,8 +1,6 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.*;
-import com.lognex.api.entities.agents.CounterpartyEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.LognexApiException;
@@ -12,12 +10,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.Optional;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
-import static com.lognex.api.utils.params.SearchParam.search;
 import static org.junit.Assert.*;
 
 public class PaymentOutDocumentEntityTest extends EntityTestBase {
@@ -27,20 +22,9 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
         e.setName("paymentout_" + randomString(3) + "_" + new Date().getTime());
         e.setMoment(LocalDateTime.now());
         e.setSum(randomLong(10, 10000));
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        e.setAgent(agent);
-
-        ExpenseItemEntity expenseItem = new ExpenseItemEntity();
-        expenseItem.setName(randomString());
-        api.entity().expenseitem().post(expenseItem);
-        e.setExpenseItem(expenseItem);
+        e.setOrganization(getOwnOrganization());
+        e.setAgent(createSimpleCounterparty());
+        e.setExpenseItem(createSimpleExpenseItem());
 
         api.entity().paymentout().post(e);
 
@@ -58,7 +42,7 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        PaymentOutDocumentEntity e = createSimpleDocumentPaymentOut();
+        PaymentOutDocumentEntity e = createSimplePaymentOut();
 
         PaymentOutDocumentEntity retrievedEntity = api.entity().paymentout().get(e.getId());
         getAsserts(e, retrievedEntity);
@@ -69,7 +53,7 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putTest() throws IOException, LognexApiException, InterruptedException {
-        PaymentOutDocumentEntity e = createSimpleDocumentPaymentOut();
+        PaymentOutDocumentEntity e = createSimplePaymentOut();
 
         PaymentOutDocumentEntity retrievedOriginalEntity = api.entity().paymentout().get(e.getId());
         String name = "paymentout_" + randomString(3) + "_" + new Date().getTime();
@@ -87,7 +71,7 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        PaymentOutDocumentEntity e = createSimpleDocumentPaymentOut();
+        PaymentOutDocumentEntity e = createSimplePaymentOut();
 
         ListEntity<PaymentOutDocumentEntity> entitiesList = api.entity().paymentout().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -100,7 +84,7 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        PaymentOutDocumentEntity e = createSimpleDocumentPaymentOut();
+        PaymentOutDocumentEntity e = createSimplePaymentOut();
 
         ListEntity<PaymentOutDocumentEntity> entitiesList = api.entity().paymentout().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -121,7 +105,7 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
     @Test
     public void newTest() throws IOException, LognexApiException {
         PaymentOutDocumentEntity e = api.entity().paymentout().newDocument();
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(Long.valueOf(0), e.getSum());
@@ -129,47 +113,16 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
         assertTrue(e.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
 
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
-                min(Comparator.comparing(OrganizationEntity::getCreated));
-
-        OrganizationEntity org = null;
-        if (orgOptional.isPresent()) {
-            org = orgOptional.get();
-        } else {
-            // Должно быть первое созданное юрлицо
-            fail();
-        }
-
-        assertEquals(e.getOrganization().getMeta().getHref(), org.getMeta().getHref());
-
-        ListEntity<GroupEntity> group = api.entity().group().get(search("Основной"));
-        assertEquals(1, group.getRows().size());
-        assertEquals(e.getGroup().getMeta().getHref(), group.getRows().get(0).getMeta().getHref());
+        assertEquals(e.getOrganization().getMeta().getHref(), getOwnOrganization().getMeta().getHref());
+        assertEquals(e.getGroup().getMeta().getHref(), getMainGroup().getMeta().getHref());
     }
 
     @Test
     public void newByPurchaseOrdersTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity purchaseOrder = new PurchaseOrderDocumentEntity();
-        purchaseOrder.setName("purchaseorder_" + randomString(3) + "_" + new Date().getTime());
-        purchaseOrder.setDescription(randomString());
-        purchaseOrder.setVatEnabled(true);
-        purchaseOrder.setVatIncluded(true);
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        purchaseOrder.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        purchaseOrder.setAgent(agent);
-        purchaseOrder.setMoment(LocalDateTime.now().withNano(0));
-
-        api.entity().purchaseorder().post(purchaseOrder);
+        PurchaseOrderDocumentEntity purchaseOrder = createSimplePurchaseOrder();
 
         PaymentOutDocumentEntity e = api.entity().paymentout().newDocument("operations", Collections.singletonList(purchaseOrder));
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(purchaseOrder.getSum(), e.getSum());
@@ -185,36 +138,10 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newBySalesReturnsTest() throws IOException, LognexApiException {
-        SalesReturnDocumentEntity salesReturn = new SalesReturnDocumentEntity();
-        salesReturn.setName("salesreturn_" + randomString(3) + "_" + new Date().getTime());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        salesReturn.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        salesReturn.setAgent(agent);
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        salesReturn.setStore(store.getRows().get(0));
-
-        DemandDocumentEntity demand = new DemandDocumentEntity();
-        demand.setName("demand_" + randomString(3) + "_" + new Date().getTime());
-        demand.setDescription(randomString());
-        demand.setOrganization(orgList.getRows().get(0));
-        demand.setAgent(agent);
-        demand.setStore(store.getRows().get(0));
-
-        api.entity().demand().post(demand);
-        salesReturn.setDemand(demand);
-
-        api.entity().salesreturn().post(salesReturn);
+        SalesReturnDocumentEntity salesReturn = createSimpleSalesReturn();
 
         PaymentOutDocumentEntity e = api.entity().paymentout().newDocument("operations", Collections.singletonList(salesReturn));
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(salesReturn.getSum(), e.getSum());
@@ -230,26 +157,10 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newBySuppliesTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity supply = new SupplyDocumentEntity();
-        supply.setName("supply_" + randomString(3) + "_" + new Date().getTime());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        supply.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        supply.setAgent(agent);
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        supply.setStore(store.getRows().get(0));
-
-        api.entity().supply().post(supply);
+        SupplyDocumentEntity supply = createSimpleSupply();
 
         PaymentOutDocumentEntity e = api.entity().paymentout().newDocument("operations", Collections.singletonList(supply));
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(supply.getSum(), e.getSum());
@@ -265,24 +176,10 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newByInvoicesInTest() throws IOException, LognexApiException {
-        InvoiceInDocumentEntity invoiceIn = new InvoiceInDocumentEntity();
-        invoiceIn.setName("invoiceout_" + randomString(3) + "_" + new Date().getTime());
-        invoiceIn.setVatEnabled(true);
-        invoiceIn.setVatIncluded(true);
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        invoiceIn.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        invoiceIn.setAgent(agent);
-
-        api.entity().invoicein().post(invoiceIn);
+        InvoiceInDocumentEntity invoiceIn = createSimpleInvoiceIn();
 
         PaymentOutDocumentEntity e = api.entity().paymentout().newDocument("operations", Collections.singletonList(invoiceIn));
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(invoiceIn.getSum(), e.getSum());
@@ -298,33 +195,10 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newByCommissionReportsOutTest() throws IOException, LognexApiException {
-        CommissionReportOutDocumentEntity commissionReportOut = new CommissionReportOutDocumentEntity();
-        commissionReportOut.setName("commissionreportout_" + randomString(3) + "_" + new Date().getTime());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        commissionReportOut.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        commissionReportOut.setAgent(agent);
-
-        ContractEntity contract = new ContractEntity();
-        contract.setName(randomString());
-        contract.setOwnAgent(orgList.getRows().get(0));
-        contract.setAgent(agent);
-        contract.setContractType(ContractEntity.Type.commission);
-        api.entity().contract().post(contract);
-        commissionReportOut.setContract(contract);
-
-        commissionReportOut.setCommissionPeriodStart(LocalDateTime.now());
-        commissionReportOut.setCommissionPeriodEnd(LocalDateTime.now().plusNanos(50));
-
-        api.entity().commissionreportout().post(commissionReportOut);
+        CommissionReportOutDocumentEntity commissionReportOut = createSimpleCommissionReportOut();
 
         PaymentOutDocumentEntity e = api.entity().paymentout().newDocument("operations", Collections.singletonList(commissionReportOut));
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(commissionReportOut.getSum(), e.getSum());
@@ -337,29 +211,6 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
         assertEquals(commissionReportOut.getContract().getMeta().getHref(), e.getContract().getMeta().getHref());
         assertEquals(commissionReportOut.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(commissionReportOut.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-    }
-
-    private PaymentOutDocumentEntity createSimpleDocumentPaymentOut() throws IOException, LognexApiException {
-        PaymentOutDocumentEntity e = new PaymentOutDocumentEntity();
-        e.setName("paymentout_" + randomString(3) + "_" + new Date().getTime());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        e.setAgent(agent);
-
-        ExpenseItemEntity expenseItem = new ExpenseItemEntity();
-        expenseItem.setName(randomString());
-        api.entity().expenseitem().post(expenseItem);
-        e.setExpenseItem(expenseItem);
-
-        api.entity().paymentout().post(e);
-
-        return e;
     }
 
     private void getAsserts(PaymentOutDocumentEntity e, PaymentOutDocumentEntity retrievedEntity) {

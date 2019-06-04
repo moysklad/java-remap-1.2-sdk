@@ -39,9 +39,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
         List<ProductEntity> products = new ArrayList<>();
 
-        ProductEntity product = new ProductEntity();
-        product.setName("product_" + randomString(3) + "_" + new Date().getTime());
-        api.entity().product().post(product);
+        ProductEntity product = createSimpleProduct();
         products.add(product);
 
         product = new ProductEntity();
@@ -90,7 +88,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
 
         PricelistDocumentEntity retrievedEntity = api.entity().pricelist().get(e.getId());
         getAsserts(e, retrievedEntity);
@@ -101,7 +99,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putTest() throws IOException, LognexApiException, InterruptedException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
 
         PricelistDocumentEntity retrievedOriginalEntity = api.entity().pricelist().get(e.getId());
         String name = "pricelist_" + randomString(3) + "_" + new Date().getTime();
@@ -119,7 +117,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
 
         ListEntity<PricelistDocumentEntity> entitiesList = api.entity().pricelist().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -132,7 +130,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
 
         ListEntity<PricelistDocumentEntity> entitiesList = api.entity().pricelist().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -148,36 +146,6 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         MetadataAttributeSharedStatesResponse response = api.entity().pricelist().metadata().get();
 
         assertFalse(response.getCreateShared());
-    }
-
-    private PricelistDocumentEntity createSimpleDocumentPricelist() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = new PricelistDocumentEntity();
-        e.setName("pricelist_" + randomString(3) + "_" + new Date().getTime());
-
-        List<ColumnsItem> columns = new ArrayList<>();
-        ColumnsItem item = new ColumnsItem();
-        item.setName(randomString());
-        item.setPercentageDiscount(randomInteger(1, 10000));
-        columns.add(item);
-        e.setColumns(columns);
-
-        ProductEntity product = new ProductEntity();
-        product.setName("product_" + randomString(3) + "_" + new Date().getTime());
-        api.entity().product().post(product);
-
-        ListEntity<PricelistRow> positions = new ListEntity<>();
-        positions.setRows(new ArrayList<>());
-        positions.getRows().add(new PricelistRow());
-        positions.getRows().get(0).setAssortment(product);
-        positions.getRows().get(0).setCells(new ArrayList<>());
-        positions.getRows().get(0).getCells().add(new CellsItem());
-        positions.getRows().get(0).getCells().get(0).setColumn(columns.get(0).getName());
-        positions.getRows().get(0).getCells().get(0).setSum(randomLong(1, 10000));
-        e.setPositions(positions);
-
-        api.entity().pricelist().post(e);
-
-        return e;
     }
 
     private void getAsserts(PricelistDocumentEntity e, PricelistDocumentEntity retrievedEntity) {
@@ -197,7 +165,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByIdTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
 
         ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(e.getId());
 
@@ -230,7 +198,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByEntityTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
 
         ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(e.getId());
 
@@ -263,7 +231,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByIdTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
 
         ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(e.getId());
 
@@ -309,7 +277,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByEntityTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
 
         ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(e.getId());
 
@@ -355,7 +323,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getPositionTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
         List<PricelistRow> positions = createSimplePositions(e);
 
         PricelistRow retrievedPosition = api.entity().pricelist().getPosition(e.getId(), positions.get(0).getId());
@@ -367,7 +335,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByIdsTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
         List<PricelistRow> positions = createSimplePositions(e);
 
         PricelistRow p = positions.get(0);
@@ -384,7 +352,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntityIdTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
         List<PricelistRow> positions = createSimplePositions(e);
 
         PricelistRow p = positions.get(0);
@@ -401,7 +369,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntitiesTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
         List<PricelistRow> positions = createSimplePositions(e);
 
         PricelistRow p = positions.get(0);
@@ -418,7 +386,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionBySelfTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
         List<PricelistRow> positions = createSimplePositions(e);
 
         PricelistRow p = positions.get(0);
@@ -435,7 +403,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByIdsTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
         List<PricelistRow> positions = createSimplePositions(e);
 
         ListEntity<PricelistRow> positionsBefore = api.entity().pricelist().getPositions(e);
@@ -453,7 +421,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntityIdTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
         List<PricelistRow> positions = createSimplePositions(e);
 
         ListEntity<PricelistRow> positionsBefore = api.entity().pricelist().getPositions(e);
@@ -471,7 +439,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntitiesTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimpleDocumentPricelist();
+        PricelistDocumentEntity e = createSimplePricelist();
         List<PricelistRow> positions = createSimplePositions(e);
 
         ListEntity<PricelistRow> positionsBefore = api.entity().pricelist().getPositions(e);

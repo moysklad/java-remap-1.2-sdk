@@ -27,30 +27,10 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
         e.setName("factureout_" + randomString(3) + "_" + new Date().getTime());
         e.setDescription(randomString());
         e.setMoment(LocalDateTime.now());
-
         e.setPaymentNumber(randomString());
         e.setPaymentDate(LocalDateTime.now());
-
         List<DemandDocumentEntity> demands = new ArrayList<>();
-        DemandDocumentEntity demand = new DemandDocumentEntity();
-        demand.setName("demand_" + randomString(3) + "_" + new Date().getTime());
-        demand.setDescription(randomString());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        demand.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        demand.setAgent(agent);
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        demand.setStore(store.getRows().get(0));
-
-        api.entity().demand().post(demand);
-        demands.add(demand);
+        demands.add(createSimpleDemand());
         e.setDemands(demands);
 
         api.entity().factureout().post(e);
@@ -70,7 +50,7 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        FactureOutDocumentEntity e = createSimpleDocumentFactureOut();
+        FactureOutDocumentEntity e = createSimpleFactureOut();
 
         FactureOutDocumentEntity retrievedEntity = api.entity().factureout().get(e.getId());
         getAsserts(e, retrievedEntity);
@@ -81,7 +61,7 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putTest() throws IOException, LognexApiException, InterruptedException {
-        FactureOutDocumentEntity e = createSimpleDocumentFactureOut();
+        FactureOutDocumentEntity e = createSimpleFactureOut();
 
         FactureOutDocumentEntity retrievedOriginalEntity = api.entity().factureout().get(e.getId());
         String name = "factureout_" + randomString(3) + "_" + new Date().getTime();
@@ -99,7 +79,7 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        FactureOutDocumentEntity e = createSimpleDocumentFactureOut();
+        FactureOutDocumentEntity e = createSimpleFactureOut();
 
         ListEntity<FactureOutDocumentEntity> entitiesList = api.entity().factureout().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -112,7 +92,7 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        FactureOutDocumentEntity e = createSimpleDocumentFactureOut();
+        FactureOutDocumentEntity e = createSimpleFactureOut();
 
         ListEntity<FactureOutDocumentEntity> entitiesList = api.entity().factureout().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -150,7 +130,7 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
 
         api.entity().demand().post(demand);
 
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
         FactureOutDocumentEntity e = api.entity().factureout().newDocument("demands", Collections.singletonList(demand));
 
         assertEquals("", e.getName());
@@ -167,25 +147,9 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newByPurchaseReturnsTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity purchaseReturn = new PurchaseReturnDocumentEntity();
-        purchaseReturn.setName("purchasereturn_" + randomString(3) + "_" + new Date().getTime());
+        PurchaseReturnDocumentEntity purchaseReturn = createSimplePurchaseReturn();
 
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        purchaseReturn.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        purchaseReturn.setAgent(agent);
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        purchaseReturn.setStore(store.getRows().get(0));
-
-        api.entity().purchasereturn().post(purchaseReturn);
-
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
         FactureOutDocumentEntity e = api.entity().factureout().newDocument("returns", Collections.singletonList(purchaseReturn));
 
         assertEquals("", e.getName());
@@ -202,21 +166,9 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newByPaymentsInTest() throws IOException, LognexApiException {
-        PaymentInDocumentEntity paymentIn = new PaymentInDocumentEntity();
-        paymentIn.setName("paymentin_" + randomString(3) + "_" + new Date().getTime());
+        PaymentInDocumentEntity paymentIn = createSimplePaymentIn();
 
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        paymentIn.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        paymentIn.setAgent(agent);
-
-        api.entity().paymentin().post(paymentIn);
-
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
         FactureOutDocumentEntity e = api.entity().factureout().newDocument("payments", Collections.singletonList(paymentIn));
 
         assertEquals("", e.getName());
@@ -229,40 +181,6 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
         assertEquals(paymentIn.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
         assertEquals(paymentIn.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(paymentIn.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-    }
-
-    private FactureOutDocumentEntity createSimpleDocumentFactureOut() throws IOException, LognexApiException {
-        FactureOutDocumentEntity e = new FactureOutDocumentEntity();
-        e.setName("factureout_" + randomString(3) + "_" + new Date().getTime());
-
-        e.setPaymentNumber(randomString());
-        e.setPaymentDate(LocalDateTime.now());
-
-        List<DemandDocumentEntity> demands = new ArrayList<>();
-        DemandDocumentEntity demand = new DemandDocumentEntity();
-        demand.setName("demand_" + randomString(3) + "_" + new Date().getTime());
-        demand.setDescription(randomString());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        demand.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        demand.setAgent(agent);
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        demand.setStore(store.getRows().get(0));
-
-        api.entity().demand().post(demand);
-        demands.add(demand);
-        e.setDemands(demands);
-
-        api.entity().factureout().post(e);
-
-        return e;
     }
 
     private void getAsserts(FactureOutDocumentEntity e, FactureOutDocumentEntity retrievedEntity) {

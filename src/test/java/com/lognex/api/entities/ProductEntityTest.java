@@ -96,24 +96,11 @@ public class ProductEntityTest extends EntityTestBase {
         assertTrue(metadata.getCreateShared());
     }
 
-    private ProductEntity createSimpleProduct() throws IOException, LognexApiException {
-        ProductEntity e = new ProductEntity();
-        e.setName("product_" + randomString(3) + "_" + new Date().getTime());
-        e.setArchived(false);
-        e.setDescription(randomString());
-        e.setPathName(randomString());
 
-        api.entity().product().post(e);
-
-        return e;
-    }
 
     private void getAsserts(ProductEntity e, ProductEntity retrievedEntity) {
         assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getArchived(), retrievedEntity.getArchived());
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getArticle(), retrievedEntity.getArticle());
-        assertEquals(e.getWeight(), retrievedEntity.getWeight());
     }
 
     private void putAsserts(ProductEntity e, ProductEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -121,9 +108,6 @@ public class ProductEntityTest extends EntityTestBase {
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getArchived(), retrievedUpdatedEntity.getArchived());
         assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
-        assertEquals(retrievedOriginalEntity.getArticle(), retrievedUpdatedEntity.getArticle());
-        assertEquals(retrievedOriginalEntity.getWeight(), retrievedUpdatedEntity.getWeight());
     }
 }

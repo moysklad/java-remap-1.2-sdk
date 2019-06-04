@@ -26,13 +26,9 @@ public class ContractEntityTest extends EntityTestBase {
         e.setContractType(ContractEntity.Type.sales);
         e.setRewardType(RewardType.none);
 
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOwnAgent(orgList.getRows().get(0));
+        e.setOwnAgent(getOwnOrganization());
 
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
+        CounterpartyEntity agent = createSimpleCounterparty();
         e.setAgent(agent);
 
         api.entity().contract().post(e);
@@ -114,37 +110,8 @@ public class ContractEntityTest extends EntityTestBase {
         assertFalse(metadata.getCreateShared());
     }
 
-
-    private ContractEntity createSimpleContract() throws IOException, LognexApiException {
-        ContractEntity e = new ContractEntity();
-        e.setName("contract_" + randomString(3) + "_" + new Date().getTime());
-        e.setArchived(false);
-        e.setDescription(randomString());
-        e.setSum(randomLong(100, 10000));
-        e.setMoment(LocalDateTime.now());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOwnAgent(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        e.setAgent(agent);
-
-        api.entity().contract().post(e);
-
-        return e;
-    }
-
     private void getAsserts(ContractEntity e, ContractEntity retrievedEntity) {
         assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getArchived(), retrievedEntity.getArchived());
-        assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getSum(), retrievedEntity.getSum());
-        assertEquals(e.getMoment(), retrievedEntity.getMoment());
-        assertEquals(e.getContractType(), retrievedEntity.getContractType());
-        assertEquals(e.getRewardType(), retrievedEntity.getRewardType());
         assertEquals(e.getOwnAgent().getMeta().getHref(), retrievedEntity.getOwnAgent().getMeta().getHref());
         assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
     }
@@ -154,12 +121,6 @@ public class ContractEntityTest extends EntityTestBase {
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getArchived(), retrievedUpdatedEntity.getArchived());
-        assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
-        assertEquals(retrievedOriginalEntity.getSum(), retrievedUpdatedEntity.getSum());
-        assertEquals(retrievedOriginalEntity.getMoment(), retrievedUpdatedEntity.getMoment());
-        assertEquals(retrievedOriginalEntity.getContractType(), retrievedUpdatedEntity.getContractType());
-        assertEquals(retrievedOriginalEntity.getRewardType(), retrievedUpdatedEntity.getRewardType());
         assertEquals(retrievedOriginalEntity.getOwnAgent().getMeta().getHref(), retrievedUpdatedEntity.getOwnAgent().getMeta().getHref());
         assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
     }

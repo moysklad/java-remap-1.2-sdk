@@ -413,27 +413,8 @@ public class CounterpartyEntityTest extends EntityTestBase {
         assertEquals((Integer) 0, notesAfter.getMeta().getSize());
     }
 
-    private CounterpartyEntity createSimpleCounterparty() throws IOException, LognexApiException {
-        CounterpartyEntity e = new CounterpartyEntity();
-        e.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
-        e.setDescription(randomString());
-        e.setArchived(false);
-        e.setCompanyType(CompanyType.legal);
-
-        e.setInn(randomString());
-        e.setOgrn(randomString());
-        e.setLegalAddress(randomString());
-        e.setLegalTitle(randomString());
-
-        api.entity().counterparty().post(e);
-
-        return e;
-    }
-
     private void getAsserts(CounterpartyEntity e, CounterpartyEntity retrievedEntity) {
         assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getArchived(), retrievedEntity.getArchived());
         assertEquals(e.getCompanyType(), retrievedEntity.getCompanyType());
         assertEquals(e.getAccounts(), retrievedEntity.getAccounts());
         assertEquals(e.getInn(), retrievedEntity.getInn());
@@ -447,8 +428,6 @@ public class CounterpartyEntityTest extends EntityTestBase {
 
         assertNotEquals(retrievedUpdatedEntity.getName(), retrievedOriginalEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedUpdatedEntity.getDescription(), retrievedOriginalEntity.getDescription());
-        assertEquals(retrievedUpdatedEntity.getArchived(), retrievedOriginalEntity.getArchived());
         assertEquals(retrievedUpdatedEntity.getCompanyType(), retrievedOriginalEntity.getCompanyType());
         assertEquals(retrievedUpdatedEntity.getAccounts(), retrievedOriginalEntity.getAccounts());
         assertEquals(retrievedUpdatedEntity.getInn(), retrievedOriginalEntity.getInn());

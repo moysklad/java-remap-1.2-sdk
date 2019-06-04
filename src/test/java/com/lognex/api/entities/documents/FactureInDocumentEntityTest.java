@@ -1,10 +1,6 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.EntityTestBase;
-import com.lognex.api.entities.ExpenseItemEntity;
-import com.lognex.api.entities.StoreEntity;
-import com.lognex.api.entities.agents.CounterpartyEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.LognexApiException;
@@ -28,30 +24,10 @@ public class FactureInDocumentEntityTest extends EntityTestBase {
         e.setName("facturein_" + randomString(3) + "_" + new Date().getTime());
         e.setDescription(randomString());
         e.setMoment(LocalDateTime.now());
-
         e.setIncomingNumber(randomString());
         e.setIncomingDate(LocalDateTime.now());
-
         List<SupplyDocumentEntity> supplies = new ArrayList<>();
-        SupplyDocumentEntity supply = new SupplyDocumentEntity();
-        supply.setName("supply_" + randomString(3) + "_" + new Date().getTime());
-        supply.setDescription(randomString());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        supply.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        supply.setAgent(agent);
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        supply.setStore(store.getRows().get(0));
-
-        api.entity().supply().post(supply);
-        supplies.add(supply);
+        supplies.add(createSimpleSupply());
         e.setSupplies(supplies);
 
         api.entity().facturein().post(e);
@@ -71,7 +47,7 @@ public class FactureInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        FactureInDocumentEntity e = createSimpleDocumentFactureIn();
+        FactureInDocumentEntity e = createSimpleFactureIn();
 
         FactureInDocumentEntity retrievedEntity = api.entity().facturein().get(e.getId());
         getAsserts(e, retrievedEntity);
@@ -82,7 +58,7 @@ public class FactureInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putTest() throws IOException, LognexApiException, InterruptedException {
-        FactureInDocumentEntity e = createSimpleDocumentFactureIn();
+        FactureInDocumentEntity e = createSimpleFactureIn();
 
         FactureInDocumentEntity retrievedOriginalEntity = api.entity().facturein().get(e.getId());
         String name = "facturein_" + randomString(3) + "_" + new Date().getTime();
@@ -100,7 +76,7 @@ public class FactureInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        FactureInDocumentEntity e = createSimpleDocumentFactureIn();
+        FactureInDocumentEntity e = createSimpleFactureIn();
 
         ListEntity<FactureInDocumentEntity> entitiesList = api.entity().facturein().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -113,7 +89,7 @@ public class FactureInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        FactureInDocumentEntity e = createSimpleDocumentFactureIn();
+        FactureInDocumentEntity e = createSimpleFactureIn();
 
         ListEntity<FactureInDocumentEntity> entitiesList = api.entity().facturein().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -133,26 +109,10 @@ public class FactureInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newBySuppliesTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity supply = new SupplyDocumentEntity();
-        supply.setName("supply_" + randomString(3) + "_" + new Date().getTime());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        supply.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        supply.setAgent(agent);
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        supply.setStore(store.getRows().get(0));
-
-        api.entity().supply().post(supply);
+        SupplyDocumentEntity supply = createSimpleSupply();
 
         FactureInDocumentEntity e = api.entity().facturein().newDocument("supplies", Collections.singletonList(supply));
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(supply.getSum(), e.getSum());
@@ -168,27 +128,10 @@ public class FactureInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newByPaymentsOutTest() throws IOException, LognexApiException {
-        PaymentOutDocumentEntity paymentOut = new PaymentOutDocumentEntity();
-        paymentOut.setName("paymentout_" + randomString(3) + "_" + new Date().getTime());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        paymentOut.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        paymentOut.setAgent(agent);
-
-        ExpenseItemEntity expenseItem = new ExpenseItemEntity();
-        expenseItem.setName(randomString());
-        api.entity().expenseitem().post(expenseItem);
-        paymentOut.setExpenseItem(expenseItem);
-
-        api.entity().paymentout().post(paymentOut);
+        PaymentOutDocumentEntity paymentOut = createSimplePaymentOut();
 
         FactureInDocumentEntity e = api.entity().facturein().newDocument("payments", Collections.singletonList(paymentOut));
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(paymentOut.getSum(), e.getSum());
@@ -200,40 +143,6 @@ public class FactureInDocumentEntityTest extends EntityTestBase {
         assertEquals(paymentOut.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
         assertEquals(paymentOut.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(paymentOut.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-    }
-
-    private FactureInDocumentEntity createSimpleDocumentFactureIn() throws IOException, LognexApiException {
-        FactureInDocumentEntity e = new FactureInDocumentEntity();
-        e.setName("facturein_" + randomString(3) + "_" + new Date().getTime());
-
-        e.setIncomingNumber(randomString());
-        e.setIncomingDate(LocalDateTime.now());
-
-        List<SupplyDocumentEntity> supplies = new ArrayList<>();
-        SupplyDocumentEntity supply = new SupplyDocumentEntity();
-        supply.setName("supply_" + randomString(3) + "_" + new Date().getTime());
-        supply.setDescription(randomString());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        supply.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        supply.setAgent(agent);
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        supply.setStore(store.getRows().get(0));
-
-        api.entity().supply().post(supply);
-        supplies.add(supply);
-        e.setSupplies(supplies);
-
-        api.entity().facturein().post(e);
-
-        return e;
     }
 
     private void getAsserts(FactureInDocumentEntity e, FactureInDocumentEntity retrievedEntity) {

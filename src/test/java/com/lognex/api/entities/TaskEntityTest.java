@@ -257,14 +257,4 @@ public class TaskEntityTest extends EntityTestBase {
         assertEquals(dueDate, retrievedUpdatedEntity.getDueToDate());
         assertNotEquals(retrievedOriginalEntity.getDone(), retrievedUpdatedEntity.getDone());
     }
-
-    private TaskEntity createSimpleTask() throws IOException, LognexApiException {
-        EmployeeEntity adminEmpl = api.entity().employee().get(filterEq("name", "Администратор")).getRows().get(0);
-
-        TaskEntity e = new TaskEntity();
-        e.setDescription("task_" + randomString(3) + "_" + new Date().getTime());
-        e.setAssignee(adminEmpl);
-        api.entity().task().post(e);
-        return e;
-    }
 }

@@ -27,7 +27,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void putByIdTest() throws IOException, LognexApiException, InterruptedException {
-        CustomEntity e = createSimpleCustom();
+        CustomEntity e = createSimpleCustomEntity();
 
         CustomEntity retrievedOriginalEntity = getCustomEntityByHref(e.getMeta().getHref());
         assertNotNull(retrievedOriginalEntity);
@@ -41,7 +41,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void putEntityTest() throws IOException, LognexApiException, InterruptedException {
-        CustomEntity e = createSimpleCustom();
+        CustomEntity e = createSimpleCustomEntity();
 
         CustomEntity retrievedOriginalEntity = getCustomEntityByHref(e.getMeta().getHref());
         assertNotNull(retrievedOriginalEntity);
@@ -55,7 +55,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        CustomEntity e = createSimpleCustom();
+        CustomEntity e = createSimpleCustomEntity();
 
         CustomEntity retrievedOriginalEntity = getCustomEntityByHref(e.getMeta().getHref());
         assertNotNull(retrievedOriginalEntity);
@@ -68,7 +68,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void deleteEntityTest() throws IOException, LognexApiException {
-        CustomEntity e = createSimpleCustom();
+        CustomEntity e = createSimpleCustomEntity();
 
         CustomEntity retrievedOriginalEntity = getCustomEntityByHref(e.getMeta().getHref());
         assertNotNull(retrievedOriginalEntity);
@@ -98,7 +98,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void postElementTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = createSimpleCustom();
+        CustomEntity customEntity = createSimpleCustomEntity();
         CustomEntityElement e = new CustomEntityElement();
         e.setName("custom_entity_element_" + randomString(3) + "_" + new Date().getTime());
 
@@ -113,7 +113,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void getElementTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = createSimpleCustom();
+        CustomEntity customEntity = createSimpleCustomEntity();
         CustomEntityElement e = createSimpleCustomElement(customEntity);
 
         CustomEntityElement retrievedEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), e.getId());
@@ -123,7 +123,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void getByIdElementsTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = createSimpleCustom();
+        CustomEntity customEntity = createSimpleCustomEntity();
 
         List<CustomEntityElement> customEntityElementList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -141,7 +141,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void getEntityElementsTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = createSimpleCustom();
+        CustomEntity customEntity = createSimpleCustomEntity();
 
         List<CustomEntityElement> customEntityElementList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -159,7 +159,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void putByIdElementTest() throws IOException, LognexApiException, InterruptedException {
-        CustomEntity customEntity = createSimpleCustom();
+        CustomEntity customEntity = createSimpleCustomEntity();
         CustomEntityElement e = createSimpleCustomElement(customEntity);
 
         CustomEntityElement retrievedOriginalEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), e.getId());
@@ -175,7 +175,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void putEntityElementTest() throws IOException, LognexApiException, InterruptedException {
-        CustomEntity customEntity = createSimpleCustom();
+        CustomEntity customEntity = createSimpleCustomEntity();
         CustomEntityElement e = createSimpleCustomElement(customEntity);
 
         CustomEntityElement retrievedOriginalEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), e.getId());
@@ -191,7 +191,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdElementTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = createSimpleCustom();
+        CustomEntity customEntity = createSimpleCustomEntity();
         CustomEntityElement e = createSimpleCustomElement(customEntity);
 
         CustomEntityElement retrievedOriginalEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), e.getId());
@@ -205,7 +205,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void deleteEntityElementTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = createSimpleCustom();
+        CustomEntity customEntity = createSimpleCustomEntity();
         CustomEntityElement e = createSimpleCustomElement(customEntity);
 
         CustomEntityElement retrievedOriginalEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), e.getId());
@@ -235,14 +235,7 @@ public class CustomEntityTest extends EntityTestBase {
         assertEquals(name, retrievedUpdatedEntity.getName());
     }
 
-    private CustomEntity createSimpleCustom() throws IOException, LognexApiException {
-        CustomEntity e = new CustomEntity();
-        
-        e.setName("custom_entity_" + randomString(3) + "_" + new Date().getTime());
 
-        api.entity().customentity().post(e);
-        return e;
-    }
 
     private CustomEntity getCustomEntityByHref(String href) throws IOException, LognexApiException{
         List<CustomEntityMetadata> entities = api.entity().companysettings().metadata().getCustomEntities();

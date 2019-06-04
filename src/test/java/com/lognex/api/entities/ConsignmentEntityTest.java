@@ -17,9 +17,7 @@ public class ConsignmentEntityTest extends EntityTestBase {
         ConsignmentEntity e = new ConsignmentEntity();
         e.setLabel("consignment_" + randomString(3) + "_" + new Date().getTime());
 
-        ProductEntity product = new ProductEntity();
-        product.setName(randomString());
-        api.entity().product().post(product);
+        ProductEntity product = createSimpleProduct();
         e.setAssortment(product);
 
         api.entity().consignment().post(e);
@@ -88,20 +86,6 @@ public class ConsignmentEntityTest extends EntityTestBase {
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
-    private ConsignmentEntity createSimpleConsignment() throws IOException, LognexApiException {
-        ConsignmentEntity e = new ConsignmentEntity();
-        e.setLabel("consignment_" + randomString(3) + "_" + new Date().getTime());
-
-        ProductEntity product = new ProductEntity();
-        product.setName(randomString());
-        api.entity().product().post(product);
-        e.setAssortment(product);
-
-        api.entity().consignment().post(e);
-
-        return e;
-    }
-
     private void getAsserts(ConsignmentEntity e, ConsignmentEntity retrievedEntity) {
         assertEquals(e.getName(), retrievedEntity.getName());
         assertEquals(e.getLabel(), retrievedEntity.getLabel());
@@ -114,7 +98,6 @@ public class ConsignmentEntityTest extends EntityTestBase {
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertNotEquals(retrievedOriginalEntity.getLabel(), retrievedUpdatedEntity.getLabel());
         assertEquals(label, retrievedUpdatedEntity.getLabel());
-        // Баг: не обновляется поле updated со стороны API
         assertEquals(retrievedOriginalEntity.getAssortment(), retrievedUpdatedEntity.getAssortment());
     }
 }

@@ -151,30 +151,12 @@ public class OrganizationEntityTest extends EntityTestBase {
         assertFalse(accountList.getRows().get(1).getIsDefault());
     }
 
-    private OrganizationEntity createSimpleOrganization() throws IOException, LognexApiException {
-        OrganizationEntity e = new OrganizationEntity();
-        e.setName("organization_" + randomString(3) + "_" + new Date().getTime());
-        e.setArchived(false);
-        e.setCompanyType(CompanyType.legal);
-        e.setInn(randomString());
-        e.setOgrn(randomString());
-        e.setLegalAddress(randomString());
-        e.setLegalTitle(randomString());
-
-        api.entity().organization().post(e);
-
-        return e;
-    }
-
     private void getAsserts(OrganizationEntity e, OrganizationEntity retrievedEntity) {
         assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getArchived(), retrievedEntity.getArchived());
         assertEquals(e.getCompanyType(), retrievedEntity.getCompanyType());
         assertEquals(e.getAccounts(), retrievedEntity.getAccounts());
         assertEquals(e.getInn(), retrievedEntity.getInn());
         assertEquals(e.getOgrn(), retrievedEntity.getOgrn());
-        assertEquals(e.getLegalAddress(), retrievedEntity.getLegalAddress());
-        assertEquals(e.getLegalTitle(), retrievedEntity.getLegalTitle());
     }
 
     private void putAsserts(OrganizationEntity e, OrganizationEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -182,12 +164,9 @@ public class OrganizationEntityTest extends EntityTestBase {
 
         assertNotEquals(retrievedUpdatedEntity.getName(), retrievedOriginalEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedUpdatedEntity.getArchived(), retrievedOriginalEntity.getArchived());
         assertEquals(retrievedUpdatedEntity.getCompanyType(), retrievedOriginalEntity.getCompanyType());
         assertEquals(retrievedUpdatedEntity.getAccounts(), retrievedOriginalEntity.getAccounts());
         assertEquals(retrievedUpdatedEntity.getInn(), retrievedOriginalEntity.getInn());
         assertEquals(retrievedUpdatedEntity.getOgrn(), retrievedOriginalEntity.getOgrn());
-        assertEquals(retrievedUpdatedEntity.getLegalAddress(), retrievedOriginalEntity.getLegalAddress());
-        assertEquals(retrievedUpdatedEntity.getLegalTitle(), retrievedOriginalEntity.getLegalTitle());
     }
 }

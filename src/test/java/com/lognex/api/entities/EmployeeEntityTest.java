@@ -97,25 +97,11 @@ public class EmployeeEntityTest extends EntityTestBase {
         assertTrue(metadata.getCreateShared());
     }
 
-    private EmployeeEntity createSimpleEmployee() throws IOException, LognexApiException {
-        EmployeeEntity e = new EmployeeEntity();
-        e.setLastName("employee_" + randomString(3) + "_" + new Date().getTime());
-        e.setFirstName(randomString());
-        e.setMiddleName(randomString());
-        e.setArchived(false);
-        e.setDescription(randomString());
-
-        api.entity().employee().post(e);
-
-        return e;
-    }
 
     private void getAsserts(EmployeeEntity e, EmployeeEntity retrievedEntity) {
         assertEquals(e.getLastName(), retrievedEntity.getLastName());
         assertEquals(e.getFirstName(), retrievedEntity.getFirstName());
         assertEquals(e.getMiddleName(), retrievedEntity.getMiddleName());
-        assertEquals(e.getArchived(), retrievedEntity.getArchived());
-        assertEquals(e.getDescription(), retrievedEntity.getDescription());
     }
 
     private void putAsserts(EmployeeEntity e, EmployeeEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -125,7 +111,5 @@ public class EmployeeEntityTest extends EntityTestBase {
         assertNotEquals(retrievedUpdatedEntity.getLastName(), retrievedOriginalEntity.getLastName());
         assertEquals(retrievedUpdatedEntity.getFirstName(), retrievedOriginalEntity.getFirstName());
         assertEquals(retrievedUpdatedEntity.getMiddleName(), retrievedOriginalEntity.getMiddleName());
-        assertEquals(retrievedUpdatedEntity.getArchived(), retrievedOriginalEntity.getArchived());
-        assertEquals(retrievedUpdatedEntity.getDescription(), retrievedOriginalEntity.getDescription());
     }
 }

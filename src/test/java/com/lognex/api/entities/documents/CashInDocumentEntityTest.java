@@ -1,11 +1,6 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.ContractEntity;
 import com.lognex.api.entities.EntityTestBase;
-import com.lognex.api.entities.GroupEntity;
-import com.lognex.api.entities.StoreEntity;
-import com.lognex.api.entities.agents.CounterpartyEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.LognexApiException;
@@ -15,12 +10,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.Optional;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
-import static com.lognex.api.utils.params.SearchParam.search;
 import static org.junit.Assert.*;
 
 public class CashInDocumentEntityTest extends EntityTestBase {
@@ -31,20 +23,12 @@ public class CashInDocumentEntityTest extends EntityTestBase {
         e.setDescription(randomString());
         e.setMoment(LocalDateTime.now());
         e.setSum(randomLong(10, 10000));
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        e.setAgent(agent);
+        e.setOrganization(getOwnOrganization());
+        e.setAgent(createSimpleCounterparty());
 
         api.entity().cashin().post(e);
 
         ListEntity<CashInDocumentEntity> updatedEntitiesList = api.entity().cashin().get(filterEq("name", e.getName()));
-        updatedEntitiesList = api.entity().cashin().get(filterEq("name", e.getName()));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         CashInDocumentEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
@@ -58,7 +42,7 @@ public class CashInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        CashInDocumentEntity e = createSimpleDocumentCashIn();
+        CashInDocumentEntity e = createSimpleCashIn();
 
         CashInDocumentEntity retrievedEntity = api.entity().cashin().get(e.getId());
         getAsserts(e, retrievedEntity);
@@ -69,7 +53,7 @@ public class CashInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putTest() throws IOException, LognexApiException, InterruptedException {
-        CashInDocumentEntity e = createSimpleDocumentCashIn();
+        CashInDocumentEntity e = createSimpleCashIn();
 
         CashInDocumentEntity retrievedOriginalEntity = api.entity().cashin().get(e.getId());
         String name = "cashin_" + randomString(3) + "_" + new Date().getTime();
@@ -87,7 +71,7 @@ public class CashInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        CashInDocumentEntity e = createSimpleDocumentCashIn();
+        CashInDocumentEntity e = createSimpleCashIn();
 
         ListEntity<CashInDocumentEntity> entitiesList = api.entity().cashin().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -100,7 +84,7 @@ public class CashInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        CashInDocumentEntity e = createSimpleDocumentCashIn();
+        CashInDocumentEntity e = createSimpleCashIn();
 
         ListEntity<CashInDocumentEntity> entitiesList = api.entity().cashin().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -121,7 +105,7 @@ public class CashInDocumentEntityTest extends EntityTestBase {
     @Test
     public void newTest() throws IOException, LognexApiException {
         CashInDocumentEntity e = api.entity().cashin().newDocument();
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(Long.valueOf(0), e.getSum());
@@ -129,43 +113,16 @@ public class CashInDocumentEntityTest extends EntityTestBase {
         assertTrue(e.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
 
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
-                min(Comparator.comparing(OrganizationEntity::getCreated));
-
-        OrganizationEntity org = null;
-        if (orgOptional.isPresent()) {
-            org = orgOptional.get();
-        } else {
-            // Должно быть первое созданное юрлицо
-            fail();
-        }
-
-        assertEquals(e.getOrganization().getMeta().getHref(), org.getMeta().getHref());
-
-        ListEntity<GroupEntity> group = api.entity().group().get(search("Основной"));
-        assertEquals(1, group.getRows().size());
-        assertEquals(e.getGroup().getMeta().getHref(), group.getRows().get(0).getMeta().getHref());
+        assertEquals(e.getOrganization().getMeta().getHref(), getOwnOrganization().getMeta().getHref());
+        assertEquals(e.getGroup().getMeta().getHref(), getMainGroup().getMeta().getHref());
     }
 
     @Test
     public void newByCustomerOrdersTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity customerOrder = new CustomerOrderDocumentEntity();
-        customerOrder.setName("customerorder_" + randomString(3) + "_" + new Date().getTime());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        customerOrder.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        customerOrder.setAgent(agent);
-
-        api.entity().customerorder().post(customerOrder);
+        CustomerOrderDocumentEntity customerOrder = createSimpleCustomerOrder();
 
         CashInDocumentEntity e = api.entity().cashin().newDocument("operations", Collections.singletonList(customerOrder));
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(customerOrder.getSum(), e.getSum());
@@ -181,26 +138,10 @@ public class CashInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newByPurchaseReturnsTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity purchaseReturn = new PurchaseReturnDocumentEntity();
-        purchaseReturn.setName("purchasereturn_" + randomString(3) + "_" + new Date().getTime());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        purchaseReturn.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        purchaseReturn.setAgent(agent);
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        purchaseReturn.setStore(store.getRows().get(0));
-
-        api.entity().purchasereturn().post(purchaseReturn);
+        PurchaseReturnDocumentEntity purchaseReturn = createSimplePurchaseReturn();
 
         CashInDocumentEntity e = api.entity().cashin().newDocument("operations", Collections.singletonList(purchaseReturn));
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(purchaseReturn.getSum(), e.getSum());
@@ -216,26 +157,10 @@ public class CashInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newByDemandsTest() throws IOException, LognexApiException {
-        DemandDocumentEntity demand = new DemandDocumentEntity();
-        demand.setName("demand_" + randomString(3) + "_" + new Date().getTime());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        demand.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        demand.setAgent(agent);
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        demand.setStore(store.getRows().get(0));
-
-        api.entity().demand().post(demand);
+        DemandDocumentEntity demand = createSimpleDemand();
 
         CashInDocumentEntity e = api.entity().cashin().newDocument("operations", Collections.singletonList(demand));
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(demand.getSum(), e.getSum());
@@ -251,26 +176,10 @@ public class CashInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newByInvoicesOutTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity invoiceOut = new InvoiceOutDocumentEntity();
-        invoiceOut.setName("invoiceout_" + randomString(3) + "_" + new Date().getTime());
-        invoiceOut.setVatEnabled(true);
-        invoiceOut.setVatIncluded(true);
-        invoiceOut.setPayedSum(randomLong(1, 10000));
-        invoiceOut.setSum(randomLong(1, 10000));
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        invoiceOut.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        invoiceOut.setAgent(agent);
-
-        api.entity().invoiceout().post(invoiceOut);
+        InvoiceOutDocumentEntity invoiceOut = createSimpleInvoiceOut();
 
         CashInDocumentEntity e = api.entity().cashin().newDocument("operations", Collections.singletonList(invoiceOut));
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(invoiceOut.getSum(), e.getSum());
@@ -286,33 +195,10 @@ public class CashInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newByCommissionReportsInTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity commissionReportIn = new CommissionReportInDocumentEntity();
-        commissionReportIn.setName("commissionreportin_" + randomString(3) + "_" + new Date().getTime());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        commissionReportIn.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        commissionReportIn.setAgent(agent);
-
-        ContractEntity contract = new ContractEntity();
-        contract.setName(randomString());
-        contract.setOwnAgent(orgList.getRows().get(0));
-        contract.setAgent(agent);
-        contract.setContractType(ContractEntity.Type.commission);
-        api.entity().contract().post(contract);
-        commissionReportIn.setContract(contract);
-
-        commissionReportIn.setCommissionPeriodStart(LocalDateTime.now());
-        commissionReportIn.setCommissionPeriodEnd(LocalDateTime.now().plusNanos(50));
-
-        api.entity().commissionreportin().post(commissionReportIn);
+        CommissionReportInDocumentEntity commissionReportIn = createSimpleCommissionReportIn();
 
         CashInDocumentEntity e = api.entity().cashin().newDocument("operations", Collections.singletonList(commissionReportIn));
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(commissionReportIn.getSum(), e.getSum());
@@ -325,25 +211,6 @@ public class CashInDocumentEntityTest extends EntityTestBase {
         assertEquals(commissionReportIn.getContract().getMeta().getHref(), e.getContract().getMeta().getHref());
         assertEquals(commissionReportIn.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
         assertEquals(commissionReportIn.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-    }
-
-    private CashInDocumentEntity createSimpleDocumentCashIn() throws IOException, LognexApiException {
-        CashInDocumentEntity e = new CashInDocumentEntity();
-        e.setName("cashin_" + randomString(3) + "_" + new Date().getTime());
-        e.setDescription(randomString());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        e.setAgent(agent);
-
-        api.entity().cashin().post(e);
-
-        return e;
     }
 
     private void getAsserts(CashInDocumentEntity e, CashInDocumentEntity retrievedEntity) {

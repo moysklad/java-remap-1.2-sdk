@@ -1,9 +1,6 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.EntityTestBase;
-import com.lognex.api.entities.StoreEntity;
-import com.lognex.api.entities.agents.CounterpartyEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.entities.products.ProductEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -28,19 +25,9 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
         e.setVatEnabled(true);
         e.setVatIncluded(true);
         e.setMoment(LocalDateTime.now());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        e.setAgent(agent);
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        e.setStore(store.getRows().get(0));
+        e.setOrganization(getOwnOrganization());
+        e.setAgent(createSimpleCounterparty());
+        e.setStore(getMainStore());
 
         api.entity().purchaseorder().post(e);
 
@@ -60,7 +47,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
 
         PurchaseOrderDocumentEntity retrievedEntity = api.entity().purchaseorder().get(e.getId());
         getAsserts(e, retrievedEntity);
@@ -71,7 +58,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putTest() throws IOException, LognexApiException, InterruptedException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
 
         PurchaseOrderDocumentEntity retrievedOriginalEntity = api.entity().purchaseorder().get(e.getId());
         String name = "purchaseorder_" + randomString(3) + "_" + new Date().getTime();
@@ -89,7 +76,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
 
         ListEntity<PurchaseOrderDocumentEntity> entitiesList = api.entity().purchaseorder().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -102,7 +89,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
 
         ListEntity<PurchaseOrderDocumentEntity> entitiesList = api.entity().purchaseorder().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -123,7 +110,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
     @Test
     public void newTest() throws IOException, LognexApiException {
         PurchaseOrderDocumentEntity e = api.entity().purchaseorder().newDocument();
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertTrue(e.getVatEnabled());
@@ -136,44 +123,16 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
         assertTrue(e.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
 
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
-                min(Comparator.comparing(OrganizationEntity::getCreated));
-
-        OrganizationEntity org = null;
-        if (orgOptional.isPresent()) {
-            org = orgOptional.get();
-        } else {
-            // Должно быть первое созданное юрлицо
-            fail();
-        }
-
-        assertEquals(e.getOrganization().getMeta().getHref(), org.getMeta().getHref());
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        assertEquals(e.getStore().getMeta().getHref(), store.getRows().get(0).getMeta().getHref());
+        assertEquals(e.getOrganization().getMeta().getHref(), getOwnOrganization().getMeta().getHref());
+        assertEquals(e.getStore().getMeta().getHref(), getMainStore().getMeta().getHref());
     }
 
     @Test
     public void newByInternalOrderTest() throws IOException, LognexApiException {
-        InternalOrderDocumentEntity internalOrder = new InternalOrderDocumentEntity();
-        internalOrder.setName("internalorder_" + randomString(3) + "_" + new Date().getTime());
-        internalOrder.setVatEnabled(true);
-        internalOrder.setVatIncluded(true);
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        internalOrder.setOrganization(orgList.getRows().get(0));
-
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-        internalOrder.setStore(store.getRows().get(0));
-
-        api.entity().internalorder().post(internalOrder);
+        InternalOrderDocumentEntity internalOrder = createSimpleInternalOrder();
 
         PurchaseOrderDocumentEntity e = api.entity().purchaseorder().newDocument("internalOrder", internalOrder);
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(internalOrder.getSum(), e.getSum());
@@ -190,22 +149,10 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newByCustomerOrdersTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity customerOrder = new CustomerOrderDocumentEntity();
-        customerOrder.setName("customerorder_" + randomString(3) + "_" + new Date().getTime());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        customerOrder.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        customerOrder.setAgent(agent);
-
-        api.entity().customerorder().post(customerOrder);
+        CustomerOrderDocumentEntity customerOrder = createSimpleCustomerOrder();
 
         PurchaseOrderDocumentEntity e = api.entity().purchaseorder().newDocument("customerOrders", Collections.singletonList(customerOrder));
-        LocalDateTime time = LocalDateTime.now().withNano(0);
+        LocalDateTime time = LocalDateTime.now();
 
         assertEquals("", e.getName());
         assertEquals(customerOrder.getVatEnabled(), e.getVatEnabled());
@@ -219,25 +166,6 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(customerOrder.getMeta().getHref(), e.getCustomerOrders().get(0).getMeta().getHref());
         assertEquals(customerOrder.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
         assertEquals(customerOrder.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
-    }
-
-    private PurchaseOrderDocumentEntity createSimpleDocumentPurchaseOrder() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = new PurchaseOrderDocumentEntity();
-        e.setName("purchaseorder_" + randomString(3) + "_" + new Date().getTime());
-        e.setDescription(randomString());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        e.setAgent(agent);
-
-        api.entity().purchaseorder().post(e);
-
-        return e;
     }
 
     private void getAsserts(PurchaseOrderDocumentEntity e, PurchaseOrderDocumentEntity retrievedEntity) {
@@ -259,7 +187,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByIdTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().purchaseorder().getPositions(e.getId());
 
@@ -287,7 +215,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByEntityTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().purchaseorder().getPositions(e.getId());
 
@@ -315,7 +243,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByIdTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().purchaseorder().getPositions(e.getId());
 
@@ -356,7 +284,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByEntityTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().purchaseorder().getPositions(e.getId());
 
@@ -397,7 +325,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getPositionTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition retrievedPosition = api.entity().purchaseorder().getPosition(e.getId(), positions.get(0).getId());
@@ -409,7 +337,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByIdsTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -425,7 +353,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntityIdTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -441,7 +369,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntitiesTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -457,7 +385,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionBySelfTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -473,7 +401,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByIdsTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().purchaseorder().getPositions(e);
@@ -491,7 +419,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntityIdTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().purchaseorder().getPositions(e);
@@ -509,7 +437,7 @@ public class PurchaseOrderDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntitiesTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity e = createSimpleDocumentPurchaseOrder();
+        PurchaseOrderDocumentEntity e = createSimplePurchaseOrder();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().purchaseorder().getPositions(e);

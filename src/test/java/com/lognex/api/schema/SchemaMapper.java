@@ -3,6 +3,7 @@ package com.lognex.api.schema;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lognex.api.utils.TestUtils;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -11,12 +12,12 @@ import java.util.*;
 
 import static com.lognex.api.schema.SchemaMapper.Constants.*;
 
-public class SchemaMapper {
+public class SchemaMapper implements TestUtils {
 
     private static final ObjectMapper mapper = new ObjectMapper();
 
     public static Schema readSchema(String fileName) throws IOException {
-        return readSchemaFromJson(getFile(fileName));
+        return readSchemaFromJson(TestUtils.getFile(fileName));
     }
     public static Schema readSchema(JsonNode schemaNode) throws IOException {
         if (schemaNode == null) return null;
@@ -63,7 +64,7 @@ public class SchemaMapper {
 
     private static SchemaField mapField(String name, JsonNode jsonNode) throws IOException {
         if (jsonNode.has(ref)) {
-            return mapField(name, mapper.readTree(getFile(jsonNode.get(ref).asText())));
+            return mapField(name, mapper.readTree(TestUtils.getFile(jsonNode.get(ref).asText())));
         }
         SchemaField field = new SchemaField();
         field.setName(name);
@@ -96,18 +97,6 @@ public class SchemaMapper {
     private static String toString(JsonNode node) {
         if (node == null) return null;
         return node.asText();
-    }
-
-    private static String getFile(String fileName){
-        String result = "";
-        ClassLoader classLoader = SchemaMapper.class.getClassLoader();
-        try {
-            result = IOUtils.toString(classLoader.getResourceAsStream(fileName), Charset.forName("UTF-8"));
-        } catch (Exception e) {
-            throw new RuntimeException("Unable to get file " + fileName, e);
-        }
-
-        return result;
     }
     
     public static class Constants {

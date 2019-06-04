@@ -29,19 +29,14 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
         e.setVatEnabled(true);
         e.setVatIncluded(true);
         e.setMoment(LocalDateTime.now());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
+        CounterpartyEntity agent = createSimpleCounterparty();
         e.setAgent(agent);
+        OrganizationEntity organization = getOwnOrganization();
+        e.setOrganization(organization);
 
         ContractEntity contract = new ContractEntity();
         contract.setName(randomString());
-        contract.setOwnAgent(orgList.getRows().get(0));
+        contract.setOwnAgent(organization);
         contract.setAgent(agent);
         contract.setContractType(ContractEntity.Type.commission);
         api.entity().contract().post(contract);
@@ -68,7 +63,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
 
         CommissionReportInDocumentEntity retrievedEntity = api.entity().commissionreportin().get(e.getId());
         getAsserts(e, retrievedEntity);
@@ -79,7 +74,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putTest() throws IOException, LognexApiException, InterruptedException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
 
         CommissionReportInDocumentEntity retrievedOriginalEntity = api.entity().commissionreportin().get(e.getId());
         String name = "commissionreportin_" + randomString(3) + "_" + new Date().getTime();
@@ -97,7 +92,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
 
         ListEntity<CommissionReportInDocumentEntity> entitiesList = api.entity().commissionreportin().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -110,7 +105,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
 
         ListEntity<CommissionReportInDocumentEntity> entitiesList = api.entity().commissionreportin().get(filterEq("name", e.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
@@ -126,35 +121,6 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
         MetadataAttributeSharedStatesResponse response = api.entity().commissionreportin().metadata().get();
 
         assertFalse(response.getCreateShared());
-    }
-
-    private CommissionReportInDocumentEntity createSimpleDocumentCommissionReportIn() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = new CommissionReportInDocumentEntity();
-        e.setName("commissionreportin_" + randomString(3) + "_" + new Date().getTime());
-
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
-
-        CounterpartyEntity agent = new CounterpartyEntity();
-        agent.setName(randomString());
-        api.entity().counterparty().post(agent);
-        e.setAgent(agent);
-
-        ContractEntity contract = new ContractEntity();
-        contract.setName(randomString());
-        contract.setOwnAgent(orgList.getRows().get(0));
-        contract.setAgent(agent);
-        contract.setContractType(ContractEntity.Type.commission);
-        api.entity().contract().post(contract);
-        e.setContract(contract);
-
-        e.setCommissionPeriodStart(LocalDateTime.now());
-        e.setCommissionPeriodEnd(LocalDateTime.now().plusNanos(50));
-
-        api.entity().commissionreportin().post(e);
-
-        return e;
     }
 
     private void getAsserts(CommissionReportInDocumentEntity e, CommissionReportInDocumentEntity retrievedEntity) {
@@ -176,7 +142,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByIdTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().commissionreportin().getPositions(e.getId());
 
@@ -204,7 +170,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByEntityTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().commissionreportin().getPositions(e.getId());
 
@@ -232,7 +198,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByIdTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().commissionreportin().getPositions(e.getId());
 
@@ -273,7 +239,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByEntityTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
 
         ListEntity<DocumentPosition> originalPositions = api.entity().commissionreportin().getPositions(e.getId());
 
@@ -314,7 +280,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getPositionTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition retrievedPosition = api.entity().commissionreportin().getPosition(e.getId(), positions.get(0).getId());
@@ -326,7 +292,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByIdsTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -342,7 +308,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntityIdTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -358,7 +324,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionByEntitiesTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -374,7 +340,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void putPositionBySelfTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         DocumentPosition p = positions.get(0);
@@ -390,7 +356,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByIdsTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().commissionreportin().getPositions(e);
@@ -408,7 +374,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntityIdTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().commissionreportin().getPositions(e);
@@ -426,7 +392,7 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntitiesTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleDocumentCommissionReportIn();
+        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
         List<DocumentPosition> positions = createSimplePositions(e);
 
         ListEntity<DocumentPosition> positionsBefore = api.entity().commissionreportin().getPositions(e);

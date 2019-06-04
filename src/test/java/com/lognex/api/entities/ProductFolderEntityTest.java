@@ -91,20 +91,8 @@ public class ProductFolderEntityTest extends EntityTestBase {
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
-    private ProductFolderEntity createSimpleProductFolder() throws IOException, LognexApiException {
-        ProductFolderEntity e = new ProductFolderEntity();
-        e.setName("productfolder_" + randomString(3) + "_" + new Date().getTime());
-        e.setArchived(false);
-        e.setDescription(randomString());
-
-        api.entity().productfolder().post(e);
-
-        return e;
-    }
-
     private void getAsserts(ProductFolderEntity e, ProductFolderEntity retrievedEntity) {
         assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getArchived(), retrievedEntity.getArchived());
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
     }
 
@@ -113,7 +101,6 @@ public class ProductFolderEntityTest extends EntityTestBase {
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getArchived(), retrievedUpdatedEntity.getArchived());
         assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
     }
 }

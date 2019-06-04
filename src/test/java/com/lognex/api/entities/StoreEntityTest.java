@@ -93,23 +93,9 @@ public class StoreEntityTest extends EntityTestBase {
         assertFalse(metadata.getCreateShared());
     }
 
-    private StoreEntity createSimpleStore() throws IOException, LognexApiException {
-        StoreEntity e = new StoreEntity();
-        e.setName("store_" + randomString(3) + "_" + new Date().getTime());
-        e.setArchived(false);
-        e.setDescription(randomString());
-        e.setPathName(randomString());
-
-        api.entity().store().post(e);
-
-        return e;
-    }
-
     private void getAsserts(StoreEntity e, StoreEntity retrievedEntity) {
         assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getArchived(), retrievedEntity.getArchived());
         assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getPathName(), retrievedEntity.getPathName());
     }
 
     private void putAsserts(StoreEntity e, StoreEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -117,8 +103,6 @@ public class StoreEntityTest extends EntityTestBase {
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getArchived(), retrievedUpdatedEntity.getArchived());
         assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
-        assertEquals(retrievedOriginalEntity.getPathName(), retrievedUpdatedEntity.getPathName());
     }
 }

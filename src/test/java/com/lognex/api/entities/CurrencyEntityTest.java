@@ -102,39 +102,10 @@ public class CurrencyEntityTest extends EntityTestBase {
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
-    private CurrencyEntity createSimpleCurrency() throws IOException, LognexApiException {
-        CurrencyEntity e = new CurrencyEntity();
-        e.setName("currency_" + randomString(3) + "_" + new Date().getTime());
-        e.setArchived(false);
-        e.setCode(randomString(3));
-        e.setIsoCode(randomString(3));
-
-        CurrencyEntity.Unit major = new CurrencyEntity.Unit();
-        major.setGender(CurrencyEntity.Unit.Gender.masculine);
-        major.setS1(randomString());
-        major.setS2(randomString());
-        major.setS5(randomString());
-        e.setMajorUnit(major);
-
-        CurrencyEntity.Unit minor = new CurrencyEntity.Unit();
-        minor.setGender(CurrencyEntity.Unit.Gender.feminine);
-        minor.setS1(randomString());
-        minor.setS2(randomString());
-        minor.setS5(randomString());
-        e.setMinorUnit(minor);
-
-        api.entity().currency().post(e);
-
-        return e;
-    }
-
     private void getAsserts(CurrencyEntity e, CurrencyEntity retrievedEntity) {
         assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getArchived(), retrievedEntity.getArchived());
         assertEquals(e.getCode(), retrievedEntity.getCode());
         assertEquals(e.getIsoCode(), retrievedEntity.getIsoCode());
-        assertEquals(e.getMajorUnit(), retrievedEntity.getMajorUnit());
-        assertEquals(e.getMinorUnit(), retrievedEntity.getMinorUnit());
     }
 
     private void putAsserts(CurrencyEntity e, CurrencyEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
@@ -142,11 +113,8 @@ public class CurrencyEntityTest extends EntityTestBase {
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getArchived(), retrievedUpdatedEntity.getArchived());
         assertEquals(retrievedOriginalEntity.getCode(), retrievedUpdatedEntity.getCode());
         assertEquals(retrievedOriginalEntity.getIsoCode(), retrievedUpdatedEntity.getIsoCode());
-        assertEquals(retrievedOriginalEntity.getMajorUnit(), retrievedUpdatedEntity.getMajorUnit());
-        assertEquals(retrievedOriginalEntity.getMinorUnit(), retrievedUpdatedEntity.getMinorUnit());
     }
 }
 

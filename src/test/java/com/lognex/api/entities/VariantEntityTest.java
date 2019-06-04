@@ -1,6 +1,5 @@
 package com.lognex.api.entities;
 
-import com.lognex.api.entities.products.ProductEntity;
 import com.lognex.api.entities.products.VariantEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.VariantMetadataResponse;
@@ -20,11 +19,7 @@ public class VariantEntityTest extends EntityTestBase {
     public void createTest() throws IOException, LognexApiException {
         VariantEntity e = new VariantEntity();
         e.setArchived(false);
-
-        ProductEntity product = new ProductEntity();
-        product.setName("product_" + randomString(3) + "_" + new Date().getTime());
-        api.entity().product().post(product);
-        e.setProduct(product);
+        e.setProduct(createSimpleProduct());
 
         VariantEntity.Characteristic characteristic = new VariantEntity.Characteristic();
         characteristic.setName(randomString());
@@ -40,6 +35,10 @@ public class VariantEntityTest extends EntityTestBase {
         VariantEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
         assertEquals(e.getName(), retrievedEntity.getName());
         assertEquals(e.getArchived(), retrievedEntity.getArchived());
+        assertEquals(e.getProduct().getMeta().getHref(), retrievedEntity.getProduct().getMeta().getHref());
+        assertEquals(e.getCharacteristics().size(), retrievedEntity.getCharacteristics().size());
+        assertEquals(e.getCharacteristics().get(0).getName(), retrievedEntity.getCharacteristics().get(0).getName());
+        assertEquals(e.getCharacteristics().get(0).getValue(), retrievedEntity.getCharacteristics().get(0).getValue());
     }
 
     @Test
@@ -112,29 +111,8 @@ public class VariantEntityTest extends EntityTestBase {
         );
     }
 
-    private VariantEntity createSimpleVariant() throws IOException, LognexApiException {
-        VariantEntity e = new VariantEntity();
-        e.setArchived(false);
-
-        ProductEntity product = new ProductEntity();
-        product.setName("product_" + randomString(3) + "_" + new Date().getTime());
-        api.entity().product().post(product);
-        e.setProduct(product);
-
-        VariantEntity.Characteristic characteristic = new VariantEntity.Characteristic();
-        characteristic.setName(randomString());
-        characteristic.setValue(randomString());
-        e.setCharacteristics(new ArrayList<>());
-        e.getCharacteristics().add(characteristic);
-
-        api.entity().variant().post(e);
-
-        return e;
-    }
-
     private void getAsserts(VariantEntity e, VariantEntity retrievedEntity) {
         assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getArchived(), retrievedEntity.getArchived());
         assertEquals(e.getProduct().getName(), retrievedEntity.getProduct().getName());
         assertEquals(e.getCharacteristics().size(), retrievedEntity.getCharacteristics().size());
         assertEquals(e.getCharacteristics().get(0), retrievedEntity.getCharacteristics().get(0));
@@ -146,7 +124,6 @@ public class VariantEntityTest extends EntityTestBase {
         assertNotEquals(retrievedOriginalEntity.getCharacteristics().get(0).getValue(),
                         retrievedUpdatedEntity.getCharacteristics().get(0).getValue());
         assertEquals(value, retrievedUpdatedEntity.getCharacteristics().get(0).getValue());
-        assertEquals(retrievedOriginalEntity.getArchived(), retrievedUpdatedEntity.getArchived());
         assertEquals(retrievedOriginalEntity.getCharacteristics().size(), retrievedUpdatedEntity.getCharacteristics().size());
         assertEquals(retrievedOriginalEntity.getProduct().getMeta().getHref(), retrievedUpdatedEntity.getProduct().getMeta().getHref());
     }
