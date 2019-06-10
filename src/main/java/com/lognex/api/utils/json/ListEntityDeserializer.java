@@ -22,20 +22,17 @@ public class ListEntityDeserializer implements JsonDeserializer<ListEntity> {
         le.setMeta(context.deserialize(((JsonObject) json).getAsJsonObject("meta"), Meta.class));
         le.setContext(context.deserialize(((JsonObject) json).getAsJsonObject("context"), ContextEntity.class));
 
-        if (typeOfT instanceof ParameterizedType) {
-            Type pcl = ((ParameterizedType) typeOfT).getActualTypeArguments()[0];
+        JsonArray rows = ((JsonObject) json).getAsJsonArray("rows");
+        if (rows != null && rows.size() > 0) {
+            le.setRows(new ArrayList());
 
-            JsonArray rows = ((JsonObject) json).getAsJsonArray("rows");
-            if (rows != null && rows.size() > 0) {
-                le.setRows(new ArrayList());
+            if (typeOfT instanceof ParameterizedType) {
+                Type pcl = ((ParameterizedType) typeOfT).getActualTypeArguments()[0];
+
                 for (JsonElement row : rows) {
                     le.getRows().add(context.deserialize(row, pcl));
                 }
-            }
-        } else {
-            JsonArray rows = ((JsonObject) json).getAsJsonArray("rows");
-            if (rows != null && rows.size() > 0) {
-                le.setRows(new ArrayList());
+            } else {
                 for (JsonElement row : rows) {
                     Class<? extends MetaEntity> metaClass = MetaEntity.class;
 

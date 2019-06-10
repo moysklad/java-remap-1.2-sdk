@@ -14,68 +14,68 @@ import static org.junit.Assert.*;
 public class CustomEntityTest extends EntityTestBase {
     @Test
     public void createTest() throws IOException, LognexApiException {
-        CustomEntity e = new CustomEntity();
-        e.setName("custom_entity_" + randomString(3) + "_" + new Date().getTime());
+        CustomEntity customEntity = new CustomEntity();
+        customEntity.setName("custom_entity_" + randomString(3) + "_" + new Date().getTime());
 
-        api.entity().customentity().post(e);
+        api.entity().customentity().post(customEntity);
 
-        CustomEntity retrievedEntity = getCustomEntityByHref(e.getMeta().getHref());
+        CustomEntity retrievedEntity = getCustomEntityByHref(customEntity.getMeta().getHref());
 
         assertNotNull(retrievedEntity);
-        getAsserts(e, retrievedEntity);
+        getAsserts(customEntity, retrievedEntity);
     }
 
     @Test
-    public void putByIdTest() throws IOException, LognexApiException, InterruptedException {
-        CustomEntity e = createSimpleCustomEntity();
+    public void putByIdTest() throws IOException, LognexApiException {
+        CustomEntity customEntity = simpleEntityFactory.createSimpleCustomEntity();
 
-        CustomEntity retrievedOriginalEntity = getCustomEntityByHref(e.getMeta().getHref());
+        CustomEntity retrievedOriginalEntity = getCustomEntityByHref(customEntity.getMeta().getHref());
         assertNotNull(retrievedOriginalEntity);
 
         String name = "custom_entity_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
+        customEntity.setName(name);
 
-        api.entity().customentity().put(e.getId(), e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        api.entity().customentity().put(customEntity.getId(), customEntity);
+        putAsserts(customEntity, retrievedOriginalEntity, name);
     }
 
     @Test
-    public void putEntityTest() throws IOException, LognexApiException, InterruptedException {
-        CustomEntity e = createSimpleCustomEntity();
+    public void putEntityTest() throws IOException, LognexApiException {
+        CustomEntity customEntity = simpleEntityFactory.createSimpleCustomEntity();
 
-        CustomEntity retrievedOriginalEntity = getCustomEntityByHref(e.getMeta().getHref());
+        CustomEntity retrievedOriginalEntity = getCustomEntityByHref(customEntity.getMeta().getHref());
         assertNotNull(retrievedOriginalEntity);
 
         String name = "custom_entity_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
+        customEntity.setName(name);
 
-        api.entity().customentity().put(e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        api.entity().customentity().put(customEntity);
+        putAsserts(customEntity, retrievedOriginalEntity, name);
     }
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        CustomEntity e = createSimpleCustomEntity();
+        CustomEntity customEntity = simpleEntityFactory.createSimpleCustomEntity();
 
-        CustomEntity retrievedOriginalEntity = getCustomEntityByHref(e.getMeta().getHref());
+        CustomEntity retrievedOriginalEntity = getCustomEntityByHref(customEntity.getMeta().getHref());
         assertNotNull(retrievedOriginalEntity);
 
-        api.entity().customentity().delete(e.getId());
+        api.entity().customentity().delete(customEntity.getId());
 
-        CustomEntity retrievedNullEntity = getCustomEntityByHref(e.getMeta().getHref());
+        CustomEntity retrievedNullEntity = getCustomEntityByHref(customEntity.getMeta().getHref());
         assertNull(retrievedNullEntity);
     }
 
     @Test
     public void deleteEntityTest() throws IOException, LognexApiException {
-        CustomEntity e = createSimpleCustomEntity();
+        CustomEntity customEntity = simpleEntityFactory.createSimpleCustomEntity();
 
-        CustomEntity retrievedOriginalEntity = getCustomEntityByHref(e.getMeta().getHref());
+        CustomEntity retrievedOriginalEntity = getCustomEntityByHref(customEntity.getMeta().getHref());
         assertNotNull(retrievedOriginalEntity);
 
-        api.entity().customentity().delete(e);
+        api.entity().customentity().delete(customEntity);
 
-        CustomEntity retrievedNullEntity = getCustomEntityByHref(e.getMeta().getHref());
+        CustomEntity retrievedNullEntity = getCustomEntityByHref(customEntity.getMeta().getHref());
         assertNull(retrievedNullEntity);
     }
 
@@ -83,12 +83,12 @@ public class CustomEntityTest extends EntityTestBase {
     @SuppressWarnings("ArraysAsListWithZeroOrOneArgument")
     public void errorTest() throws IOException {
         try {
-            CustomEntity e = new CustomEntity();
-            api.entity().customentity().post(e);
+            CustomEntity customEntity = new CustomEntity();
+            api.entity().customentity().post(customEntity);
             fail("Ожидалось исключение");
-        } catch (LognexApiException e) {
+        } catch (LognexApiException customEntity) {
             assertApiError(
-                    e, 412,
+                    customEntity, 412,
                     Arrays.asList(
                             Pair.of(3000, "Ошибка сохранения объекта: поле 'name' не может быть пустым или отсутствовать")
                     )
@@ -98,36 +98,36 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void postElementTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = createSimpleCustomEntity();
-        CustomEntityElement e = new CustomEntityElement();
-        e.setName("custom_entity_element_" + randomString(3) + "_" + new Date().getTime());
+        CustomEntity customEntity = simpleEntityFactory.createSimpleCustomEntity();
+        CustomEntityElement customEntityElement = new CustomEntityElement();
+        customEntityElement.setName("custom_entity_element_" + randomString(3) + "_" + new Date().getTime());
 
-        api.entity().customentity().postCustomEntityElement(customEntity.getId(), e);
+        api.entity().customentity().postCustomEntityElement(customEntity.getId(), customEntityElement);
 
-        CustomEntityElement retrievedEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), e.getId());
+        CustomEntityElement retrievedEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), customEntityElement.getId());
 
         assertNotNull(retrievedEntity);
-        assertEquals(e.getId(), retrievedEntity.getId());
-        assertEquals(e.getName(), retrievedEntity.getName());
+        assertEquals(customEntityElement.getId(), retrievedEntity.getId());
+        assertEquals(customEntityElement.getName(), retrievedEntity.getName());
     }
 
     @Test
     public void getElementTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = createSimpleCustomEntity();
-        CustomEntityElement e = createSimpleCustomElement(customEntity);
+        CustomEntity customEntity = simpleEntityFactory.createSimpleCustomEntity();
+        CustomEntityElement customEntityElement = simpleEntityFactory.createSimpleCustomElement(customEntity);
 
-        CustomEntityElement retrievedEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), e.getId());
+        CustomEntityElement retrievedEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), customEntityElement.getId());
 
-        getAsserts(e, retrievedEntity);
+        getAsserts(customEntityElement, retrievedEntity);
     }
 
     @Test
     public void getByIdElementsTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = createSimpleCustomEntity();
+        CustomEntity customEntity = simpleEntityFactory.createSimpleCustomEntity();
 
         List<CustomEntityElement> customEntityElementList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            customEntityElementList.add(createSimpleCustomElement(customEntity));
+            customEntityElementList.add(simpleEntityFactory.createSimpleCustomElement(customEntity));
         }
 
         List<CustomEntityElement> retrievedEntities = api.entity().customentity().getCustomEntityElements(customEntity.getId()).getRows();
@@ -141,11 +141,11 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void getEntityElementsTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = createSimpleCustomEntity();
+        CustomEntity customEntity = simpleEntityFactory.createSimpleCustomEntity();
 
         List<CustomEntityElement> customEntityElementList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            customEntityElementList.add(createSimpleCustomElement(customEntity));
+            customEntityElementList.add(simpleEntityFactory.createSimpleCustomElement(customEntity));
         }
 
         List<CustomEntityElement> retrievedEntities = api.entity().customentity().getCustomEntityElements(customEntity).getRows();
@@ -158,46 +158,46 @@ public class CustomEntityTest extends EntityTestBase {
     }
 
     @Test
-    public void putByIdElementTest() throws IOException, LognexApiException, InterruptedException {
-        CustomEntity customEntity = createSimpleCustomEntity();
-        CustomEntityElement e = createSimpleCustomElement(customEntity);
+    public void putByIdElementTest() throws IOException, LognexApiException {
+        CustomEntity customEntity = simpleEntityFactory.createSimpleCustomEntity();
+        CustomEntityElement customEntityElement = simpleEntityFactory.createSimpleCustomElement(customEntity);
 
-        CustomEntityElement retrievedOriginalEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), e.getId());
+        CustomEntityElement retrievedOriginalEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), customEntityElement.getId());
         assertNotNull(retrievedOriginalEntity);
 
         String code = randomString(3);
-        e.setCode(code);
-        e.setDescription("");
+        customEntityElement.setCode(code);
+        customEntityElement.setDescription("");
 
-        api.entity().customentity().putCustomEntityElement(customEntity.getId(), e.getId(), e);
-        putAsserts(customEntity, e, retrievedOriginalEntity, code);
+        api.entity().customentity().putCustomEntityElement(customEntity.getId(), customEntityElement.getId(), customEntityElement);
+        putAsserts(customEntity, customEntityElement, retrievedOriginalEntity, code);
     }
 
     @Test
-    public void putEntityElementTest() throws IOException, LognexApiException, InterruptedException {
-        CustomEntity customEntity = createSimpleCustomEntity();
-        CustomEntityElement e = createSimpleCustomElement(customEntity);
+    public void putEntityElementTest() throws IOException, LognexApiException {
+        CustomEntity customEntity = simpleEntityFactory.createSimpleCustomEntity();
+        CustomEntityElement customEntityElement = simpleEntityFactory.createSimpleCustomElement(customEntity);
 
-        CustomEntityElement retrievedOriginalEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), e.getId());
+        CustomEntityElement retrievedOriginalEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), customEntityElement.getId());
         assertNotNull(retrievedOriginalEntity);
 
         String code = randomString(3);
-        e.setCode(code);
-        e.setDescription("");
+        customEntityElement.setCode(code);
+        customEntityElement.setDescription("");
 
-        api.entity().customentity().putCustomEntityElement(customEntity.getId(), e);
-        putAsserts(customEntity, e, retrievedOriginalEntity, code);
+        api.entity().customentity().putCustomEntityElement(customEntity.getId(), customEntityElement);
+        putAsserts(customEntity, customEntityElement, retrievedOriginalEntity, code);
     }
 
     @Test
     public void deleteByIdElementTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = createSimpleCustomEntity();
-        CustomEntityElement e = createSimpleCustomElement(customEntity);
+        CustomEntity customEntity = simpleEntityFactory.createSimpleCustomEntity();
+        CustomEntityElement customEntityElement = simpleEntityFactory.createSimpleCustomElement(customEntity);
 
-        CustomEntityElement retrievedOriginalEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), e.getId());
+        CustomEntityElement retrievedOriginalEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), customEntityElement.getId());
         assertNotNull(retrievedOriginalEntity);
 
-        api.entity().customentity().deleteCustomEntityElement(customEntity.getId(), e.getId());
+        api.entity().customentity().deleteCustomEntityElement(customEntity.getId(), customEntityElement.getId());
 
         ListEntity<CustomEntityElement> emptyElementList = api.entity().customentity().getCustomEntityElements(customEntity.getId());
         assertEquals((Integer) 0, emptyElementList.getMeta().getSize());
@@ -205,28 +205,27 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void deleteEntityElementTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = createSimpleCustomEntity();
-        CustomEntityElement e = createSimpleCustomElement(customEntity);
+        CustomEntity customEntity = simpleEntityFactory.createSimpleCustomEntity();
+        CustomEntityElement customEntityElement = simpleEntityFactory.createSimpleCustomElement(customEntity);
 
-        CustomEntityElement retrievedOriginalEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), e.getId());
+        CustomEntityElement retrievedOriginalEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), customEntityElement.getId());
         assertNotNull(retrievedOriginalEntity);
 
-        api.entity().customentity().deleteCustomEntityElement(customEntity.getId(), e);
+        api.entity().customentity().deleteCustomEntityElement(customEntity.getId(), customEntityElement);
 
         ListEntity<CustomEntityElement> emptyElementList = api.entity().customentity().getCustomEntityElements(customEntity.getId());
         assertEquals((Integer) 0, emptyElementList.getMeta().getSize());
     }
 
-
-    private void getAsserts(CustomEntity e, CustomEntity retrievedEntity) {
-        assertEquals(e.getId(), retrievedEntity.getId());
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getMeta().getHref(), retrievedEntity.getMeta().getHref());
-        assertEquals(e.getMeta().getType(), retrievedEntity.getMeta().getType());
+    private void getAsserts(CustomEntity customEntity, CustomEntity retrievedEntity) {
+        assertEquals(customEntity.getId(), retrievedEntity.getId());
+        assertEquals(customEntity.getName(), retrievedEntity.getName());
+        assertEquals(customEntity.getMeta().getHref(), retrievedEntity.getMeta().getHref());
+        assertEquals(customEntity.getMeta().getType(), retrievedEntity.getMeta().getType());
     }
 
-    private void putAsserts(CustomEntity e, CustomEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        CustomEntity retrievedUpdatedEntity = getCustomEntityByHref(e.getMeta().getHref());
+    private void putAsserts(CustomEntity customEntity, CustomEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
+        CustomEntity retrievedUpdatedEntity = getCustomEntityByHref(customEntity.getMeta().getHref());
 
         assertEquals(retrievedOriginalEntity.getId(), retrievedUpdatedEntity.getId());
         assertEquals(retrievedOriginalEntity.getMeta().getHref(), retrievedUpdatedEntity.getMeta().getHref());
@@ -234,8 +233,6 @@ public class CustomEntityTest extends EntityTestBase {
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());
     }
-
-
 
     private CustomEntity getCustomEntityByHref(String href) throws IOException, LognexApiException{
         List<CustomEntityMetadata> entities = api.entity().companysettings().metadata().getCustomEntities();
@@ -247,33 +244,22 @@ public class CustomEntityTest extends EntityTestBase {
                 orElse(null);
     }
 
-    private CustomEntityElement createSimpleCustomElement(CustomEntity customEntity) throws IOException, LognexApiException {
-        CustomEntityElement e = new CustomEntityElement();
-
-        e.setName("custom_entity_element_" + randomString(3) + "_" + new Date().getTime());
-        e.setDescription("custom_entity_desc_" + randomString(3));
-        e.setExternalCode(randomString(3));
-
-        api.entity().customentity().postCustomEntityElement(customEntity.getId(), e);
-        return e;
-    }
-
-    private void getAsserts(CustomEntityElement e, CustomEntityElement retrievedEntity) {
-        assertEquals(e.getId(), retrievedEntity.getId());
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getCode(), retrievedEntity.getCode());
-        assertEquals(e.getExternalCode(), retrievedEntity.getExternalCode());
-        assertEquals(e.getMeta().getHref(), retrievedEntity.getMeta().getHref());
-        assertEquals(e.getMeta().getType(), retrievedEntity.getMeta().getType());
+    private void getAsserts(CustomEntityElement customEntity, CustomEntityElement retrievedEntity) {
+        assertEquals(customEntity.getId(), retrievedEntity.getId());
+        assertEquals(customEntity.getName(), retrievedEntity.getName());
+        assertEquals(customEntity.getDescription(), retrievedEntity.getDescription());
+        assertEquals(customEntity.getCode(), retrievedEntity.getCode());
+        assertEquals(customEntity.getExternalCode(), retrievedEntity.getExternalCode());
+        assertEquals(customEntity.getMeta().getHref(), retrievedEntity.getMeta().getHref());
+        assertEquals(customEntity.getMeta().getType(), retrievedEntity.getMeta().getType());
     }
 
     private void putAsserts(CustomEntity customEntity,
-                            CustomEntityElement e,
+                            CustomEntityElement customEntityElement,
                             CustomEntityElement retrievedOriginalEntity,
                             String code)
             throws IOException, LognexApiException {
-        CustomEntityElement retrievedUpdatedEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), e.getId());
+        CustomEntityElement retrievedUpdatedEntity = api.entity().customentity().getCustomEntityElement(customEntity.getId(), customEntityElement.getId());
 
         assertEquals(retrievedUpdatedEntity.getId(), retrievedOriginalEntity.getId());
         assertEquals(retrievedUpdatedEntity.getName(), retrievedOriginalEntity.getName());

@@ -110,7 +110,7 @@ public class EndpointsTest implements TestRandomizers {
                     } else if (method1.getParameterTypes()[i] == ListEntity.class) {
                         params.add(new ListEntity());
                     } else if (method1.getParameterTypes()[i] == DocumentEntity.class) {
-                        DocumentEntity me = new DocumentEntity() {
+                        DocumentEntity documentEntity = new DocumentEntity() {
                             @Override
                             public String getId() {
                                 return super.getId();
@@ -121,16 +121,16 @@ public class EndpointsTest implements TestRandomizers {
                                 super.setId(id);
                             }
                         };
-                        me.setId("DOCUMENT_ID");
-                        params.add(me);
+                        documentEntity.setId("DOCUMENT_ID");
+                        params.add(documentEntity);
                     } else if (DocumentEntity.class.isAssignableFrom(method1.getParameterTypes()[i])) {
-                        DocumentEntity me = (DocumentEntity) method1.getParameterTypes()[i].newInstance();
-                        me.setId("DOCUMENT_ID");
-                        params.add(me);
+                        DocumentEntity documentEntity = (DocumentEntity) method1.getParameterTypes()[i].newInstance();
+                        documentEntity.setId("DOCUMENT_ID");
+                        params.add(documentEntity);
                     } else if (MetaEntity.class.isAssignableFrom(method1.getParameterTypes()[i])) {
-                        MetaEntity me = (MetaEntity) method1.getParameterTypes()[i].newInstance();
-                        me.setId("ENTITY_ID");
-                        params.add(me);
+                        MetaEntity entity = (MetaEntity) method1.getParameterTypes()[i].newInstance();
+                        entity.setId("ENTITY_ID");
+                        params.add(entity);
                     } else if (method1.getParameterTypes()[i].isEnum()) {
                         params.add(randomEnum((Class<? extends Enum>) method1.getParameterTypes()[i]));
                     } else {

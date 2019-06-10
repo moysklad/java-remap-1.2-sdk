@@ -24,9 +24,9 @@ import static org.junit.Assert.*;
 public class PricelistDocumentEntityTest extends EntityTestBase {
     @Test
     public void createTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = new PricelistDocumentEntity();
-        e.setName("pricelist_" + randomString(3) + "_" + new Date().getTime());
-        e.setMoment(LocalDateTime.now());
+        PricelistDocumentEntity priceList = new PricelistDocumentEntity();
+        priceList.setName("pricelist_" + randomString(3) + "_" + new Date().getTime());
+        priceList.setMoment(LocalDateTime.now());
 
         List<ColumnsItem> columns = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -35,11 +35,11 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
             item.setPercentageDiscount(randomInteger(1, 10000));
             columns.add(item);
         }
-        e.setColumns(columns);
+        priceList.setColumns(columns);
 
         List<ProductEntity> products = new ArrayList<>();
 
-        ProductEntity product = createSimpleProduct();
+        ProductEntity product = simpleEntityFactory.createSimpleProduct();
         products.add(product);
 
         product = new ProductEntity();
@@ -48,7 +48,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         products.add(product);
 
         ListEntity<PricelistRow> positions = new ListEntity<>();
-        e.setPositions(positions);
+        priceList.setPositions(positions);
         positions.setRows(new ArrayList<>());
         positions.getRows().add(new PricelistRow());
         positions.getRows().get(0).setAssortment(products.get(0));
@@ -66,15 +66,15 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
             positions.getRows().get(1).getCells().get(i).setSum(randomLong(1, 10000));
         }
 
-        api.entity().pricelist().post(e);
+        api.entity().pricelist().post(priceList);
 
         ListEntity<PricelistDocumentEntity> updatedEntitiesList = api.entity().pricelist().
-                get(limit(50), filterEq("name", e.getName()), expand("positions"));
+                get(limit(50), filterEq("name", priceList.getName()), expand("positions"));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         PricelistDocumentEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getMoment(), retrievedEntity.getMoment());
+        assertEquals(priceList.getName(), retrievedEntity.getName());
+        assertEquals(priceList.getMoment(), retrievedEntity.getMoment());
         ProductEntity retrievedProduct = (ProductEntity) retrievedEntity.getPositions().getRows().get(0).getAssortment();
         assertEquals(products.get(0).getMeta().getHref(), retrievedProduct.getMeta().getHref());
         assertEquals(positions.getRows().get(0).getCells().get(0).getColumn(), columns.get(0).getName());
@@ -83,61 +83,61 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         for (int i = 0; i < 5; i++) {
             assertEquals(positions.getRows().get(1).getCells().get(i).getColumn(), columns.get(i).getName());
         }
-        assertEquals(e.getColumns(), retrievedEntity.getColumns());
+        assertEquals(priceList.getColumns(), retrievedEntity.getColumns());
     }
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimplePricelist();
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
 
-        PricelistDocumentEntity retrievedEntity = api.entity().pricelist().get(e.getId());
-        getAsserts(e, retrievedEntity);
+        PricelistDocumentEntity retrievedEntity = api.entity().pricelist().get(priceList.getId());
+        getAsserts(priceList, retrievedEntity);
 
-        retrievedEntity = api.entity().pricelist().get(e);
-        getAsserts(e, retrievedEntity);
+        retrievedEntity = api.entity().pricelist().get(priceList);
+        getAsserts(priceList, retrievedEntity);
     }
 
     @Test
-    public void putTest() throws IOException, LognexApiException, InterruptedException {
-        PricelistDocumentEntity e = createSimplePricelist();
+    public void putTest() throws IOException, LognexApiException {
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
 
-        PricelistDocumentEntity retrievedOriginalEntity = api.entity().pricelist().get(e.getId());
+        PricelistDocumentEntity retrievedOriginalEntity = api.entity().pricelist().get(priceList.getId());
         String name = "pricelist_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().pricelist().put(e.getId(), e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        priceList.setName(name);
+        api.entity().pricelist().put(priceList.getId(), priceList);
+        putAsserts(priceList, retrievedOriginalEntity, name);
 
-        retrievedOriginalEntity.set(e);
+        retrievedOriginalEntity.set(priceList);
 
         name = "pricelist_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().pricelist().put(e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        priceList.setName(name);
+        api.entity().pricelist().put(priceList);
+        putAsserts(priceList, retrievedOriginalEntity, name);
     }
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimplePricelist();
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
 
-        ListEntity<PricelistDocumentEntity> entitiesList = api.entity().pricelist().get(filterEq("name", e.getName()));
+        ListEntity<PricelistDocumentEntity> entitiesList = api.entity().pricelist().get(filterEq("name", priceList.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().pricelist().delete(e.getId());
+        api.entity().pricelist().delete(priceList.getId());
 
-        entitiesList = api.entity().pricelist().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().pricelist().get(filterEq("name", priceList.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimplePricelist();
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
 
-        ListEntity<PricelistDocumentEntity> entitiesList = api.entity().pricelist().get(filterEq("name", e.getName()));
+        ListEntity<PricelistDocumentEntity> entitiesList = api.entity().pricelist().get(filterEq("name", priceList.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().pricelist().delete(e);
+        api.entity().pricelist().delete(priceList);
 
-        entitiesList = api.entity().pricelist().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().pricelist().get(filterEq("name", priceList.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
@@ -148,14 +148,14 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         assertFalse(response.getCreateShared());
     }
 
-    private void getAsserts(PricelistDocumentEntity e, PricelistDocumentEntity retrievedEntity) {
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getPositions().getMeta().getSize(), retrievedEntity.getPositions().getMeta().getSize());
-        assertEquals(e.getColumns(), retrievedEntity.getColumns());
+    private void getAsserts(PricelistDocumentEntity priceList, PricelistDocumentEntity retrievedEntity) {
+        assertEquals(priceList.getName(), retrievedEntity.getName());
+        assertEquals(priceList.getPositions().getMeta().getSize(), retrievedEntity.getPositions().getMeta().getSize());
+        assertEquals(priceList.getColumns(), retrievedEntity.getColumns());
     }
 
-    private void putAsserts(PricelistDocumentEntity e, PricelistDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        PricelistDocumentEntity retrievedUpdatedEntity = api.entity().pricelist().get(e.getId());
+    private void putAsserts(PricelistDocumentEntity priceList, PricelistDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
+        PricelistDocumentEntity retrievedUpdatedEntity = api.entity().pricelist().get(priceList.getId());
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());
@@ -165,9 +165,9 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByIdTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimplePricelist();
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
 
-        ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(e.getId());
+        ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(priceList.getId());
 
         PricelistRow position = new PricelistRow();
 
@@ -179,12 +179,12 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         List<CellsItem> cells = new ArrayList<>();
         CellsItem cellsItem = new CellsItem();
         cellsItem.setSum(randomLong(1, 10000));
-        cellsItem.setColumn(e.getColumns().get(0).getName());
+        cellsItem.setColumn(priceList.getColumns().get(0).getName());
         cells.add(cellsItem);
         position.setCells(cells);
 
-        api.entity().pricelist().postPosition(e.getId(), position);
-        ListEntity<PricelistRow> retrievedPositions = api.entity().pricelist().getPositions(e.getId());
+        api.entity().pricelist().postPosition(priceList.getId(), position);
+        ListEntity<PricelistRow> retrievedPositions = api.entity().pricelist().getPositions(priceList.getId());
 
         assertEquals(Integer.valueOf(originalPositions.getMeta().getSize() + 1), retrievedPositions.getMeta().getSize());
         assertTrue(retrievedPositions.
@@ -198,9 +198,9 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionByEntityTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimplePricelist();
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
 
-        ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(e.getId());
+        ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(priceList.getId());
 
         PricelistRow position = new PricelistRow();
 
@@ -212,12 +212,12 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         List<CellsItem> cells = new ArrayList<>();
         CellsItem cellsItem = new CellsItem();
         cellsItem.setSum(randomLong(1, 10000));
-        cellsItem.setColumn(e.getColumns().get(0).getName());
+        cellsItem.setColumn(priceList.getColumns().get(0).getName());
         cells.add(cellsItem);
         position.setCells(cells);
 
-        api.entity().pricelist().postPosition(e, position);
-        ListEntity<PricelistRow> retrievedPositions = api.entity().pricelist().getPositions(e);
+        api.entity().pricelist().postPosition(priceList, position);
+        ListEntity<PricelistRow> retrievedPositions = api.entity().pricelist().getPositions(priceList);
 
         assertEquals(Integer.valueOf(originalPositions.getMeta().getSize() + 1), retrievedPositions.getMeta().getSize());
         assertTrue(retrievedPositions.
@@ -231,9 +231,9 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByIdTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimplePricelist();
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
 
-        ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(e.getId());
+        ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(priceList.getId());
 
         List<PricelistRow> positions = new ArrayList<>();
         List<ProductEntity> products = new ArrayList<>();
@@ -250,15 +250,15 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
             List<CellsItem> cells = new ArrayList<>();
             CellsItem cellsItem = new CellsItem();
             cellsItem.setSum(randomLong(1, 10000));
-            cellsItem.setColumn(e.getColumns().get(0).getName());
+            cellsItem.setColumn(priceList.getColumns().get(0).getName());
             cells.add(cellsItem);
             position.setCells(cells);
 
             positions.add(position);
         }
 
-        api.entity().pricelist().postPositions(e.getId(), positions);
-        ListEntity<PricelistRow> retrievedPositions = api.entity().pricelist().getPositions(e.getId());
+        api.entity().pricelist().postPositions(priceList.getId(), positions);
+        ListEntity<PricelistRow> retrievedPositions = api.entity().pricelist().getPositions(priceList.getId());
 
         assertEquals(Integer.valueOf(originalPositions.getMeta().getSize() + 2), retrievedPositions.getMeta().getSize());
         for (int i = 0; i < 2; i++) {
@@ -277,9 +277,9 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void createPositionsByEntityTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimplePricelist();
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
 
-        ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(e.getId());
+        ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(priceList.getId());
 
         List<PricelistRow> positions = new ArrayList<>();
         List<ProductEntity> products = new ArrayList<>();
@@ -296,15 +296,15 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
             List<CellsItem> cells = new ArrayList<>();
             CellsItem cellsItem = new CellsItem();
             cellsItem.setSum(randomLong(1, 10000));
-            cellsItem.setColumn(e.getColumns().get(0).getName());
+            cellsItem.setColumn(priceList.getColumns().get(0).getName());
             cells.add(cellsItem);
             position.setCells(cells);
 
             positions.add(position);
         }
 
-        api.entity().pricelist().postPositions(e, positions);
-        ListEntity<PricelistRow> retrievedPositions = api.entity().pricelist().getPositions(e.getId());
+        api.entity().pricelist().postPositions(priceList, positions);
+        ListEntity<PricelistRow> retrievedPositions = api.entity().pricelist().getPositions(priceList.getId());
 
         assertEquals(Integer.valueOf(originalPositions.getMeta().getSize() + 2), retrievedPositions.getMeta().getSize());
         for (int i = 0; i < 2; i++) {
@@ -323,94 +323,94 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void getPositionTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimplePricelist();
-        List<PricelistRow> positions = createSimplePositions(e);
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
+        List<PricelistRow> positions = createSimplePositions(priceList);
 
-        PricelistRow retrievedPosition = api.entity().pricelist().getPosition(e.getId(), positions.get(0).getId());
+        PricelistRow retrievedPosition = api.entity().pricelist().getPosition(priceList.getId(), positions.get(0).getId());
         getPositionAsserts(positions.get(0), retrievedPosition);
 
-        retrievedPosition = api.entity().pricelist().getPosition(e, positions.get(0).getId());
+        retrievedPosition = api.entity().pricelist().getPosition(priceList, positions.get(0).getId());
         getPositionAsserts(positions.get(0), retrievedPosition);
     }
 
     @Test
     public void putPositionByIdsTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimplePricelist();
-        List<PricelistRow> positions = createSimplePositions(e);
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
+        List<PricelistRow> positions = createSimplePositions(priceList);
 
         PricelistRow p = positions.get(0);
-        PricelistRow retrievedPosition = api.entity().pricelist().getPosition(e.getId(), p.getId());
+        PricelistRow retrievedPosition = api.entity().pricelist().getPosition(priceList.getId(), p.getId());
 
         CellsItem cellsItem = new CellsItem();
         cellsItem.setColumn(p.getCells().get(0).getColumn());
         cellsItem.setSum(p.getCells().get(0).getSum() + randomLong(1, 100));
         p.getCells().set(0, cellsItem);
-        api.entity().pricelist().putPosition(e.getId(), p.getId(), p);
+        api.entity().pricelist().putPosition(priceList.getId(), p.getId(), p);
 
-        putPositionAsserts(e, p, retrievedPosition, cellsItem);
+        putPositionAsserts(priceList, p, retrievedPosition, cellsItem);
     }
 
     @Test
     public void putPositionByEntityIdTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimplePricelist();
-        List<PricelistRow> positions = createSimplePositions(e);
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
+        List<PricelistRow> positions = createSimplePositions(priceList);
 
         PricelistRow p = positions.get(0);
-        PricelistRow retrievedPosition = api.entity().pricelist().getPosition(e.getId(), p.getId());
+        PricelistRow retrievedPosition = api.entity().pricelist().getPosition(priceList.getId(), p.getId());
 
         CellsItem cellsItem = new CellsItem();
         cellsItem.setColumn(p.getCells().get(0).getColumn());
         cellsItem.setSum(p.getCells().get(0).getSum() + randomLong(1, 100));
         p.getCells().set(0, cellsItem);
-        api.entity().pricelist().putPosition(e, p.getId(), p);
+        api.entity().pricelist().putPosition(priceList, p.getId(), p);
 
-        putPositionAsserts(e, p, retrievedPosition, cellsItem);
+        putPositionAsserts(priceList, p, retrievedPosition, cellsItem);
     }
 
     @Test
     public void putPositionByEntitiesTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimplePricelist();
-        List<PricelistRow> positions = createSimplePositions(e);
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
+        List<PricelistRow> positions = createSimplePositions(priceList);
 
         PricelistRow p = positions.get(0);
-        PricelistRow retrievedPosition = api.entity().pricelist().getPosition(e.getId(), p.getId());
+        PricelistRow retrievedPosition = api.entity().pricelist().getPosition(priceList.getId(), p.getId());
 
         CellsItem cellsItem = new CellsItem();
         cellsItem.setColumn(p.getCells().get(0).getColumn());
         cellsItem.setSum(p.getCells().get(0).getSum() + randomLong(1, 100));
         p.getCells().set(0, cellsItem);
-        api.entity().pricelist().putPosition(e, p, p);
+        api.entity().pricelist().putPosition(priceList, p, p);
 
-        putPositionAsserts(e, p, retrievedPosition, cellsItem);
+        putPositionAsserts(priceList, p, retrievedPosition, cellsItem);
     }
 
     @Test
     public void putPositionBySelfTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimplePricelist();
-        List<PricelistRow> positions = createSimplePositions(e);
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
+        List<PricelistRow> positions = createSimplePositions(priceList);
 
         PricelistRow p = positions.get(0);
-        PricelistRow retrievedPosition = api.entity().pricelist().getPosition(e.getId(), p.getId());
+        PricelistRow retrievedPosition = api.entity().pricelist().getPosition(priceList.getId(), p.getId());
 
         CellsItem cellsItem = new CellsItem();
         cellsItem.setColumn(p.getCells().get(0).getColumn());
         cellsItem.setSum(p.getCells().get(0).getSum() + randomLong(1, 100));
         p.getCells().set(0, cellsItem);
-        api.entity().pricelist().putPosition(e, p);
+        api.entity().pricelist().putPosition(priceList, p);
 
-        putPositionAsserts(e, p, retrievedPosition, cellsItem);
+        putPositionAsserts(priceList, p, retrievedPosition, cellsItem);
     }
 
     @Test
     public void deletePositionByIdsTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimplePricelist();
-        List<PricelistRow> positions = createSimplePositions(e);
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
+        List<PricelistRow> positions = createSimplePositions(priceList);
 
-        ListEntity<PricelistRow> positionsBefore = api.entity().pricelist().getPositions(e);
+        ListEntity<PricelistRow> positionsBefore = api.entity().pricelist().getPositions(priceList);
 
-        api.entity().pricelist().delete(e.getId(), positions.get(0).getId());
+        api.entity().pricelist().delete(priceList.getId(), positions.get(0).getId());
 
-        ListEntity<PricelistRow> positionsAfter = api.entity().pricelist().getPositions(e);
+        ListEntity<PricelistRow> positionsAfter = api.entity().pricelist().getPositions(priceList);
 
         assertEquals(Integer.valueOf(positionsBefore.getMeta().getSize() - 1), positionsAfter.getMeta().getSize());
         assertFalse(positionsAfter.getRows().stream().
@@ -421,14 +421,14 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntityIdTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimplePricelist();
-        List<PricelistRow> positions = createSimplePositions(e);
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
+        List<PricelistRow> positions = createSimplePositions(priceList);
 
-        ListEntity<PricelistRow> positionsBefore = api.entity().pricelist().getPositions(e);
+        ListEntity<PricelistRow> positionsBefore = api.entity().pricelist().getPositions(priceList);
 
-        api.entity().pricelist().delete(e, positions.get(0).getId());
+        api.entity().pricelist().delete(priceList, positions.get(0).getId());
 
-        ListEntity<PricelistRow> positionsAfter = api.entity().pricelist().getPositions(e);
+        ListEntity<PricelistRow> positionsAfter = api.entity().pricelist().getPositions(priceList);
 
         assertEquals(Integer.valueOf(positionsBefore.getMeta().getSize() - 1), positionsAfter.getMeta().getSize());
         assertFalse(positionsAfter.getRows().stream().
@@ -439,14 +439,14 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void deletePositionByEntitiesTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity e = createSimplePricelist();
-        List<PricelistRow> positions = createSimplePositions(e);
+        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
+        List<PricelistRow> positions = createSimplePositions(priceList);
 
-        ListEntity<PricelistRow> positionsBefore = api.entity().pricelist().getPositions(e);
+        ListEntity<PricelistRow> positionsBefore = api.entity().pricelist().getPositions(priceList);
 
-        api.entity().pricelist().delete(e, positions.get(0));
+        api.entity().pricelist().delete(priceList, positions.get(0));
 
-        ListEntity<PricelistRow> positionsAfter = api.entity().pricelist().getPositions(e);
+        ListEntity<PricelistRow> positionsAfter = api.entity().pricelist().getPositions(priceList);
 
         assertEquals(Integer.valueOf(positionsBefore.getMeta().getSize() - 1), positionsAfter.getMeta().getSize());
         assertFalse(positionsAfter.getRows().stream().
@@ -455,7 +455,7 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         );
     }
 
-    private List<PricelistRow> createSimplePositions(PricelistDocumentEntity e) throws IOException, LognexApiException {
+    private List<PricelistRow> createSimplePositions(PricelistDocumentEntity priceList) throws IOException, LognexApiException {
         List<PricelistRow> positions = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
@@ -469,14 +469,14 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
             List<CellsItem> cells = new ArrayList<>();
             CellsItem cellsItem = new CellsItem();
             cellsItem.setSum(randomLong(1, 10000));
-            cellsItem.setColumn(e.getColumns().get(0).getName());
+            cellsItem.setColumn(priceList.getColumns().get(0).getName());
             cells.add(cellsItem);
             position.setCells(cells);
 
             positions.add(position);
         }
 
-        return api.entity().pricelist().postPositions(e, positions);
+        return api.entity().pricelist().postPositions(priceList, positions);
     }
 
     private void getPositionAsserts(PricelistRow p, PricelistRow retrievedPosition) {
@@ -486,8 +486,8 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
         assertEquals(p.getCells(), retrievedPosition.getCells());
     }
 
-    private void putPositionAsserts(PricelistDocumentEntity e, PricelistRow p, PricelistRow retrievedOriginalPosition, CellsItem cellsItem) throws IOException, LognexApiException {
-        PricelistRow retrievedUpdatedPosition = api.entity().pricelist().getPosition(e, p.getId());
+    private void putPositionAsserts(PricelistDocumentEntity priceList, PricelistRow p, PricelistRow retrievedOriginalPosition, CellsItem cellsItem) throws IOException, LognexApiException {
+        PricelistRow retrievedUpdatedPosition = api.entity().pricelist().getPosition(priceList, p.getId());
 
         assertNotEquals(retrievedOriginalPosition.getCells(), retrievedUpdatedPosition.getCells());
         assertEquals(cellsItem, retrievedUpdatedPosition.getCells().get(0));

@@ -1,7 +1,6 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.entities.agents.CounterpartyEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.LognexApiException;
@@ -17,89 +16,89 @@ import static org.junit.Assert.*;
 public class ContractEntityTest extends EntityTestBase {
     @Test
     public void createTest() throws IOException, LognexApiException {
-        ContractEntity e = new ContractEntity();
-        e.setName("contract_" + randomString(3) + "_" + new Date().getTime());
-        e.setArchived(false);
-        e.setDescription(randomString());
-        e.setSum(randomLong(100, 10000));
-        e.setMoment(LocalDateTime.now());
-        e.setContractType(ContractEntity.Type.sales);
-        e.setRewardType(RewardType.none);
+        ContractEntity contract = new ContractEntity();
+        contract.setName("contract_" + randomString(3) + "_" + new Date().getTime());
+        contract.setArchived(false);
+        contract.setDescription(randomString());
+        contract.setSum(randomLong(100, 10000));
+        contract.setMoment(LocalDateTime.now());
+        contract.setContractType(ContractEntity.Type.sales);
+        contract.setRewardType(RewardType.none);
 
-        e.setOwnAgent(getOwnOrganization());
+        contract.setOwnAgent(simpleEntityFactory.getOwnOrganization());
 
-        CounterpartyEntity agent = createSimpleCounterparty();
-        e.setAgent(agent);
+        CounterpartyEntity agent = simpleEntityFactory.createSimpleCounterparty();
+        contract.setAgent(agent);
 
-        api.entity().contract().post(e);
+        api.entity().contract().post(contract);
 
-        ListEntity<ContractEntity> updatedEntitiesList = api.entity().contract().get(filterEq("name", e.getName()));
+        ListEntity<ContractEntity> updatedEntitiesList = api.entity().contract().get(filterEq("name", contract.getName()));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         ContractEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getArchived(), retrievedEntity.getArchived());
-        assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getSum(), retrievedEntity.getSum());
-        assertEquals(e.getMoment(), retrievedEntity.getMoment());
-        assertEquals(e.getContractType(), retrievedEntity.getContractType());
-        assertEquals(e.getRewardType(), retrievedEntity.getRewardType());
-        assertEquals(e.getOwnAgent().getMeta().getHref(), retrievedEntity.getOwnAgent().getMeta().getHref());
-        assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+        assertEquals(contract.getName(), retrievedEntity.getName());
+        assertEquals(contract.getArchived(), retrievedEntity.getArchived());
+        assertEquals(contract.getDescription(), retrievedEntity.getDescription());
+        assertEquals(contract.getSum(), retrievedEntity.getSum());
+        assertEquals(contract.getMoment(), retrievedEntity.getMoment());
+        assertEquals(contract.getContractType(), retrievedEntity.getContractType());
+        assertEquals(contract.getRewardType(), retrievedEntity.getRewardType());
+        assertEquals(contract.getOwnAgent().getMeta().getHref(), retrievedEntity.getOwnAgent().getMeta().getHref());
+        assertEquals(contract.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
     }
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        ContractEntity e = createSimpleContract();
+        ContractEntity contract = simpleEntityFactory.createSimpleContract();
 
-        ContractEntity retrievedEntity = api.entity().contract().get(e.getId());
-        getAsserts(e, retrievedEntity);
+        ContractEntity retrievedEntity = api.entity().contract().get(contract.getId());
+        getAsserts(contract, retrievedEntity);
 
-        retrievedEntity = api.entity().contract().get(e);
-        getAsserts(e, retrievedEntity);
+        retrievedEntity = api.entity().contract().get(contract);
+        getAsserts(contract, retrievedEntity);
     }
 
     @Test
-    public void putTest() throws IOException, LognexApiException, InterruptedException {
-        ContractEntity e = createSimpleContract();
+    public void putTest() throws IOException, LognexApiException {
+        ContractEntity contract = simpleEntityFactory.createSimpleContract();
 
-        ContractEntity retrievedOriginalEntity = api.entity().contract().get(e.getId());
+        ContractEntity retrievedOriginalEntity = api.entity().contract().get(contract.getId());
         String name = "contract_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().contract().put(e.getId(), e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        contract.setName(name);
+        api.entity().contract().put(contract.getId(), contract);
+        putAsserts(contract, retrievedOriginalEntity, name);
 
-        e = createSimpleContract();
-        retrievedOriginalEntity = api.entity().contract().get(e.getId());
+        contract = simpleEntityFactory.createSimpleContract();
+        retrievedOriginalEntity = api.entity().contract().get(contract.getId());
         name = "contract_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().contract().put(e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        contract.setName(name);
+        api.entity().contract().put(contract);
+        putAsserts(contract, retrievedOriginalEntity, name);
     }
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        ContractEntity e = createSimpleContract();
+        ContractEntity contract = simpleEntityFactory.createSimpleContract();
 
-        ListEntity<ContractEntity> entitiesList = api.entity().contract().get(filterEq("name", e.getName()));
+        ListEntity<ContractEntity> entitiesList = api.entity().contract().get(filterEq("name", contract.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().contract().delete(e.getId());
+        api.entity().contract().delete(contract.getId());
 
-        entitiesList = api.entity().contract().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().contract().get(filterEq("name", contract.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        ContractEntity e = createSimpleContract();
+        ContractEntity contract = simpleEntityFactory.createSimpleContract();
 
-        ListEntity<ContractEntity> entitiesList = api.entity().contract().get(filterEq("name", e.getName()));
+        ListEntity<ContractEntity> entitiesList = api.entity().contract().get(filterEq("name", contract.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().contract().delete(e);
+        api.entity().contract().delete(contract);
 
-        entitiesList = api.entity().contract().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().contract().get(filterEq("name", contract.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
@@ -110,14 +109,14 @@ public class ContractEntityTest extends EntityTestBase {
         assertFalse(metadata.getCreateShared());
     }
 
-    private void getAsserts(ContractEntity e, ContractEntity retrievedEntity) {
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getOwnAgent().getMeta().getHref(), retrievedEntity.getOwnAgent().getMeta().getHref());
-        assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+    private void getAsserts(ContractEntity contract, ContractEntity retrievedEntity) {
+        assertEquals(contract.getName(), retrievedEntity.getName());
+        assertEquals(contract.getOwnAgent().getMeta().getHref(), retrievedEntity.getOwnAgent().getMeta().getHref());
+        assertEquals(contract.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
     }
 
-    private void putAsserts(ContractEntity e, ContractEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        ContractEntity retrievedUpdatedEntity = api.entity().contract().get(e.getId());
+    private void putAsserts(ContractEntity contract, ContractEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
+        ContractEntity retrievedUpdatedEntity = api.entity().contract().get(contract.getId());
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());

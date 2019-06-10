@@ -14,92 +14,92 @@ import static org.junit.Assert.*;
 public class ServiceEntityTest extends EntityTestBase {
     @Test
     public void createTest() throws IOException, LognexApiException {
-        ServiceEntity e = new ServiceEntity();
-        e.setName("service_" + randomString(3) + "_" + new Date().getTime());
-        e.setArchived(false);
-        e.setDescription(randomString());
+        ServiceEntity service = new ServiceEntity();
+        service.setName("service_" + randomString(3) + "_" + new Date().getTime());
+        service.setArchived(false);
+        service.setDescription(randomString());
         PriceEntity minPrice = new PriceEntity();
         minPrice.setValue(randomLong(10, 10000));
-        minPrice.setCurrency(getFirstCurrency());
-        e.setMinPrice(minPrice);
+        minPrice.setCurrency(simpleEntityFactory.getFirstCurrency());
+        service.setMinPrice(minPrice);
 
-        api.entity().service().post(e);
+        api.entity().service().post(service);
 
-        ListEntity<ServiceEntity> updatedEntitiesList = api.entity().service().get(filterEq("name", e.getName()));
+        ListEntity<ServiceEntity> updatedEntitiesList = api.entity().service().get(filterEq("name", service.getName()));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         ServiceEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getArchived(), retrievedEntity.getArchived());
-        assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getMinPrice().getValue(), retrievedEntity.getMinPrice().getValue());
-        assertEquals(e.getMinPrice().getCurrency(), retrievedEntity.getMinPrice().getCurrency());
+        assertEquals(service.getName(), retrievedEntity.getName());
+        assertEquals(service.getArchived(), retrievedEntity.getArchived());
+        assertEquals(service.getDescription(), retrievedEntity.getDescription());
+        assertEquals(service.getMinPrice().getValue(), retrievedEntity.getMinPrice().getValue());
+        assertEquals(service.getMinPrice().getCurrency(), retrievedEntity.getMinPrice().getCurrency());
     }
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        ServiceEntity e = createSimpleService();
+        ServiceEntity service = simpleEntityFactory.createSimpleService();
 
-        ServiceEntity retrievedEntity = api.entity().service().get(e.getId());
-        getAsserts(e, retrievedEntity);
+        ServiceEntity retrievedEntity = api.entity().service().get(service.getId());
+        getAsserts(service, retrievedEntity);
 
-        retrievedEntity = api.entity().service().get(e);
-        getAsserts(e, retrievedEntity);
+        retrievedEntity = api.entity().service().get(service);
+        getAsserts(service, retrievedEntity);
     }
 
     @Test
-    public void putTest() throws IOException, LognexApiException, InterruptedException {
-        ServiceEntity e = createSimpleService();
+    public void putTest() throws IOException, LognexApiException {
+        ServiceEntity service = simpleEntityFactory.createSimpleService();
 
-        ServiceEntity retrievedOriginalEntity = api.entity().service().get(e.getId());
+        ServiceEntity retrievedOriginalEntity = api.entity().service().get(service.getId());
         String name = "service_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().service().put(e.getId(), e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        service.setName(name);
+        api.entity().service().put(service.getId(), service);
+        putAsserts(service, retrievedOriginalEntity, name);
 
-        retrievedOriginalEntity.set(e);
+        retrievedOriginalEntity.set(service);
 
         name = "service_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().service().put(e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        service.setName(name);
+        api.entity().service().put(service);
+        putAsserts(service, retrievedOriginalEntity, name);
     }
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        ServiceEntity e = createSimpleService();
+        ServiceEntity service = simpleEntityFactory.createSimpleService();
 
-        ListEntity<ServiceEntity> entitiesList = api.entity().service().get(filterEq("name", e.getName()));
+        ListEntity<ServiceEntity> entitiesList = api.entity().service().get(filterEq("name", service.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().service().delete(e.getId());
+        api.entity().service().delete(service.getId());
 
-        entitiesList = api.entity().service().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().service().get(filterEq("name", service.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        ServiceEntity e = createSimpleService();
+        ServiceEntity service = simpleEntityFactory.createSimpleService();
 
-        ListEntity<ServiceEntity> entitiesList = api.entity().service().get(filterEq("name", e.getName()));
+        ListEntity<ServiceEntity> entitiesList = api.entity().service().get(filterEq("name", service.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().service().delete(e);
+        api.entity().service().delete(service);
 
-        entitiesList = api.entity().service().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().service().get(filterEq("name", service.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
 
 
-    private void getAsserts(ServiceEntity e, ServiceEntity retrievedEntity) {
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getDescription(), retrievedEntity.getDescription());
+    private void getAsserts(ServiceEntity service, ServiceEntity retrievedEntity) {
+        assertEquals(service.getName(), retrievedEntity.getName());
+        assertEquals(service.getDescription(), retrievedEntity.getDescription());
     }
 
-    private void putAsserts(ServiceEntity e, ServiceEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        ServiceEntity retrievedUpdatedEntity = api.entity().service().get(e.getId());
+    private void putAsserts(ServiceEntity service, ServiceEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
+        ServiceEntity retrievedUpdatedEntity = api.entity().service().get(service.getId());
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());

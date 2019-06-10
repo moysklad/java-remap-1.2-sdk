@@ -51,7 +51,7 @@ public final class HttpRequestExecutor {
         if (api.isPricePrecision()) header("X-Lognex-Precision", "true");
         if (api.isWithoutWebhookContent()) header("X-Lognex-WebHook-Disable", "true");
 
-        gson = LognexApi.createGson(false);
+        gson = LognexApi.createGson();
     }
 
     private HttpRequestExecutor(CloseableHttpClient client, String url) {

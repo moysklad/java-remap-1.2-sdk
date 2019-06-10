@@ -31,14 +31,14 @@ public class TaskEntityTest extends EntityTestBase {
         CounterpartyEntity buyerAgent = api.entity().counterparty().get(filterEq("name", "ООО \"Покупатель\"")).getRows().get(0);
         LocalDateTime dueDate = LocalDateTime.now().plusMonths(1).withSecond(0).withNano(0);
 
-        TaskEntity e = new TaskEntity();
-        e.setDescription("task_" + randomString(3) + "_" + new Date().getTime());
-        e.setAssignee(adminEmpl);
-        e.setAgent(buyerAgent);
-        e.setDueToDate(dueDate);
-        api.entity().task().post(e);
+        TaskEntity task = new TaskEntity();
+        task.setDescription("task_" + randomString(3) + "_" + new Date().getTime());
+        task.setAssignee(adminEmpl);
+        task.setAgent(buyerAgent);
+        task.setDueToDate(dueDate);
+        api.entity().task().post(task);
 
-        ListEntity<TaskEntity> updatedEntitiesList = api.entity().task().get(filterEq("description", e.getDescription()));
+        ListEntity<TaskEntity> updatedEntitiesList = api.entity().task().get(filterEq("description", task.getDescription()));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         TaskEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
@@ -51,74 +51,74 @@ public class TaskEntityTest extends EntityTestBase {
 
     @Test
     public void getByIdTest() throws IOException, LognexApiException {
-        TaskEntity e = createSimpleTask();
+        TaskEntity task = simpleEntityFactory.createSimpleTask();
 
-        TaskEntity retrievedEntity = api.entity().task().get(e.getId());
+        TaskEntity retrievedEntity = api.entity().task().get(task.getId());
 
-        getAsserts(e, retrievedEntity);
+        getAsserts(task, retrievedEntity);
     }
 
     @Test
     public void getEntityTest() throws IOException, LognexApiException {
-        TaskEntity e = createSimpleTask();
-        TaskEntity retrievedEntity = api.entity().task().get(e);
-        getAsserts(e, retrievedEntity);
+        TaskEntity task = simpleEntityFactory.createSimpleTask();
+        TaskEntity retrievedEntity = api.entity().task().get(task);
+        getAsserts(task, retrievedEntity);
     }
 
     @Test
-    public void putByIdTest() throws IOException, LognexApiException, InterruptedException {
-        TaskEntity e = createSimpleTask();
+    public void putByIdTest() throws IOException, LognexApiException {
+        TaskEntity task = simpleEntityFactory.createSimpleTask();
 
-        TaskEntity retrievedOriginalEntity = api.entity().task().get(e.getId());
+        TaskEntity retrievedOriginalEntity = api.entity().task().get(task.getId());
 
         LocalDateTime dueDate = LocalDateTime.now().plusMonths(1).withSecond(0).withNano(0);
-        e.setDueToDate(dueDate);
-        e.setDone(true);
+        task.setDueToDate(dueDate);
+        task.setDone(true);
 
-        api.entity().task().put(e.getId(), e);
-        putAsserts(e, retrievedOriginalEntity, dueDate);
+        api.entity().task().put(task.getId(), task);
+        putAsserts(task, retrievedOriginalEntity, dueDate);
     }
 
     @Test
-    public void putEntityTest() throws IOException, LognexApiException, InterruptedException {
-        TaskEntity e = createSimpleTask();
+    public void putEntityTest() throws IOException, LognexApiException {
+        TaskEntity task = simpleEntityFactory.createSimpleTask();
 
-        TaskEntity retrievedOriginalEntity = api.entity().task().get(e.getId());
+        TaskEntity retrievedOriginalEntity = api.entity().task().get(task.getId());
 
         LocalDateTime dueDate = LocalDateTime.now().plusMonths(1).withSecond(0).withNano(0);
-        e.setDueToDate(dueDate);
-        e.setDone(true);
+        task.setDueToDate(dueDate);
+        task.setDone(true);
 
-        api.entity().task().put(e);
-        putAsserts(e, retrievedOriginalEntity, dueDate);
+        api.entity().task().put(task);
+        putAsserts(task, retrievedOriginalEntity, dueDate);
     }
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        TaskEntity e = createSimpleTask();
+        TaskEntity task = simpleEntityFactory.createSimpleTask();
 
         int oldCount = api.entity().task().get().getMeta().getSize();
-        assertEquals((Integer) 1, api.entity().task().get(filterEq("description", e.getDescription())).getMeta().getSize());
+        assertEquals((Integer) 1, api.entity().task().get(filterEq("description", task.getDescription())).getMeta().getSize());
 
-        api.entity().task().delete(e.getId());
+        api.entity().task().delete(task.getId());
 
         int newCount = api.entity().task().get().getMeta().getSize();
         assertEquals(oldCount - 1, newCount);
-        assertEquals((Integer) 0, api.entity().task().get(filterEq("description", e.getDescription())).getMeta().getSize());
+        assertEquals((Integer) 0, api.entity().task().get(filterEq("description", task.getDescription())).getMeta().getSize());
     }
 
     @Test
     public void deleteEntityTest() throws IOException, LognexApiException {
-        TaskEntity e = createSimpleTask();
+        TaskEntity task = simpleEntityFactory.createSimpleTask();
 
         int oldCount = api.entity().task().get().getMeta().getSize();
-        assertEquals((Integer) 1, api.entity().task().get(filterEq("description", e.getDescription())).getMeta().getSize());
+        assertEquals((Integer) 1, api.entity().task().get(filterEq("description", task.getDescription())).getMeta().getSize());
 
-        api.entity().task().delete(e);
+        api.entity().task().delete(task);
 
         int newCount = api.entity().task().get().getMeta().getSize();
         assertEquals(oldCount - 1, newCount);
-        assertEquals((Integer) 0, api.entity().task().get(filterEq("description", e.getDescription())).getMeta().getSize());
+        assertEquals((Integer) 0, api.entity().task().get(filterEq("description", task.getDescription())).getMeta().getSize());
     }
 
     @Test
@@ -211,12 +211,12 @@ public class TaskEntityTest extends EntityTestBase {
     @Test
     public void errorTest() throws IOException {
         try {
-            TaskEntity e = new TaskEntity();
-            api.entity().task().post(e);
+            TaskEntity task = new TaskEntity();
+            api.entity().task().post(task);
             fail("Ожидалось исключение");
-        } catch (LognexApiException e) {
+        } catch (LognexApiException task) {
             assertApiError(
-                    e, 412,
+                    task, 412,
                     Arrays.asList(
                             Pair.of(3000, "Ошибка сохранения объекта: поле 'description' не может быть пустым или отсутствовать"),
                             Pair.of(3000, "Ошибка сохранения объекта: поле 'assignee' не может быть пустым или отсутствовать")
@@ -225,29 +225,29 @@ public class TaskEntityTest extends EntityTestBase {
         }
 
         try {
-            TaskEntity e = new TaskEntity();
-            e.setDescription(randomString());
-            api.entity().task().post(e);
+            TaskEntity task = new TaskEntity();
+            task.setDescription(randomString());
+            api.entity().task().post(task);
             fail("Ожидалось исключение");
-        } catch (LognexApiException e) {
+        } catch (LognexApiException task) {
             assertApiError(
-                    e, 412,
+                    task, 412,
                     3000, "Ошибка сохранения объекта: поле 'assignee' не может быть пустым или отсутствовать"
             );
         }
     }
 
-    private void getAsserts(TaskEntity e, TaskEntity retrievedEntity) {
-        assertEquals(e.getId(), retrievedEntity.getId());
-        assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getAuthor().getMeta().getHref(), retrievedEntity.getAuthor().getMeta().getHref());
-        assertEquals(e.getAssignee().getMeta().getHref(), retrievedEntity.getAssignee().getMeta().getHref());
+    private void getAsserts(TaskEntity task, TaskEntity retrievedEntity) {
+        assertEquals(task.getId(), retrievedEntity.getId());
+        assertEquals(task.getDescription(), retrievedEntity.getDescription());
+        assertEquals(task.getAuthor().getMeta().getHref(), retrievedEntity.getAuthor().getMeta().getHref());
+        assertEquals(task.getAssignee().getMeta().getHref(), retrievedEntity.getAssignee().getMeta().getHref());
         assertNull(retrievedEntity.getAgent());
         assertNull(retrievedEntity.getDueToDate());
     }
 
-    private void putAsserts(TaskEntity e, TaskEntity retrievedOriginalEntity, LocalDateTime dueDate) throws IOException, LognexApiException {
-        TaskEntity retrievedUpdatedEntity = api.entity().task().get(e.getId());
+    private void putAsserts(TaskEntity task, TaskEntity retrievedOriginalEntity, LocalDateTime dueDate) throws IOException, LognexApiException {
+        TaskEntity retrievedUpdatedEntity = api.entity().task().get(task.getId());
 
         assertEquals(retrievedOriginalEntity.getId(), retrievedUpdatedEntity.getId());
         assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());

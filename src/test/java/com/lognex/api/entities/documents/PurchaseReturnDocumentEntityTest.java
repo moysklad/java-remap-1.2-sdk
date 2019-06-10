@@ -1,17 +1,16 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.EntityTestBase;
+import com.lognex.api.clients.ApiClient;
+import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
-import com.lognex.api.entities.products.ProductEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.LognexApiException;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -19,21 +18,21 @@ import java.util.*;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class PurchaseReturnDocumentEntityTest extends EntityTestBase {
+public class PurchaseReturnDocumentEntityTest extends DocumentWithPositionsTestBase {
     @Test
     public void createTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = new PurchaseReturnDocumentEntity();
-        e.setName("purchasereturn_" + randomString(3) + "_" + new Date().getTime());
-        e.setDescription(randomString());
-        e.setVatEnabled(true);
-        e.setVatIncluded(true);
-        e.setMoment(LocalDateTime.now());
-        OrganizationEntity organization = getOwnOrganization();
-        e.setOrganization(organization);
-        CounterpartyEntity agent = createSimpleCounterparty();
-        e.setAgent(agent);
-        StoreEntity mainStore = getMainStore();
-        e.setStore(mainStore);
+        PurchaseReturnDocumentEntity purchaseReturn = new PurchaseReturnDocumentEntity();
+        purchaseReturn.setName("purchasereturn_" + randomString(3) + "_" + new Date().getTime());
+        purchaseReturn.setDescription(randomString());
+        purchaseReturn.setVatEnabled(true);
+        purchaseReturn.setVatIncluded(true);
+        purchaseReturn.setMoment(LocalDateTime.now());
+        OrganizationEntity organization = simpleEntityFactory.getOwnOrganization();
+        purchaseReturn.setOrganization(organization);
+        CounterpartyEntity agent = simpleEntityFactory.createSimpleCounterparty();
+        purchaseReturn.setAgent(agent);
+        StoreEntity mainStore = simpleEntityFactory.getMainStore();
+        purchaseReturn.setStore(mainStore);
 
         SupplyDocumentEntity supply = new SupplyDocumentEntity();
         supply.setName("supply_" + randomString(3) + "_" + new Date().getTime());
@@ -42,77 +41,77 @@ public class PurchaseReturnDocumentEntityTest extends EntityTestBase {
         supply.setStore(mainStore);
 
         api.entity().supply().post(supply);
-        e.setSupply(supply);
+        purchaseReturn.setSupply(supply);
 
-        api.entity().purchasereturn().post(e);
+        api.entity().purchasereturn().post(purchaseReturn);
 
-        ListEntity<PurchaseReturnDocumentEntity> updatedEntitiesList = api.entity().purchasereturn().get(filterEq("name", e.getName()));
+        ListEntity<PurchaseReturnDocumentEntity> updatedEntitiesList = api.entity().purchasereturn().get(filterEq("name", purchaseReturn.getName()));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         PurchaseReturnDocumentEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getVatEnabled(), retrievedEntity.getVatEnabled());
-        assertEquals(e.getVatIncluded(), retrievedEntity.getVatIncluded());
-        assertEquals(e.getMoment(), retrievedEntity.getMoment());
-        assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-        assertEquals(e.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
-        assertEquals(e.getSupply().getMeta().getHref(), retrievedEntity.getSupply().getMeta().getHref());
+        assertEquals(purchaseReturn.getName(), retrievedEntity.getName());
+        assertEquals(purchaseReturn.getDescription(), retrievedEntity.getDescription());
+        assertEquals(purchaseReturn.getVatEnabled(), retrievedEntity.getVatEnabled());
+        assertEquals(purchaseReturn.getVatIncluded(), retrievedEntity.getVatIncluded());
+        assertEquals(purchaseReturn.getMoment(), retrievedEntity.getMoment());
+        assertEquals(purchaseReturn.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
+        assertEquals(purchaseReturn.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+        assertEquals(purchaseReturn.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
+        assertEquals(purchaseReturn.getSupply().getMeta().getHref(), retrievedEntity.getSupply().getMeta().getHref());
     }
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
+        PurchaseReturnDocumentEntity purchaseReturn = simpleEntityFactory.createSimplePurchaseReturn();
 
-        PurchaseReturnDocumentEntity retrievedEntity = api.entity().purchasereturn().get(e.getId());
-        getAsserts(e, retrievedEntity);
+        PurchaseReturnDocumentEntity retrievedEntity = api.entity().purchasereturn().get(purchaseReturn.getId());
+        getAsserts(purchaseReturn, retrievedEntity);
 
-        retrievedEntity = api.entity().purchasereturn().get(e);
-        getAsserts(e, retrievedEntity);
+        retrievedEntity = api.entity().purchasereturn().get(purchaseReturn);
+        getAsserts(purchaseReturn, retrievedEntity);
     }
 
     @Test
-    public void putTest() throws IOException, LognexApiException, InterruptedException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
+    public void putTest() throws IOException, LognexApiException {
+        PurchaseReturnDocumentEntity purchaseReturn = simpleEntityFactory.createSimplePurchaseReturn();
 
-        PurchaseReturnDocumentEntity retrievedOriginalEntity = api.entity().purchasereturn().get(e.getId());
+        PurchaseReturnDocumentEntity retrievedOriginalEntity = api.entity().purchasereturn().get(purchaseReturn.getId());
         String name = "purchasereturn_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().purchasereturn().put(e.getId(), e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        purchaseReturn.setName(name);
+        api.entity().purchasereturn().put(purchaseReturn.getId(), purchaseReturn);
+        putAsserts(purchaseReturn, retrievedOriginalEntity, name);
 
-        retrievedOriginalEntity.set(e);
+        retrievedOriginalEntity.set(purchaseReturn);
 
         name = "purchasereturn_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().purchasereturn().put(e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        purchaseReturn.setName(name);
+        api.entity().purchasereturn().put(purchaseReturn);
+        putAsserts(purchaseReturn, retrievedOriginalEntity, name);
     }
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
+        PurchaseReturnDocumentEntity purchaseReturn = simpleEntityFactory.createSimplePurchaseReturn();
 
-        ListEntity<PurchaseReturnDocumentEntity> entitiesList = api.entity().purchasereturn().get(filterEq("name", e.getName()));
+        ListEntity<PurchaseReturnDocumentEntity> entitiesList = api.entity().purchasereturn().get(filterEq("name", purchaseReturn.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().purchasereturn().delete(e.getId());
+        api.entity().purchasereturn().delete(purchaseReturn.getId());
 
-        entitiesList = api.entity().purchasereturn().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().purchasereturn().get(filterEq("name", purchaseReturn.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
+        PurchaseReturnDocumentEntity purchaseReturn = simpleEntityFactory.createSimplePurchaseReturn();
 
-        ListEntity<PurchaseReturnDocumentEntity> entitiesList = api.entity().purchasereturn().get(filterEq("name", e.getName()));
+        ListEntity<PurchaseReturnDocumentEntity> entitiesList = api.entity().purchasereturn().get(filterEq("name", purchaseReturn.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().purchasereturn().delete(e);
+        api.entity().purchasereturn().delete(purchaseReturn);
 
-        entitiesList = api.entity().purchasereturn().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().purchasereturn().get(filterEq("name", purchaseReturn.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
@@ -125,53 +124,53 @@ public class PurchaseReturnDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = api.entity().purchasereturn().newDocument();
+        PurchaseReturnDocumentEntity purchaseReturn = api.entity().purchasereturn().newDocument();
         LocalDateTime time = LocalDateTime.now();
 
-        assertEquals("", e.getName());
-        assertTrue(e.getVatEnabled());
-        assertTrue(e.getVatIncluded());
-        assertEquals(Long.valueOf(0), e.getSum());
-        assertFalse(e.getShared());
-        assertTrue(e.getApplicable());
-        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
+        assertEquals("", purchaseReturn.getName());
+        assertTrue(purchaseReturn.getVatEnabled());
+        assertTrue(purchaseReturn.getVatIncluded());
+        assertEquals(Long.valueOf(0), purchaseReturn.getSum());
+        assertFalse(purchaseReturn.getShared());
+        assertTrue(purchaseReturn.getApplicable());
+        assertTrue(ChronoUnit.MILLIS.between(time, purchaseReturn.getMoment()) < 1000);
 
-        assertEquals(e.getOrganization().getMeta().getHref(), getOwnOrganization().getMeta().getHref());
-        assertEquals(e.getStore().getMeta().getHref(), getMainStore().getMeta().getHref());
-        assertEquals(e.getGroup().getMeta().getHref(), getMainGroup().getMeta().getHref());
+        assertEquals(purchaseReturn.getOrganization().getMeta().getHref(), simpleEntityFactory.getOwnOrganization().getMeta().getHref());
+        assertEquals(purchaseReturn.getStore().getMeta().getHref(), simpleEntityFactory.getMainStore().getMeta().getHref());
+        assertEquals(purchaseReturn.getGroup().getMeta().getHref(), simpleEntityFactory.getMainGroup().getMeta().getHref());
     }
 
     @Test
     public void newBySupplyTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity supply = createSimpleSupply();
+        SupplyDocumentEntity supply = simpleEntityFactory.createSimpleSupply();
 
-        PurchaseReturnDocumentEntity e = api.entity().purchasereturn().newDocument("supply", supply);
+        PurchaseReturnDocumentEntity purchaseReturn = api.entity().purchasereturn().newDocument("supply", supply);
         LocalDateTime time = LocalDateTime.now();
 
-        assertEquals("", e.getName());
-        assertEquals(supply.getVatEnabled(), e.getVatEnabled());
-        assertEquals(supply.getVatIncluded(), e.getVatIncluded());
-        assertEquals(supply.getPayedSum(), e.getPayedSum());
-        assertEquals(supply.getSum(), e.getSum());
-        assertFalse(e.getShared());
-        assertTrue(e.getApplicable());
-        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
-        assertEquals(supply.getMeta().getHref(), e.getSupply().getMeta().getHref());
-        assertEquals(supply.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
-        assertEquals(supply.getStore().getMeta().getHref(), e.getStore().getMeta().getHref());
-        assertEquals(supply.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
-        assertEquals(supply.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
+        assertEquals("", purchaseReturn.getName());
+        assertEquals(supply.getVatEnabled(), purchaseReturn.getVatEnabled());
+        assertEquals(supply.getVatIncluded(), purchaseReturn.getVatIncluded());
+        assertEquals(supply.getPayedSum(), purchaseReturn.getPayedSum());
+        assertEquals(supply.getSum(), purchaseReturn.getSum());
+        assertFalse(purchaseReturn.getShared());
+        assertTrue(purchaseReturn.getApplicable());
+        assertTrue(ChronoUnit.MILLIS.between(time, purchaseReturn.getMoment()) < 1000);
+        assertEquals(supply.getMeta().getHref(), purchaseReturn.getSupply().getMeta().getHref());
+        assertEquals(supply.getAgent().getMeta().getHref(), purchaseReturn.getAgent().getMeta().getHref());
+        assertEquals(supply.getStore().getMeta().getHref(), purchaseReturn.getStore().getMeta().getHref());
+        assertEquals(supply.getGroup().getMeta().getHref(), purchaseReturn.getGroup().getMeta().getHref());
+        assertEquals(supply.getOrganization().getMeta().getHref(), purchaseReturn.getOrganization().getMeta().getHref());
     }
 
-    private void getAsserts(PurchaseReturnDocumentEntity e, PurchaseReturnDocumentEntity retrievedEntity) {
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-        assertEquals(e.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
+    private void getAsserts(PurchaseReturnDocumentEntity purchaseReturn, PurchaseReturnDocumentEntity retrievedEntity) {
+        assertEquals(purchaseReturn.getName(), retrievedEntity.getName());
+        assertEquals(purchaseReturn.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
+        assertEquals(purchaseReturn.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+        assertEquals(purchaseReturn.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
     }
 
-    private void putAsserts(PurchaseReturnDocumentEntity e, PurchaseReturnDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity retrievedUpdatedEntity = api.entity().purchasereturn().get(e.getId());
+    private void putAsserts(PurchaseReturnDocumentEntity purchaseReturn, PurchaseReturnDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
+        PurchaseReturnDocumentEntity retrievedUpdatedEntity = api.entity().purchasereturn().get(purchaseReturn.getId());
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());
@@ -180,306 +179,13 @@ public class PurchaseReturnDocumentEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getStore().getMeta().getHref(), retrievedUpdatedEntity.getStore().getMeta().getHref());
     }
 
-    @Test
-    public void createPositionByIdTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
-
-        ListEntity<DocumentPosition> originalPositions = api.entity().purchasereturn().getPositions(e.getId());
-
-        DocumentPosition position = new DocumentPosition();
-
-        ProductEntity product = new ProductEntity();
-        product.setName(randomString());
-        api.entity().product().post(product);
-
-        position.setAssortment(product);
-        position.setQuantity(randomDouble(1, 5, 3));
-
-        api.entity().purchasereturn().postPosition(e.getId(), position);
-        ListEntity<DocumentPosition> retrievedPositions = api.entity().purchasereturn().getPositions(e.getId());
-
-        assertEquals(Integer.valueOf(originalPositions.getMeta().getSize() + 1), retrievedPositions.getMeta().getSize());
-        assertTrue(retrievedPositions.
-                getRows().
-                stream().
-                anyMatch(x -> ((ProductEntity) x.getAssortment()).getMeta().getHref().equals(product.getMeta().getHref()) &&
-                        x.getQuantity().equals(position.getQuantity())
-                )
-        );
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().purchasereturn();
     }
 
-    @Test
-    public void createPositionByEntityTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
-
-        ListEntity<DocumentPosition> originalPositions = api.entity().purchasereturn().getPositions(e.getId());
-
-        DocumentPosition position = new DocumentPosition();
-
-        ProductEntity product = new ProductEntity();
-        product.setName(randomString());
-        api.entity().product().post(product);
-
-        position.setAssortment(product);
-        position.setQuantity(randomDouble(1, 5, 3));
-
-        api.entity().purchasereturn().postPosition(e, position);
-        ListEntity<DocumentPosition> retrievedPositions = api.entity().purchasereturn().getPositions(e);
-
-        assertEquals(Integer.valueOf(originalPositions.getMeta().getSize() + 1), retrievedPositions.getMeta().getSize());
-        assertTrue(retrievedPositions.
-                getRows().
-                stream().
-                anyMatch(x -> ((ProductEntity) x.getAssortment()).getMeta().getHref().equals(product.getMeta().getHref()) &&
-                        x.getQuantity().equals(position.getQuantity())
-                )
-        );
-    }
-
-    @Test
-    public void createPositionsByIdTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
-
-        ListEntity<DocumentPosition> originalPositions = api.entity().purchasereturn().getPositions(e.getId());
-
-        List<DocumentPosition> positions = new ArrayList<>();
-        List<ProductEntity> products = new ArrayList<>();
-
-        for (int i = 0; i < 2; i++) {
-            DocumentPosition position = new DocumentPosition();
-
-            ProductEntity product = new ProductEntity();
-            product.setName(randomString());
-            api.entity().product().post(product);
-            products.add(product);
-
-            position.setAssortment(product);
-            position.setQuantity(randomDouble(1, 5, 3));
-
-            positions.add(position);
-        }
-
-        api.entity().purchasereturn().postPositions(e.getId(), positions);
-        ListEntity<DocumentPosition> retrievedPositions = api.entity().purchasereturn().getPositions(e.getId());
-
-        assertEquals(Integer.valueOf(originalPositions.getMeta().getSize() + 2), retrievedPositions.getMeta().getSize());
-        for (int i = 0; i < 2; i++) {
-            ProductEntity product = products.get(i);
-            DocumentPosition position = positions.get(i);
-
-            assertTrue(retrievedPositions.
-                    getRows().
-                    stream().
-                    anyMatch(x -> ((ProductEntity) x.getAssortment()).getMeta().getHref().equals(product.getMeta().getHref()) &&
-                            x.getQuantity().equals(position.getQuantity())
-                    )
-            );
-        }
-    }
-
-    @Test
-    public void createPositionsByEntityTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
-
-        ListEntity<DocumentPosition> originalPositions = api.entity().purchasereturn().getPositions(e.getId());
-
-        List<DocumentPosition> positions = new ArrayList<>();
-        List<ProductEntity> products = new ArrayList<>();
-
-        for (int i = 0; i < 2; i++) {
-            DocumentPosition position = new DocumentPosition();
-
-            ProductEntity product = new ProductEntity();
-            product.setName(randomString());
-            api.entity().product().post(product);
-            products.add(product);
-
-            position.setAssortment(product);
-            position.setQuantity(randomDouble(1, 5, 3));
-
-            positions.add(position);
-        }
-
-        api.entity().purchasereturn().postPositions(e, positions);
-        ListEntity<DocumentPosition> retrievedPositions = api.entity().purchasereturn().getPositions(e);
-
-        assertEquals(Integer.valueOf(originalPositions.getMeta().getSize() + 2), retrievedPositions.getMeta().getSize());
-        for (int i = 0; i < 2; i++) {
-            ProductEntity product = products.get(i);
-            DocumentPosition position = positions.get(i);
-
-            assertTrue(retrievedPositions.
-                    getRows().
-                    stream().
-                    anyMatch(x -> ((ProductEntity) x.getAssortment()).getMeta().getHref().equals(product.getMeta().getHref()) &&
-                            x.getQuantity().equals(position.getQuantity())
-                    )
-            );
-        }
-    }
-
-    @Test
-    public void getPositionTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        DocumentPosition retrievedPosition = api.entity().purchasereturn().getPosition(e.getId(), positions.get(0).getId());
-        getPositionAsserts(positions.get(0), retrievedPosition);
-
-        retrievedPosition = api.entity().purchasereturn().getPosition(e, positions.get(0).getId());
-        getPositionAsserts(positions.get(0), retrievedPosition);
-    }
-
-    @Test
-    public void putPositionByIdsTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        DocumentPosition p = positions.get(0);
-        DocumentPosition retrievedPosition = api.entity().purchasereturn().getPosition(e.getId(), p.getId());
-
-        DecimalFormat df = new DecimalFormat("#.###");
-        double quantity = Double.valueOf(df.format(p.getQuantity() + randomDouble(1, 1, 3)));
-        p.setQuantity(quantity);
-        api.entity().purchasereturn().putPosition(e.getId(), p.getId(), p);
-
-        putPositionAsserts(e, p, retrievedPosition, quantity);
-    }
-
-    @Test
-    public void putPositionByEntityIdTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        DocumentPosition p = positions.get(0);
-        DocumentPosition retrievedPosition = api.entity().purchasereturn().getPosition(e.getId(), p.getId());
-
-        DecimalFormat df = new DecimalFormat("#.###");
-        double quantity = Double.valueOf(df.format(p.getQuantity() + randomDouble(1, 1, 3)));
-        p.setQuantity(quantity);
-        api.entity().purchasereturn().putPosition(e, p.getId(), p);
-
-        putPositionAsserts(e, p, retrievedPosition, quantity);
-    }
-
-    @Test
-    public void putPositionByEntitiesTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        DocumentPosition p = positions.get(0);
-        DocumentPosition retrievedPosition = api.entity().purchasereturn().getPosition(e.getId(), p.getId());
-
-        DecimalFormat df = new DecimalFormat("#.###");
-        double quantity = Double.valueOf(df.format(p.getQuantity() + randomDouble(1, 1, 3)));
-        p.setQuantity(quantity);
-        api.entity().purchasereturn().putPosition(e, p, p);
-
-        putPositionAsserts(e, p, retrievedPosition, quantity);
-    }
-
-    @Test
-    public void putPositionBySelfTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        DocumentPosition p = positions.get(0);
-        DocumentPosition retrievedPosition = api.entity().purchasereturn().getPosition(e.getId(), p.getId());
-
-        DecimalFormat df = new DecimalFormat("#.###");
-        double quantity = Double.valueOf(df.format(p.getQuantity() + randomDouble(1, 1, 3)));
-        p.setQuantity(quantity);
-        api.entity().purchasereturn().putPosition(e, p);
-
-        putPositionAsserts(e, p, retrievedPosition, quantity);
-    }
-
-    @Test
-    public void deletePositionByIdsTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        ListEntity<DocumentPosition> positionsBefore = api.entity().purchasereturn().getPositions(e);
-
-        api.entity().purchasereturn().delete(e.getId(), positions.get(0).getId());
-
-        ListEntity<DocumentPosition> positionsAfter = api.entity().purchasereturn().getPositions(e);
-
-        assertEquals(Integer.valueOf(positionsBefore.getMeta().getSize() - 1), positionsAfter.getMeta().getSize());
-        assertFalse(positionsAfter.getRows().stream().
-                anyMatch(x -> ((ProductEntity) positions.get(0).getAssortment()).getMeta().getHref().
-                        equals(((ProductEntity) x.getAssortment()).getMeta().getHref()))
-        );
-    }
-
-    @Test
-    public void deletePositionByEntityIdTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        ListEntity<DocumentPosition> positionsBefore = api.entity().purchasereturn().getPositions(e);
-
-        api.entity().purchasereturn().delete(e, positions.get(0).getId());
-
-        ListEntity<DocumentPosition> positionsAfter = api.entity().purchasereturn().getPositions(e);
-
-        assertEquals(Integer.valueOf(positionsBefore.getMeta().getSize() - 1), positionsAfter.getMeta().getSize());
-        assertFalse(positionsAfter.getRows().stream().
-                anyMatch(x -> ((ProductEntity) positions.get(0).getAssortment()).getMeta().getHref().
-                        equals(((ProductEntity) x.getAssortment()).getMeta().getHref()))
-        );
-    }
-
-    @Test
-    public void deletePositionByEntitiesTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity e = createSimplePurchaseReturn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        ListEntity<DocumentPosition> positionsBefore = api.entity().purchasereturn().getPositions(e);
-
-        api.entity().purchasereturn().delete(e, positions.get(0));
-
-        ListEntity<DocumentPosition> positionsAfter = api.entity().purchasereturn().getPositions(e);
-
-        assertEquals(Integer.valueOf(positionsBefore.getMeta().getSize() - 1), positionsAfter.getMeta().getSize());
-        assertFalse(positionsAfter.getRows().stream().
-                anyMatch(x -> ((ProductEntity) positions.get(0).getAssortment()).getMeta().getHref().
-                        equals(((ProductEntity) x.getAssortment()).getMeta().getHref()))
-        );
-    }
-
-    private List<DocumentPosition> createSimplePositions(PurchaseReturnDocumentEntity e) throws IOException, LognexApiException {
-        List<DocumentPosition> positions = new ArrayList<>();
-
-        for (int i = 0; i < 2; i++) {
-            DocumentPosition position = new DocumentPosition();
-
-            ProductEntity product = new ProductEntity();
-            product.setName(randomString());
-            api.entity().product().post(product);
-
-            position.setAssortment(product);
-            position.setQuantity(randomDouble(1, 5, 3));
-
-            positions.add(position);
-        }
-
-        return api.entity().purchasereturn().postPositions(e, positions);
-    }
-
-    private void getPositionAsserts(DocumentPosition p, DocumentPosition retrievedPosition) {
-        assertEquals(p.getMeta().getHref(), retrievedPosition.getMeta().getHref());
-        assertEquals(((ProductEntity) p.getAssortment()).getMeta().getHref(),
-                ((ProductEntity) retrievedPosition.getAssortment()).getMeta().getHref());
-        assertEquals(p.getQuantity(), retrievedPosition.getQuantity());
-    }
-
-    private void putPositionAsserts(PurchaseReturnDocumentEntity e, DocumentPosition p, DocumentPosition retrievedOriginalPosition, Double quantity) throws IOException, LognexApiException {
-        DocumentPosition retrievedUpdatedPosition = api.entity().purchasereturn().getPosition(e, p.getId());
-
-        assertNotEquals(retrievedOriginalPosition.getQuantity(), retrievedUpdatedPosition.getQuantity());
-        assertEquals(quantity, retrievedUpdatedPosition.getQuantity());
-        assertEquals(((ProductEntity) retrievedOriginalPosition.getAssortment()).getMeta().getHref(),
-                ((ProductEntity) retrievedUpdatedPosition.getAssortment()).getMeta().getHref());
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return PurchaseReturnDocumentEntity.class;
     }
 }

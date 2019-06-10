@@ -29,80 +29,98 @@ public class DiscountEntityTest extends EntityTestBase {
     public void deserializeSpecialPriceDiscountWithDiscountTest() {
         Gson gson = LognexApi.createGson();
 
-        SpecialPriceDiscountEntity e = gson.fromJson(TestUtils.getFile("discountJson/specialdiscount.json"), SpecialPriceDiscountEntity.class);
-
-        assertEquals(Meta.Type.specialpricediscount, e.getMeta().getType());
-        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/specialpricediscount/96673f4d-9f4d-11e6-8af5-581e0000007b", e.getMeta().getHref());
-        assertEquals("96673f4d-9f4d-11e6-8af5-581e0000007b", e.getId());
-        assertEquals("Специальная процентная сидка", e.getName());
-        assertTrue(e.getActive());
-        assertEquals(1, e.getAgentTags().size());
-        assertEquals("группа агентов", e.getAgentTags().get(0));
-        assertFalse(e.getAllProducts());
-        assertEquals(1, e.getAssortment().size());
-        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
-                ((VariantEntity) e.getAssortment().get(0)).getMeta().getHref()
+        SpecialPriceDiscountEntity specialPriceDiscount = gson.fromJson(
+                TestUtils.getFile("discountJson/specialdiscount.json"), SpecialPriceDiscountEntity.class
         );
-        assertEquals((Double) 5.0, e.getDiscount());
+
+        assertEquals(Meta.Type.specialpricediscount, specialPriceDiscount.getMeta().getType());
+        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/specialpricediscount/96673f4d-9f4d-11e6-8af5-581e0000007b",
+                specialPriceDiscount.getMeta().getHref()
+        );
+        assertEquals("96673f4d-9f4d-11e6-8af5-581e0000007b", specialPriceDiscount.getId());
+        assertEquals("Специальная процентная сидка", specialPriceDiscount.getName());
+        assertTrue(specialPriceDiscount.getActive());
+        assertEquals(1, specialPriceDiscount.getAgentTags().size());
+        assertEquals("группа агентов", specialPriceDiscount.getAgentTags().get(0));
+        assertFalse(specialPriceDiscount.getAllProducts());
+        assertEquals(1, specialPriceDiscount.getAssortment().size());
+        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
+                ((VariantEntity) specialPriceDiscount.getAssortment().get(0)).getMeta().getHref()
+        );
+        assertEquals((Double) 5.0, specialPriceDiscount.getDiscount());
     }
 
     @Test
     public void deserializeSpecialPriceDiscountWithSpecialPriceTest() {
         Gson gson = LognexApi.createGson();
 
-        SpecialPriceDiscountEntity e = gson.fromJson(TestUtils.getFile("discountJson/specialprice.json"), SpecialPriceDiscountEntity.class);
-
-        assertEquals(Meta.Type.specialpricediscount, e.getMeta().getType());
-        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/specialpricediscount/bd1235f2-9c60-11e6-8af5-581e00000009", e.getMeta().getHref());
-        assertEquals("bd1235f2-9c60-11e6-8af5-581e00000009", e.getId());
-        assertEquals("Скидка номер 2", e.getName());
-        assertTrue(e.getActive());
-        assertFalse(e.getAllProducts());
-        assertEquals(1, e.getAssortment().size());
-        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
-                ((VariantEntity) e.getAssortment().get(0)).getMeta().getHref()
+        SpecialPriceDiscountEntity specialPriceDiscount = gson.fromJson(
+                TestUtils.getFile("discountJson/specialprice.json"), SpecialPriceDiscountEntity.class
         );
-        assertEquals(Long.valueOf(15), e.getSpecialPrice().getValue());
-        assertEquals("http://localhost/api/remap/1.2/context/companysettings/pricetype/80684824-82e0-11e9-ac17-000c00000066", e.getSpecialPrice().getPriceType().getMeta().getHref());
-        assertEquals("80684824-82e0-11e9-ac17-000c00000066", e.getSpecialPrice().getPriceType().getId());
-        assertEquals("Цена продажи", e.getSpecialPrice().getPriceType().getName());
-        assertEquals("cbcf493b-55bc-11d9-848a-00112f43529a", e.getSpecialPrice().getPriceType().getExternalCode());
+
+        assertEquals(Meta.Type.specialpricediscount, specialPriceDiscount.getMeta().getType());
+        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/specialpricediscount/bd1235f2-9c60-11e6-8af5-581e00000009",
+                specialPriceDiscount.getMeta().getHref()
+        );
+        assertEquals("bd1235f2-9c60-11e6-8af5-581e00000009", specialPriceDiscount.getId());
+        assertEquals("Скидка номер 2", specialPriceDiscount.getName());
+        assertTrue(specialPriceDiscount.getActive());
+        assertFalse(specialPriceDiscount.getAllProducts());
+        assertEquals(1, specialPriceDiscount.getAssortment().size());
+        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
+                ((VariantEntity) specialPriceDiscount.getAssortment().get(0)).getMeta().getHref()
+        );
+        assertEquals(Long.valueOf(15), specialPriceDiscount.getSpecialPrice().getValue());
+        assertEquals("http://localhost/api/remap/1.2/context/companysettings/pricetype/80684824-82e0-11e9-ac17-000c00000066",
+                specialPriceDiscount.getSpecialPrice().getPriceType().getMeta().getHref()
+        );
+        assertEquals("80684824-82e0-11e9-ac17-000c00000066", specialPriceDiscount.getSpecialPrice().getPriceType().getId());
+        assertEquals("Цена продажи", specialPriceDiscount.getSpecialPrice().getPriceType().getName());
+        assertEquals("cbcf493b-55bc-11d9-848a-00112f43529a", specialPriceDiscount.getSpecialPrice().getPriceType().getExternalCode());
     }
 
     @Test
     public void deserializePersonalDiscountTest() {
         Gson gson = LognexApi.createGson();
 
-        PersonalDiscountEntity e = gson.fromJson(TestUtils.getFile("discountJson/personaldiscount.json"), PersonalDiscountEntity.class);
+        PersonalDiscountEntity personalDiscount = gson.fromJson(
+                TestUtils.getFile("discountJson/personaldiscount.json"), PersonalDiscountEntity.class
+        );
 
-        assertEquals(Meta.Type.personaldiscount, e.getMeta().getType());
-        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/personaldiscount/0623d6b4-9ceb-11e6-8af5-581e00000003", e.getMeta().getHref());
-        assertEquals("0623d6b4-9ceb-11e6-8af5-581e00000003", e.getId());
-        assertEquals("Персональная скидка", e.getName());
-        assertTrue(e.getActive());
-        assertTrue(e.getAllProducts());
+        assertEquals(Meta.Type.personaldiscount, personalDiscount.getMeta().getType());
+        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/personaldiscount/0623d6b4-9ceb-11e6-8af5-581e00000003",
+                personalDiscount.getMeta().getHref()
+        );
+        assertEquals("0623d6b4-9ceb-11e6-8af5-581e00000003", personalDiscount.getId());
+        assertEquals("Персональная скидка", personalDiscount.getName());
+        assertTrue(personalDiscount.getActive());
+        assertTrue(personalDiscount.getAllProducts());
     }
 
     @Test
     public void deserializeAccumulationDiscountTest() {
         Gson gson = LognexApi.createGson();
 
-        AccumulationDiscountEntity e = gson.fromJson(TestUtils.getFile("discountJson/accumulationdiscount.json"), AccumulationDiscountEntity.class);
-
-        assertEquals(Meta.Type.accumulationdiscount, e.getMeta().getType());
-        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/accumulationdiscount/dce08f7f-9a09-11e6-8af5-581e0000007e", e.getMeta().getHref());
-        assertEquals("dce08f7f-9a09-11e6-8af5-581e0000007e", e.getId());
-        assertEquals("Скидки на сапоги", e.getName());
-        assertTrue(e.getActive());
-        assertFalse(e.getAllProducts());
-        assertEquals(1, e.getAssortment().size());
-        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
-                ((VariantEntity) e.getAssortment().get(0)).getMeta().getHref()
+        AccumulationDiscountEntity accumulationDiscount = gson.fromJson(
+                TestUtils.getFile("discountJson/accumulationdiscount.json"), AccumulationDiscountEntity.class
         );
-        assertEquals(2, e.getLevels().size());
-        assertEquals(Long.valueOf(100000), e.getLevels().get(0).getAmount());
-        assertEquals(Integer.valueOf(10), e.getLevels().get(0).getDiscount());
-        assertEquals(Long.valueOf(200000), e.getLevels().get(1).getAmount());
-        assertEquals(Integer.valueOf(15), e.getLevels().get(1).getDiscount());
+
+        assertEquals(Meta.Type.accumulationdiscount, accumulationDiscount.getMeta().getType());
+        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/accumulationdiscount/dce08f7f-9a09-11e6-8af5-581e0000007e",
+                accumulationDiscount.getMeta().getHref()
+        );
+        assertEquals("dce08f7f-9a09-11e6-8af5-581e0000007e", accumulationDiscount.getId());
+        assertEquals("Скидки на сапоги", accumulationDiscount.getName());
+        assertTrue(accumulationDiscount.getActive());
+        assertFalse(accumulationDiscount.getAllProducts());
+        assertEquals(1, accumulationDiscount.getAssortment().size());
+        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
+                ((VariantEntity) accumulationDiscount.getAssortment().get(0)).getMeta().getHref()
+        );
+        assertEquals(2, accumulationDiscount.getLevels().size());
+        assertEquals(Long.valueOf(100000), accumulationDiscount.getLevels().get(0).getAmount());
+        assertEquals(Integer.valueOf(10), accumulationDiscount.getLevels().get(0).getDiscount());
+        assertEquals(Long.valueOf(200000), accumulationDiscount.getLevels().get(1).getAmount());
+        assertEquals(Integer.valueOf(15), accumulationDiscount.getLevels().get(1).getDiscount());
     }
 }

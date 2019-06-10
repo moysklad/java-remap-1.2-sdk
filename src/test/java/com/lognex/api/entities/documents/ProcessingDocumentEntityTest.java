@@ -22,37 +22,37 @@ import static org.junit.Assert.*;
 public class ProcessingDocumentEntityTest extends EntityTestBase {
     @Test
     public void createTest() throws IOException, LognexApiException {
-        ProcessingDocumentEntity e = new ProcessingDocumentEntity();
-        e.setName("processing_" + randomString(3) + "_" + new Date().getTime());
-        e.setMoment(LocalDateTime.now());
+        ProcessingDocumentEntity processing = new ProcessingDocumentEntity();
+        processing.setName("processing_" + randomString(3) + "_" + new Date().getTime());
+        processing.setMoment(LocalDateTime.now());
 
         ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
         assertNotEquals(0, orgList.getRows().size());
-        e.setOrganization(orgList.getRows().get(0));
+        processing.setOrganization(orgList.getRows().get(0));
 
-        e.setMaterials(new ListEntity<>());
-        e.getMaterials().setRows(new ArrayList<>());
-        ProductEntity material = createSimpleProduct();
+        processing.setMaterials(new ListEntity<>());
+        processing.getMaterials().setRows(new ArrayList<>());
+        ProductEntity material = simpleEntityFactory.createSimpleProduct();
         DocumentPosition materialPosition = new DocumentPosition();
         materialPosition.setAssortment(material);
         materialPosition.setQuantity(3.1234);
-        e.getMaterials().getRows().add(materialPosition);
+        processing.getMaterials().getRows().add(materialPosition);
 
-        e.setProducts(new ListEntity<>());
-        e.getProducts().setRows(new ArrayList<>());
-        ProductEntity product = createSimpleProduct();
+        processing.setProducts(new ListEntity<>());
+        processing.getProducts().setRows(new ArrayList<>());
+        ProductEntity product = simpleEntityFactory.createSimpleProduct();
         DocumentPosition productPosition = new DocumentPosition();
         productPosition.setAssortment(product);
         productPosition.setQuantity(3.1234);
-        e.getProducts().getRows().add(productPosition);
+        processing.getProducts().getRows().add(productPosition);
 
-        e.setProcessingSum(randomLong(10, 10000));
-        e.setQuantity(randomDouble(1, 5, 10));
+        processing.setProcessingSum(randomLong(10, 10000));
+        processing.setQuantity(randomDouble(1, 5, 10));
 
         ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
         assertEquals(1, store.getRows().size());
-        e.setMaterialsStore(store.getRows().get(0));
-        e.setProductsStore(store.getRows().get(0));
+        processing.setMaterialsStore(store.getRows().get(0));
+        processing.setProductsStore(store.getRows().get(0));
 
         ProcessingPlanDocumentEntity processingPlan = new ProcessingPlanDocumentEntity();
         processingPlan.setName("processingplan_" + randomString(3) + "_" + new Date().getTime());
@@ -72,79 +72,79 @@ public class ProcessingDocumentEntityTest extends EntityTestBase {
         processingPlan.getProducts().getRows().add(productItem);
 
         api.entity().processingplan().post(processingPlan);
-        e.setProcessingPlan(processingPlan);
+        processing.setProcessingPlan(processingPlan);
 
-        api.entity().processing().post(e);
+        api.entity().processing().post(processing);
 
         ListEntity<ProcessingDocumentEntity> updatedEntitiesList = api.entity().processing().
-                get(limit(50), filterEq("name", e.getName()), expand("materials"), expand("products"));
+                get(limit(50), filterEq("name", processing.getName()), expand("materials"), expand("products"));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         ProcessingDocumentEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getMoment(), retrievedEntity.getMoment());
-        assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
+        assertEquals(processing.getName(), retrievedEntity.getName());
+        assertEquals(processing.getMoment(), retrievedEntity.getMoment());
+        assertEquals(processing.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(materialPosition.getQuantity(), retrievedEntity.getMaterials().getRows().get(0).getQuantity());
         ProductEntity retrievedMaterial = (ProductEntity) retrievedEntity.getMaterials().getRows().get(0).getAssortment();
         assertEquals(material.getMeta().getHref(), retrievedMaterial.getMeta().getHref());
         assertEquals(productPosition.getQuantity(), retrievedEntity.getProducts().getRows().get(0).getQuantity());
         ProductEntity retrievedProduct = (ProductEntity) retrievedEntity.getProducts().getRows().get(0).getAssortment();
         assertEquals(product.getMeta().getHref(), retrievedProduct.getMeta().getHref());
-        assertEquals(e.getProcessingPlan().getMeta().getHref(), retrievedEntity.getProcessingPlan().getMeta().getHref());
+        assertEquals(processing.getProcessingPlan().getMeta().getHref(), retrievedEntity.getProcessingPlan().getMeta().getHref());
     }
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        ProcessingDocumentEntity e = createSimpleProcessing();
+        ProcessingDocumentEntity processing = simpleEntityFactory.createSimpleProcessing();
 
-        ProcessingDocumentEntity retrievedEntity = api.entity().processing().get(e.getId());
-        getAsserts(e, retrievedEntity);
+        ProcessingDocumentEntity retrievedEntity = api.entity().processing().get(processing.getId());
+        getAsserts(processing, retrievedEntity);
 
-        retrievedEntity = api.entity().processing().get(e);
-        getAsserts(e, retrievedEntity);
+        retrievedEntity = api.entity().processing().get(processing);
+        getAsserts(processing, retrievedEntity);
     }
 
     @Test
-    public void putTest() throws IOException, LognexApiException, InterruptedException {
-        ProcessingDocumentEntity e = createSimpleProcessing();
+    public void putTest() throws IOException, LognexApiException {
+        ProcessingDocumentEntity processing = simpleEntityFactory.createSimpleProcessing();
 
-        ProcessingDocumentEntity retrievedOriginalEntity = api.entity().processing().get(e.getId());
+        ProcessingDocumentEntity retrievedOriginalEntity = api.entity().processing().get(processing.getId());
         String name = "processing_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().processing().put(e.getId(), e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        processing.setName(name);
+        api.entity().processing().put(processing.getId(), processing);
+        putAsserts(processing, retrievedOriginalEntity, name);
 
-        retrievedOriginalEntity.set(e);
+        retrievedOriginalEntity.set(processing);
 
         name = "processing_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().processing().put(e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        processing.setName(name);
+        api.entity().processing().put(processing);
+        putAsserts(processing, retrievedOriginalEntity, name);
     }
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        ProcessingDocumentEntity e = createSimpleProcessing();
+        ProcessingDocumentEntity processing = simpleEntityFactory.createSimpleProcessing();
 
-        ListEntity<ProcessingDocumentEntity> entitiesList = api.entity().processing().get(filterEq("name", e.getName()));
+        ListEntity<ProcessingDocumentEntity> entitiesList = api.entity().processing().get(filterEq("name", processing.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().processing().delete(e.getId());
+        api.entity().processing().delete(processing.getId());
 
-        entitiesList = api.entity().processing().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().processing().get(filterEq("name", processing.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        ProcessingDocumentEntity e = createSimpleProcessing();
+        ProcessingDocumentEntity processing = simpleEntityFactory.createSimpleProcessing();
 
-        ListEntity<ProcessingDocumentEntity> entitiesList = api.entity().processing().get(filterEq("name", e.getName()));
+        ListEntity<ProcessingDocumentEntity> entitiesList = api.entity().processing().get(filterEq("name", processing.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().processing().delete(e);
+        api.entity().processing().delete(processing);
 
-        entitiesList = api.entity().processing().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().processing().get(filterEq("name", processing.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
@@ -155,16 +155,16 @@ public class ProcessingDocumentEntityTest extends EntityTestBase {
         assertFalse(response.getCreateShared());
     }
 
-    private void getAsserts(ProcessingDocumentEntity e, ProcessingDocumentEntity retrievedEntity) {
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(e.getMaterials().getMeta().getSize(), retrievedEntity.getMaterials().getMeta().getSize());
-        assertEquals(e.getProducts().getMeta().getSize(), retrievedEntity.getProducts().getMeta().getSize());
-        assertEquals(e.getProcessingPlan().getMeta().getHref(), retrievedEntity.getProcessingPlan().getMeta().getHref());
+    private void getAsserts(ProcessingDocumentEntity processing, ProcessingDocumentEntity retrievedEntity) {
+        assertEquals(processing.getName(), retrievedEntity.getName());
+        assertEquals(processing.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
+        assertEquals(processing.getMaterials().getMeta().getSize(), retrievedEntity.getMaterials().getMeta().getSize());
+        assertEquals(processing.getProducts().getMeta().getSize(), retrievedEntity.getProducts().getMeta().getSize());
+        assertEquals(processing.getProcessingPlan().getMeta().getHref(), retrievedEntity.getProcessingPlan().getMeta().getHref());
     }
 
-    private void putAsserts(ProcessingDocumentEntity e, ProcessingDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        ProcessingDocumentEntity retrievedUpdatedEntity = api.entity().processing().get(e.getId());
+    private void putAsserts(ProcessingDocumentEntity processing, ProcessingDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
+        ProcessingDocumentEntity retrievedUpdatedEntity = api.entity().processing().get(processing.getId());
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());

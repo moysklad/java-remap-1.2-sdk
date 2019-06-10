@@ -1,38 +1,35 @@
 package com.lognex.api.entities.documents;
 
+import com.lognex.api.clients.ApiClient;
 import com.lognex.api.entities.ContractEntity;
-import com.lognex.api.entities.EntityTestBase;
+import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
-import com.lognex.api.entities.products.ProductEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.LognexApiException;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class CommissionReportInDocumentEntityTest extends EntityTestBase {
+public class CommissionReportInDocumentEntityTest extends DocumentWithPositionsTestBase {
     @Test
     public void createTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = new CommissionReportInDocumentEntity();
-        e.setName("commissionreportin_" + randomString(3) + "_" + new Date().getTime());
-        e.setDescription(randomString());
-        e.setVatEnabled(true);
-        e.setVatIncluded(true);
-        e.setMoment(LocalDateTime.now());
-        CounterpartyEntity agent = createSimpleCounterparty();
-        e.setAgent(agent);
-        OrganizationEntity organization = getOwnOrganization();
-        e.setOrganization(organization);
+        CommissionReportInDocumentEntity commissionReportIn = new CommissionReportInDocumentEntity();
+        commissionReportIn.setName("commissionreportin_" + randomString(3) + "_" + new Date().getTime());
+        commissionReportIn.setDescription(randomString());
+        commissionReportIn.setVatEnabled(true);
+        commissionReportIn.setVatIncluded(true);
+        commissionReportIn.setMoment(LocalDateTime.now());
+        CounterpartyEntity agent = simpleEntityFactory.createSimpleCounterparty();
+        commissionReportIn.setAgent(agent);
+        OrganizationEntity organization = simpleEntityFactory.getOwnOrganization();
+        commissionReportIn.setOrganization(organization);
 
         ContractEntity contract = new ContractEntity();
         contract.setName(randomString());
@@ -40,79 +37,79 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
         contract.setAgent(agent);
         contract.setContractType(ContractEntity.Type.commission);
         api.entity().contract().post(contract);
-        e.setContract(contract);
+        commissionReportIn.setContract(contract);
 
-        e.setCommissionPeriodStart(LocalDateTime.now());
-        e.setCommissionPeriodEnd(LocalDateTime.now().plusNanos(50));
+        commissionReportIn.setCommissionPeriodStart(LocalDateTime.now());
+        commissionReportIn.setCommissionPeriodEnd(LocalDateTime.now().plusNanos(50));
 
-        api.entity().commissionreportin().post(e);
+        api.entity().commissionreportin().post(commissionReportIn);
 
-        ListEntity<CommissionReportInDocumentEntity> updatedEntitiesList = api.entity().commissionreportin().get(filterEq("name", e.getName()));
+        ListEntity<CommissionReportInDocumentEntity> updatedEntitiesList = api.entity().commissionreportin().get(filterEq("name", commissionReportIn.getName()));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         CommissionReportInDocumentEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getVatEnabled(), retrievedEntity.getVatEnabled());
-        assertEquals(e.getVatIncluded(), retrievedEntity.getVatIncluded());
-        assertEquals(e.getMoment(), retrievedEntity.getMoment());
-        assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-        assertEquals(e.getContract().getMeta().getHref(), retrievedEntity.getContract().getMeta().getHref());
+        assertEquals(commissionReportIn.getName(), retrievedEntity.getName());
+        assertEquals(commissionReportIn.getDescription(), retrievedEntity.getDescription());
+        assertEquals(commissionReportIn.getVatEnabled(), retrievedEntity.getVatEnabled());
+        assertEquals(commissionReportIn.getVatIncluded(), retrievedEntity.getVatIncluded());
+        assertEquals(commissionReportIn.getMoment(), retrievedEntity.getMoment());
+        assertEquals(commissionReportIn.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
+        assertEquals(commissionReportIn.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+        assertEquals(commissionReportIn.getContract().getMeta().getHref(), retrievedEntity.getContract().getMeta().getHref());
     }
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
+        CommissionReportInDocumentEntity commissionReportIn = simpleEntityFactory.createSimpleCommissionReportIn();
 
-        CommissionReportInDocumentEntity retrievedEntity = api.entity().commissionreportin().get(e.getId());
-        getAsserts(e, retrievedEntity);
+        CommissionReportInDocumentEntity retrievedEntity = api.entity().commissionreportin().get(commissionReportIn.getId());
+        getAsserts(commissionReportIn, retrievedEntity);
 
-        retrievedEntity = api.entity().commissionreportin().get(e);
-        getAsserts(e, retrievedEntity);
+        retrievedEntity = api.entity().commissionreportin().get(commissionReportIn);
+        getAsserts(commissionReportIn, retrievedEntity);
     }
 
     @Test
-    public void putTest() throws IOException, LognexApiException, InterruptedException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
+    public void putTest() throws IOException, LognexApiException {
+        CommissionReportInDocumentEntity commissionReportIn = simpleEntityFactory.createSimpleCommissionReportIn();
 
-        CommissionReportInDocumentEntity retrievedOriginalEntity = api.entity().commissionreportin().get(e.getId());
+        CommissionReportInDocumentEntity retrievedOriginalEntity = api.entity().commissionreportin().get(commissionReportIn.getId());
         String name = "commissionreportin_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().commissionreportin().put(e.getId(), e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        commissionReportIn.setName(name);
+        api.entity().commissionreportin().put(commissionReportIn.getId(), commissionReportIn);
+        putAsserts(commissionReportIn, retrievedOriginalEntity, name);
 
-        retrievedOriginalEntity.set(e);
+        retrievedOriginalEntity.set(commissionReportIn);
 
         name = "commissionreportin_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().commissionreportin().put(e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        commissionReportIn.setName(name);
+        api.entity().commissionreportin().put(commissionReportIn);
+        putAsserts(commissionReportIn, retrievedOriginalEntity, name);
     }
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
+        CommissionReportInDocumentEntity commissionReportIn = simpleEntityFactory.createSimpleCommissionReportIn();
 
-        ListEntity<CommissionReportInDocumentEntity> entitiesList = api.entity().commissionreportin().get(filterEq("name", e.getName()));
+        ListEntity<CommissionReportInDocumentEntity> entitiesList = api.entity().commissionreportin().get(filterEq("name", commissionReportIn.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().commissionreportin().delete(e.getId());
+        api.entity().commissionreportin().delete(commissionReportIn.getId());
 
-        entitiesList = api.entity().commissionreportin().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().commissionreportin().get(filterEq("name", commissionReportIn.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
+        CommissionReportInDocumentEntity commissionReportIn = simpleEntityFactory.createSimpleCommissionReportIn();
 
-        ListEntity<CommissionReportInDocumentEntity> entitiesList = api.entity().commissionreportin().get(filterEq("name", e.getName()));
+        ListEntity<CommissionReportInDocumentEntity> entitiesList = api.entity().commissionreportin().get(filterEq("name", commissionReportIn.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().commissionreportin().delete(e);
+        api.entity().commissionreportin().delete(commissionReportIn);
 
-        entitiesList = api.entity().commissionreportin().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().commissionreportin().get(filterEq("name", commissionReportIn.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
@@ -123,15 +120,15 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
         assertFalse(response.getCreateShared());
     }
 
-    private void getAsserts(CommissionReportInDocumentEntity e, CommissionReportInDocumentEntity retrievedEntity) {
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-        assertEquals(e.getContract().getMeta().getHref(), retrievedEntity.getContract().getMeta().getHref());
+    private void getAsserts(CommissionReportInDocumentEntity commissionReportIn, CommissionReportInDocumentEntity retrievedEntity) {
+        assertEquals(commissionReportIn.getName(), retrievedEntity.getName());
+        assertEquals(commissionReportIn.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
+        assertEquals(commissionReportIn.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+        assertEquals(commissionReportIn.getContract().getMeta().getHref(), retrievedEntity.getContract().getMeta().getHref());
     }
 
-    private void putAsserts(CommissionReportInDocumentEntity e, CommissionReportInDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity retrievedUpdatedEntity = api.entity().commissionreportin().get(e.getId());
+    private void putAsserts(CommissionReportInDocumentEntity commissionReportIn, CommissionReportInDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
+        CommissionReportInDocumentEntity retrievedUpdatedEntity = api.entity().commissionreportin().get(commissionReportIn.getId());
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());
@@ -140,306 +137,13 @@ public class CommissionReportInDocumentEntityTest extends EntityTestBase {
         assertEquals(retrievedOriginalEntity.getContract().getMeta().getHref(), retrievedUpdatedEntity.getContract().getMeta().getHref());
     }
 
-    @Test
-    public void createPositionByIdTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
-
-        ListEntity<DocumentPosition> originalPositions = api.entity().commissionreportin().getPositions(e.getId());
-
-        DocumentPosition position = new DocumentPosition();
-
-        ProductEntity product = new ProductEntity();
-        product.setName(randomString());
-        api.entity().product().post(product);
-
-        position.setAssortment(product);
-        position.setQuantity(randomDouble(1, 5, 3));
-
-        api.entity().commissionreportin().postPosition(e.getId(), position);
-        ListEntity<DocumentPosition> retrievedPositions = api.entity().commissionreportin().getPositions(e.getId());
-
-        assertEquals(Integer.valueOf(originalPositions.getMeta().getSize() + 1), retrievedPositions.getMeta().getSize());
-        assertTrue(retrievedPositions.
-                getRows().
-                stream().
-                anyMatch(x -> ((ProductEntity) x.getAssortment()).getMeta().getHref().equals(product.getMeta().getHref()) &&
-                        x.getQuantity().equals(position.getQuantity())
-                )
-        );
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().commissionreportin();
     }
 
-    @Test
-    public void createPositionByEntityTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
-
-        ListEntity<DocumentPosition> originalPositions = api.entity().commissionreportin().getPositions(e.getId());
-
-        DocumentPosition position = new DocumentPosition();
-
-        ProductEntity product = new ProductEntity();
-        product.setName(randomString());
-        api.entity().product().post(product);
-
-        position.setAssortment(product);
-        position.setQuantity(randomDouble(1, 5, 3));
-
-        api.entity().commissionreportin().postPosition(e, position);
-        ListEntity<DocumentPosition> retrievedPositions = api.entity().commissionreportin().getPositions(e);
-
-        assertEquals(Integer.valueOf(originalPositions.getMeta().getSize() + 1), retrievedPositions.getMeta().getSize());
-        assertTrue(retrievedPositions.
-                getRows().
-                stream().
-                anyMatch(x -> ((ProductEntity) x.getAssortment()).getMeta().getHref().equals(product.getMeta().getHref()) &&
-                        x.getQuantity().equals(position.getQuantity())
-                )
-        );
-    }
-
-    @Test
-    public void createPositionsByIdTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
-
-        ListEntity<DocumentPosition> originalPositions = api.entity().commissionreportin().getPositions(e.getId());
-
-        List<DocumentPosition> positions = new ArrayList<>();
-        List<ProductEntity> products = new ArrayList<>();
-
-        for (int i = 0; i < 2; i++) {
-            DocumentPosition position = new DocumentPosition();
-
-            ProductEntity product = new ProductEntity();
-            product.setName(randomString());
-            api.entity().product().post(product);
-            products.add(product);
-
-            position.setAssortment(product);
-            position.setQuantity(randomDouble(1, 5, 3));
-
-            positions.add(position);
-        }
-
-        api.entity().commissionreportin().postPositions(e.getId(), positions);
-        ListEntity<DocumentPosition> retrievedPositions = api.entity().commissionreportin().getPositions(e.getId());
-
-        assertEquals(Integer.valueOf(originalPositions.getMeta().getSize() + 2), retrievedPositions.getMeta().getSize());
-        for (int i = 0; i < 2; i++) {
-            ProductEntity product = products.get(i);
-            DocumentPosition position = positions.get(i);
-
-            assertTrue(retrievedPositions.
-                    getRows().
-                    stream().
-                    anyMatch(x -> ((ProductEntity) x.getAssortment()).getMeta().getHref().equals(product.getMeta().getHref()) &&
-                            x.getQuantity().equals(position.getQuantity())
-                    )
-            );
-        }
-    }
-
-    @Test
-    public void createPositionsByEntityTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
-
-        ListEntity<DocumentPosition> originalPositions = api.entity().commissionreportin().getPositions(e.getId());
-
-        List<DocumentPosition> positions = new ArrayList<>();
-        List<ProductEntity> products = new ArrayList<>();
-
-        for (int i = 0; i < 2; i++) {
-            DocumentPosition position = new DocumentPosition();
-
-            ProductEntity product = new ProductEntity();
-            product.setName(randomString());
-            api.entity().product().post(product);
-            products.add(product);
-
-            position.setAssortment(product);
-            position.setQuantity(randomDouble(1, 5, 3));
-
-            positions.add(position);
-        }
-
-        api.entity().commissionreportin().postPositions(e, positions);
-        ListEntity<DocumentPosition> retrievedPositions = api.entity().commissionreportin().getPositions(e);
-
-        assertEquals(Integer.valueOf(originalPositions.getMeta().getSize() + 2), retrievedPositions.getMeta().getSize());
-        for (int i = 0; i < 2; i++) {
-            ProductEntity product = products.get(i);
-            DocumentPosition position = positions.get(i);
-
-            assertTrue(retrievedPositions.
-                    getRows().
-                    stream().
-                    anyMatch(x -> ((ProductEntity) x.getAssortment()).getMeta().getHref().equals(product.getMeta().getHref()) &&
-                            x.getQuantity().equals(position.getQuantity())
-                    )
-            );
-        }
-    }
-
-    @Test
-    public void getPositionTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        DocumentPosition retrievedPosition = api.entity().commissionreportin().getPosition(e.getId(), positions.get(0).getId());
-        getPositionAsserts(positions.get(0), retrievedPosition);
-
-        retrievedPosition = api.entity().commissionreportin().getPosition(e, positions.get(0).getId());
-        getPositionAsserts(positions.get(0), retrievedPosition);
-    }
-
-    @Test
-    public void putPositionByIdsTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        DocumentPosition p = positions.get(0);
-        DocumentPosition retrievedPosition = api.entity().commissionreportin().getPosition(e.getId(), p.getId());
-
-        DecimalFormat df = new DecimalFormat("#.###");
-        double quantity = Double.valueOf(df.format(p.getQuantity() + randomDouble(1, 1, 3)));
-        p.setQuantity(quantity);
-        api.entity().commissionreportin().putPosition(e.getId(), p.getId(), p);
-
-        putPositionAsserts(e, p, retrievedPosition, quantity);
-    }
-
-    @Test
-    public void putPositionByEntityIdTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        DocumentPosition p = positions.get(0);
-        DocumentPosition retrievedPosition = api.entity().commissionreportin().getPosition(e.getId(), p.getId());
-
-        DecimalFormat df = new DecimalFormat("#.###");
-        double quantity = Double.valueOf(df.format(p.getQuantity() + randomDouble(1, 1, 3)));
-        p.setQuantity(quantity);
-        api.entity().commissionreportin().putPosition(e, p.getId(), p);
-
-        putPositionAsserts(e, p, retrievedPosition, quantity);
-    }
-
-    @Test
-    public void putPositionByEntitiesTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        DocumentPosition p = positions.get(0);
-        DocumentPosition retrievedPosition = api.entity().commissionreportin().getPosition(e.getId(), p.getId());
-
-        DecimalFormat df = new DecimalFormat("#.###");
-        double quantity = Double.valueOf(df.format(p.getQuantity() + randomDouble(1, 1, 3)));
-        p.setQuantity(quantity);
-        api.entity().commissionreportin().putPosition(e, p, p);
-
-        putPositionAsserts(e, p, retrievedPosition, quantity);
-    }
-
-    @Test
-    public void putPositionBySelfTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        DocumentPosition p = positions.get(0);
-        DocumentPosition retrievedPosition = api.entity().commissionreportin().getPosition(e.getId(), p.getId());
-
-        DecimalFormat df = new DecimalFormat("#.###");
-        double quantity = Double.valueOf(df.format(p.getQuantity() + randomDouble(1, 1, 3)));
-        p.setQuantity(quantity);
-        api.entity().commissionreportin().putPosition(e, p);
-
-        putPositionAsserts(e, p, retrievedPosition, quantity);
-    }
-
-    @Test
-    public void deletePositionByIdsTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        ListEntity<DocumentPosition> positionsBefore = api.entity().commissionreportin().getPositions(e);
-
-        api.entity().commissionreportin().delete(e.getId(), positions.get(0).getId());
-
-        ListEntity<DocumentPosition> positionsAfter = api.entity().commissionreportin().getPositions(e);
-
-        assertEquals(Integer.valueOf(positionsBefore.getMeta().getSize() - 1), positionsAfter.getMeta().getSize());
-        assertFalse(positionsAfter.getRows().stream().
-                anyMatch(x -> ((ProductEntity) positions.get(0).getAssortment()).getMeta().getHref().
-                        equals(((ProductEntity) x.getAssortment()).getMeta().getHref()))
-        );
-    }
-
-    @Test
-    public void deletePositionByEntityIdTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        ListEntity<DocumentPosition> positionsBefore = api.entity().commissionreportin().getPositions(e);
-
-        api.entity().commissionreportin().delete(e, positions.get(0).getId());
-
-        ListEntity<DocumentPosition> positionsAfter = api.entity().commissionreportin().getPositions(e);
-
-        assertEquals(Integer.valueOf(positionsBefore.getMeta().getSize() - 1), positionsAfter.getMeta().getSize());
-        assertFalse(positionsAfter.getRows().stream().
-                anyMatch(x -> ((ProductEntity) positions.get(0).getAssortment()).getMeta().getHref().
-                        equals(((ProductEntity) x.getAssortment()).getMeta().getHref()))
-        );
-    }
-
-    @Test
-    public void deletePositionByEntitiesTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity e = createSimpleCommissionReportIn();
-        List<DocumentPosition> positions = createSimplePositions(e);
-
-        ListEntity<DocumentPosition> positionsBefore = api.entity().commissionreportin().getPositions(e);
-
-        api.entity().commissionreportin().delete(e, positions.get(0));
-
-        ListEntity<DocumentPosition> positionsAfter = api.entity().commissionreportin().getPositions(e);
-
-        assertEquals(Integer.valueOf(positionsBefore.getMeta().getSize() - 1), positionsAfter.getMeta().getSize());
-        assertFalse(positionsAfter.getRows().stream().
-                anyMatch(x -> ((ProductEntity) positions.get(0).getAssortment()).getMeta().getHref().
-                        equals(((ProductEntity) x.getAssortment()).getMeta().getHref()))
-        );
-    }
-
-    private List<DocumentPosition> createSimplePositions(CommissionReportInDocumentEntity e) throws IOException, LognexApiException {
-        List<DocumentPosition> positions = new ArrayList<>();
-
-        for (int i = 0; i < 2; i++) {
-            DocumentPosition position = new DocumentPosition();
-
-            ProductEntity product = new ProductEntity();
-            product.setName(randomString());
-            api.entity().product().post(product);
-
-            position.setAssortment(product);
-            position.setQuantity(randomDouble(1, 5, 3));
-
-            positions.add(position);
-        }
-
-        return api.entity().commissionreportin().postPositions(e, positions);
-    }
-
-    private void getPositionAsserts(DocumentPosition p, DocumentPosition retrievedPosition) {
-        assertEquals(p.getMeta().getHref(), retrievedPosition.getMeta().getHref());
-        assertEquals(((ProductEntity) p.getAssortment()).getMeta().getHref(),
-                ((ProductEntity) retrievedPosition.getAssortment()).getMeta().getHref());
-        assertEquals(p.getQuantity(), retrievedPosition.getQuantity());
-    }
-
-    private void putPositionAsserts(CommissionReportInDocumentEntity e, DocumentPosition p, DocumentPosition retrievedOriginalPosition, Double quantity) throws IOException, LognexApiException {
-        DocumentPosition retrievedUpdatedPosition = api.entity().commissionreportin().getPosition(e, p.getId());
-
-        assertNotEquals(retrievedOriginalPosition.getQuantity(), retrievedUpdatedPosition.getQuantity());
-        assertEquals(quantity, retrievedUpdatedPosition.getQuantity());
-        assertEquals(((ProductEntity) retrievedOriginalPosition.getAssortment()).getMeta().getHref(),
-                ((ProductEntity) retrievedUpdatedPosition.getAssortment()).getMeta().getHref());
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return CommissionReportInDocumentEntity.class;
     }
 }

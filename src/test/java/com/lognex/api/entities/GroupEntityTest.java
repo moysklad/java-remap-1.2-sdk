@@ -25,7 +25,7 @@ public class GroupEntityTest extends EntityTestBase {
         getAsserts(groupList.getRows().get(0), retrievedEntity);
     }
 
-    private void getAsserts(GroupEntity e, GroupEntity retrievedEntity) {
-        assertEquals(e.getName(), retrievedEntity.getName());
+    private void getAsserts(GroupEntity group, GroupEntity retrievedEntity) {
+        assertEquals(group.getName(), retrievedEntity.getName());
     }
 }

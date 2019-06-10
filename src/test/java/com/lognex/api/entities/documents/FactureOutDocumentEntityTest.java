@@ -23,83 +23,83 @@ import static org.junit.Assert.*;
 public class FactureOutDocumentEntityTest extends EntityTestBase {
     @Test
     public void createTest() throws IOException, LognexApiException {
-        FactureOutDocumentEntity e = new FactureOutDocumentEntity();
-        e.setName("factureout_" + randomString(3) + "_" + new Date().getTime());
-        e.setDescription(randomString());
-        e.setMoment(LocalDateTime.now());
-        e.setPaymentNumber(randomString());
-        e.setPaymentDate(LocalDateTime.now());
+        FactureOutDocumentEntity factureOut = new FactureOutDocumentEntity();
+        factureOut.setName("factureout_" + randomString(3) + "_" + new Date().getTime());
+        factureOut.setDescription(randomString());
+        factureOut.setMoment(LocalDateTime.now());
+        factureOut.setPaymentNumber(randomString());
+        factureOut.setPaymentDate(LocalDateTime.now());
         List<DemandDocumentEntity> demands = new ArrayList<>();
-        demands.add(createSimpleDemand());
-        e.setDemands(demands);
+        demands.add(simpleEntityFactory.createSimpleDemand());
+        factureOut.setDemands(demands);
 
-        api.entity().factureout().post(e);
+        api.entity().factureout().post(factureOut);
 
-        ListEntity<FactureOutDocumentEntity> updatedEntitiesList = api.entity().factureout().get(filterEq("name", e.getName()));
+        ListEntity<FactureOutDocumentEntity> updatedEntitiesList = api.entity().factureout().get(filterEq("name", factureOut.getName()));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         FactureOutDocumentEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getMoment(), retrievedEntity.getMoment());
-        assertEquals(e.getPaymentNumber(), retrievedEntity.getPaymentNumber());
-        assertEquals(e.getPaymentDate(), retrievedEntity.getPaymentDate());
-        assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(e.getDemands().get(0).getMeta().getHref(), retrievedEntity.getDemands().get(0).getMeta().getHref());
+        assertEquals(factureOut.getName(), retrievedEntity.getName());
+        assertEquals(factureOut.getDescription(), retrievedEntity.getDescription());
+        assertEquals(factureOut.getMoment(), retrievedEntity.getMoment());
+        assertEquals(factureOut.getPaymentNumber(), retrievedEntity.getPaymentNumber());
+        assertEquals(factureOut.getPaymentDate(), retrievedEntity.getPaymentDate());
+        assertEquals(factureOut.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
+        assertEquals(factureOut.getDemands().get(0).getMeta().getHref(), retrievedEntity.getDemands().get(0).getMeta().getHref());
     }
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        FactureOutDocumentEntity e = createSimpleFactureOut();
+        FactureOutDocumentEntity factureOut = simpleEntityFactory.createSimpleFactureOut();
 
-        FactureOutDocumentEntity retrievedEntity = api.entity().factureout().get(e.getId());
-        getAsserts(e, retrievedEntity);
+        FactureOutDocumentEntity retrievedEntity = api.entity().factureout().get(factureOut.getId());
+        getAsserts(factureOut, retrievedEntity);
 
-        retrievedEntity = api.entity().factureout().get(e);
-        getAsserts(e, retrievedEntity);
+        retrievedEntity = api.entity().factureout().get(factureOut);
+        getAsserts(factureOut, retrievedEntity);
     }
 
     @Test
-    public void putTest() throws IOException, LognexApiException, InterruptedException {
-        FactureOutDocumentEntity e = createSimpleFactureOut();
+    public void putTest() throws IOException, LognexApiException {
+        FactureOutDocumentEntity factureOut = simpleEntityFactory.createSimpleFactureOut();
 
-        FactureOutDocumentEntity retrievedOriginalEntity = api.entity().factureout().get(e.getId());
+        FactureOutDocumentEntity retrievedOriginalEntity = api.entity().factureout().get(factureOut.getId());
         String name = "factureout_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().factureout().put(e.getId(), e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        factureOut.setName(name);
+        api.entity().factureout().put(factureOut.getId(), factureOut);
+        putAsserts(factureOut, retrievedOriginalEntity, name);
 
-        retrievedOriginalEntity.set(e);
+        retrievedOriginalEntity.set(factureOut);
 
         name = "factureout_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().factureout().put(e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        factureOut.setName(name);
+        api.entity().factureout().put(factureOut);
+        putAsserts(factureOut, retrievedOriginalEntity, name);
     }
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        FactureOutDocumentEntity e = createSimpleFactureOut();
+        FactureOutDocumentEntity factureOut = simpleEntityFactory.createSimpleFactureOut();
 
-        ListEntity<FactureOutDocumentEntity> entitiesList = api.entity().factureout().get(filterEq("name", e.getName()));
+        ListEntity<FactureOutDocumentEntity> entitiesList = api.entity().factureout().get(filterEq("name", factureOut.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().factureout().delete(e.getId());
+        api.entity().factureout().delete(factureOut.getId());
 
-        entitiesList = api.entity().factureout().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().factureout().get(filterEq("name", factureOut.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        FactureOutDocumentEntity e = createSimpleFactureOut();
+        FactureOutDocumentEntity factureOut = simpleEntityFactory.createSimpleFactureOut();
 
-        ListEntity<FactureOutDocumentEntity> entitiesList = api.entity().factureout().get(filterEq("name", e.getName()));
+        ListEntity<FactureOutDocumentEntity> entitiesList = api.entity().factureout().get(filterEq("name", factureOut.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().factureout().delete(e);
+        api.entity().factureout().delete(factureOut);
 
-        entitiesList = api.entity().factureout().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().factureout().get(filterEq("name", factureOut.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
@@ -131,68 +131,68 @@ public class FactureOutDocumentEntityTest extends EntityTestBase {
         api.entity().demand().post(demand);
 
         LocalDateTime time = LocalDateTime.now();
-        FactureOutDocumentEntity e = api.entity().factureout().newDocument("demands", Collections.singletonList(demand));
+        FactureOutDocumentEntity factureOut = api.entity().factureout().newDocument("demands", Collections.singletonList(demand));
 
-        assertEquals("", e.getName());
-        assertEquals(demand.getSum(), e.getSum());
-        assertFalse(e.getShared());
-        assertTrue(e.getApplicable());
-        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
-        assertEquals(1, e.getDemands().size());
-        assertEquals(demand.getMeta().getHref(), e.getDemands().get(0).getMeta().getHref());
-        assertEquals(demand.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
-        assertEquals(demand.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
-        assertEquals(demand.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
+        assertEquals("", factureOut.getName());
+        assertEquals(demand.getSum(), factureOut.getSum());
+        assertFalse(factureOut.getShared());
+        assertTrue(factureOut.getApplicable());
+        assertTrue(ChronoUnit.MILLIS.between(time, factureOut.getMoment()) < 1000);
+        assertEquals(1, factureOut.getDemands().size());
+        assertEquals(demand.getMeta().getHref(), factureOut.getDemands().get(0).getMeta().getHref());
+        assertEquals(demand.getGroup().getMeta().getHref(), factureOut.getGroup().getMeta().getHref());
+        assertEquals(demand.getAgent().getMeta().getHref(), factureOut.getAgent().getMeta().getHref());
+        assertEquals(demand.getOrganization().getMeta().getHref(), factureOut.getOrganization().getMeta().getHref());
     }
 
     @Test
     public void newByPurchaseReturnsTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity purchaseReturn = createSimplePurchaseReturn();
+        PurchaseReturnDocumentEntity purchaseReturn = simpleEntityFactory.createSimplePurchaseReturn();
 
         LocalDateTime time = LocalDateTime.now();
-        FactureOutDocumentEntity e = api.entity().factureout().newDocument("returns", Collections.singletonList(purchaseReturn));
+        FactureOutDocumentEntity factureOut = api.entity().factureout().newDocument("returns", Collections.singletonList(purchaseReturn));
 
-        assertEquals("", e.getName());
-        assertEquals(purchaseReturn.getSum(), e.getSum());
-        assertFalse(e.getShared());
-        assertTrue(e.getApplicable());
-        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
-        assertEquals(1, e.getReturns().size());
-        assertEquals(purchaseReturn.getMeta().getHref(), e.getReturns().get(0).getMeta().getHref());
-        assertEquals(purchaseReturn.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
-        assertEquals(purchaseReturn.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
-        assertEquals(purchaseReturn.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
+        assertEquals("", factureOut.getName());
+        assertEquals(purchaseReturn.getSum(), factureOut.getSum());
+        assertFalse(factureOut.getShared());
+        assertTrue(factureOut.getApplicable());
+        assertTrue(ChronoUnit.MILLIS.between(time, factureOut.getMoment()) < 1000);
+        assertEquals(1, factureOut.getReturns().size());
+        assertEquals(purchaseReturn.getMeta().getHref(), factureOut.getReturns().get(0).getMeta().getHref());
+        assertEquals(purchaseReturn.getGroup().getMeta().getHref(), factureOut.getGroup().getMeta().getHref());
+        assertEquals(purchaseReturn.getAgent().getMeta().getHref(), factureOut.getAgent().getMeta().getHref());
+        assertEquals(purchaseReturn.getOrganization().getMeta().getHref(), factureOut.getOrganization().getMeta().getHref());
     }
 
     @Test
     public void newByPaymentsInTest() throws IOException, LognexApiException {
-        PaymentInDocumentEntity paymentIn = createSimplePaymentIn();
+        PaymentInDocumentEntity paymentIn = simpleEntityFactory.createSimplePaymentIn();
 
         LocalDateTime time = LocalDateTime.now();
-        FactureOutDocumentEntity e = api.entity().factureout().newDocument("payments", Collections.singletonList(paymentIn));
+        FactureOutDocumentEntity factureOut = api.entity().factureout().newDocument("payments", Collections.singletonList(paymentIn));
 
-        assertEquals("", e.getName());
-        assertEquals(paymentIn.getSum(), e.getSum());
-        assertFalse(e.getShared());
-        assertTrue(e.getApplicable());
-        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
-        assertEquals(1, e.getPayments().size());
-        assertEquals(paymentIn.getMeta().getHref(), ((PaymentInDocumentEntity) e.getPayments().get(0)).getMeta().getHref());
-        assertEquals(paymentIn.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
-        assertEquals(paymentIn.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
-        assertEquals(paymentIn.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
+        assertEquals("", factureOut.getName());
+        assertEquals(paymentIn.getSum(), factureOut.getSum());
+        assertFalse(factureOut.getShared());
+        assertTrue(factureOut.getApplicable());
+        assertTrue(ChronoUnit.MILLIS.between(time, factureOut.getMoment()) < 1000);
+        assertEquals(1, factureOut.getPayments().size());
+        assertEquals(paymentIn.getMeta().getHref(), ((PaymentInDocumentEntity) factureOut.getPayments().get(0)).getMeta().getHref());
+        assertEquals(paymentIn.getGroup().getMeta().getHref(), factureOut.getGroup().getMeta().getHref());
+        assertEquals(paymentIn.getAgent().getMeta().getHref(), factureOut.getAgent().getMeta().getHref());
+        assertEquals(paymentIn.getOrganization().getMeta().getHref(), factureOut.getOrganization().getMeta().getHref());
     }
 
-    private void getAsserts(FactureOutDocumentEntity e, FactureOutDocumentEntity retrievedEntity) {
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getPaymentNumber(), retrievedEntity.getPaymentNumber());
-        assertEquals(e.getPaymentDate(), retrievedEntity.getPaymentDate());
-        assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(e.getDemands().get(0).getMeta().getHref(), retrievedEntity.getDemands().get(0).getMeta().getHref());
+    private void getAsserts(FactureOutDocumentEntity factureOut, FactureOutDocumentEntity retrievedEntity) {
+        assertEquals(factureOut.getName(), retrievedEntity.getName());
+        assertEquals(factureOut.getPaymentNumber(), retrievedEntity.getPaymentNumber());
+        assertEquals(factureOut.getPaymentDate(), retrievedEntity.getPaymentDate());
+        assertEquals(factureOut.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
+        assertEquals(factureOut.getDemands().get(0).getMeta().getHref(), retrievedEntity.getDemands().get(0).getMeta().getHref());
     }
 
-    private void putAsserts(FactureOutDocumentEntity e, FactureOutDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        FactureOutDocumentEntity retrievedUpdatedEntity = api.entity().factureout().get(e.getId());
+    private void putAsserts(FactureOutDocumentEntity factureOut, FactureOutDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
+        FactureOutDocumentEntity retrievedUpdatedEntity = api.entity().factureout().get(factureOut.getId());
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());

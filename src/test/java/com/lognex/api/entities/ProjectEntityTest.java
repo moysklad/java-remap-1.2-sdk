@@ -14,76 +14,76 @@ import static org.junit.Assert.*;
 public class ProjectEntityTest extends EntityTestBase {
     @Test
     public void createTest() throws IOException, LognexApiException {
-        ProjectEntity e = new ProjectEntity();
-        e.setName("project_" + randomString(3) + "_" + new Date().getTime());
-        e.setDescription(randomString());
-        e.setCode(randomString());
-        e.setExternalCode(randomString());
+        ProjectEntity project = new ProjectEntity();
+        project.setName("project_" + randomString(3) + "_" + new Date().getTime());
+        project.setDescription(randomString());
+        project.setCode(randomString());
+        project.setExternalCode(randomString());
 
-        api.entity().project().post(e);
+        api.entity().project().post(project);
 
-        ListEntity<ProjectEntity> updatedEntitiesList = api.entity().project().get(filterEq("name", e.getName()));
+        ListEntity<ProjectEntity> updatedEntitiesList = api.entity().project().get(filterEq("name", project.getName()));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         ProjectEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getCode(), retrievedEntity.getCode());
-        assertEquals(e.getExternalCode(), retrievedEntity.getExternalCode());
+        assertEquals(project.getName(), retrievedEntity.getName());
+        assertEquals(project.getDescription(), retrievedEntity.getDescription());
+        assertEquals(project.getCode(), retrievedEntity.getCode());
+        assertEquals(project.getExternalCode(), retrievedEntity.getExternalCode());
     }
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        ProjectEntity e = createSimpleProject();
+        ProjectEntity project = simpleEntityFactory.createSimpleProject();
 
-        ProjectEntity retrievedEntity = api.entity().project().get(e.getId());
-        getAsserts(e, retrievedEntity);
+        ProjectEntity retrievedEntity = api.entity().project().get(project.getId());
+        getAsserts(project, retrievedEntity);
 
-        retrievedEntity = api.entity().project().get(e);
-        getAsserts(e, retrievedEntity);
+        retrievedEntity = api.entity().project().get(project);
+        getAsserts(project, retrievedEntity);
     }
 
     @Test
-    public void putTest() throws IOException, LognexApiException, InterruptedException {
-        ProjectEntity e = createSimpleProject();
+    public void putTest() throws IOException, LognexApiException {
+        ProjectEntity project = simpleEntityFactory.createSimpleProject();
 
-        ProjectEntity retrievedOriginalEntity = api.entity().project().get(e.getId());
+        ProjectEntity retrievedOriginalEntity = api.entity().project().get(project.getId());
         String name = "project_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().project().put(e.getId(), e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        project.setName(name);
+        api.entity().project().put(project.getId(), project);
+        putAsserts(project, retrievedOriginalEntity, name);
 
-        e = createSimpleProject();
-        retrievedOriginalEntity = api.entity().project().get(e.getId());
+        project = simpleEntityFactory.createSimpleProject();
+        retrievedOriginalEntity = api.entity().project().get(project.getId());
         name = "project_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().project().put(e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        project.setName(name);
+        api.entity().project().put(project);
+        putAsserts(project, retrievedOriginalEntity, name);
     }
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        ProjectEntity e = createSimpleProject();
+        ProjectEntity project = simpleEntityFactory.createSimpleProject();
 
-        ListEntity<ProjectEntity> entitiesList = api.entity().project().get(filterEq("name", e.getName()));
+        ListEntity<ProjectEntity> entitiesList = api.entity().project().get(filterEq("name", project.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().project().delete(e.getId());
+        api.entity().project().delete(project.getId());
 
-        entitiesList = api.entity().project().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().project().get(filterEq("name", project.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        ProjectEntity e = createSimpleProject();
+        ProjectEntity project = simpleEntityFactory.createSimpleProject();
 
-        ListEntity<ProjectEntity> entitiesList = api.entity().project().get(filterEq("name", e.getName()));
+        ListEntity<ProjectEntity> entitiesList = api.entity().project().get(filterEq("name", project.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().project().delete(e);
+        api.entity().project().delete(project);
 
-        entitiesList = api.entity().project().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().project().get(filterEq("name", project.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
@@ -93,13 +93,13 @@ public class ProjectEntityTest extends EntityTestBase {
         assertTrue(metadata.getCreateShared());
     }
 
-    private void getAsserts(ProjectEntity e, ProjectEntity retrievedEntity) {
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getDescription(), retrievedEntity.getDescription());
+    private void getAsserts(ProjectEntity project, ProjectEntity retrievedEntity) {
+        assertEquals(project.getName(), retrievedEntity.getName());
+        assertEquals(project.getDescription(), retrievedEntity.getDescription());
     }
 
-    private void putAsserts(ProjectEntity e, ProjectEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        ProjectEntity retrievedUpdatedEntity = api.entity().project().get(e.getId());
+    private void putAsserts(ProjectEntity project, ProjectEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
+        ProjectEntity retrievedUpdatedEntity = api.entity().project().get(project.getId());
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());

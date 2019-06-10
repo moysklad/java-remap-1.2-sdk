@@ -15,78 +15,78 @@ import static org.junit.Assert.*;
 public class ProductEntityTest extends EntityTestBase {
     @Test
     public void createTest() throws IOException, LognexApiException {
-        ProductEntity e = new ProductEntity();
-        e.setName("product_" + randomString(3) + "_" + new Date().getTime());
-        e.setArchived(false);
-        e.setDescription(randomString());
-        e.setArticle(randomString());
-        e.setWeight(randomDouble(1, 5, 2));
+        ProductEntity product = new ProductEntity();
+        product.setName("product_" + randomString(3) + "_" + new Date().getTime());
+        product.setArchived(false);
+        product.setDescription(randomString());
+        product.setArticle(randomString());
+        product.setWeight(randomDouble(1, 5, 2));
 
-        api.entity().product().post(e);
+        api.entity().product().post(product);
 
-        ListEntity<ProductEntity> updatedEntitiesList = api.entity().product().get(filterEq("name", e.getName()));
+        ListEntity<ProductEntity> updatedEntitiesList = api.entity().product().get(filterEq("name", product.getName()));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         ProductEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getArchived(), retrievedEntity.getArchived());
-        assertEquals(e.getDescription(), retrievedEntity.getDescription());
-        assertEquals(e.getArticle(), retrievedEntity.getArticle());
-        assertEquals(e.getWeight(), retrievedEntity.getWeight());
+        assertEquals(product.getName(), retrievedEntity.getName());
+        assertEquals(product.getArchived(), retrievedEntity.getArchived());
+        assertEquals(product.getDescription(), retrievedEntity.getDescription());
+        assertEquals(product.getArticle(), retrievedEntity.getArticle());
+        assertEquals(product.getWeight(), retrievedEntity.getWeight());
     }
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        ProductEntity e = createSimpleProduct();
+        ProductEntity product = simpleEntityFactory.createSimpleProduct();
 
-        ProductEntity retrievedEntity = api.entity().product().get(e.getId());
-        getAsserts(e, retrievedEntity);
+        ProductEntity retrievedEntity = api.entity().product().get(product.getId());
+        getAsserts(product, retrievedEntity);
 
-        retrievedEntity = api.entity().product().get(e);
-        getAsserts(e, retrievedEntity);
+        retrievedEntity = api.entity().product().get(product);
+        getAsserts(product, retrievedEntity);
     }
 
     @Test
-    public void putTest() throws IOException, LognexApiException, InterruptedException {
-        ProductEntity e = createSimpleProduct();
+    public void putTest() throws IOException, LognexApiException {
+        ProductEntity product = simpleEntityFactory.createSimpleProduct();
 
-        ProductEntity retrievedOriginalEntity = api.entity().product().get(e.getId());
+        ProductEntity retrievedOriginalEntity = api.entity().product().get(product.getId());
         String name = "product_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().product().put(e.getId(), e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        product.setName(name);
+        api.entity().product().put(product.getId(), product);
+        putAsserts(product, retrievedOriginalEntity, name);
 
-        retrievedOriginalEntity.set(e);
+        retrievedOriginalEntity.set(product);
 
         name = "product_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().product().put(e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        product.setName(name);
+        api.entity().product().put(product);
+        putAsserts(product, retrievedOriginalEntity, name);
     }
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        ProductEntity e = createSimpleProduct();
+        ProductEntity product = simpleEntityFactory.createSimpleProduct();
 
-        ListEntity<ProductEntity> entitiesList = api.entity().product().get(filterEq("name", e.getName()));
+        ListEntity<ProductEntity> entitiesList = api.entity().product().get(filterEq("name", product.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().product().delete(e.getId());
+        api.entity().product().delete(product.getId());
 
-        entitiesList = api.entity().product().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().product().get(filterEq("name", product.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        ProductEntity e = createSimpleProduct();
+        ProductEntity product = simpleEntityFactory.createSimpleProduct();
 
-        ListEntity<ProductEntity> entitiesList = api.entity().product().get(filterEq("name", e.getName()));
+        ListEntity<ProductEntity> entitiesList = api.entity().product().get(filterEq("name", product.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().product().delete(e);
+        api.entity().product().delete(product);
 
-        entitiesList = api.entity().product().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().product().get(filterEq("name", product.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
@@ -96,15 +96,13 @@ public class ProductEntityTest extends EntityTestBase {
         assertTrue(metadata.getCreateShared());
     }
 
-
-
-    private void getAsserts(ProductEntity e, ProductEntity retrievedEntity) {
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getDescription(), retrievedEntity.getDescription());
+    private void getAsserts(ProductEntity product, ProductEntity retrievedEntity) {
+        assertEquals(product.getName(), retrievedEntity.getName());
+        assertEquals(product.getDescription(), retrievedEntity.getDescription());
     }
 
-    private void putAsserts(ProductEntity e, ProductEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        ProductEntity retrievedUpdatedEntity = api.entity().product().get(e.getId());
+    private void putAsserts(ProductEntity product, ProductEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
+        ProductEntity retrievedUpdatedEntity = api.entity().product().get(product.getId());
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());

@@ -9,8 +9,10 @@ import java.time.format.DateTimeFormatter;
 public class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {
     private final DateTimeFormatter formatter;
 
+    public static final String dateFormatPattern = "yyyy-MM-dd HH:mm:ss.SSS";
+
     public LocalDateTimeSerializer() {
-        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter = DateTimeFormatter.ofPattern(dateFormatPattern);
     }
 
     @Override

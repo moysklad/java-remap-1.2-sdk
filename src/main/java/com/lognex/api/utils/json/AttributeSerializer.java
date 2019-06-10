@@ -10,12 +10,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static com.lognex.api.utils.json.LocalDateTimeSerializer.dateFormatPattern;
+
 public class AttributeSerializer implements JsonSerializer<AttributeEntity>, JsonDeserializer<AttributeEntity> {
     private final Gson gson = new GsonBuilder().create();
     private final DateTimeFormatter formatter;
 
     public AttributeSerializer() {
-        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter = DateTimeFormatter.ofPattern(dateFormatPattern);
     }
 
     @Override

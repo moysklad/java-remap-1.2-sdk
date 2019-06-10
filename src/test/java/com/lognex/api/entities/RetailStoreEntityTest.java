@@ -16,16 +16,16 @@ public class RetailStoreEntityTest extends EntityTestBase {
     public void getTest() throws IOException, LognexApiException {
         ListEntity<RetailStoreEntity> retailStoreList = api.entity().retailstore().get(filterEq("name", "Точка продаж"));
         assertEquals(1, retailStoreList.getRows().size());
-        RetailStoreEntity e = retailStoreList.getRows().get(0);
-        assertEquals("Точка продаж", e.getName());
-        assertTrue(e.getDiscountEnable());
-        assertEquals(Integer.valueOf(100), e.getDiscountMaxPercent());
+        RetailStoreEntity retailStore = retailStoreList.getRows().get(0);
+        assertEquals("Точка продаж", retailStore.getName());
+        assertTrue(retailStore.getDiscountEnable());
+        assertEquals(Integer.valueOf(100), retailStore.getDiscountMaxPercent());
 
-        RetailStoreEntity retrievedEntity = api.entity().retailstore().get(e.getId());
-        getAsserts(e, retrievedEntity);
+        RetailStoreEntity retrievedEntity = api.entity().retailstore().get(retailStore.getId());
+        getAsserts(retailStore, retrievedEntity);
 
-        retrievedEntity = api.entity().retailstore().get(e);
-        getAsserts(e, retrievedEntity);
+        retrievedEntity = api.entity().retailstore().get(retailStore);
+        getAsserts(retailStore, retrievedEntity);
     }
 
     @Test
@@ -42,11 +42,11 @@ public class RetailStoreEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        RetailStoreEntity e = new RetailStoreEntity();
+        RetailStoreEntity retailStore = new RetailStoreEntity();
         String id = randomString();
-        e.setId(id);
+        retailStore.setId(id);
 
-        mockApi.entity().retailstore().delete(e);
+        mockApi.entity().retailstore().delete(retailStore);
 
         MockHttpClient client = (MockHttpClient) mockApi.getClient();
         assertEquals(mockApi.getHost() + API_PATH + "/entity/retailstore/" + id,
@@ -55,9 +55,9 @@ public class RetailStoreEntityTest extends EntityTestBase {
         assertEquals("DELETE", client.getLastExecutedRequest().getRequestLine().getMethod());
     }
 
-    private void getAsserts(RetailStoreEntity e, RetailStoreEntity retrievedEntity) {
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getDiscountEnable(), retrievedEntity.getDiscountEnable());
-        assertEquals(e.getDiscountMaxPercent(), retrievedEntity.getDiscountMaxPercent());
+    private void getAsserts(RetailStoreEntity retailStore, RetailStoreEntity retrievedEntity) {
+        assertEquals(retailStore.getName(), retrievedEntity.getName());
+        assertEquals(retailStore.getDiscountEnable(), retrievedEntity.getDiscountEnable());
+        assertEquals(retailStore.getDiscountMaxPercent(), retrievedEntity.getDiscountMaxPercent());
     }
 }

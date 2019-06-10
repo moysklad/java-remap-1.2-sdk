@@ -18,80 +18,80 @@ import static org.junit.Assert.*;
 public class PaymentOutDocumentEntityTest extends EntityTestBase {
     @Test
     public void createTest() throws IOException, LognexApiException {
-        PaymentOutDocumentEntity e = new PaymentOutDocumentEntity();
-        e.setName("paymentout_" + randomString(3) + "_" + new Date().getTime());
-        e.setMoment(LocalDateTime.now());
-        e.setSum(randomLong(10, 10000));
-        e.setOrganization(getOwnOrganization());
-        e.setAgent(createSimpleCounterparty());
-        e.setExpenseItem(createSimpleExpenseItem());
+        PaymentOutDocumentEntity paymentOut = new PaymentOutDocumentEntity();
+        paymentOut.setName("paymentout_" + randomString(3) + "_" + new Date().getTime());
+        paymentOut.setMoment(LocalDateTime.now());
+        paymentOut.setSum(randomLong(10, 10000));
+        paymentOut.setOrganization(simpleEntityFactory.getOwnOrganization());
+        paymentOut.setAgent(simpleEntityFactory.createSimpleCounterparty());
+        paymentOut.setExpenseItem(simpleEntityFactory.createSimpleExpenseItem());
 
-        api.entity().paymentout().post(e);
+        api.entity().paymentout().post(paymentOut);
 
-        ListEntity<PaymentOutDocumentEntity> updatedEntitiesList = api.entity().paymentout().get(filterEq("name", e.getName()));
+        ListEntity<PaymentOutDocumentEntity> updatedEntitiesList = api.entity().paymentout().get(filterEq("name", paymentOut.getName()));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         PaymentOutDocumentEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getMoment(), retrievedEntity.getMoment());
-        assertEquals(e.getSum(), retrievedEntity.getSum());
-        assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-        assertEquals(e.getExpenseItem().getMeta().getHref(), retrievedEntity.getExpenseItem().getMeta().getHref());
+        assertEquals(paymentOut.getName(), retrievedEntity.getName());
+        assertEquals(paymentOut.getMoment(), retrievedEntity.getMoment());
+        assertEquals(paymentOut.getSum(), retrievedEntity.getSum());
+        assertEquals(paymentOut.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
+        assertEquals(paymentOut.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+        assertEquals(paymentOut.getExpenseItem().getMeta().getHref(), retrievedEntity.getExpenseItem().getMeta().getHref());
     }
 
     @Test
     public void getTest() throws IOException, LognexApiException {
-        PaymentOutDocumentEntity e = createSimplePaymentOut();
+        PaymentOutDocumentEntity paymentOut = simpleEntityFactory.createSimplePaymentOut();
 
-        PaymentOutDocumentEntity retrievedEntity = api.entity().paymentout().get(e.getId());
-        getAsserts(e, retrievedEntity);
+        PaymentOutDocumentEntity retrievedEntity = api.entity().paymentout().get(paymentOut.getId());
+        getAsserts(paymentOut, retrievedEntity);
 
-        retrievedEntity = api.entity().paymentout().get(e);
-        getAsserts(e, retrievedEntity);
+        retrievedEntity = api.entity().paymentout().get(paymentOut);
+        getAsserts(paymentOut, retrievedEntity);
     }
 
     @Test
-    public void putTest() throws IOException, LognexApiException, InterruptedException {
-        PaymentOutDocumentEntity e = createSimplePaymentOut();
+    public void putTest() throws IOException, LognexApiException {
+        PaymentOutDocumentEntity paymentOut = simpleEntityFactory.createSimplePaymentOut();
 
-        PaymentOutDocumentEntity retrievedOriginalEntity = api.entity().paymentout().get(e.getId());
+        PaymentOutDocumentEntity retrievedOriginalEntity = api.entity().paymentout().get(paymentOut.getId());
         String name = "paymentout_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().paymentout().put(e.getId(), e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        paymentOut.setName(name);
+        api.entity().paymentout().put(paymentOut.getId(), paymentOut);
+        putAsserts(paymentOut, retrievedOriginalEntity, name);
 
-        retrievedOriginalEntity.set(e);
+        retrievedOriginalEntity.set(paymentOut);
 
         name = "paymentout_" + randomString(3) + "_" + new Date().getTime();
-        e.setName(name);
-        api.entity().paymentout().put(e);
-        putAsserts(e, retrievedOriginalEntity, name);
+        paymentOut.setName(name);
+        api.entity().paymentout().put(paymentOut);
+        putAsserts(paymentOut, retrievedOriginalEntity, name);
     }
 
     @Test
     public void deleteTest() throws IOException, LognexApiException {
-        PaymentOutDocumentEntity e = createSimplePaymentOut();
+        PaymentOutDocumentEntity paymentOut = simpleEntityFactory.createSimplePaymentOut();
 
-        ListEntity<PaymentOutDocumentEntity> entitiesList = api.entity().paymentout().get(filterEq("name", e.getName()));
+        ListEntity<PaymentOutDocumentEntity> entitiesList = api.entity().paymentout().get(filterEq("name", paymentOut.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().paymentout().delete(e.getId());
+        api.entity().paymentout().delete(paymentOut.getId());
 
-        entitiesList = api.entity().paymentout().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().paymentout().get(filterEq("name", paymentOut.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        PaymentOutDocumentEntity e = createSimplePaymentOut();
+        PaymentOutDocumentEntity paymentOut = simpleEntityFactory.createSimplePaymentOut();
 
-        ListEntity<PaymentOutDocumentEntity> entitiesList = api.entity().paymentout().get(filterEq("name", e.getName()));
+        ListEntity<PaymentOutDocumentEntity> entitiesList = api.entity().paymentout().get(filterEq("name", paymentOut.getName()));
         assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
-        api.entity().paymentout().delete(e);
+        api.entity().paymentout().delete(paymentOut);
 
-        entitiesList = api.entity().paymentout().get(filterEq("name", e.getName()));
+        entitiesList = api.entity().paymentout().get(filterEq("name", paymentOut.getName()));
         assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
@@ -104,124 +104,124 @@ public class PaymentOutDocumentEntityTest extends EntityTestBase {
 
     @Test
     public void newTest() throws IOException, LognexApiException {
-        PaymentOutDocumentEntity e = api.entity().paymentout().newDocument();
+        PaymentOutDocumentEntity paymentOut = api.entity().paymentout().newDocument();
         LocalDateTime time = LocalDateTime.now();
 
-        assertEquals("", e.getName());
-        assertEquals(Long.valueOf(0), e.getSum());
-        assertFalse(e.getShared());
-        assertTrue(e.getApplicable());
-        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
+        assertEquals("", paymentOut.getName());
+        assertEquals(Long.valueOf(0), paymentOut.getSum());
+        assertFalse(paymentOut.getShared());
+        assertTrue(paymentOut.getApplicable());
+        assertTrue(ChronoUnit.MILLIS.between(time, paymentOut.getMoment()) < 1000);
 
-        assertEquals(e.getOrganization().getMeta().getHref(), getOwnOrganization().getMeta().getHref());
-        assertEquals(e.getGroup().getMeta().getHref(), getMainGroup().getMeta().getHref());
+        assertEquals(paymentOut.getOrganization().getMeta().getHref(), simpleEntityFactory.getOwnOrganization().getMeta().getHref());
+        assertEquals(paymentOut.getGroup().getMeta().getHref(), simpleEntityFactory.getMainGroup().getMeta().getHref());
     }
 
     @Test
     public void newByPurchaseOrdersTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity purchaseOrder = createSimplePurchaseOrder();
+        PurchaseOrderDocumentEntity purchaseOrder = simpleEntityFactory.createSimplePurchaseOrder();
 
-        PaymentOutDocumentEntity e = api.entity().paymentout().newDocument("operations", Collections.singletonList(purchaseOrder));
+        PaymentOutDocumentEntity paymentOut = api.entity().paymentout().newDocument("operations", Collections.singletonList(purchaseOrder));
         LocalDateTime time = LocalDateTime.now();
 
-        assertEquals("", e.getName());
-        assertEquals(purchaseOrder.getSum(), e.getSum());
-        assertFalse(e.getShared());
-        assertTrue(e.getApplicable());
-        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
-        assertEquals(1, e.getOperations().size());
-        assertEquals(purchaseOrder.getMeta().getHref(), e.getOperations().get(0).getMeta().getHref());
-        assertEquals(purchaseOrder.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
-        assertEquals(purchaseOrder.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
-        assertEquals(purchaseOrder.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
+        assertEquals("", paymentOut.getName());
+        assertEquals(purchaseOrder.getSum(), paymentOut.getSum());
+        assertFalse(paymentOut.getShared());
+        assertTrue(paymentOut.getApplicable());
+        assertTrue(ChronoUnit.MILLIS.between(time, paymentOut.getMoment()) < 1000);
+        assertEquals(1, paymentOut.getOperations().size());
+        assertEquals(purchaseOrder.getMeta().getHref(), paymentOut.getOperations().get(0).getMeta().getHref());
+        assertEquals(purchaseOrder.getGroup().getMeta().getHref(), paymentOut.getGroup().getMeta().getHref());
+        assertEquals(purchaseOrder.getAgent().getMeta().getHref(), paymentOut.getAgent().getMeta().getHref());
+        assertEquals(purchaseOrder.getOrganization().getMeta().getHref(), paymentOut.getOrganization().getMeta().getHref());
     }
 
     @Test
     public void newBySalesReturnsTest() throws IOException, LognexApiException {
-        SalesReturnDocumentEntity salesReturn = createSimpleSalesReturn();
+        SalesReturnDocumentEntity salesReturn = simpleEntityFactory.createSimpleSalesReturn();
 
-        PaymentOutDocumentEntity e = api.entity().paymentout().newDocument("operations", Collections.singletonList(salesReturn));
+        PaymentOutDocumentEntity paymentOut = api.entity().paymentout().newDocument("operations", Collections.singletonList(salesReturn));
         LocalDateTime time = LocalDateTime.now();
 
-        assertEquals("", e.getName());
-        assertEquals(salesReturn.getSum(), e.getSum());
-        assertFalse(e.getShared());
-        assertTrue(e.getApplicable());
-        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
-        assertEquals(1, e.getOperations().size());
-        assertEquals(salesReturn.getMeta().getHref(), e.getOperations().get(0).getMeta().getHref());
-        assertEquals(salesReturn.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
-        assertEquals(salesReturn.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
-        assertEquals(salesReturn.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
+        assertEquals("", paymentOut.getName());
+        assertEquals(salesReturn.getSum(), paymentOut.getSum());
+        assertFalse(paymentOut.getShared());
+        assertTrue(paymentOut.getApplicable());
+        assertTrue(ChronoUnit.MILLIS.between(time, paymentOut.getMoment()) < 1000);
+        assertEquals(1, paymentOut.getOperations().size());
+        assertEquals(salesReturn.getMeta().getHref(), paymentOut.getOperations().get(0).getMeta().getHref());
+        assertEquals(salesReturn.getGroup().getMeta().getHref(), paymentOut.getGroup().getMeta().getHref());
+        assertEquals(salesReturn.getAgent().getMeta().getHref(), paymentOut.getAgent().getMeta().getHref());
+        assertEquals(salesReturn.getOrganization().getMeta().getHref(), paymentOut.getOrganization().getMeta().getHref());
     }
 
     @Test
     public void newBySuppliesTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity supply = createSimpleSupply();
+        SupplyDocumentEntity supply = simpleEntityFactory.createSimpleSupply();
 
-        PaymentOutDocumentEntity e = api.entity().paymentout().newDocument("operations", Collections.singletonList(supply));
+        PaymentOutDocumentEntity paymentOut = api.entity().paymentout().newDocument("operations", Collections.singletonList(supply));
         LocalDateTime time = LocalDateTime.now();
 
-        assertEquals("", e.getName());
-        assertEquals(supply.getSum(), e.getSum());
-        assertFalse(e.getShared());
-        assertTrue(e.getApplicable());
-        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
-        assertEquals(1, e.getOperations().size());
-        assertEquals(supply.getMeta().getHref(), e.getOperations().get(0).getMeta().getHref());
-        assertEquals(supply.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
-        assertEquals(supply.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
-        assertEquals(supply.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
+        assertEquals("", paymentOut.getName());
+        assertEquals(supply.getSum(), paymentOut.getSum());
+        assertFalse(paymentOut.getShared());
+        assertTrue(paymentOut.getApplicable());
+        assertTrue(ChronoUnit.MILLIS.between(time, paymentOut.getMoment()) < 1000);
+        assertEquals(1, paymentOut.getOperations().size());
+        assertEquals(supply.getMeta().getHref(), paymentOut.getOperations().get(0).getMeta().getHref());
+        assertEquals(supply.getGroup().getMeta().getHref(), paymentOut.getGroup().getMeta().getHref());
+        assertEquals(supply.getAgent().getMeta().getHref(), paymentOut.getAgent().getMeta().getHref());
+        assertEquals(supply.getOrganization().getMeta().getHref(), paymentOut.getOrganization().getMeta().getHref());
     }
 
     @Test
     public void newByInvoicesInTest() throws IOException, LognexApiException {
-        InvoiceInDocumentEntity invoiceIn = createSimpleInvoiceIn();
+        InvoiceInDocumentEntity invoiceIn = simpleEntityFactory.createSimpleInvoiceIn();
 
-        PaymentOutDocumentEntity e = api.entity().paymentout().newDocument("operations", Collections.singletonList(invoiceIn));
+        PaymentOutDocumentEntity paymentOut = api.entity().paymentout().newDocument("operations", Collections.singletonList(invoiceIn));
         LocalDateTime time = LocalDateTime.now();
 
-        assertEquals("", e.getName());
-        assertEquals(invoiceIn.getSum(), e.getSum());
-        assertFalse(e.getShared());
-        assertTrue(e.getApplicable());
-        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
-        assertEquals(1, e.getOperations().size());
-        assertEquals(invoiceIn.getMeta().getHref(), e.getOperations().get(0).getMeta().getHref());
-        assertEquals(invoiceIn.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
-        assertEquals(invoiceIn.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
-        assertEquals(invoiceIn.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
+        assertEquals("", paymentOut.getName());
+        assertEquals(invoiceIn.getSum(), paymentOut.getSum());
+        assertFalse(paymentOut.getShared());
+        assertTrue(paymentOut.getApplicable());
+        assertTrue(ChronoUnit.MILLIS.between(time, paymentOut.getMoment()) < 1000);
+        assertEquals(1, paymentOut.getOperations().size());
+        assertEquals(invoiceIn.getMeta().getHref(), paymentOut.getOperations().get(0).getMeta().getHref());
+        assertEquals(invoiceIn.getGroup().getMeta().getHref(), paymentOut.getGroup().getMeta().getHref());
+        assertEquals(invoiceIn.getAgent().getMeta().getHref(), paymentOut.getAgent().getMeta().getHref());
+        assertEquals(invoiceIn.getOrganization().getMeta().getHref(), paymentOut.getOrganization().getMeta().getHref());
     }
 
     @Test
     public void newByCommissionReportsOutTest() throws IOException, LognexApiException {
-        CommissionReportOutDocumentEntity commissionReportOut = createSimpleCommissionReportOut();
+        CommissionReportOutDocumentEntity commissionReportOut = simpleEntityFactory.createSimpleCommissionReportOut();
 
-        PaymentOutDocumentEntity e = api.entity().paymentout().newDocument("operations", Collections.singletonList(commissionReportOut));
+        PaymentOutDocumentEntity paymentOut = api.entity().paymentout().newDocument("operations", Collections.singletonList(commissionReportOut));
         LocalDateTime time = LocalDateTime.now();
 
-        assertEquals("", e.getName());
-        assertEquals(commissionReportOut.getSum(), e.getSum());
-        assertFalse(e.getShared());
-        assertTrue(e.getApplicable());
-        assertTrue(ChronoUnit.MILLIS.between(time, e.getMoment()) < 1000);
-        assertEquals(1, e.getOperations().size());
-        assertEquals(commissionReportOut.getMeta().getHref(), e.getOperations().get(0).getMeta().getHref());
-        assertEquals(commissionReportOut.getGroup().getMeta().getHref(), e.getGroup().getMeta().getHref());
-        assertEquals(commissionReportOut.getContract().getMeta().getHref(), e.getContract().getMeta().getHref());
-        assertEquals(commissionReportOut.getAgent().getMeta().getHref(), e.getAgent().getMeta().getHref());
-        assertEquals(commissionReportOut.getOrganization().getMeta().getHref(), e.getOrganization().getMeta().getHref());
+        assertEquals("", paymentOut.getName());
+        assertEquals(commissionReportOut.getSum(), paymentOut.getSum());
+        assertFalse(paymentOut.getShared());
+        assertTrue(paymentOut.getApplicable());
+        assertTrue(ChronoUnit.MILLIS.between(time, paymentOut.getMoment()) < 1000);
+        assertEquals(1, paymentOut.getOperations().size());
+        assertEquals(commissionReportOut.getMeta().getHref(), paymentOut.getOperations().get(0).getMeta().getHref());
+        assertEquals(commissionReportOut.getGroup().getMeta().getHref(), paymentOut.getGroup().getMeta().getHref());
+        assertEquals(commissionReportOut.getContract().getMeta().getHref(), paymentOut.getContract().getMeta().getHref());
+        assertEquals(commissionReportOut.getAgent().getMeta().getHref(), paymentOut.getAgent().getMeta().getHref());
+        assertEquals(commissionReportOut.getOrganization().getMeta().getHref(), paymentOut.getOrganization().getMeta().getHref());
     }
 
-    private void getAsserts(PaymentOutDocumentEntity e, PaymentOutDocumentEntity retrievedEntity) {
-        assertEquals(e.getName(), retrievedEntity.getName());
-        assertEquals(e.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(e.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-        assertEquals(e.getExpenseItem().getMeta().getHref(), retrievedEntity.getExpenseItem().getMeta().getHref());
+    private void getAsserts(PaymentOutDocumentEntity paymentOut, PaymentOutDocumentEntity retrievedEntity) {
+        assertEquals(paymentOut.getName(), retrievedEntity.getName());
+        assertEquals(paymentOut.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
+        assertEquals(paymentOut.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+        assertEquals(paymentOut.getExpenseItem().getMeta().getHref(), retrievedEntity.getExpenseItem().getMeta().getHref());
     }
 
-    private void putAsserts(PaymentOutDocumentEntity e, PaymentOutDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        PaymentOutDocumentEntity retrievedUpdatedEntity = api.entity().paymentout().get(e.getId());
+    private void putAsserts(PaymentOutDocumentEntity paymentOut, PaymentOutDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
+        PaymentOutDocumentEntity retrievedUpdatedEntity = api.entity().paymentout().get(paymentOut.getId());
 
         assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
         assertEquals(name, retrievedUpdatedEntity.getName());

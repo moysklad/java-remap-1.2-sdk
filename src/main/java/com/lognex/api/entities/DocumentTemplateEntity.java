@@ -22,13 +22,13 @@ public class DocumentTemplateEntity {
     public static class Serializer implements JsonSerializer<DocumentTemplateEntity> {
         @Override
         public JsonElement serialize(DocumentTemplateEntity src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
-            JsonObject e = new JsonObject();
+            JsonObject serializedDocumentTemplate = new JsonObject();
             if (src.getDocument() != null) {
                 JsonObject element = new JsonObject();
 
                 element.add("meta", context.serialize(src.getDocument().getMeta()));
 
-                e.add(src.getDocumentType(), element);
+                serializedDocumentTemplate.add(src.getDocumentType(), element);
             } else if (src.getDocuments() != null) {
                 JsonArray metaArray = new JsonArray();
 
@@ -38,10 +38,10 @@ public class DocumentTemplateEntity {
                     metaArray.add(element);
                 }
 
-                e.add(src.getDocumentType(), metaArray);
+                serializedDocumentTemplate.add(src.getDocumentType(), metaArray);
             }
 
-            return e;
+            return serializedDocumentTemplate;
         }
     }
 }
