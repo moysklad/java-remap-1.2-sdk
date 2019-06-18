@@ -17,7 +17,8 @@ public final class DocumentInventoryClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<InventoryDocumentEntity>,
         PutByIdEndpoint<InventoryDocumentEntity>,
-        DocumentPositionsEndpoint {
+        DocumentPositionsEndpoint,
+        ExportEndpoint {
 
     public DocumentInventoryClient(LognexApi api) {
         super(api, "/entity/inventory/");

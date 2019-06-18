@@ -42,11 +42,6 @@ public final class EntityClient {
     }
 
     @ApiChainElement
-    public DocumentDemandByIdClient demand(String id) {
-        return new DocumentDemandByIdClient(api, id);
-    }
-
-    @ApiChainElement
     public DocumentEnterClient enter() {
         return new DocumentEnterClient(api);
     }

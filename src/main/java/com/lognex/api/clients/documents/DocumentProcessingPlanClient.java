@@ -13,7 +13,8 @@ public final class DocumentProcessingPlanClient
         PostEndpoint<ProcessingPlanDocumentEntity>,
         DeleteByIdEndpoint,
         GetByIdEndpoint<ProcessingPlanDocumentEntity>,
-        PutByIdEndpoint<ProcessingPlanDocumentEntity> {
+        PutByIdEndpoint<ProcessingPlanDocumentEntity>,
+        ExportEndpoint {
 
     public DocumentProcessingPlanClient(LognexApi api) {
         super(api, "/entity/processingplan/");

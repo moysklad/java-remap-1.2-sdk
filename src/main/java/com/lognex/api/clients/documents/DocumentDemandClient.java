@@ -18,7 +18,8 @@ public final class DocumentDemandClient
         DocumentNewEndpoint<DemandDocumentEntity>,
         GetByIdEndpoint<DemandDocumentEntity>,
         PutByIdEndpoint<DemandDocumentEntity>,
-        DocumentPositionsEndpoint {
+        DocumentPositionsEndpoint,
+        ExportEndpoint {
 
     public DocumentDemandClient(LognexApi api) {
         super(api, "/entity/demand/");

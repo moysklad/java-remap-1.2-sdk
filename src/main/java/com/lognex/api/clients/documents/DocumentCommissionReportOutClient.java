@@ -17,7 +17,8 @@ public final class DocumentCommissionReportOutClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<CommissionReportOutDocumentEntity>,
         PutByIdEndpoint<CommissionReportOutDocumentEntity>,
-        DocumentPositionsEndpoint {
+        DocumentPositionsEndpoint,
+        ExportEndpoint {
 
     public DocumentCommissionReportOutClient(LognexApi api) {
         super(api, "/entity/commissionreportout/");

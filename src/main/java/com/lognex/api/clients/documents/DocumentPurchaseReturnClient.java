@@ -18,7 +18,8 @@ public final class DocumentPurchaseReturnClient
         DocumentNewEndpoint<PurchaseReturnDocumentEntity>,
         GetByIdEndpoint<PurchaseReturnDocumentEntity>,
         PutByIdEndpoint<PurchaseReturnDocumentEntity>,
-        DocumentPositionsEndpoint {
+        DocumentPositionsEndpoint,
+        ExportEndpoint {
 
     public DocumentPurchaseReturnClient(LognexApi api) {
         super(api, "/entity/purchasereturn/");

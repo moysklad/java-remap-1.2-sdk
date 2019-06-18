@@ -16,7 +16,8 @@ public final class DocumentProcessingClient
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<ProcessingDocumentEntity>,
-        PutByIdEndpoint<ProcessingDocumentEntity> {
+        PutByIdEndpoint<ProcessingDocumentEntity>,
+        ExportEndpoint {
 
     public DocumentProcessingClient(LognexApi api) {
         super(api, "/entity/processing/");

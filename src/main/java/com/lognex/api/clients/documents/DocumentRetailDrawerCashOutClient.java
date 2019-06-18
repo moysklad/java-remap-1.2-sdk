@@ -14,7 +14,8 @@ public final class DocumentRetailDrawerCashOutClient
         PostEndpoint<RetailDrawerCashOutEntity>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint {
+        MetadataAttributeEndpoint,
+        ExportEndpoint {
 
     public DocumentRetailDrawerCashOutClient(LognexApi api) {
         super(api, "/entity/retaildrawercashout/");

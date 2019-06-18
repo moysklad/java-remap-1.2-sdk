@@ -17,7 +17,8 @@ public final class DocumentPaymentOutClient
         MetadataAttributeEndpoint,
         DocumentNewEndpoint<PaymentOutDocumentEntity>,
         GetByIdEndpoint<PaymentOutDocumentEntity>,
-        PutByIdEndpoint<PaymentOutDocumentEntity> {
+        PutByIdEndpoint<PaymentOutDocumentEntity>,
+        ExportEndpoint {
 
     public DocumentPaymentOutClient(LognexApi api) {
         super(api, "/entity/paymentout/");

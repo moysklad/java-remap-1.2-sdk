@@ -16,7 +16,8 @@ public final class DocumentCustomerOrderClient
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         GetByIdEndpoint<CustomerOrderDocumentEntity>,
         PutByIdEndpoint<CustomerOrderDocumentEntity>,
-        DocumentPositionsEndpoint {
+        DocumentPositionsEndpoint,
+        ExportEndpoint {
 
     public DocumentCustomerOrderClient(LognexApi api) {
         super(api, "/entity/customerorder/");

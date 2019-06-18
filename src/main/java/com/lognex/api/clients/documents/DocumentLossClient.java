@@ -18,7 +18,8 @@ public final class DocumentLossClient
         DocumentNewEndpoint<LossDocumentEntity>,
         GetByIdEndpoint<LossDocumentEntity>,
         PutByIdEndpoint<LossDocumentEntity>,
-        DocumentPositionsEndpoint {
+        DocumentPositionsEndpoint,
+        ExportEndpoint {
 
     public DocumentLossClient(LognexApi api) {
         super(api, "/entity/loss/");

@@ -17,7 +17,8 @@ public final class DocumentFactureInClient
         MetadataAttributeEndpoint,
         DocumentNewEndpoint<FactureInDocumentEntity>,
         GetByIdEndpoint<FactureInDocumentEntity>,
-        PutByIdEndpoint<FactureInDocumentEntity> {
+        PutByIdEndpoint<FactureInDocumentEntity>,
+        ExportEndpoint {
 
     public DocumentFactureInClient(LognexApi api) {
         super(api, "/entity/facturein/");

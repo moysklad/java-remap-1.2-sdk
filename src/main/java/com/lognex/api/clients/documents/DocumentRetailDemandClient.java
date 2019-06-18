@@ -16,7 +16,8 @@ public final class DocumentRetailDemandClient
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<RetailDemandDocumentEntity>,
-        PutByIdEndpoint<RetailDemandDocumentEntity> {
+        PutByIdEndpoint<RetailDemandDocumentEntity>,
+        ExportEndpoint {
 
     public DocumentRetailDemandClient(LognexApi api) {
         super(api, "/entity/retaildemand/");

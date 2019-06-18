@@ -18,7 +18,8 @@ public final class DocumentSupplyClient
         DocumentNewEndpoint<SupplyDocumentEntity>,
         GetByIdEndpoint<SupplyDocumentEntity>,
         PutByIdEndpoint<SupplyDocumentEntity>,
-        DocumentPositionsEndpoint {
+        DocumentPositionsEndpoint,
+        ExportEndpoint {
 
     public DocumentSupplyClient(LognexApi api) {
         super(api, "/entity/supply/");

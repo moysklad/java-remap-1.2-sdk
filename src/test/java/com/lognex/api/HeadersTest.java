@@ -106,19 +106,19 @@ public class HeadersTest {
     @Test
     public void printDocumentHeaderTest() throws IOException, LognexApiException {
         api = new LognexApi("test.moysklad", true, "[API_LOGIN]", "[API_PASSWORD]", mockHttpClient);
-        api.entity().demand("ID").export(new TemplateEntity(), new File("test0.xls"));
+        api.entity().demand().export("ID", new TemplateEntity(), new File("test0.xls"));
 
         HttpRequest req0 = mockHttpClient.getLastExecutedRequest();
         assertNotNull(req0);
         assertNull(req0.getFirstHeader("X-Lognex-Get-Content"));
 
-        api.entity().demand("ID").export(new TemplateEntity(), new File("test1.xls"), true);
+        api.entity().demand().export("ID", new TemplateEntity(), new File("test1.xls"), true);
 
         HttpRequest req1 = mockHttpClient.getLastExecutedRequest();
         assertNotNull(req1);
         assertEquals("true", req1.getFirstHeader("X-Lognex-Get-Content").getValue());
 
-        api.entity().demand("ID").export(new TemplateEntity(), new File("test2.xls"), false);
+        api.entity().demand().export("ID", new TemplateEntity(), new File("test2.xls"), false);
 
         HttpRequest req2 = mockHttpClient.getLastExecutedRequest();
         assertNotNull(req2);

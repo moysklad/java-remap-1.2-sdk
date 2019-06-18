@@ -14,7 +14,8 @@ public final class DocumentRetailSalesReturnClient
         PostEndpoint<RetailSalesReturnEntity>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint {
+        MetadataAttributeEndpoint,
+        ExportEndpoint {
 
     public DocumentRetailSalesReturnClient(LognexApi api) {
         super(api, "/entity/retailsalesreturn/");

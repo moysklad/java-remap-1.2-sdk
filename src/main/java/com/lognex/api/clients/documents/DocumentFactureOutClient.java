@@ -17,7 +17,8 @@ public final class DocumentFactureOutClient
         DocumentNewEndpoint<FactureOutDocumentEntity>,
         GetByIdEndpoint<FactureOutDocumentEntity>,
         PutByIdEndpoint<FactureOutDocumentEntity>,
-        DeleteByIdEndpoint {
+        DeleteByIdEndpoint,
+        ExportEndpoint {
 
     public DocumentFactureOutClient(LognexApi api) {
         super(api, "/entity/factureout/");

@@ -13,41 +13,41 @@ import java.util.ArrayList;
 
 public interface ExportEndpoint extends Endpoint {
     @ApiEndpoint
-    default void export(TemplateEntity template, File file) throws IOException, LognexApiException {
-        export(template, file, false);
+    default void export(String id, TemplateEntity template, File file) throws IOException, LognexApiException {
+        export(id, template, file, false);
     }
 
     @ApiEndpoint
-    default void export(TemplateEntity template, ExportExtension extension, File file) throws IOException, LognexApiException {
-        export(template, extension, file, false);
+    default void export(String id, TemplateEntity template, ExportExtension extension, File file) throws IOException, LognexApiException {
+        export(id, template, extension, file, false);
     }
 
     @ApiEndpoint
-    default void export(File file, PrintRequest... printRequests) throws IOException, LognexApiException {
-        export(file, false, printRequests);
+    default void export(String id, File file, PrintRequest... printRequests) throws IOException, LognexApiException {
+        export(id, file, false, printRequests);
     }
 
     @ApiEndpoint
-    default void export(ExportRequestEntity exportRequestEntity, File file) throws IOException, LognexApiException {
-        export(exportRequestEntity, file, false);
+    default void export(String id, ExportRequestEntity exportRequestEntity, File file) throws IOException, LognexApiException {
+        export(id, exportRequestEntity, file, false);
     }
 
     @ApiEndpoint
-    default void export(TemplateEntity template, File file, boolean addPrintDocumentContentHeader) throws IOException, LognexApiException {
+    default void export(String id, TemplateEntity template, File file, boolean addPrintDocumentContentHeader) throws IOException, LognexApiException {
         ExportExtension parsedExtension = ExportExtension.extractFromFile(file);
-        export(template, parsedExtension, file, addPrintDocumentContentHeader);
+        export(id, template, parsedExtension, file, addPrintDocumentContentHeader);
     }
 
     @ApiEndpoint
-    default void export(TemplateEntity template, ExportExtension extension, File file, boolean addPrintDocumentContentHeader) throws IOException, LognexApiException {
+    default void export(String id, TemplateEntity template, ExportExtension extension, File file, boolean addPrintDocumentContentHeader) throws IOException, LognexApiException {
         ExportRequestEntity exportRequestEntity = new ExportRequestEntity();
         exportRequestEntity.setTemplate(template);
         exportRequestEntity.setExtension(extension);
-        export(exportRequestEntity, file, addPrintDocumentContentHeader);
+        export(id, exportRequestEntity, file, addPrintDocumentContentHeader);
     }
 
     @ApiEndpoint
-    default void export(File file, boolean addPrintDocumentContentHeader, PrintRequest... printRequests) throws IOException, LognexApiException {
+    default void export(String id, File file, boolean addPrintDocumentContentHeader, PrintRequest... printRequests) throws IOException, LognexApiException {
         ExportRequestEntity exportRequestEntity = new ExportRequestEntity();
 
         exportRequestEntity.setTemplates(new ArrayList<>());
@@ -58,13 +58,13 @@ public interface ExportEndpoint extends Endpoint {
             exportRequestEntity.getTemplates().add(eri);
         }
 
-        export(exportRequestEntity, file, addPrintDocumentContentHeader);
+        export(id, exportRequestEntity, file, addPrintDocumentContentHeader);
     }
 
     @ApiEndpoint
-    default void export(ExportRequestEntity exportRequestEntity, File file, boolean addPrintDocumentContentHeader) throws IOException, LognexApiException {
+    default void export(String id, ExportRequestEntity exportRequestEntity, File file, boolean addPrintDocumentContentHeader) throws IOException, LognexApiException {
         HttpRequestExecutor req = HttpRequestExecutor.
-                path(api(), path() + "export/").
+                path(api(), path() + id + "/export/").
                 body(exportRequestEntity);
 
         if (addPrintDocumentContentHeader) req.header("X-Lognex-Get-Content", "true");

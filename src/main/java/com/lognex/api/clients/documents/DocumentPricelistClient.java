@@ -26,7 +26,8 @@ public final class DocumentPricelistClient
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<PricelistDocumentEntity>,
-        PutByIdEndpoint<PricelistDocumentEntity> {
+        PutByIdEndpoint<PricelistDocumentEntity>,
+        ExportEndpoint {
 
     public DocumentPricelistClient(LognexApi api) {
         super(api, "/entity/pricelist/");

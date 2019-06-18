@@ -17,7 +17,8 @@ public final class DocumentProcessingOrderClient
         MetadataAttributeEndpoint,
         DocumentNewEndpoint<ProcessingOrderDocumentEntity>,
         GetByIdEndpoint<ProcessingOrderDocumentEntity>,
-        PutByIdEndpoint<ProcessingOrderDocumentEntity> {
+        PutByIdEndpoint<ProcessingOrderDocumentEntity>,
+        ExportEndpoint {
 
     public DocumentProcessingOrderClient(LognexApi api) {
         super(api, "/entity/processingorder/");

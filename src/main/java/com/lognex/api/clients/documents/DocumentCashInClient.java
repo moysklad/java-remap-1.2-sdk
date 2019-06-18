@@ -17,7 +17,8 @@ public final class DocumentCashInClient
         MetadataAttributeEndpoint,
         DocumentNewEndpoint<CashInDocumentEntity>,
         GetByIdEndpoint<CashInDocumentEntity>,
-        PutByIdEndpoint<CashInDocumentEntity> {
+        PutByIdEndpoint<CashInDocumentEntity>,
+        ExportEndpoint {
 
     public DocumentCashInClient(LognexApi api) {
         super(api, "/entity/cashin/");

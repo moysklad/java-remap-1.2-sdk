@@ -56,22 +56,22 @@ public class ExportTest {
         assertFalse(templates.getRows().isEmpty());
 
         File exportFileXls = new File("test_single.xls");
-        api.entity().demand(docId).export(templates.getRows().get(0), exportFileXls);
+        api.entity().demand().export(docId, templates.getRows().get(0), exportFileXls);
         assertTrue(exportFileXls.exists());
         assertTrue(exportFileXls.length() > 0);
 
         File exportFilePdf = new File("test_single.pdf");
-        api.entity().demand(docId).export(templates.getRows().get(0), exportFilePdf);
+        api.entity().demand().export(docId, templates.getRows().get(0), exportFilePdf);
         assertTrue(exportFilePdf.exists());
         assertTrue(exportFilePdf.length() > 0);
 
         File exportFileNoExt = new File("test_single_without_ext");
-        api.entity().demand(docId).export(templates.getRows().get(0), ExportExtension.html, exportFileNoExt);
+        api.entity().demand().export(docId, templates.getRows().get(0), ExportExtension.html, exportFileNoExt);
         assertTrue(exportFileNoExt.exists());
         assertTrue(exportFileNoExt.length() > 0);
 
         File exportFileDiffExt = new File("test_single_with_different_ext.html");
-        api.entity().demand(docId).export(templates.getRows().get(0), ExportExtension.ods, exportFileDiffExt);
+        api.entity().demand().export(docId, templates.getRows().get(0), ExportExtension.ods, exportFileDiffExt);
         assertTrue(exportFileDiffExt.exists());
         assertTrue(exportFileDiffExt.length() > 0);
     }
@@ -98,7 +98,8 @@ public class ExportTest {
         assertFalse(templates.getRows().isEmpty());
 
         File exportFile = new File("test_complect.pdf");
-        api.entity().demand(docId).export(
+        api.entity().demand().export(
+                docId,
                 exportFile,
                 printRequest(templates.getRows().get(0)),
                 printRequest(templates.getRows().get(1), 1),

@@ -18,7 +18,8 @@ public final class DocumentPurchaseOrderClient
         DocumentNewEndpoint<PurchaseOrderDocumentEntity>,
         GetByIdEndpoint<PurchaseOrderDocumentEntity>,
         PutByIdEndpoint<PurchaseOrderDocumentEntity>,
-        DocumentPositionsEndpoint {
+        DocumentPositionsEndpoint,
+        ExportEndpoint {
 
     public DocumentPurchaseOrderClient(LognexApi api) {
         super(api, "/entity/purchaseorder/");

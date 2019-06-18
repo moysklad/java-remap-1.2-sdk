@@ -18,7 +18,8 @@ public final class DocumentInternalOrderClient
         DocumentNewEndpoint<InternalOrderDocumentEntity>,
         GetByIdEndpoint<InternalOrderDocumentEntity>,
         PutByIdEndpoint<InternalOrderDocumentEntity>,
-        DocumentPositionsEndpoint {
+        DocumentPositionsEndpoint,
+        ExportEndpoint {
 
     public DocumentInternalOrderClient(LognexApi api) {
         super(api, "/entity/internalorder/");

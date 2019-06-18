@@ -18,7 +18,8 @@ public final class DocumentMoveClient
         DocumentNewEndpoint<MoveDocumentEntity>,
         GetByIdEndpoint<MoveDocumentEntity>,
         PutByIdEndpoint<MoveDocumentEntity>,
-        DocumentPositionsEndpoint {
+        DocumentPositionsEndpoint,
+        ExportEndpoint {
 
     public DocumentMoveClient(LognexApi api) {
         super(api, "/entity/move/");

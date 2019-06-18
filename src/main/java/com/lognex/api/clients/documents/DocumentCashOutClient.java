@@ -17,7 +17,8 @@ public final class DocumentCashOutClient
         MetadataAttributeEndpoint,
         DocumentNewEndpoint<CashOutDocumentEntity>,
         GetByIdEndpoint<CashOutDocumentEntity>,
-        PutByIdEndpoint<CashOutDocumentEntity> {
+        PutByIdEndpoint<CashOutDocumentEntity>,
+        ExportEndpoint {
 
     public DocumentCashOutClient(LognexApi api) {
         super(api, "/entity/cashout/");
