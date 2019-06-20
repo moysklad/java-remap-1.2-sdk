@@ -72,8 +72,8 @@ public class RetailDemandDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
-        DemandDocumentEntity originalDemand = (DemandDocumentEntity) originalEntity;
-        DemandDocumentEntity retrievedDemand = (DemandDocumentEntity) retrievedEntity;
+        RetailDemandDocumentEntity originalDemand = (RetailDemandDocumentEntity) originalEntity;
+        RetailDemandDocumentEntity retrievedDemand = (RetailDemandDocumentEntity) retrievedEntity;
 
         assertEquals(originalDemand.getName(), retrievedDemand.getName());
         assertEquals(originalDemand.getDescription(), retrievedDemand.getDescription());
@@ -84,8 +84,8 @@ public class RetailDemandDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
-        DemandDocumentEntity originalDemand = (DemandDocumentEntity) originalEntity;
-        DemandDocumentEntity updatedDemand = (DemandDocumentEntity) updatedEntity;
+        RetailDemandDocumentEntity originalDemand = (RetailDemandDocumentEntity) originalEntity;
+        RetailDemandDocumentEntity updatedDemand = (RetailDemandDocumentEntity) updatedEntity;
 
         assertNotEquals(originalDemand.getName(), updatedDemand.getName());
         assertEquals(changedField, updatedDemand.getName());
@@ -102,6 +102,6 @@ public class RetailDemandDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected Class<? extends MetaEntity> entityClass() {
-        return DemandDocumentEntity.class;
+        return RetailDemandDocumentEntity.class;
     }
 }
