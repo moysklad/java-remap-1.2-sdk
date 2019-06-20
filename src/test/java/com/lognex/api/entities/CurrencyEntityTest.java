@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.clients.ApiClient;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.LognexApiException;
 import org.junit.Test;
@@ -10,7 +11,7 @@ import java.util.Date;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class CurrencyEntityTest extends EntityTestBase {
+public class CurrencyEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         CurrencyEntity currency = new CurrencyEntity();
@@ -47,74 +48,35 @@ public class CurrencyEntityTest extends EntityTestBase {
         assertEquals(currency.getMinorUnit(), retrievedEntity.getMinorUnit());
     }
 
-    @Test
-    public void getTest() throws IOException, LognexApiException {
-        CurrencyEntity currency = simpleEntityFactory.createSimpleCurrency();
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        CurrencyEntity originalCurrency = (CurrencyEntity) originalEntity;
+        CurrencyEntity retrievedCurrency = (CurrencyEntity) retrievedEntity;
 
-        CurrencyEntity retrievedEntity = api.entity().currency().get(currency.getId());
-        getAsserts(currency, retrievedEntity);
-
-        retrievedEntity = api.entity().currency().get(currency);
-        getAsserts(currency, retrievedEntity);
+        assertEquals(originalCurrency.getName(), retrievedCurrency.getName());
+        assertEquals(originalCurrency.getCode(), retrievedCurrency.getCode());
+        assertEquals(originalCurrency.getIsoCode(), retrievedCurrency.getIsoCode());
     }
 
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        CurrencyEntity currency = simpleEntityFactory.createSimpleCurrency();
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        CurrencyEntity originalCurrency = (CurrencyEntity) originalEntity;
+        CurrencyEntity updatedCurrency = (CurrencyEntity) updatedEntity;
 
-        CurrencyEntity retrievedOriginalEntity = api.entity().currency().get(currency.getId());
-        String name = "mod_" + randomString(3) + "_" + new Date().getTime();
-        currency.setName(name);
-        api.entity().currency().put(currency.getId(), currency);
-        putAsserts(currency, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(currency);
-        name = "mod_" + randomString(3) + "_" + new Date().getTime();
-        currency.setName(name);
-
-        api.entity().currency().put(currency);
-        putAsserts(currency, retrievedOriginalEntity, name);
+        assertNotEquals(originalCurrency.getName(), updatedCurrency.getName());
+        assertEquals(changedField, updatedCurrency.getName());
+        assertEquals(originalCurrency.getCode(), updatedCurrency.getCode());
+        assertEquals(originalCurrency.getIsoCode(), updatedCurrency.getIsoCode());
     }
 
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        CurrencyEntity currency = simpleEntityFactory.createSimpleCurrency();
-
-        ListEntity<CurrencyEntity> entitiesList = api.entity().currency().get(filterEq("name", currency.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().currency().delete(currency.getId());
-
-        entitiesList = api.entity().currency().get(filterEq("name", currency.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().currency();
     }
 
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        CurrencyEntity currency = simpleEntityFactory.createSimpleCurrency();
-
-        ListEntity<CurrencyEntity> entitiesList = api.entity().currency().get(filterEq("name", currency.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().currency().delete(currency);
-
-        entitiesList = api.entity().currency().get(filterEq("name", currency.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    private void getAsserts(CurrencyEntity currency, CurrencyEntity retrievedEntity) {
-        assertEquals(currency.getName(), retrievedEntity.getName());
-        assertEquals(currency.getCode(), retrievedEntity.getCode());
-        assertEquals(currency.getIsoCode(), retrievedEntity.getIsoCode());
-    }
-
-    private void putAsserts(CurrencyEntity currency, CurrencyEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        CurrencyEntity retrievedUpdatedEntity = api.entity().currency().get(currency.getId());
-
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getCode(), retrievedUpdatedEntity.getCode());
-        assertEquals(retrievedOriginalEntity.getIsoCode(), retrievedUpdatedEntity.getIsoCode());
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return CurrencyEntity.class;
     }
 }
 

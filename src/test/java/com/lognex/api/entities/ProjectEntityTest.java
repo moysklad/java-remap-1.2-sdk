@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.clients.ApiClient;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
 import com.lognex.api.utils.LognexApiException;
@@ -11,7 +12,7 @@ import java.util.Date;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class ProjectEntityTest extends EntityTestBase {
+public class ProjectEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         ProjectEntity project = new ProjectEntity();
@@ -33,77 +34,38 @@ public class ProjectEntityTest extends EntityTestBase {
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        ProjectEntity project = simpleEntityFactory.createSimpleProject();
-
-        ProjectEntity retrievedEntity = api.entity().project().get(project.getId());
-        getAsserts(project, retrievedEntity);
-
-        retrievedEntity = api.entity().project().get(project);
-        getAsserts(project, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        ProjectEntity project = simpleEntityFactory.createSimpleProject();
-
-        ProjectEntity retrievedOriginalEntity = api.entity().project().get(project.getId());
-        String name = "project_" + randomString(3) + "_" + new Date().getTime();
-        project.setName(name);
-        api.entity().project().put(project.getId(), project);
-        putAsserts(project, retrievedOriginalEntity, name);
-
-        project = simpleEntityFactory.createSimpleProject();
-        retrievedOriginalEntity = api.entity().project().get(project.getId());
-        name = "project_" + randomString(3) + "_" + new Date().getTime();
-        project.setName(name);
-        api.entity().project().put(project);
-        putAsserts(project, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        ProjectEntity project = simpleEntityFactory.createSimpleProject();
-
-        ListEntity<ProjectEntity> entitiesList = api.entity().project().get(filterEq("name", project.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().project().delete(project.getId());
-
-        entitiesList = api.entity().project().get(filterEq("name", project.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        ProjectEntity project = simpleEntityFactory.createSimpleProject();
-
-        ListEntity<ProjectEntity> entitiesList = api.entity().project().get(filterEq("name", project.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().project().delete(project);
-
-        entitiesList = api.entity().project().get(filterEq("name", project.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedResponse metadata = api.entity().project().metadata();
         assertTrue(metadata.getCreateShared());
     }
 
-    private void getAsserts(ProjectEntity project, ProjectEntity retrievedEntity) {
-        assertEquals(project.getName(), retrievedEntity.getName());
-        assertEquals(project.getDescription(), retrievedEntity.getDescription());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        ProjectEntity originalProject = (ProjectEntity) originalEntity;
+        ProjectEntity retrievedProject = (ProjectEntity) retrievedEntity;
+
+        assertEquals(originalProject.getName(), retrievedProject.getName());
+        assertEquals(originalProject.getDescription(), retrievedProject.getDescription());
     }
 
-    private void putAsserts(ProjectEntity project, ProjectEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        ProjectEntity retrievedUpdatedEntity = api.entity().project().get(project.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        ProjectEntity originalProject = (ProjectEntity) originalEntity;
+        ProjectEntity updatedProject = (ProjectEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
+        assertNotEquals(originalProject.getName(), updatedProject.getName());
+        assertEquals(changedField, updatedProject.getName());
+        assertEquals(originalProject.getDescription(), updatedProject.getDescription());
+    }
+
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().project();
+    }
+
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return ProjectEntity.class;
     }
 }
 

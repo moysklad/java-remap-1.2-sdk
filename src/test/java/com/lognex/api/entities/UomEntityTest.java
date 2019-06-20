@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.clients.ApiClient;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.LognexApiException;
 import org.junit.Test;
@@ -10,7 +11,7 @@ import java.util.Date;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class UomEntityTest extends EntityTestBase {
+public class UomEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         UomEntity uomEntity = new UomEntity();
@@ -31,73 +32,34 @@ public class UomEntityTest extends EntityTestBase {
         assertEquals(uomEntity.getExternalCode(), retrievedEntity.getExternalCode());
     }
 
-    @Test
-    public void getTest() throws IOException, LognexApiException {
-        UomEntity uomEntity = simpleEntityFactory.createSimpleUom();
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        UomEntity originalUom = (UomEntity) originalEntity;
+        UomEntity retrievedUom = (UomEntity) retrievedEntity;
 
-        UomEntity retrievedEntity = api.entity().uom().get(uomEntity.getId());
-        getAsserts(uomEntity, retrievedEntity);
-
-        retrievedEntity = api.entity().uom().get(uomEntity);
-        getAsserts(uomEntity, retrievedEntity);
+        assertEquals(originalUom.getName(), retrievedUom.getName());
+        assertEquals(originalUom.getCode(), retrievedUom.getCode());
+        assertEquals(originalUom.getExternalCode(), retrievedUom.getExternalCode());
     }
 
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        UomEntity uomEntity = simpleEntityFactory.createSimpleUom();
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        UomEntity originalUom = (UomEntity) originalEntity;
+        UomEntity updatedUom = (UomEntity) updatedEntity;
 
-        UomEntity retrievedOriginalEntity = api.entity().uom().get(uomEntity.getId());
-        String name = "uom_" + randomString(3) + "_" + new Date().getTime();
-        uomEntity.setName(name);
-        api.entity().uom().put(uomEntity.getId(), uomEntity);
-        putAsserts(uomEntity, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(uomEntity);
-
-        name = "uom_" + randomString(3) + "_" + new Date().getTime();
-        uomEntity.setName(name);
-        api.entity().uom().put(uomEntity);
-        putAsserts(uomEntity, retrievedOriginalEntity, name);
+        assertNotEquals(originalUom.getName(), updatedUom.getName());
+        assertEquals(changedField, updatedUom.getName());
+        assertEquals(originalUom.getCode(), updatedUom.getCode());
+        assertEquals(originalUom.getExternalCode(), updatedUom.getExternalCode());
     }
 
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        UomEntity uomEntity = simpleEntityFactory.createSimpleUom();
-
-        ListEntity<UomEntity> entitiesList = api.entity().uom().get(filterEq("name", uomEntity.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().uom().delete(uomEntity.getId());
-
-        entitiesList = api.entity().uom().get(filterEq("name", uomEntity.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().uom();
     }
 
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        UomEntity uomEntity = simpleEntityFactory.createSimpleUom();
-
-        ListEntity<UomEntity> entitiesList = api.entity().uom().get(filterEq("name", uomEntity.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().uom().delete(uomEntity);
-
-        entitiesList = api.entity().uom().get(filterEq("name", uomEntity.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    private void getAsserts(UomEntity uomEntity, UomEntity retrievedEntity) {
-        assertEquals(uomEntity.getName(), retrievedEntity.getName());
-        assertEquals(uomEntity.getCode(), retrievedEntity.getCode());
-        assertEquals(uomEntity.getExternalCode(), retrievedEntity.getExternalCode());
-    }
-
-    private void putAsserts(UomEntity uomEntity, UomEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        UomEntity retrievedUpdatedEntity = api.entity().uom().get(uomEntity.getId());
-
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getCode(), retrievedUpdatedEntity.getCode());
-        assertEquals(retrievedOriginalEntity.getExternalCode(), retrievedUpdatedEntity.getExternalCode());
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return UomEntity.class;
     }
 }

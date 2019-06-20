@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.clients.ApiClient;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.LognexApiException;
 import org.junit.Test;
@@ -12,7 +13,7 @@ import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static com.lognex.api.utils.params.LimitParam.limit;
 import static org.junit.Assert.*;
 
-public class ProductFolderEntityTest extends EntityTestBase {
+public class ProductFolderEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         ProductFolderEntity inner = new ProductFolderEntity();
@@ -36,72 +37,33 @@ public class ProductFolderEntityTest extends EntityTestBase {
         assertEquals(outer.getName(), retrievedEntity.getProductFolder().getName());
     }
 
-    @Test
-    public void getTest() throws IOException, LognexApiException {
-        ProductFolderEntity productFolder = simpleEntityFactory.createSimpleProductFolder();
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        ProductFolderEntity originalProductFolder = (ProductFolderEntity) originalEntity;
+        ProductFolderEntity retrievedProductFolder = (ProductFolderEntity) retrievedEntity;
 
-        ProductFolderEntity retrievedEntity = api.entity().productfolder().get(productFolder.getId());
-        getAsserts(productFolder, retrievedEntity);
-
-        retrievedEntity = api.entity().productfolder().get(productFolder);
-        getAsserts(productFolder, retrievedEntity);
+        assertEquals(originalProductFolder.getName(), retrievedProductFolder.getName());
+        assertEquals(originalProductFolder.getDescription(), retrievedProductFolder.getDescription());
     }
 
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        ProductFolderEntity productFolder = simpleEntityFactory.createSimpleProductFolder();
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        ProductFolderEntity originalProductFolder = (ProductFolderEntity) originalEntity;
+        ProductFolderEntity updatedProductFolder = (ProductFolderEntity) updatedEntity;
 
-        ProductFolderEntity retrievedOriginalEntity = api.entity().productfolder().get(productFolder.getId());
-        String name = "productfolder_" + randomString(3) + "_" + new Date().getTime();
-        productFolder.setName(name);
-        api.entity().productfolder().put(productFolder.getId(), productFolder);
-        putAsserts(productFolder, retrievedOriginalEntity, name);
-
-        productFolder = simpleEntityFactory.createSimpleProductFolder();
-        retrievedOriginalEntity = api.entity().productfolder().get(productFolder.getId());
-        name = "productfolder_" + randomString(3) + "_" + new Date().getTime();
-        productFolder.setName(name);
-        api.entity().productfolder().put(productFolder);
-        putAsserts(productFolder, retrievedOriginalEntity, name);
+        assertNotEquals(originalProductFolder.getName(), updatedProductFolder.getName());
+        assertEquals(changedField, updatedProductFolder.getName());
+        assertEquals(originalProductFolder.getDescription(), updatedProductFolder.getDescription());
     }
 
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        ProductFolderEntity productFolder = simpleEntityFactory.createSimpleProductFolder();
-
-        ListEntity<ProductFolderEntity> entitiesList = api.entity().productfolder().get(filterEq("name", productFolder.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().productfolder().delete(productFolder.getId());
-
-        entitiesList = api.entity().productfolder().get(filterEq("name", productFolder.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().productfolder();
     }
 
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        ProductFolderEntity productFolder = simpleEntityFactory.createSimpleProductFolder();
-
-        ListEntity<ProductFolderEntity> entitiesList = api.entity().productfolder().get(filterEq("name", productFolder.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().productfolder().delete(productFolder);
-
-        entitiesList = api.entity().productfolder().get(filterEq("name", productFolder.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    private void getAsserts(ProductFolderEntity productFolder, ProductFolderEntity retrievedEntity) {
-        assertEquals(productFolder.getName(), retrievedEntity.getName());
-        assertEquals(productFolder.getDescription(), retrievedEntity.getDescription());
-    }
-
-    private void putAsserts(ProductFolderEntity productFolder, ProductFolderEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        ProductFolderEntity retrievedUpdatedEntity = api.entity().productfolder().get(productFolder.getId());
-
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return ProductFolderEntity.class;
     }
 }
 

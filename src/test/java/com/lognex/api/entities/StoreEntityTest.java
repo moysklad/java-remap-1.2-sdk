@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.clients.ApiClient;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
 import com.lognex.api.utils.LognexApiException;
@@ -11,7 +12,7 @@ import java.util.Date;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class StoreEntityTest extends EntityTestBase {
+public class StoreEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         StoreEntity store = new StoreEntity();
@@ -33,76 +34,37 @@ public class StoreEntityTest extends EntityTestBase {
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        StoreEntity store = simpleEntityFactory.createSimpleStore();
-
-        StoreEntity retrievedEntity = api.entity().store().get(store.getId());
-        getAsserts(store, retrievedEntity);
-
-        retrievedEntity = api.entity().store().get(store);
-        getAsserts(store, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        StoreEntity store = simpleEntityFactory.createSimpleStore();
-
-        StoreEntity retrievedOriginalEntity = api.entity().store().get(store.getId());
-        String name = "store_" + randomString(3) + "_" + new Date().getTime();
-        store.setName(name);
-        api.entity().store().put(store.getId(), store);
-        putAsserts(store, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(store);
-
-        name = "store_" + randomString(3) + "_" + new Date().getTime();
-        store.setName(name);
-        api.entity().store().put(store);
-        putAsserts(store, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        StoreEntity store = simpleEntityFactory.createSimpleStore();
-
-        ListEntity<StoreEntity> entitiesList = api.entity().store().get(filterEq("name", store.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().store().delete(store.getId());
-
-        entitiesList = api.entity().store().get(filterEq("name", store.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        StoreEntity store = simpleEntityFactory.createSimpleStore();
-
-        ListEntity<StoreEntity> entitiesList = api.entity().store().get(filterEq("name", store.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().store().delete(store);
-
-        entitiesList = api.entity().store().get(filterEq("name", store.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedResponse metadata = api.entity().store().metadata();
         assertFalse(metadata.getCreateShared());
     }
 
-    private void getAsserts(StoreEntity store, StoreEntity retrievedEntity) {
-        assertEquals(store.getName(), retrievedEntity.getName());
-        assertEquals(store.getDescription(), retrievedEntity.getDescription());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        StoreEntity originalStore = (StoreEntity) originalEntity;
+        StoreEntity retrievedStore = (StoreEntity) retrievedEntity;
+
+        assertEquals(originalStore.getName(), retrievedStore.getName());
+        assertEquals(originalStore.getDescription(), retrievedStore.getDescription());
     }
 
-    private void putAsserts(StoreEntity store, StoreEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        StoreEntity retrievedUpdatedEntity = api.entity().store().get(store.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        StoreEntity originalStore = (StoreEntity) originalEntity;
+        StoreEntity updatedStore = (StoreEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
+        assertNotEquals(originalStore.getName(), updatedStore.getName());
+        assertEquals(changedField, updatedStore.getName());
+        assertEquals(originalStore.getDescription(), updatedStore.getDescription());
+    }
+
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().store();
+    }
+
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return StoreEntity.class;
     }
 }

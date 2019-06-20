@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.clients.ApiClient;
 import com.lognex.api.entities.products.VariantEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.VariantMetadataResponse;
@@ -14,7 +15,7 @@ import static com.lognex.api.utils.params.ExpandParam.expand;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class VariantEntityTest extends EntityTestBase {
+public class VariantEntityTest extends EntityGetDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         VariantEntity variant = new VariantEntity();
@@ -42,17 +43,6 @@ public class VariantEntityTest extends EntityTestBase {
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        VariantEntity variant = simpleEntityFactory.createSimpleVariant();
-
-        VariantEntity retrievedEntity = api.entity().variant().get(variant.getId());
-        getAsserts(variant, retrievedEntity);
-
-        retrievedEntity = api.entity().variant().get(variant);
-        getAsserts(variant, retrievedEntity);
-    }
-
-    @Test
     public void putTest() throws IOException, LognexApiException {
         VariantEntity variant = simpleEntityFactory.createSimpleVariant();
 
@@ -75,32 +65,6 @@ public class VariantEntityTest extends EntityTestBase {
     }
 
     @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        VariantEntity variant = simpleEntityFactory.createSimpleVariant();
-
-        ListEntity<VariantEntity> entitiesList = api.entity().variant().get(filterEq("name", variant.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().variant().delete(variant.getId());
-
-        entitiesList = api.entity().variant().get(filterEq("name", variant.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        VariantEntity variant = simpleEntityFactory.createSimpleVariant();
-
-        ListEntity<VariantEntity> entitiesList = api.entity().variant().get(filterEq("name", variant.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().variant().delete(variant);
-
-        entitiesList = api.entity().variant().get(filterEq("name", variant.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         VariantEntity variant = simpleEntityFactory.createSimpleVariant();
 
@@ -111,13 +75,6 @@ public class VariantEntityTest extends EntityTestBase {
         );
     }
 
-    private void getAsserts(VariantEntity variant, VariantEntity retrievedEntity) {
-        assertEquals(variant.getName(), retrievedEntity.getName());
-        assertEquals(variant.getProduct().getName(), retrievedEntity.getProduct().getName());
-        assertEquals(variant.getCharacteristics().size(), retrievedEntity.getCharacteristics().size());
-        assertEquals(variant.getCharacteristics().get(0), retrievedEntity.getCharacteristics().get(0));
-    }
-
     private void putAsserts(VariantEntity variant, VariantEntity retrievedOriginalEntity, String value) throws IOException, LognexApiException {
         VariantEntity retrievedUpdatedEntity = api.entity().variant().get(variant.getId(), expand("product"));
 
@@ -126,5 +83,26 @@ public class VariantEntityTest extends EntityTestBase {
         assertEquals(value, retrievedUpdatedEntity.getCharacteristics().get(0).getValue());
         assertEquals(retrievedOriginalEntity.getCharacteristics().size(), retrievedUpdatedEntity.getCharacteristics().size());
         assertEquals(retrievedOriginalEntity.getProduct().getMeta().getHref(), retrievedUpdatedEntity.getProduct().getMeta().getHref());
+    }
+
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        VariantEntity originalVariant = (VariantEntity) originalEntity;
+        VariantEntity retrievedVariant = (VariantEntity) retrievedEntity;
+
+        assertEquals(originalVariant.getName(), retrievedVariant.getName());
+        assertEquals(originalVariant.getProduct().getName(), retrievedVariant.getProduct().getName());
+        assertEquals(originalVariant.getCharacteristics().size(), retrievedVariant.getCharacteristics().size());
+        assertEquals(originalVariant.getCharacteristics().get(0), retrievedVariant.getCharacteristics().get(0));
+    }
+
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().variant();
+    }
+
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return VariantEntity.class;
     }
 }

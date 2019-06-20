@@ -38,8 +38,11 @@ public class SimpleEntityFactory implements TestRandomizers {
     public <T extends MetaEntity> T createSimple(Class<T> entityClass) {
         Method method;
         String methodName = "createSimple" + entityClass.getSimpleName().
-                replace("Entity", "").
                 replace("Document", "");
+
+        if (!methodName.contains("CustomEntity")) {
+            methodName = methodName.replace("Entity", "");
+        }
 
         Object entity = null;
         try {

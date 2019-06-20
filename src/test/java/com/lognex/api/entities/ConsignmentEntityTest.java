@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.clients.ApiClient;
 import com.lognex.api.entities.products.ProductEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.LognexApiException;
@@ -11,7 +12,7 @@ import java.util.Date;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class ConsignmentEntityTest extends EntityTestBase {
+public class ConsignmentEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         ConsignmentEntity consignment = new ConsignmentEntity();
@@ -31,74 +32,41 @@ public class ConsignmentEntityTest extends EntityTestBase {
         assertEquals(consignment.getAssortment(), retrievedEntity.getAssortment());
     }
 
-    @Test
-    public void getTest() throws IOException, LognexApiException {
-        ConsignmentEntity consignment = simpleEntityFactory.createSimpleConsignment();
-
-        ConsignmentEntity retrievedEntity = api.entity().consignment().get(consignment.getId());
-        getAsserts(consignment, retrievedEntity);
-
-        retrievedEntity = api.entity().consignment().get(consignment);
-        getAsserts(consignment, retrievedEntity);
-    }
-
+    @Override
     @Test
     public void putTest() throws IOException, LognexApiException {
-        ConsignmentEntity consignment = simpleEntityFactory.createSimpleConsignment();
-
-        ConsignmentEntity retrievedOriginalEntity = api.entity().consignment().get(consignment.getId());
-        String label = "consignment_" + randomString(3) + "_" + new Date().getTime();
-        consignment.setLabel(label);
-        api.entity().consignment().put(consignment.getId(), consignment);
-        putAsserts(consignment, retrievedOriginalEntity, label);
-
-        consignment = simpleEntityFactory.createSimpleConsignment();
-        retrievedOriginalEntity = api.entity().consignment().get(consignment.getId());
-        label = "consignment_" + randomString(3) + "_" + new Date().getTime();
-        consignment.setLabel(label);
-        api.entity().consignment().put(consignment);
-        putAsserts(consignment, retrievedOriginalEntity, label);
+        doPutTest("Label");
     }
 
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        ConsignmentEntity consignment = simpleEntityFactory.createSimpleConsignment();
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        ConsignmentEntity originalConsignment = (ConsignmentEntity) originalEntity;
+        ConsignmentEntity updatedConsignment = (ConsignmentEntity) updatedEntity;
 
-        ListEntity<ConsignmentEntity> entitiesList = api.entity().consignment().get(filterEq("name", consignment.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().consignment().delete(consignment.getId());
-
-        entitiesList = api.entity().consignment().get(filterEq("name", consignment.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
+        assertNotEquals(originalConsignment.getName(), updatedConsignment.getName());
+        assertNotEquals(originalConsignment.getLabel(), updatedConsignment.getLabel());
+        assertEquals(changedField, updatedConsignment.getLabel());
+        assertEquals(originalConsignment.getAssortment(), updatedConsignment.getAssortment());
     }
 
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        ConsignmentEntity consignment = simpleEntityFactory.createSimpleConsignment();
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        ConsignmentEntity originalConsignment = (ConsignmentEntity) originalEntity;
+        ConsignmentEntity retrievedConsignment = (ConsignmentEntity) retrievedEntity;
 
-        ListEntity<ConsignmentEntity> entitiesList = api.entity().consignment().get(filterEq("name", consignment.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().consignment().delete(consignment);
-
-        entitiesList = api.entity().consignment().get(filterEq("name", consignment.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
+        assertEquals(originalConsignment.getName(), retrievedConsignment.getName());
+        assertEquals(originalConsignment.getLabel(), retrievedConsignment.getLabel());
+        assertEquals(originalConsignment.getAssortment(), retrievedConsignment.getAssortment());
     }
 
-    private void getAsserts(ConsignmentEntity consignment, ConsignmentEntity retrievedEntity) {
-        assertEquals(consignment.getName(), retrievedEntity.getName());
-        assertEquals(consignment.getLabel(), retrievedEntity.getLabel());
-        assertEquals(consignment.getAssortment(), retrievedEntity.getAssortment());
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().consignment();
     }
 
-    private void putAsserts(ConsignmentEntity consignment, ConsignmentEntity retrievedOriginalEntity, String label) throws IOException, LognexApiException {
-        ConsignmentEntity retrievedUpdatedEntity = api.entity().consignment().get(consignment.getId());
-
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertNotEquals(retrievedOriginalEntity.getLabel(), retrievedUpdatedEntity.getLabel());
-        assertEquals(label, retrievedUpdatedEntity.getLabel());
-        assertEquals(retrievedOriginalEntity.getAssortment(), retrievedUpdatedEntity.getAssortment());
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return ConsignmentEntity.class;
     }
 }
 

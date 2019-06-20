@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.clients.ApiClient;
 import com.lognex.api.entities.products.BundleEntity;
 import com.lognex.api.entities.products.ProductEntity;
 import com.lognex.api.responses.ListEntity;
@@ -16,7 +17,7 @@ import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static com.lognex.api.utils.params.LimitParam.limit;
 import static org.junit.Assert.*;
 
-public class BundleEntityTest extends EntityTestBase {
+public class BundleEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         BundleEntity bundle = new BundleEntity();
@@ -51,74 +52,30 @@ public class BundleEntityTest extends EntityTestBase {
         assertEquals(df.format(components.getRows().get(0).getQuantity()), retrievedEntity.getComponents().getRows().get(0).getQuantity().toString());
     }
 
-    @Test
-    public void getTest() throws IOException, LognexApiException {
-        BundleEntity bundle = simpleEntityFactory.createSimpleBundle();
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        BundleEntity originalBundle = (BundleEntity) originalEntity;
+        BundleEntity updatedBundle = (BundleEntity) updatedEntity;
 
-        BundleEntity retrievedEntity = api.entity().bundle().get(bundle.getId());
-        getAsserts(bundle, retrievedEntity);
-
-        retrievedEntity = api.entity().bundle().get(bundle);
-        getAsserts(bundle, retrievedEntity);
+        assertNotEquals(originalBundle.getName(), updatedBundle.getName());
+        assertEquals(changedField, updatedEntity.getName());
+        assertEquals(originalBundle.getArticle(), updatedBundle.getArticle());
+        assertEquals(originalBundle.getComponents().getMeta().getSize(), updatedBundle.getComponents().getMeta().getSize());
     }
 
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        BundleEntity bundle = simpleEntityFactory.createSimpleBundle();
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        BundleEntity originalBundle = (BundleEntity) originalEntity;
+        BundleEntity retrievedBundle = (BundleEntity) retrievedEntity;
 
-        BundleEntity retrievedOriginalEntity = api.entity().bundle().get(bundle.getId());
-        String name = "bundle_" + randomString(3) + "_" + new Date().getTime();
-        bundle.setName(name);
-        api.entity().bundle().put(bundle.getId(), bundle);
-        putAsserts(bundle, retrievedOriginalEntity, name);
-
-        bundle = simpleEntityFactory.createSimpleBundle();
-        retrievedOriginalEntity = api.entity().bundle().get(bundle.getId());
-        name = "bundle_" + randomString(3) + "_" + new Date().getTime();
-        bundle.setName(name);
-        api.entity().bundle().put(bundle);
-        putAsserts(bundle, retrievedOriginalEntity, name);
+        assertEquals(originalBundle.getName(), retrievedBundle.getName());
+        assertEquals(originalBundle.getArticle(), retrievedBundle.getArticle());
+        assertEquals(originalBundle.getComponents().getMeta().getSize(), retrievedBundle.getComponents().getMeta().getSize());
     }
 
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        BundleEntity bundle = simpleEntityFactory.createSimpleBundle();
-
-        ListEntity<BundleEntity> entitiesList = api.entity().bundle().get(filterEq("name", bundle.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().bundle().delete(bundle.getId());
-
-        entitiesList = api.entity().bundle().get(filterEq("name", bundle.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        BundleEntity bundle = simpleEntityFactory.createSimpleBundle();
-
-        ListEntity<BundleEntity> entitiesList = api.entity().bundle().get(filterEq("name", bundle.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().bundle().delete(bundle);
-
-        entitiesList = api.entity().bundle().get(filterEq("name", bundle.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    private void getAsserts(BundleEntity bundle, BundleEntity retrievedEntity) {
-        assertEquals(bundle.getName(), retrievedEntity.getName());
-        assertEquals(bundle.getArticle(), retrievedEntity.getArticle());
-        assertEquals(bundle.getComponents().getMeta().getSize(), retrievedEntity.getComponents().getMeta().getSize());
-    }
-
-    private void putAsserts(BundleEntity bundle, BundleEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        BundleEntity retrievedUpdatedEntity = api.entity().bundle().get(bundle.getId());
-
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getArticle(), retrievedUpdatedEntity.getArticle());
-        assertEquals(retrievedOriginalEntity.getComponents().getMeta().getSize(), retrievedUpdatedEntity.getComponents().getMeta().getSize());
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().bundle();
     }
 
     @Override

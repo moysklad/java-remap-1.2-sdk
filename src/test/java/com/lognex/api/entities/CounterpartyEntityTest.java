@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.clients.ApiClient;
 import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.CounterpartyMetadataResponse;
@@ -14,7 +15,7 @@ import java.util.List;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class CounterpartyEntityTest extends EntityTestBase {
+public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         CounterpartyEntity counterparty = new CounterpartyEntity();
@@ -38,61 +39,6 @@ public class CounterpartyEntityTest extends EntityTestBase {
         assertEquals(counterparty.getCompanyType(), retrievedEntity.getCompanyType());
         assertEquals(counterparty.getInn(), retrievedEntity.getInn());
         assertEquals(counterparty.getOgrn(), retrievedEntity.getOgrn());
-    }
-
-    @Test
-    public void getTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = simpleEntityFactory.createSimpleCounterparty();
-
-        CounterpartyEntity retrievedEntity = api.entity().counterparty().get(counterparty.getId());
-        getAsserts(counterparty, retrievedEntity);
-
-        retrievedEntity = api.entity().counterparty().get(counterparty);
-        getAsserts(counterparty, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = simpleEntityFactory.createSimpleCounterparty();
-
-        CounterpartyEntity retrievedOriginalEntity = api.entity().counterparty().get(counterparty.getId());
-        String name = "counterparty_" + randomString(3) + "_" + new Date().getTime();
-        counterparty.setName(name);
-        api.entity().counterparty().put(counterparty.getId(), counterparty);
-        putAsserts(counterparty, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(counterparty);
-
-        name = "counterparty_" + randomString(3) + "_" + new Date().getTime();
-        counterparty.setName(name);
-        api.entity().counterparty().put(counterparty);
-        putAsserts(counterparty, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = simpleEntityFactory.createSimpleCounterparty();
-
-        ListEntity<CounterpartyEntity> entitiesList = api.entity().counterparty().get(filterEq("name", counterparty.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().counterparty().delete(counterparty.getId());
-
-        entitiesList = api.entity().counterparty().get(filterEq("name", counterparty.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = simpleEntityFactory.createSimpleCounterparty();
-
-        ListEntity<CounterpartyEntity> entitiesList = api.entity().counterparty().get(filterEq("name", counterparty.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().counterparty().delete(counterparty);
-
-        entitiesList = api.entity().counterparty().get(filterEq("name", counterparty.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -420,26 +366,42 @@ public class CounterpartyEntityTest extends EntityTestBase {
         assertEquals((Integer) 0, notesAfter.getMeta().getSize());
     }
 
-    private void getAsserts(CounterpartyEntity counterparty, CounterpartyEntity retrievedEntity) {
-        assertEquals(counterparty.getName(), retrievedEntity.getName());
-        assertEquals(counterparty.getCompanyType(), retrievedEntity.getCompanyType());
-        assertEquals(counterparty.getAccounts(), retrievedEntity.getAccounts());
-        assertEquals(counterparty.getInn(), retrievedEntity.getInn());
-        assertEquals(counterparty.getOgrn(), retrievedEntity.getOgrn());
-        assertEquals(counterparty.getLegalAddress(), retrievedEntity.getLegalAddress());
-        assertEquals(counterparty.getLegalTitle(), retrievedEntity.getLegalTitle());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        CounterpartyEntity originalCounterparty = (CounterpartyEntity) originalEntity;
+        CounterpartyEntity retrievedCounterparty = (CounterpartyEntity) retrievedEntity;
+
+        assertEquals(originalCounterparty.getName(), retrievedCounterparty.getName());
+        assertEquals(originalCounterparty.getCompanyType(), retrievedCounterparty.getCompanyType());
+        assertEquals(originalCounterparty.getAccounts(), retrievedCounterparty.getAccounts());
+        assertEquals(originalCounterparty.getInn(), retrievedCounterparty.getInn());
+        assertEquals(originalCounterparty.getOgrn(), retrievedCounterparty.getOgrn());
+        assertEquals(originalCounterparty.getLegalAddress(), retrievedCounterparty.getLegalAddress());
+        assertEquals(originalCounterparty.getLegalTitle(), retrievedCounterparty.getLegalTitle());
     }
 
-    private void putAsserts(CounterpartyEntity counterparty, CounterpartyEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        CounterpartyEntity retrievedUpdatedEntity = api.entity().counterparty().get(counterparty.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        CounterpartyEntity updatedCounterparty = (CounterpartyEntity) updatedEntity;
+        CounterpartyEntity originalCounterparty = (CounterpartyEntity) originalEntity;
 
-        assertNotEquals(retrievedUpdatedEntity.getName(), retrievedOriginalEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedUpdatedEntity.getCompanyType(), retrievedOriginalEntity.getCompanyType());
-        assertEquals(retrievedUpdatedEntity.getAccounts(), retrievedOriginalEntity.getAccounts());
-        assertEquals(retrievedUpdatedEntity.getInn(), retrievedOriginalEntity.getInn());
-        assertEquals(retrievedUpdatedEntity.getOgrn(), retrievedOriginalEntity.getOgrn());
-        assertEquals(retrievedUpdatedEntity.getLegalAddress(), retrievedOriginalEntity.getLegalAddress());
-        assertEquals(retrievedUpdatedEntity.getLegalTitle(), retrievedOriginalEntity.getLegalTitle());
+        assertNotEquals(originalCounterparty.getName(), updatedCounterparty.getName());
+        assertEquals(changedField, updatedCounterparty.getName());
+        assertEquals(originalCounterparty.getCompanyType(), updatedCounterparty.getCompanyType());
+        assertEquals(originalCounterparty.getAccounts(), updatedCounterparty.getAccounts());
+        assertEquals(originalCounterparty.getInn(), updatedCounterparty.getInn());
+        assertEquals(originalCounterparty.getOgrn(), updatedCounterparty.getOgrn());
+        assertEquals(originalCounterparty.getLegalAddress(), updatedCounterparty.getLegalAddress());
+        assertEquals(originalCounterparty.getLegalTitle(), updatedCounterparty.getLegalTitle());
+    }
+
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().counterparty();
+    }
+
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return CounterpartyEntity.class;
     }
 }

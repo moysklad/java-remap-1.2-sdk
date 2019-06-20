@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.clients.ApiClient;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
@@ -13,7 +14,7 @@ import java.util.Date;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class OrganizationEntityTest extends EntityTestBase {
+public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         OrganizationEntity organization = new OrganizationEntity();
@@ -35,61 +36,6 @@ public class OrganizationEntityTest extends EntityTestBase {
         assertEquals(organization.getCompanyType(), retrievedEntity.getCompanyType());
         assertEquals(organization.getInn(), retrievedEntity.getInn());
         assertEquals(organization.getOgrn(), retrievedEntity.getOgrn());
-    }
-
-    @Test
-    public void getTest() throws IOException, LognexApiException {
-        OrganizationEntity organization = simpleEntityFactory.createSimpleOrganization();
-
-        OrganizationEntity retrievedEntity = api.entity().organization().get(organization.getId());
-        getAsserts(organization, retrievedEntity);
-
-        retrievedEntity = api.entity().organization().get(organization);
-        getAsserts(organization, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        OrganizationEntity organization = simpleEntityFactory.createSimpleOrganization();
-
-        OrganizationEntity retrievedOriginalEntity = api.entity().organization().get(organization.getId());
-        String name = "organization_" + randomString(3) + "_" + new Date().getTime();
-        organization.setName(name);
-        api.entity().organization().put(organization.getId(), organization);
-        putAsserts(organization, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(organization);
-
-        name = "organization_" + randomString(3) + "_" + new Date().getTime();
-        organization.setName(name);
-        api.entity().organization().put(organization);
-        putAsserts(organization, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        OrganizationEntity organization = simpleEntityFactory.createSimpleOrganization();
-
-        ListEntity<OrganizationEntity> entitiesList = api.entity().organization().get(filterEq("name", organization.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().organization().delete(organization.getId());
-
-        entitiesList = api.entity().organization().get(filterEq("name", organization.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        OrganizationEntity organization = simpleEntityFactory.createSimpleOrganization();
-
-        ListEntity<OrganizationEntity> entitiesList = api.entity().organization().get(filterEq("name", organization.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().organization().delete(organization);
-
-        entitiesList = api.entity().organization().get(filterEq("name", organization.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -151,22 +97,38 @@ public class OrganizationEntityTest extends EntityTestBase {
         assertFalse(accountList.getRows().get(1).getIsDefault());
     }
 
-    private void getAsserts(OrganizationEntity organization, OrganizationEntity retrievedEntity) {
-        assertEquals(organization.getName(), retrievedEntity.getName());
-        assertEquals(organization.getCompanyType(), retrievedEntity.getCompanyType());
-        assertEquals(organization.getAccounts(), retrievedEntity.getAccounts());
-        assertEquals(organization.getInn(), retrievedEntity.getInn());
-        assertEquals(organization.getOgrn(), retrievedEntity.getOgrn());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        OrganizationEntity originalOrganization = (OrganizationEntity) originalEntity;
+        OrganizationEntity retrievedOrganization = (OrganizationEntity) retrievedEntity;
+
+        assertEquals(originalOrganization.getName(), retrievedOrganization.getName());
+        assertEquals(originalOrganization.getCompanyType(), retrievedOrganization.getCompanyType());
+        assertEquals(originalOrganization.getAccounts(), retrievedOrganization.getAccounts());
+        assertEquals(originalOrganization.getInn(), retrievedOrganization.getInn());
+        assertEquals(originalOrganization.getOgrn(), retrievedOrganization.getOgrn());
     }
 
-    private void putAsserts(OrganizationEntity organization, OrganizationEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        OrganizationEntity retrievedUpdatedEntity = api.entity().organization().get(organization.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        OrganizationEntity originalOrganization = (OrganizationEntity) originalEntity;
+        OrganizationEntity updatedOrganization = (OrganizationEntity) updatedEntity;
 
-        assertNotEquals(retrievedUpdatedEntity.getName(), retrievedOriginalEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedUpdatedEntity.getCompanyType(), retrievedOriginalEntity.getCompanyType());
-        assertEquals(retrievedUpdatedEntity.getAccounts(), retrievedOriginalEntity.getAccounts());
-        assertEquals(retrievedUpdatedEntity.getInn(), retrievedOriginalEntity.getInn());
-        assertEquals(retrievedUpdatedEntity.getOgrn(), retrievedOriginalEntity.getOgrn());
+        assertNotEquals(originalOrganization.getName(), updatedOrganization.getName());
+        assertEquals(changedField, updatedOrganization.getName());
+        assertEquals(originalOrganization.getCompanyType(), updatedOrganization.getCompanyType());
+        assertEquals(originalOrganization.getAccounts(), updatedOrganization.getAccounts());
+        assertEquals(originalOrganization.getInn(), updatedOrganization.getInn());
+        assertEquals(originalOrganization.getOgrn(), updatedOrganization.getOgrn());
+    }
+
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().organization();
+    }
+
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return OrganizationEntity.class;
     }
 }
