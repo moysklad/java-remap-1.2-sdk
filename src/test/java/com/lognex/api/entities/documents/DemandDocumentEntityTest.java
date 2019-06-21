@@ -45,61 +45,6 @@ public class DemandDocumentEntityTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        DemandDocumentEntity demand = simpleEntityFactory.createSimpleDemand();
-
-        DemandDocumentEntity retrievedEntity = api.entity().demand().get(demand.getId());
-        getAsserts(demand, retrievedEntity);
-
-        retrievedEntity = api.entity().demand().get(demand);
-        getAsserts(demand, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        DemandDocumentEntity demand = simpleEntityFactory.createSimpleDemand();
-
-        DemandDocumentEntity retrievedOriginalEntity = api.entity().demand().get(demand.getId());
-        String name = "demand_" + randomString(3) + "_" + new Date().getTime();
-        demand.setName(name);
-        api.entity().demand().put(demand.getId(), demand);
-        putAsserts(demand, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(demand);
-
-        name = "demand_" + randomString(3) + "_" + new Date().getTime();
-        demand.setName(name);
-        api.entity().demand().put(demand);
-        putAsserts(demand, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        DemandDocumentEntity demand = simpleEntityFactory.createSimpleDemand();
-
-        ListEntity<DemandDocumentEntity> entitiesList = api.entity().demand().get(filterEq("name", demand.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().demand().delete(demand.getId());
-
-        entitiesList = api.entity().demand().get(filterEq("name", demand.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        DemandDocumentEntity demand = simpleEntityFactory.createSimpleDemand();
-
-        ListEntity<DemandDocumentEntity> entitiesList = api.entity().demand().get(filterEq("name", demand.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().demand().delete(demand);
-
-        entitiesList = api.entity().demand().get(filterEq("name", demand.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedStatesResponse response = api.entity().demand().metadata().get();
 
@@ -168,23 +113,29 @@ public class DemandDocumentEntityTest extends DocumentWithPositionsTestBase {
         assertEquals(invoiceOut.getOrganization().getMeta().getHref(), demand.getOrganization().getMeta().getHref());
     }
 
-    private void getAsserts(DemandDocumentEntity demand, DemandDocumentEntity retrievedEntity) {
-        assertEquals(demand.getName(), retrievedEntity.getName());
-        assertEquals(demand.getDescription(), retrievedEntity.getDescription());
-        assertEquals(demand.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(demand.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-        assertEquals(demand.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        DemandDocumentEntity originalDemand = (DemandDocumentEntity) originalEntity;
+        DemandDocumentEntity retrievedDemand = (DemandDocumentEntity) retrievedEntity;
+
+        assertEquals(originalDemand.getName(), retrievedDemand.getName());
+        assertEquals(originalDemand.getDescription(), retrievedDemand.getDescription());
+        assertEquals(originalDemand.getOrganization().getMeta().getHref(), retrievedDemand.getOrganization().getMeta().getHref());
+        assertEquals(originalDemand.getAgent().getMeta().getHref(), retrievedDemand.getAgent().getMeta().getHref());
+        assertEquals(originalDemand.getStore().getMeta().getHref(), retrievedDemand.getStore().getMeta().getHref());
     }
 
-    private void putAsserts(DemandDocumentEntity demand, DemandDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        DemandDocumentEntity retrievedUpdatedEntity = api.entity().demand().get(demand.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        DemandDocumentEntity originalDemand = (DemandDocumentEntity) originalEntity;
+        DemandDocumentEntity updatedDemand = (DemandDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getStore().getMeta().getHref(), retrievedUpdatedEntity.getStore().getMeta().getHref());
+        assertNotEquals(originalDemand.getName(), updatedDemand.getName());
+        assertEquals(changedField, updatedDemand.getName());
+        assertEquals(originalDemand.getDescription(), updatedDemand.getDescription());
+        assertEquals(originalDemand.getOrganization().getMeta().getHref(), updatedDemand.getOrganization().getMeta().getHref());
+        assertEquals(originalDemand.getAgent().getMeta().getHref(), updatedDemand.getAgent().getMeta().getHref());
+        assertEquals(originalDemand.getStore().getMeta().getHref(), updatedDemand.getStore().getMeta().getHref());
     }
 
     @Override

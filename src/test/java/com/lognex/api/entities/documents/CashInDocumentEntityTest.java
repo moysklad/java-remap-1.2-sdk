@@ -1,6 +1,8 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.EntityTestBase;
+import com.lognex.api.clients.ApiClient;
+import com.lognex.api.entities.EntityGetUpdateDeleteTest;
+import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.LognexApiException;
@@ -15,7 +17,7 @@ import java.util.Date;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class CashInDocumentEntityTest extends EntityTestBase {
+public class CashInDocumentEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         CashInDocumentEntity cashIn = new CashInDocumentEntity();
@@ -38,61 +40,6 @@ public class CashInDocumentEntityTest extends EntityTestBase {
         assertEquals(cashIn.getSum(), retrievedEntity.getSum());
         assertEquals(cashIn.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(cashIn.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-    }
-
-    @Test
-    public void getTest() throws IOException, LognexApiException {
-        CashInDocumentEntity cashIn = simpleEntityFactory.createSimpleCashIn();
-
-        CashInDocumentEntity retrievedEntity = api.entity().cashin().get(cashIn.getId());
-        getAsserts(cashIn, retrievedEntity);
-
-        retrievedEntity = api.entity().cashin().get(cashIn);
-        getAsserts(cashIn, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        CashInDocumentEntity cashIn = simpleEntityFactory.createSimpleCashIn();
-
-        CashInDocumentEntity retrievedOriginalEntity = api.entity().cashin().get(cashIn.getId());
-        String name = "cashin_" + randomString(3) + "_" + new Date().getTime();
-        cashIn.setName(name);
-        api.entity().cashin().put(cashIn.getId(), cashIn);
-        putAsserts(cashIn, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(cashIn);
-
-        name = "cashin_" + randomString(3) + "_" + new Date().getTime();
-        cashIn.setName(name);
-        api.entity().cashin().put(cashIn);
-        putAsserts(cashIn, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        CashInDocumentEntity cashIn = simpleEntityFactory.createSimpleCashIn();
-
-        ListEntity<CashInDocumentEntity> entitiesList = api.entity().cashin().get(filterEq("name", cashIn.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().cashin().delete(cashIn.getId());
-
-        entitiesList = api.entity().cashin().get(filterEq("name", cashIn.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        CashInDocumentEntity cashIn = simpleEntityFactory.createSimpleCashIn();
-
-        ListEntity<CashInDocumentEntity> entitiesList = api.entity().cashin().get(filterEq("name", cashIn.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().cashin().delete(cashIn);
-
-        entitiesList = api.entity().cashin().get(filterEq("name", cashIn.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -213,20 +160,36 @@ public class CashInDocumentEntityTest extends EntityTestBase {
         assertEquals(commissionReportIn.getOrganization().getMeta().getHref(), cashIn.getOrganization().getMeta().getHref());
     }
 
-    private void getAsserts(CashInDocumentEntity cashIn, CashInDocumentEntity retrievedEntity) {
-        assertEquals(cashIn.getName(), retrievedEntity.getName());
-        assertEquals(cashIn.getDescription(), retrievedEntity.getDescription());
-        assertEquals(cashIn.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(cashIn.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        CashInDocumentEntity originalCashIn = (CashInDocumentEntity) originalEntity;
+        CashInDocumentEntity retrievedCashIn = (CashInDocumentEntity) retrievedEntity;
+
+        assertEquals(originalCashIn.getName(), retrievedCashIn.getName());
+        assertEquals(originalCashIn.getDescription(), retrievedCashIn.getDescription());
+        assertEquals(originalCashIn.getOrganization().getMeta().getHref(), retrievedCashIn.getOrganization().getMeta().getHref());
+        assertEquals(originalCashIn.getAgent().getMeta().getHref(), retrievedCashIn.getAgent().getMeta().getHref());
     }
 
-    private void putAsserts(CashInDocumentEntity cashIn, CashInDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        CashInDocumentEntity retrievedUpdatedEntity = api.entity().cashin().get(cashIn.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        CashInDocumentEntity originalCashIn = (CashInDocumentEntity) originalEntity;
+        CashInDocumentEntity updatedCashIn = (CashInDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
+        assertNotEquals(originalCashIn.getName(), updatedCashIn.getName());
+        assertEquals(changedField, updatedCashIn.getName());
+        assertEquals(originalCashIn.getDescription(), updatedCashIn.getDescription());
+        assertEquals(originalCashIn.getOrganization().getMeta().getHref(), updatedCashIn.getOrganization().getMeta().getHref());
+        assertEquals(originalCashIn.getAgent().getMeta().getHref(), updatedCashIn.getAgent().getMeta().getHref());
+    }
+
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().cashin();
+    }
+
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return CashInDocumentEntity.class;
     }
 }

@@ -43,61 +43,6 @@ public class InternalOrderDocumentEntityTest extends DocumentWithPositionsTestBa
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        InternalOrderDocumentEntity internalOrder = simpleEntityFactory.createSimpleInternalOrder();
-
-        InternalOrderDocumentEntity retrievedEntity = api.entity().internalorder().get(internalOrder.getId());
-        getAsserts(internalOrder, retrievedEntity);
-
-        retrievedEntity = api.entity().internalorder().get(internalOrder);
-        getAsserts(internalOrder, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        InternalOrderDocumentEntity internalOrder = simpleEntityFactory.createSimpleInternalOrder();
-
-        InternalOrderDocumentEntity retrievedOriginalEntity = api.entity().internalorder().get(internalOrder.getId());
-        String name = "internalorder_" + randomString(3) + "_" + new Date().getTime();
-        internalOrder.setName(name);
-        api.entity().internalorder().put(internalOrder.getId(), internalOrder);
-        putAsserts(internalOrder, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(internalOrder);
-
-        name = "internalorder_" + randomString(3) + "_" + new Date().getTime();
-        internalOrder.setName(name);
-        api.entity().internalorder().put(internalOrder);
-        putAsserts(internalOrder, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        InternalOrderDocumentEntity internalOrder = simpleEntityFactory.createSimpleInternalOrder();
-
-        ListEntity<InternalOrderDocumentEntity> entitiesList = api.entity().internalorder().get(filterEq("name", internalOrder.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().internalorder().delete(internalOrder.getId());
-
-        entitiesList = api.entity().internalorder().get(filterEq("name", internalOrder.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        InternalOrderDocumentEntity internalOrder = simpleEntityFactory.createSimpleInternalOrder();
-
-        ListEntity<InternalOrderDocumentEntity> entitiesList = api.entity().internalorder().get(filterEq("name", internalOrder.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().internalorder().delete(internalOrder);
-
-        entitiesList = api.entity().internalorder().get(filterEq("name", internalOrder.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedStatesResponse response = api.entity().internalorder().metadata().get();
 
@@ -122,21 +67,27 @@ public class InternalOrderDocumentEntityTest extends DocumentWithPositionsTestBa
         assertEquals(internalOrder.getGroup().getMeta().getHref(), simpleEntityFactory.getMainGroup().getMeta().getHref());
     }
 
-    private void getAsserts(InternalOrderDocumentEntity internalOrder, InternalOrderDocumentEntity retrievedEntity) {
-        assertEquals(internalOrder.getName(), retrievedEntity.getName());
-        assertEquals(internalOrder.getDescription(), retrievedEntity.getDescription());
-        assertEquals(internalOrder.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(internalOrder.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        InternalOrderDocumentEntity originalInternalOrder = (InternalOrderDocumentEntity) originalEntity;
+        InternalOrderDocumentEntity retrievedInternalOrder = (InternalOrderDocumentEntity) retrievedEntity;
+
+        assertEquals(originalInternalOrder.getName(), retrievedInternalOrder.getName());
+        assertEquals(originalInternalOrder.getDescription(), retrievedInternalOrder.getDescription());
+        assertEquals(originalInternalOrder.getOrganization().getMeta().getHref(), retrievedInternalOrder.getOrganization().getMeta().getHref());
+        assertEquals(originalInternalOrder.getStore().getMeta().getHref(), retrievedInternalOrder.getStore().getMeta().getHref());
     }
 
-    private void putAsserts(InternalOrderDocumentEntity internalOrder, InternalOrderDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        InternalOrderDocumentEntity retrievedUpdatedEntity = api.entity().internalorder().get(internalOrder.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        InternalOrderDocumentEntity originalInternalOrder = (InternalOrderDocumentEntity) originalEntity;
+        InternalOrderDocumentEntity updatedInternalOrder = (InternalOrderDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getStore().getMeta().getHref(), retrievedUpdatedEntity.getStore().getMeta().getHref());
+        assertNotEquals(originalInternalOrder.getName(), updatedInternalOrder.getName());
+        assertEquals(changedField, updatedInternalOrder.getName());
+        assertEquals(originalInternalOrder.getDescription(), updatedInternalOrder.getDescription());
+        assertEquals(originalInternalOrder.getOrganization().getMeta().getHref(), updatedInternalOrder.getOrganization().getMeta().getHref());
+        assertEquals(originalInternalOrder.getStore().getMeta().getHref(), updatedInternalOrder.getStore().getMeta().getHref());
     }
 
     @Override

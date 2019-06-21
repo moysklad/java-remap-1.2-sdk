@@ -39,61 +39,6 @@ public class LossDocumentEntityTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        LossDocumentEntity loss = simpleEntityFactory.createSimpleLoss();
-
-        LossDocumentEntity retrievedEntity = api.entity().loss().get(loss.getId());
-        getAsserts(loss, retrievedEntity);
-
-        retrievedEntity = api.entity().loss().get(loss);
-        getAsserts(loss, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        LossDocumentEntity loss = simpleEntityFactory.createSimpleLoss();
-
-        LossDocumentEntity retrievedOriginalEntity = api.entity().loss().get(loss.getId());
-        String name = "loss_" + randomString(3) + "_" + new Date().getTime();
-        loss.setName(name);
-        api.entity().loss().put(loss.getId(), loss);
-        putAsserts(loss, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(loss);
-
-        name = "loss_" + randomString(3) + "_" + new Date().getTime();
-        loss.setName(name);
-        api.entity().loss().put(loss);
-        putAsserts(loss, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        LossDocumentEntity loss = simpleEntityFactory.createSimpleLoss();
-
-        ListEntity<LossDocumentEntity> entitiesList = api.entity().loss().get(filterEq("name", loss.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().loss().delete(loss.getId());
-
-        entitiesList = api.entity().loss().get(filterEq("name", loss.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        LossDocumentEntity loss = simpleEntityFactory.createSimpleLoss();
-
-        ListEntity<LossDocumentEntity> entitiesList = api.entity().loss().get(filterEq("name", loss.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().loss().delete(loss);
-
-        entitiesList = api.entity().loss().get(filterEq("name", loss.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedStatesResponse response = api.entity().loss().metadata().get();
 
@@ -134,21 +79,27 @@ public class LossDocumentEntityTest extends DocumentWithPositionsTestBase {
         assertEquals(salesReturn.getOrganization().getMeta().getHref(), loss.getOrganization().getMeta().getHref());
     }
 
-    private void getAsserts(LossDocumentEntity loss, LossDocumentEntity retrievedEntity) {
-        assertEquals(loss.getName(), retrievedEntity.getName());
-        assertEquals(loss.getDescription(), retrievedEntity.getDescription());
-        assertEquals(loss.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(loss.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        LossDocumentEntity originalLoss = (LossDocumentEntity) originalEntity;
+        LossDocumentEntity retrievedLoss = (LossDocumentEntity) retrievedEntity;
+
+        assertEquals(originalLoss.getName(), retrievedLoss.getName());
+        assertEquals(originalLoss.getDescription(), retrievedLoss.getDescription());
+        assertEquals(originalLoss.getOrganization().getMeta().getHref(), retrievedLoss.getOrganization().getMeta().getHref());
+        assertEquals(originalLoss.getStore().getMeta().getHref(), retrievedLoss.getStore().getMeta().getHref());
     }
 
-    private void putAsserts(LossDocumentEntity loss, LossDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        LossDocumentEntity retrievedUpdatedEntity = api.entity().loss().get(loss.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        LossDocumentEntity originalLoss = (LossDocumentEntity) originalEntity;
+        LossDocumentEntity updatedLoss = (LossDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getStore().getMeta().getHref(), retrievedUpdatedEntity.getStore().getMeta().getHref());
+        assertNotEquals(originalLoss.getName(), updatedLoss.getName());
+        assertEquals(changedField, updatedLoss.getName());
+        assertEquals(originalLoss.getDescription(), updatedLoss.getDescription());
+        assertEquals(originalLoss.getOrganization().getMeta().getHref(), updatedLoss.getOrganization().getMeta().getHref());
+        assertEquals(originalLoss.getStore().getMeta().getHref(), updatedLoss.getStore().getMeta().getHref());
     }
 
     @Override

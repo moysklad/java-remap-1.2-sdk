@@ -44,80 +44,31 @@ public class InvoiceOutDocumentEntityTest extends DocumentWithPositionsTestBase 
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity invoiceOut = simpleEntityFactory.createSimpleInvoiceOut();
-
-        InvoiceOutDocumentEntity retrievedEntity = api.entity().invoiceout().get(invoiceOut.getId());
-        getAsserts(invoiceOut, retrievedEntity);
-
-        retrievedEntity = api.entity().invoiceout().get(invoiceOut);
-        getAsserts(invoiceOut, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity invoiceOut = simpleEntityFactory.createSimpleInvoiceOut();
-
-        InvoiceOutDocumentEntity retrievedOriginalEntity = api.entity().invoiceout().get(invoiceOut.getId());
-        String name = "invoiceout_" + randomString(3) + "_" + new Date().getTime();
-        invoiceOut.setName(name);
-        api.entity().invoiceout().put(invoiceOut.getId(), invoiceOut);
-        putAsserts(invoiceOut, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(invoiceOut);
-
-        name = "invoiceout_" + randomString(3) + "_" + new Date().getTime();
-        invoiceOut.setName(name);
-        api.entity().invoiceout().put(invoiceOut);
-        putAsserts(invoiceOut, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity invoiceOut = simpleEntityFactory.createSimpleInvoiceOut();
-
-        ListEntity<InvoiceOutDocumentEntity> entitiesList = api.entity().invoiceout().get(filterEq("name", invoiceOut.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().invoiceout().delete(invoiceOut.getId());
-
-        entitiesList = api.entity().invoiceout().get(filterEq("name", invoiceOut.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity invoiceOut = simpleEntityFactory.createSimpleInvoiceOut();
-
-        ListEntity<InvoiceOutDocumentEntity> entitiesList = api.entity().invoiceout().get(filterEq("name", invoiceOut.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().invoiceout().delete(invoiceOut);
-
-        entitiesList = api.entity().invoiceout().get(filterEq("name", invoiceOut.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedStatesResponse response = api.entity().invoiceout().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
-    private void getAsserts(InvoiceOutDocumentEntity invoiceOut, InvoiceOutDocumentEntity retrievedEntity) {
-        assertEquals(invoiceOut.getName(), retrievedEntity.getName());
-        assertEquals(invoiceOut.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(invoiceOut.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        InvoiceOutDocumentEntity originalInvoiceOut = (InvoiceOutDocumentEntity) originalEntity;
+        InvoiceOutDocumentEntity retrievedInvoiceOut = (InvoiceOutDocumentEntity) retrievedEntity;
+
+        assertEquals(originalInvoiceOut.getName(), retrievedInvoiceOut.getName());
+        assertEquals(originalInvoiceOut.getOrganization().getMeta().getHref(), retrievedInvoiceOut.getOrganization().getMeta().getHref());
+        assertEquals(originalInvoiceOut.getAgent().getMeta().getHref(), retrievedInvoiceOut.getAgent().getMeta().getHref());
     }
 
-    private void putAsserts(InvoiceOutDocumentEntity invoiceOut, InvoiceOutDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity retrievedUpdatedEntity = api.entity().invoiceout().get(invoiceOut.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        InvoiceOutDocumentEntity originalInvoiceOut = (InvoiceOutDocumentEntity) originalEntity;
+        InvoiceOutDocumentEntity updatedInvoiceOut = (InvoiceOutDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
+        assertNotEquals(originalInvoiceOut.getName(), updatedInvoiceOut.getName());
+        assertEquals(changedField, updatedInvoiceOut.getName());
+        assertEquals(originalInvoiceOut.getOrganization().getMeta().getHref(), updatedInvoiceOut.getOrganization().getMeta().getHref());
+        assertEquals(originalInvoiceOut.getAgent().getMeta().getHref(), updatedInvoiceOut.getAgent().getMeta().getHref());
     }
 
     @Override

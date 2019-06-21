@@ -1,6 +1,8 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.EntityTestBase;
+import com.lognex.api.clients.ApiClient;
+import com.lognex.api.entities.EntityGetUpdateDeleteTest;
+import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.PricelistDocumentEntity.ColumnsItem;
 import com.lognex.api.entities.documents.PricelistDocumentEntity.PricelistRow;
 import com.lognex.api.entities.documents.PricelistDocumentEntity.PricelistRow.CellsItem;
@@ -21,7 +23,7 @@ import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static com.lognex.api.utils.params.LimitParam.limit;
 import static org.junit.Assert.*;
 
-public class PricelistDocumentEntityTest extends EntityTestBase {
+public class PricelistDocumentEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         PricelistDocumentEntity priceList = new PricelistDocumentEntity();
@@ -87,80 +89,41 @@ public class PricelistDocumentEntityTest extends EntityTestBase {
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
-
-        PricelistDocumentEntity retrievedEntity = api.entity().pricelist().get(priceList.getId());
-        getAsserts(priceList, retrievedEntity);
-
-        retrievedEntity = api.entity().pricelist().get(priceList);
-        getAsserts(priceList, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
-
-        PricelistDocumentEntity retrievedOriginalEntity = api.entity().pricelist().get(priceList.getId());
-        String name = "pricelist_" + randomString(3) + "_" + new Date().getTime();
-        priceList.setName(name);
-        api.entity().pricelist().put(priceList.getId(), priceList);
-        putAsserts(priceList, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(priceList);
-
-        name = "pricelist_" + randomString(3) + "_" + new Date().getTime();
-        priceList.setName(name);
-        api.entity().pricelist().put(priceList);
-        putAsserts(priceList, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
-
-        ListEntity<PricelistDocumentEntity> entitiesList = api.entity().pricelist().get(filterEq("name", priceList.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().pricelist().delete(priceList.getId());
-
-        entitiesList = api.entity().pricelist().get(filterEq("name", priceList.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        PricelistDocumentEntity priceList = simpleEntityFactory.createSimplePricelist();
-
-        ListEntity<PricelistDocumentEntity> entitiesList = api.entity().pricelist().get(filterEq("name", priceList.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().pricelist().delete(priceList);
-
-        entitiesList = api.entity().pricelist().get(filterEq("name", priceList.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedStatesResponse response = api.entity().pricelist().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
-    private void getAsserts(PricelistDocumentEntity priceList, PricelistDocumentEntity retrievedEntity) {
-        assertEquals(priceList.getName(), retrievedEntity.getName());
-        assertEquals(priceList.getPositions().getMeta().getSize(), retrievedEntity.getPositions().getMeta().getSize());
-        assertEquals(priceList.getColumns(), retrievedEntity.getColumns());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        PricelistDocumentEntity originalPricelist = (PricelistDocumentEntity) originalEntity;
+        PricelistDocumentEntity retrievedPricelist = (PricelistDocumentEntity) retrievedEntity;
+
+        assertEquals(originalPricelist.getName(), retrievedPricelist.getName());
+        assertEquals(originalPricelist.getPositions().getMeta().getSize(), retrievedPricelist.getPositions().getMeta().getSize());
+        assertEquals(originalPricelist.getColumns(), retrievedPricelist.getColumns());
     }
 
-    private void putAsserts(PricelistDocumentEntity priceList, PricelistDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        PricelistDocumentEntity retrievedUpdatedEntity = api.entity().pricelist().get(priceList.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        PricelistDocumentEntity originalPricelist = (PricelistDocumentEntity) originalEntity;
+        PricelistDocumentEntity updatedPricelist = (PricelistDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getPositions().getMeta().getSize(), retrievedUpdatedEntity.getPositions().getMeta().getSize());
-        assertEquals(retrievedOriginalEntity.getColumns(), retrievedUpdatedEntity.getColumns());
+        assertNotEquals(originalPricelist.getName(), updatedPricelist.getName());
+        assertEquals(changedField, updatedPricelist.getName());
+        assertEquals(originalPricelist.getPositions().getMeta().getSize(), updatedPricelist.getPositions().getMeta().getSize());
+        assertEquals(originalPricelist.getColumns(), updatedPricelist.getColumns());
+    }
+
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().pricelist();
+    }
+
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return PricelistDocumentEntity.class;
     }
 
     @Test

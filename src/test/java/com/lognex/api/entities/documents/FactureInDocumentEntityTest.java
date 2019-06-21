@@ -1,6 +1,8 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.EntityTestBase;
+import com.lognex.api.clients.ApiClient;
+import com.lognex.api.entities.EntityGetUpdateDeleteTest;
+import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.LognexApiException;
@@ -17,7 +19,7 @@ import java.util.List;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class FactureInDocumentEntityTest extends EntityTestBase {
+public class FactureInDocumentEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         FactureInDocumentEntity factureIn = new FactureInDocumentEntity();
@@ -43,61 +45,6 @@ public class FactureInDocumentEntityTest extends EntityTestBase {
         assertEquals(factureIn.getIncomingDate(), retrievedEntity.getIncomingDate());
         assertEquals(factureIn.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(factureIn.getSupplies().get(0).getMeta().getHref(), retrievedEntity.getSupplies().get(0).getMeta().getHref());
-    }
-
-    @Test
-    public void getTest() throws IOException, LognexApiException {
-        FactureInDocumentEntity factureIn = simpleEntityFactory.createSimpleFactureIn();
-
-        FactureInDocumentEntity retrievedEntity = api.entity().facturein().get(factureIn.getId());
-        getAsserts(factureIn, retrievedEntity);
-
-        retrievedEntity = api.entity().facturein().get(factureIn);
-        getAsserts(factureIn, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        FactureInDocumentEntity factureIn = simpleEntityFactory.createSimpleFactureIn();
-
-        FactureInDocumentEntity retrievedOriginalEntity = api.entity().facturein().get(factureIn.getId());
-        String name = "facturein_" + randomString(3) + "_" + new Date().getTime();
-        factureIn.setName(name);
-        api.entity().facturein().put(factureIn.getId(), factureIn);
-        putAsserts(factureIn, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(factureIn);
-
-        name = "facturein_" + randomString(3) + "_" + new Date().getTime();
-        factureIn.setName(name);
-        api.entity().facturein().put(factureIn);
-        putAsserts(factureIn, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        FactureInDocumentEntity factureIn = simpleEntityFactory.createSimpleFactureIn();
-
-        ListEntity<FactureInDocumentEntity> entitiesList = api.entity().facturein().get(filterEq("name", factureIn.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().facturein().delete(factureIn.getId());
-
-        entitiesList = api.entity().facturein().get(filterEq("name", factureIn.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        FactureInDocumentEntity factureIn = simpleEntityFactory.createSimpleFactureIn();
-
-        ListEntity<FactureInDocumentEntity> entitiesList = api.entity().facturein().get(filterEq("name", factureIn.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().facturein().delete(factureIn);
-
-        entitiesList = api.entity().facturein().get(filterEq("name", factureIn.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -145,22 +92,38 @@ public class FactureInDocumentEntityTest extends EntityTestBase {
         assertEquals(paymentOut.getOrganization().getMeta().getHref(), factureIn.getOrganization().getMeta().getHref());
     }
 
-    private void getAsserts(FactureInDocumentEntity factureIn, FactureInDocumentEntity retrievedEntity) {
-        assertEquals(factureIn.getName(), retrievedEntity.getName());
-        assertEquals(factureIn.getIncomingNumber(), retrievedEntity.getIncomingNumber());
-        assertEquals(factureIn.getIncomingDate(), retrievedEntity.getIncomingDate());
-        assertEquals(factureIn.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(factureIn.getSupplies().get(0).getMeta().getHref(), retrievedEntity.getSupplies().get(0).getMeta().getHref());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        FactureInDocumentEntity originalFactureIn = (FactureInDocumentEntity) originalEntity;
+        FactureInDocumentEntity retrievedFactureIn = (FactureInDocumentEntity) retrievedEntity;
+
+        assertEquals(originalFactureIn.getName(), retrievedFactureIn.getName());
+        assertEquals(originalFactureIn.getIncomingNumber(), retrievedFactureIn.getIncomingNumber());
+        assertEquals(originalFactureIn.getIncomingDate(), retrievedFactureIn.getIncomingDate());
+        assertEquals(originalFactureIn.getOrganization().getMeta().getHref(), retrievedFactureIn.getOrganization().getMeta().getHref());
+        assertEquals(originalFactureIn.getSupplies().get(0).getMeta().getHref(), retrievedFactureIn.getSupplies().get(0).getMeta().getHref());
     }
 
-    private void putAsserts(FactureInDocumentEntity factureIn, FactureInDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        FactureInDocumentEntity retrievedUpdatedEntity = api.entity().facturein().get(factureIn.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        FactureInDocumentEntity originalFactureIn = (FactureInDocumentEntity) originalEntity;
+        FactureInDocumentEntity updatedFactureIn = (FactureInDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getIncomingNumber(), retrievedUpdatedEntity.getIncomingNumber());
-        assertEquals(retrievedOriginalEntity.getIncomingDate(), retrievedUpdatedEntity.getIncomingDate());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getSupplies().get(0).getMeta().getHref(), retrievedUpdatedEntity.getSupplies().get(0).getMeta().getHref());
+        assertNotEquals(originalFactureIn.getName(), updatedFactureIn.getName());
+        assertEquals(changedField, updatedFactureIn.getName());
+        assertEquals(originalFactureIn.getIncomingNumber(), updatedFactureIn.getIncomingNumber());
+        assertEquals(originalFactureIn.getIncomingDate(), updatedFactureIn.getIncomingDate());
+        assertEquals(originalFactureIn.getOrganization().getMeta().getHref(), updatedFactureIn.getOrganization().getMeta().getHref());
+        assertEquals(originalFactureIn.getSupplies().get(0).getMeta().getHref(), updatedFactureIn.getSupplies().get(0).getMeta().getHref());
+    }
+
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().facturein();
+    }
+
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return FactureInDocumentEntity.class;
     }
 }

@@ -45,61 +45,6 @@ public class PurchaseOrderDocumentEntityTest extends DocumentWithPositionsTestBa
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity purchaseOrder = simpleEntityFactory.createSimplePurchaseOrder();
-
-        PurchaseOrderDocumentEntity retrievedEntity = api.entity().purchaseorder().get(purchaseOrder.getId());
-        getAsserts(purchaseOrder, retrievedEntity);
-
-        retrievedEntity = api.entity().purchaseorder().get(purchaseOrder);
-        getAsserts(purchaseOrder, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity purchaseOrder = simpleEntityFactory.createSimplePurchaseOrder();
-
-        PurchaseOrderDocumentEntity retrievedOriginalEntity = api.entity().purchaseorder().get(purchaseOrder.getId());
-        String name = "purchaseorder_" + randomString(3) + "_" + new Date().getTime();
-        purchaseOrder.setName(name);
-        api.entity().purchaseorder().put(purchaseOrder.getId(), purchaseOrder);
-        putAsserts(purchaseOrder, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(purchaseOrder);
-
-        name = "purchaseorder_" + randomString(3) + "_" + new Date().getTime();
-        purchaseOrder.setName(name);
-        api.entity().purchaseorder().put(purchaseOrder);
-        putAsserts(purchaseOrder, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity purchaseOrder = simpleEntityFactory.createSimplePurchaseOrder();
-
-        ListEntity<PurchaseOrderDocumentEntity> entitiesList = api.entity().purchaseorder().get(filterEq("name", purchaseOrder.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().purchaseorder().delete(purchaseOrder.getId());
-
-        entitiesList = api.entity().purchaseorder().get(filterEq("name", purchaseOrder.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity purchaseOrder = simpleEntityFactory.createSimplePurchaseOrder();
-
-        ListEntity<PurchaseOrderDocumentEntity> entitiesList = api.entity().purchaseorder().get(filterEq("name", purchaseOrder.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().purchaseorder().delete(purchaseOrder);
-
-        entitiesList = api.entity().purchaseorder().get(filterEq("name", purchaseOrder.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedStatesResponse response = api.entity().purchaseorder().metadata().get();
 
@@ -167,21 +112,27 @@ public class PurchaseOrderDocumentEntityTest extends DocumentWithPositionsTestBa
         assertEquals(customerOrder.getOrganization().getMeta().getHref(), purchaseOrder.getOrganization().getMeta().getHref());
     }
 
-    private void getAsserts(PurchaseOrderDocumentEntity purchaseOrder, PurchaseOrderDocumentEntity retrievedEntity) {
-        assertEquals(purchaseOrder.getName(), retrievedEntity.getName());
-        assertEquals(purchaseOrder.getDescription(), retrievedEntity.getDescription());
-        assertEquals(purchaseOrder.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(purchaseOrder.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        PurchaseOrderDocumentEntity originalPurchaseOrder = (PurchaseOrderDocumentEntity) originalEntity;
+        PurchaseOrderDocumentEntity retrievedPurchaseOrder = (PurchaseOrderDocumentEntity) retrievedEntity;
+
+        assertEquals(originalPurchaseOrder.getName(), retrievedPurchaseOrder.getName());
+        assertEquals(originalPurchaseOrder.getDescription(), retrievedPurchaseOrder.getDescription());
+        assertEquals(originalPurchaseOrder.getOrganization().getMeta().getHref(), retrievedPurchaseOrder.getOrganization().getMeta().getHref());
+        assertEquals(originalPurchaseOrder.getAgent().getMeta().getHref(), retrievedPurchaseOrder.getAgent().getMeta().getHref());
     }
 
-    private void putAsserts(PurchaseOrderDocumentEntity purchaseOrder, PurchaseOrderDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity retrievedUpdatedEntity = api.entity().purchaseorder().get(purchaseOrder.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        PurchaseOrderDocumentEntity originalPurchaseOrder = (PurchaseOrderDocumentEntity) originalEntity;
+        PurchaseOrderDocumentEntity updatedPurchaseOrder = (PurchaseOrderDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
+        assertNotEquals(originalPurchaseOrder.getName(), updatedPurchaseOrder.getName());
+        assertEquals(changedField, updatedPurchaseOrder.getName());
+        assertEquals(originalPurchaseOrder.getDescription(), updatedPurchaseOrder.getDescription());
+        assertEquals(originalPurchaseOrder.getOrganization().getMeta().getHref(), updatedPurchaseOrder.getOrganization().getMeta().getHref());
+        assertEquals(originalPurchaseOrder.getAgent().getMeta().getHref(), updatedPurchaseOrder.getAgent().getMeta().getHref());
     }
 
     @Override

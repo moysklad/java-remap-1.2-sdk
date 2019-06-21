@@ -41,6 +41,7 @@ public class RetailDrawerCashOutDocumentEntityTest extends EntityGetUpdateDelete
         assertEquals(retailDrawerCashOut.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
     }
 
+    @Ignore
     @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedStatesResponse response = api.entity().retaildrawercashout().metadata().get();
@@ -49,16 +50,19 @@ public class RetailDrawerCashOutDocumentEntityTest extends EntityGetUpdateDelete
     }
 
     @Ignore
+    @Test
     @Override
     public void putTest() throws IOException, LognexApiException {
     }
 
     @Ignore
+    @Test
     @Override
     public void deleteTest() throws IOException, LognexApiException {
     }
 
     @Ignore
+    @Test
     @Override
     public void getTest() throws IOException, LognexApiException {
     }

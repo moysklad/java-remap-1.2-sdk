@@ -62,61 +62,6 @@ public class SalesReturnDocumentEntityTest extends DocumentWithPositionsTestBase
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        SalesReturnDocumentEntity salesReturn = simpleEntityFactory.createSimpleSalesReturn();
-
-        SalesReturnDocumentEntity retrievedEntity = api.entity().salesreturn().get(salesReturn.getId());
-        getAsserts(salesReturn, retrievedEntity);
-
-        retrievedEntity = api.entity().salesreturn().get(salesReturn);
-        getAsserts(salesReturn, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        SalesReturnDocumentEntity salesReturn = simpleEntityFactory.createSimpleSalesReturn();
-
-        SalesReturnDocumentEntity retrievedOriginalEntity = api.entity().salesreturn().get(salesReturn.getId());
-        String name = "salesreturn_" + randomString(3) + "_" + new Date().getTime();
-        salesReturn.setName(name);
-        api.entity().salesreturn().put(salesReturn.getId(), salesReturn);
-        putAsserts(salesReturn, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(salesReturn);
-
-        name = "salesreturn_" + randomString(3) + "_" + new Date().getTime();
-        salesReturn.setName(name);
-        api.entity().salesreturn().put(salesReturn);
-        putAsserts(salesReturn, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        SalesReturnDocumentEntity salesReturn = simpleEntityFactory.createSimpleSalesReturn();
-
-        ListEntity<SalesReturnDocumentEntity> entitiesList = api.entity().salesreturn().get(filterEq("name", salesReturn.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().salesreturn().delete(salesReturn.getId());
-
-        entitiesList = api.entity().salesreturn().get(filterEq("name", salesReturn.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        SalesReturnDocumentEntity salesReturn = simpleEntityFactory.createSimpleSalesReturn();
-
-        ListEntity<SalesReturnDocumentEntity> entitiesList = api.entity().salesreturn().get(filterEq("name", salesReturn.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().salesreturn().delete(salesReturn);
-
-        entitiesList = api.entity().salesreturn().get(filterEq("name", salesReturn.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedStatesResponse response = api.entity().salesreturn().metadata().get();
 
@@ -161,21 +106,27 @@ public class SalesReturnDocumentEntityTest extends DocumentWithPositionsTestBase
         assertEquals(demand.getOrganization().getMeta().getHref(), salesReturn.getOrganization().getMeta().getHref());
     }
 
-    private void getAsserts(SalesReturnDocumentEntity salesReturn, SalesReturnDocumentEntity retrievedEntity) {
-        assertEquals(salesReturn.getName(), retrievedEntity.getName());
-        assertEquals(salesReturn.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(salesReturn.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-        assertEquals(salesReturn.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        SalesReturnDocumentEntity originalSalesReturn = (SalesReturnDocumentEntity) originalEntity;
+        SalesReturnDocumentEntity retrievedSalesReturn = (SalesReturnDocumentEntity) retrievedEntity;
+
+        assertEquals(originalSalesReturn.getName(), retrievedSalesReturn.getName());
+        assertEquals(originalSalesReturn.getOrganization().getMeta().getHref(), retrievedSalesReturn.getOrganization().getMeta().getHref());
+        assertEquals(originalSalesReturn.getAgent().getMeta().getHref(), retrievedSalesReturn.getAgent().getMeta().getHref());
+        assertEquals(originalSalesReturn.getStore().getMeta().getHref(), retrievedSalesReturn.getStore().getMeta().getHref());
     }
 
-    private void putAsserts(SalesReturnDocumentEntity salesReturn, SalesReturnDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        SalesReturnDocumentEntity retrievedUpdatedEntity = api.entity().salesreturn().get(salesReturn.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        SalesReturnDocumentEntity originalSalesReturn = (SalesReturnDocumentEntity) originalEntity;
+        SalesReturnDocumentEntity updatedSalesReturn = (SalesReturnDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getStore().getMeta().getHref(), retrievedUpdatedEntity.getStore().getMeta().getHref());
+        assertNotEquals(originalSalesReturn.getName(), updatedSalesReturn.getName());
+        assertEquals(changedField, updatedSalesReturn.getName());
+        assertEquals(originalSalesReturn.getOrganization().getMeta().getHref(), updatedSalesReturn.getOrganization().getMeta().getHref());
+        assertEquals(originalSalesReturn.getAgent().getMeta().getHref(), updatedSalesReturn.getAgent().getMeta().getHref());
+        assertEquals(originalSalesReturn.getStore().getMeta().getHref(), updatedSalesReturn.getStore().getMeta().getHref());
     }
 
     @Override

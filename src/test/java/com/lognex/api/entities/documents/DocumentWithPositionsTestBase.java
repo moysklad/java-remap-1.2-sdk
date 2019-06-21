@@ -1,7 +1,7 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.endpoints.DocumentPositionsEndpoint;
-import com.lognex.api.entities.EntityTestBase;
+import com.lognex.api.entities.EntityGetUpdateDeleteTest;
 import com.lognex.api.entities.products.ProductEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.LognexApiException;
@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
-public abstract class DocumentWithPositionsTestBase extends EntityTestBase {
+public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDeleteTest {
     @Test
     public void createPositionByIdTest() throws IOException, LognexApiException {
         DocumentEntity document = (DocumentEntity) simpleEntityFactory.createSimple(entityClass());

@@ -1,6 +1,8 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.EntityTestBase;
+import com.lognex.api.clients.ApiClient;
+import com.lognex.api.entities.EntityGetUpdateDeleteTest;
+import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.LognexApiException;
@@ -15,7 +17,7 @@ import java.util.Date;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class PaymentInDocumentEntityTest extends EntityTestBase {
+public class PaymentInDocumentEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         PaymentInDocumentEntity paymentIn = new PaymentInDocumentEntity();
@@ -36,61 +38,6 @@ public class PaymentInDocumentEntityTest extends EntityTestBase {
         assertEquals(paymentIn.getSum(), retrievedEntity.getSum());
         assertEquals(paymentIn.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(paymentIn.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-    }
-
-    @Test
-    public void getTest() throws IOException, LognexApiException {
-        PaymentInDocumentEntity paymentIn = simpleEntityFactory.createSimplePaymentIn();
-
-        PaymentInDocumentEntity retrievedEntity = api.entity().paymentin().get(paymentIn.getId());
-        getAsserts(paymentIn, retrievedEntity);
-
-        retrievedEntity = api.entity().paymentin().get(paymentIn);
-        getAsserts(paymentIn, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        PaymentInDocumentEntity paymentIn = simpleEntityFactory.createSimplePaymentIn();
-
-        PaymentInDocumentEntity retrievedOriginalEntity = api.entity().paymentin().get(paymentIn.getId());
-        String name = "paymentin_" + randomString(3) + "_" + new Date().getTime();
-        paymentIn.setName(name);
-        api.entity().paymentin().put(paymentIn.getId(), paymentIn);
-        putAsserts(paymentIn, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(paymentIn);
-
-        name = "paymentin_" + randomString(3) + "_" + new Date().getTime();
-        paymentIn.setName(name);
-        api.entity().paymentin().put(paymentIn);
-        putAsserts(paymentIn, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        PaymentInDocumentEntity paymentIn = simpleEntityFactory.createSimplePaymentIn();
-
-        ListEntity<PaymentInDocumentEntity> entitiesList = api.entity().paymentin().get(filterEq("name", paymentIn.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().paymentin().delete(paymentIn.getId());
-
-        entitiesList = api.entity().paymentin().get(filterEq("name", paymentIn.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        PaymentInDocumentEntity paymentIn = simpleEntityFactory.createSimplePaymentIn();
-
-        ListEntity<PaymentInDocumentEntity> entitiesList = api.entity().paymentin().get(filterEq("name", paymentIn.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().paymentin().delete(paymentIn);
-
-        entitiesList = api.entity().paymentin().get(filterEq("name", paymentIn.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -211,18 +158,34 @@ public class PaymentInDocumentEntityTest extends EntityTestBase {
         assertEquals(commissionReportIn.getOrganization().getMeta().getHref(), paymentIn.getOrganization().getMeta().getHref());
     }
 
-    private void getAsserts(PaymentInDocumentEntity paymentIn, PaymentInDocumentEntity retrievedEntity) {
-        assertEquals(paymentIn.getName(), retrievedEntity.getName());
-        assertEquals(paymentIn.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(paymentIn.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        PaymentInDocumentEntity originalPaymentIn = (PaymentInDocumentEntity) originalEntity;
+        PaymentInDocumentEntity retrievedPaymentIn = (PaymentInDocumentEntity) retrievedEntity;
+
+        assertEquals(originalPaymentIn.getName(), retrievedPaymentIn.getName());
+        assertEquals(originalPaymentIn.getOrganization().getMeta().getHref(), retrievedPaymentIn.getOrganization().getMeta().getHref());
+        assertEquals(originalPaymentIn.getAgent().getMeta().getHref(), retrievedPaymentIn.getAgent().getMeta().getHref());
     }
 
-    private void putAsserts(PaymentInDocumentEntity paymentIn, PaymentInDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        PaymentInDocumentEntity retrievedUpdatedEntity = api.entity().paymentin().get(paymentIn.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        PaymentInDocumentEntity originalPaymentIn = (PaymentInDocumentEntity) originalEntity;
+        PaymentInDocumentEntity updatedPaymentIn = (PaymentInDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
+        assertNotEquals(originalPaymentIn.getName(), updatedPaymentIn.getName());
+        assertEquals(changedField, updatedPaymentIn.getName());
+        assertEquals(originalPaymentIn.getOrganization().getMeta().getHref(), updatedPaymentIn.getOrganization().getMeta().getHref());
+        assertEquals(originalPaymentIn.getAgent().getMeta().getHref(), updatedPaymentIn.getAgent().getMeta().getHref());
+    }
+
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().paymentin();
+    }
+
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return PaymentInDocumentEntity.class;
     }
 }

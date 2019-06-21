@@ -38,82 +38,33 @@ public class EnterDocumentEntityTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        EnterDocumentEntity enter = simpleEntityFactory.createSimpleEnter();
-
-        EnterDocumentEntity retrievedEntity = api.entity().enter().get(enter.getId());
-        getAsserts(enter, retrievedEntity);
-
-        retrievedEntity = api.entity().enter().get(enter);
-        getAsserts(enter, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        EnterDocumentEntity enter = simpleEntityFactory.createSimpleEnter();
-
-        EnterDocumentEntity retrievedOriginalEntity = api.entity().enter().get(enter.getId());
-        String name = "enter_" + randomString(3) + "_" + new Date().getTime();
-        enter.setName(name);
-        api.entity().enter().put(enter.getId(), enter);
-        putAsserts(enter, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(enter);
-
-        name = "enter_" + randomString(3) + "_" + new Date().getTime();
-        enter.setName(name);
-        api.entity().enter().put(enter);
-        putAsserts(enter, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        EnterDocumentEntity enter = simpleEntityFactory.createSimpleEnter();
-
-        ListEntity<EnterDocumentEntity> entitiesList = api.entity().enter().get(filterEq("name", enter.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().enter().delete(enter.getId());
-
-        entitiesList = api.entity().enter().get(filterEq("name", enter.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        EnterDocumentEntity enter = simpleEntityFactory.createSimpleEnter();
-
-        ListEntity<EnterDocumentEntity> entitiesList = api.entity().enter().get(filterEq("name", enter.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().enter().delete(enter);
-
-        entitiesList = api.entity().enter().get(filterEq("name", enter.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedStatesResponse response = api.entity().enter().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
-    private void getAsserts(EnterDocumentEntity enter, EnterDocumentEntity retrievedEntity) {
-        assertEquals(enter.getName(), retrievedEntity.getName());
-        assertEquals(enter.getDescription(), retrievedEntity.getDescription());
-        assertEquals(enter.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(enter.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        EnterDocumentEntity originalEnter = (EnterDocumentEntity) originalEntity;
+        EnterDocumentEntity retrievedEnter = (EnterDocumentEntity) retrievedEntity;
+
+        assertEquals(originalEnter.getName(), retrievedEnter.getName());
+        assertEquals(originalEnter.getDescription(), retrievedEnter.getDescription());
+        assertEquals(originalEnter.getOrganization().getMeta().getHref(), retrievedEnter.getOrganization().getMeta().getHref());
+        assertEquals(originalEnter.getStore().getMeta().getHref(), retrievedEnter.getStore().getMeta().getHref());
     }
 
-    private void putAsserts(EnterDocumentEntity enter, EnterDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        EnterDocumentEntity retrievedUpdatedEntity = api.entity().enter().get(enter.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        EnterDocumentEntity originalEnter = (EnterDocumentEntity) originalEntity;
+        EnterDocumentEntity updatedEnter = (EnterDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getStore().getMeta().getHref(), retrievedUpdatedEntity.getStore().getMeta().getHref());
+        assertNotEquals(originalEnter.getName(), updatedEnter.getName());
+        assertEquals(changedField, updatedEnter.getName());
+        assertEquals(originalEnter.getDescription(), updatedEnter.getDescription());
+        assertEquals(originalEnter.getOrganization().getMeta().getHref(), updatedEnter.getOrganization().getMeta().getHref());
+        assertEquals(originalEnter.getStore().getMeta().getHref(), updatedEnter.getStore().getMeta().getHref());
     }
 
     @Override

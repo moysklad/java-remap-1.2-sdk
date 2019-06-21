@@ -41,61 +41,6 @@ public class MoveDocumentEntityTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        MoveDocumentEntity move = simpleEntityFactory.createSimpleMove();
-
-        MoveDocumentEntity retrievedEntity = api.entity().move().get(move.getId());
-        getAsserts(move, retrievedEntity);
-
-        retrievedEntity = api.entity().move().get(move);
-        getAsserts(move, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        MoveDocumentEntity move = simpleEntityFactory.createSimpleMove();
-
-        MoveDocumentEntity retrievedOriginalEntity = api.entity().move().get(move.getId());
-        String name = "move_" + randomString(3) + "_" + new Date().getTime();
-        move.setName(name);
-        api.entity().move().put(move.getId(), move);
-        putAsserts(move, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(move);
-
-        name = "move_" + randomString(3) + "_" + new Date().getTime();
-        move.setName(name);
-        api.entity().move().put(move);
-        putAsserts(move, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        MoveDocumentEntity move = simpleEntityFactory.createSimpleMove();
-
-        ListEntity<MoveDocumentEntity> entitiesList = api.entity().move().get(filterEq("name", move.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().move().delete(move.getId());
-
-        entitiesList = api.entity().move().get(filterEq("name", move.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        MoveDocumentEntity move = simpleEntityFactory.createSimpleMove();
-
-        ListEntity<MoveDocumentEntity> entitiesList = api.entity().move().get(filterEq("name", move.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().move().delete(move);
-
-        entitiesList = api.entity().move().get(filterEq("name", move.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedStatesResponse response = api.entity().move().metadata().get();
 
@@ -135,23 +80,29 @@ public class MoveDocumentEntityTest extends DocumentWithPositionsTestBase {
         assertEquals(internalOrder.getOrganization().getMeta().getHref(), move.getOrganization().getMeta().getHref());
     }
 
-    private void getAsserts(MoveDocumentEntity move, MoveDocumentEntity retrievedEntity) {
-        assertEquals(move.getName(), retrievedEntity.getName());
-        assertEquals(move.getDescription(), retrievedEntity.getDescription());
-        assertEquals(move.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(move.getSourceStore().getMeta().getHref(), retrievedEntity.getSourceStore().getMeta().getHref());
-        assertEquals(move.getTargetStore().getMeta().getHref(), retrievedEntity.getTargetStore().getMeta().getHref());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        MoveDocumentEntity originalMove = (MoveDocumentEntity) originalEntity;
+        MoveDocumentEntity retrievedMove = (MoveDocumentEntity) retrievedEntity;
+
+        assertEquals(originalMove.getName(), retrievedMove.getName());
+        assertEquals(originalMove.getDescription(), retrievedMove.getDescription());
+        assertEquals(originalMove.getOrganization().getMeta().getHref(), retrievedMove.getOrganization().getMeta().getHref());
+        assertEquals(originalMove.getSourceStore().getMeta().getHref(), retrievedMove.getSourceStore().getMeta().getHref());
+        assertEquals(originalMove.getTargetStore().getMeta().getHref(), retrievedMove.getTargetStore().getMeta().getHref());
     }
 
-    private void putAsserts(MoveDocumentEntity move, MoveDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        MoveDocumentEntity retrievedUpdatedEntity = api.entity().move().get(move.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        MoveDocumentEntity originalMove = (MoveDocumentEntity) originalEntity;
+        MoveDocumentEntity updatedMove = (MoveDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getSourceStore().getMeta().getHref(), retrievedUpdatedEntity.getSourceStore().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getTargetStore().getMeta().getHref(), retrievedUpdatedEntity.getTargetStore().getMeta().getHref());
+        assertNotEquals(originalMove.getName(), updatedMove.getName());
+        assertEquals(changedField, updatedMove.getName());
+        assertEquals(originalMove.getDescription(), updatedMove.getDescription());
+        assertEquals(originalMove.getOrganization().getMeta().getHref(), updatedMove.getOrganization().getMeta().getHref());
+        assertEquals(originalMove.getSourceStore().getMeta().getHref(), updatedMove.getSourceStore().getMeta().getHref());
+        assertEquals(originalMove.getTargetStore().getMeta().getHref(), updatedMove.getTargetStore().getMeta().getHref());
     }
 
     @Override

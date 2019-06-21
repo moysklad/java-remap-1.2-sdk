@@ -48,16 +48,19 @@ public class RetailDemandDocumentEntityTest extends EntityGetUpdateDeleteTest {
     }
 
     @Ignore
+    @Test
     @Override
     public void putTest() throws IOException, LognexApiException {
     }
 
     @Ignore
+    @Test
     @Override
     public void deleteTest() throws IOException, LognexApiException {
     }
 
     @Ignore
+    @Test
     @Override
     public void getTest() throws IOException, LognexApiException {
     }
@@ -97,7 +100,7 @@ public class RetailDemandDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected ApiClient entityClient() {
-        return api.entity().demand();
+        return api.entity().retaildemand();
     }
 
     @Override

@@ -61,61 +61,6 @@ public class PurchaseReturnDocumentEntityTest extends DocumentWithPositionsTestB
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity purchaseReturn = simpleEntityFactory.createSimplePurchaseReturn();
-
-        PurchaseReturnDocumentEntity retrievedEntity = api.entity().purchasereturn().get(purchaseReturn.getId());
-        getAsserts(purchaseReturn, retrievedEntity);
-
-        retrievedEntity = api.entity().purchasereturn().get(purchaseReturn);
-        getAsserts(purchaseReturn, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity purchaseReturn = simpleEntityFactory.createSimplePurchaseReturn();
-
-        PurchaseReturnDocumentEntity retrievedOriginalEntity = api.entity().purchasereturn().get(purchaseReturn.getId());
-        String name = "purchasereturn_" + randomString(3) + "_" + new Date().getTime();
-        purchaseReturn.setName(name);
-        api.entity().purchasereturn().put(purchaseReturn.getId(), purchaseReturn);
-        putAsserts(purchaseReturn, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(purchaseReturn);
-
-        name = "purchasereturn_" + randomString(3) + "_" + new Date().getTime();
-        purchaseReturn.setName(name);
-        api.entity().purchasereturn().put(purchaseReturn);
-        putAsserts(purchaseReturn, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity purchaseReturn = simpleEntityFactory.createSimplePurchaseReturn();
-
-        ListEntity<PurchaseReturnDocumentEntity> entitiesList = api.entity().purchasereturn().get(filterEq("name", purchaseReturn.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().purchasereturn().delete(purchaseReturn.getId());
-
-        entitiesList = api.entity().purchasereturn().get(filterEq("name", purchaseReturn.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity purchaseReturn = simpleEntityFactory.createSimplePurchaseReturn();
-
-        ListEntity<PurchaseReturnDocumentEntity> entitiesList = api.entity().purchasereturn().get(filterEq("name", purchaseReturn.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().purchasereturn().delete(purchaseReturn);
-
-        entitiesList = api.entity().purchasereturn().get(filterEq("name", purchaseReturn.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedStatesResponse response = api.entity().purchasereturn().metadata().get();
 
@@ -162,21 +107,29 @@ public class PurchaseReturnDocumentEntityTest extends DocumentWithPositionsTestB
         assertEquals(supply.getOrganization().getMeta().getHref(), purchaseReturn.getOrganization().getMeta().getHref());
     }
 
-    private void getAsserts(PurchaseReturnDocumentEntity purchaseReturn, PurchaseReturnDocumentEntity retrievedEntity) {
-        assertEquals(purchaseReturn.getName(), retrievedEntity.getName());
-        assertEquals(purchaseReturn.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(purchaseReturn.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-        assertEquals(purchaseReturn.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        PurchaseReturnDocumentEntity originalPurchaseReturn = (PurchaseReturnDocumentEntity) originalEntity;
+        PurchaseReturnDocumentEntity retrievedPurchaseReturn = (PurchaseReturnDocumentEntity) retrievedEntity;
+
+        assertEquals(originalPurchaseReturn.getName(), retrievedPurchaseReturn.getName());
+        assertEquals(originalPurchaseReturn.getDescription(), retrievedPurchaseReturn.getDescription());
+        assertEquals(originalPurchaseReturn.getOrganization().getMeta().getHref(), retrievedPurchaseReturn.getOrganization().getMeta().getHref());
+        assertEquals(originalPurchaseReturn.getAgent().getMeta().getHref(), retrievedPurchaseReturn.getAgent().getMeta().getHref());
+        assertEquals(originalPurchaseReturn.getStore().getMeta().getHref(), retrievedPurchaseReturn.getStore().getMeta().getHref());
     }
 
-    private void putAsserts(PurchaseReturnDocumentEntity purchaseReturn, PurchaseReturnDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity retrievedUpdatedEntity = api.entity().purchasereturn().get(purchaseReturn.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        PurchaseReturnDocumentEntity originalPurchaseReturn = (PurchaseReturnDocumentEntity) originalEntity;
+        PurchaseReturnDocumentEntity updatedPurchaseReturn = (PurchaseReturnDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getStore().getMeta().getHref(), retrievedUpdatedEntity.getStore().getMeta().getHref());
+        assertNotEquals(originalPurchaseReturn.getName(), updatedPurchaseReturn.getName());
+        assertEquals(changedField, updatedPurchaseReturn.getName());
+        assertEquals(originalPurchaseReturn.getDescription(), updatedPurchaseReturn.getDescription());
+        assertEquals(originalPurchaseReturn.getOrganization().getMeta().getHref(), updatedPurchaseReturn.getOrganization().getMeta().getHref());
+        assertEquals(originalPurchaseReturn.getAgent().getMeta().getHref(), updatedPurchaseReturn.getAgent().getMeta().getHref());
+        assertEquals(originalPurchaseReturn.getStore().getMeta().getHref(), updatedPurchaseReturn.getStore().getMeta().getHref());
     }
 
     @Override

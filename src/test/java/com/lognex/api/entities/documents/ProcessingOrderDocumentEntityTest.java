@@ -1,6 +1,8 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.EntityTestBase;
+import com.lognex.api.clients.ApiClient;
+import com.lognex.api.entities.EntityGetUpdateDeleteTest;
+import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.entities.products.ProductEntity;
@@ -22,7 +24,7 @@ import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static com.lognex.api.utils.params.LimitParam.limit;
 import static org.junit.Assert.*;
 
-public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
+public class ProcessingOrderDocumentEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         ProcessingOrderDocumentEntity processingOrder = new ProcessingOrderDocumentEntity();
@@ -77,61 +79,6 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(position.getQuantity(), retrievedEntity.getPositions().getRows().get(0).getQuantity());
         ProductEntity retrievedProduct = (ProductEntity) retrievedEntity.getPositions().getRows().get(0).getAssortment();
         assertEquals(material.getMeta().getHref(), retrievedProduct.getMeta().getHref());
-    }
-
-    @Test
-    public void getTest() throws IOException, LognexApiException {
-        ProcessingOrderDocumentEntity processingOrder = simpleEntityFactory.createSimpleProcessingOrder();
-
-        ProcessingOrderDocumentEntity retrievedEntity = api.entity().processingorder().get(processingOrder.getId());
-        getAsserts(processingOrder, retrievedEntity);
-
-        retrievedEntity = api.entity().processingorder().get(processingOrder);
-        getAsserts(processingOrder, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        ProcessingOrderDocumentEntity processingOrder = simpleEntityFactory.createSimpleProcessingOrder();
-
-        ProcessingOrderDocumentEntity retrievedOriginalEntity = api.entity().processingorder().get(processingOrder.getId());
-        String name = "processingorder_" + randomString(3) + "_" + new Date().getTime();
-        processingOrder.setName(name);
-        api.entity().processingorder().put(processingOrder.getId(), processingOrder);
-        putAsserts(processingOrder, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(processingOrder);
-
-        name = "processingorder_" + randomString(3) + "_" + new Date().getTime();
-        processingOrder.setName(name);
-        api.entity().processingorder().put(processingOrder);
-        putAsserts(processingOrder, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        ProcessingOrderDocumentEntity processingOrder = simpleEntityFactory.createSimpleProcessingOrder();
-
-        ListEntity<ProcessingOrderDocumentEntity> entitiesList = api.entity().processingorder().get(filterEq("name", processingOrder.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().processingorder().delete(processingOrder.getId());
-
-        entitiesList = api.entity().processingorder().get(filterEq("name", processingOrder.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        ProcessingOrderDocumentEntity processingOrder = simpleEntityFactory.createSimpleProcessingOrder();
-
-        ListEntity<ProcessingOrderDocumentEntity> entitiesList = api.entity().processingorder().get(filterEq("name", processingOrder.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().processingorder().delete(processingOrder);
-
-        entitiesList = api.entity().processingorder().get(filterEq("name", processingOrder.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
     }
 
     @Test
@@ -193,20 +140,36 @@ public class ProcessingOrderDocumentEntityTest extends EntityTestBase {
         assertEquals(processingOrder.getStore().getMeta().getHref(), store.getRows().get(0).getMeta().getHref());
     }
 
-    private void getAsserts(ProcessingOrderDocumentEntity processingOrder, ProcessingOrderDocumentEntity retrievedEntity) {
-        assertEquals(processingOrder.getName(), retrievedEntity.getName());
-        assertEquals(processingOrder.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(processingOrder.getProcessingPlan().getMeta().getHref(), retrievedEntity.getProcessingPlan().getMeta().getHref());
-        assertEquals(processingOrder.getPositions().getMeta().getSize(), retrievedEntity.getPositions().getMeta().getSize());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        ProcessingOrderDocumentEntity originalProcessingOrder = (ProcessingOrderDocumentEntity) originalEntity;
+        ProcessingOrderDocumentEntity retrievedProcessingOrder = (ProcessingOrderDocumentEntity) retrievedEntity;
+
+        assertEquals(originalProcessingOrder.getName(), retrievedProcessingOrder.getName());
+        assertEquals(originalProcessingOrder.getOrganization().getMeta().getHref(), retrievedProcessingOrder.getOrganization().getMeta().getHref());
+        assertEquals(originalProcessingOrder.getProcessingPlan().getMeta().getHref(), retrievedProcessingOrder.getProcessingPlan().getMeta().getHref());
+        assertEquals(originalProcessingOrder.getPositions().getMeta().getSize(), retrievedProcessingOrder.getPositions().getMeta().getSize());
     }
 
-    private void putAsserts(ProcessingOrderDocumentEntity processingOrder, ProcessingOrderDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        ProcessingOrderDocumentEntity retrievedUpdatedEntity = api.entity().processingorder().get(processingOrder.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        ProcessingOrderDocumentEntity originalProcessingOrder = (ProcessingOrderDocumentEntity) originalEntity;
+        ProcessingOrderDocumentEntity updatedProcessingOrder = (ProcessingOrderDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getProcessingPlan().getMeta().getHref(), retrievedUpdatedEntity.getProcessingPlan().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getPositions().getMeta().getSize(), retrievedUpdatedEntity.getPositions().getMeta().getSize());
+        assertNotEquals(originalProcessingOrder.getName(), updatedProcessingOrder.getName());
+        assertEquals(changedField, updatedProcessingOrder.getName());
+        assertEquals(originalProcessingOrder.getOrganization().getMeta().getHref(), updatedProcessingOrder.getOrganization().getMeta().getHref());
+        assertEquals(originalProcessingOrder.getProcessingPlan().getMeta().getHref(), updatedProcessingOrder.getProcessingPlan().getMeta().getHref());
+        assertEquals(originalProcessingOrder.getPositions().getMeta().getSize(), updatedProcessingOrder.getPositions().getMeta().getSize());
+    }
+
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().processingorder();
+    }
+
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return ProcessingOrderDocumentEntity.class;
     }
 }

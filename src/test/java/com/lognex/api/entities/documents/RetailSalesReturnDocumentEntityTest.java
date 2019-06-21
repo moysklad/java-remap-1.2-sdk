@@ -48,16 +48,19 @@ public class RetailSalesReturnDocumentEntityTest extends EntityGetUpdateDeleteTe
     }
 
     @Ignore
+    @Test
     @Override
     public void putTest() throws IOException, LognexApiException {
     }
 
     @Ignore
+    @Test
     @Override
     public void deleteTest() throws IOException, LognexApiException {
     }
 
     @Ignore
+    @Test
     @Override
     public void getTest() throws IOException, LognexApiException {
     }

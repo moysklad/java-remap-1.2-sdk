@@ -59,82 +59,33 @@ public class CommissionReportOutDocumentEntityTest extends DocumentWithPositions
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        CommissionReportOutDocumentEntity commissionReportOut = simpleEntityFactory.createSimpleCommissionReportOut();
-
-        CommissionReportOutDocumentEntity retrievedEntity = api.entity().commissionreportout().get(commissionReportOut.getId());
-        getAsserts(commissionReportOut, retrievedEntity);
-
-        retrievedEntity = api.entity().commissionreportout().get(commissionReportOut);
-        getAsserts(commissionReportOut, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        CommissionReportOutDocumentEntity commissionReportOut = simpleEntityFactory.createSimpleCommissionReportOut();
-
-        CommissionReportOutDocumentEntity retrievedOriginalEntity = api.entity().commissionreportout().get(commissionReportOut.getId());
-        String name = "commissionreportout_" + randomString(3) + "_" + new Date().getTime();
-        commissionReportOut.setName(name);
-        api.entity().commissionreportout().put(commissionReportOut.getId(), commissionReportOut);
-        putAsserts(commissionReportOut, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(commissionReportOut);
-
-        name = "commissionreportout_" + randomString(3) + "_" + new Date().getTime();
-        commissionReportOut.setName(name);
-        api.entity().commissionreportout().put(commissionReportOut);
-        putAsserts(commissionReportOut, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        CommissionReportOutDocumentEntity commissionReportOut = simpleEntityFactory.createSimpleCommissionReportOut();
-
-        ListEntity<CommissionReportOutDocumentEntity> entitiesList = api.entity().commissionreportout().get(filterEq("name", commissionReportOut.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().commissionreportout().delete(commissionReportOut.getId());
-
-        entitiesList = api.entity().commissionreportout().get(filterEq("name", commissionReportOut.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        CommissionReportOutDocumentEntity commissionReportOut = simpleEntityFactory.createSimpleCommissionReportOut();
-
-        ListEntity<CommissionReportOutDocumentEntity> entitiesList = api.entity().commissionreportout().get(filterEq("name", commissionReportOut.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().commissionreportout().delete(commissionReportOut);
-
-        entitiesList = api.entity().commissionreportout().get(filterEq("name", commissionReportOut.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedStatesResponse response = api.entity().commissionreportout().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
-    private void getAsserts(CommissionReportOutDocumentEntity commissionReportOut, CommissionReportOutDocumentEntity retrievedEntity) {
-        assertEquals(commissionReportOut.getName(), retrievedEntity.getName());
-        assertEquals(commissionReportOut.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(commissionReportOut.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
-        assertEquals(commissionReportOut.getContract().getMeta().getHref(), retrievedEntity.getContract().getMeta().getHref());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        CommissionReportOutDocumentEntity originalCommissionReportOut = (CommissionReportOutDocumentEntity) originalEntity;
+        CommissionReportOutDocumentEntity retrievedCommissionReportOut = (CommissionReportOutDocumentEntity) retrievedEntity;
+
+        assertEquals(originalCommissionReportOut.getName(), retrievedCommissionReportOut.getName());
+        assertEquals(originalCommissionReportOut.getOrganization().getMeta().getHref(), retrievedCommissionReportOut.getOrganization().getMeta().getHref());
+        assertEquals(originalCommissionReportOut.getAgent().getMeta().getHref(), retrievedCommissionReportOut.getAgent().getMeta().getHref());
+        assertEquals(originalCommissionReportOut.getContract().getMeta().getHref(), retrievedCommissionReportOut.getContract().getMeta().getHref());
     }
 
-    private void putAsserts(CommissionReportOutDocumentEntity commissionReportOut, CommissionReportOutDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        CommissionReportOutDocumentEntity retrievedUpdatedEntity = api.entity().commissionreportout().get(commissionReportOut.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        CommissionReportOutDocumentEntity originalCommissionReportOut = (CommissionReportOutDocumentEntity) originalEntity;
+        CommissionReportOutDocumentEntity updatedCommissionReportOut = (CommissionReportOutDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getContract().getMeta().getHref(), retrievedUpdatedEntity.getContract().getMeta().getHref());
+        assertNotEquals(originalCommissionReportOut.getName(), updatedCommissionReportOut.getName());
+        assertEquals(changedField, updatedCommissionReportOut.getName());
+        assertEquals(originalCommissionReportOut.getOrganization().getMeta().getHref(), updatedCommissionReportOut.getOrganization().getMeta().getHref());
+        assertEquals(originalCommissionReportOut.getAgent().getMeta().getHref(), updatedCommissionReportOut.getAgent().getMeta().getHref());
+        assertEquals(originalCommissionReportOut.getContract().getMeta().getHref(), updatedCommissionReportOut.getContract().getMeta().getHref());
     }
 
     @Override

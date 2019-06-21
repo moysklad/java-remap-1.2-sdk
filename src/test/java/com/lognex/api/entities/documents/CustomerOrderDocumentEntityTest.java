@@ -37,61 +37,6 @@ public class CustomerOrderDocumentEntityTest extends DocumentWithPositionsTestBa
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity customerOrder = simpleEntityFactory.createSimpleCustomerOrder();
-
-        CustomerOrderDocumentEntity retrievedEntity = api.entity().customerorder().get(customerOrder.getId());
-        getAsserts(customerOrder, retrievedEntity);
-
-        retrievedEntity = api.entity().customerorder().get(customerOrder);
-        getAsserts(customerOrder, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity customerOrder = simpleEntityFactory.createSimpleCustomerOrder();
-
-        CustomerOrderDocumentEntity retrievedOriginalEntity = api.entity().customerorder().get(customerOrder.getId());
-        String name = "customerorder_" + randomString(3) + "_" + new Date().getTime();
-        customerOrder.setName(name);
-        api.entity().customerorder().put(customerOrder.getId(), customerOrder);
-        putAsserts(customerOrder, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(customerOrder);
-
-        name = "customerorder_" + randomString(3) + "_" + new Date().getTime();
-        customerOrder.setName(name);
-        api.entity().customerorder().put(customerOrder);
-        putAsserts(customerOrder, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity customerOrder = simpleEntityFactory.createSimpleCustomerOrder();
-
-        ListEntity<CustomerOrderDocumentEntity> entitiesList = api.entity().customerorder().get(filterEq("name", customerOrder.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().customerorder().delete(customerOrder.getId());
-
-        entitiesList = api.entity().customerorder().get(filterEq("name", customerOrder.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity customerOrder = simpleEntityFactory.createSimpleCustomerOrder();
-
-        ListEntity<CustomerOrderDocumentEntity> entitiesList = api.entity().customerorder().get(filterEq("name", customerOrder.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().customerorder().delete(customerOrder);
-
-        entitiesList = api.entity().customerorder().get(filterEq("name", customerOrder.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedStatesResponse response = api.entity().customerorder().metadata().get();
 
@@ -99,25 +44,31 @@ public class CustomerOrderDocumentEntityTest extends DocumentWithPositionsTestBa
         assertFalse(response.getCreateShared());
     }
 
-    private void getAsserts(CustomerOrderDocumentEntity customerOrder, CustomerOrderDocumentEntity retrievedEntity) {
-        assertEquals(customerOrder.getName(), retrievedEntity.getName());
-        assertEquals(customerOrder.getDescription(), retrievedEntity.getDescription());
-        assertEquals(customerOrder.getSum(), retrievedEntity.getSum());
-        assertEquals(customerOrder.getMoment(), retrievedEntity.getMoment());
-        assertEquals(customerOrder.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(customerOrder.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        CustomerOrderDocumentEntity originalCustomerOrder = (CustomerOrderDocumentEntity) originalEntity;
+        CustomerOrderDocumentEntity retrievedCustomerOrder = (CustomerOrderDocumentEntity) retrievedEntity;
+
+        assertEquals(originalCustomerOrder.getName(), retrievedCustomerOrder.getName());
+        assertEquals(originalCustomerOrder.getDescription(), retrievedCustomerOrder.getDescription());
+        assertEquals(originalCustomerOrder.getSum(), retrievedCustomerOrder.getSum());
+        assertEquals(originalCustomerOrder.getMoment(), retrievedCustomerOrder.getMoment());
+        assertEquals(originalCustomerOrder.getOrganization().getMeta().getHref(), retrievedCustomerOrder.getOrganization().getMeta().getHref());
+        assertEquals(originalCustomerOrder.getAgent().getMeta().getHref(), retrievedCustomerOrder.getAgent().getMeta().getHref());
     }
 
-    private void putAsserts(CustomerOrderDocumentEntity customerOrder, CustomerOrderDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity retrievedUpdatedEntity = api.entity().customerorder().get(customerOrder.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        CustomerOrderDocumentEntity originalCustomerOrder = (CustomerOrderDocumentEntity) originalEntity;
+        CustomerOrderDocumentEntity updatedCustomerOrder = (CustomerOrderDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getDescription(), retrievedUpdatedEntity.getDescription());
-        assertEquals(retrievedOriginalEntity.getSum(), retrievedUpdatedEntity.getSum());
-        assertEquals(retrievedOriginalEntity.getMoment(), retrievedUpdatedEntity.getMoment());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getAgent().getMeta().getHref(), retrievedUpdatedEntity.getAgent().getMeta().getHref());
+        assertNotEquals(originalCustomerOrder.getName(), updatedCustomerOrder.getName());
+        assertEquals(changedField, updatedCustomerOrder.getName());
+        assertEquals(originalCustomerOrder.getDescription(), updatedCustomerOrder.getDescription());
+        assertEquals(originalCustomerOrder.getSum(), updatedCustomerOrder.getSum());
+        assertEquals(originalCustomerOrder.getMoment(), updatedCustomerOrder.getMoment());
+        assertEquals(originalCustomerOrder.getOrganization().getMeta().getHref(), updatedCustomerOrder.getOrganization().getMeta().getHref());
+        assertEquals(originalCustomerOrder.getAgent().getMeta().getHref(), updatedCustomerOrder.getAgent().getMeta().getHref());
     }
 
     @Override

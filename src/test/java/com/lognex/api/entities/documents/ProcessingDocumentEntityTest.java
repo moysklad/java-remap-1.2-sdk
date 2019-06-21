@@ -1,6 +1,8 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.EntityTestBase;
+import com.lognex.api.clients.ApiClient;
+import com.lognex.api.entities.EntityGetUpdateDeleteTest;
+import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.entities.products.ProductEntity;
@@ -19,7 +21,7 @@ import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static com.lognex.api.utils.params.LimitParam.limit;
 import static org.junit.Assert.*;
 
-public class ProcessingDocumentEntityTest extends EntityTestBase {
+public class ProcessingDocumentEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
         ProcessingDocumentEntity processing = new ProcessingDocumentEntity();
@@ -94,83 +96,44 @@ public class ProcessingDocumentEntityTest extends EntityTestBase {
     }
 
     @Test
-    public void getTest() throws IOException, LognexApiException {
-        ProcessingDocumentEntity processing = simpleEntityFactory.createSimpleProcessing();
-
-        ProcessingDocumentEntity retrievedEntity = api.entity().processing().get(processing.getId());
-        getAsserts(processing, retrievedEntity);
-
-        retrievedEntity = api.entity().processing().get(processing);
-        getAsserts(processing, retrievedEntity);
-    }
-
-    @Test
-    public void putTest() throws IOException, LognexApiException {
-        ProcessingDocumentEntity processing = simpleEntityFactory.createSimpleProcessing();
-
-        ProcessingDocumentEntity retrievedOriginalEntity = api.entity().processing().get(processing.getId());
-        String name = "processing_" + randomString(3) + "_" + new Date().getTime();
-        processing.setName(name);
-        api.entity().processing().put(processing.getId(), processing);
-        putAsserts(processing, retrievedOriginalEntity, name);
-
-        retrievedOriginalEntity.set(processing);
-
-        name = "processing_" + randomString(3) + "_" + new Date().getTime();
-        processing.setName(name);
-        api.entity().processing().put(processing);
-        putAsserts(processing, retrievedOriginalEntity, name);
-    }
-
-    @Test
-    public void deleteTest() throws IOException, LognexApiException {
-        ProcessingDocumentEntity processing = simpleEntityFactory.createSimpleProcessing();
-
-        ListEntity<ProcessingDocumentEntity> entitiesList = api.entity().processing().get(filterEq("name", processing.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().processing().delete(processing.getId());
-
-        entitiesList = api.entity().processing().get(filterEq("name", processing.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
-        ProcessingDocumentEntity processing = simpleEntityFactory.createSimpleProcessing();
-
-        ListEntity<ProcessingDocumentEntity> entitiesList = api.entity().processing().get(filterEq("name", processing.getName()));
-        assertEquals((Integer) 1, entitiesList.getMeta().getSize());
-
-        api.entity().processing().delete(processing);
-
-        entitiesList = api.entity().processing().get(filterEq("name", processing.getName()));
-        assertEquals((Integer) 0, entitiesList.getMeta().getSize());
-    }
-
-    @Test
     public void metadataTest() throws IOException, LognexApiException {
         MetadataAttributeSharedStatesResponse response = api.entity().processing().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
-    private void getAsserts(ProcessingDocumentEntity processing, ProcessingDocumentEntity retrievedEntity) {
-        assertEquals(processing.getName(), retrievedEntity.getName());
-        assertEquals(processing.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
-        assertEquals(processing.getMaterials().getMeta().getSize(), retrievedEntity.getMaterials().getMeta().getSize());
-        assertEquals(processing.getProducts().getMeta().getSize(), retrievedEntity.getProducts().getMeta().getSize());
-        assertEquals(processing.getProcessingPlan().getMeta().getHref(), retrievedEntity.getProcessingPlan().getMeta().getHref());
+    @Override
+    protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
+        ProcessingDocumentEntity originalProcessing = (ProcessingDocumentEntity) originalEntity;
+        ProcessingDocumentEntity retrievedProcessing = (ProcessingDocumentEntity) retrievedEntity;
+
+        assertEquals(originalProcessing.getName(), retrievedProcessing.getName());
+        assertEquals(originalProcessing.getOrganization().getMeta().getHref(), retrievedProcessing.getOrganization().getMeta().getHref());
+        assertEquals(originalProcessing.getMaterials().getMeta().getSize(), retrievedProcessing.getMaterials().getMeta().getSize());
+        assertEquals(originalProcessing.getProducts().getMeta().getSize(), retrievedProcessing.getProducts().getMeta().getSize());
+        assertEquals(originalProcessing.getProcessingPlan().getMeta().getHref(), retrievedProcessing.getProcessingPlan().getMeta().getHref());
     }
 
-    private void putAsserts(ProcessingDocumentEntity processing, ProcessingDocumentEntity retrievedOriginalEntity, String name) throws IOException, LognexApiException {
-        ProcessingDocumentEntity retrievedUpdatedEntity = api.entity().processing().get(processing.getId());
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+        ProcessingDocumentEntity originalProcessing = (ProcessingDocumentEntity) originalEntity;
+        ProcessingDocumentEntity updatedProcessing = (ProcessingDocumentEntity) updatedEntity;
 
-        assertNotEquals(retrievedOriginalEntity.getName(), retrievedUpdatedEntity.getName());
-        assertEquals(name, retrievedUpdatedEntity.getName());
-        assertEquals(retrievedOriginalEntity.getOrganization().getMeta().getHref(), retrievedUpdatedEntity.getOrganization().getMeta().getHref());
-        assertEquals(retrievedOriginalEntity.getMaterials().getMeta().getSize(), retrievedUpdatedEntity.getMaterials().getMeta().getSize());
-        assertEquals(retrievedOriginalEntity.getProducts().getMeta().getSize(), retrievedUpdatedEntity.getProducts().getMeta().getSize());
-        assertEquals(retrievedOriginalEntity.getProcessingPlan().getMeta().getHref(), retrievedUpdatedEntity.getProcessingPlan().getMeta().getHref());
+        assertNotEquals(originalProcessing.getName(), updatedProcessing.getName());
+        assertEquals(changedField, updatedProcessing.getName());
+        assertEquals(originalProcessing.getOrganization().getMeta().getHref(), updatedProcessing.getOrganization().getMeta().getHref());
+        assertEquals(originalProcessing.getMaterials().getMeta().getSize(), updatedProcessing.getMaterials().getMeta().getSize());
+        assertEquals(originalProcessing.getProducts().getMeta().getSize(), updatedProcessing.getProducts().getMeta().getSize());
+        assertEquals(originalProcessing.getProcessingPlan().getMeta().getHref(), updatedProcessing.getProcessingPlan().getMeta().getHref());
+    }
+
+    @Override
+    protected ApiClient entityClient() {
+        return api.entity().processing();
+    }
+
+    @Override
+    protected Class<? extends MetaEntity> entityClass() {
+        return ProcessingDocumentEntity.class;
     }
 }
