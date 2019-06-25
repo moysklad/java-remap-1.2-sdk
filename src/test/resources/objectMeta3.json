@@ -1,0 +1,24 @@
+{
+  "title":"objectMeta3",
+  "type":"object",
+  "fields":{
+    "href":{
+      "type":"string",
+      "format":"uri"
+    },
+    "metadataHref":{
+      "type":"string",
+      "format":"uri"
+    },
+    "type":{
+      "type":"string"
+    },
+    "mediaType":{
+      "type":"string"
+    },
+    "uuidHref":{
+      "type":"string",
+      "format":"uri"
+    }
+  }
+}
