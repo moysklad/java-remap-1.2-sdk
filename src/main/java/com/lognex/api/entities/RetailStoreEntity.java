@@ -49,6 +49,10 @@ public class RetailStoreEntity extends MetaEntity implements Fetchable {
     private StateEntity orderToState;
     private ListEntity<StateEntity> customerOrderStates;
 
+    public RetailStoreEntity(String id) {
+        super(id);
+    }
+
     @Getter
     @Setter
     @NoArgsConstructor

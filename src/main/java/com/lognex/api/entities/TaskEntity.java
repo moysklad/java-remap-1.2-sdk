@@ -22,4 +22,8 @@ public class TaskEntity extends MetaEntity implements Fetchable {
     private EmployeeEntity assignee;
     private Boolean done;
     private AgentEntity agent;
+
+    public TaskEntity(String id) {
+        super(id);
+    }
 }

@@ -31,4 +31,8 @@ public class InvoiceInDocumentEntity extends DocumentEntity {
     private Boolean vatEnabled;
     private Boolean vatIncluded;
     private Long vatSum;
+
+    public InvoiceInDocumentEntity(String id) {
+        super(id);
+    }
 }

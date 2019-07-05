@@ -10,4 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class CustomEntity extends MetaEntity {
+    public CustomEntity(String id) {
+        super(id);
+    }
 }

@@ -13,7 +13,7 @@ public class LimitParam extends ApiParam {
     }
 
     @Override
-    protected String render() {
+    protected String render(String host) {
         return String.valueOf(value);
     }
 }

@@ -5,9 +5,11 @@ import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.DocumentEntity;
 import com.lognex.api.utils.HttpRequestExecutor;
 import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.MetaHrefUtils;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public interface DocumentNewEndpoint<T extends MetaEntity> extends Endpoint {
     @ApiEndpoint
@@ -20,6 +22,15 @@ public interface DocumentNewEndpoint<T extends MetaEntity> extends Endpoint {
 
     @ApiEndpoint
     default T newDocument(DocumentTemplateEntity documentTemplateEntity) throws IOException, LognexApiException {
+        if (documentTemplateEntity.getDocument() != null) {
+            documentTemplateEntity.setDocument(MetaHrefUtils.fillMeta(documentTemplateEntity.getDocument(), api().getHost()));
+        } else if (documentTemplateEntity.getDocuments() != null) {
+            List<DocumentEntity> documents = documentTemplateEntity.getDocuments();
+            documents = documents.stream()
+                    .map(d -> MetaHrefUtils.fillMeta(d, api().getHost()))
+                    .collect(Collectors.toList());
+            documentTemplateEntity.setDocuments(documents);
+        }
         return HttpRequestExecutor.
                 path(api(), path() + "new").
                 body(documentTemplateEntity).

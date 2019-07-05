@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
  * или сам DiscountEntity
  */
 public class DiscountDeserializer implements JsonDeserializer<DiscountEntity> {
-    private final Gson gson = new GsonBuilder().create();
+    private final Gson gson = JsonUtils.createGsonWithMetaAdapter();
 
     @Override
     public DiscountEntity deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -24,19 +24,19 @@ public class DiscountDeserializer implements JsonDeserializer<DiscountEntity> {
             throw new JsonParseException("Can't parse field 'discount': meta.type is null");
 
         switch (me.getMeta().getType()) {
-            case accumulationdiscount:
+            case ACCUMULATION_DISCOUNT:
                 return context.deserialize(json, AccumulationDiscountEntity.class);
 
-            case bonusprogram:
+            case BONUS_PROGRAM:
                 return context.deserialize(json, BonusProgramDiscountEntity.class);
 
-            case discount:
+            case DISCOUNT:
                 return gson.fromJson(json, DiscountEntity.class);
 
-            case personaldiscount:
+            case PERSONAL_DISCOUNT:
                 return context.deserialize(json, PersonalDiscountEntity.class);
 
-            case specialpricediscount:
+            case SPECIAL_PRICE_DISCOUNT:
                 return context.deserialize(json, SpecialPriceDiscountEntity.class);
 
             default:

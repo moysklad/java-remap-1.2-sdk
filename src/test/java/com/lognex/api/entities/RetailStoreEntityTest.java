@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static com.lognex.api.LognexApi.API_PATH;
+import static com.lognex.api.utils.Constants.API_PATH;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 

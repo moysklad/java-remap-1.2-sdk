@@ -34,4 +34,8 @@ public class UomEntity extends MetaEntity {
      * Внешний код
      */
     private String externalCode;
+
+    public UomEntity(String id) {
+        super(id);
+    }
 }

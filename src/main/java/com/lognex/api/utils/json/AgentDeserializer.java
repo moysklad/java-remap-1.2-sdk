@@ -14,7 +14,7 @@ import java.lang.reflect.Type;
  * одного из классов, наследующихся от Agent: Organization, Counterparty, Employee
  */
 public class AgentDeserializer implements JsonDeserializer<AgentEntity> {
-    private final Gson gson = new GsonBuilder().create();
+    private final Gson gson = JsonUtils.createGsonWithMetaAdapter();
 
     @Override
     public AgentEntity deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -24,13 +24,13 @@ public class AgentDeserializer implements JsonDeserializer<AgentEntity> {
         if (me.getMeta().getType() == null) throw new JsonParseException("Can't parse field 'agent': meta.type is null");
 
         switch (me.getMeta().getType()) {
-            case organization:
+            case ORGANIZATION:
                 return context.deserialize(json, OrganizationEntity.class);
 
-            case counterparty:
+            case COUNTERPARTY:
                 return context.deserialize(json, CounterpartyEntity.class);
 
-            case employee:
+            case EMPLOYEE:
                 return context.deserialize(json, EmployeeEntity.class);
 
             default:

@@ -14,4 +14,8 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class PriceTypeEntity extends MetaEntity {
     private String externalCode;
+
+    public PriceTypeEntity(String id) {
+        super(id);
+    }
 }

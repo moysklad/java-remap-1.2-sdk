@@ -29,10 +29,10 @@ public class FinanceDocumentMarkerSerializerTest implements TestAsserts, TestRan
             FinanceDocumentMarker e = new CashInDocumentEntity();
             CashInDocumentEntity epe = ((CashInDocumentEntity) e);
             epe.setMeta(new Meta());
-            epe.getMeta().setType(Meta.Type.cashin);
+            epe.getMeta().setType(Meta.Type.CASH_IN);
             epe.setVatSum(1234098745L);
 
-            assertEquals("{\"vatSum\":1234098745,\"meta\":{\"type\":\"cashin\"}}", gson.toJson(e));
+            assertEquals("{\"vatSum\":1234098745,\"meta\":{\"type\":\"CASH_IN\"}}", gson.toJson(e));
             assertEquals("{\"vatSum\":1234098745,\"meta\":{\"type\":\"cashin\"}}", gsonCustom.toJson(e));
         }
 
@@ -40,10 +40,10 @@ public class FinanceDocumentMarkerSerializerTest implements TestAsserts, TestRan
             FinanceInDocumentMarker e = new PaymentInDocumentEntity();
             PaymentInDocumentEntity epe = ((PaymentInDocumentEntity) e);
             epe.setMeta(new Meta());
-            epe.getMeta().setType(Meta.Type.paymentin);
+            epe.getMeta().setType(Meta.Type.PAYMENT_IN);
             epe.setVatSum(94356340L);
 
-            assertEquals("{\"vatSum\":94356340,\"meta\":{\"type\":\"paymentin\"}}", gson.toJson(e));
+            assertEquals("{\"vatSum\":94356340,\"meta\":{\"type\":\"PAYMENT_IN\"}}", gson.toJson(e));
             assertEquals("{\"vatSum\":94356340,\"meta\":{\"type\":\"paymentin\"}}", gsonCustom.toJson(e));
         }
 
@@ -51,32 +51,32 @@ public class FinanceDocumentMarkerSerializerTest implements TestAsserts, TestRan
             FinanceOutDocumentMarker e = new CashOutDocumentEntity();
             CashOutDocumentEntity epe = ((CashOutDocumentEntity) e);
             epe.setMeta(new Meta());
-            epe.getMeta().setType(Meta.Type.cashout);
+            epe.getMeta().setType(Meta.Type.CASH_OUT);
             epe.setVatSum(435764L);
 
-            assertEquals("{\"vatSum\":435764,\"meta\":{\"type\":\"cashout\"}}", gson.toJson(e));
+            assertEquals("{\"vatSum\":435764,\"meta\":{\"type\":\"CASH_OUT\"}}", gson.toJson(e));
             assertEquals("{\"vatSum\":435764,\"meta\":{\"type\":\"cashout\"}}", gsonCustom.toJson(e));
         }
     }
 
     @Test
     public void test_deserializeCashIn() throws IllegalAccessException, InstantiationException {
-        deserializationTest(CashInDocumentEntity.class, Meta.Type.cashin);
+        deserializationTest(CashInDocumentEntity.class, Meta.Type.CASH_IN);
     }
 
     @Test
     public void test_deserializeCashOut() throws IllegalAccessException, InstantiationException {
-        deserializationTest(CashOutDocumentEntity.class, Meta.Type.cashout);
+        deserializationTest(CashOutDocumentEntity.class, Meta.Type.CASH_OUT);
     }
 
     @Test
     public void test_deserializePaymentIn() throws IllegalAccessException, InstantiationException {
-        deserializationTest(PaymentInDocumentEntity.class, Meta.Type.paymentin);
+        deserializationTest(PaymentInDocumentEntity.class, Meta.Type.PAYMENT_IN);
     }
 
     @Test
     public void test_deserializePaymentOut() throws IllegalAccessException, InstantiationException {
-        deserializationTest(PaymentOutDocumentEntity.class, Meta.Type.paymentout);
+        deserializationTest(PaymentOutDocumentEntity.class, Meta.Type.PAYMENT_OUT);
     }
 
     private void deserializationTest(Class<? extends FinanceDocumentMarker> cl, Meta.Type metaType) throws InstantiationException, IllegalAccessException {
@@ -89,7 +89,7 @@ public class FinanceDocumentMarkerSerializerTest implements TestAsserts, TestRan
         epe.getMeta().setType(metaType);
         epe.getMeta().setHref(randomString());
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
 
         try {
             gson.fromJson(data, FinanceDocumentMarker.class);

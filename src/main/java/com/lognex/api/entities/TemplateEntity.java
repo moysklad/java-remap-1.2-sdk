@@ -12,6 +12,11 @@ import lombok.Setter;
 public class TemplateEntity extends MetaEntity {
     private Type type;
     private String content;
+    private Meta.Type entityType;
+
+    public TemplateEntity(String id) {
+        super(id);
+    }
 
     public enum Type {
         /**

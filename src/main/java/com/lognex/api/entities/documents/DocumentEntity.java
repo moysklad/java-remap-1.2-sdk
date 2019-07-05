@@ -27,6 +27,10 @@ public abstract class DocumentEntity extends MetaEntity {
     private Boolean applicable;
     private Long sum;
 
+    public DocumentEntity(String id) {
+        super(id);
+    }
+
     @Getter
     @Setter
     @NoArgsConstructor

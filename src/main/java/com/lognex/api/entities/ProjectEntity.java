@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,4 +22,10 @@ public class ProjectEntity extends MetaEntity {
     private Boolean archived;
     private LocalDateTime updated;
     private GroupEntity group;
+
+    private List<AttributeEntity> attributes;
+
+    public ProjectEntity(String id) {
+        super(id);
+    }
 }

@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
  * метаданными CustomEntityMetadata.entityMeta (href, id, name, uuidHref, type, mediaType)
  */
 public class CustomEntityMetadataDeserializer implements JsonDeserializer<CustomEntityMetadata> {
-    private final Gson gson = new GsonBuilder().create();
+    private final Gson gson = JsonUtils.createGsonWithMetaAdapter();
 
     @Override
     public CustomEntityMetadata deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

@@ -25,7 +25,7 @@ public class FilterParam extends ApiParam {
     }
 
     @Override
-    protected String render() {
+    protected String render(String host) {
         return key + filterType.str + value;
     }
 

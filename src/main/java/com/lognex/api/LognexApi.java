@@ -7,6 +7,7 @@ import com.lognex.api.entities.AttributeEntity;
 import com.lognex.api.entities.BarcodeEntity;
 import com.lognex.api.entities.CurrencyEntity;
 import com.lognex.api.entities.DocumentTemplateEntity;
+import com.lognex.api.entities.Meta;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.discounts.DiscountEntity;
 import com.lognex.api.entities.documents.markers.FinanceDocumentMarker;
@@ -26,7 +27,6 @@ import java.time.LocalDateTime;
 
 @Getter
 public final class LognexApi {
-    public static final String API_PATH = "/api/remap/1.2";
     private final String host;
     private String login;
     private String password;
@@ -143,6 +143,7 @@ public final class LognexApi {
         gb.registerTypeAdapter(CompanySettingsMetadata.CustomEntityMetadata.class, new CustomEntityMetadataDeserializer());
         gb.registerTypeAdapter(BarcodeEntity.class, new BarcodeEntity.Serializer());
         gb.registerTypeAdapter(DocumentTemplateEntity.class, new DocumentTemplateEntity.Serializer());
+        gb.registerTypeAdapter(Meta.Type.class, new Meta.Type.Serializer());
 
         return gb.create();
     }

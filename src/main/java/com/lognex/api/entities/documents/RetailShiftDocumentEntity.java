@@ -28,4 +28,8 @@ public class RetailShiftDocumentEntity extends DocumentEntity {
     private RetailStoreEntity retailStore;
     private Double proceedsCash;
     private Double receivedNoCash;
+
+    public RetailShiftDocumentEntity(String id) {
+        super(id);
+    }
 }

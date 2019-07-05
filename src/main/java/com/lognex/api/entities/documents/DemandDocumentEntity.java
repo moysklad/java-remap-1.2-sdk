@@ -21,7 +21,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class DemandDocumentEntity extends DocumentEntity {
+public class DemandDocumentEntity extends DocumentEntity implements IEntityWithAttributes {
     private AgentEntity agent;
     private AccountEntity agentAccount;
     private List<AttributeEntity> attributes;
@@ -46,7 +46,7 @@ public class DemandDocumentEntity extends DocumentEntity {
     private Boolean vatIncluded;
     private Long vatSum;
     private FactureOutDocumentEntity factureOut;
-    private ListEntity<SalesReturnDocumentEntity> returns;
+    private List<SalesReturnDocumentEntity> returns;
     private List<FinanceDocumentMarker> payments;
     private List<InvoiceOutDocumentEntity> invoicesOut;
     private AgentEntity consignee;
@@ -57,4 +57,8 @@ public class DemandDocumentEntity extends DocumentEntity {
     private Integer goodPackQuantity;
     private AgentEntity carrier;
     private String stateContractId;
+
+    public DemandDocumentEntity(String id) {
+        super(id);
+    }
 }

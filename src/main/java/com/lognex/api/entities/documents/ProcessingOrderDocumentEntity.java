@@ -34,4 +34,8 @@ public class ProcessingOrderDocumentEntity extends DocumentEntity {
     private LocalDateTime deliveryPlannedMoment;
     private ProjectEntity project;
     private List<ProcessingDocumentEntity> processings;
+
+    public ProcessingOrderDocumentEntity(String id) {
+        super(id);
+    }
 }

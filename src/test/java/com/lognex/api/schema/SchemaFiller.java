@@ -22,11 +22,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static com.lognex.api.utils.json.LocalDateTimeSerializer.dateFormatPattern;
+import static com.lognex.api.utils.Constants.DATE_FORMAT_PATTERN;
 
 class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
     private static final Logger logger = LogManager.getLogger(SchemaFiller.class);
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormatPattern);
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN);
 
     private EmployeeEntity employeeEntity;
     private GroupEntity groupEntity;

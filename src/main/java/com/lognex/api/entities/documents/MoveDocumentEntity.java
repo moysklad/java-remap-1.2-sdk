@@ -28,4 +28,8 @@ public class MoveDocumentEntity extends DocumentEntity {
     private StateEntity state;
     private StoreEntity targetStore;
     private InternalOrderDocumentEntity internalOrder;
+
+    public MoveDocumentEntity(String id) {
+        super(id);
+    }
 }

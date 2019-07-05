@@ -1,6 +1,7 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.AttributeEntity;
+import com.lognex.api.entities.IEntityWithAttributes;
 import com.lognex.api.entities.RateEntity;
 import com.lognex.api.entities.StateEntity;
 import com.lognex.api.entities.agents.AgentEntity;
@@ -22,7 +23,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class FactureInDocumentEntity extends DocumentEntity {
+public class FactureInDocumentEntity extends DocumentEntity implements IEntityWithAttributes {
     /**
      * Контрагента
      */
@@ -97,4 +98,8 @@ public class FactureInDocumentEntity extends DocumentEntity {
     private LocalDateTime deleted;
     private String stateContractId;
     private AgentEntity consignee;
+
+    public FactureInDocumentEntity(String id) {
+        super(id);
+    }
 }

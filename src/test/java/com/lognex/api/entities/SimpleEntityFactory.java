@@ -12,6 +12,8 @@ import com.lognex.api.entities.products.VariantEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.LognexApiException;
 import com.lognex.api.utils.TestRandomizers;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -26,6 +28,8 @@ import static org.junit.Assert.*;
 @SuppressWarnings("unused")
 public class SimpleEntityFactory implements TestRandomizers {
     private LognexApi api;
+
+    private static final Logger logger = LogManager.getLogger(SimpleEntityFactory.class);
 
     public SimpleEntityFactory(LognexApi api) {
         this.api = api;
@@ -44,19 +48,19 @@ public class SimpleEntityFactory implements TestRandomizers {
             methodName = methodName.replace("Entity", "");
         }
 
-        Object entity = null;
+        Object entity;
         try {
             method = this.getClass().getMethod(methodName);
             entity = method.invoke(this);
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-            fail("Невозможно получить метод " + methodName);
+            logger.error("Невозможно получить метод " + methodName);
+            throw new IllegalArgumentException(e.getMessage(), e);
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            fail("Невозможно вызвать метод " + methodName);
+            logger.error("Невозможно вызвать метод " + methodName);
+            throw new IllegalArgumentException(e.getMessage(), e);
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
-            fail("Запрашиваемый метод выдал исключение: " + e.getMessage());
+            logger.error("Запрашиваемый метод " + methodName + " выдал исключение: " + e.getMessage());
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
 
         return entityClass.cast(entity);
@@ -64,7 +68,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public BundleEntity createSimpleBundle() throws IOException, LognexApiException {
         BundleEntity bundle = new BundleEntity();
-        bundle.setName("bundle_" + randomString(3) + "_" + new Date().getTime());
+        bundle.setName("bundle_" + randomStringTail());
         bundle.setArticle(randomString());
 
         ProductEntity product = createSimpleProduct();
@@ -82,7 +86,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public ConsignmentEntity createSimpleConsignment() throws IOException, LognexApiException {
         ConsignmentEntity consignment = new ConsignmentEntity();
-        consignment.setLabel("consignment_" + randomString(3) + "_" + new Date().getTime());
+        consignment.setLabel("consignment_" + randomStringTail());
 
         ProductEntity product = createSimpleProduct();
         consignment.setAssortment(product);
@@ -94,7 +98,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public ContractEntity createSimpleContract() throws IOException, LognexApiException {
         ContractEntity contract = new ContractEntity();
-        contract.setName("contract_" + randomString(3) + "_" + new Date().getTime());
+        contract.setName("contract_" + randomStringTail());
 
         contract.setOwnAgent(getOwnOrganization());
         contract.setAgent(createSimpleCounterparty());
@@ -106,7 +110,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public CounterpartyEntity createSimpleCounterparty() throws IOException, LognexApiException {
         CounterpartyEntity counterparty = new CounterpartyEntity();
-        counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
+        counterparty.setName("counterparty_" + randomStringTail());
         counterparty.setCompanyType(CompanyType.legal);
 
         counterparty.setInn(randomString());
@@ -128,7 +132,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public CurrencyEntity createSimpleCurrency() throws IOException, LognexApiException {
         CurrencyEntity currency = new CurrencyEntity();
-        currency.setName("currency_" + randomString(3) + "_" + new Date().getTime());
+        currency.setName("currency_" + randomStringTail());
         currency.setCode(randomString(3));
         currency.setIsoCode(randomString(3));
 
@@ -140,7 +144,7 @@ public class SimpleEntityFactory implements TestRandomizers {
     public CustomEntity createSimpleCustomEntity() throws IOException, LognexApiException {
         CustomEntity customEntity = new CustomEntity();
 
-        customEntity.setName("custom_entity_" + randomString(3) + "_" + new Date().getTime());
+        customEntity.setName("custom_entity_" + randomStringTail());
 
         api.entity().customentity().post(customEntity);
         return customEntity;
@@ -149,7 +153,7 @@ public class SimpleEntityFactory implements TestRandomizers {
     public CustomEntityElement createSimpleCustomElement(CustomEntity customEntity) throws IOException, LognexApiException {
         CustomEntityElement customEntityElement = new CustomEntityElement();
 
-        customEntityElement.setName("custom_entity_element_" + randomString(3) + "_" + new Date().getTime());
+        customEntityElement.setName("custom_entity_element_" + randomStringTail());
         customEntityElement.setDescription("custom_entity_desc_" + randomString(3));
         customEntityElement.setExternalCode(randomString(3));
 
@@ -159,7 +163,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public EmployeeEntity createSimpleEmployee() throws IOException, LognexApiException {
         EmployeeEntity employee = new EmployeeEntity();
-        employee.setLastName("employee_" + randomString(3) + "_" + new Date().getTime());
+        employee.setLastName("employee_" + randomStringTail());
         employee.setFirstName(randomString());
         employee.setMiddleName(randomString());
 
@@ -170,7 +174,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public ExpenseItemEntity createSimpleExpenseItem() throws IOException, LognexApiException {
         ExpenseItemEntity expenseItem = new ExpenseItemEntity();
-        expenseItem.setName("expenseitem_" + randomString(3) + "_" + new Date().getTime());
+        expenseItem.setName("expenseitem_" + randomStringTail());
         expenseItem.setDescription(randomString());
 
         api.entity().expenseitem().post(expenseItem);
@@ -190,12 +194,11 @@ public class SimpleEntityFactory implements TestRandomizers {
         Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
                 min(Comparator.comparing(OrganizationEntity::getCreated));
 
-        OrganizationEntity organizationEntity = null;
+        OrganizationEntity organizationEntity;
         if (orgOptional.isPresent()) {
             organizationEntity = orgOptional.get();
         } else {
-            // Должно быть первое созданное юрлицо
-            fail();
+            throw new IllegalStateException("Не удалось получить первое созданное юрлицо");
         }
 
         return organizationEntity;
@@ -203,7 +206,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public OrganizationEntity createSimpleOrganization() throws IOException, LognexApiException {
         OrganizationEntity organization = new OrganizationEntity();
-        organization.setName("organization_" + randomString(3) + "_" + new Date().getTime());
+        organization.setName("organization_" + randomStringTail());
         organization.setCompanyType(CompanyType.legal);
         organization.setInn(randomString());
         organization.setOgrn(randomString());
@@ -215,7 +218,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public ProductEntity createSimpleProduct() throws IOException, LognexApiException {
         ProductEntity product = new ProductEntity();
-        product.setName("product_" + randomString(3) + "_" + new Date().getTime());
+        product.setName("product_" + randomStringTail());
         product.setDescription(randomString());
 
         api.entity().product().post(product);
@@ -225,7 +228,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public ProductFolderEntity createSimpleProductFolder() throws IOException, LognexApiException {
         ProductFolderEntity productFolder = new ProductFolderEntity();
-        productFolder.setName("productfolder_" + randomString(3) + "_" + new Date().getTime());
+        productFolder.setName("productfolder_" + randomStringTail());
         productFolder.setDescription(randomString());
 
         api.entity().productfolder().post(productFolder);
@@ -235,7 +238,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public ProjectEntity createSimpleProject() throws IOException, LognexApiException {
         ProjectEntity project = new ProjectEntity();
-        project.setName("project_" + randomString(3) + "_" + new Date().getTime());
+        project.setName("project_" + randomStringTail());
         project.setDescription(randomString());
 
         api.entity().project().post(project);
@@ -245,7 +248,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public ServiceEntity createSimpleService() throws IOException, LognexApiException {
         ServiceEntity service = new ServiceEntity();
-        service.setName("service_" + randomString(3) + "_" + new Date().getTime());
+        service.setName("service_" + randomStringTail());
         service.setDescription(randomString());
 
         api.entity().service().post(service);
@@ -262,7 +265,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public StoreEntity createSimpleStore() throws IOException, LognexApiException {
         StoreEntity store = new StoreEntity();
-        store.setName("store_" + randomString(3) + "_" + new Date().getTime());
+        store.setName("store_" + randomStringTail());
         store.setDescription(randomString());
 
         api.entity().store().post(store);
@@ -274,7 +277,7 @@ public class SimpleEntityFactory implements TestRandomizers {
         EmployeeEntity adminEmpl = api.entity().employee().get(filterEq("name", "Администратор")).getRows().get(0);
 
         TaskEntity task = new TaskEntity();
-        task.setDescription("task_" + randomString(3) + "_" + new Date().getTime());
+        task.setDescription("task_" + randomStringTail());
         task.setAssignee(adminEmpl);
         api.entity().task().post(task);
         return task;
@@ -282,7 +285,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public UomEntity createSimpleUom() throws IOException, LognexApiException {
         UomEntity uomEntity = new UomEntity();
-        uomEntity.setName("uom_" + randomString(3) + "_" + new Date().getTime());
+        uomEntity.setName("uom_" + randomStringTail());
         uomEntity.setCode(randomString());
         uomEntity.setExternalCode(randomString());
 
@@ -308,7 +311,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public CashInDocumentEntity createSimpleCashIn() throws IOException, LognexApiException {
         CashInDocumentEntity cashIn = new CashInDocumentEntity();
-        cashIn.setName("cashin_" + randomString(3) + "_" + new Date().getTime());
+        cashIn.setName("cashin_" + randomStringTail());
         cashIn.setDescription(randomString());
         cashIn.setOrganization(getOwnOrganization());
         cashIn.setAgent(createSimpleCounterparty());
@@ -320,7 +323,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public CashOutDocumentEntity createSimpleCashOut() throws IOException, LognexApiException {
         CashOutDocumentEntity cashOut = new CashOutDocumentEntity();
-        cashOut.setName("cashout_" + randomString(3) + "_" + new Date().getTime());
+        cashOut.setName("cashout_" + randomStringTail());
         cashOut.setDescription(randomString());
         cashOut.setOrganization(getOwnOrganization());
         cashOut.setAgent(createSimpleCounterparty());
@@ -333,7 +336,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public CommissionReportInDocumentEntity createSimpleCommissionReportIn() throws IOException, LognexApiException {
         CommissionReportInDocumentEntity commissionReportIn = new CommissionReportInDocumentEntity();
-        commissionReportIn.setName("commissionreportin_" + randomString(3) + "_" + new Date().getTime());
+        commissionReportIn.setName("commissionreportin_" + randomStringTail());
         OrganizationEntity ownOrganization = getOwnOrganization();
         commissionReportIn.setOrganization(ownOrganization);
         CounterpartyEntity agent = createSimpleCounterparty();
@@ -357,7 +360,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public CommissionReportOutDocumentEntity createSimpleCommissionReportOut() throws IOException, LognexApiException {
         CommissionReportOutDocumentEntity commissionReportOut = new CommissionReportOutDocumentEntity();
-        commissionReportOut.setName("commissionreportout_" + randomString(3) + "_" + new Date().getTime());
+        commissionReportOut.setName("commissionreportout_" + randomStringTail());
         OrganizationEntity ownOrganization = getOwnOrganization();
         commissionReportOut.setOrganization(ownOrganization);
         CounterpartyEntity agent = createSimpleCounterparty();
@@ -381,7 +384,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public CustomerOrderDocumentEntity createSimpleCustomerOrder() throws IOException, LognexApiException {
         CustomerOrderDocumentEntity customerOrder = new CustomerOrderDocumentEntity();
-        customerOrder.setName("customerorder_" + randomString(3) + "_" + new Date().getTime());
+        customerOrder.setName("customerorder_" + randomStringTail());
         customerOrder.setDescription(randomString());
         customerOrder.setOrganization(getOwnOrganization());
         customerOrder.setAgent(createSimpleCounterparty());
@@ -393,7 +396,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public DemandDocumentEntity createSimpleDemand() throws IOException, LognexApiException {
         DemandDocumentEntity demand = new DemandDocumentEntity();
-        demand.setName("demand_" + randomString(3) + "_" + new Date().getTime());
+        demand.setName("demand_" + randomStringTail());
         demand.setDescription(randomString());
         demand.setOrganization(getOwnOrganization());
         demand.setAgent(createSimpleCounterparty());
@@ -406,7 +409,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public EnterDocumentEntity createSimpleEnter() throws IOException, LognexApiException {
         EnterDocumentEntity enter = new EnterDocumentEntity();
-        enter.setName("enter_" + randomString(3) + "_" + new Date().getTime());
+        enter.setName("enter_" + randomStringTail());
         enter.setDescription(randomString());
         enter.setOrganization(getOwnOrganization());
         enter.setStore(getMainStore());
@@ -418,7 +421,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public FactureInDocumentEntity createSimpleFactureIn() throws IOException, LognexApiException {
         FactureInDocumentEntity factureIn = new FactureInDocumentEntity();
-        factureIn.setName("facturein_" + randomString(3) + "_" + new Date().getTime());
+        factureIn.setName("facturein_" + randomStringTail());
         factureIn.setIncomingNumber(randomString());
         factureIn.setIncomingDate(LocalDateTime.now());
 
@@ -433,7 +436,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public FactureOutDocumentEntity createSimpleFactureOut() throws IOException, LognexApiException {
         FactureOutDocumentEntity factureOut = new FactureOutDocumentEntity();
-        factureOut.setName("factureout_" + randomString(3) + "_" + new Date().getTime());
+        factureOut.setName("factureout_" + randomStringTail());
         factureOut.setPaymentNumber(randomString());
         factureOut.setPaymentDate(LocalDateTime.now());
 
@@ -448,7 +451,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public InternalOrderDocumentEntity createSimpleInternalOrder() throws IOException, LognexApiException {
         InternalOrderDocumentEntity internalOrder = new InternalOrderDocumentEntity();
-        internalOrder.setName("internalorder_" + randomString(3) + "_" + new Date().getTime());
+        internalOrder.setName("internalorder_" + randomStringTail());
         internalOrder.setDescription(randomString());
         internalOrder.setOrganization(getOwnOrganization());
         internalOrder.setStore(getMainStore());
@@ -460,7 +463,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public InventoryDocumentEntity createSimpleInventory() throws IOException, LognexApiException {
         InventoryDocumentEntity inventory = new InventoryDocumentEntity();
-        inventory.setName("inventory_" + randomString(3) + "_" + new Date().getTime());
+        inventory.setName("inventory_" + randomStringTail());
         inventory.setOrganization(getOwnOrganization());
         inventory.setStore(getMainStore());
 
@@ -471,7 +474,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public InvoiceInDocumentEntity createSimpleInvoiceIn() throws IOException, LognexApiException {
         InvoiceInDocumentEntity invoiceIn = new InvoiceInDocumentEntity();
-        invoiceIn.setName("invoicein_" + randomString(3) + "_" + new Date().getTime());
+        invoiceIn.setName("invoicein_" + randomStringTail());
         invoiceIn.setOrganization(getOwnOrganization());
         invoiceIn.setAgent(createSimpleCounterparty());
 
@@ -482,7 +485,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public InvoiceOutDocumentEntity createSimpleInvoiceOut() throws IOException, LognexApiException {
         InvoiceOutDocumentEntity invoiceOut = new InvoiceOutDocumentEntity();
-        invoiceOut.setName("invoiceout_" + randomString(3) + "_" + new Date().getTime());
+        invoiceOut.setName("invoiceout_" + randomStringTail());
         invoiceOut.setOrganization(getOwnOrganization());
         invoiceOut.setAgent(createSimpleCounterparty());
 
@@ -493,7 +496,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public LossDocumentEntity createSimpleLoss() throws IOException, LognexApiException {
         LossDocumentEntity loss = new LossDocumentEntity();
-        loss.setName("loss_" + randomString(3) + "_" + new Date().getTime());
+        loss.setName("loss_" + randomStringTail());
         loss.setDescription(randomString());
         loss.setOrganization(getOwnOrganization());
         loss.setStore(getMainStore());
@@ -505,7 +508,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public MoveDocumentEntity createSimpleMove() throws IOException, LognexApiException {
         MoveDocumentEntity move = new MoveDocumentEntity();
-        move.setName("move_" + randomString(3) + "_" + new Date().getTime());
+        move.setName("move_" + randomStringTail());
         move.setDescription(randomString());
         move.setOrganization(getOwnOrganization());
         move.setSourceStore(getMainStore());
@@ -518,7 +521,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public PaymentInDocumentEntity createSimplePaymentIn() throws IOException, LognexApiException {
         PaymentInDocumentEntity paymentIn = new PaymentInDocumentEntity();
-        paymentIn.setName("paymentin_" + randomString(3) + "_" + new Date().getTime());
+        paymentIn.setName("paymentin_" + randomStringTail());
         paymentIn.setOrganization(getOwnOrganization());
         paymentIn.setAgent(createSimpleCounterparty());
 
@@ -529,7 +532,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public PaymentOutDocumentEntity createSimplePaymentOut() throws IOException, LognexApiException {
         PaymentOutDocumentEntity paymentOut = new PaymentOutDocumentEntity();
-        paymentOut.setName("paymentout_" + randomString(3) + "_" + new Date().getTime());
+        paymentOut.setName("paymentout_" + randomStringTail());
         paymentOut.setOrganization(getOwnOrganization());
         paymentOut.setAgent(createSimpleCounterparty());
         paymentOut.setExpenseItem(createSimpleExpenseItem());
@@ -541,7 +544,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public PricelistDocumentEntity createSimplePricelist() throws IOException, LognexApiException {
         PricelistDocumentEntity priceList = new PricelistDocumentEntity();
-        priceList.setName("pricelist_" + randomString(3) + "_" + new Date().getTime());
+        priceList.setName("pricelist_" + randomStringTail());
 
         List<PricelistDocumentEntity.ColumnsItem> columns = new ArrayList<>();
         PricelistDocumentEntity.ColumnsItem item = new PricelistDocumentEntity.ColumnsItem();
@@ -568,7 +571,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public ProcessingDocumentEntity createSimpleProcessing() throws IOException, LognexApiException {
         ProcessingDocumentEntity processing = new ProcessingDocumentEntity();
-        processing.setName("processing_" + randomString(3) + "_" + new Date().getTime());
+        processing.setName("processing_" + randomStringTail());
         processing.setOrganization(getOwnOrganization());
 
         processing.setMaterials(new ListEntity<>());
@@ -595,7 +598,7 @@ public class SimpleEntityFactory implements TestRandomizers {
         processing.setProductsStore(store);
 
         ProcessingPlanDocumentEntity processingPlan = new ProcessingPlanDocumentEntity();
-        processingPlan.setName("processingplan_" + randomString(3) + "_" + new Date().getTime());
+        processingPlan.setName("processingplan_" + randomStringTail());
 
         processingPlan.setMaterials(new ListEntity<>());
         processingPlan.getMaterials().setRows(new ArrayList<>());
@@ -621,11 +624,11 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public ProcessingOrderDocumentEntity createSimpleProcessingOrder() throws IOException, LognexApiException {
         ProcessingOrderDocumentEntity processingOrder = new ProcessingOrderDocumentEntity();
-        processingOrder.setName("processingorder_" + randomString(3) + "_" + new Date().getTime());
+        processingOrder.setName("processingorder_" + randomStringTail());
         processingOrder.setOrganization(getOwnOrganization());
 
         ProcessingPlanDocumentEntity processingPlan = new ProcessingPlanDocumentEntity();
-        processingPlan.setName("processingplan_" + randomString(3) + "_" + new Date().getTime());
+        processingPlan.setName("processingplan_" + randomStringTail());
 
         processingPlan.setMaterials(new ListEntity<>());
         processingPlan.getMaterials().setRows(new ArrayList<>());
@@ -660,7 +663,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public ProcessingPlanDocumentEntity createSimpleProcessingPlan() throws IOException, LognexApiException {
         ProcessingPlanDocumentEntity processingPlan = new ProcessingPlanDocumentEntity();
-        processingPlan.setName("processingplan_" + randomString(3) + "_" + new Date().getTime());
+        processingPlan.setName("processingplan_" + randomStringTail());
 
         processingPlan.setMaterials(new ListEntity<>());
         processingPlan.getMaterials().setRows(new ArrayList<>());
@@ -685,7 +688,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public PurchaseOrderDocumentEntity createSimplePurchaseOrder() throws IOException, LognexApiException {
         PurchaseOrderDocumentEntity purchaseOrder = new PurchaseOrderDocumentEntity();
-        purchaseOrder.setName("purchaseorder_" + randomString(3) + "_" + new Date().getTime());
+        purchaseOrder.setName("purchaseorder_" + randomStringTail());
         purchaseOrder.setDescription(randomString());
         purchaseOrder.setOrganization(getOwnOrganization());
         purchaseOrder.setAgent(createSimpleCounterparty());
@@ -697,7 +700,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public PurchaseReturnDocumentEntity createSimplePurchaseReturn() throws IOException, LognexApiException {
         PurchaseReturnDocumentEntity purchaseReturn = new PurchaseReturnDocumentEntity();
-        purchaseReturn.setName("purchasereturn_" + randomString(3) + "_" + new Date().getTime());
+        purchaseReturn.setName("purchasereturn_" + randomStringTail());
         purchaseReturn.setOrganization(getOwnOrganization());
         purchaseReturn.setAgent(createSimpleCounterparty());
         purchaseReturn.setStore(getMainStore());
@@ -709,7 +712,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public RetailDemandDocumentEntity createSimpleRetailDemand() throws IOException, LognexApiException {
         RetailDemandDocumentEntity retailDemand = new RetailDemandDocumentEntity();
-        retailDemand.setName("retaildemand_" + randomString(3) + "_" + new Date().getTime());
+        retailDemand.setName("retaildemand_" + randomStringTail());
         retailDemand.setDescription(randomString());
         retailDemand.setOrganization(getOwnOrganization());
         retailDemand.setAgent(createSimpleCounterparty());
@@ -722,7 +725,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public SalesReturnDocumentEntity createSimpleSalesReturn() throws IOException, LognexApiException {
         SalesReturnDocumentEntity salesReturn = new SalesReturnDocumentEntity();
-        salesReturn.setName("salesreturn_" + randomString(3) + "_" + new Date().getTime());
+        salesReturn.setName("salesreturn_" + randomStringTail());
         salesReturn.setOrganization(getOwnOrganization());
         salesReturn.setAgent(createSimpleCounterparty());
         salesReturn.setStore(getMainStore());
@@ -734,7 +737,7 @@ public class SimpleEntityFactory implements TestRandomizers {
 
     public SupplyDocumentEntity createSimpleSupply() throws IOException, LognexApiException {
         SupplyDocumentEntity supply = new SupplyDocumentEntity();
-        supply.setName("supply_" + randomString(3) + "_" + new Date().getTime());
+        supply.setName("supply_" + randomStringTail());
         supply.setDescription(randomString());
         supply.setOrganization(getOwnOrganization());
         supply.setAgent(createSimpleCounterparty());

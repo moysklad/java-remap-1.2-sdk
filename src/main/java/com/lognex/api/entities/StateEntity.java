@@ -35,6 +35,10 @@ public class StateEntity extends MetaEntity implements Fetchable {
      */
     private Meta.Type entityType;
 
+    public StateEntity(String id) {
+        super(id);
+    }
+
     @Override
     public void fetch(LognexApi api) throws IOException, LognexApiException {
         this.set(

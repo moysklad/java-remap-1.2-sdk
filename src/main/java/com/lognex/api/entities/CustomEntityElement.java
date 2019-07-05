@@ -16,4 +16,11 @@ public class CustomEntityElement extends MetaEntity {
     private String code;
     private String description;
     private String externalCode;
+
+    private String customDictionaryId;
+
+    public CustomEntityElement(String id, String customDictionaryId) {
+        super(id);
+        this.customDictionaryId = customDictionaryId;
+    }
 }

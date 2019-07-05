@@ -5,16 +5,23 @@ import com.lognex.api.entities.documents.DocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.HttpRequestExecutor;
 import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.MetaHrefUtils;
 import com.lognex.api.utils.params.ApiParam;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.lognex.api.utils.Constants.API_PATH;
 
 public interface DocumentPositionsEndpoint extends Endpoint {
     @ApiEndpoint
     default List<DocumentPosition> postPositions(String documentId, List<DocumentPosition> updatedEntities) throws IOException, LognexApiException {
+        updatedEntities = updatedEntities.stream()
+                .map(e -> MetaHrefUtils.fillMeta(e, api().getHost() + API_PATH))
+                .collect(Collectors.toList());
         List<DocumentPosition> responseEntity = HttpRequestExecutor.
                 path(api(), path() + documentId + "/positions/").
                 body(updatedEntities).
@@ -73,6 +80,7 @@ public interface DocumentPositionsEndpoint extends Endpoint {
 
     @ApiEndpoint
     default void putPosition(String documentId, String positionId, DocumentPosition updatedEntity) throws IOException, LognexApiException {
+        MetaHrefUtils.fillMeta(updatedEntity, api().getHost() + API_PATH);
         DocumentPosition responseEntity = HttpRequestExecutor.
                 path(api(), path() + documentId + "/positions/" + positionId).
                 body(updatedEntity).

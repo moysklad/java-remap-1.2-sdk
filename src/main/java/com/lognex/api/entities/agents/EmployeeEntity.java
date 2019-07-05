@@ -4,6 +4,7 @@ import com.lognex.api.entities.AttributeEntity;
 import com.lognex.api.entities.CashierEntity;
 import com.lognex.api.entities.GroupEntity;
 import com.lognex.api.entities.ImageEntity;
+import com.lognex.api.entities.IEntityWithAttributes;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public final class EmployeeEntity extends AgentEntity {
+public final class EmployeeEntity extends AgentEntity implements IEntityWithAttributes {
     private EmployeeEntity owner;
     private Boolean shared;
     private String lastName;
@@ -38,4 +39,8 @@ public final class EmployeeEntity extends AgentEntity {
     private ImageEntity image;
     private String inn;
     private String position;
+
+    public EmployeeEntity(String id) {
+        super(id);
+    }
 }

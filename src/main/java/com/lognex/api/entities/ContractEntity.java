@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ContractEntity extends MetaEntity {
+public class ContractEntity extends MetaEntity implements IEntityWithAttributes {
     /**
      * Ссылка на Владельца (Сотрудника) в формате Метаданных
      */
@@ -116,6 +116,10 @@ public class ContractEntity extends MetaEntity {
      * Коллекция доп. полей
      */
     private List<AttributeEntity> attributes;
+
+    public ContractEntity(String id) {
+        super(id);
+    }
 
     /**
      * Тип Договора

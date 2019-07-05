@@ -28,31 +28,31 @@ public class ProductMarkerSerializerTest implements TestAsserts, TestRandomizers
         ProductMarker e = new ProductEntity();
         ProductEntity epe = ((ProductEntity) e);
         epe.setMeta(new Meta());
-        epe.getMeta().setType(Meta.Type.product);
+        epe.getMeta().setType(Meta.Type.PRODUCT);
         epe.setThings(Arrays.asList("1", "2", "3", "4"));
 
-        assertEquals("{\"things\":[\"1\",\"2\",\"3\",\"4\"],\"meta\":{\"type\":\"product\"}}", gson.toJson(e));
+        assertEquals("{\"things\":[\"1\",\"2\",\"3\",\"4\"],\"meta\":{\"type\":\"PRODUCT\"}}", gson.toJson(e));
         assertEquals("{\"things\":[\"1\",\"2\",\"3\",\"4\"],\"meta\":{\"type\":\"product\"}}", gsonCustom.toJson(e));
     }
 
     @Test
     public void test_deserializeProduct() throws IllegalAccessException, InstantiationException {
-        deserializationTest(ProductEntity.class, Meta.Type.product);
+        deserializationTest(ProductEntity.class, Meta.Type.PRODUCT);
     }
 
     @Test
     public void test_deserializeBundle() throws IllegalAccessException, InstantiationException {
-        deserializationTest(BundleEntity.class, Meta.Type.bundle);
+        deserializationTest(BundleEntity.class, Meta.Type.BUNDLE);
     }
 
     @Test
     public void test_deserializeVariant() throws IllegalAccessException, InstantiationException {
-        deserializationTest(VariantEntity.class, Meta.Type.variant);
+        deserializationTest(VariantEntity.class, Meta.Type.VARIANT);
     }
 
     @Test
     public void test_deserializeService() throws IllegalAccessException, InstantiationException {
-        deserializationTest(ServiceEntity.class, Meta.Type.service);
+        deserializationTest(ServiceEntity.class, Meta.Type.SERVICE);
     }
 
     private void deserializationTest(Class<? extends ProductMarker> cl, Meta.Type metaType) throws InstantiationException, IllegalAccessException {
@@ -65,7 +65,7 @@ public class ProductMarkerSerializerTest implements TestAsserts, TestRandomizers
         epe.getMeta().setType(metaType);
         epe.getMeta().setHref(randomString());
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
 
         try {
             gson.fromJson(data, ProductMarker.class);

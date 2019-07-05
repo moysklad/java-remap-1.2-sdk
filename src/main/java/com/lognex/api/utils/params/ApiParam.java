@@ -13,13 +13,13 @@ public abstract class ApiParam {
         this.type = type;
     }
 
-    public static String renderStringQueryFromList(Type type, List<ApiParam> list) {
+    public static String renderStringQueryFromList(Type type, List<ApiParam> list, String host) {
         return list.stream().
-                map(ApiParam::render).
+                map(f -> f.render(host)).
                 collect(Collectors.joining(type.separator));
     }
 
-    protected abstract String render();
+    protected abstract String render(String host);
 
     public enum Type {
         filter(";"),
@@ -27,7 +27,9 @@ public abstract class ApiParam {
         limit,
         offset,
         search,
-        order(";");
+        order(";"),
+        attributeFilter(";"),
+        hrefFilter(";");
 
         @Getter
         private final String separator;

@@ -4,6 +4,7 @@ import com.lognex.api.entities.AccountEntity;
 import com.lognex.api.entities.AttributeEntity;
 import com.lognex.api.entities.CompanyType;
 import com.lognex.api.entities.GroupEntity;
+import com.lognex.api.entities.IEntityWithAttributes;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,7 +21,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public final class OrganizationEntity extends AgentEntity {
+public final class OrganizationEntity extends AgentEntity implements IEntityWithAttributes {
     /**
      * Ссылка на Владельца (Сотрудника) в формате Метаданных
      */
@@ -146,4 +147,8 @@ public final class OrganizationEntity extends AgentEntity {
     private String fsrarId;
     private String utmUrl;
     private String actualAddress;
+
+    public OrganizationEntity(String id) {
+        super(id);
+    }
 }

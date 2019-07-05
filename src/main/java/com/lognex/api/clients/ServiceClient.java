@@ -15,7 +15,8 @@ public final class ServiceClient
         MetadataEndpoint<MetadataAttributeResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<ServiceEntity>,
-        PutByIdEndpoint<ServiceEntity> {
+        PutByIdEndpoint<ServiceEntity>,
+        GetBySyncIdEndpoint<ServiceEntity> {
 
     public ServiceClient(LognexApi api) {
         super(api, "/entity/service/");

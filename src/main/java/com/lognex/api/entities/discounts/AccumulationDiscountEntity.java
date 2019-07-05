@@ -19,6 +19,10 @@ public class AccumulationDiscountEntity extends DiscountEntity {
     private List<ProductFolderEntity> productFolders;
     public List<AccumulationLevel> levels;
 
+    public AccumulationDiscountEntity(String id) {
+        super(id);
+    }
+
     @Getter
     @Setter
     @NoArgsConstructor

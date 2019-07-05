@@ -20,7 +20,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ProductEntity extends AbstractProductEntity implements SingleProductMarker, ConsignmentParentMarker {
+public class ProductEntity extends AbstractProductEntity implements SingleProductMarker, ConsignmentParentMarker, IEntityWithAttributes {
     /**
      * Сотрудник-владелец
      */

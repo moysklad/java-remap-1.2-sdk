@@ -19,7 +19,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public final class CounterpartyEntity extends AgentEntity {
+public final class CounterpartyEntity extends AgentEntity implements IEntityWithAttributes {
     /**
      * Владелец
      */
@@ -189,6 +189,10 @@ public final class CounterpartyEntity extends AgentEntity {
      * Цена
      */
     private String priceType;
+
+    public CounterpartyEntity(String id) {
+        super(id);
+    }
 
     /**
      * Скидка

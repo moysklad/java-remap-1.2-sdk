@@ -84,7 +84,8 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
             products.add(product);
 
             position.setAssortment(product);
-            position.setQuantity(randomDouble(1, 5, 3));
+            DecimalFormat df = new DecimalFormat("#.###");
+            position.setQuantity(Double.valueOf(df.format(randomDouble(1, 5, 3))));
 
             positions.add(position);
         }
@@ -123,7 +124,8 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
             products.add(product);
 
             position.setAssortment(product);
-            position.setQuantity(randomDouble(1, 5, 3));
+            DecimalFormat df = new DecimalFormat("#.###");
+            position.setQuantity(Double.valueOf(df.format(randomDouble(1, 5, 3))));
 
             positions.add(position);
         }

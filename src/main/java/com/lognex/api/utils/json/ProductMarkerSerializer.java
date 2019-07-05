@@ -16,7 +16,7 @@ import java.lang.reflect.Type;
  * возвращает экземпляр одного из классов: Product, Service, Bundle, Variant
  */
 public class ProductMarkerSerializer implements JsonSerializer<ProductMarker>, JsonDeserializer<ProductMarker> {
-    private final Gson gson = new GsonBuilder().create();
+    private final Gson gson = JsonUtils.createGsonWithMetaAdapter();
 
     @Override
     public JsonElement serialize(ProductMarker src, Type typeOfSrc, JsonSerializationContext context) {
@@ -32,19 +32,19 @@ public class ProductMarkerSerializer implements JsonSerializer<ProductMarker>, J
             throw new JsonParseException("Can't parse field 'product': meta.type is null");
 
         switch (me.getMeta().getType()) {
-            case product:
+            case PRODUCT:
                 return context.deserialize(json, ProductEntity.class);
 
-            case service:
+            case SERVICE:
                 return context.deserialize(json, ServiceEntity.class);
 
-            case bundle:
+            case BUNDLE:
                 return context.deserialize(json, BundleEntity.class);
 
-            case variant:
+            case VARIANT:
                 return context.deserialize(json, VariantEntity.class);
 
-            case consignment:
+            case CONSIGNMENT:
                 return context.deserialize(json, ConsignmentEntity.class);
 
             default:

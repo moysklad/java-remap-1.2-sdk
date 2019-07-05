@@ -10,4 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class PersonalDiscountEntity extends DiscountEntity {
+    public PersonalDiscountEntity(String id) {
+        super(id);
+    }
 }

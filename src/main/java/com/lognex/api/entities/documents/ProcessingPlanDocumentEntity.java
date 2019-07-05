@@ -24,6 +24,10 @@ public class ProcessingPlanDocumentEntity extends DocumentEntity {
     private LocalDateTime deleted;
     private GroupEntity parent;
 
+    public ProcessingPlanDocumentEntity(String id) {
+        super(id);
+    }
+
     @Getter
     @Setter
     @NoArgsConstructor

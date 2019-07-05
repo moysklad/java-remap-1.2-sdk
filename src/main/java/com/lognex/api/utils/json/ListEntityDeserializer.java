@@ -37,11 +37,11 @@ public class ListEntityDeserializer implements JsonDeserializer<ListEntity> {
                     Class<? extends MetaEntity> metaClass = MetaEntity.class;
 
                     try {
-                        Meta.Type metaType = Meta.Type.valueOf(((JsonObject) row).get("meta").getAsJsonObject().get("type").getAsString());
+                        Meta.Type metaType = Meta.Type.find(((JsonObject) row).get("meta").getAsJsonObject().get("type").getAsString());
 
                         switch (metaType) {
-                            case demandposition:
-                            case supplyposition:
+                            case DEMAND_POSITION:
+                            case SUPPLY_POSITION:
                                 metaClass = DocumentPosition.class;
                                 break;
                         }

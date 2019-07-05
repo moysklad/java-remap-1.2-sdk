@@ -10,6 +10,8 @@ import com.lognex.api.utils.HttpRequestExecutor;
 import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public final class CustomEntityClient
         extends ApiClient
@@ -35,21 +37,32 @@ public final class CustomEntityClient
                 post(CustomEntityElement.class);
 
          customEntityElement.set(responseEntity);
+         customEntityElement.setCustomDictionaryId(customEntityMetadataId);
          return customEntityElement;
     }
 
     @ApiEndpoint
     public CustomEntityElement getCustomEntityElement(String customEntityMetadataId, String customEntityId) throws IOException, LognexApiException {
-        return HttpRequestExecutor.
+        CustomEntityElement customEntityElement = HttpRequestExecutor.
                 path(api(), path() + customEntityMetadataId + "/" + customEntityId).
                 get(CustomEntityElement.class);
+
+        customEntityElement.setCustomDictionaryId(customEntityMetadataId);
+        return customEntityElement;
     }
 
     @ApiEndpoint
     public ListEntity<CustomEntityElement> getCustomEntityElements(String customEntityMetadataId) throws IOException, LognexApiException {
-        return HttpRequestExecutor.
+        ListEntity<CustomEntityElement> customEntityElements = HttpRequestExecutor.
                 path(api(), path() + customEntityMetadataId).
                 list(CustomEntityElement.class);
+
+        List<CustomEntityElement> elementsList = customEntityElements.getRows();
+        if (elementsList != null) {
+            elementsList = elementsList.stream().peek(c -> c.setCustomDictionaryId(customEntityMetadataId)).collect(Collectors.toList());
+            customEntityElements.setRows(elementsList);
+        }
+        return customEntityElements;
     }
 
     @ApiEndpoint
@@ -65,6 +78,7 @@ public final class CustomEntityClient
                 put(CustomEntityElement.class);
 
         updatedEntity.set(responseEntity);
+        updatedEntity.setCustomDictionaryId(customEntityMetadataId);
         return updatedEntity;
     }
 

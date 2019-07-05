@@ -19,7 +19,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class EnterDocumentEntity extends DocumentEntity {
+public class EnterDocumentEntity extends DocumentEntity implements IEntityWithAttributes {
     private LocalDateTime created;
     private LocalDateTime deleted;
     private String description;
@@ -34,4 +34,8 @@ public class EnterDocumentEntity extends DocumentEntity {
     private ProjectEntity project;
     private List<AttributeEntity> attributes;
     private Overhead overhead;
+
+    public EnterDocumentEntity(String id) {
+        super(id);
+    }
 }

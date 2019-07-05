@@ -52,6 +52,10 @@ public class ImageEntity extends MetaEntity {
      */
     private MetaEntity tiny;
 
+    public ImageEntity(String id) {
+        super(id);
+    }
+
     /**
      * Считывает файл и заполняет поля <pre>filename</pre> и <pre>content</pre>.
      * Нужно для упрощения загрузки изображения.

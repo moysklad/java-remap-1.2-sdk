@@ -1,6 +1,7 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.AttributeEntity;
+import com.lognex.api.entities.IEntityWithAttributes;
 import com.lognex.api.entities.RateEntity;
 import com.lognex.api.entities.StateEntity;
 import com.lognex.api.entities.agents.AgentEntity;
@@ -18,7 +19,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class RetailDrawerCashOutEntity extends DocumentEntity {
+public class RetailDrawerCashOutEntity extends DocumentEntity implements IEntityWithAttributes {
     private AgentEntity agent;
     private LocalDateTime created;
     private String description;
@@ -31,4 +32,8 @@ public class RetailDrawerCashOutEntity extends DocumentEntity {
     private LocalDateTime deleted;
     private StateEntity state;
     private List<AttributeEntity> attributes;
+
+    public RetailDrawerCashOutEntity(String id) {
+        super(id);
+    }
 }

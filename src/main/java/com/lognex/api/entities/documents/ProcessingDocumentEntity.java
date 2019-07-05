@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ProcessingDocumentEntity extends DocumentEntity {
+public class ProcessingDocumentEntity extends DocumentEntity implements IEntityWithAttributes {
     private LocalDateTime created;
     private ListEntity<DocumentEntity> documents;
     private String externalCode;
@@ -35,4 +35,8 @@ public class ProcessingDocumentEntity extends DocumentEntity {
     private List<AttributeEntity> attributes;
     private ProjectEntity project;
     private ProcessingOrderDocumentEntity processingOrder;
+
+    public ProcessingDocumentEntity(String id) {
+        super(id);
+    }
 }

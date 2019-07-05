@@ -27,4 +27,8 @@ public class LossDocumentEntity extends DocumentEntity {
     private StateEntity state;
     private StoreEntity store;
     private SalesReturnDocumentEntity salesReturn;
+
+    public LossDocumentEntity(String id) {
+        super(id);
+    }
 }

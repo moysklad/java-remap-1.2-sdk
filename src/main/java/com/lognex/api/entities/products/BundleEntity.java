@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class BundleEntity extends AbstractProductEntity {
+public class BundleEntity extends AbstractProductEntity implements IEntityWithAttributes {
     /**
      * Ссылка на Владельца (Сотрудника) в формате Метаданных
      */

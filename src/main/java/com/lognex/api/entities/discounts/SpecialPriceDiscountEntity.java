@@ -18,6 +18,10 @@ public class SpecialPriceDiscountEntity extends DiscountEntity {
     private SpecialPriceData specialPrice;
     private List<ProductFolderEntity> productFolders;
 
+    public SpecialPriceDiscountEntity(String id) {
+        super(id);
+    }
+
     @Getter
     @Setter
     @NoArgsConstructor

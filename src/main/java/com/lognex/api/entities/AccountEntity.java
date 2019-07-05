@@ -56,4 +56,8 @@ public class AccountEntity extends MetaEntity {
      * Ссылка на юрлицо
      */
     private AgentEntity agent;
+
+    public AccountEntity(String id) {
+        super(id);
+    }
 }

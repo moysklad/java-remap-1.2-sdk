@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class RetailDemandDocumentEntity extends DocumentEntity {
+public class RetailDemandDocumentEntity extends DocumentEntity implements IEntityWithAttributes {
     private AgentEntity agent;
     private Long cashSum;
     private LocalDateTime created;
@@ -47,4 +47,8 @@ public class RetailDemandDocumentEntity extends DocumentEntity {
     private String sessionNumber;
     private String ofdCode;
     private CustomerOrderDocumentEntity customerOrder;
+
+    public RetailDemandDocumentEntity(String id) {
+        super(id);
+    }
 }

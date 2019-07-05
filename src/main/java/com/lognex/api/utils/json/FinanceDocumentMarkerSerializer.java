@@ -16,7 +16,7 @@ import java.lang.reflect.Type;
  * PaymentOutDocumentEntity
  */
 public class FinanceDocumentMarkerSerializer implements JsonSerializer<FinanceDocumentMarker>, JsonDeserializer<FinanceDocumentMarker> {
-    private final Gson gson = new GsonBuilder().create();
+    private final Gson gson = JsonUtils.createGsonWithMetaAdapter();
 
     @Override
     public JsonElement serialize(FinanceDocumentMarker src, Type typeOfSrc, JsonSerializationContext context) {
@@ -32,16 +32,16 @@ public class FinanceDocumentMarkerSerializer implements JsonSerializer<FinanceDo
             throw new JsonParseException("Can't parse field 'payments': meta.type is null");
 
         switch (me.getMeta().getType()) {
-            case cashin:
+            case CASH_IN:
                 return context.deserialize(json, CashInDocumentEntity.class);
 
-            case cashout:
+            case CASH_OUT:
                 return context.deserialize(json, CashOutDocumentEntity.class);
 
-            case paymentin:
+            case PAYMENT_IN:
                 return context.deserialize(json, PaymentInDocumentEntity.class);
 
-            case paymentout:
+            case PAYMENT_OUT:
                 return context.deserialize(json, PaymentOutDocumentEntity.class);
 
             default:

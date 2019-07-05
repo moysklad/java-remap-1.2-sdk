@@ -21,7 +21,7 @@ public class DiscountEntityTest extends EntityTestBase {
     public void getDiscountTest() throws IOException, LognexApiException {
         ListEntity<DiscountEntity> discountList = api.entity().discount().get();
         assertEquals(1, discountList.getRows().size());
-        assertEquals(Meta.Type.discount, discountList.getRows().get(0).getMeta().getType());
+        assertEquals(Meta.Type.DISCOUNT, discountList.getRows().get(0).getMeta().getType());
         assertEquals("Округление копеек", discountList.getRows().get(0).getName());
     }
 
@@ -33,7 +33,7 @@ public class DiscountEntityTest extends EntityTestBase {
                 TestUtils.getFile("discountJson/specialdiscount.json"), SpecialPriceDiscountEntity.class
         );
 
-        assertEquals(Meta.Type.specialpricediscount, specialPriceDiscount.getMeta().getType());
+        assertEquals(Meta.Type.SPECIAL_PRICE_DISCOUNT, specialPriceDiscount.getMeta().getType());
         assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/specialpricediscount/96673f4d-9f4d-11e6-8af5-581e0000007b",
                 specialPriceDiscount.getMeta().getHref()
         );
@@ -58,7 +58,7 @@ public class DiscountEntityTest extends EntityTestBase {
                 TestUtils.getFile("discountJson/specialprice.json"), SpecialPriceDiscountEntity.class
         );
 
-        assertEquals(Meta.Type.specialpricediscount, specialPriceDiscount.getMeta().getType());
+        assertEquals(Meta.Type.SPECIAL_PRICE_DISCOUNT, specialPriceDiscount.getMeta().getType());
         assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/specialpricediscount/bd1235f2-9c60-11e6-8af5-581e00000009",
                 specialPriceDiscount.getMeta().getHref()
         );
@@ -87,7 +87,7 @@ public class DiscountEntityTest extends EntityTestBase {
                 TestUtils.getFile("discountJson/personaldiscount.json"), PersonalDiscountEntity.class
         );
 
-        assertEquals(Meta.Type.personaldiscount, personalDiscount.getMeta().getType());
+        assertEquals(Meta.Type.PERSONAL_DISCOUNT, personalDiscount.getMeta().getType());
         assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/personaldiscount/0623d6b4-9ceb-11e6-8af5-581e00000003",
                 personalDiscount.getMeta().getHref()
         );
@@ -105,7 +105,7 @@ public class DiscountEntityTest extends EntityTestBase {
                 TestUtils.getFile("discountJson/accumulationdiscount.json"), AccumulationDiscountEntity.class
         );
 
-        assertEquals(Meta.Type.accumulationdiscount, accumulationDiscount.getMeta().getType());
+        assertEquals(Meta.Type.ACCUMULATION_DISCOUNT, accumulationDiscount.getMeta().getType());
         assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/accumulationdiscount/dce08f7f-9a09-11e6-8af5-581e0000007e",
                 accumulationDiscount.getMeta().getHref()
         );

@@ -79,6 +79,10 @@ public class CurrencyEntity extends MetaEntity implements Fetchable {
     @SerializedName("default")
     private Boolean def;
 
+    public CurrencyEntity(String id) {
+        super(id);
+    }
+
     @Getter
     @Setter
     @NoArgsConstructor

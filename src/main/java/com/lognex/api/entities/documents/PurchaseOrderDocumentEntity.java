@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class PurchaseOrderDocumentEntity extends DocumentEntity {
+public class PurchaseOrderDocumentEntity extends DocumentEntity implements IEntityWithAttributes {
     private AgentEntity agent;
     private ContractEntity contract;
     private LocalDateTime created;
@@ -48,4 +48,8 @@ public class PurchaseOrderDocumentEntity extends DocumentEntity {
     private List<FinanceDocumentMarker> payments;
     private List<SupplyDocumentEntity> supplies;
     private InternalOrderDocumentEntity internalOrder;
+
+    public PurchaseOrderDocumentEntity(String id) {
+        super(id);
+    }
 }

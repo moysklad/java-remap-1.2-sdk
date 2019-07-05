@@ -17,4 +17,8 @@ public class ExpenseItemEntity extends MetaEntity {
     private String externalCode;
     private String description;
     private LocalDateTime updated;
+
+    public ExpenseItemEntity(String id) {
+        super(id);
+    }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class CashInDocumentEntity extends DocumentEntity implements FinanceInDocumentMarker {
+public class CashInDocumentEntity extends DocumentEntity implements FinanceInDocumentMarker, IEntityWithAttributes {
     private AgentEntity agent;
     private LocalDateTime created;
     private ListEntity<DocumentEntity> documents;
@@ -35,4 +35,8 @@ public class CashInDocumentEntity extends DocumentEntity implements FinanceInDoc
     private List<AttributeEntity> attributes;
     private List<MetaEntity> operations;
     private FactureOutDocumentEntity factureOut;
+
+    public CashInDocumentEntity(String id) {
+        super(id);
+    }
 }

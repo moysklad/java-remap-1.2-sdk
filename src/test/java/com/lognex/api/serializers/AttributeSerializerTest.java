@@ -181,10 +181,10 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
         Gson gsonCustom = LognexApi.createGson();
 
         AttributeEntity e = new AttributeEntity();
-        e.setEntityType(Meta.Type.product);
+        e.setEntityType(Meta.Type.PRODUCT);
         ProductEntity pr = new ProductEntity();
         pr.setMeta(new Meta());
-        pr.getMeta().setType(Meta.Type.product);
+        pr.getMeta().setType(Meta.Type.PRODUCT);
         pr.setName("PRODUCT");
         e.setValue(pr);
 
@@ -192,7 +192,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
 
         assertEquals("{\"value\":{\"name\":\"PRODUCT\",\"meta\":{\"type\":\"product\"}},\"type\":\"product\"}", data);
         AttributeEntity parsed = gsonCustom.fromJson(data, AttributeEntity.class);
-        assertEquals(Meta.Type.product, parsed.getEntityType());
+        assertEquals(Meta.Type.PRODUCT, parsed.getEntityType());
         assertNull(parsed.getType());
         assertEquals(ProductEntity.class, parsed.getValue().getClass());
         assertEquals("PRODUCT", parsed.getValueAs(ProductEntity.class).getName());
@@ -203,10 +203,10 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
         Gson gsonCustom = LognexApi.createGson();
 
         AttributeEntity e = new AttributeEntity();
-        e.setEntityType(Meta.Type.customentity);
+        e.setEntityType(Meta.Type.CUSTOM_ENTITY);
         CustomEntity ce = new CustomEntity();
         ce.setMeta(new Meta());
-        ce.getMeta().setType(Meta.Type.customentity);
+        ce.getMeta().setType(Meta.Type.CUSTOM_ENTITY);
         ce.setName("CUSTOM VALUE");
         e.setValue(ce);
 
@@ -214,7 +214,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
 
         assertEquals("{\"value\":{\"name\":\"CUSTOM VALUE\",\"meta\":{\"type\":\"customentity\"}},\"type\":\"customentity\"}", data);
         AttributeEntity parsed = gsonCustom.fromJson(data, AttributeEntity.class);
-        assertEquals(Meta.Type.customentity, parsed.getEntityType());
+        assertEquals(Meta.Type.CUSTOM_ENTITY, parsed.getEntityType());
         assertNull(parsed.getType());
         assertEquals(CustomEntity.class, parsed.getValue().getClass());
         assertEquals("CUSTOM VALUE", parsed.getValueAs(CustomEntity.class).getName());

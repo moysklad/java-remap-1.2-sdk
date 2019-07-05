@@ -18,4 +18,8 @@ public class NoteEntity extends MetaEntity {
     private String description;
     private AgentEntity agent;
     private EmployeeEntity author;
+
+    public NoteEntity(String id) {
+        super(id);
+    }
 }

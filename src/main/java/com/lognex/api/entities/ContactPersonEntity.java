@@ -20,4 +20,8 @@ public class ContactPersonEntity extends MetaEntity {
     private String phone;
     private String position;
     private AgentEntity agent;
+
+    public ContactPersonEntity(String id) {
+        super(id);
+    }
 }

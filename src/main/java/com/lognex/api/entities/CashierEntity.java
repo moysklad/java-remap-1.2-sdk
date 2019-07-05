@@ -13,4 +13,8 @@ import lombok.Setter;
 public class CashierEntity extends MetaEntity {
     private EmployeeEntity employee;
     private RetailStoreEntity retailStore;
+
+    public CashierEntity(String id) {
+        super(id);
+    }
 }

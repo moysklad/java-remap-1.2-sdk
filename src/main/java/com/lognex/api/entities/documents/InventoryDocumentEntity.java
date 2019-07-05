@@ -18,4 +18,8 @@ public class InventoryDocumentEntity extends DocumentEntity {
     private OrganizationEntity organization;
     private ListEntity<DocumentPosition> positions;
     private StoreEntity store;
+
+    public InventoryDocumentEntity(String id) {
+        super(id);
+    }
 }

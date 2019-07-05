@@ -21,9 +21,9 @@ public class DiscountsDeserializerTest implements TestAsserts, TestRandomizers {
 
         DiscountEntity e = new AccumulationDiscountEntity();
         e.setMeta(new Meta());
-        e.getMeta().setType(Meta.Type.accumulationdiscount);
+        e.getMeta().setType(Meta.Type.ACCUMULATION_DISCOUNT);
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
         DiscountEntity parsed = gsonCustom.fromJson(data, DiscountEntity.class);
         assertEquals(AccumulationDiscountEntity.class, parsed.getClass());
     }
@@ -35,9 +35,9 @@ public class DiscountsDeserializerTest implements TestAsserts, TestRandomizers {
 
         DiscountEntity e = new BonusProgramDiscountEntity();
         e.setMeta(new Meta());
-        e.getMeta().setType(Meta.Type.bonusprogram);
+        e.getMeta().setType(Meta.Type.BONUS_PROGRAM);
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
         DiscountEntity parsed = gsonCustom.fromJson(data, DiscountEntity.class);
         assertEquals(BonusProgramDiscountEntity.class, parsed.getClass());
     }
@@ -49,9 +49,9 @@ public class DiscountsDeserializerTest implements TestAsserts, TestRandomizers {
 
         DiscountEntity e = new DiscountEntity();
         e.setMeta(new Meta());
-        e.getMeta().setType(Meta.Type.discount);
+        e.getMeta().setType(Meta.Type.DISCOUNT);
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
         DiscountEntity parsed = gsonCustom.fromJson(data, DiscountEntity.class);
         assertEquals(DiscountEntity.class, parsed.getClass());
     }
@@ -63,9 +63,9 @@ public class DiscountsDeserializerTest implements TestAsserts, TestRandomizers {
 
         DiscountEntity e = new PersonalDiscountEntity();
         e.setMeta(new Meta());
-        e.getMeta().setType(Meta.Type.personaldiscount);
+        e.getMeta().setType(Meta.Type.PERSONAL_DISCOUNT);
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
         DiscountEntity parsed = gsonCustom.fromJson(data, DiscountEntity.class);
         assertEquals(PersonalDiscountEntity.class, parsed.getClass());
     }
@@ -77,9 +77,9 @@ public class DiscountsDeserializerTest implements TestAsserts, TestRandomizers {
 
         DiscountEntity e = new SpecialPriceDiscountEntity();
         e.setMeta(new Meta());
-        e.getMeta().setType(Meta.Type.specialpricediscount);
+        e.getMeta().setType(Meta.Type.SPECIAL_PRICE_DISCOUNT);
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
         DiscountEntity parsed = gsonCustom.fromJson(data, DiscountEntity.class);
         assertEquals(SpecialPriceDiscountEntity.class, parsed.getClass());
     }
@@ -91,7 +91,7 @@ public class DiscountsDeserializerTest implements TestAsserts, TestRandomizers {
 
         DiscountEntity e = new DiscountEntity();
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
 
         try {
             gsonCustom.fromJson(data, DiscountEntity.class);
@@ -112,7 +112,7 @@ public class DiscountsDeserializerTest implements TestAsserts, TestRandomizers {
         DiscountEntity e = new DiscountEntity();
         e.setMeta(new Meta());
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
 
         try {
             gsonCustom.fromJson(data, DiscountEntity.class);
@@ -132,9 +132,9 @@ public class DiscountsDeserializerTest implements TestAsserts, TestRandomizers {
 
         DiscountEntity e = new DiscountEntity();
         e.setMeta(new Meta());
-        e.getMeta().setType(Meta.Type.product);
+        e.getMeta().setType(Meta.Type.PRODUCT);
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
 
         try {
             gsonCustom.fromJson(data, DiscountEntity.class);

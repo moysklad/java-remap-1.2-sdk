@@ -2,11 +2,16 @@ package com.lognex.api;
 
 import com.lognex.api.entities.GlobalMetadataEntity;
 import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.StoreEntity;
 import com.lognex.api.entities.UomEntity;
 import com.lognex.api.entities.agents.CounterpartyEntity;
+import com.lognex.api.entities.agents.OrganizationEntity;
+import com.lognex.api.entities.documents.InventoryDocumentEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.LognexApiException;
 import com.lognex.api.utils.RequestLogHttpClient;
+import com.lognex.api.utils.TestRandomizers;
+import com.lognex.api.utils.params.HrefFilterParam;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +19,9 @@ import org.junit.Test;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -29,7 +36,7 @@ import static com.lognex.api.utils.params.OrderParam.order;
 import static com.lognex.api.utils.params.SearchParam.search;
 import static org.junit.Assert.*;
 
-public class ApiParamsTest {
+public class ApiParamsTest implements TestRandomizers {
     private LognexApi api;
     private RequestLogHttpClient logHttpClient;
     private String host;
@@ -214,6 +221,38 @@ public class ApiParamsTest {
     }
 
     @Test
+    public void test_hrefFilter() throws IOException, LognexApiException {
+        InventoryDocumentEntity inventory = new InventoryDocumentEntity();
+        inventory.setName("HrefFilter_inventory_" + randomStringTail());
+
+        StoreEntity store = new StoreEntity();
+        store.setName("HrefFilter_store_" + randomStringTail());
+        store = api.entity().store().post(store);
+        inventory.setStore(store);
+
+        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+        Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
+                min(Comparator.comparing(OrganizationEntity::getCreated));
+        OrganizationEntity organizationEntity;
+        if (orgOptional.isPresent()) {
+            organizationEntity = orgOptional.get();
+        } else {
+            throw new IllegalStateException("Не удалось получить первое созданное юрлицо");
+        }
+        inventory.setOrganization(organizationEntity);
+
+        inventory = api.entity().inventory().post(inventory);
+
+        ListEntity<InventoryDocumentEntity> inventoryWithFilter = api.entity().inventory().get(HrefFilterParam.filterEq("store", new StoreEntity(store.getId())));
+        assertEquals(1, inventoryWithFilter.getRows().size());
+        assertEquals(inventory.getName(), inventoryWithFilter.getRows().get(0).getName());
+        assertNotNull(inventoryWithFilter.getRows().get(0).getStore());
+        assertEquals(host + "/api/remap/1.2/entity/inventory/?filter=store" +
+                        URLEncoder.encode("=" + host + "/api/remap/1.2/entity/store/" + store.getId(), "UTF-8"),
+                logHttpClient.getLastExecutedRequest().getRequestLine().getUri());
+    }
+
+    @Test
     public void test_limitOffset() throws IOException, LognexApiException {
         ListEntity<UomEntity> uomPlain = api.entity().uom().get();
         int actualSize = uomPlain.getMeta().getSize();
@@ -317,7 +356,8 @@ public class ApiParamsTest {
         ListEntity<UomEntity> uomPlain = api.entity().uom().get(limit(100));
         ListEntity<UomEntity> uomSearch = api.entity().uom().get(search("мил"));
 
-        Predicate<UomEntity> searchPredicate = o -> o.getName().toLowerCase().contains("мил") || o.getDescription().toLowerCase().contains("мил");
+        Predicate<UomEntity> searchPredicate = o -> o.getName().toLowerCase().contains("мил")
+                || (o.getDescription() != null && o.getDescription().toLowerCase().contains("мил"));
         assertTrue(uomSearch.getRows().stream().allMatch(searchPredicate));
         assertEquals(uomPlain.getRows().stream().filter(searchPredicate).count(), uomSearch.getRows().size());
         assertEquals(

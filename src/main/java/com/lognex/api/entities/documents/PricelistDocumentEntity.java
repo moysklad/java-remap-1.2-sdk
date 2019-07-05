@@ -47,6 +47,10 @@ public class PricelistDocumentEntity extends DocumentEntity {
      */
     private List<ColumnsItem> columns;
 
+    public PricelistDocumentEntity(String id) {
+        super(id);
+    }
+
     @Getter
     @Setter
     @NoArgsConstructor

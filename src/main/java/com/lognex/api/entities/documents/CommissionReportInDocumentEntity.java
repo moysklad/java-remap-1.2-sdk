@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class CommissionReportInDocumentEntity extends DocumentEntity {
+public class CommissionReportInDocumentEntity extends DocumentEntity implements IEntityWithAttributes {
     private AgentEntity agent;
     private LocalDateTime commissionPeriodEnd;
     private LocalDateTime commissionPeriodStart;
@@ -44,4 +44,8 @@ public class CommissionReportInDocumentEntity extends DocumentEntity {
     private AccountEntity agentAccount;
     private List<AttributeEntity> attributes;
     private List<FinanceDocumentMarker> payments;
+
+    public CommissionReportInDocumentEntity(String id) {
+        super(id);
+    }
 }

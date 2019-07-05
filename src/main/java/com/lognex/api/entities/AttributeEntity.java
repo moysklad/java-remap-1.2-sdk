@@ -40,6 +40,16 @@ public class AttributeEntity extends MetaEntity {
      */
     private Meta download;
 
+    public AttributeEntity(String id) {
+        super(id);
+    }
+
+    public AttributeEntity(String id, Type type, Object value){
+        super(id);
+        this.type = type;
+        this.value = value;
+    }
+
     /**
      * Тип дополнительного поля
      */

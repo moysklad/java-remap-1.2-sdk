@@ -33,4 +33,8 @@ public class DiscountEntity extends MetaEntity {
      * Товары и услуги, которые были выбраны для применения скидки (если применяется не ко всем товарам)
      */
     private List<ProductMarker> assortment;
+
+    public DiscountEntity(String id) {
+        super(id);
+    }
 }

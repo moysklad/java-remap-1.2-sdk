@@ -10,4 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class GroupEntity extends MetaEntity {
+    public GroupEntity(String id) {
+        super(id);
+    }
 }

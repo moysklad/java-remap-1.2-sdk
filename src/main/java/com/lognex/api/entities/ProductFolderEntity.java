@@ -62,4 +62,8 @@ public class ProductFolderEntity extends MetaEntity {
      * Отдел сотрудника в формате Метаданных
      */
     private GroupEntity group;
+
+    public ProductFolderEntity(String id) {
+        super(id);
+    }
 }

@@ -24,9 +24,9 @@ public class AgentDeserializerTest implements TestAsserts, TestRandomizers {
 
         AgentEntity e = new CounterpartyEntity();
         e.setMeta(new Meta());
-        e.getMeta().setType(Meta.Type.counterparty);
+        e.getMeta().setType(Meta.Type.COUNTERPARTY);
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
 
         try {
             gson.fromJson(data, AgentEntity.class);
@@ -51,9 +51,9 @@ public class AgentDeserializerTest implements TestAsserts, TestRandomizers {
 
         AgentEntity e = new OrganizationEntity();
         e.setMeta(new Meta());
-        e.getMeta().setType(Meta.Type.organization);
+        e.getMeta().setType(Meta.Type.ORGANIZATION);
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
 
         try {
             gson.fromJson(data, AgentEntity.class);
@@ -76,9 +76,9 @@ public class AgentDeserializerTest implements TestAsserts, TestRandomizers {
 
         AgentEntity e = new EmployeeEntity();
         e.setMeta(new Meta());
-        e.getMeta().setType(Meta.Type.employee);
+        e.getMeta().setType(Meta.Type.EMPLOYEE);
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
 
         try {
             gson.fromJson(data, AgentEntity.class);
@@ -101,7 +101,7 @@ public class AgentDeserializerTest implements TestAsserts, TestRandomizers {
 
         AgentEntity e = new CounterpartyEntity();
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
 
         try {
             gsonCustom.fromJson(data, AgentEntity.class);
@@ -122,7 +122,7 @@ public class AgentDeserializerTest implements TestAsserts, TestRandomizers {
         AgentEntity e = new CounterpartyEntity();
         e.setMeta(new Meta());
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
 
         try {
             gsonCustom.fromJson(data, AgentEntity.class);
@@ -142,9 +142,9 @@ public class AgentDeserializerTest implements TestAsserts, TestRandomizers {
 
         AgentEntity e = new CounterpartyEntity();
         e.setMeta(new Meta());
-        e.getMeta().setType(Meta.Type.product);
+        e.getMeta().setType(Meta.Type.PRODUCT);
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
 
         try {
             gsonCustom.fromJson(data, AgentEntity.class);

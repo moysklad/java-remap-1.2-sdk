@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class RetailSalesReturnEntity extends DocumentEntity {
+public class RetailSalesReturnEntity extends DocumentEntity implements IEntityWithAttributes {
     private AgentEntity agent;
     private Long cashSum;
     private LocalDateTime created;
@@ -39,4 +39,8 @@ public class RetailSalesReturnEntity extends DocumentEntity {
     private AccountEntity organizationAccount;
     private AccountEntity agentAccount;
     private List<AttributeEntity> attributes;
+
+    public RetailSalesReturnEntity(String id) {
+        super(id);
+    }
 }

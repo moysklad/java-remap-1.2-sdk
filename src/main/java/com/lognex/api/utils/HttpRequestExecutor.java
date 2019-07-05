@@ -24,11 +24,14 @@ import java.nio.charset.Charset;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.lognex.api.utils.Constants.API_PATH;
+
 public final class HttpRequestExecutor {
     private static final Logger logger = LogManager.getLogger(HttpRequestExecutor.class);
     private static final Base64.Encoder b64enc = Base64.getEncoder();
     private static Charset queryParamsCharset = Charset.forName("UTF-8");
 
+    private final String hostApiPath;
     private final String url;
     private List<ApiParam> apiParams;
     private Map<String, Object> query;
@@ -41,7 +44,8 @@ public final class HttpRequestExecutor {
         if (api == null) throw new IllegalArgumentException("Для выполнения запроса к API нужен проинициализированный экземпляр LognexApi!");
 
         this.client = api.getClient();
-        this.url = api.getHost() + LognexApi.API_PATH + url;
+        this.hostApiPath = api.getHost() + API_PATH;
+        this.url = hostApiPath + url;
         query = new HashMap<>();
         headers = new HashMap<>();
         body = null;
@@ -58,6 +62,7 @@ public final class HttpRequestExecutor {
         if (client == null) throw new IllegalArgumentException("Для выполнения запроса нужен проинициализированный экземпляр CloseableHttpClient!");
 
         this.client = client;
+        this.hostApiPath = ""; // TODO maybe parse url, but it is not necessary until where is no apiParams() calls after url(). Now used only in entity fetch()
         this.url = url;
         query = new HashMap<>();
         headers = new HashMap<>();
@@ -145,8 +150,10 @@ public final class HttpRequestExecutor {
             Map<ApiParam.Type, List<ApiParam>> pm = apiParams.stream().collect(Collectors.groupingBy(ApiParam::getType));
             for (Map.Entry<ApiParam.Type, List<ApiParam>> e : pm.entrySet()) {
                 query(
-                        e.getKey().name(),
-                        ApiParam.renderStringQueryFromList(e.getKey(), e.getValue())
+                        (e.getKey() == ApiParam.Type.hrefFilter || e.getKey() == ApiParam.Type.attributeFilter) ?
+                                ApiParam.Type.filter.name() :
+                                e.getKey().name(),
+                        ApiParam.renderStringQueryFromList(e.getKey(), e.getValue(), hostApiPath)
                 );
             }
         }

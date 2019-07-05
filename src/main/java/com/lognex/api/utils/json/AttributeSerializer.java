@@ -10,14 +10,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static com.lognex.api.utils.json.LocalDateTimeSerializer.dateFormatPattern;
+import static com.lognex.api.utils.Constants.DATE_FORMAT_PATTERN;
 
 public class AttributeSerializer implements JsonSerializer<AttributeEntity>, JsonDeserializer<AttributeEntity> {
-    private final Gson gson = new GsonBuilder().create();
+    private final Gson gson = JsonUtils.createGsonWithMetaAdapter();
     private final DateTimeFormatter formatter;
 
     public AttributeSerializer() {
-        formatter = DateTimeFormatter.ofPattern(dateFormatPattern);
+        formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN);
     }
 
     @Override
@@ -47,6 +47,8 @@ public class AttributeSerializer implements JsonSerializer<AttributeEntity>, Jso
         return je;
     }
 
+
+
     @Override
     public AttributeEntity deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jo = gson.toJsonTree(json).getAsJsonObject();
@@ -57,9 +59,9 @@ public class AttributeSerializer implements JsonSerializer<AttributeEntity>, Jso
         String attrType = jo.get("type").getAsString();
 
         try {
-            Meta.Type t = Meta.Type.valueOf(attrType);
+            Meta.Type t = Meta.Type.find(attrType);
             jo.remove("type");
-            jo.add("entityType", new JsonPrimitive(t.name()));
+            jo.add("entityType", new JsonPrimitive(t.getApiName()));
         } catch (IllegalArgumentException ignored) {
         }
 
@@ -77,41 +79,41 @@ public class AttributeSerializer implements JsonSerializer<AttributeEntity>, Jso
             }
         } else if (ae.getEntityType() != null) {
             switch (ae.getEntityType()) {
-                case counterparty:
-                case organization:
-                case employee:
+                case COUNTERPARTY:
+                case ORGANIZATION:
+                case EMPLOYEE:
                     ae.setValue(
                             context.deserialize(jo.get("value"), AgentEntity.class)
                     );
                     break;
 
-                case product:
-                case bundle:
-                case service:
+                case PRODUCT:
+                case BUNDLE:
+                case SERVICE:
                     ae.setValue(
                             context.deserialize(jo.get("value"), ProductMarker.class)
                     );
                     break;
 
-                case contract:
+                case CONTRACT:
                     ae.setValue(
                             context.deserialize(jo.get("value"), ContractEntity.class)
                     );
                     break;
 
-                case project:
+                case PROJECT:
                     ae.setValue(
                             context.deserialize(jo.get("value"), ProjectEntity.class)
                     );
                     break;
 
-                case store:
+                case STORE:
                     ae.setValue(
                             context.deserialize(jo.get("value"), StoreEntity.class)
                     );
                     break;
 
-                case customentity:
+                case CUSTOM_ENTITY:
                     ae.setValue(
                             context.deserialize(jo.get("value"), CustomEntity.class)
                     );

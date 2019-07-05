@@ -35,4 +35,8 @@ public class CountryEntity extends MetaEntity {
      * Код
      */
     private String code;
+
+    public CountryEntity(String id) {
+        super(id);
+    }
 }

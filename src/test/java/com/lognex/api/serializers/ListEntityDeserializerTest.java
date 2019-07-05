@@ -39,22 +39,22 @@ public class ListEntityDeserializerTest implements TestAsserts, TestRandomizers 
         DocumentPosition m1 = new DocumentPosition();
         m1.setMeta(new Meta());
         m1.getMeta().setHref(randomString());
-        m1.getMeta().setType(Meta.Type.demandposition);
+        m1.getMeta().setType(Meta.Type.DEMAND_POSITION);
         e.getRows().add(m1);
 
         DocumentPosition m2 = new DocumentPosition();
         m2.setMeta(new Meta());
         m2.getMeta().setHref(randomString());
-        m2.getMeta().setType(Meta.Type.demandposition);
+        m2.getMeta().setType(Meta.Type.DEMAND_POSITION);
         e.getRows().add(m2);
 
         DocumentPosition m3 = new DocumentPosition();
         m3.setMeta(new Meta());
         m3.getMeta().setHref(randomString());
-        m3.getMeta().setType(Meta.Type.demandposition);
+        m3.getMeta().setType(Meta.Type.DEMAND_POSITION);
         e.getRows().add(m3);
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
 
         ListEntity<DocumentPosition> parsed1 = gson.fromJson(data, ListEntity.class);
         ListEntity<DocumentPosition> parsed2 = gsonCustom.fromJson(data, ListEntity.class);
