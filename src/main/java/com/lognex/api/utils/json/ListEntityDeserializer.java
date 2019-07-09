@@ -6,15 +6,15 @@ import com.lognex.api.entities.Meta;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.DocumentPosition;
 import com.lognex.api.responses.ListEntity;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class ListEntityDeserializer implements JsonDeserializer<ListEntity> {
-    private static final Logger logger = LogManager.getLogger(ListEntityDeserializer.class);
+    private static final Logger logger = LoggerFactory.getLogger(ListEntityDeserializer.class);
 
     @Override
     public ListEntity deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

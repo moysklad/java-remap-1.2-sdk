@@ -5,13 +5,13 @@ import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.entities.documents.CustomerOrderDocumentEntity;
 import com.lognex.api.utils.TestAsserts;
 import com.lognex.api.utils.TestRandomizers;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.junit.Test;
 
 
 public class SchemaTest implements TestAsserts, TestRandomizers {
-    private static final Logger logger = LogManager.getLogger(SchemaTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(SchemaTest.class);
 
     @Test
     public void testCounterpartySchema() throws Exception {

@@ -27,9 +27,7 @@ public abstract class ApiParam {
         limit,
         offset,
         search,
-        order(";"),
-        attributeFilter(";"),
-        hrefFilter(";");
+        order(";");
 
         @Getter
         private final String separator;

@@ -1,7 +1,7 @@
 package com.lognex.api.entities;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
  * Класс сущности
  */
 public abstract class Entity {
-    private static final Logger logger = LogManager.getLogger(Entity.class);
+    private static final Logger logger = LoggerFactory.getLogger(Entity.class);
 
     /**
      * Присваивает полям этой сущности значения полей другой сущности

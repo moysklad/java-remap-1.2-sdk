@@ -12,8 +12,8 @@ import com.lognex.api.entities.products.VariantEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.LognexApiException;
 import com.lognex.api.utils.TestRandomizers;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -29,7 +29,7 @@ import static org.junit.Assert.*;
 public class SimpleEntityFactory implements TestRandomizers {
     private LognexApi api;
 
-    private static final Logger logger = LogManager.getLogger(SimpleEntityFactory.class);
+    private static final Logger logger = LoggerFactory.getLogger(SimpleEntityFactory.class);
 
     public SimpleEntityFactory(LognexApi api) {
         this.api = api;

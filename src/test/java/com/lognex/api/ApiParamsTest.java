@@ -11,7 +11,6 @@ import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.LognexApiException;
 import com.lognex.api.utils.RequestLogHttpClient;
 import com.lognex.api.utils.TestRandomizers;
-import com.lognex.api.utils.params.HrefFilterParam;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -243,7 +242,7 @@ public class ApiParamsTest implements TestRandomizers {
 
         inventory = api.entity().inventory().post(inventory);
 
-        ListEntity<InventoryDocumentEntity> inventoryWithFilter = api.entity().inventory().get(HrefFilterParam.filterEq("store", new StoreEntity(store.getId())));
+        ListEntity<InventoryDocumentEntity> inventoryWithFilter = api.entity().inventory().get(filterEq("store", new StoreEntity(store.getId())));
         assertEquals(1, inventoryWithFilter.getRows().size());
         assertEquals(inventory.getName(), inventoryWithFilter.getRows().get(0).getName());
         assertNotNull(inventoryWithFilter.getRows().get(0).getStore());

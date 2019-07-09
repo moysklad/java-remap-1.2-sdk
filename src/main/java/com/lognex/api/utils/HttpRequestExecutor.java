@@ -13,8 +13,8 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 import static com.lognex.api.utils.Constants.API_PATH;
 
 public final class HttpRequestExecutor {
-    private static final Logger logger = LogManager.getLogger(HttpRequestExecutor.class);
+    private static final Logger logger = LoggerFactory.getLogger(HttpRequestExecutor.class);
     private static final Base64.Encoder b64enc = Base64.getEncoder();
     private static Charset queryParamsCharset = Charset.forName("UTF-8");
 
@@ -150,9 +150,7 @@ public final class HttpRequestExecutor {
             Map<ApiParam.Type, List<ApiParam>> pm = apiParams.stream().collect(Collectors.groupingBy(ApiParam::getType));
             for (Map.Entry<ApiParam.Type, List<ApiParam>> e : pm.entrySet()) {
                 query(
-                        (e.getKey() == ApiParam.Type.hrefFilter || e.getKey() == ApiParam.Type.attributeFilter) ?
-                                ApiParam.Type.filter.name() :
-                                e.getKey().name(),
+                        e.getKey().name(),
                         ApiParam.renderStringQueryFromList(e.getKey(), e.getValue(), hostApiPath)
                 );
             }

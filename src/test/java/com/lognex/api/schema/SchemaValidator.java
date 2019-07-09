@@ -8,8 +8,8 @@ import com.lognex.api.utils.HttpRequestExecutor;
 import com.lognex.api.utils.LognexApiException;
 import com.lognex.api.utils.TestAsserts;
 import com.lognex.api.utils.TestRandomizers;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
@@ -20,7 +20,7 @@ import static java.util.stream.Collectors.joining;
 import static org.junit.Assert.*;
 
 public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestRandomizers {
-    private static final Logger logger = LogManager.getLogger(SchemaTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(SchemaTest.class);
     private final SchemaReport schemaReport = new SchemaReport();
 
     private static final List<String> filterOperators;

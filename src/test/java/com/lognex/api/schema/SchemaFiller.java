@@ -12,8 +12,8 @@ import com.lognex.api.entities.agents.EmployeeEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.utils.LognexApiException;
 import com.lognex.api.utils.TestRandomizers;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -25,7 +25,7 @@ import java.util.*;
 import static com.lognex.api.utils.Constants.DATE_FORMAT_PATTERN;
 
 class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
-    private static final Logger logger = LogManager.getLogger(SchemaFiller.class);
+    private static final Logger logger = LoggerFactory.getLogger(SchemaFiller.class);
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN);
 
     private EmployeeEntity employeeEntity;
