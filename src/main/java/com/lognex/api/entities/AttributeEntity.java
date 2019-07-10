@@ -48,6 +48,9 @@ public class AttributeEntity extends MetaEntity {
         super(id);
         this.type = type;
         this.value = value;
+        if (MetaEntity.class.isAssignableFrom(value.getClass())) {
+            entityType = Meta.Type.find(((MetaEntity) value).getClass());
+        }
     }
 
     /**

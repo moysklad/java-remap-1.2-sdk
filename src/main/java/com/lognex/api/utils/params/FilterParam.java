@@ -97,8 +97,6 @@ public class FilterParam extends ApiParam {
                 AttributeEntity attrKey = (AttributeEntity) key;
                 if (attrKey == null) {
                     throw new IllegalArgumentException("key не может быть null");
-                } else if (attrKey.getEntityType() == null) {
-                    throw new IllegalArgumentException("key.entityType не может быть null");
                 } else if (attrKey.getId() == null) {
                     throw new IllegalArgumentException("key.id не может быть null");
                 }
@@ -125,7 +123,9 @@ public class FilterParam extends ApiParam {
                     default:
                         if (value != null) {
                             if (MetaEntity.class.isAssignableFrom(value.getClass())) {
-                                filterString.append(MetaHrefUtils.makeHref(Meta.Type.find(((MetaEntity) value).getClass()), value, host));
+                                Meta.Type type = attrKey.getEntityType();
+                                type = type == null ? Meta.Type.find(((MetaEntity) value).getClass()) : type;
+                                filterString.append(MetaHrefUtils.makeHref(type, value, host));
                             } else {
                                 throw new IllegalArgumentException("Неизвестный тип данных дополнительного поля: " + value.getClass().getSimpleName());
                             }
