@@ -40,17 +40,30 @@ public class AttributeEntity extends MetaEntity {
      */
     private Meta download;
 
+    /**
+     * Тип сущности, которой принадлежит аттрибут
+     */
+    private Meta.Type attributeEntityType;
+
     public AttributeEntity(String id) {
         super(id);
     }
 
-    public AttributeEntity(String id, Type type, Object value){
+    public AttributeEntity(Meta.Type attributeEntityType, String id, Type type, Object value){
         super(id);
         this.type = type;
         this.value = value;
         if (MetaEntity.class.isAssignableFrom(value.getClass())) {
             entityType = Meta.Type.find(((MetaEntity) value).getClass());
         }
+        this.attributeEntityType = attributeEntityType;
+    }
+
+    public AttributeEntity(Meta.Type attributeEntityType, String id, MetaEntity value){
+        super(id);
+        this.value = value;
+        entityType = Meta.Type.find(((MetaEntity) value).getClass());
+        this.attributeEntityType = attributeEntityType;
     }
 
     /**

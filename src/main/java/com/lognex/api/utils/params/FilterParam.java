@@ -97,12 +97,14 @@ public class FilterParam extends ApiParam {
                 AttributeEntity attrKey = (AttributeEntity) key;
                 if (attrKey == null) {
                     throw new IllegalArgumentException("key не может быть null");
+                } else if (attrKey.getAttributeEntityType() == null) {
+                    throw new IllegalArgumentException("key.attributeEntityType не может быть null");
                 } else if (attrKey.getId() == null) {
                     throw new IllegalArgumentException("key.id не может быть null");
                 }
                 filterString.append(host)
                         .append("/entity/")
-                        .append(attrKey.getEntityType().getApiName())
+                        .append(attrKey.getAttributeEntityType().getApiName())
                         .append("/metadata/attributes/")
                         .append(attrKey.getId())
                         .append(filterType.str);
