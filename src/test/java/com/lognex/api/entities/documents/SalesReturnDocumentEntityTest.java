@@ -27,11 +27,11 @@ public class SalesReturnDocumentEntityTest extends DocumentWithPositionsTestBase
         salesReturn.setVatEnabled(true);
         salesReturn.setVatIncluded(true);
         salesReturn.setMoment(LocalDateTime.now());
-        OrganizationEntity organization = simpleEntityFactory.getOwnOrganization();
+        OrganizationEntity organization = simpleEntityManager.getOwnOrganization();
         salesReturn.setOrganization(organization);
-        CounterpartyEntity agent = simpleEntityFactory.createSimpleCounterparty();
+        CounterpartyEntity agent = simpleEntityManager.createSimpleCounterparty();
         salesReturn.setAgent(agent);
-        StoreEntity mainStore = simpleEntityFactory.getMainStore();
+        StoreEntity mainStore = simpleEntityManager.getMainStore();
         salesReturn.setStore(mainStore);
 
         DemandDocumentEntity demand = new DemandDocumentEntity();
@@ -81,13 +81,13 @@ public class SalesReturnDocumentEntityTest extends DocumentWithPositionsTestBase
         assertTrue(salesReturn.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, salesReturn.getMoment()) < 1000);
 
-        assertEquals(salesReturn.getOrganization().getMeta().getHref(), simpleEntityFactory.getOwnOrganization().getMeta().getHref());
-        assertEquals(salesReturn.getStore().getMeta().getHref(), simpleEntityFactory.getMainStore().getMeta().getHref());
+        assertEquals(salesReturn.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());
+        assertEquals(salesReturn.getStore().getMeta().getHref(), simpleEntityManager.getMainStore().getMeta().getHref());
     }
 
     @Test
     public void newByDemandTest() throws IOException, LognexApiException {
-        DemandDocumentEntity demand = simpleEntityFactory.createSimpleDemand();
+        DemandDocumentEntity demand = simpleEntityManager.createSimpleDemand();
 
         SalesReturnDocumentEntity salesReturn = api.entity().salesreturn().newDocument("demand", demand);
         LocalDateTime time = LocalDateTime.now();

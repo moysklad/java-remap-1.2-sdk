@@ -26,9 +26,9 @@ public class CommissionReportInDocumentEntityTest extends DocumentWithPositionsT
         commissionReportIn.setVatEnabled(true);
         commissionReportIn.setVatIncluded(true);
         commissionReportIn.setMoment(LocalDateTime.now());
-        CounterpartyEntity agent = simpleEntityFactory.createSimpleCounterparty();
+        CounterpartyEntity agent = simpleEntityManager.createSimpleCounterparty();
         commissionReportIn.setAgent(agent);
-        OrganizationEntity organization = simpleEntityFactory.getOwnOrganization();
+        OrganizationEntity organization = simpleEntityManager.getOwnOrganization();
         commissionReportIn.setOrganization(organization);
 
         ContractEntity contract = new ContractEntity();

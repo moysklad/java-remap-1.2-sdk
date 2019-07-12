@@ -27,9 +27,9 @@ public class RetailDemandDocumentEntityTest extends EntityGetUpdateDeleteTest {
         retailDemand.setVatIncluded(true);
         retailDemand.setMoment(LocalDateTime.now());
 
-        retailDemand.setOrganization(simpleEntityFactory.getOwnOrganization());
-        retailDemand.setAgent(simpleEntityFactory.createSimpleCounterparty());
-        retailDemand.setStore(simpleEntityFactory.getMainStore());
+        retailDemand.setOrganization(simpleEntityManager.getOwnOrganization());
+        retailDemand.setAgent(simpleEntityManager.createSimpleCounterparty());
+        retailDemand.setStore(simpleEntityManager.getMainStore());
 
         api.entity().retaildemand().post(retailDemand);
 

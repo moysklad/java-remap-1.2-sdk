@@ -23,9 +23,9 @@ public class InvoiceInDocumentEntityTest extends DocumentWithPositionsTestBase {
         invoiceIn.setVatIncluded(true);
         invoiceIn.setMoment(LocalDateTime.now());
         invoiceIn.setSum(randomLong(10, 10000));
-        invoiceIn.setOrganization(simpleEntityFactory.getOwnOrganization());
-        invoiceIn.setAgent(simpleEntityFactory.createSimpleCounterparty());
-        invoiceIn.setStore(simpleEntityFactory.getMainStore());
+        invoiceIn.setOrganization(simpleEntityManager.getOwnOrganization());
+        invoiceIn.setAgent(simpleEntityManager.createSimpleCounterparty());
+        invoiceIn.setStore(simpleEntityManager.getMainStore());
 
         api.entity().invoicein().post(invoiceIn);
 

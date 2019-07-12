@@ -20,7 +20,7 @@ public class VariantEntityTest extends EntityGetDeleteTest {
     public void createTest() throws IOException, LognexApiException {
         VariantEntity variant = new VariantEntity();
         variant.setArchived(false);
-        variant.setProduct(simpleEntityFactory.createSimpleProduct());
+        variant.setProduct(simpleEntityManager.createSimpleProduct());
 
         VariantEntity.Characteristic characteristic = new VariantEntity.Characteristic();
         characteristic.setName(randomString());
@@ -44,7 +44,7 @@ public class VariantEntityTest extends EntityGetDeleteTest {
 
     @Test
     public void putTest() throws IOException, LognexApiException {
-        VariantEntity variant = simpleEntityFactory.createSimpleVariant();
+        VariantEntity variant = simpleEntityManager.createSimpleVariant();
 
         VariantEntity retrievedOriginalEntity = api.entity().variant().get(variant.getId());
         String value = "mod_" + randomString(3) + "_" + new Date().getTime();
@@ -66,7 +66,7 @@ public class VariantEntityTest extends EntityGetDeleteTest {
 
     @Test
     public void metadataTest() throws IOException, LognexApiException {
-        VariantEntity variant = simpleEntityFactory.createSimpleVariant();
+        VariantEntity variant = simpleEntityManager.createSimpleVariant();
 
         VariantMetadataResponse metadata = api.entity().variant().metadata();
 

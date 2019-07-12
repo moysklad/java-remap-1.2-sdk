@@ -24,9 +24,9 @@ public class PurchaseOrderDocumentEntityTest extends DocumentWithPositionsTestBa
         purchaseOrder.setVatEnabled(true);
         purchaseOrder.setVatIncluded(true);
         purchaseOrder.setMoment(LocalDateTime.now());
-        purchaseOrder.setOrganization(simpleEntityFactory.getOwnOrganization());
-        purchaseOrder.setAgent(simpleEntityFactory.createSimpleCounterparty());
-        purchaseOrder.setStore(simpleEntityFactory.getMainStore());
+        purchaseOrder.setOrganization(simpleEntityManager.getOwnOrganization());
+        purchaseOrder.setAgent(simpleEntityManager.createSimpleCounterparty());
+        purchaseOrder.setStore(simpleEntityManager.getMainStore());
 
         api.entity().purchaseorder().post(purchaseOrder);
 
@@ -67,13 +67,13 @@ public class PurchaseOrderDocumentEntityTest extends DocumentWithPositionsTestBa
         assertTrue(purchaseOrder.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, purchaseOrder.getMoment()) < 1000);
 
-        assertEquals(purchaseOrder.getOrganization().getMeta().getHref(), simpleEntityFactory.getOwnOrganization().getMeta().getHref());
-        assertEquals(purchaseOrder.getStore().getMeta().getHref(), simpleEntityFactory.getMainStore().getMeta().getHref());
+        assertEquals(purchaseOrder.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());
+        assertEquals(purchaseOrder.getStore().getMeta().getHref(), simpleEntityManager.getMainStore().getMeta().getHref());
     }
 
     @Test
     public void newByInternalOrderTest() throws IOException, LognexApiException {
-        InternalOrderDocumentEntity internalOrder = simpleEntityFactory.createSimpleInternalOrder();
+        InternalOrderDocumentEntity internalOrder = simpleEntityManager.createSimpleInternalOrder();
 
         PurchaseOrderDocumentEntity purchaseOrder = api.entity().purchaseorder().newDocument("internalOrder", internalOrder);
         LocalDateTime time = LocalDateTime.now();
@@ -93,7 +93,7 @@ public class PurchaseOrderDocumentEntityTest extends DocumentWithPositionsTestBa
 
     @Test
     public void newByCustomerOrdersTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity customerOrder = simpleEntityFactory.createSimpleCustomerOrder();
+        CustomerOrderDocumentEntity customerOrder = simpleEntityManager.createSimpleCustomerOrder();
 
         PurchaseOrderDocumentEntity purchaseOrder = api.entity().purchaseorder().newDocument("customerOrders", Collections.singletonList(customerOrder));
         LocalDateTime time = LocalDateTime.now();

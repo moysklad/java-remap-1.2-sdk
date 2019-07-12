@@ -21,7 +21,7 @@ public class ServiceEntityTest extends EntityGetUpdateDeleteTest {
         service.setDescription(randomString());
         PriceEntity minPrice = new PriceEntity();
         minPrice.setValue(randomLong(10, 10000));
-        minPrice.setCurrency(simpleEntityFactory.getFirstCurrency());
+        minPrice.setCurrency(simpleEntityManager.getFirstCurrency());
         service.setMinPrice(minPrice);
 
         api.entity().service().post(service);

@@ -9,19 +9,24 @@ import org.junit.Before;
 public abstract class EntityTestBase implements TestRandomizers, TestAsserts, TestUtils {
     protected LognexApi api, mockApi;
     protected MockHttpClient mockHttpClient;
-    protected SimpleEntityFactory simpleEntityFactory;
+    protected SimpleEntityManager simpleEntityManager;
 
     @Before
     public void init() {
         api = new LognexApi(
                 System.getenv("API_HOST"),
-                true, System.getenv("API_LOGIN"),
+                false, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
         );
 
         mockHttpClient = new MockHttpClient();
         mockApi = new LognexApi("test.moysklad", true, "[API_LOGIN]", "[API_PASSWORD]", mockHttpClient);
-        simpleEntityFactory = new SimpleEntityFactory(api);
+        simpleEntityManager = new SimpleEntityManager(api);
+    }
+
+    @After
+    public void tearDown() {
+        simpleEntityManager.clearAccessCounts();
     }
 
     @After

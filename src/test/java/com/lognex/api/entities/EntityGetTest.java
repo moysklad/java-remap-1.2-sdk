@@ -13,7 +13,7 @@ public abstract class EntityGetTest extends EntityTestBase {
     }
 
     public void doGetTest() throws IOException, LognexApiException {
-        MetaEntity createdEntity = simpleEntityFactory.createSimple(entityClass());
+        MetaEntity createdEntity = simpleEntityManager.createSimple(entityClass());
 
         MetaEntity retrievedEntity = ((GetByIdEndpoint) entityClient()).get(createdEntity.getId());
         getAsserts(createdEntity, retrievedEntity);

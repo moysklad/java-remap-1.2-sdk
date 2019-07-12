@@ -18,7 +18,7 @@ public class ConsignmentEntityTest extends EntityGetUpdateDeleteTest {
         ConsignmentEntity consignment = new ConsignmentEntity();
         consignment.setLabel("consignment_" + randomString(3) + "_" + new Date().getTime());
 
-        ProductEntity product = simpleEntityFactory.createSimpleProduct();
+        ProductEntity product = simpleEntityManager.createSimpleProduct();
         consignment.setAssortment(product);
 
         api.entity().consignment().post(consignment);

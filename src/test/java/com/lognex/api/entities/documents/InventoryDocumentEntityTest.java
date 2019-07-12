@@ -20,8 +20,8 @@ public class InventoryDocumentEntityTest extends DocumentWithPositionsTestBase {
         InventoryDocumentEntity inventory = new InventoryDocumentEntity();
         inventory.setName("inventory_" + randomString(3) + "_" + new Date().getTime());
         inventory.setMoment(LocalDateTime.now());
-        inventory.setOrganization(simpleEntityFactory.getOwnOrganization());
-        inventory.setStore(simpleEntityFactory.getMainStore());
+        inventory.setOrganization(simpleEntityManager.getOwnOrganization());
+        inventory.setStore(simpleEntityManager.getMainStore());
 
         api.entity().inventory().post(inventory);
 

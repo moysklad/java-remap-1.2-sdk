@@ -25,8 +25,8 @@ public class CashInDocumentEntityTest extends EntityGetUpdateDeleteTest {
         cashIn.setDescription(randomString());
         cashIn.setMoment(LocalDateTime.now());
         cashIn.setSum(randomLong(10, 10000));
-        cashIn.setOrganization(simpleEntityFactory.getOwnOrganization());
-        cashIn.setAgent(simpleEntityFactory.createSimpleCounterparty());
+        cashIn.setOrganization(simpleEntityManager.getOwnOrganization());
+        cashIn.setAgent(simpleEntityManager.createSimpleCounterparty());
 
         api.entity().cashin().post(cashIn);
 
@@ -60,13 +60,13 @@ public class CashInDocumentEntityTest extends EntityGetUpdateDeleteTest {
         assertTrue(cashIn.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, cashIn.getMoment()) < 1000);
 
-        assertEquals(cashIn.getOrganization().getMeta().getHref(), simpleEntityFactory.getOwnOrganization().getMeta().getHref());
-        assertEquals(cashIn.getGroup().getMeta().getHref(), simpleEntityFactory.getMainGroup().getMeta().getHref());
+        assertEquals(cashIn.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());
+        assertEquals(cashIn.getGroup().getMeta().getHref(), simpleEntityManager.getMainGroup().getMeta().getHref());
     }
 
     @Test
     public void newByCustomerOrdersTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity customerOrder = simpleEntityFactory.createSimpleCustomerOrder();
+        CustomerOrderDocumentEntity customerOrder = simpleEntityManager.createSimpleCustomerOrder();
 
         CashInDocumentEntity cashIn = api.entity().cashin().newDocument("operations", Collections.singletonList(customerOrder));
         LocalDateTime time = LocalDateTime.now();
@@ -85,7 +85,7 @@ public class CashInDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void newByPurchaseReturnsTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity purchaseReturn = simpleEntityFactory.createSimplePurchaseReturn();
+        PurchaseReturnDocumentEntity purchaseReturn = simpleEntityManager.createSimplePurchaseReturn();
 
         CashInDocumentEntity cashIn = api.entity().cashin().newDocument("operations", Collections.singletonList(purchaseReturn));
         LocalDateTime time = LocalDateTime.now();
@@ -104,7 +104,7 @@ public class CashInDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void newByDemandsTest() throws IOException, LognexApiException {
-        DemandDocumentEntity demand = simpleEntityFactory.createSimpleDemand();
+        DemandDocumentEntity demand = simpleEntityManager.createSimpleDemand();
 
         CashInDocumentEntity cashIn = api.entity().cashin().newDocument("operations", Collections.singletonList(demand));
         LocalDateTime time = LocalDateTime.now();
@@ -123,7 +123,7 @@ public class CashInDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void newByInvoicesOutTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity invoiceOut = simpleEntityFactory.createSimpleInvoiceOut();
+        InvoiceOutDocumentEntity invoiceOut = simpleEntityManager.createSimpleInvoiceOut();
 
         CashInDocumentEntity cashIn = api.entity().cashin().newDocument("operations", Collections.singletonList(invoiceOut));
         LocalDateTime time = LocalDateTime.now();
@@ -142,7 +142,7 @@ public class CashInDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void newByCommissionReportsInTest() throws IOException, LognexApiException {
-        CommissionReportInDocumentEntity commissionReportIn = simpleEntityFactory.createSimpleCommissionReportIn();
+        CommissionReportInDocumentEntity commissionReportIn = simpleEntityManager.createSimpleCommissionReportIn();
 
         CashInDocumentEntity cashIn = api.entity().cashin().newDocument("operations", Collections.singletonList(commissionReportIn));
         LocalDateTime time = LocalDateTime.now();

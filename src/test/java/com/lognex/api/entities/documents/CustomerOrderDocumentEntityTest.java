@@ -19,8 +19,8 @@ public class CustomerOrderDocumentEntityTest extends DocumentWithPositionsTestBa
         CustomerOrderDocumentEntity customerOrder = new CustomerOrderDocumentEntity();
         customerOrder.setName("customerorder_" + randomString(3) + "_" + new Date().getTime());
         customerOrder.setDescription(randomString());
-        customerOrder.setOrganization(simpleEntityFactory.getOwnOrganization());
-        customerOrder.setAgent(simpleEntityFactory.createSimpleCounterparty());
+        customerOrder.setOrganization(simpleEntityManager.getOwnOrganization());
+        customerOrder.setAgent(simpleEntityManager.createSimpleCounterparty());
 
         api.entity().customerorder().post(customerOrder);
 

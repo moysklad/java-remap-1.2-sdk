@@ -24,9 +24,9 @@ public class DemandDocumentEntityTest extends DocumentWithPositionsTestBase {
         demand.setVatEnabled(true);
         demand.setVatIncluded(true);
         demand.setMoment(LocalDateTime.now());
-        demand.setOrganization(simpleEntityFactory.getOwnOrganization());
-        demand.setAgent(simpleEntityFactory.createSimpleCounterparty());
-        demand.setStore(simpleEntityFactory.getMainStore());
+        demand.setOrganization(simpleEntityManager.getOwnOrganization());
+        demand.setAgent(simpleEntityManager.createSimpleCounterparty());
+        demand.setStore(simpleEntityManager.getMainStore());
 
         api.entity().demand().post(demand);
 
@@ -65,14 +65,14 @@ public class DemandDocumentEntityTest extends DocumentWithPositionsTestBase {
         assertTrue(demand.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, demand.getMoment()) < 1000);
 
-        assertEquals(demand.getOrganization().getMeta().getHref(), simpleEntityFactory.getOwnOrganization().getMeta().getHref());
-        assertEquals(demand.getStore().getMeta().getHref(), simpleEntityFactory.getMainStore().getMeta().getHref());
-        assertEquals(demand.getGroup().getMeta().getHref(), simpleEntityFactory.getMainGroup().getMeta().getHref());
+        assertEquals(demand.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());
+        assertEquals(demand.getStore().getMeta().getHref(), simpleEntityManager.getMainStore().getMeta().getHref());
+        assertEquals(demand.getGroup().getMeta().getHref(), simpleEntityManager.getMainGroup().getMeta().getHref());
     }
 
     @Test
     public void newByCustomerOrderTest() throws IOException, LognexApiException {
-        CustomerOrderDocumentEntity customerOrder = simpleEntityFactory.createSimpleCustomerOrder();
+        CustomerOrderDocumentEntity customerOrder = simpleEntityManager.createSimpleCustomerOrder();
 
         DemandDocumentEntity demand = api.entity().demand().newDocument("customerOrder", customerOrder);
         LocalDateTime time = LocalDateTime.now();
@@ -93,7 +93,7 @@ public class DemandDocumentEntityTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void newByInvoicesOutTest() throws IOException, LognexApiException {
-        InvoiceOutDocumentEntity invoiceOut = simpleEntityFactory.createSimpleInvoiceOut();
+        InvoiceOutDocumentEntity invoiceOut = simpleEntityManager.createSimpleInvoiceOut();
 
         DemandDocumentEntity demand = api.entity().demand().newDocument("invoicesOut", Collections.singletonList(invoiceOut));
         LocalDateTime time = LocalDateTime.now();

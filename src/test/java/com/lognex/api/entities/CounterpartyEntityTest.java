@@ -120,7 +120,7 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void postContactPersonTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = simpleEntityFactory.createSimpleCounterparty();
+        CounterpartyEntity counterparty = simpleEntityManager.createSimpleCounterparty();
 
         ContactPersonEntity contactPerson = new ContactPersonEntity();
         contactPerson.setName(randomString());
@@ -234,7 +234,7 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void postNoteTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = simpleEntityFactory.createSimpleCounterparty();
+        CounterpartyEntity counterparty = simpleEntityManager.createSimpleCounterparty();
 
         NoteEntity note = new NoteEntity();
         String name = randomString();

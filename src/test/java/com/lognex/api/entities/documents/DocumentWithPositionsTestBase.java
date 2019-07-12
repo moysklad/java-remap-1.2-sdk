@@ -18,13 +18,13 @@ import static org.junit.Assert.assertEquals;
 public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDeleteTest {
     @Test
     public void createPositionByIdTest() throws IOException, LognexApiException {
-        DocumentEntity document = (DocumentEntity) simpleEntityFactory.createSimple(entityClass());
+        DocumentEntity document = (DocumentEntity) simpleEntityManager.createSimple(entityClass());
 
         ListEntity<DocumentPosition> originalPositions = ((DocumentPositionsEndpoint) entityClient()).getPositions(document.getId());
 
         DocumentPosition position = new DocumentPosition();
 
-        ProductEntity product = simpleEntityFactory.createSimpleProduct();
+        ProductEntity product = simpleEntityManager.createSimpleProduct();
 
         position.setAssortment(product);
         position.setQuantity(randomDouble(1, 5, 3));
@@ -44,13 +44,13 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
 
     @Test
     public void createPositionByEntityTest() throws IOException, LognexApiException {
-        DocumentEntity document = (DocumentEntity) simpleEntityFactory.createSimple(entityClass());
+        DocumentEntity document = (DocumentEntity) simpleEntityManager.createSimple(entityClass());
 
         ListEntity<DocumentPosition> originalPositions = ((DocumentPositionsEndpoint) entityClient()).getPositions(document.getId());
 
         DocumentPosition position = new DocumentPosition();
 
-        ProductEntity product = simpleEntityFactory.createSimpleProduct();
+        ProductEntity product = simpleEntityManager.createSimpleProduct();
 
         position.setAssortment(product);
         position.setQuantity(randomDouble(1, 5, 3));
@@ -70,7 +70,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
 
     @Test
     public void createPositionsByIdTest() throws IOException, LognexApiException {
-        DocumentEntity document = (DocumentEntity) simpleEntityFactory.createSimple(entityClass());
+        DocumentEntity document = (DocumentEntity) simpleEntityManager.createSimple(entityClass());
 
         ListEntity<DocumentPosition> originalPositions = ((DocumentPositionsEndpoint) entityClient()).getPositions(document.getId());
 
@@ -80,7 +80,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         for (int i = 0; i < 2; i++) {
             DocumentPosition position = new DocumentPosition();
 
-            ProductEntity product = simpleEntityFactory.createSimpleProduct();
+            ProductEntity product = simpleEntityManager.createSimpleProduct();
             products.add(product);
 
             position.setAssortment(product);
@@ -110,7 +110,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
 
     @Test
     public void createPositionsByEntityTest() throws IOException, LognexApiException {
-        DocumentEntity document = (DocumentEntity) simpleEntityFactory.createSimple(entityClass());
+        DocumentEntity document = (DocumentEntity) simpleEntityManager.createSimple(entityClass());
 
         ListEntity<DocumentPosition> originalPositions = ((DocumentPositionsEndpoint) entityClient()).getPositions(document.getId());
 
@@ -120,7 +120,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         for (int i = 0; i < 2; i++) {
             DocumentPosition position = new DocumentPosition();
 
-            ProductEntity product = simpleEntityFactory.createSimpleProduct();
+            ProductEntity product = simpleEntityManager.createSimpleProduct();
             products.add(product);
 
             position.setAssortment(product);
@@ -150,7 +150,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
 
     @Test
     public void getPositionTest() throws IOException, LognexApiException {
-        DocumentEntity document = (DocumentEntity) simpleEntityFactory.createSimple(entityClass());
+        DocumentEntity document = (DocumentEntity) simpleEntityManager.createSimple(entityClass());
         List<DocumentPosition> positions = createSimplePositions(document);
 
         DocumentPosition retrievedPosition = ((DocumentPositionsEndpoint) entityClient()).getPosition(document.getId(), positions.get(0).getId());
@@ -162,7 +162,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
 
     @Test
     public void putPositionByIdsTest() throws IOException, LognexApiException {
-        DocumentEntity document = (DocumentEntity) simpleEntityFactory.createSimple(entityClass());
+        DocumentEntity document = (DocumentEntity) simpleEntityManager.createSimple(entityClass());
         List<DocumentPosition> positions = createSimplePositions(document);
 
         DocumentPosition position = positions.get(0);
@@ -178,7 +178,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
 
     @Test
     public void putPositionByEntityIdTest() throws IOException, LognexApiException {
-        DocumentEntity document = (DocumentEntity) simpleEntityFactory.createSimple(entityClass());
+        DocumentEntity document = (DocumentEntity) simpleEntityManager.createSimple(entityClass());
         List<DocumentPosition> positions = createSimplePositions(document);
 
         DocumentPosition position = positions.get(0);
@@ -194,7 +194,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
 
     @Test
     public void putPositionByEntitiesTest() throws IOException, LognexApiException {
-        DocumentEntity document = (DocumentEntity) simpleEntityFactory.createSimple(entityClass());
+        DocumentEntity document = (DocumentEntity) simpleEntityManager.createSimple(entityClass());
         List<DocumentPosition> positions = createSimplePositions(document);
 
         DocumentPosition position = positions.get(0);
@@ -210,7 +210,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
 
     @Test
     public void putPositionBySelfTest() throws IOException, LognexApiException {
-        DocumentEntity document = (DocumentEntity) simpleEntityFactory.createSimple(entityClass());
+        DocumentEntity document = (DocumentEntity) simpleEntityManager.createSimple(entityClass());
         List<DocumentPosition> positions = createSimplePositions(document);
 
         DocumentPosition position = positions.get(0);
@@ -226,7 +226,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
 
     @Test
     public void deletePositionByIdsTest() throws IOException, LognexApiException {
-        DocumentEntity document = (DocumentEntity) simpleEntityFactory.createSimple(entityClass());
+        DocumentEntity document = (DocumentEntity) simpleEntityManager.createSimple(entityClass());
         List<DocumentPosition> positions = createSimplePositions(document);
 
         ListEntity<DocumentPosition> positionsBefore = ((DocumentPositionsEndpoint) entityClient()).getPositions(document);
@@ -244,7 +244,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
 
     @Test
     public void deletePositionByEntityIdTest() throws IOException, LognexApiException {
-        DocumentEntity document = (DocumentEntity) simpleEntityFactory.createSimple(entityClass());
+        DocumentEntity document = (DocumentEntity) simpleEntityManager.createSimple(entityClass());
         List<DocumentPosition> positions = createSimplePositions(document);
 
         ListEntity<DocumentPosition> positionsBefore = ((DocumentPositionsEndpoint) entityClient()).getPositions(document);
@@ -262,7 +262,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
 
     @Test
     public void deletePositionByEntitiesTest() throws IOException, LognexApiException {
-        DocumentEntity document = (DocumentEntity) simpleEntityFactory.createSimple(entityClass());
+        DocumentEntity document = (DocumentEntity) simpleEntityManager.createSimple(entityClass());
         List<DocumentPosition> positions = createSimplePositions(document);
 
         ListEntity<DocumentPosition> positionsBefore = ((DocumentPositionsEndpoint) entityClient()).getPositions(document);
@@ -284,7 +284,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         for (int i = 0; i < 2; i++) {
             DocumentPosition position = new DocumentPosition();
 
-            ProductEntity product = simpleEntityFactory.createSimpleProduct();
+            ProductEntity product = simpleEntityManager.createSimpleProduct();
             position.setAssortment(product);
             position.setQuantity(randomDouble(1, 5, 3));
 

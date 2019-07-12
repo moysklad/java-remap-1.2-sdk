@@ -23,9 +23,9 @@ public class InvoiceOutDocumentEntityTest extends DocumentWithPositionsTestBase 
         invoiceOut.setVatIncluded(true);
         invoiceOut.setMoment(LocalDateTime.now());
         invoiceOut.setSum(randomLong(10, 10000));
-        invoiceOut.setOrganization(simpleEntityFactory.getOwnOrganization());
-        invoiceOut.setAgent(simpleEntityFactory.createSimpleCounterparty());
-        invoiceOut.setStore(simpleEntityFactory.getMainStore());
+        invoiceOut.setOrganization(simpleEntityManager.getOwnOrganization());
+        invoiceOut.setAgent(simpleEntityManager.createSimpleCounterparty());
+        invoiceOut.setStore(simpleEntityManager.getMainStore());
 
         api.entity().invoiceout().post(invoiceOut);
 

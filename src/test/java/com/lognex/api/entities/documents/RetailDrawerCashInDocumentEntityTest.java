@@ -25,8 +25,8 @@ public class RetailDrawerCashInDocumentEntityTest extends EntityGetUpdateDeleteT
         retailDrawerCashIn.setDescription(randomString());
         retailDrawerCashIn.setMoment(LocalDateTime.now());
 
-        retailDrawerCashIn.setOrganization(simpleEntityFactory.getOwnOrganization());
-        retailDrawerCashIn.setAgent(simpleEntityFactory.createSimpleCounterparty());
+        retailDrawerCashIn.setOrganization(simpleEntityManager.getOwnOrganization());
+        retailDrawerCashIn.setAgent(simpleEntityManager.createSimpleCounterparty());
 
         api.entity().retaildrawercashin().post(retailDrawerCashIn);
 

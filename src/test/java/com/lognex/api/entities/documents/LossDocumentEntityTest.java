@@ -22,8 +22,8 @@ public class LossDocumentEntityTest extends DocumentWithPositionsTestBase {
         loss.setName("loss_" + randomString(3) + "_" + new Date().getTime());
         loss.setDescription(randomString());
         loss.setMoment(LocalDateTime.now());
-        loss.setOrganization(simpleEntityFactory.getOwnOrganization());
-        loss.setStore(simpleEntityFactory.getMainStore());
+        loss.setOrganization(simpleEntityManager.getOwnOrganization());
+        loss.setStore(simpleEntityManager.getMainStore());
 
         api.entity().loss().post(loss);
 
@@ -56,14 +56,14 @@ public class LossDocumentEntityTest extends DocumentWithPositionsTestBase {
         assertTrue(loss.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, loss.getMoment()) < 1000);
 
-        assertEquals(loss.getOrganization().getMeta().getHref(), simpleEntityFactory.getOwnOrganization().getMeta().getHref());
-        assertEquals(loss.getStore().getMeta().getHref(), simpleEntityFactory.getMainStore().getMeta().getHref());
-        assertEquals(loss.getGroup().getMeta().getHref(), simpleEntityFactory.getMainGroup().getMeta().getHref());
+        assertEquals(loss.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());
+        assertEquals(loss.getStore().getMeta().getHref(), simpleEntityManager.getMainStore().getMeta().getHref());
+        assertEquals(loss.getGroup().getMeta().getHref(), simpleEntityManager.getMainGroup().getMeta().getHref());
     }
 
     @Test
     public void newBySalesReturnTest() throws IOException, LognexApiException {
-        SalesReturnDocumentEntity salesReturn = simpleEntityFactory.createSimpleSalesReturn();
+        SalesReturnDocumentEntity salesReturn = simpleEntityManager.createSimpleSalesReturn();
 
         LossDocumentEntity loss = api.entity().loss().newDocument("salesReturn", salesReturn);
         LocalDateTime time = LocalDateTime.now();

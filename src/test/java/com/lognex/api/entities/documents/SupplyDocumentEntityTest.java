@@ -24,9 +24,9 @@ public class SupplyDocumentEntityTest extends DocumentWithPositionsTestBase {
         supply.setVatEnabled(true);
         supply.setVatIncluded(true);
         supply.setMoment(LocalDateTime.now());
-        supply.setOrganization(simpleEntityFactory.getOwnOrganization());
-        supply.setAgent(simpleEntityFactory.createSimpleCounterparty());
-        supply.setStore(simpleEntityFactory.getMainStore());
+        supply.setOrganization(simpleEntityManager.getOwnOrganization());
+        supply.setAgent(simpleEntityManager.createSimpleCounterparty());
+        supply.setStore(simpleEntityManager.getMainStore());
 
         api.entity().supply().post(supply);
 
@@ -65,14 +65,14 @@ public class SupplyDocumentEntityTest extends DocumentWithPositionsTestBase {
         assertTrue(supply.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, supply.getMoment()) < 1000);
 
-        assertEquals(supply.getOrganization().getMeta().getHref(), simpleEntityFactory.getOwnOrganization().getMeta().getHref());
-        assertEquals(supply.getStore().getMeta().getHref(), simpleEntityFactory.getMainStore().getMeta().getHref());
-        assertEquals(supply.getGroup().getMeta().getHref(), simpleEntityFactory.getMainGroup().getMeta().getHref());
+        assertEquals(supply.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());
+        assertEquals(supply.getStore().getMeta().getHref(), simpleEntityManager.getMainStore().getMeta().getHref());
+        assertEquals(supply.getGroup().getMeta().getHref(), simpleEntityManager.getMainGroup().getMeta().getHref());
     }
 
     @Test
     public void newByPurchaseOrderTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity purchaseOrder = simpleEntityFactory.createSimplePurchaseOrder();
+        PurchaseOrderDocumentEntity purchaseOrder = simpleEntityManager.createSimplePurchaseOrder();
 
         SupplyDocumentEntity supply = api.entity().supply().newDocument("purchaseOrder", purchaseOrder);
         LocalDateTime time = LocalDateTime.now();
@@ -93,7 +93,7 @@ public class SupplyDocumentEntityTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void newByInvoicesInTest() throws IOException, LognexApiException {
-        InvoiceInDocumentEntity invoiceIn = simpleEntityFactory.createSimpleInvoiceIn();
+        InvoiceInDocumentEntity invoiceIn = simpleEntityManager.createSimpleInvoiceIn();
 
         SupplyDocumentEntity supply = api.entity().supply().newDocument("invoicesIn", Collections.singletonList(invoiceIn));
         LocalDateTime time = LocalDateTime.now();

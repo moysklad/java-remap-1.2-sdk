@@ -22,9 +22,9 @@ public class MoveDocumentEntityTest extends DocumentWithPositionsTestBase {
         move.setName("move_" + randomString(3) + "_" + new Date().getTime());
         move.setDescription(randomString());
         move.setMoment(LocalDateTime.now());
-        move.setOrganization(simpleEntityFactory.getOwnOrganization());
-        move.setSourceStore(simpleEntityFactory.getMainStore());
-        move.setTargetStore(simpleEntityFactory.createSimpleStore());
+        move.setOrganization(simpleEntityManager.getOwnOrganization());
+        move.setSourceStore(simpleEntityManager.getMainStore());
+        move.setTargetStore(simpleEntityManager.createSimpleStore());
 
         api.entity().move().post(move);
 
@@ -58,13 +58,13 @@ public class MoveDocumentEntityTest extends DocumentWithPositionsTestBase {
         assertTrue(move.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, move.getMoment()) < 1000);
 
-        assertEquals(move.getOrganization().getMeta().getHref(), simpleEntityFactory.getOwnOrganization().getMeta().getHref());
-        assertEquals(move.getGroup().getMeta().getHref(), simpleEntityFactory.getMainGroup().getMeta().getHref());
+        assertEquals(move.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());
+        assertEquals(move.getGroup().getMeta().getHref(), simpleEntityManager.getMainGroup().getMeta().getHref());
     }
 
     @Test
     public void newByInternalOrderTest() throws IOException, LognexApiException {
-        InternalOrderDocumentEntity internalOrder = simpleEntityFactory.createSimpleInternalOrder();
+        InternalOrderDocumentEntity internalOrder = simpleEntityManager.createSimpleInternalOrder();
 
         MoveDocumentEntity move = api.entity().move().newDocument("internalOrder", internalOrder);
         LocalDateTime time = LocalDateTime.now();

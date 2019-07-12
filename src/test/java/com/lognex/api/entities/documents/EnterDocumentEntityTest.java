@@ -21,8 +21,8 @@ public class EnterDocumentEntityTest extends DocumentWithPositionsTestBase {
         enter.setName("enter_" + randomString(3) + "_" + new Date().getTime());
         enter.setDescription(randomString());
         enter.setMoment(LocalDateTime.now());
-        enter.setOrganization(simpleEntityFactory.getOwnOrganization());
-        enter.setStore(simpleEntityFactory.getMainStore());
+        enter.setOrganization(simpleEntityManager.getOwnOrganization());
+        enter.setStore(simpleEntityManager.getMainStore());
 
         api.entity().enter().post(enter);
 

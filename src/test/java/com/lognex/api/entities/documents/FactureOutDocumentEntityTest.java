@@ -32,7 +32,7 @@ public class FactureOutDocumentEntityTest extends EntityGetUpdateDeleteTest {
         factureOut.setPaymentNumber(randomString());
         factureOut.setPaymentDate(LocalDateTime.now());
         List<DemandDocumentEntity> demands = new ArrayList<>();
-        demands.add(simpleEntityFactory.createSimpleDemand());
+        demands.add(simpleEntityManager.createSimpleDemand());
         factureOut.setDemands(demands);
 
         api.entity().factureout().post(factureOut);
@@ -94,7 +94,7 @@ public class FactureOutDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void newByPurchaseReturnsTest() throws IOException, LognexApiException {
-        PurchaseReturnDocumentEntity purchaseReturn = simpleEntityFactory.createSimplePurchaseReturn();
+        PurchaseReturnDocumentEntity purchaseReturn = simpleEntityManager.createSimplePurchaseReturn();
 
         LocalDateTime time = LocalDateTime.now();
         FactureOutDocumentEntity factureOut = api.entity().factureout().newDocument("returns", Collections.singletonList(purchaseReturn));
@@ -113,7 +113,7 @@ public class FactureOutDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void newByPaymentsInTest() throws IOException, LognexApiException {
-        PaymentInDocumentEntity paymentIn = simpleEntityFactory.createSimplePaymentIn();
+        PaymentInDocumentEntity paymentIn = simpleEntityManager.createSimplePaymentIn();
 
         LocalDateTime time = LocalDateTime.now();
         FactureOutDocumentEntity factureOut = api.entity().factureout().newDocument("payments", Collections.singletonList(paymentIn));

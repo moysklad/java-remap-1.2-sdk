@@ -26,9 +26,9 @@ public class ContractEntityTest extends EntityGetUpdateDeleteTest {
         contract.setContractType(ContractEntity.Type.sales);
         contract.setRewardType(RewardType.none);
 
-        contract.setOwnAgent(simpleEntityFactory.getOwnOrganization());
+        contract.setOwnAgent(simpleEntityManager.getOwnOrganization());
 
-        CounterpartyEntity agent = simpleEntityFactory.createSimpleCounterparty();
+        CounterpartyEntity agent = simpleEntityManager.createSimpleCounterparty();
         contract.setAgent(agent);
 
         api.entity().contract().post(contract);

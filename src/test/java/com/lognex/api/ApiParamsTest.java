@@ -1,14 +1,12 @@
 package com.lognex.api;
 
-import com.lognex.api.entities.GlobalMetadataEntity;
-import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.StoreEntity;
-import com.lognex.api.entities.UomEntity;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.CounterpartyEntity;
 import com.lognex.api.entities.agents.OrganizationEntity;
 import com.lognex.api.entities.documents.InventoryDocumentEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.MockHttpClient;
 import com.lognex.api.utils.RequestLogHttpClient;
 import com.lognex.api.utils.TestRandomizers;
 import org.junit.After;
@@ -36,8 +34,9 @@ import static com.lognex.api.utils.params.SearchParam.search;
 import static org.junit.Assert.*;
 
 public class ApiParamsTest implements TestRandomizers {
-    private LognexApi api;
+    private LognexApi api, mockApi;
     private RequestLogHttpClient logHttpClient;
+    private MockHttpClient mockHttpClient;
     private String host;
 
     @Before
@@ -51,6 +50,14 @@ public class ApiParamsTest implements TestRandomizers {
         );
 
         host = api.getHost();
+
+        mockHttpClient = new MockHttpClient();
+        mockApi = new LognexApi(
+                System.getenv("API_HOST"),
+                false, System.getenv("API_LOGIN"),
+                System.getenv("API_PASSWORD"),
+                mockHttpClient
+        );
     }
 
     @After
@@ -249,6 +256,18 @@ public class ApiParamsTest implements TestRandomizers {
         assertEquals(host + "/api/remap/1.2/entity/inventory/?filter=store" +
                         URLEncoder.encode("=" + host + "/api/remap/1.2/entity/store/" + store.getId(), "UTF-8"),
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri());
+    }
+
+    @Test
+    public void test_attributeFilter() throws IOException, LognexApiException {
+        mockApi.entity().counterparty().get(
+                filterEq(new AttributeEntity(Meta.Type.COUNTERPARTY, "ID", AttributeEntity.Type.stringValue, "NOT_USED"), "VALUE")
+        );
+        assertEquals(
+                host + "/api/remap/1.2/entity/counterparty/?filter=" +
+                        URLEncoder.encode(host + "/api/remap/1.2/entity/counterparty/metadata/attributes/ID=VALUE", "UTF-8"),
+                mockHttpClient.getLastExecutedRequest().getRequestLine().getUri()
+        );
     }
 
     @Test

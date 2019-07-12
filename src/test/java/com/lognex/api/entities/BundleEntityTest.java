@@ -25,7 +25,7 @@ public class BundleEntityTest extends EntityGetUpdateDeleteTest {
         bundle.setArchived(false);
         bundle.setArticle(randomString());
 
-        ProductEntity product = simpleEntityFactory.createSimpleProduct();
+        ProductEntity product = simpleEntityManager.createSimpleProduct();
         ListEntity<BundleEntity.ComponentEntity> components = new ListEntity<>();
         components.setRows(new ArrayList<>());
         components.getRows().add(new BundleEntity.ComponentEntity());

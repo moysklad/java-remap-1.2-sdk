@@ -24,9 +24,9 @@ public class CashOutDocumentEntityTest extends EntityGetUpdateDeleteTest {
         cashOut.setDescription(randomString());
         cashOut.setMoment(LocalDateTime.now());
         cashOut.setSum(randomLong(10, 10000));
-        cashOut.setOrganization(simpleEntityFactory.getOwnOrganization());
-        cashOut.setAgent(simpleEntityFactory.createSimpleCounterparty());
-        cashOut.setExpenseItem(simpleEntityFactory.createSimpleExpenseItem());
+        cashOut.setOrganization(simpleEntityManager.getOwnOrganization());
+        cashOut.setAgent(simpleEntityManager.createSimpleCounterparty());
+        cashOut.setExpenseItem(simpleEntityManager.createSimpleExpenseItem());
 
         api.entity().cashout().post(cashOut);
 
@@ -61,13 +61,13 @@ public class CashOutDocumentEntityTest extends EntityGetUpdateDeleteTest {
         assertTrue(cashOut.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, cashOut.getMoment()) < 1000);
 
-        assertEquals(cashOut.getOrganization().getMeta().getHref(), simpleEntityFactory.getOwnOrganization().getMeta().getHref());
-        assertEquals(cashOut.getGroup().getMeta().getHref(), simpleEntityFactory.getMainGroup().getMeta().getHref());
+        assertEquals(cashOut.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());
+        assertEquals(cashOut.getGroup().getMeta().getHref(), simpleEntityManager.getMainGroup().getMeta().getHref());
     }
 
     @Test
     public void newByPurchaseOrdersTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity purchaseOrder = simpleEntityFactory.createSimplePurchaseOrder();
+        PurchaseOrderDocumentEntity purchaseOrder = simpleEntityManager.createSimplePurchaseOrder();
 
         CashOutDocumentEntity cashOut = api.entity().cashout().newDocument("operations", Collections.singletonList(purchaseOrder));
         LocalDateTime time = LocalDateTime.now();
@@ -86,7 +86,7 @@ public class CashOutDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void newBySalesReturnsTest() throws IOException, LognexApiException {
-        SalesReturnDocumentEntity salesReturn = simpleEntityFactory.createSimpleSalesReturn();
+        SalesReturnDocumentEntity salesReturn = simpleEntityManager.createSimpleSalesReturn();
 
         CashOutDocumentEntity cashOut = api.entity().cashout().newDocument("operations", Collections.singletonList(salesReturn));
         LocalDateTime time = LocalDateTime.now();
@@ -105,7 +105,7 @@ public class CashOutDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void newBySuppliesTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity supply = simpleEntityFactory.createSimpleSupply();
+        SupplyDocumentEntity supply = simpleEntityManager.createSimpleSupply();
 
         CashOutDocumentEntity cashOut = api.entity().cashout().newDocument("operations", Collections.singletonList(supply));
         LocalDateTime time = LocalDateTime.now();
@@ -124,7 +124,7 @@ public class CashOutDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void newByInvoicesInTest() throws IOException, LognexApiException {
-        InvoiceInDocumentEntity invoiceIn = simpleEntityFactory.createSimpleInvoiceIn();
+        InvoiceInDocumentEntity invoiceIn = simpleEntityManager.createSimpleInvoiceIn();
 
         CashOutDocumentEntity cashOut = api.entity().cashout().newDocument("operations", Collections.singletonList(invoiceIn));
         LocalDateTime time = LocalDateTime.now();
@@ -143,7 +143,7 @@ public class CashOutDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void newByCommissionReportsOutTest() throws IOException, LognexApiException {
-        CommissionReportOutDocumentEntity commissionReportOut = simpleEntityFactory.createSimpleCommissionReportOut();
+        CommissionReportOutDocumentEntity commissionReportOut = simpleEntityManager.createSimpleCommissionReportOut();
 
         CashOutDocumentEntity cashOut = api.entity().cashout().newDocument("operations", Collections.singletonList(commissionReportOut));
         LocalDateTime time = LocalDateTime.now();

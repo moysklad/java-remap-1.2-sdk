@@ -31,15 +31,15 @@ public class ProcessingOrderDocumentEntityTest extends EntityGetUpdateDeleteTest
         processingOrder.setName("processingorder_" + randomString(3) + "_" + new Date().getTime());
         processingOrder.setDescription(randomString());
         processingOrder.setMoment(LocalDateTime.now());
-        processingOrder.setOrganization(simpleEntityFactory.getOwnOrganization());
-        processingOrder.setStore(simpleEntityFactory.getMainStore());
+        processingOrder.setOrganization(simpleEntityManager.getOwnOrganization());
+        processingOrder.setStore(simpleEntityManager.getMainStore());
 
         ProcessingPlanDocumentEntity processingPlan = new ProcessingPlanDocumentEntity();
         processingPlan.setName("processingplan_" + randomString(3) + "_" + new Date().getTime());
 
         processingPlan.setMaterials(new ListEntity<>());
         processingPlan.getMaterials().setRows(new ArrayList<>());
-        ProductEntity material = simpleEntityFactory.createSimpleProduct();
+        ProductEntity material = simpleEntityManager.createSimpleProduct();
         ProcessingPlanDocumentEntity.PlanItem materialItem = new ProcessingPlanDocumentEntity.PlanItem();
         materialItem.setProduct(material);
         materialItem.setQuantity(randomDouble(1, 5, 10));
@@ -47,7 +47,7 @@ public class ProcessingOrderDocumentEntityTest extends EntityGetUpdateDeleteTest
 
         processingPlan.setProducts(new ListEntity<>());
         processingPlan.getProducts().setRows(new ArrayList<>());
-        ProductEntity product = simpleEntityFactory.createSimpleProduct();
+        ProductEntity product = simpleEntityManager.createSimpleProduct();
         ProcessingPlanDocumentEntity.PlanItem productItem = new ProcessingPlanDocumentEntity.PlanItem();
         productItem.setProduct(product);
         productItem.setQuantity(randomDouble(1, 5, 10));
@@ -95,7 +95,7 @@ public class ProcessingOrderDocumentEntityTest extends EntityGetUpdateDeleteTest
 
         processingPlan.setMaterials(new ListEntity<>());
         processingPlan.getMaterials().setRows(new ArrayList<>());
-        ProductEntity material = simpleEntityFactory.createSimpleProduct();
+        ProductEntity material = simpleEntityManager.createSimpleProduct();
         ProcessingPlanDocumentEntity.PlanItem materialItem = new ProcessingPlanDocumentEntity.PlanItem();
         materialItem.setProduct(material);
         DecimalFormat df = new DecimalFormat("#.####");
@@ -104,7 +104,7 @@ public class ProcessingOrderDocumentEntityTest extends EntityGetUpdateDeleteTest
 
         processingPlan.setProducts(new ListEntity<>());
         processingPlan.getProducts().setRows(new ArrayList<>());
-        ProductEntity product = simpleEntityFactory.createSimpleProduct();
+        ProductEntity product = simpleEntityManager.createSimpleProduct();
         ProcessingPlanDocumentEntity.PlanItem productItem = new ProcessingPlanDocumentEntity.PlanItem();
         productItem.setProduct(product);
         productItem.setQuantity(Double.valueOf(df.format(randomDouble(1, 5, 4))));

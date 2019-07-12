@@ -19,7 +19,7 @@ public abstract class EntityGetUpdateDeleteTest extends EntityGetDeleteTest {
 
     @SuppressWarnings("unchecked")
     public void doPutTest(String fieldName) throws IOException, LognexApiException {
-        MetaEntity createdEntity = simpleEntityFactory.createSimple(entityClass());
+        MetaEntity createdEntity = simpleEntityManager.createSimple(entityClass());
 
         // update by entity
         MetaEntity originalEntity = ((GetByIdEndpoint) entityClient()).get(createdEntity.getId());

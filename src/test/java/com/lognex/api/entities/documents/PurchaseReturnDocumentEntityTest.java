@@ -27,11 +27,11 @@ public class PurchaseReturnDocumentEntityTest extends DocumentWithPositionsTestB
         purchaseReturn.setVatEnabled(true);
         purchaseReturn.setVatIncluded(true);
         purchaseReturn.setMoment(LocalDateTime.now());
-        OrganizationEntity organization = simpleEntityFactory.getOwnOrganization();
+        OrganizationEntity organization = simpleEntityManager.getOwnOrganization();
         purchaseReturn.setOrganization(organization);
-        CounterpartyEntity agent = simpleEntityFactory.createSimpleCounterparty();
+        CounterpartyEntity agent = simpleEntityManager.createSimpleCounterparty();
         purchaseReturn.setAgent(agent);
-        StoreEntity mainStore = simpleEntityFactory.getMainStore();
+        StoreEntity mainStore = simpleEntityManager.getMainStore();
         purchaseReturn.setStore(mainStore);
 
         SupplyDocumentEntity supply = new SupplyDocumentEntity();
@@ -80,14 +80,14 @@ public class PurchaseReturnDocumentEntityTest extends DocumentWithPositionsTestB
         assertTrue(purchaseReturn.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, purchaseReturn.getMoment()) < 1000);
 
-        assertEquals(purchaseReturn.getOrganization().getMeta().getHref(), simpleEntityFactory.getOwnOrganization().getMeta().getHref());
-        assertEquals(purchaseReturn.getStore().getMeta().getHref(), simpleEntityFactory.getMainStore().getMeta().getHref());
-        assertEquals(purchaseReturn.getGroup().getMeta().getHref(), simpleEntityFactory.getMainGroup().getMeta().getHref());
+        assertEquals(purchaseReturn.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());
+        assertEquals(purchaseReturn.getStore().getMeta().getHref(), simpleEntityManager.getMainStore().getMeta().getHref());
+        assertEquals(purchaseReturn.getGroup().getMeta().getHref(), simpleEntityManager.getMainGroup().getMeta().getHref());
     }
 
     @Test
     public void newBySupplyTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity supply = simpleEntityFactory.createSimpleSupply();
+        SupplyDocumentEntity supply = simpleEntityManager.createSimpleSupply();
 
         PurchaseReturnDocumentEntity purchaseReturn = api.entity().purchasereturn().newDocument("supply", supply);
         LocalDateTime time = LocalDateTime.now();

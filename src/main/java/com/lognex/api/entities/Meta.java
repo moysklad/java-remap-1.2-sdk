@@ -31,8 +31,9 @@ public final class Meta {
         }
         type = Type.find(entity);
         href = MetaHrefUtils.makeHref(type, entity, host);
-        // TODO do not create metadata href for entity, if it not necessary
-        metadataHref = MetaHrefUtils.makeMetadataHref(type, entity, host);
+        if (type != Type.CUSTOM_TEMPLATE && type != Type.EMBEDDED_TEMPLATE) {
+            metadataHref = MetaHrefUtils.makeMetadataHref(type, entity, host);
+        }
     }
 
     /**

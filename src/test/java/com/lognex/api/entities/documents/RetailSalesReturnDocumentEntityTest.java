@@ -27,9 +27,9 @@ public class RetailSalesReturnDocumentEntityTest extends EntityGetUpdateDeleteTe
         retailSalesReturn.setVatIncluded(true);
         retailSalesReturn.setMoment(LocalDateTime.now());
 
-        retailSalesReturn.setOrganization(simpleEntityFactory.getOwnOrganization());
-        retailSalesReturn.setAgent(simpleEntityFactory.createSimpleCounterparty());
-        retailSalesReturn.setStore(simpleEntityFactory.getMainStore());
+        retailSalesReturn.setOrganization(simpleEntityManager.getOwnOrganization());
+        retailSalesReturn.setAgent(simpleEntityManager.createSimpleCounterparty());
+        retailSalesReturn.setStore(simpleEntityManager.getMainStore());
 
         api.entity().retailsalesreturn().post(retailSalesReturn);
 

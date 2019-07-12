@@ -4,7 +4,6 @@ import com.lognex.api.entities.CustomEntityElement;
 import com.lognex.api.entities.Meta;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.TemplateEntity;
-import com.lognex.api.responses.ListEntity;
 import lombok.NoArgsConstructor;
 
 import java.lang.reflect.Field;
@@ -117,7 +116,8 @@ public final class MetaHrefUtils {
         }
 
         Field[] fields = clazz.getDeclaredFields();
-        List<MetaEntity> filteredFields = Arrays.stream(fields)
+
+        return Arrays.stream(fields)
                 .filter(f -> List.class.isAssignableFrom(f.getType()))
                 .map(f -> (List) getFieldValueByName(f, clazz, entity))
                 .flatMap(f -> {
@@ -128,20 +128,5 @@ public final class MetaHrefUtils {
                 })
                 .filter(f -> f != null && isNotEmpty(f.getId()) && f.getMeta() == null)
                 .collect(Collectors.toList());
-
-        filteredFields.addAll(Arrays.stream(fields)
-                .filter(f -> ListEntity.class.isAssignableFrom(f.getType()))
-                .map(f -> (ListEntity) getFieldValueByName(f, clazz, entity))
-                .flatMap(f -> {
-                    if (f != null && f.getRows() != null) {
-                        return (Stream<MetaEntity>) f.getRows().stream();
-                    }
-                    return Stream.empty();
-                })
-                .filter(f -> f != null && isNotEmpty(f.getId()) && f.getMeta() == null)
-                .collect(Collectors.toList())
-        );
-
-        return filteredFields;
     }
 }

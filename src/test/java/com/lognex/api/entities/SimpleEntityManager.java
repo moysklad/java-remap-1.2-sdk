@@ -26,12 +26,19 @@ import static com.lognex.api.utils.params.SearchParam.search;
 import static org.junit.Assert.*;
 
 @SuppressWarnings("unused")
-public class SimpleEntityFactory implements TestRandomizers {
+public class SimpleEntityManager implements TestRandomizers {
     private LognexApi api;
 
-    private static final Logger logger = LoggerFactory.getLogger(SimpleEntityFactory.class);
+    private static final Logger logger = LoggerFactory.getLogger(SimpleEntityManager.class);
+    private static final Map<Class, List<MetaEntity>> entityPoolMap = new HashMap<>();
+    private static final Map<Class, Integer> accessCounterMap = new HashMap<>();
 
-    public SimpleEntityFactory(LognexApi api) {
+    private static StoreEntity mainStore = null;
+    private static OrganizationEntity ownOrganization = null;
+    private static CurrencyEntity firstCurrency = null;
+    private static GroupEntity mainGroup = null;
+
+    public SimpleEntityManager(LognexApi api) {
         this.api = api;
     }
 
@@ -40,6 +47,10 @@ public class SimpleEntityFactory implements TestRandomizers {
      * путем вызова соответствующего createSimple* метода
      */
     public <T extends MetaEntity> T createSimple(Class<T> entityClass) {
+        return createSimple(entityClass, false);
+    }
+
+    public <T extends MetaEntity> T createSimple(Class<T> entityClass, boolean forceCreate) {
         Method method;
         String methodName = "createSimple" + entityClass.getSimpleName().
                 replace("Document", "");
@@ -48,10 +59,28 @@ public class SimpleEntityFactory implements TestRandomizers {
             methodName = methodName.replace("Entity", "");
         }
 
+        Integer accessCount = accessCounterMap.get(entityClass);
+        List<MetaEntity> entityList = entityPoolMap.get(entityClass);
+
+        if (accessCount == null || entityList == null) {
+            accessCounterMap.put(entityClass, 0);
+            entityPoolMap.put(entityClass, new ArrayList<>());
+            accessCount = 0;
+            entityList = entityPoolMap.get(entityClass);
+        }
+
         Object entity;
+
+        if (!forceCreate && accessCount < entityList.size()) {
+            entity = entityList.get(accessCount);
+            accessCounterMap.put(entityClass, accessCount+1);
+            return entityClass.cast(entity);
+        }
+
         try {
             method = this.getClass().getMethod(methodName);
             entity = method.invoke(this);
+            entityList.add(entityClass.cast(entity));
         } catch (NoSuchMethodException e) {
             logger.error("Невозможно получить метод " + methodName);
             throw new IllegalArgumentException(e.getMessage(), e);
@@ -64,6 +93,13 @@ public class SimpleEntityFactory implements TestRandomizers {
         }
 
         return entityClass.cast(entity);
+    }
+
+    public <T extends MetaEntity> void removeSimpleFromPool(T entity) {
+        List<MetaEntity> entityList = entityPoolMap.get(entity.getClass());
+        if (entityList != null) {
+            entityList.remove(entity);
+        }
     }
 
     public BundleEntity createSimpleBundle() throws IOException, LognexApiException {
@@ -124,10 +160,12 @@ public class SimpleEntityFactory implements TestRandomizers {
     }
 
     public CurrencyEntity getFirstCurrency() throws IOException, LognexApiException {
-        ListEntity<CurrencyEntity> currencyEntityList = api.entity().currency().get();
-        assertNotEquals(0, currencyEntityList.getRows().size());
-
-        return currencyEntityList.getRows().get(0);
+        if (firstCurrency == null) {
+            ListEntity<CurrencyEntity> currencyEntityList = api.entity().currency().get();
+            assertNotEquals(0, currencyEntityList.getRows().size());
+            firstCurrency = currencyEntityList.getRows().get(0);
+        }
+        return firstCurrency;
     }
 
     public CurrencyEntity createSimpleCurrency() throws IOException, LognexApiException {
@@ -183,25 +221,28 @@ public class SimpleEntityFactory implements TestRandomizers {
     }
 
     public GroupEntity getMainGroup() throws IOException, LognexApiException {
-        ListEntity<GroupEntity> group = api.entity().group().get(search("Основной"));
-        assertEquals(1, group.getRows().size());
-
-        return group.getRows().get(0);
+        if (mainGroup == null) {
+            ListEntity<GroupEntity> group = api.entity().group().get(search("Основной"));
+            assertEquals(1, group.getRows().size());
+            mainGroup = group.getRows().get(0);
+        }
+        return mainGroup;
     }
 
     public OrganizationEntity getOwnOrganization() throws IOException, LognexApiException {
-        ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
-        Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
-                min(Comparator.comparing(OrganizationEntity::getCreated));
+        if (ownOrganization == null) {
+            ListEntity<OrganizationEntity> orgList = api.entity().organization().get();
+            Optional<OrganizationEntity> orgOptional = orgList.getRows().stream().
+                    min(Comparator.comparing(OrganizationEntity::getCreated));
 
-        OrganizationEntity organizationEntity;
-        if (orgOptional.isPresent()) {
-            organizationEntity = orgOptional.get();
-        } else {
-            throw new IllegalStateException("Не удалось получить первое созданное юрлицо");
+            OrganizationEntity organizationEntity;
+            if (orgOptional.isPresent()) {
+                ownOrganization = orgOptional.get();
+            } else {
+                throw new IllegalStateException("Не удалось получить первое созданное юрлицо");
+            }
         }
-
-        return organizationEntity;
+        return ownOrganization;
     }
 
     public OrganizationEntity createSimpleOrganization() throws IOException, LognexApiException {
@@ -257,10 +298,12 @@ public class SimpleEntityFactory implements TestRandomizers {
     }
 
     public StoreEntity getMainStore() throws IOException, LognexApiException {
-        ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
-        assertEquals(1, store.getRows().size());
-
-        return store.getRows().get(0);
+        if (mainStore == null) {
+            ListEntity<StoreEntity> store = api.entity().store().get(filterEq("name", "Основной склад"));
+            assertEquals(1, store.getRows().size());
+            mainStore = store.getRows().get(0);
+        }
+        return mainStore;
     }
 
     public StoreEntity createSimpleStore() throws IOException, LognexApiException {
@@ -746,5 +789,11 @@ public class SimpleEntityFactory implements TestRandomizers {
         api.entity().supply().post(supply);
 
         return supply;
+    }
+
+    public void clearAccessCounts() {
+        for (Map.Entry<Class, Integer> entry : accessCounterMap.entrySet()) {
+            entry.setValue(0);
+        }
     }
 }

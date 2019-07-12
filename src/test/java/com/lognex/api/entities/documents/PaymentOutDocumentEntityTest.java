@@ -23,9 +23,9 @@ public class PaymentOutDocumentEntityTest extends EntityGetUpdateDeleteTest {
         paymentOut.setName("paymentout_" + randomString(3) + "_" + new Date().getTime());
         paymentOut.setMoment(LocalDateTime.now());
         paymentOut.setSum(randomLong(10, 10000));
-        paymentOut.setOrganization(simpleEntityFactory.getOwnOrganization());
-        paymentOut.setAgent(simpleEntityFactory.createSimpleCounterparty());
-        paymentOut.setExpenseItem(simpleEntityFactory.createSimpleExpenseItem());
+        paymentOut.setOrganization(simpleEntityManager.getOwnOrganization());
+        paymentOut.setAgent(simpleEntityManager.createSimpleCounterparty());
+        paymentOut.setExpenseItem(simpleEntityManager.createSimpleExpenseItem());
 
         api.entity().paymentout().post(paymentOut);
 
@@ -59,13 +59,13 @@ public class PaymentOutDocumentEntityTest extends EntityGetUpdateDeleteTest {
         assertTrue(paymentOut.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, paymentOut.getMoment()) < 1000);
 
-        assertEquals(paymentOut.getOrganization().getMeta().getHref(), simpleEntityFactory.getOwnOrganization().getMeta().getHref());
-        assertEquals(paymentOut.getGroup().getMeta().getHref(), simpleEntityFactory.getMainGroup().getMeta().getHref());
+        assertEquals(paymentOut.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());
+        assertEquals(paymentOut.getGroup().getMeta().getHref(), simpleEntityManager.getMainGroup().getMeta().getHref());
     }
 
     @Test
     public void newByPurchaseOrdersTest() throws IOException, LognexApiException {
-        PurchaseOrderDocumentEntity purchaseOrder = simpleEntityFactory.createSimplePurchaseOrder();
+        PurchaseOrderDocumentEntity purchaseOrder = simpleEntityManager.createSimplePurchaseOrder();
 
         PaymentOutDocumentEntity paymentOut = api.entity().paymentout().newDocument("operations", Collections.singletonList(purchaseOrder));
         LocalDateTime time = LocalDateTime.now();
@@ -84,7 +84,7 @@ public class PaymentOutDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void newBySalesReturnsTest() throws IOException, LognexApiException {
-        SalesReturnDocumentEntity salesReturn = simpleEntityFactory.createSimpleSalesReturn();
+        SalesReturnDocumentEntity salesReturn = simpleEntityManager.createSimpleSalesReturn();
 
         PaymentOutDocumentEntity paymentOut = api.entity().paymentout().newDocument("operations", Collections.singletonList(salesReturn));
         LocalDateTime time = LocalDateTime.now();
@@ -103,7 +103,7 @@ public class PaymentOutDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void newBySuppliesTest() throws IOException, LognexApiException {
-        SupplyDocumentEntity supply = simpleEntityFactory.createSimpleSupply();
+        SupplyDocumentEntity supply = simpleEntityManager.createSimpleSupply();
 
         PaymentOutDocumentEntity paymentOut = api.entity().paymentout().newDocument("operations", Collections.singletonList(supply));
         LocalDateTime time = LocalDateTime.now();
@@ -122,7 +122,7 @@ public class PaymentOutDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void newByInvoicesInTest() throws IOException, LognexApiException {
-        InvoiceInDocumentEntity invoiceIn = simpleEntityFactory.createSimpleInvoiceIn();
+        InvoiceInDocumentEntity invoiceIn = simpleEntityManager.createSimpleInvoiceIn();
 
         PaymentOutDocumentEntity paymentOut = api.entity().paymentout().newDocument("operations", Collections.singletonList(invoiceIn));
         LocalDateTime time = LocalDateTime.now();
@@ -141,7 +141,7 @@ public class PaymentOutDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void newByCommissionReportsOutTest() throws IOException, LognexApiException {
-        CommissionReportOutDocumentEntity commissionReportOut = simpleEntityFactory.createSimpleCommissionReportOut();
+        CommissionReportOutDocumentEntity commissionReportOut = simpleEntityManager.createSimpleCommissionReportOut();
 
         PaymentOutDocumentEntity paymentOut = api.entity().paymentout().newDocument("operations", Collections.singletonList(commissionReportOut));
         LocalDateTime time = LocalDateTime.now();

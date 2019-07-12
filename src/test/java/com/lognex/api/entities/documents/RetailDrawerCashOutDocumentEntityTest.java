@@ -25,8 +25,8 @@ public class RetailDrawerCashOutDocumentEntityTest extends EntityGetUpdateDelete
         retailDrawerCashOut.setDescription(randomString());
         retailDrawerCashOut.setMoment(LocalDateTime.now());
 
-        retailDrawerCashOut.setOrganization(simpleEntityFactory.getOwnOrganization());
-        retailDrawerCashOut.setAgent(simpleEntityFactory.createSimpleCounterparty());
+        retailDrawerCashOut.setOrganization(simpleEntityManager.getOwnOrganization());
+        retailDrawerCashOut.setAgent(simpleEntityManager.createSimpleCounterparty());
 
         api.entity().retaildrawercashout().post(retailDrawerCashOut);
 

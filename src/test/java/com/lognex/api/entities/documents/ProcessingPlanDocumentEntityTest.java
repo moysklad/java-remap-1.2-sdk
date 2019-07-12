@@ -26,7 +26,7 @@ public class ProcessingPlanDocumentEntityTest extends EntityGetUpdateDeleteTest 
 
         processingPlan.setMaterials(new ListEntity<>());
         processingPlan.getMaterials().setRows(new ArrayList<>());
-        ProductEntity material = simpleEntityFactory.createSimpleProduct();
+        ProductEntity material = simpleEntityManager.createSimpleProduct();
         PlanItem materialItem = new PlanItem();
         materialItem.setProduct(material);
         materialItem.setQuantity(randomDouble(1, 5, 10));
@@ -34,7 +34,7 @@ public class ProcessingPlanDocumentEntityTest extends EntityGetUpdateDeleteTest 
 
         processingPlan.setProducts(new ListEntity<>());
         processingPlan.getProducts().setRows(new ArrayList<>());
-        ProductEntity product = simpleEntityFactory.createSimpleProduct();
+        ProductEntity product = simpleEntityManager.createSimpleProduct();
         PlanItem productItem = new PlanItem();
         productItem.setProduct(product);
         productItem.setQuantity(randomDouble(1, 5, 10));

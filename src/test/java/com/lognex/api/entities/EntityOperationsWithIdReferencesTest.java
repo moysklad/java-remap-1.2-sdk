@@ -16,9 +16,9 @@ public class EntityOperationsWithIdReferencesTest extends EntityTestBase {
     public void createWithReferenceTest() throws Exception {
         MoveDocumentEntity move = new MoveDocumentEntity();
         move.setName("move_" + randomString(3) + "_" + new Date().getTime());
-        OrganizationEntity organization = simpleEntityFactory.getOwnOrganization();
-        StoreEntity fromStore = simpleEntityFactory.getMainStore();
-        StoreEntity toStore = simpleEntityFactory.createSimpleStore();
+        OrganizationEntity organization = simpleEntityManager.getOwnOrganization();
+        StoreEntity fromStore = simpleEntityManager.getMainStore();
+        StoreEntity toStore = simpleEntityManager.createSimpleStore();
         move.setOrganization(new OrganizationEntity(organization.getId()));
         move.setSourceStore(new StoreEntity(fromStore.getId()));
         move.setTargetStore(new StoreEntity(toStore.getId()));
@@ -35,17 +35,17 @@ public class EntityOperationsWithIdReferencesTest extends EntityTestBase {
         SupplyDocumentEntity supply = new SupplyDocumentEntity();
         supply.setName("supply_"  + randomString(3) + "_" + new Date().getTime());
         List<InvoiceInDocumentEntity> invoicesin = new ArrayList<>();
-        invoicesin.add(simpleEntityFactory.createSimpleInvoiceIn());
-        invoicesin.add(simpleEntityFactory.createSimpleInvoiceIn());
+        invoicesin.add(simpleEntityManager.createSimpleInvoiceIn());
+        invoicesin.add(simpleEntityManager.createSimpleInvoiceIn());
 
         supply.setInvoicesIn(new ArrayList<>());
         for (int i = 0; i < 2; ++i) {
             supply.getInvoicesIn().add(new InvoiceInDocumentEntity(invoicesin.get(i).getId()));
         }
 
-        OrganizationEntity organization = simpleEntityFactory.getOwnOrganization();
-        StoreEntity store = simpleEntityFactory.getMainStore();
-        CounterpartyEntity counterparty = simpleEntityFactory.createSimpleCounterparty();
+        OrganizationEntity organization = simpleEntityManager.getOwnOrganization();
+        StoreEntity store = simpleEntityManager.getMainStore();
+        CounterpartyEntity counterparty = simpleEntityManager.createSimpleCounterparty();
 
         supply.setOrganization(new OrganizationEntity(organization.getId()));
         supply.setStore(new StoreEntity(store.getId()));

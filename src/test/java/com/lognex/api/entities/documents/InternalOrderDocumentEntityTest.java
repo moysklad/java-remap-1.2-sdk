@@ -24,8 +24,8 @@ public class InternalOrderDocumentEntityTest extends DocumentWithPositionsTestBa
         internalOrder.setVatEnabled(true);
         internalOrder.setVatIncluded(true);
         internalOrder.setMoment(LocalDateTime.now());
-        internalOrder.setOrganization(simpleEntityFactory.getOwnOrganization());
-        internalOrder.setStore(simpleEntityFactory.getMainStore());
+        internalOrder.setOrganization(simpleEntityManager.getOwnOrganization());
+        internalOrder.setStore(simpleEntityManager.getMainStore());
 
         api.entity().internalorder().post(internalOrder);
 
@@ -62,9 +62,9 @@ public class InternalOrderDocumentEntityTest extends DocumentWithPositionsTestBa
         assertTrue(internalOrder.getApplicable());
         assertTrue(ChronoUnit.MILLIS.between(time, internalOrder.getMoment()) < 1000);
 
-        assertEquals(internalOrder.getOrganization().getMeta().getHref(), simpleEntityFactory.getOwnOrganization().getMeta().getHref());
-        assertEquals(internalOrder.getStore().getMeta().getHref(), simpleEntityFactory.getMainStore().getMeta().getHref());
-        assertEquals(internalOrder.getGroup().getMeta().getHref(), simpleEntityFactory.getMainGroup().getMeta().getHref());
+        assertEquals(internalOrder.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());
+        assertEquals(internalOrder.getStore().getMeta().getHref(), simpleEntityManager.getMainStore().getMeta().getHref());
+        assertEquals(internalOrder.getGroup().getMeta().getHref(), simpleEntityManager.getMainGroup().getMeta().getHref());
     }
 
     @Override

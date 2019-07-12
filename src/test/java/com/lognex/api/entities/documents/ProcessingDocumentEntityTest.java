@@ -34,7 +34,7 @@ public class ProcessingDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
         processing.setMaterials(new ListEntity<>());
         processing.getMaterials().setRows(new ArrayList<>());
-        ProductEntity material = simpleEntityFactory.createSimpleProduct();
+        ProductEntity material = simpleEntityManager.createSimpleProduct();
         DocumentPosition materialPosition = new DocumentPosition();
         materialPosition.setAssortment(material);
         materialPosition.setQuantity(3.1234);
@@ -42,7 +42,7 @@ public class ProcessingDocumentEntityTest extends EntityGetUpdateDeleteTest {
 
         processing.setProducts(new ListEntity<>());
         processing.getProducts().setRows(new ArrayList<>());
-        ProductEntity product = simpleEntityFactory.createSimpleProduct();
+        ProductEntity product = simpleEntityManager.createSimpleProduct();
         DocumentPosition productPosition = new DocumentPosition();
         productPosition.setAssortment(product);
         productPosition.setQuantity(3.1234);
