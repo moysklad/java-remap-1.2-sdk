@@ -6,10 +6,13 @@ import com.lognex.api.entities.ExportRequestEntity.ExportRequestItemEntity;
 import com.lognex.api.entities.TemplateEntity;
 import com.lognex.api.utils.HttpRequestExecutor;
 import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.MetaHrefUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static com.lognex.api.utils.Constants.API_PATH;
 
 public interface ExportEndpoint extends Endpoint {
     @ApiEndpoint
@@ -63,6 +66,12 @@ public interface ExportEndpoint extends Endpoint {
 
     @ApiEndpoint
     default void export(String id, ExportRequestEntity exportRequestEntity, File file, boolean addPrintDocumentContentHeader) throws IOException, LognexApiException {
+        if (exportRequestEntity.getTemplate() != null) {
+            MetaHrefUtils.fillMeta(exportRequestEntity.getTemplate(), api().getHost() + API_PATH);
+        } else if (exportRequestEntity.getTemplates() != null) {
+            exportRequestEntity.getTemplates()
+                .forEach(t -> MetaHrefUtils.fillMeta(t.getTemplate(), api().getHost() + API_PATH));
+        }
         HttpRequestExecutor req = HttpRequestExecutor.
                 path(api(), path() + id + "/export/").
                 body(exportRequestEntity);

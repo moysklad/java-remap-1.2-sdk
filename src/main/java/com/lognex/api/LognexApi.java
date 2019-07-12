@@ -3,11 +3,7 @@ package com.lognex.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lognex.api.clients.EntityClient;
-import com.lognex.api.entities.AttributeEntity;
-import com.lognex.api.entities.BarcodeEntity;
-import com.lognex.api.entities.CurrencyEntity;
-import com.lognex.api.entities.DocumentTemplateEntity;
-import com.lognex.api.entities.Meta;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.AgentEntity;
 import com.lognex.api.entities.discounts.DiscountEntity;
 import com.lognex.api.entities.documents.markers.FinanceDocumentMarker;
@@ -144,6 +140,7 @@ public final class LognexApi {
         gb.registerTypeAdapter(BarcodeEntity.class, new BarcodeEntity.Serializer());
         gb.registerTypeAdapter(DocumentTemplateEntity.class, new DocumentTemplateEntity.Serializer());
         gb.registerTypeAdapter(Meta.Type.class, new Meta.Type.Serializer());
+        gb.registerTypeAdapter(TemplateEntity.class, new TemplateEntity.Serializer());
 
         return gb.create();
     }

@@ -43,7 +43,7 @@ public class AttributeEntity extends MetaEntity {
     /**
      * Тип сущности, которой принадлежит аттрибут
      */
-    private Meta.Type attributeEntityType;
+    private transient Meta.Type attributeEntityType;
 
     public AttributeEntity(String id) {
         super(id);

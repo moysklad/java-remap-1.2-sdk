@@ -3,9 +3,9 @@ package com.lognex.api;
 import com.lognex.api.clients.endpoints.ApiChainElement;
 import com.lognex.api.clients.endpoints.ApiEndpoint;
 import com.lognex.api.clients.endpoints.ExportEndpoint;
+import com.lognex.api.entities.Meta;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.TemplateEntity;
-import com.lognex.api.entities.documents.DemandDocumentEntity;
 import com.lognex.api.entities.documents.DocumentEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.MockHttpClient;
@@ -122,6 +122,7 @@ public class EndpointsTest implements TestRandomizers {
                             }
                         };
                         documentEntity.setId("DOCUMENT_ID");
+                        documentEntity.setMeta(new Meta());
                         params.add(documentEntity);
                     } else if (DocumentEntity.class.isAssignableFrom(method1.getParameterTypes()[i])) {
                         DocumentEntity documentEntity = (DocumentEntity) method1.getParameterTypes()[i].newInstance();

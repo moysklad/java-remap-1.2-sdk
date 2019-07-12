@@ -97,17 +97,21 @@ public class FilterParam extends ApiParam {
                 AttributeEntity attrKey = (AttributeEntity) key;
                 if (attrKey == null) {
                     throw new IllegalArgumentException("key не может быть null");
-                } else if (attrKey.getAttributeEntityType() == null) {
-                    throw new IllegalArgumentException("key.attributeEntityType не может быть null");
-                } else if (attrKey.getId() == null) {
-                    throw new IllegalArgumentException("key.id не может быть null");
+                } else if (attrKey.getMeta() == null || attrKey.getMeta().getHref() == null) {
+                    if (attrKey.getAttributeEntityType() == null) {
+                        throw new IllegalArgumentException("key.attributeEntityType не может быть null");
+                    } else if (attrKey.getId() == null) {
+                        throw new IllegalArgumentException("key.id не может быть null");
+                    }
+                    filterString.append(host)
+                            .append("/entity/")
+                            .append(attrKey.getAttributeEntityType().getApiName())
+                            .append("/metadata/attributes/")
+                            .append(attrKey.getId())
+                            .append(filterType.str);
+                } else {
+                    filterString.append(attrKey.getMeta().getHref());
                 }
-                filterString.append(host)
-                        .append("/entity/")
-                        .append(attrKey.getAttributeEntityType().getApiName())
-                        .append("/metadata/attributes/")
-                        .append(attrKey.getId())
-                        .append(filterType.str);
 
                 switch (attrKey.getType()) {
                     case stringValue:
@@ -127,7 +131,7 @@ public class FilterParam extends ApiParam {
                             if (MetaEntity.class.isAssignableFrom(value.getClass())) {
                                 Meta.Type type = attrKey.getEntityType();
                                 type = type == null ? Meta.Type.find(((MetaEntity) value).getClass()) : type;
-                                filterString.append(MetaHrefUtils.makeHref(type, value, host));
+                                filterString.append(MetaHrefUtils.makeHref(type, ((MetaEntity) value), host));
                             } else {
                                 throw new IllegalArgumentException("Неизвестный тип данных дополнительного поля: " + value.getClass().getSimpleName());
                             }

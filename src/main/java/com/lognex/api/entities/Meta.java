@@ -25,8 +25,11 @@ import java.util.Arrays;
 @NoArgsConstructor
 @EqualsAndHashCode
 public final class Meta {
-    public Meta(@NonNull MetaEntity entity, @NonNull String host) {
-        type = Type.find(entity.getClass());
+    public Meta(MetaEntity entity, String host) {
+        if (entity == null || entity.getId() == null || host == null) {
+            return;
+        }
+        type = Type.find(entity);
         href = MetaHrefUtils.makeHref(type, entity, host);
         // TODO do not create metadata href for entity, if it not necessary
         metadataHref = MetaHrefUtils.makeMetadataHref(type, entity, host);
@@ -173,6 +176,16 @@ public final class Meta {
         Type(String apiName, Class<? extends MetaEntity> clazz) {
             this.modelClass = clazz;
             this.apiName = apiName;
+        }
+
+        public static Type find(MetaEntity entity) {
+            if (TemplateEntity.class.isAssignableFrom(entity.getClass())) {
+                if (((TemplateEntity) entity).getIsEmbedded() == null) {
+                    return CUSTOM_TEMPLATE;
+                }
+                return ((TemplateEntity) entity).getIsEmbedded() ? EMBEDDED_TEMPLATE : CUSTOM_TEMPLATE;
+            }
+            return find(entity.getClass());
         }
 
         public static Type find(Class<? extends MetaEntity> clazz){
