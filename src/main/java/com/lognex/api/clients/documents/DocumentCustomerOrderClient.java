@@ -1,31 +1,30 @@
 package com.lognex.api.clients.documents;
 
-import com.lognex.api.LognexApi;
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.CustomerOrderDocumentEntity;
+import com.lognex.api.entities.documents.CustomerOrder;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class DocumentCustomerOrderClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<CustomerOrderDocumentEntity>,
-        PostEndpoint<CustomerOrderDocumentEntity>,
+        GetListEndpoint<CustomerOrder>,
+        PostEndpoint<CustomerOrder>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        GetByIdEndpoint<CustomerOrderDocumentEntity>,
-        PutByIdEndpoint<CustomerOrderDocumentEntity>,
+        GetByIdEndpoint<CustomerOrder>,
+        PutByIdEndpoint<CustomerOrder>,
         DocumentPositionsEndpoint,
         ExportEndpoint {
 
-    public DocumentCustomerOrderClient(LognexApi api) {
+    public DocumentCustomerOrderClient(ApiClient api) {
         super(api, "/entity/customerorder/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return CustomerOrderDocumentEntity.class;
+        return CustomerOrder.class;
     }
 
     @Override

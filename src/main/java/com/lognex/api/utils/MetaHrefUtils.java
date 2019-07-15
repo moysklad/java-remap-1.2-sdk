@@ -3,7 +3,7 @@ package com.lognex.api.utils;
 import com.lognex.api.entities.CustomEntityElement;
 import com.lognex.api.entities.Meta;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.TemplateEntity;
+import com.lognex.api.entities.Template;
 import lombok.NoArgsConstructor;
 
 import java.lang.reflect.Field;
@@ -39,7 +39,7 @@ public final class MetaHrefUtils {
         switch (type) {
             case CUSTOM_TEMPLATE:
             case EMBEDDED_TEMPLATE:
-                Meta.Type entityType = ((TemplateEntity) entity).getEntityType();
+                Meta.Type entityType = ((Template) entity).getEntityType();
                 if (entityType != null) {
                     sb.append('/').append(entityType.getApiName()).append('/').append("metadata");
                 }

@@ -1,6 +1,6 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.CountryEntity;
+import com.lognex.api.entities.Country;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.products.markers.ProductMarker;
 import lombok.EqualsAndHashCode;
@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class DocumentPosition extends MetaEntity {
-    private CountryEntity country;
+    private Country country;
     private Double quantity;
     private ProductMarker assortment;
     private Long price;

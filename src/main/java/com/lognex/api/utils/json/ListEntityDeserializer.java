@@ -1,7 +1,7 @@
 package com.lognex.api.utils.json;
 
 import com.google.gson.*;
-import com.lognex.api.entities.ContextEntity;
+import com.lognex.api.entities.Context;
 import com.lognex.api.entities.Meta;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.DocumentPosition;
@@ -20,7 +20,7 @@ public class ListEntityDeserializer implements JsonDeserializer<ListEntity> {
     public ListEntity deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         ListEntity le = new ListEntity();
         le.setMeta(context.deserialize(((JsonObject) json).getAsJsonObject("meta"), Meta.class));
-        le.setContext(context.deserialize(((JsonObject) json).getAsJsonObject("context"), ContextEntity.class));
+        le.setContext(context.deserialize(((JsonObject) json).getAsJsonObject("context"), Context.class));
 
         JsonArray rows = ((JsonObject) json).getAsJsonArray("rows");
         if (rows != null && rows.size() > 0) {

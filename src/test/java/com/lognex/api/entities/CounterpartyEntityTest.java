@@ -1,7 +1,7 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.clients.ApiClient;
-import com.lognex.api.entities.agents.CounterpartyEntity;
+import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.CounterpartyMetadataResponse;
 import com.lognex.api.utils.LognexApiException;
@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = new CounterpartyEntity();
+        Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
         counterparty.setDescription(randomString());
         counterparty.setArchived(false);
@@ -26,12 +26,12 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
         counterparty.setInn(randomString());
         counterparty.setOgrn(randomString());
 
-        api.entity().counterparty().post(counterparty);
+        api.entity().counterparty().create(counterparty);
 
-        ListEntity<CounterpartyEntity> updatedEntitiesList = api.entity().counterparty().get(filterEq("name", counterparty.getName()));
+        ListEntity<Counterparty> updatedEntitiesList = api.entity().counterparty().get(filterEq("name", counterparty.getName()));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
-        CounterpartyEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
+        Counterparty retrievedEntity = updatedEntitiesList.getRows().get(0);
         assertEquals(counterparty.getName(), retrievedEntity.getName());
         assertEquals(counterparty.getDescription(), retrievedEntity.getDescription());
         assertEquals(counterparty.getArchived(), retrievedEntity.getArchived());
@@ -43,13 +43,13 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void getAccountTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = new CounterpartyEntity();
+        Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
 
-        ListEntity<AccountEntity> accounts = new ListEntity<>();
+        ListEntity<AgentAccount> accounts = new ListEntity<>();
 
         accounts.setRows(new ArrayList<>());
-        AccountEntity ae = new AccountEntity();
+        AgentAccount ae = new AgentAccount();
         ae.setIsDefault(true);
         ae.setAccountNumber(randomString());
         accounts.getRows().add(ae);
@@ -57,49 +57,49 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
         accounts.getRows().add(ae);
         counterparty.setAccounts(accounts);
 
-        api.entity().counterparty().post(counterparty);
+        api.entity().counterparty().create(counterparty);
 
-        ListEntity<AccountEntity> accountList = api.entity().counterparty().getAccounts(counterparty.getId());
+        ListEntity<AgentAccount> accountList = api.entity().counterparty().getAccounts(counterparty.getId());
         assertEquals(2, accountList.getRows().size());
         assertEquals(ae.getAccountNumber(), accountList.getRows().get(0).getAccountNumber());
         assertTrue(accountList.getRows().get(0).getIsDefault());
         assertEquals(ae.getAccountNumber(), accountList.getRows().get(1).getAccountNumber());
         assertFalse(accountList.getRows().get(1).getIsDefault());
 
-        AccountEntity accountById = api.entity().counterparty().getAccount(counterparty.getId(), accountList.getRows().get(0).getId());
+        AgentAccount accountById = api.entity().counterparty().getAccount(counterparty.getId(), accountList.getRows().get(0).getId());
         assertEquals(accountList.getRows().get(0).getAccountNumber(), accountById.getAccountNumber());
         assertTrue(accountById.getIsDefault());
 
-        AccountEntity accountEntityById = api.entity().counterparty().getAccount(counterparty, accountList.getRows().get(0).getId());
-        assertEquals(accountList.getRows().get(0).getAccountNumber(), accountEntityById.getAccountNumber());
-        assertTrue(accountEntityById.getIsDefault());
+        AgentAccount agentAccountById = api.entity().counterparty().getAccount(counterparty, accountList.getRows().get(0).getId());
+        assertEquals(accountList.getRows().get(0).getAccountNumber(), agentAccountById.getAccountNumber());
+        assertTrue(agentAccountById.getIsDefault());
 
-        AccountEntity accountEntity = api.entity().counterparty().getAccount(counterparty, accountList.getRows().get(1));
-        assertEquals(accountList.getRows().get(1).getAccountNumber(), accountEntity.getAccountNumber());
-        assertFalse(accountEntity.getIsDefault());
+        AgentAccount agentAccount = api.entity().counterparty().getAccount(counterparty, accountList.getRows().get(1));
+        assertEquals(accountList.getRows().get(1).getAccountNumber(), agentAccount.getAccountNumber());
+        assertFalse(agentAccount.getIsDefault());
     }
 
     @Test
     public void getContactPersonsTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = new CounterpartyEntity();
+        Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
 
-        ListEntity<ContactPersonEntity> contactPersonList = new ListEntity<>();
+        ListEntity<ContactPerson> contactPersonList = new ListEntity<>();
         contactPersonList.setRows(new ArrayList<>());
-        ContactPersonEntity contactPerson1 = new ContactPersonEntity();
+        ContactPerson contactPerson1 = new ContactPerson();
         contactPerson1.setName(randomString());
         contactPersonList.getRows().add(contactPerson1);
-        ContactPersonEntity contactPerson2 = new ContactPersonEntity();
+        ContactPerson contactPerson2 = new ContactPerson();
         contactPerson2.setName(randomString());
         contactPersonList.getRows().add(contactPerson2);
         counterparty.setContactpersons(contactPersonList);
 
-        api.entity().counterparty().post(counterparty);
-        ListEntity<ContactPersonEntity> retrievedContactPersonList = api.entity().counterparty().getContactPersons(counterparty.getId());
+        api.entity().counterparty().create(counterparty);
+        ListEntity<ContactPerson> retrievedContactPersonList = api.entity().counterparty().getContactPersons(counterparty.getId());
         assertEquals((Integer) 2, retrievedContactPersonList.getMeta().getSize());
 
-        for (ContactPersonEntity person : retrievedContactPersonList.getRows()) {
-            for (ContactPersonEntity otherPerson : contactPersonList.getRows()) {
+        for (ContactPerson person : retrievedContactPersonList.getRows()) {
+            for (ContactPerson otherPerson : contactPersonList.getRows()) {
                 if (person.getId().equals(otherPerson.getId())) {
                     assertEquals(otherPerson.getName(), person.getName());
                     break;
@@ -107,79 +107,79 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
             }
         }
 
-        ListEntity<ContactPersonEntity> contactListByEntity = api.entity().counterparty().getContactPersons(counterparty);
+        ListEntity<ContactPerson> contactListByEntity = api.entity().counterparty().getContactPersons(counterparty);
         assertEquals(retrievedContactPersonList, contactListByEntity);
 
-        ContactPersonEntity entityByIds = api.entity().counterparty().getContactPerson(counterparty.getId(), retrievedContactPersonList.getRows().get(0).getId());
+        ContactPerson entityByIds = api.entity().counterparty().getContactPerson(counterparty.getId(), retrievedContactPersonList.getRows().get(0).getId());
         assertEquals(entityByIds, retrievedContactPersonList.getRows().get(0));
-        ContactPersonEntity entityByEntityId = api.entity().counterparty().getContactPerson(counterparty, retrievedContactPersonList.getRows().get(0).getId());
+        ContactPerson entityByEntityId = api.entity().counterparty().getContactPerson(counterparty, retrievedContactPersonList.getRows().get(0).getId());
         assertEquals(entityByEntityId, retrievedContactPersonList.getRows().get(0));
-        ContactPersonEntity entityByEntities = api.entity().counterparty().getContactPerson(counterparty, retrievedContactPersonList.getRows().get(1));
+        ContactPerson entityByEntities = api.entity().counterparty().getContactPerson(counterparty, retrievedContactPersonList.getRows().get(1));
         assertEquals(entityByEntities, retrievedContactPersonList.getRows().get(1));
     }
 
     @Test
     public void postContactPersonTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = simpleEntityManager.createSimpleCounterparty();
+        Counterparty counterparty = simpleEntityManager.createSimple(Counterparty.class);
 
-        ContactPersonEntity contactPerson = new ContactPersonEntity();
+        ContactPerson contactPerson = new ContactPerson();
         contactPerson.setName(randomString());
-        api.entity().counterparty().postContactPerson(counterparty.getId(), contactPerson);
+        api.entity().counterparty().createContactPerson(counterparty.getId(), contactPerson);
 
-        ContactPersonEntity contactEntity = api.entity().counterparty().getContactPerson(counterparty.getId(), contactPerson.getId());
+        ContactPerson contactEntity = api.entity().counterparty().getContactPerson(counterparty.getId(), contactPerson.getId());
         assertEquals(contactEntity.getName(), contactPerson.getName());
     }
 
     @Test
     public void putContactPersonsTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = new CounterpartyEntity();
+        Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
 
-        ListEntity<ContactPersonEntity> contactPersonList = new ListEntity<>();
+        ListEntity<ContactPerson> contactPersonList = new ListEntity<>();
         contactPersonList.setRows(new ArrayList<>());
         List<String> names = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             names.add(randomString());
-            ContactPersonEntity contactPerson = new ContactPersonEntity();
+            ContactPerson contactPerson = new ContactPerson();
             contactPerson.setName(randomString());
             contactPersonList.getRows().add(contactPerson);
         }
         counterparty.setContactpersons(contactPersonList);
 
-        api.entity().counterparty().post(counterparty);
-        ListEntity<ContactPersonEntity> contactList = api.entity().counterparty().getContactPersons(counterparty.getId());
+        api.entity().counterparty().create(counterparty);
+        ListEntity<ContactPerson> contactList = api.entity().counterparty().getContactPersons(counterparty.getId());
 
-        ContactPersonEntity updContactByIds = new ContactPersonEntity();
+        ContactPerson updContactByIds = new ContactPerson();
         updContactByIds.setName(names.get(0));
-        api.entity().counterparty().putContactPerson(counterparty.getId(), contactList.getRows().get(0).getId(), updContactByIds);
-        ContactPersonEntity retrievedEntity = api.entity().counterparty().
+        api.entity().counterparty().updateContactPerson(counterparty.getId(), contactList.getRows().get(0).getId(), updContactByIds);
+        ContactPerson retrievedEntity = api.entity().counterparty().
                 getContactPerson(counterparty.getId(), contactList.getRows().get(0).getId());
         assertNotEquals(updContactByIds.getName(), contactList.getRows().get(0).getName());
         assertEquals(updContactByIds.getName(), names.get(0));
         assertEquals(updContactByIds.getName(), retrievedEntity.getName());
 
-        ContactPersonEntity updContactByIdEntity = new ContactPersonEntity();
+        ContactPerson updContactByIdEntity = new ContactPerson();
         updContactByIdEntity.setName(names.get(1));
-        api.entity().counterparty().putContactPerson(counterparty, contactList.getRows().get(1).getId(), updContactByIdEntity);
+        api.entity().counterparty().updateContactPerson(counterparty, contactList.getRows().get(1).getId(), updContactByIdEntity);
         retrievedEntity = api.entity().counterparty().
                 getContactPerson(counterparty.getId(), contactList.getRows().get(1).getId());
         assertNotEquals(updContactByIdEntity.getName(), contactList.getRows().get(1).getName());
         assertEquals(updContactByIdEntity.getName(), names.get(1));
         assertEquals(updContactByIdEntity.getName(), retrievedEntity.getName());
 
-        ContactPersonEntity updContactByEntities = new ContactPersonEntity();
+        ContactPerson updContactByEntities = new ContactPerson();
         updContactByEntities.setName(names.get(2));
-        api.entity().counterparty().putContactPerson(counterparty, contactList.getRows().get(2), updContactByEntities);
+        api.entity().counterparty().updateContactPerson(counterparty, contactList.getRows().get(2), updContactByEntities);
         retrievedEntity = api.entity().counterparty().
                 getContactPerson(counterparty.getId(), contactList.getRows().get(2).getId());
         assertNotEquals(updContactByEntities.getName(), contactList.getRows().get(2).getName());
         assertEquals(updContactByEntities.getName(), names.get(2));
         assertEquals(updContactByEntities.getName(), retrievedEntity.getName());
 
-        ContactPersonEntity updByPrevObject = new ContactPersonEntity();
+        ContactPerson updByPrevObject = new ContactPerson();
         updByPrevObject.set(contactList.getRows().get(3));
         updByPrevObject.setName(names.get(3));
-        api.entity().counterparty().putContactPerson(counterparty, updByPrevObject);
+        api.entity().counterparty().updateContactPerson(counterparty, updByPrevObject);
         retrievedEntity = api.entity().counterparty().
                 getContactPerson(counterparty.getId(), contactList.getRows().get(3).getId());
         assertNotEquals(updByPrevObject.getName(), contactList.getRows().get(3).getName());
@@ -189,28 +189,28 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void getNotesTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = new CounterpartyEntity();
+        Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
 
-        ListEntity<NoteEntity> notesList = new ListEntity<>();
+        ListEntity<Note> notesList = new ListEntity<>();
         notesList.setRows(new ArrayList<>());
-        NoteEntity note1 = new NoteEntity();
+        Note note1 = new Note();
         note1.setDescription(randomString());
         notesList.getRows().add(note1);
-        NoteEntity note2 = new NoteEntity();
+        Note note2 = new Note();
         note2.setDescription(randomString());
         notesList.getRows().add(note2);
 
-        api.entity().counterparty().post(counterparty);
-        api.entity().counterparty().postNote(counterparty.getId(), notesList.getRows().get(0));
-        api.entity().counterparty().postNote(counterparty.getId(), notesList.getRows().get(1));
+        api.entity().counterparty().create(counterparty);
+        api.entity().counterparty().createNote(counterparty.getId(), notesList.getRows().get(0));
+        api.entity().counterparty().createNote(counterparty.getId(), notesList.getRows().get(1));
 
-        ListEntity<NoteEntity> retrievedNotesById = api.entity().counterparty().getNotes(counterparty.getId());
+        ListEntity<Note> retrievedNotesById = api.entity().counterparty().getNotes(counterparty.getId());
 
         assertEquals(2, retrievedNotesById.getRows().size());
 
-        for (NoteEntity note : retrievedNotesById.getRows()) {
-            for (NoteEntity otherNote : notesList.getRows()) {
+        for (Note note : retrievedNotesById.getRows()) {
+            for (Note otherNote : notesList.getRows()) {
                 if (note.getId().equals(otherNote.getId())) {
                     assertEquals(otherNote.getName(), note.getName());
                     break;
@@ -218,12 +218,12 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
             }
         }
 
-        ListEntity<NoteEntity> retrievedNotesByEntity = api.entity().counterparty().getNotes(counterparty);
+        ListEntity<Note> retrievedNotesByEntity = api.entity().counterparty().getNotes(counterparty);
 
         assertEquals(2, retrievedNotesByEntity.getRows().size());
 
-        for (NoteEntity note : retrievedNotesByEntity.getRows()) {
-            for (NoteEntity otherNote : notesList.getRows()) {
+        for (Note note : retrievedNotesByEntity.getRows()) {
+            for (Note otherNote : notesList.getRows()) {
                 if (note.getId().equals(otherNote.getId())) {
                     assertEquals(otherNote.getName(), note.getName());
                     break;
@@ -234,95 +234,95 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void postNoteTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = simpleEntityManager.createSimpleCounterparty();
+        Counterparty counterparty = simpleEntityManager.createSimple(Counterparty.class);
 
-        NoteEntity note = new NoteEntity();
+        Note note = new Note();
         String name = randomString();
         note.setDescription(name);
 
-        api.entity().counterparty().postNote(counterparty.getId(), note);
+        api.entity().counterparty().createNote(counterparty.getId(), note);
 
-        NoteEntity retrievedNote = api.entity().counterparty().getNote(counterparty.getId(), note.getId());
+        Note retrievedNote = api.entity().counterparty().getNote(counterparty.getId(), note.getId());
         assertEquals(retrievedNote.getDescription(), name);
     }
 
     @Test
     public void getNoteTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = new CounterpartyEntity();
+        Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
 
-        api.entity().counterparty().post(counterparty);
+        api.entity().counterparty().create(counterparty);
 
-        ListEntity<NoteEntity> notesList = new ListEntity<>();
+        ListEntity<Note> notesList = new ListEntity<>();
         notesList.setRows(new ArrayList<>());
         List<String> descriptions = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             descriptions.add(randomString());
-            NoteEntity note = new NoteEntity();
+            Note note = new Note();
             note.setDescription(descriptions.get(i));
             notesList.getRows().add(note);
 
-            api.entity().counterparty().postNote(counterparty.getId(), notesList.getRows().get(i));
+            api.entity().counterparty().createNote(counterparty.getId(), notesList.getRows().get(i));
         }
 
-        NoteEntity retrievedNoteByIds = api.entity().counterparty().getNote(counterparty.getId(), notesList.getRows().get(0).getId());
+        Note retrievedNoteByIds = api.entity().counterparty().getNote(counterparty.getId(), notesList.getRows().get(0).getId());
         assertEquals(descriptions.get(0), retrievedNoteByIds.getDescription());
 
-        NoteEntity retrievedNoteByEntityId = api.entity().counterparty().getNote(counterparty, notesList.getRows().get(1).getId());
+        Note retrievedNoteByEntityId = api.entity().counterparty().getNote(counterparty, notesList.getRows().get(1).getId());
         assertEquals(descriptions.get(1), retrievedNoteByEntityId.getDescription());
 
-        NoteEntity retrievedNoteByEntities = api.entity().counterparty().getNote(counterparty, notesList.getRows().get(2));
+        Note retrievedNoteByEntities = api.entity().counterparty().getNote(counterparty, notesList.getRows().get(2));
         assertEquals(descriptions.get(2), retrievedNoteByEntities.getDescription());
     }
 
     @Test
     public void putNoteTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = new CounterpartyEntity();
+        Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
 
-        api.entity().counterparty().post(counterparty);
+        api.entity().counterparty().create(counterparty);
 
-        ListEntity<NoteEntity> notesList = new ListEntity<>();
+        ListEntity<Note> notesList = new ListEntity<>();
         notesList.setRows(new ArrayList<>());
         List<String> descriptions = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             descriptions.add(randomString());
-            NoteEntity note = new NoteEntity();
+            Note note = new Note();
             note.setDescription(randomString());
             notesList.getRows().add(note);
 
-            api.entity().counterparty().postNote(counterparty.getId(), notesList.getRows().get(i));
+            api.entity().counterparty().createNote(counterparty.getId(), notesList.getRows().get(i));
         }
 
-        NoteEntity updNoteByIds = new NoteEntity();
+        Note updNoteByIds = new Note();
         updNoteByIds.setDescription(descriptions.get(0));
-        api.entity().counterparty().putNote(counterparty.getId(), notesList.getRows().get(0).getId(), updNoteByIds);
-        NoteEntity retrievedEntity = api.entity().counterparty().getNote(counterparty.getId(), notesList.getRows().get(0).getId());
+        api.entity().counterparty().updateNote(counterparty.getId(), notesList.getRows().get(0).getId(), updNoteByIds);
+        Note retrievedEntity = api.entity().counterparty().getNote(counterparty.getId(), notesList.getRows().get(0).getId());
         assertNotEquals(notesList.getRows().get(0).getDescription(), updNoteByIds.getDescription());
         assertEquals(descriptions.get(0), updNoteByIds.getDescription());
         assertEquals(retrievedEntity.getDescription(), updNoteByIds.getDescription());
 
-        NoteEntity updNoteByEntityId = new NoteEntity();
+        Note updNoteByEntityId = new Note();
         updNoteByEntityId.setDescription(descriptions.get(1));
-        api.entity().counterparty().putNote(counterparty, notesList.getRows().get(1).getId(), updNoteByEntityId);
+        api.entity().counterparty().updateNote(counterparty, notesList.getRows().get(1).getId(), updNoteByEntityId);
         retrievedEntity = api.entity().counterparty().getNote(counterparty.getId(), notesList.getRows().get(1).getId());
         assertNotEquals(notesList.getRows().get(1).getDescription(), updNoteByEntityId.getDescription());
         assertEquals(descriptions.get(1), updNoteByEntityId.getDescription());
         assertEquals(retrievedEntity.getDescription(), updNoteByEntityId.getDescription());
 
-        NoteEntity updNoteByEntities = new NoteEntity();
+        Note updNoteByEntities = new Note();
         updNoteByEntities.setDescription(descriptions.get(2));
-        api.entity().counterparty().putNote(counterparty, notesList.getRows().get(2), updNoteByEntities);
+        api.entity().counterparty().updateNote(counterparty, notesList.getRows().get(2), updNoteByEntities);
         retrievedEntity = api.entity().counterparty().getNote(counterparty.getId(), notesList.getRows().get(2).getId());
         assertNotEquals(notesList.getRows().get(2).getDescription(), updNoteByEntities.getDescription());
         assertEquals(descriptions.get(2), updNoteByEntities.getDescription());
         assertEquals(retrievedEntity.getDescription(), updNoteByEntities.getDescription());
 
-        NoteEntity updNoteByPrevObject = new NoteEntity();
-        NoteEntity prevObject = api.entity().counterparty().getNote(counterparty.getId(), notesList.getRows().get(3).getId());
+        Note updNoteByPrevObject = new Note();
+        Note prevObject = api.entity().counterparty().getNote(counterparty.getId(), notesList.getRows().get(3).getId());
         updNoteByPrevObject.set(prevObject);
         updNoteByPrevObject.setDescription(descriptions.get(3));
-        api.entity().counterparty().putNote(counterparty, updNoteByPrevObject);
+        api.entity().counterparty().updateNote(counterparty, updNoteByPrevObject);
         retrievedEntity = api.entity().counterparty().getNote(counterparty.getId(), notesList.getRows().get(3).getId());
         assertNotEquals(notesList.getRows().get(3).getDescription(), updNoteByPrevObject.getDescription());
         assertEquals(descriptions.get(3), updNoteByPrevObject.getDescription());
@@ -338,23 +338,23 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void deleteNoteTest() throws IOException, LognexApiException {
-        CounterpartyEntity counterparty = new CounterpartyEntity();
+        Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
 
-        api.entity().counterparty().post(counterparty);
+        api.entity().counterparty().create(counterparty);
 
         for (int i = 0; i < 3; i++) {
-            NoteEntity note = new NoteEntity();
+            Note note = new Note();
             note.setDescription(randomString());
 
-            api.entity().counterparty().postNote(counterparty.getId(), note);
+            api.entity().counterparty().createNote(counterparty.getId(), note);
         }
 
-        ListEntity<NoteEntity> notesBefore = api.entity().counterparty().getNotes(counterparty.getId());
+        ListEntity<Note> notesBefore = api.entity().counterparty().getNotes(counterparty.getId());
         assertEquals((Integer) 3, notesBefore.getMeta().getSize());
 
         api.entity().counterparty().deleteNote(counterparty.getId(), notesBefore.getRows().get(0).getId());
-        ListEntity<NoteEntity> notesAfter = api.entity().counterparty().getNotes(counterparty.getId());
+        ListEntity<Note> notesAfter = api.entity().counterparty().getNotes(counterparty.getId());
         assertEquals((Integer) 2, notesAfter.getMeta().getSize());
 
         api.entity().counterparty().deleteNote(counterparty, notesBefore.getRows().get(1).getId());
@@ -368,8 +368,8 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
-        CounterpartyEntity originalCounterparty = (CounterpartyEntity) originalEntity;
-        CounterpartyEntity retrievedCounterparty = (CounterpartyEntity) retrievedEntity;
+        Counterparty originalCounterparty = (Counterparty) originalEntity;
+        Counterparty retrievedCounterparty = (Counterparty) retrievedEntity;
 
         assertEquals(originalCounterparty.getName(), retrievedCounterparty.getName());
         assertEquals(originalCounterparty.getCompanyType(), retrievedCounterparty.getCompanyType());
@@ -382,8 +382,8 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
-        CounterpartyEntity updatedCounterparty = (CounterpartyEntity) updatedEntity;
-        CounterpartyEntity originalCounterparty = (CounterpartyEntity) originalEntity;
+        Counterparty updatedCounterparty = (Counterparty) updatedEntity;
+        Counterparty originalCounterparty = (Counterparty) originalEntity;
 
         assertNotEquals(originalCounterparty.getName(), updatedCounterparty.getName());
         assertEquals(changedField, updatedCounterparty.getName());
@@ -402,6 +402,6 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected Class<? extends MetaEntity> entityClass() {
-        return CounterpartyEntity.class;
+        return Counterparty.class;
     }
 }

@@ -13,7 +13,7 @@ import static org.junit.Assert.fail;
 public class ApiInitTest implements TestAsserts, TestRandomizers {
     @Test
     public void test_emptyAuthData() throws IOException, InterruptedException {
-        LognexApi api = new LognexApi(
+        ApiClient api = new ApiClient(
                 System.getenv("API_HOST"),
                 true, "", ""
         );
@@ -33,7 +33,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
 
     @Test
     public void test_nullAuthData() throws IOException, InterruptedException {
-        LognexApi api = new LognexApi(
+        ApiClient api = new ApiClient(
                 System.getenv("API_HOST"),
                 true, null, null
         );
@@ -55,7 +55,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
     public void test_loginFormat() throws IOException, InterruptedException {
         String login = randomString();
 
-        LognexApi api = new LognexApi(
+        ApiClient api = new ApiClient(
                 System.getenv("API_HOST"),
                 true, login, randomString()
         );
@@ -75,7 +75,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
 
     @Test
     public void test_correctLoginFormatWrongCredentials() throws IOException, InterruptedException {
-        LognexApi api = new LognexApi(
+        ApiClient api = new ApiClient(
                 System.getenv("API_HOST"),
                 true, randomString() + "@" + randomString(), randomString()
         );
@@ -96,7 +96,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
     @Test
     public void test_nullHost() {
         try {
-            new LognexApi(
+            new ApiClient(
                     null,
                     true, randomString() + "@" + randomString(), randomString()
             );
@@ -109,7 +109,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
     @Test
     public void test_emptyHost() {
         try {
-            new LognexApi(
+            new ApiClient(
                     "",
                     true, randomString() + "@" + randomString(), randomString()
             );

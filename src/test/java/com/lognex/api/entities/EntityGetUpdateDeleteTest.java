@@ -24,14 +24,14 @@ public abstract class EntityGetUpdateDeleteTest extends EntityGetDeleteTest {
         // update by entity
         MetaEntity originalEntity = ((GetByIdEndpoint) entityClient()).get(createdEntity.getId());
         Object changedField = updateField(fieldName, createdEntity);
-        ((PutByIdEndpoint) entityClient()).put(createdEntity);
+        ((PutByIdEndpoint) entityClient()).update(createdEntity);
         MetaEntity retrievedEntity = ((GetByIdEndpoint) entityClient()).get(createdEntity.getId());
         putAsserts(originalEntity, retrievedEntity, changedField);
 
         // update by id and entity
         originalEntity.set(retrievedEntity);
         changedField = updateField(fieldName, createdEntity);
-        ((PutByIdEndpoint) entityClient()).put(createdEntity.getId(), createdEntity);
+        ((PutByIdEndpoint) entityClient()).update(createdEntity.getId(), createdEntity);
         retrievedEntity = ((GetByIdEndpoint) entityClient()).get(createdEntity.getId());
         putAsserts(originalEntity, retrievedEntity, changedField);
     }

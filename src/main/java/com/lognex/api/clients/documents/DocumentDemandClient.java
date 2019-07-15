@@ -1,33 +1,32 @@
 package com.lognex.api.clients.documents;
 
-import com.lognex.api.LognexApi;
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.DemandDocumentEntity;
+import com.lognex.api.entities.documents.Demand;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class DocumentDemandClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<DemandDocumentEntity>,
-        PostEndpoint<DemandDocumentEntity>,
+        GetListEndpoint<Demand>,
+        PostEndpoint<Demand>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        DocumentNewEndpoint<DemandDocumentEntity>,
-        GetByIdEndpoint<DemandDocumentEntity>,
-        PutByIdEndpoint<DemandDocumentEntity>,
+        DocumentNewEndpoint<Demand>,
+        GetByIdEndpoint<Demand>,
+        PutByIdEndpoint<Demand>,
         DocumentPositionsEndpoint,
         ExportEndpoint {
 
-    public DocumentDemandClient(LognexApi api) {
+    public DocumentDemandClient(ApiClient api) {
         super(api, "/entity/demand/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return DemandDocumentEntity.class;
+        return Demand.class;
     }
 
     @Override

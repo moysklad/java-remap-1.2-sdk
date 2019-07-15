@@ -1,6 +1,6 @@
 package com.lognex.api.responses;
 
-import com.lognex.api.entities.CurrencyEntity;
+import com.lognex.api.entities.Currency;
 import com.lognex.api.entities.MetaEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class CompanySettingsResponse extends MetaEntity {
     /**
      * Ссылка на стандартную валюту
      */
-    private CurrencyEntity currency;
+    private Currency currency;
 
     /**
      * Совместное применение скидок

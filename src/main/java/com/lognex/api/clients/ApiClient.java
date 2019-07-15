@@ -1,14 +1,13 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.Endpoint;
 import com.lognex.api.entities.MetaEntity;
 
 public abstract class ApiClient implements Endpoint {
-    protected final LognexApi api;
+    protected final com.lognex.api.ApiClient api;
     protected final String path;
 
-    public ApiClient(LognexApi api, String path) {
+    public ApiClient(com.lognex.api.ApiClient api, String path) {
         this.api = api;
         this.path = path;
     }
@@ -19,7 +18,7 @@ public abstract class ApiClient implements Endpoint {
     }
 
     @Override
-    public LognexApi api() {
+    public com.lognex.api.ApiClient api() {
         return api;
     }
 

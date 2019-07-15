@@ -2,7 +2,7 @@ package com.lognex.api.utils.json;
 
 import com.google.gson.*;
 import com.lognex.api.entities.*;
-import com.lognex.api.entities.agents.AgentEntity;
+import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.products.markers.ProductMarker;
 
 import java.lang.reflect.Type;
@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 import static com.lognex.api.utils.Constants.DATE_FORMAT_PATTERN;
 
-public class AttributeSerializer implements JsonSerializer<AttributeEntity>, JsonDeserializer<AttributeEntity> {
+public class AttributeSerializer implements JsonSerializer<Attribute>, JsonDeserializer<Attribute> {
     private final Gson gson = JsonUtils.createGsonWithMetaAdapter();
     private final DateTimeFormatter formatter;
 
@@ -21,7 +21,7 @@ public class AttributeSerializer implements JsonSerializer<AttributeEntity>, Jso
     }
 
     @Override
-    public JsonElement serialize(AttributeEntity src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(Attribute src, Type typeOfSrc, JsonSerializationContext context) {
         JsonElement je = null;
 
         if (src.getType() != null) {
@@ -36,9 +36,9 @@ public class AttributeSerializer implements JsonSerializer<AttributeEntity>, Jso
                     }
                     break;
             }
-            je = gson.toJsonTree(src, AttributeEntity.class);
+            je = gson.toJsonTree(src, Attribute.class);
         } else if (src.getEntityType() != null) {
-            je = gson.toJsonTree(src, AttributeEntity.class).getAsJsonObject();
+            je = gson.toJsonTree(src, Attribute.class).getAsJsonObject();
             JsonObject jo = (JsonObject) je;
             jo.add("type", jo.get("entityType"));
             jo.remove("entityType");
@@ -50,7 +50,7 @@ public class AttributeSerializer implements JsonSerializer<AttributeEntity>, Jso
 
 
     @Override
-    public AttributeEntity deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public Attribute deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jo = gson.toJsonTree(json).getAsJsonObject();
 
         if (!jo.has("type"))
@@ -65,7 +65,7 @@ public class AttributeSerializer implements JsonSerializer<AttributeEntity>, Jso
         } catch (IllegalArgumentException ignored) {
         }
 
-        AttributeEntity ae = gson.fromJson(jo, AttributeEntity.class);
+        Attribute ae = gson.fromJson(jo, Attribute.class);
 
         if (ae.getType() != null) {
             switch (ae.getType()) {
@@ -83,7 +83,7 @@ public class AttributeSerializer implements JsonSerializer<AttributeEntity>, Jso
                 case ORGANIZATION:
                 case EMPLOYEE:
                     ae.setValue(
-                            context.deserialize(jo.get("value"), AgentEntity.class)
+                            context.deserialize(jo.get("value"), Agent.class)
                     );
                     break;
 
@@ -97,19 +97,19 @@ public class AttributeSerializer implements JsonSerializer<AttributeEntity>, Jso
 
                 case CONTRACT:
                     ae.setValue(
-                            context.deserialize(jo.get("value"), ContractEntity.class)
+                            context.deserialize(jo.get("value"), Contract.class)
                     );
                     break;
 
                 case PROJECT:
                     ae.setValue(
-                            context.deserialize(jo.get("value"), ProjectEntity.class)
+                            context.deserialize(jo.get("value"), Project.class)
                     );
                     break;
 
                 case STORE:
                     ae.setValue(
-                            context.deserialize(jo.get("value"), StoreEntity.class)
+                            context.deserialize(jo.get("value"), Store.class)
                     );
                     break;
 

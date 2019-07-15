@@ -1,6 +1,5 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.CustomEntity;
 import com.lognex.api.entities.CustomEntityElement;
@@ -14,13 +13,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public final class CustomEntityClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
         PostEndpoint<CustomEntity>,
         PutByIdEndpoint<CustomEntity>,
         DeleteByIdEndpoint {
 
-    public CustomEntityClient(LognexApi api) {
+    public CustomEntityClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/customentity/");
     }
 
@@ -30,7 +29,7 @@ public final class CustomEntityClient
     }
 
     @ApiEndpoint
-    public CustomEntityElement postCustomEntityElement(String customEntityMetadataId, CustomEntityElement customEntityElement) throws IOException, LognexApiException {
+    public CustomEntityElement createCustomEntityElement(String customEntityMetadataId, CustomEntityElement customEntityElement) throws IOException, LognexApiException {
          CustomEntityElement responseEntity = HttpRequestExecutor.
                 path(api(), path() + customEntityMetadataId).
                 body(customEntityElement).
@@ -71,7 +70,7 @@ public final class CustomEntityClient
     }
 
     @ApiEndpoint
-    public CustomEntityElement putCustomEntityElement(String customEntityMetadataId, String customEntityId, CustomEntityElement updatedEntity) throws IOException, LognexApiException {
+    public CustomEntityElement updateCustomEntityElement(String customEntityMetadataId, String customEntityId, CustomEntityElement updatedEntity) throws IOException, LognexApiException {
         CustomEntityElement responseEntity = HttpRequestExecutor.
                 path(api(), path() + customEntityMetadataId + "/" + customEntityId).
                 body(updatedEntity).
@@ -83,8 +82,8 @@ public final class CustomEntityClient
     }
 
     @ApiEndpoint
-    public CustomEntityElement putCustomEntityElement(String customEntityMetadataId, CustomEntityElement customEntityElement) throws IOException, LognexApiException {
-        return putCustomEntityElement(customEntityMetadataId, customEntityElement.getId(), customEntityElement);
+    public CustomEntityElement updateCustomEntityElement(String customEntityMetadataId, CustomEntityElement customEntityElement) throws IOException, LognexApiException {
+        return updateCustomEntityElement(customEntityMetadataId, customEntityElement.getId(), customEntityElement);
     }
 
     @ApiEndpoint

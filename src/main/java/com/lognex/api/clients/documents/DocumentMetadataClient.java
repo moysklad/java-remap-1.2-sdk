@@ -1,7 +1,6 @@
 package com.lognex.api.clients.documents;
 
-import com.lognex.api.LognexApi;
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.ApiEndpoint;
 import com.lognex.api.clients.endpoints.MetadataTemplatesEndpoint;
 import com.lognex.api.entities.MetaEntity;
@@ -11,13 +10,13 @@ import com.lognex.api.utils.LognexApiException;
 import java.io.IOException;
 
 public class DocumentMetadataClient<T extends MetaEntity>
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
         MetadataTemplatesEndpoint {
 
     private final Class<T> metaResponseEntityClass;
 
-    public DocumentMetadataClient(LognexApi api, String path, Class<T> metaResponseEntityClass) {
+    public DocumentMetadataClient(ApiClient api, String path, Class<T> metaResponseEntityClass) {
         super(api, path + "metadata/");
         this.metaResponseEntityClass = metaResponseEntityClass;
     }

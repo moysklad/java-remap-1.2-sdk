@@ -1,7 +1,7 @@
 package com.lognex.api.clients.endpoints;
 
 import com.lognex.api.entities.Meta;
-import com.lognex.api.entities.TemplateEntity;
+import com.lognex.api.entities.Template;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.HttpRequestExecutor;
 import com.lognex.api.utils.LognexApiException;
@@ -12,44 +12,44 @@ import java.util.stream.Collectors;
 
 public interface MetadataTemplatesEndpoint extends Endpoint {
     @ApiEndpoint
-    default ListEntity<TemplateEntity> embeddedtemplate() throws IOException, LognexApiException {
-        ListEntity<TemplateEntity> templates = HttpRequestExecutor.
+    default ListEntity<Template> embeddedtemplate() throws IOException, LognexApiException {
+        ListEntity<Template> templates = HttpRequestExecutor.
                 path(api(), path() + (path().endsWith("metadata/") ? "" : "metadata/") + "embeddedtemplate/").
-                list(TemplateEntity.class);
+                list(Template.class);
         return setEntityType(templates);
     }
 
     @ApiEndpoint
-    default TemplateEntity embeddedtemplate(String id) throws IOException, LognexApiException {
-        TemplateEntity template = HttpRequestExecutor.
+    default Template embeddedtemplate(String id) throws IOException, LognexApiException {
+        Template template = HttpRequestExecutor.
                 path(api(), path() + (path().endsWith("metadata/") ? "" : "metadata/") + "embeddedtemplate/" + id).
-                get(TemplateEntity.class);
+                get(Template.class);
         Meta.Type entityType = getEntityType();
         template.setEntityType(entityType);
         return template;
     }
 
     @ApiEndpoint
-    default ListEntity<TemplateEntity> customtemplate() throws IOException, LognexApiException {
-        ListEntity<TemplateEntity> templates = HttpRequestExecutor.
+    default ListEntity<Template> customtemplate() throws IOException, LognexApiException {
+        ListEntity<Template> templates = HttpRequestExecutor.
                 path(api(), path() + (path().endsWith("metadata/") ? "" : "metadata/") + "customtemplate/").
-                list(TemplateEntity.class);
+                list(Template.class);
         return setEntityType(templates);
     }
 
     @ApiEndpoint
-    default TemplateEntity customtemplate(String id) throws IOException, LognexApiException {
-        TemplateEntity template = HttpRequestExecutor.
+    default Template customtemplate(String id) throws IOException, LognexApiException {
+        Template template = HttpRequestExecutor.
                 path(api(), path() + (path().endsWith("metadata/") ? "" : "metadata/") + "customtemplate/" + id).
-                get(TemplateEntity.class);
+                get(Template.class);
         Meta.Type entityType = getEntityType();
         template.setEntityType(entityType);
         return template;
     }
 
-    default ListEntity<TemplateEntity> setEntityType(ListEntity<TemplateEntity> templates) {
+    default ListEntity<Template> setEntityType(ListEntity<Template> templates) {
         Meta.Type entityType = getEntityType();
-        List<TemplateEntity> rows = templates.getRows();
+        List<Template> rows = templates.getRows();
         if (rows != null) {
             templates.setRows(rows.stream().peek(t -> t.setEntityType(entityType)).collect(Collectors.toList()));
         }

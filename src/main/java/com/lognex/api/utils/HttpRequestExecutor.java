@@ -2,7 +2,7 @@ package com.lognex.api.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.lognex.api.LognexApi;
+import com.lognex.api.ApiClient;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ErrorResponse;
 import com.lognex.api.responses.ListEntity;
@@ -40,8 +40,8 @@ public final class HttpRequestExecutor {
     private final CloseableHttpClient client;
     private Object body;
 
-    private HttpRequestExecutor(LognexApi api, String url) {
-        if (api == null) throw new IllegalArgumentException("Для выполнения запроса к API нужен проинициализированный экземпляр LognexApi!");
+    private HttpRequestExecutor(ApiClient api, String url) {
+        if (api == null) throw new IllegalArgumentException("Для выполнения запроса к API нужен проинициализированный экземпляр ApiClient!");
 
         this.client = api.getClient();
         this.hostApiPath = api.getHost() + API_PATH;
@@ -55,7 +55,7 @@ public final class HttpRequestExecutor {
         if (api.isPricePrecision()) header("X-Lognex-Precision", "true");
         if (api.isWithoutWebhookContent()) header("X-Lognex-WebHook-Disable", "true");
 
-        gson = LognexApi.createGson();
+        gson = ApiClient.createGson();
     }
 
     private HttpRequestExecutor(CloseableHttpClient client, String url) {
@@ -67,7 +67,7 @@ public final class HttpRequestExecutor {
         query = new HashMap<>();
         headers = new HashMap<>();
         body = null;
-        gson = LognexApi.createGson();
+        gson = ApiClient.createGson();
     }
 
     /**
@@ -80,7 +80,7 @@ public final class HttpRequestExecutor {
     /**
      * Создаёт билдер запроса к URL
      */
-    public static HttpRequestExecutor url(LognexApi api, String url) {
+    public static HttpRequestExecutor url(ApiClient api, String url) {
         return new HttpRequestExecutor(api.getClient(), url).auth(api);
     }
 
@@ -90,14 +90,14 @@ public final class HttpRequestExecutor {
      * @param api  проинициализированный экземпляр класса с данными API
      * @param path путь к методу API (например <code>/entity/counterparty/metadata</code>)
      */
-    public static HttpRequestExecutor path(LognexApi api, String path) {
+    public static HttpRequestExecutor path(ApiClient api, String path) {
         return new HttpRequestExecutor(api, path);
     }
 
     /**
      * Добавляет авторизационный заголовок с данными доступа API
      */
-    private HttpRequestExecutor auth(LognexApi api) {
+    private HttpRequestExecutor auth(ApiClient api) {
         return this.header(
                 "Authorization",
                 "Basic " + b64enc.encodeToString((api.getLogin() + ":" + api.getPassword()).getBytes())

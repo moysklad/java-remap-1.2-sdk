@@ -23,7 +23,7 @@ public abstract class EntityGetDeleteTest extends EntityGetTest {
 
     @SuppressWarnings("unchecked")
     public void doDeleteTest(String filter) throws IOException, LognexApiException {
-        MetaEntity createdEntity = simpleEntityManager.createSimple(entityClass());
+        MetaEntity createdEntity = simpleEntityManager.createSimple(entityClass(), true);
 
         try {
             Method method = createdEntity.getClass().getMethod("get" + filter);
@@ -48,7 +48,7 @@ public abstract class EntityGetDeleteTest extends EntityGetTest {
 
     @SuppressWarnings("unchecked")
     public void doDeleteByIdTest(String filter) throws IOException, LognexApiException {
-        MetaEntity createdEntity = simpleEntityManager.createSimple(entityClass());
+        MetaEntity createdEntity = simpleEntityManager.createSimple(entityClass(), true);
 
         try {
             Method method = createdEntity.getClass().getMethod("get" + filter);

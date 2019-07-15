@@ -1,11 +1,10 @@
 package com.lognex.api.clients.documents;
 
-import com.lognex.api.LognexApi;
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.PricelistDocumentEntity;
-import com.lognex.api.entities.documents.PricelistDocumentEntity.PricelistRow;
+import com.lognex.api.entities.documents.Pricelist;
+import com.lognex.api.entities.documents.Pricelist.PricelistRow;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.HttpRequestExecutor;
@@ -18,18 +17,18 @@ import java.util.Collections;
 import java.util.List;
 
 public final class DocumentPricelistClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<PricelistDocumentEntity>,
-        PostEndpoint<PricelistDocumentEntity>,
+        GetListEndpoint<Pricelist>,
+        PostEndpoint<Pricelist>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<PricelistDocumentEntity>,
-        PutByIdEndpoint<PricelistDocumentEntity>,
+        GetByIdEndpoint<Pricelist>,
+        PutByIdEndpoint<Pricelist>,
         ExportEndpoint {
 
-    public DocumentPricelistClient(LognexApi api) {
+    public DocumentPricelistClient(ApiClient api) {
         super(api, "/entity/pricelist/");
     }
 
@@ -47,7 +46,7 @@ public final class DocumentPricelistClient
     }
 
     @ApiEndpoint
-    public List<PricelistRow> postPositions(PricelistDocumentEntity document, List<PricelistRow> updatedEntities) throws IOException, LognexApiException {
+    public List<PricelistRow> postPositions(Pricelist document, List<PricelistRow> updatedEntities) throws IOException, LognexApiException {
         return postPositions(document.getId(), updatedEntities);
     }
 
@@ -61,7 +60,7 @@ public final class DocumentPricelistClient
     }
 
     @ApiEndpoint
-    public PricelistRow postPosition(PricelistDocumentEntity document, PricelistRow updatedEntity) throws IOException, LognexApiException {
+    public PricelistRow postPosition(Pricelist document, PricelistRow updatedEntity) throws IOException, LognexApiException {
         return postPosition(document.getId(), updatedEntity);
     }
 
@@ -74,7 +73,7 @@ public final class DocumentPricelistClient
     }
 
     @ApiEndpoint
-    public ListEntity<PricelistRow> getPositions(PricelistDocumentEntity document, ApiParam... params) throws IOException, LognexApiException {
+    public ListEntity<PricelistRow> getPositions(Pricelist document, ApiParam... params) throws IOException, LognexApiException {
         return getPositions(document.getId(), params);
     }
 
@@ -87,7 +86,7 @@ public final class DocumentPricelistClient
     }
 
     @ApiEndpoint
-    public PricelistRow getPosition(PricelistDocumentEntity document, String positionId, ApiParam... params) throws IOException, LognexApiException {
+    public PricelistRow getPosition(Pricelist document, String positionId, ApiParam... params) throws IOException, LognexApiException {
         return getPosition(document.getId(), positionId, params);
     }
 
@@ -102,17 +101,17 @@ public final class DocumentPricelistClient
     }
 
     @ApiEndpoint
-    public void putPosition(PricelistDocumentEntity document, String positionId, PricelistRow updatedEntity) throws IOException, LognexApiException {
+    public void putPosition(Pricelist document, String positionId, PricelistRow updatedEntity) throws IOException, LognexApiException {
         putPosition(document.getId(), positionId, updatedEntity);
     }
 
     @ApiEndpoint
-    public void putPosition(PricelistDocumentEntity document, PricelistRow position, PricelistRow updatedEntity) throws IOException, LognexApiException {
+    public void putPosition(Pricelist document, PricelistRow position, PricelistRow updatedEntity) throws IOException, LognexApiException {
         putPosition(document, position.getId(), updatedEntity);
     }
 
     @ApiEndpoint
-    public void putPosition(PricelistDocumentEntity document, PricelistRow position) throws IOException, LognexApiException {
+    public void putPosition(Pricelist document, PricelistRow position) throws IOException, LognexApiException {
         putPosition(document, position, position);
     }
 
@@ -124,18 +123,18 @@ public final class DocumentPricelistClient
     }
 
     @ApiEndpoint
-    public void delete(PricelistDocumentEntity document, String positionId) throws IOException, LognexApiException {
+    public void delete(Pricelist document, String positionId) throws IOException, LognexApiException {
         delete(document.getId(), positionId);
     }
 
     @ApiEndpoint
-    public void delete(PricelistDocumentEntity document, PricelistRow position) throws IOException, LognexApiException {
+    public void delete(Pricelist document, PricelistRow position) throws IOException, LognexApiException {
         delete(document, position.getId());
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return PricelistDocumentEntity.class;
+        return Pricelist.class;
     }
 
     @Override

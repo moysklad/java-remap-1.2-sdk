@@ -1,33 +1,32 @@
 package com.lognex.api.clients.documents;
 
-import com.lognex.api.LognexApi;
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.LossDocumentEntity;
+import com.lognex.api.entities.documents.Loss;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class DocumentLossClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<LossDocumentEntity>,
-        PostEndpoint<LossDocumentEntity>,
+        GetListEndpoint<Loss>,
+        PostEndpoint<Loss>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        DocumentNewEndpoint<LossDocumentEntity>,
-        GetByIdEndpoint<LossDocumentEntity>,
-        PutByIdEndpoint<LossDocumentEntity>,
+        DocumentNewEndpoint<Loss>,
+        GetByIdEndpoint<Loss>,
+        PutByIdEndpoint<Loss>,
         DocumentPositionsEndpoint,
         ExportEndpoint {
 
-    public DocumentLossClient(LognexApi api) {
+    public DocumentLossClient(ApiClient api) {
         super(api, "/entity/loss/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return LossDocumentEntity.class;
+        return Loss.class;
     }
 
     @Override

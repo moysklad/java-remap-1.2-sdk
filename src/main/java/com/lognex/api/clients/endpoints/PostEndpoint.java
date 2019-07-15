@@ -11,7 +11,7 @@ import static com.lognex.api.utils.Constants.API_PATH;
 
 public interface PostEndpoint<T extends MetaEntity> extends Endpoint {
     @ApiEndpoint
-    default T post(T newEntity) throws IOException, LognexApiException {
+    default T create(T newEntity) throws IOException, LognexApiException {
         MetaHrefUtils.fillMeta(newEntity, api().getHost() + API_PATH);
         T responseEntity = HttpRequestExecutor.
                 path(api(), path()).

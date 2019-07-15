@@ -15,7 +15,7 @@ public class CompanySettingsTest extends EntityTestBase {
     @Test
     public void getTest() throws IOException, LognexApiException {
         CompanySettingsResponse response = api.entity().companysettings().get();
-        ListEntity<CurrencyEntity> currency = api.entity().currency().get(filterEq("isoCode", "RUB"));
+        ListEntity<Currency> currency = api.entity().currency().get(filterEq("isoCode", "RUB"));
         assertEquals(1, currency.getRows().size());
 
         assertEquals(response.getCurrency(), currency.getRows().get(0));
@@ -24,7 +24,7 @@ public class CompanySettingsTest extends EntityTestBase {
 
     @Test
     public void metadataTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = simpleEntityManager.createSimpleCustomEntity();
+        CustomEntity customEntity = simpleEntityManager.createSimple(CustomEntity.class);
         CompanySettingsMetadata metadata = api.entity().companysettings().metadata();
 
         assertTrue(metadata.getCustomEntities().stream().

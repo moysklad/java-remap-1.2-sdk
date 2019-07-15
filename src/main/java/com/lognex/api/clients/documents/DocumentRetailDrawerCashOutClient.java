@@ -1,29 +1,28 @@
 package com.lognex.api.clients.documents;
 
-import com.lognex.api.LognexApi;
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.RetailDrawerCashOutEntity;
+import com.lognex.api.entities.documents.RetailDrawerCashOut;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class DocumentRetailDrawerCashOutClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<RetailDrawerCashOutEntity>,
-        PostEndpoint<RetailDrawerCashOutEntity>,
+        GetListEndpoint<RetailDrawerCashOut>,
+        PostEndpoint<RetailDrawerCashOut>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
         ExportEndpoint {
 
-    public DocumentRetailDrawerCashOutClient(LognexApi api) {
+    public DocumentRetailDrawerCashOutClient(ApiClient api) {
         super(api, "/entity/retaildrawercashout/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return RetailDrawerCashOutEntity.class;
+        return RetailDrawerCashOut.class;
     }
 
     @Override

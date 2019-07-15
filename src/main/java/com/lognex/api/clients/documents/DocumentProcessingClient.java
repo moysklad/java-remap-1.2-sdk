@@ -1,31 +1,30 @@
 package com.lognex.api.clients.documents;
 
-import com.lognex.api.LognexApi;
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.ProcessingDocumentEntity;
+import com.lognex.api.entities.documents.Processing;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class DocumentProcessingClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<ProcessingDocumentEntity>,
-        PostEndpoint<ProcessingDocumentEntity>,
+        GetListEndpoint<Processing>,
+        PostEndpoint<Processing>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<ProcessingDocumentEntity>,
-        PutByIdEndpoint<ProcessingDocumentEntity>,
+        GetByIdEndpoint<Processing>,
+        PutByIdEndpoint<Processing>,
         ExportEndpoint {
 
-    public DocumentProcessingClient(LognexApi api) {
+    public DocumentProcessingClient(ApiClient api) {
         super(api, "/entity/processing/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return ProcessingDocumentEntity.class;
+        return Processing.class;
     }
 
     @Override

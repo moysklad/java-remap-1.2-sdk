@@ -1,33 +1,32 @@
 package com.lognex.api.clients.documents;
 
-import com.lognex.api.LognexApi;
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.MoveDocumentEntity;
+import com.lognex.api.entities.documents.Move;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class DocumentMoveClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<MoveDocumentEntity>,
-        PostEndpoint<MoveDocumentEntity>,
+        GetListEndpoint<Move>,
+        PostEndpoint<Move>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        DocumentNewEndpoint<MoveDocumentEntity>,
-        GetByIdEndpoint<MoveDocumentEntity>,
-        PutByIdEndpoint<MoveDocumentEntity>,
+        DocumentNewEndpoint<Move>,
+        GetByIdEndpoint<Move>,
+        PutByIdEndpoint<Move>,
         DocumentPositionsEndpoint,
         ExportEndpoint {
 
-    public DocumentMoveClient(LognexApi api) {
+    public DocumentMoveClient(ApiClient api) {
         super(api, "/entity/move/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return MoveDocumentEntity.class;
+        return Move.class;
     }
 
     @Override

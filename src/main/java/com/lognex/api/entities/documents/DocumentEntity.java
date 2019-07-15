@@ -1,8 +1,8 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.GroupEntity;
+import com.lognex.api.entities.Group;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.agents.EmployeeEntity;
+import com.lognex.api.entities.agents.Employee;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,10 +19,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public abstract class DocumentEntity extends MetaEntity {
-    private GroupEntity group;
+    private Group group;
     private LocalDateTime updated;
     private Boolean shared;
-    private EmployeeEntity owner;
+    private Employee owner;
     private LocalDateTime moment;
     private Boolean applicable;
     private Long sum;

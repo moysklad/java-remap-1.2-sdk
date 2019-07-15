@@ -1,13 +1,13 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.documents.*;
 import com.lognex.api.clients.endpoints.ApiChainElement;
 
 public final class EntityClient {
-    private final LognexApi api;
+    private final ApiClient api;
 
-    public EntityClient(LognexApi api) {
+    public EntityClient(ApiClient api) {
         this.api = api;
     }
 

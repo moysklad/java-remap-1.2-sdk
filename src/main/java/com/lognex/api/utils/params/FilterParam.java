@@ -1,6 +1,6 @@
 package com.lognex.api.utils.params;
 
-import com.lognex.api.entities.AttributeEntity;
+import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.Meta;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.utils.MetaHrefUtils;
@@ -26,7 +26,7 @@ public class FilterParam extends ApiParam {
         this.entityFilterType = EntityFilterType.SIMPLE;
     }
 
-    private FilterParam(AttributeEntity key, FilterType filterType, Object value) {
+    private FilterParam(Attribute key, FilterType filterType, Object value) {
         super(Type.filter);
         this.key = key;
         this.value = value;
@@ -54,15 +54,15 @@ public class FilterParam extends ApiParam {
         return new FilterParam(key, filterType, value);
     }
 
-    public static FilterParam filterEq(AttributeEntity key, Object value) {
+    public static FilterParam filterEq(Attribute key, Object value) {
         return filter(key, FilterType.equals, value);
     }
 
-    public static FilterParam filterNot(AttributeEntity key, Object value) {
+    public static FilterParam filterNot(Attribute key, Object value) {
         return filter(key, FilterType.not_equals, value);
     }
 
-    public static FilterParam filter(AttributeEntity key, FilterType filterType, Object value) {
+    public static FilterParam filter(Attribute key, FilterType filterType, Object value) {
         return new FilterParam(key, filterType, value);
     }
 
@@ -94,7 +94,7 @@ public class FilterParam extends ApiParam {
                 }
                 break;
             case ATTRIBUTE:
-                AttributeEntity attrKey = (AttributeEntity) key;
+                Attribute attrKey = (Attribute) key;
                 if (attrKey == null) {
                     throw new IllegalArgumentException("key не может быть null");
                 } else if (attrKey.getMeta() == null || attrKey.getMeta().getHref() == null) {

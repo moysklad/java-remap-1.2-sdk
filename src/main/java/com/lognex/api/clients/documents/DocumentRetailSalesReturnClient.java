@@ -1,29 +1,28 @@
 package com.lognex.api.clients.documents;
 
-import com.lognex.api.LognexApi;
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.RetailSalesReturnEntity;
+import com.lognex.api.entities.documents.RetailSalesReturn;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class DocumentRetailSalesReturnClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<RetailSalesReturnEntity>,
-        PostEndpoint<RetailSalesReturnEntity>,
+        GetListEndpoint<RetailSalesReturn>,
+        PostEndpoint<RetailSalesReturn>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
         ExportEndpoint {
 
-    public DocumentRetailSalesReturnClient(LognexApi api) {
+    public DocumentRetailSalesReturnClient(ApiClient api) {
         super(api, "/entity/retailsalesreturn/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return RetailSalesReturnEntity.class;
+        return RetailSalesReturn.class;
     }
 
     @Override

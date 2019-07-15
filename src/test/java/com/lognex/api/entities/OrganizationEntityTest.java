@@ -1,7 +1,7 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.clients.ApiClient;
-import com.lognex.api.entities.agents.OrganizationEntity;
+import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
 import com.lognex.api.utils.LognexApiException;
@@ -17,19 +17,19 @@ import static org.junit.Assert.*;
 public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
-        OrganizationEntity organization = new OrganizationEntity();
+        Organization organization = new Organization();
         organization.setName("organization_" + randomString(3) + "_" + new Date().getTime());
         organization.setArchived(false);
         organization.setCompanyType(CompanyType.legal);
         organization.setInn(randomString());
         organization.setOgrn(randomString());
 
-        api.entity().organization().post(organization);
+        api.entity().organization().create(organization);
 
-        ListEntity<OrganizationEntity> updatedEntitiesList = api.entity().organization().get(filterEq("name", organization.getName()));
+        ListEntity<Organization> updatedEntitiesList = api.entity().organization().get(filterEq("name", organization.getName()));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
-        OrganizationEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
+        Organization retrievedEntity = updatedEntitiesList.getRows().get(0);
         assertEquals(organization.getName(), retrievedEntity.getName());
         assertEquals(organization.getArchived(), retrievedEntity.getArchived());
         assertEquals(organization.getAccounts(), retrievedEntity.getAccounts());
@@ -46,13 +46,13 @@ public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void getAccountsTest() throws IOException, LognexApiException {
-        OrganizationEntity organization = new OrganizationEntity();
+        Organization organization = new Organization();
         organization.setName("organization_" + randomString(3) + "_" + new Date().getTime());
 
-        ListEntity<AccountEntity> accounts = new ListEntity<>();
+        ListEntity<AgentAccount> accounts = new ListEntity<>();
 
         accounts.setRows(new ArrayList<>());
-        AccountEntity account = new AccountEntity();
+        AgentAccount account = new AgentAccount();
         account.setIsDefault(true);
         account.setAccountNumber(randomString());
         accounts.getRows().add(account);
@@ -60,9 +60,9 @@ public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
         accounts.getRows().add(account);
         organization.setAccounts(accounts);
 
-        api.entity().organization().post(organization);
+        api.entity().organization().create(organization);
 
-        ListEntity<AccountEntity> accountList = api.entity().organization().getAccounts(organization.getId());
+        ListEntity<AgentAccount> accountList = api.entity().organization().getAccounts(organization.getId());
         assertEquals(2, accountList.getRows().size());
         assertEquals(account.getAccountNumber(), accountList.getRows().get(0).getAccountNumber());
         assertTrue(accountList.getRows().get(0).getIsDefault());
@@ -72,24 +72,24 @@ public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void postAccountsTest() throws IOException, LognexApiException {
-        OrganizationEntity organization = new OrganizationEntity();
+        Organization organization = new Organization();
         organization.setName("organization_" + randomString(3) + "_" + new Date().getTime());
 
-        ListEntity<AccountEntity> accounts = new ListEntity<>();
+        ListEntity<AgentAccount> accounts = new ListEntity<>();
 
         accounts.setRows(new ArrayList<>());
-        AccountEntity account = new AccountEntity();
+        AgentAccount account = new AgentAccount();
         account.setIsDefault(true);
         account.setAccountNumber(randomString());
         accounts.getRows().add(account);
         account.setIsDefault(false);
         accounts.getRows().add(account);
 
-        api.entity().organization().post(organization);
+        api.entity().organization().create(organization);
 
-        api.entity().organization().postAccounts(organization.getId(), accounts.getRows());
+        api.entity().organization().createAccounts(organization.getId(), accounts.getRows());
 
-        ListEntity<AccountEntity> accountList = api.entity().organization().getAccounts(organization.getId());
+        ListEntity<AgentAccount> accountList = api.entity().organization().getAccounts(organization.getId());
         assertEquals(2, accountList.getRows().size());
         assertEquals(account.getAccountNumber(), accountList.getRows().get(0).getAccountNumber());
         assertTrue(accountList.getRows().get(0).getIsDefault());
@@ -99,8 +99,8 @@ public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
-        OrganizationEntity originalOrganization = (OrganizationEntity) originalEntity;
-        OrganizationEntity retrievedOrganization = (OrganizationEntity) retrievedEntity;
+        Organization originalOrganization = (Organization) originalEntity;
+        Organization retrievedOrganization = (Organization) retrievedEntity;
 
         assertEquals(originalOrganization.getName(), retrievedOrganization.getName());
         assertEquals(originalOrganization.getCompanyType(), retrievedOrganization.getCompanyType());
@@ -111,8 +111,8 @@ public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
-        OrganizationEntity originalOrganization = (OrganizationEntity) originalEntity;
-        OrganizationEntity updatedOrganization = (OrganizationEntity) updatedEntity;
+        Organization originalOrganization = (Organization) originalEntity;
+        Organization updatedOrganization = (Organization) updatedEntity;
 
         assertNotEquals(originalOrganization.getName(), updatedOrganization.getName());
         assertEquals(changedField, updatedOrganization.getName());
@@ -129,6 +129,6 @@ public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected Class<? extends MetaEntity> entityClass() {
-        return OrganizationEntity.class;
+        return Organization.class;
     }
 }

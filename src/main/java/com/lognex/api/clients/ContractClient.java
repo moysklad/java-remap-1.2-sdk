@@ -1,29 +1,29 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
-import com.lognex.api.entities.ContractEntity;
+import com.lognex.api.entities.Contract;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class ContractClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<ContractEntity>,
-        PostEndpoint<ContractEntity>,
+        GetListEndpoint<Contract>,
+        PostEndpoint<Contract>,
         DeleteByIdEndpoint,
         MetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<ContractEntity>,
-        PutByIdEndpoint<ContractEntity> {
+        GetByIdEndpoint<Contract>,
+        PutByIdEndpoint<Contract> {
 
-    public ContractClient(LognexApi api) {
+    public ContractClient(ApiClient api) {
         super(api, "/entity/contract/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return ContractEntity.class;
+        return Contract.class;
     }
 
     @Override

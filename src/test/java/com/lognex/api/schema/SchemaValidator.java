@@ -1,6 +1,6 @@
 package com.lognex.api.schema;
 
-import com.lognex.api.LognexApi;
+import com.lognex.api.ApiClient;
 import com.lognex.api.entities.Meta;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ErrorResponse;
@@ -39,14 +39,14 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
     }
 
     private final Schema schema;
-    private final LognexApi api;
+    private final ApiClient api;
     private final String path;
     private final Class<T> clazz;
 
     private final SchemaFiller<T> schemaFiller;
     private Map<SchemaField, Field> fieldsMap = new HashMap<>();
 
-    public SchemaValidator(Schema schema, LognexApi api, String path, Class<T> clazz) throws Exception {
+    public SchemaValidator(Schema schema, ApiClient api, String path, Class<T> clazz) throws Exception {
         this.schema = schema;
         this.api = api;
         this.path = path;

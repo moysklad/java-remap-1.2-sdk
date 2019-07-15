@@ -1,33 +1,32 @@
 package com.lognex.api.clients.documents;
 
-import com.lognex.api.LognexApi;
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.InternalOrderDocumentEntity;
+import com.lognex.api.entities.documents.InternalOrder;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class DocumentInternalOrderClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<InternalOrderDocumentEntity>,
-        PostEndpoint<InternalOrderDocumentEntity>,
+        GetListEndpoint<InternalOrder>,
+        PostEndpoint<InternalOrder>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        DocumentNewEndpoint<InternalOrderDocumentEntity>,
-        GetByIdEndpoint<InternalOrderDocumentEntity>,
-        PutByIdEndpoint<InternalOrderDocumentEntity>,
+        DocumentNewEndpoint<InternalOrder>,
+        GetByIdEndpoint<InternalOrder>,
+        PutByIdEndpoint<InternalOrder>,
         DocumentPositionsEndpoint,
         ExportEndpoint {
 
-    public DocumentInternalOrderClient(LognexApi api) {
+    public DocumentInternalOrderClient(ApiClient api) {
         super(api, "/entity/internalorder/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return InternalOrderDocumentEntity.class;
+        return InternalOrder.class;
     }
 
     @Override

@@ -16,19 +16,19 @@ import static org.junit.Assert.*;
 public class ProductEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
-        ProductEntity product = new ProductEntity();
+        Product product = new Product();
         product.setName("product_" + randomString(3) + "_" + new Date().getTime());
         product.setArchived(false);
         product.setDescription(randomString());
         product.setArticle(randomString());
         product.setWeight(randomDouble(1, 5, 2));
 
-        api.entity().product().post(product);
+        api.entity().product().create(product);
 
-        ListEntity<ProductEntity> updatedEntitiesList = api.entity().product().get(filterEq("name", product.getName()));
+        ListEntity<Product> updatedEntitiesList = api.entity().product().get(filterEq("name", product.getName()));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
-        ProductEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
+        Product retrievedEntity = updatedEntitiesList.getRows().get(0);
         assertEquals(product.getName(), retrievedEntity.getName());
         assertEquals(product.getArchived(), retrievedEntity.getArchived());
         assertEquals(product.getDescription(), retrievedEntity.getDescription());
@@ -44,8 +44,8 @@ public class ProductEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
-        ProductEntity originalProduct = (ProductEntity) originalEntity;
-        ProductEntity retrievedProduct = (ProductEntity) retrievedEntity;
+        Product originalProduct = (Product) originalEntity;
+        Product retrievedProduct = (Product) retrievedEntity;
 
         assertEquals(originalProduct.getName(), retrievedProduct.getName());
         assertEquals(originalProduct.getDescription(), retrievedProduct.getDescription());
@@ -53,8 +53,8 @@ public class ProductEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
-        ProductEntity originalProduct = (ProductEntity) originalEntity;
-        ProductEntity updatedProduct = (ProductEntity) updatedEntity;
+        Product originalProduct = (Product) originalEntity;
+        Product updatedProduct = (Product) updatedEntity;
 
         assertNotEquals(originalProduct.getName(), updatedProduct.getName());
         assertEquals(changedField, updatedProduct.getName());
@@ -68,6 +68,6 @@ public class ProductEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected Class<? extends MetaEntity> entityClass() {
-        return ProductEntity.class;
+        return Product.class;
     }
 }

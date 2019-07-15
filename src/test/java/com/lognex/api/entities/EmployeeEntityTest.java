@@ -1,7 +1,7 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.clients.ApiClient;
-import com.lognex.api.entities.agents.EmployeeEntity;
+import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
 import com.lognex.api.utils.LognexApiException;
@@ -16,19 +16,19 @@ import static org.junit.Assert.*;
 public class EmployeeEntityTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, LognexApiException {
-        EmployeeEntity employee = new EmployeeEntity();
+        Employee employee = new Employee();
         employee.setLastName("employee_" + randomString(3) + "_" + new Date().getTime());
         employee.setFirstName(randomString());
         employee.setMiddleName(randomString());
         employee.setArchived(false);
         employee.setDescription(randomString());
 
-        api.entity().employee().post(employee);
+        api.entity().employee().create(employee);
 
-        ListEntity<EmployeeEntity> updatedEntitiesList = api.entity().employee().get(filterEq("lastName", employee.getLastName()));
+        ListEntity<Employee> updatedEntitiesList = api.entity().employee().get(filterEq("lastName", employee.getLastName()));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
-        EmployeeEntity retrievedEntity = updatedEntitiesList.getRows().get(0);
+        Employee retrievedEntity = updatedEntitiesList.getRows().get(0);
         assertEquals(employee.getLastName(), retrievedEntity.getLastName());
         assertEquals(employee.getFirstName(), retrievedEntity.getFirstName());
         assertEquals(employee.getLastName(), retrievedEntity.getLastName());
@@ -51,8 +51,8 @@ public class EmployeeEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
-        EmployeeEntity originalEmployee = (EmployeeEntity) originalEntity;
-        EmployeeEntity retrievedEmployee = (EmployeeEntity) retrievedEntity;
+        Employee originalEmployee = (Employee) originalEntity;
+        Employee retrievedEmployee = (Employee) retrievedEntity;
 
         assertEquals(originalEmployee.getLastName(), retrievedEmployee.getLastName());
         assertEquals(originalEmployee.getFirstName(), retrievedEmployee.getFirstName());
@@ -61,8 +61,8 @@ public class EmployeeEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
-        EmployeeEntity originalEmployee = (EmployeeEntity) originalEntity;
-        EmployeeEntity updatedEmployee = (EmployeeEntity) updatedEntity;
+        Employee originalEmployee = (Employee) originalEntity;
+        Employee updatedEmployee = (Employee) updatedEntity;
 
         assertEquals(changedField, updatedEmployee.getLastName());
         assertNotEquals(originalEmployee.getLastName(), updatedEmployee.getLastName());
@@ -77,6 +77,6 @@ public class EmployeeEntityTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected Class<? extends MetaEntity> entityClass() {
-        return EmployeeEntity.class;
+        return Employee.class;
     }
 }

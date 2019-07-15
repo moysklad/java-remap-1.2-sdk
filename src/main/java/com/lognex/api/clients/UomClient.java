@@ -1,25 +1,24 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.UomEntity;
+import com.lognex.api.entities.Uom;
 
 public final class UomClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<UomEntity>,
-        PostEndpoint<UomEntity>,
+        GetListEndpoint<Uom>,
+        PostEndpoint<Uom>,
         DeleteByIdEndpoint,
-        GetByIdEndpoint<UomEntity>,
-        PutByIdEndpoint<UomEntity> {
+        GetByIdEndpoint<Uom>,
+        PutByIdEndpoint<Uom> {
 
-    public UomClient(LognexApi api) {
+    public UomClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/uom/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return UomEntity.class;
+        return Uom.class;
     }
 }

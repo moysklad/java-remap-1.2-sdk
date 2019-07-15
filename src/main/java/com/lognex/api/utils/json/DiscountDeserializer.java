@@ -8,15 +8,15 @@ import java.lang.reflect.Type;
 
 /**
  * Десериализатор поля <code>discount</code>. В зависимости от метаданных, возвращает экземпляр
- * одного из классов, наследующихся от DiscountEntity: AccumulationDiscountEntity,
- * BonusProgramDiscountEntity, PersonalDiscountEntity, SpecialPriceDiscountEntity,
- * или сам DiscountEntity
+ * одного из классов, наследующихся от Discount: AccumulationDiscount,
+ * BonusProgramDiscount, PersonalDiscount, SpecialPriceDiscount,
+ * или сам Discount
  */
-public class DiscountDeserializer implements JsonDeserializer<DiscountEntity> {
+public class DiscountDeserializer implements JsonDeserializer<Discount> {
     private final Gson gson = JsonUtils.createGsonWithMetaAdapter();
 
     @Override
-    public DiscountEntity deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public Discount deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         MetaEntity me = gson.fromJson(json, MetaEntity.class);
 
         if (me.getMeta() == null) throw new JsonParseException("Can't parse field 'discount': meta is null");
@@ -25,19 +25,19 @@ public class DiscountDeserializer implements JsonDeserializer<DiscountEntity> {
 
         switch (me.getMeta().getType()) {
             case ACCUMULATION_DISCOUNT:
-                return context.deserialize(json, AccumulationDiscountEntity.class);
+                return context.deserialize(json, AccumulationDiscount.class);
 
             case BONUS_PROGRAM:
-                return context.deserialize(json, BonusProgramDiscountEntity.class);
+                return context.deserialize(json, BonusProgramDiscount.class);
 
             case DISCOUNT:
-                return gson.fromJson(json, DiscountEntity.class);
+                return gson.fromJson(json, Discount.class);
 
             case PERSONAL_DISCOUNT:
-                return context.deserialize(json, PersonalDiscountEntity.class);
+                return context.deserialize(json, PersonalDiscount.class);
 
             case SPECIAL_PRICE_DISCOUNT:
-                return context.deserialize(json, SpecialPriceDiscountEntity.class);
+                return context.deserialize(json, SpecialPriceDiscount.class);
 
             default:
                 throw new JsonParseException("Can't parse field 'discount': meta.type must be one of [accumulationdiscount, bonusprogram, discount, personaldiscount, specialpricediscount]");

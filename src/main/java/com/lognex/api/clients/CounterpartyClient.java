@@ -1,12 +1,11 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.*;
-import com.lognex.api.entities.AccountEntity;
-import com.lognex.api.entities.ContactPersonEntity;
+import com.lognex.api.entities.AgentAccount;
+import com.lognex.api.entities.ContactPerson;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.NoteEntity;
-import com.lognex.api.entities.agents.CounterpartyEntity;
+import com.lognex.api.entities.Note;
+import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.CounterpartyMetadataResponse;
 import com.lognex.api.utils.HttpRequestExecutor;
@@ -17,178 +16,178 @@ import java.io.IOException;
 import java.util.List;
 
 public final class CounterpartyClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<CounterpartyEntity>,
-        PostEndpoint<CounterpartyEntity>,
+        GetListEndpoint<Counterparty>,
+        PostEndpoint<Counterparty>,
         DeleteByIdEndpoint,
         MetadataEndpoint<CounterpartyMetadataResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<CounterpartyEntity>,
-        PutByIdEndpoint<CounterpartyEntity> {
+        GetByIdEndpoint<Counterparty>,
+        PutByIdEndpoint<Counterparty> {
 
-    public CounterpartyClient(LognexApi api) {
+    public CounterpartyClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/counterparty/");
     }
 
     @ApiEndpoint
-    public ListEntity<AccountEntity> getAccounts(String id, ApiParam... params) throws IOException, LognexApiException {
+    public ListEntity<AgentAccount> getAccounts(String id, ApiParam... params) throws IOException, LognexApiException {
         return HttpRequestExecutor.
                 path(api(), path() + id + "/accounts").
                 apiParams(params).
-                list(AccountEntity.class);
+                list(AgentAccount.class);
     }
 
     @ApiEndpoint
-    public AccountEntity getAccount(String counterpartyId, String accountId, ApiParam... params) throws IOException, LognexApiException {
+    public AgentAccount getAccount(String counterpartyId, String accountId, ApiParam... params) throws IOException, LognexApiException {
         return HttpRequestExecutor.
                 path(api(), path() + counterpartyId + "/accounts/" + accountId).
                 apiParams(params).
-                get(AccountEntity.class);
+                get(AgentAccount.class);
     }
 
     @ApiEndpoint
-    public AccountEntity getAccount(CounterpartyEntity counterparty, String accountId, ApiParam... params) throws IOException, LognexApiException {
+    public AgentAccount getAccount(Counterparty counterparty, String accountId, ApiParam... params) throws IOException, LognexApiException {
         return getAccount(counterparty.getId(), accountId, params);
     }
 
     @ApiEndpoint
-    public AccountEntity getAccount(CounterpartyEntity counterparty, AccountEntity account, ApiParam... params) throws IOException, LognexApiException {
+    public AgentAccount getAccount(Counterparty counterparty, AgentAccount account, ApiParam... params) throws IOException, LognexApiException {
         return getAccount(counterparty, account.getId(), params);
     }
 
     @ApiEndpoint
-    public ListEntity<ContactPersonEntity> getContactPersons(String counterpartyId, ApiParam... params) throws IOException, LognexApiException {
+    public ListEntity<ContactPerson> getContactPersons(String counterpartyId, ApiParam... params) throws IOException, LognexApiException {
         return HttpRequestExecutor.
                 path(api(), path() + counterpartyId + "/contactpersons").
                 apiParams(params).
-                list(ContactPersonEntity.class);
+                list(ContactPerson.class);
     }
 
     @ApiEndpoint
-    public ListEntity<ContactPersonEntity> getContactPersons(CounterpartyEntity counterparty, ApiParam... params) throws IOException, LognexApiException {
+    public ListEntity<ContactPerson> getContactPersons(Counterparty counterparty, ApiParam... params) throws IOException, LognexApiException {
         return getContactPersons(counterparty.getId(), params);
     }
 
     @ApiEndpoint
-    public ContactPersonEntity postContactPerson(String counterpartyId, ContactPersonEntity newEntity) throws IOException, LognexApiException {
-        List<ContactPersonEntity> responseEntity = HttpRequestExecutor.
+    public ContactPerson createContactPerson(String counterpartyId, ContactPerson newEntity) throws IOException, LognexApiException {
+        List<ContactPerson> responseEntity = HttpRequestExecutor.
                 path(api(), path() + counterpartyId + "/contactpersons").
                 body(newEntity).
-                postList(ContactPersonEntity.class);
+                postList(ContactPerson.class);
 
         newEntity.set(responseEntity.get(0));
         return newEntity;
     }
 
     @ApiEndpoint
-    public ContactPersonEntity getContactPerson(String counterpartyId, String contactPersonId, ApiParam... params) throws IOException, LognexApiException {
+    public ContactPerson getContactPerson(String counterpartyId, String contactPersonId, ApiParam... params) throws IOException, LognexApiException {
         return HttpRequestExecutor.
                 path(api(), path() + counterpartyId + "/contactpersons/" + contactPersonId).
                 apiParams(params).
-                get(ContactPersonEntity.class);
+                get(ContactPerson.class);
     }
 
     @ApiEndpoint
-    public ContactPersonEntity getContactPerson(CounterpartyEntity counterparty, String contactPersonId, ApiParam... params) throws IOException, LognexApiException {
+    public ContactPerson getContactPerson(Counterparty counterparty, String contactPersonId, ApiParam... params) throws IOException, LognexApiException {
         return getContactPerson(counterparty.getId(), contactPersonId, params);
     }
 
     @ApiEndpoint
-    public ContactPersonEntity getContactPerson(CounterpartyEntity counterparty, ContactPersonEntity contactPerson, ApiParam... params) throws IOException, LognexApiException {
+    public ContactPerson getContactPerson(Counterparty counterparty, ContactPerson contactPerson, ApiParam... params) throws IOException, LognexApiException {
         return getContactPerson(counterparty, contactPerson.getId(), params);
     }
 
     @ApiEndpoint
-    public void putContactPerson(String counterpartyId, String contactPersonId, ContactPersonEntity updatedEntity) throws IOException, LognexApiException {
-        ContactPersonEntity responseEntity = HttpRequestExecutor
+    public void updateContactPerson(String counterpartyId, String contactPersonId, ContactPerson updatedEntity) throws IOException, LognexApiException {
+        ContactPerson responseEntity = HttpRequestExecutor
                 .path(api(), path() + counterpartyId + "/contactpersons/" + contactPersonId)
                 .body(updatedEntity)
-                .put(ContactPersonEntity.class);
+                .put(ContactPerson.class);
 
         updatedEntity.set(responseEntity);
     }
 
     @ApiEndpoint
-    public void putContactPerson(CounterpartyEntity counterparty, String contactPersonId, ContactPersonEntity updatedEntity) throws IOException, LognexApiException {
-        putContactPerson(counterparty.getId(), contactPersonId, updatedEntity);
+    public void updateContactPerson(Counterparty counterparty, String contactPersonId, ContactPerson updatedEntity) throws IOException, LognexApiException {
+        updateContactPerson(counterparty.getId(), contactPersonId, updatedEntity);
     }
 
     @ApiEndpoint
-    public void putContactPerson(CounterpartyEntity counterparty, ContactPersonEntity contactPerson, ContactPersonEntity updatedEntity) throws IOException, LognexApiException {
-        putContactPerson(counterparty, contactPerson.getId(), updatedEntity);
+    public void updateContactPerson(Counterparty counterparty, ContactPerson contactPerson, ContactPerson updatedEntity) throws IOException, LognexApiException {
+        updateContactPerson(counterparty, contactPerson.getId(), updatedEntity);
     }
 
     @ApiEndpoint
-    public void putContactPerson(CounterpartyEntity counterparty, ContactPersonEntity contactPerson) throws IOException, LognexApiException {
-        putContactPerson(counterparty, contactPerson.getId(), contactPerson);
+    public void updateContactPerson(Counterparty counterparty, ContactPerson contactPerson) throws IOException, LognexApiException {
+        updateContactPerson(counterparty, contactPerson.getId(), contactPerson);
     }
 
     @ApiEndpoint
-    public ListEntity<NoteEntity> getNotes(String counterpartyId, ApiParam... params) throws IOException, LognexApiException {
+    public ListEntity<Note> getNotes(String counterpartyId, ApiParam... params) throws IOException, LognexApiException {
         return HttpRequestExecutor.
                 path(api(), path() + counterpartyId + "/notes").
                 apiParams(params).
-                list(NoteEntity.class);
+                list(Note.class);
     }
 
     @ApiEndpoint
-    public ListEntity<NoteEntity> getNotes(CounterpartyEntity counterparty, ApiParam... params) throws IOException, LognexApiException {
+    public ListEntity<Note> getNotes(Counterparty counterparty, ApiParam... params) throws IOException, LognexApiException {
         return getNotes(counterparty.getId(), params);
     }
 
     @ApiEndpoint
-    public NoteEntity postNote(String counterpartyId, NoteEntity newEntity) throws IOException, LognexApiException {
-        List<NoteEntity> responseEntity = HttpRequestExecutor.
+    public Note createNote(String counterpartyId, Note newEntity) throws IOException, LognexApiException {
+        List<Note> responseEntity = HttpRequestExecutor.
                 path(api(), path() + counterpartyId + "/notes").
                 body(newEntity).
-                postList(NoteEntity.class);
+                postList(Note.class);
 
         newEntity.set(responseEntity.get(0));
         return newEntity;
     }
 
     @ApiEndpoint
-    public NoteEntity getNote(String counterpartyId, String noteId, ApiParam... params) throws IOException, LognexApiException {
+    public Note getNote(String counterpartyId, String noteId, ApiParam... params) throws IOException, LognexApiException {
         return HttpRequestExecutor.
                 path(api(), path() + counterpartyId + "/notes/" + noteId).
                 apiParams(params).
-                get(NoteEntity.class);
+                get(Note.class);
     }
 
     @ApiEndpoint
-    public NoteEntity getNote(CounterpartyEntity counterparty, String noteId, ApiParam... params) throws IOException, LognexApiException {
+    public Note getNote(Counterparty counterparty, String noteId, ApiParam... params) throws IOException, LognexApiException {
         return getNote(counterparty.getId(), noteId, params);
     }
 
     @ApiEndpoint
-    public NoteEntity getNote(CounterpartyEntity counterparty, NoteEntity note, ApiParam... params) throws IOException, LognexApiException {
+    public Note getNote(Counterparty counterparty, Note note, ApiParam... params) throws IOException, LognexApiException {
         return getNote(counterparty, note.getId(), params);
     }
 
     @ApiEndpoint
-    public void putNote(String counterpartyId, String noteId, NoteEntity updatedEntity) throws IOException, LognexApiException {
-        NoteEntity responseEntity = HttpRequestExecutor
+    public void updateNote(String counterpartyId, String noteId, Note updatedEntity) throws IOException, LognexApiException {
+        Note responseEntity = HttpRequestExecutor
                 .path(api(), path() + counterpartyId + "/notes/" + noteId)
                 .body(updatedEntity)
-                .put(NoteEntity.class);
+                .put(Note.class);
 
         updatedEntity.set(responseEntity);
     }
 
     @ApiEndpoint
-    public void putNote(CounterpartyEntity counterparty, String noteId, NoteEntity updatedEntity) throws IOException, LognexApiException {
-        putNote(counterparty.getId(), noteId, updatedEntity);
+    public void updateNote(Counterparty counterparty, String noteId, Note updatedEntity) throws IOException, LognexApiException {
+        updateNote(counterparty.getId(), noteId, updatedEntity);
     }
 
     @ApiEndpoint
-    public void putNote(CounterpartyEntity counterparty, NoteEntity note, NoteEntity updatedEntity) throws IOException, LognexApiException {
-        putNote(counterparty, note.getId(), updatedEntity);
+    public void updateNote(Counterparty counterparty, Note note, Note updatedEntity) throws IOException, LognexApiException {
+        updateNote(counterparty, note.getId(), updatedEntity);
     }
 
     @ApiEndpoint
-    public void putNote(CounterpartyEntity counterparty, NoteEntity note) throws IOException, LognexApiException {
-        putNote(counterparty, note.getId(), note);
+    public void updateNote(Counterparty counterparty, Note note) throws IOException, LognexApiException {
+        updateNote(counterparty, note.getId(), note);
     }
 
     @ApiEndpoint
@@ -199,18 +198,18 @@ public final class CounterpartyClient
     }
 
     @ApiEndpoint
-    public void deleteNote(CounterpartyEntity counterparty, String noteId) throws IOException, LognexApiException {
+    public void deleteNote(Counterparty counterparty, String noteId) throws IOException, LognexApiException {
         deleteNote(counterparty.getId(), noteId);
     }
 
     @ApiEndpoint
-    public void deleteNote(CounterpartyEntity counterparty, NoteEntity note) throws IOException, LognexApiException {
+    public void deleteNote(Counterparty counterparty, Note note) throws IOException, LognexApiException {
         deleteNote(counterparty, note.getId());
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return CounterpartyEntity.class;
+        return Counterparty.class;
     }
 
     @Override

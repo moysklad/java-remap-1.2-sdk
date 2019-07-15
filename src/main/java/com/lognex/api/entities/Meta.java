@@ -1,15 +1,15 @@
 package com.lognex.api.entities;
 
 import com.google.gson.*;
-import com.lognex.api.entities.agents.CounterpartyEntity;
-import com.lognex.api.entities.agents.EmployeeEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
+import com.lognex.api.entities.agents.Counterparty;
+import com.lognex.api.entities.agents.Employee;
+import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.entities.discounts.*;
 import com.lognex.api.entities.documents.*;
-import com.lognex.api.entities.products.BundleEntity;
-import com.lognex.api.entities.products.ProductEntity;
-import com.lognex.api.entities.products.ServiceEntity;
-import com.lognex.api.entities.products.VariantEntity;
+import com.lognex.api.entities.products.Bundle;
+import com.lognex.api.entities.products.Product;
+import com.lognex.api.entities.products.Service;
+import com.lognex.api.entities.products.Variant;
 import com.lognex.api.responses.CompanySettingsResponse;
 import com.lognex.api.responses.metadata.CompanySettingsMetadata;
 import com.lognex.api.utils.MetaHrefUtils;
@@ -80,93 +80,93 @@ public final class Meta {
      * Тип сущности
      */
     public enum Type {
-        EMPLOYEE("employee", EmployeeEntity.class),
-        CONTRACT("contract", ContractEntity.class),
-        COUNTERPARTY("counterparty", CounterpartyEntity.class),
-        ORGANIZATION("organization", OrganizationEntity.class),
-        GROUP("group", GroupEntity.class),
-        ACCOUNT("account", AccountEntity.class),
-        DEMAND("demand", DemandDocumentEntity.class),
-        STORE("store", StoreEntity.class),
+        EMPLOYEE("employee", Employee.class),
+        CONTRACT("contract", Contract.class),
+        COUNTERPARTY("counterparty", Counterparty.class),
+        ORGANIZATION("organization", Organization.class),
+        GROUP("group", Group.class),
+        ACCOUNT("account", AgentAccount.class),
+        DEMAND("demand", Demand.class),
+        STORE("store", Store.class),
         DEMAND_POSITION("demandposition", DocumentPosition.class),
-        NOTE("note", NoteEntity.class),
-        STATE("state", StateEntity.class),
-        PRODUCT("product", ProductEntity.class),
-        SERVICE("service", ServiceEntity.class),
-        BUNDLE("bundle", BundleEntity.class),
-        BUNDLE_COMPONENT("bundlecomponent", BundleEntity.ComponentEntity.class),
-        CURRENCY("currency", CurrencyEntity.class),
-        UOM("uom", UomEntity.class),
-        PRODUCT_FOLDER("productfolder", ProductFolderEntity.class),
+        NOTE("note", Note.class),
+        STATE("state", State.class),
+        PRODUCT("product", Product.class),
+        SERVICE("service", Service.class),
+        BUNDLE("bundle", Bundle.class),
+        BUNDLE_COMPONENT("bundlecomponent", Bundle.ComponentEntity.class),
+        CURRENCY("currency", Currency.class),
+        UOM("uom", Uom.class),
+        PRODUCT_FOLDER("productfolder", ProductFolder.class),
         SUPPLY_POSITION("supplyposition", DocumentPosition.class),
-        COUNTRY("country", CountryEntity.class),
-        VARIANT("variant", VariantEntity.class),
-        RETAIL_STORE("retailstore", RetailStoreEntity.class),
-        RETAIL_SHIFT("retailshift", RetailShiftDocumentEntity.class),
-        RETAIL_DEMAND("retaildemand", RetailDemandDocumentEntity.class),
-        RETAIL_DRAWER_CASH_IN("retaildrawercashin", RetailDrawerCashInEntity.class),
-        RETAIL_DRAWER_CASH_OUT("retaildrawercashout", RetailDrawerCashOutEntity.class),
-        RETAIL_SALES_RETURN("retailsalesreturn", RetailSalesReturnEntity.class),
-        SALES_RETURN("salesreturn", SalesReturnDocumentEntity.class),
+        COUNTRY("country", Country.class),
+        VARIANT("variant", Variant.class),
+        RETAIL_STORE("retailstore", RetailStore.class),
+        RETAIL_SHIFT("retailshift", RetailShift.class),
+        RETAIL_DEMAND("retaildemand", RetailDemand.class),
+        RETAIL_DRAWER_CASH_IN("retaildrawercashin", RetailDrawerCashIn.class),
+        RETAIL_DRAWER_CASH_OUT("retaildrawercashout", RetailDrawerCashOut.class),
+        RETAIL_SALES_RETURN("retailsalesreturn", RetailSalesReturn.class),
+        SALES_RETURN("salesreturn", SalesReturn.class),
         SALES_RETURN_POSITION("salesreturnposition", DocumentPosition.class),
-        CONSIGNMENT("consignment", ConsignmentEntity.class),
-        MOVE("move", MoveDocumentEntity.class),
+        CONSIGNMENT("consignment", Consignment.class),
+        MOVE("move", Move.class),
         MOVE_POSITION("moveposition", DocumentPosition.class),
-        PURCHASE_RETURN("purchasereturn", PurchaseReturnDocumentEntity.class),
+        PURCHASE_RETURN("purchasereturn", PurchaseReturn.class),
         PURCHASE_RETURN_POSITION("purchasereturnposition", DocumentPosition.class),
-        ENTER("enter", EnterDocumentEntity.class),
+        ENTER("enter", Enter.class),
         ENTER_POSITION("enterposition", DocumentPosition.class),
-        SUPPLY("supply", SupplyDocumentEntity.class),
-        PURCHASE_ORDER("purchaseorder", PurchaseOrderDocumentEntity.class),
+        SUPPLY("supply", Supply.class),
+        PURCHASE_ORDER("purchaseorder", PurchaseOrder.class),
         PURCHASE_ORDER_POSITION("purchaseorderposition", DocumentPosition.class),
-        CUSTOMER_ORDER("customerorder", CustomerOrderDocumentEntity.class),
+        CUSTOMER_ORDER("customerorder", CustomerOrder.class),
         CUSTOMER_ORDER_POSITION("customerorderposition", DocumentPosition.class),
-        PROCESSING_PLAN_MATERIAL("processingplanmaterial", ProcessingPlanDocumentEntity.PlanItem.class),
-        PROCESSING_PLAN_RESULT("processingplanresult", ProcessingPlanDocumentEntity.PlanItem.class),
-        PROCESSING_PLAN("processingplan", ProcessingPlanDocumentEntity.class),
-        PROCESSING_ORDER("processingorder", ProcessingOrderDocumentEntity.class),
+        PROCESSING_PLAN_MATERIAL("processingplanmaterial", ProcessingPlan.PlanItem.class),
+        PROCESSING_PLAN_RESULT("processingplanresult", ProcessingPlan.PlanItem.class),
+        PROCESSING_PLAN("processingplan", ProcessingPlan.class),
+        PROCESSING_ORDER("processingorder", ProcessingOrder.class),
         PROCESSING_ORDER_POSITION("processingorderposition", DocumentPosition.class),
-        PROCESSING("processing", ProcessingDocumentEntity.class),
+        PROCESSING("processing", Processing.class),
         PROCESSING_POSITION_RESULT("processingpositionresult", DocumentPosition.class),
         PROCESSING_POSITION_MATERIAL("processingpositionmaterial", DocumentPosition.class),
-        EXPENSE_ITEM("expenseitem", ExpenseItemEntity.class),
-        CASH_IN("cashin", CashInDocumentEntity.class),
-        CASH_OUT("cashout", CashOutDocumentEntity.class),
-        PAYMENT_IN("paymentin", PaymentInDocumentEntity.class),
-        PAYMENT_OUT("paymentout", PaymentOutDocumentEntity.class),
-        PROJECT("project", ProjectEntity.class),
-        EMBEDDED_TEMPLATE("embeddedtemplate", TemplateEntity.class),
-        CUSTOM_TEMPLATE("customtemplate", TemplateEntity.class),
-        ATTRIBUTE_METADATA("attributemetadata", AttributeEntity.class),
+        EXPENSE_ITEM("expenseitem", ExpenseItem.class),
+        CASH_IN("cashin", CashIn.class),
+        CASH_OUT("cashout", CashOut.class),
+        PAYMENT_IN("paymentin", PaymentIn.class),
+        PAYMENT_OUT("paymentout", PaymentOut.class),
+        PROJECT("project", Project.class),
+        EMBEDDED_TEMPLATE("embeddedtemplate", Template.class),
+        CUSTOM_TEMPLATE("customtemplate", Template.class),
+        ATTRIBUTE_METADATA("attributemetadata", Attribute.class),
         CUSTOM_ENTITY("customentity", CustomEntityElement.class),
         CUSTOM_ENTITY_METADATA("customentitymetadata", CompanySettingsMetadata.CustomEntityMetadata.class),
-        PERSONAL_DISCOUNT("personaldiscount", PersonalDiscountEntity.class),
-        SPECIAL_PRICE_DISCOUNT("specialpricediscount", SpecialPriceDiscountEntity.class),
-        DISCOUNT("discount", DiscountEntity.class),
-        BONUS_PROGRAM("bonusprogram", BonusProgramDiscountEntity.class),
-        ACCUMULATION_DISCOUNT("accumulationdiscount", AccumulationDiscountEntity.class),
-        CONTACT_PERSON("contactperson", ContactPersonEntity.class),
-        PRICE_TYPE("pricetype", PriceTypeEntity.class),
-        INVOICE_IN("invoicein", InvoiceInDocumentEntity.class),
-        INVOICE_OUT("invoiceout", InvoiceOutDocumentEntity.class),
+        PERSONAL_DISCOUNT("personaldiscount", PersonalDiscount.class),
+        SPECIAL_PRICE_DISCOUNT("specialpricediscount", SpecialPriceDiscount.class),
+        DISCOUNT("discount", Discount.class),
+        BONUS_PROGRAM("bonusprogram", BonusProgramDiscount.class),
+        ACCUMULATION_DISCOUNT("accumulationdiscount", AccumulationDiscount.class),
+        CONTACT_PERSON("contactperson", ContactPerson.class),
+        PRICE_TYPE("pricetype", PriceType.class),
+        INVOICE_IN("invoicein", InvoiceIn.class),
+        INVOICE_OUT("invoiceout", InvoiceOut.class),
         INVOICE_POSITION("invoiceposition", DocumentPosition.class),
-        INTERNAL_ORDER("internalorder", InternalOrderDocumentEntity.class),
+        INTERNAL_ORDER("internalorder", InternalOrder.class),
         INTERNAL_ORDER_POSITION("internalorderposition", DocumentPosition.class),
-        COMMISSION_REPORT_IN("commissionreportin", CommissionReportInDocumentEntity.class),
+        COMMISSION_REPORT_IN("commissionreportin", CommissionReportIn.class),
         COMMISSION_REPORT_IN_POSITION("commissionreportinposition", DocumentPosition.class),
-        COMMISSION_REPORT_OUT("commissionreportout", CommissionReportOutDocumentEntity.class),
+        COMMISSION_REPORT_OUT("commissionreportout", CommissionReportOut.class),
         COMMISSION_REPORT_OUT_POSITION("commissionreportoutposition", DocumentPosition.class),
-        PRICE_LIST("pricelist", PricelistDocumentEntity.class),
-        PRICE_LIST_ROW("pricelistrow", PricelistDocumentEntity.PricelistRow.class),
-        FACTURE_IN("facturein", FactureInDocumentEntity.class),
-        FACTURE_OUT("factureout", FactureOutDocumentEntity.class),
-        TASK("task", TaskEntity.class),
-        LOSS("loss", LossDocumentEntity.class),
+        PRICE_LIST("pricelist", Pricelist.class),
+        PRICE_LIST_ROW("pricelistrow", Pricelist.PricelistRow.class),
+        FACTURE_IN("facturein", FactureIn.class),
+        FACTURE_OUT("factureout", FactureOut.class),
+        TASK("task", Task.class),
+        LOSS("loss", Loss.class),
         LOSS_POSITION("lossposition", DocumentPosition.class),
-        INVENTORY("inventory", InventoryDocumentEntity.class),
+        INVENTORY("inventory", Inventory.class),
         INVENTORY_POSITION("inventoryposition", DocumentPosition.class),
         COMPANY_SETTINGS("companysettings", CompanySettingsResponse.class),
-        CASHIER("cashier", CashierEntity.class)
+        CASHIER("cashier", Cashier.class)
         ;
 
         @Getter
@@ -180,11 +180,11 @@ public final class Meta {
         }
 
         public static Type find(MetaEntity entity) {
-            if (TemplateEntity.class.isAssignableFrom(entity.getClass())) {
-                if (((TemplateEntity) entity).getIsEmbedded() == null) {
+            if (Template.class.isAssignableFrom(entity.getClass())) {
+                if (((Template) entity).getIsEmbedded() == null) {
                     return CUSTOM_TEMPLATE;
                 }
-                return ((TemplateEntity) entity).getIsEmbedded() ? EMBEDDED_TEMPLATE : CUSTOM_TEMPLATE;
+                return ((Template) entity).getIsEmbedded() ? EMBEDDED_TEMPLATE : CUSTOM_TEMPLATE;
             }
             return find(entity.getClass());
         }

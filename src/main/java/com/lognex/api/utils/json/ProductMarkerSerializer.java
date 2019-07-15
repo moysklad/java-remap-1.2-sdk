@@ -1,12 +1,12 @@
 package com.lognex.api.utils.json;
 
 import com.google.gson.*;
-import com.lognex.api.entities.ConsignmentEntity;
+import com.lognex.api.entities.Consignment;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.products.BundleEntity;
-import com.lognex.api.entities.products.ProductEntity;
-import com.lognex.api.entities.products.ServiceEntity;
-import com.lognex.api.entities.products.VariantEntity;
+import com.lognex.api.entities.products.Bundle;
+import com.lognex.api.entities.products.Product;
+import com.lognex.api.entities.products.Service;
+import com.lognex.api.entities.products.Variant;
 import com.lognex.api.entities.products.markers.ProductMarker;
 
 import java.lang.reflect.Type;
@@ -33,19 +33,19 @@ public class ProductMarkerSerializer implements JsonSerializer<ProductMarker>, J
 
         switch (me.getMeta().getType()) {
             case PRODUCT:
-                return context.deserialize(json, ProductEntity.class);
+                return context.deserialize(json, Product.class);
 
             case SERVICE:
-                return context.deserialize(json, ServiceEntity.class);
+                return context.deserialize(json, Service.class);
 
             case BUNDLE:
-                return context.deserialize(json, BundleEntity.class);
+                return context.deserialize(json, Bundle.class);
 
             case VARIANT:
-                return context.deserialize(json, VariantEntity.class);
+                return context.deserialize(json, Variant.class);
 
             case CONSIGNMENT:
-                return context.deserialize(json, ConsignmentEntity.class);
+                return context.deserialize(json, Consignment.class);
 
             default:
                 throw new JsonParseException("Can't parse field 'product': meta.type must be one of [product, service, bundle, variant, consignment]");

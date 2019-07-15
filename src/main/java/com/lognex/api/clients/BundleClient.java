@@ -1,9 +1,9 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.products.BundleEntity;
+import com.lognex.api.entities.products.Bundle;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeResponse;
 import com.lognex.api.utils.HttpRequestExecutor;
@@ -13,23 +13,23 @@ import com.lognex.api.utils.params.ApiParam;
 import java.io.IOException;
 
 public final class BundleClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<BundleEntity>,
-        PostEndpoint<BundleEntity>,
+        GetListEndpoint<Bundle>,
+        PostEndpoint<Bundle>,
         MetadataEndpoint<MetadataAttributeResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<BundleEntity>,
-        PutByIdEndpoint<BundleEntity>,
+        GetByIdEndpoint<Bundle>,
+        PutByIdEndpoint<Bundle>,
         DeleteByIdEndpoint {
 
-    public BundleClient(LognexApi api) {
+    public BundleClient(ApiClient api) {
         super(api, "/entity/bundle/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return BundleEntity.class;
+        return Bundle.class;
     }
 
     @Override
@@ -38,33 +38,33 @@ public final class BundleClient
     }
 
     @ApiEndpoint
-    public ListEntity<BundleEntity.ComponentEntity> getComponents(String bundleId, ApiParam... params) throws IOException, LognexApiException {
+    public ListEntity<Bundle.ComponentEntity> getComponents(String bundleId, ApiParam... params) throws IOException, LognexApiException {
         return HttpRequestExecutor.
                 path(api(), path() + bundleId + "/components").
                 apiParams(params).
-                list(BundleEntity.ComponentEntity.class);
+                list(Bundle.ComponentEntity.class);
     }
 
     @ApiEndpoint
-    public ListEntity<BundleEntity.ComponentEntity> getComponents(BundleEntity bundle, ApiParam... params) throws IOException, LognexApiException {
+    public ListEntity<Bundle.ComponentEntity> getComponents(Bundle bundle, ApiParam... params) throws IOException, LognexApiException {
         return getComponents(bundle.getId(), params);
     }
 
     @ApiEndpoint
-    public BundleEntity.ComponentEntity getComponent(String bundleId, String componentId, ApiParam... params) throws IOException, LognexApiException {
+    public Bundle.ComponentEntity getComponent(String bundleId, String componentId, ApiParam... params) throws IOException, LognexApiException {
         return HttpRequestExecutor.
                 path(api(), path() + bundleId + "/components/" + componentId).
                 apiParams(params).
-                get(BundleEntity.ComponentEntity.class);
+                get(Bundle.ComponentEntity.class);
     }
 
     @ApiEndpoint
-    public BundleEntity.ComponentEntity getComponent(BundleEntity bundle, String componentId, ApiParam... params) throws IOException, LognexApiException {
+    public Bundle.ComponentEntity getComponent(Bundle bundle, String componentId, ApiParam... params) throws IOException, LognexApiException {
         return getComponent(bundle.getId(), componentId, params);
     }
 
     @ApiEndpoint
-    public BundleEntity.ComponentEntity getComponent(BundleEntity bundle, BundleEntity.ComponentEntity component, ApiParam... params) throws IOException, LognexApiException {
+    public Bundle.ComponentEntity getComponent(Bundle bundle, Bundle.ComponentEntity component, ApiParam... params) throws IOException, LognexApiException {
         return getComponent(bundle, component.getId(), params);
     }
 
@@ -76,12 +76,12 @@ public final class BundleClient
     }
 
     @ApiEndpoint
-    public void deleteComponent(BundleEntity entity, String componentId) throws IOException, LognexApiException {
+    public void deleteComponent(Bundle entity, String componentId) throws IOException, LognexApiException {
         deleteComponent(entity.getId(), componentId);
     }
 
     @ApiEndpoint
-    public void deleteComponent(BundleEntity entity, BundleEntity.ComponentEntity component) throws IOException, LognexApiException {
+    public void deleteComponent(Bundle entity, Bundle.ComponentEntity component) throws IOException, LognexApiException {
         deleteComponent(entity, component.getId());
     }
 }

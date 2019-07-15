@@ -1,7 +1,7 @@
 package com.lognex.api.entities;
 
-import com.lognex.api.entities.agents.CounterpartyEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
+import com.lognex.api.entities.agents.Counterparty;
+import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.entities.documents.*;
 import org.junit.Test;
 
@@ -14,16 +14,16 @@ import static org.junit.Assert.*;
 public class EntityOperationsWithIdReferencesTest extends EntityTestBase {
     @Test
     public void createWithReferenceTest() throws Exception {
-        MoveDocumentEntity move = new MoveDocumentEntity();
+        Move move = new Move();
         move.setName("move_" + randomString(3) + "_" + new Date().getTime());
-        OrganizationEntity organization = simpleEntityManager.getOwnOrganization();
-        StoreEntity fromStore = simpleEntityManager.getMainStore();
-        StoreEntity toStore = simpleEntityManager.createSimpleStore();
-        move.setOrganization(new OrganizationEntity(organization.getId()));
-        move.setSourceStore(new StoreEntity(fromStore.getId()));
-        move.setTargetStore(new StoreEntity(toStore.getId()));
+        Organization organization = simpleEntityManager.getOwnOrganization();
+        Store fromStore = simpleEntityManager.getMainStore();
+        Store toStore = simpleEntityManager.createSimple(Store.class);
+        move.setOrganization(new Organization(organization.getId()));
+        move.setSourceStore(new Store(fromStore.getId()));
+        move.setTargetStore(new Store(toStore.getId()));
 
-        move = api.entity().move().post(move);
+        move = api.entity().move().create(move);
 
         assertEquals(organization.getMeta().getHref(), move.getOrganization().getMeta().getHref());
         assertEquals(fromStore.getMeta().getHref(), move.getSourceStore().getMeta().getHref());
@@ -32,32 +32,32 @@ public class EntityOperationsWithIdReferencesTest extends EntityTestBase {
 
     @Test
     public void createWithReferenceListTest() throws Exception {
-        SupplyDocumentEntity supply = new SupplyDocumentEntity();
+        Supply supply = new Supply();
         supply.setName("supply_"  + randomString(3) + "_" + new Date().getTime());
-        List<InvoiceInDocumentEntity> invoicesin = new ArrayList<>();
+        List<InvoiceIn> invoicesin = new ArrayList<>();
         invoicesin.add(simpleEntityManager.createSimpleInvoiceIn());
         invoicesin.add(simpleEntityManager.createSimpleInvoiceIn());
 
         supply.setInvoicesIn(new ArrayList<>());
         for (int i = 0; i < 2; ++i) {
-            supply.getInvoicesIn().add(new InvoiceInDocumentEntity(invoicesin.get(i).getId()));
+            supply.getInvoicesIn().add(new InvoiceIn(invoicesin.get(i).getId()));
         }
 
-        OrganizationEntity organization = simpleEntityManager.getOwnOrganization();
-        StoreEntity store = simpleEntityManager.getMainStore();
-        CounterpartyEntity counterparty = simpleEntityManager.createSimpleCounterparty();
+        Organization organization = simpleEntityManager.getOwnOrganization();
+        Store store = simpleEntityManager.getMainStore();
+        Counterparty counterparty = simpleEntityManager.createSimple(Counterparty.class);
 
-        supply.setOrganization(new OrganizationEntity(organization.getId()));
-        supply.setStore(new StoreEntity(store.getId()));
-        supply.setAgent(new CounterpartyEntity(counterparty.getId()));
+        supply.setOrganization(new Organization(organization.getId()));
+        supply.setStore(new Store(store.getId()));
+        supply.setAgent(new Counterparty(counterparty.getId()));
 
-        api.entity().supply().post(supply);
+        api.entity().supply().create(supply);
 
         assertEquals(organization.getMeta().getHref(), supply.getOrganization().getMeta().getHref());
         assertEquals(store.getMeta().getHref(), supply.getStore().getMeta().getHref());
         assertEquals(2, supply.getInvoicesIn().size());
         for (int i = 0; i < 2; i++) {
-            InvoiceInDocumentEntity invoiceIn = invoicesin.get(i);
+            InvoiceIn invoiceIn = invoicesin.get(i);
 
             assertTrue(supply.getInvoicesIn().
                     stream().

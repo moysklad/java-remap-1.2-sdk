@@ -1,34 +1,31 @@
 package com.lognex.api.clients.documents;
 
-import com.lognex.api.LognexApi;
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.InvoiceInDocumentEntity;
+import com.lognex.api.entities.documents.InvoiceIn;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
-import javax.print.Doc;
-
 public final class DocumentInvoiceInClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<InvoiceInDocumentEntity>,
-        PostEndpoint<InvoiceInDocumentEntity>,
+        GetListEndpoint<InvoiceIn>,
+        PostEndpoint<InvoiceIn>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<InvoiceInDocumentEntity>,
-        PutByIdEndpoint<InvoiceInDocumentEntity>,
+        GetByIdEndpoint<InvoiceIn>,
+        PutByIdEndpoint<InvoiceIn>,
         DocumentPositionsEndpoint,
         ExportEndpoint {
 
-    public DocumentInvoiceInClient(LognexApi api) {
+    public DocumentInvoiceInClient(ApiClient api) {
         super(api, "/entity/invoicein/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return InvoiceInDocumentEntity.class;
+        return InvoiceIn.class;
     }
 
     @Override

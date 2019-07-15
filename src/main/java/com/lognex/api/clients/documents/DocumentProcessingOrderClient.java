@@ -1,32 +1,31 @@
 package com.lognex.api.clients.documents;
 
-import com.lognex.api.LognexApi;
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.ProcessingOrderDocumentEntity;
+import com.lognex.api.entities.documents.ProcessingOrder;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class DocumentProcessingOrderClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<ProcessingOrderDocumentEntity>,
-        PostEndpoint<ProcessingOrderDocumentEntity>,
+        GetListEndpoint<ProcessingOrder>,
+        PostEndpoint<ProcessingOrder>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        DocumentNewEndpoint<ProcessingOrderDocumentEntity>,
-        GetByIdEndpoint<ProcessingOrderDocumentEntity>,
-        PutByIdEndpoint<ProcessingOrderDocumentEntity>,
+        DocumentNewEndpoint<ProcessingOrder>,
+        GetByIdEndpoint<ProcessingOrder>,
+        PutByIdEndpoint<ProcessingOrder>,
         ExportEndpoint {
 
-    public DocumentProcessingOrderClient(LognexApi api) {
+    public DocumentProcessingOrderClient(ApiClient api) {
         super(api, "/entity/processingorder/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return ProcessingOrderDocumentEntity.class;
+        return ProcessingOrder.class;
     }
 
     @Override

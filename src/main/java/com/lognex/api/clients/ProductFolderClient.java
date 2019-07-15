@@ -1,29 +1,28 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.ProductFolderEntity;
+import com.lognex.api.entities.ProductFolder;
 import com.lognex.api.responses.metadata.MetadataAttributeResponse;
 
 public final class ProductFolderClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<ProductFolderEntity>,
-        PostEndpoint<ProductFolderEntity>,
+        GetListEndpoint<ProductFolder>,
+        PostEndpoint<ProductFolder>,
         DeleteByIdEndpoint,
         MetadataEndpoint<MetadataAttributeResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<ProductFolderEntity>,
-        PutByIdEndpoint<ProductFolderEntity> {
+        GetByIdEndpoint<ProductFolder>,
+        PutByIdEndpoint<ProductFolder> {
 
-    public ProductFolderClient(LognexApi api) {
+    public ProductFolderClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/productfolder/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return ProductFolderEntity.class;
+        return ProductFolder.class;
     }
 
     @Override

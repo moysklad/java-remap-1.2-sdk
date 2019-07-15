@@ -1,33 +1,32 @@
 package com.lognex.api.clients.documents;
 
-import com.lognex.api.LognexApi;
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.PurchaseReturnDocumentEntity;
+import com.lognex.api.entities.documents.PurchaseReturn;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class DocumentPurchaseReturnClient
-        extends ApiClient
+        extends com.lognex.api.clients.ApiClient
         implements
-        GetListEndpoint<PurchaseReturnDocumentEntity>,
-        PostEndpoint<PurchaseReturnDocumentEntity>,
+        GetListEndpoint<PurchaseReturn>,
+        PostEndpoint<PurchaseReturn>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        DocumentNewEndpoint<PurchaseReturnDocumentEntity>,
-        GetByIdEndpoint<PurchaseReturnDocumentEntity>,
-        PutByIdEndpoint<PurchaseReturnDocumentEntity>,
+        DocumentNewEndpoint<PurchaseReturn>,
+        GetByIdEndpoint<PurchaseReturn>,
+        PutByIdEndpoint<PurchaseReturn>,
         DocumentPositionsEndpoint,
         ExportEndpoint {
 
-    public DocumentPurchaseReturnClient(LognexApi api) {
+    public DocumentPurchaseReturnClient(ApiClient api) {
         super(api, "/entity/purchasereturn/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return PurchaseReturnDocumentEntity.class;
+        return PurchaseReturn.class;
     }
 
     @Override
