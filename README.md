@@ -13,7 +13,7 @@
 ```
 import com.lognex.api.ApiClient;
 
-LognexApi api = new LognexApi("online.moysklad.ru", true, "[API_LOGIN]", "[API_PASSWORD]");
+ApiClient api = new ApiClient("online.moysklad.ru", true, "[API_LOGIN]", "[API_PASSWORD]");
 ```
 
 ### Работа с сущностями
