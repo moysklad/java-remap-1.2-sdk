@@ -1,7 +1,6 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.ApiClient;
-import com.lognex.api.clients.EntityApiClient;
 import com.lognex.api.utils.*;
 import org.junit.After;
 import org.junit.Before;
@@ -34,7 +33,7 @@ public abstract class EntityTestBase implements TestRandomizers, TestAsserts, Te
         Thread.sleep(200); // Защита от лимитов
     }
 
-    protected EntityApiClient entityClient() {
+    protected com.lognex.api.clients.ApiClient entityClient() {
         return null;
     }
 

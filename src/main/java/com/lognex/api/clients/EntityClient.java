@@ -12,262 +12,262 @@ public final class EntityClient {
     }
 
     @ApiChainElement
-    public CounterpartyClientEntity counterparty() {
-        return new CounterpartyClientEntity(api);
+    public CounterpartyClient counterparty() {
+        return new CounterpartyClient(api);
     }
 
     @ApiChainElement
-    public OrganizationClientEntity organization() {
-        return new OrganizationClientEntity(api);
+    public OrganizationClient organization() {
+        return new OrganizationClient(api);
     }
 
     @ApiChainElement
-    public GroupClientEntity group() {
-        return new GroupClientEntity(api);
+    public GroupClient group() {
+        return new GroupClient(api);
     }
 
     @ApiChainElement
-    public EmployeeClientEntity employee() {
-        return new EmployeeClientEntity(api);
+    public EmployeeClient employee() {
+        return new EmployeeClient(api);
     }
 
     @ApiChainElement
-    public DocumentCustomerOrderClientEntity customerorder() {
-        return new DocumentCustomerOrderClientEntity(api);
+    public DocumentCustomerOrderClient customerorder() {
+        return new DocumentCustomerOrderClient(api);
     }
 
     @ApiChainElement
-    public DocumentDemandClientEntity demand() {
-        return new DocumentDemandClientEntity(api);
+    public DocumentDemandClient demand() {
+        return new DocumentDemandClient(api);
     }
 
     @ApiChainElement
-    public DocumentEnterClientEntity enter() {
-        return new DocumentEnterClientEntity(api);
+    public DocumentEnterClient enter() {
+        return new DocumentEnterClient(api);
     }
 
     @ApiChainElement
-    public DocumentInternalOrderClientEntity internalorder() {
-        return new DocumentInternalOrderClientEntity(api);
+    public DocumentInternalOrderClient internalorder() {
+        return new DocumentInternalOrderClient(api);
     }
 
     @ApiChainElement
-    public DocumentLossClientEntity loss() {
-        return new DocumentLossClientEntity(api);
+    public DocumentLossClient loss() {
+        return new DocumentLossClient(api);
     }
 
     @ApiChainElement
-    public DocumentMoveClientEntity move() {
-        return new DocumentMoveClientEntity(api);
+    public DocumentMoveClient move() {
+        return new DocumentMoveClient(api);
     }
 
     @ApiChainElement
-    public DocumentPurchaseOrderClientEntity purchaseorder() {
-        return new DocumentPurchaseOrderClientEntity(api);
+    public DocumentPurchaseOrderClient purchaseorder() {
+        return new DocumentPurchaseOrderClient(api);
     }
 
     @ApiChainElement
-    public DocumentProcessingOrderClientEntity processingorder() {
-        return new DocumentProcessingOrderClientEntity(api);
+    public DocumentProcessingOrderClient processingorder() {
+        return new DocumentProcessingOrderClient(api);
     }
 
     @ApiChainElement
-    public DocumentProcessingPlanClientEntity processingplan() {
-        return new DocumentProcessingPlanClientEntity(api);
+    public DocumentProcessingPlanClient processingplan() {
+        return new DocumentProcessingPlanClient(api);
     }
 
     @ApiChainElement
-    public DocumentSalesReturnClientEntity salesreturn() {
-        return new DocumentSalesReturnClientEntity(api);
+    public DocumentSalesReturnClient salesreturn() {
+        return new DocumentSalesReturnClient(api);
     }
 
     @ApiChainElement
-    public DocumentPurchaseReturnClientEntity purchasereturn() {
-        return new DocumentPurchaseReturnClientEntity(api);
+    public DocumentPurchaseReturnClient purchasereturn() {
+        return new DocumentPurchaseReturnClient(api);
     }
 
     @ApiChainElement
-    public DocumentSupplyClientEntity supply() {
-        return new DocumentSupplyClientEntity(api);
+    public DocumentSupplyClient supply() {
+        return new DocumentSupplyClient(api);
     }
 
     @ApiChainElement
-    public StoreClientEntity store() {
-        return new StoreClientEntity(api);
+    public StoreClient store() {
+        return new StoreClient(api);
     }
 
     @ApiChainElement
-    public ProductClientEntity product() {
-        return new ProductClientEntity(api);
+    public ProductClient product() {
+        return new ProductClient(api);
     }
 
     @ApiChainElement
-    public VariantClientEntity variant() {
-        return new VariantClientEntity(api);
+    public VariantClient variant() {
+        return new VariantClient(api);
     }
 
     @ApiChainElement
-    public CurrencyClientEntity currency() {
-        return new CurrencyClientEntity(api);
+    public CurrencyClient currency() {
+        return new CurrencyClient(api);
     }
 
     @ApiChainElement
-    public DiscountClientEntity discount() {
-        return new DiscountClientEntity(api);
+    public DiscountClient discount() {
+        return new DiscountClient(api);
     }
 
     @ApiChainElement
-    public ContractClientEntity contract() {
-        return new ContractClientEntity(api);
+    public ContractClient contract() {
+        return new ContractClient(api);
     }
 
     @ApiChainElement
-    public ConsignmentClientEntity consignment() {
-        return new ConsignmentClientEntity(api);
+    public ConsignmentClient consignment() {
+        return new ConsignmentClient(api);
     }
 
     @ApiChainElement
-    public ProductFolderClientEntity productfolder() {
-        return new ProductFolderClientEntity(api);
+    public ProductFolderClient productfolder() {
+        return new ProductFolderClient(api);
     }
 
     @ApiChainElement
-    public ServiceClientEntity service() {
-        return new ServiceClientEntity(api);
+    public ServiceClient service() {
+        return new ServiceClient(api);
     }
 
     @ApiChainElement
-    public BundleClientEntity bundle() {
-        return new BundleClientEntity(api);
+    public BundleClient bundle() {
+        return new BundleClient(api);
     }
 
     @ApiChainElement
-    public UomClientEntity uom() {
-        return new UomClientEntity(api);
+    public UomClient uom() {
+        return new UomClient(api);
     }
 
     @ApiChainElement
-    public DocumentCashInClientEntity cashin() {
-        return new DocumentCashInClientEntity(api);
+    public DocumentCashInClient cashin() {
+        return new DocumentCashInClient(api);
     }
 
     @ApiChainElement
-    public DocumentCashOutClientEntity cashout() {
-        return new DocumentCashOutClientEntity(api);
+    public DocumentCashOutClient cashout() {
+        return new DocumentCashOutClient(api);
     }
 
     @ApiChainElement
-    public RetailShiftClientEntity retailshift() {
-        return new RetailShiftClientEntity(api);
+    public RetailShiftClient retailshift() {
+        return new RetailShiftClient(api);
     }
 
     @ApiChainElement
-    public RetailStoreClientEntity retailstore() {
-        return new RetailStoreClientEntity(api);
+    public RetailStoreClient retailstore() {
+        return new RetailStoreClient(api);
     }
 
     @ApiChainElement
-    public DocumentRetailDemandClientEntity retaildemand() {
-        return new DocumentRetailDemandClientEntity(api);
+    public DocumentRetailDemandClient retaildemand() {
+        return new DocumentRetailDemandClient(api);
     }
 
     @ApiChainElement
-    public DocumentRetailSalesReturnClientEntity retailsalesreturn() {
-        return new DocumentRetailSalesReturnClientEntity(api);
+    public DocumentRetailSalesReturnClient retailsalesreturn() {
+        return new DocumentRetailSalesReturnClient(api);
     }
 
     @ApiChainElement
-    public DocumentRetailDrawerCashInClientEntity retaildrawercashin() {
-        return new DocumentRetailDrawerCashInClientEntity(api);
+    public DocumentRetailDrawerCashInClient retaildrawercashin() {
+        return new DocumentRetailDrawerCashInClient(api);
     }
 
     @ApiChainElement
-    public DocumentRetailDrawerCashOutClientEntity retaildrawercashout() {
-        return new DocumentRetailDrawerCashOutClientEntity(api);
+    public DocumentRetailDrawerCashOutClient retaildrawercashout() {
+        return new DocumentRetailDrawerCashOutClient(api);
     }
 
     @ApiChainElement
-    public DocumentCommissionReportInClientEntity commissionreportin() {
-        return new DocumentCommissionReportInClientEntity(api);
+    public DocumentCommissionReportInClient commissionreportin() {
+        return new DocumentCommissionReportInClient(api);
     }
 
     @ApiChainElement
-    public DocumentInvoiceInClientEntity invoicein() {
-        return new DocumentInvoiceInClientEntity(api);
+    public DocumentInvoiceInClient invoicein() {
+        return new DocumentInvoiceInClient(api);
     }
 
     @ApiChainElement
-    public DocumentInvoiceOutClientEntity invoiceout() {
-        return new DocumentInvoiceOutClientEntity(api);
+    public DocumentInvoiceOutClient invoiceout() {
+        return new DocumentInvoiceOutClient(api);
     }
 
     @ApiChainElement
-    public DocumentInventoryClientEntity inventory() {
-        return new DocumentInventoryClientEntity(api);
+    public DocumentInventoryClient inventory() {
+        return new DocumentInventoryClient(api);
     }
 
     @ApiChainElement
-    public DocumentCommissionReportOutClientEntity commissionreportout() {
-        return new DocumentCommissionReportOutClientEntity(api);
+    public DocumentCommissionReportOutClient commissionreportout() {
+        return new DocumentCommissionReportOutClient(api);
     }
 
     @ApiChainElement
-    public DocumentPaymentInClientEntity paymentin() {
-        return new DocumentPaymentInClientEntity(api);
+    public DocumentPaymentInClient paymentin() {
+        return new DocumentPaymentInClient(api);
     }
 
     @ApiChainElement
-    public DocumentPaymentOutClientEntity paymentout() {
-        return new DocumentPaymentOutClientEntity(api);
+    public DocumentPaymentOutClient paymentout() {
+        return new DocumentPaymentOutClient(api);
     }
 
     @ApiChainElement
-    public ProjectClientEntity project() {
-        return new ProjectClientEntity(api);
+    public ProjectClient project() {
+        return new ProjectClient(api);
     }
 
     @ApiChainElement
-    public ExpenseItemClientEntity expenseitem() {
-        return new ExpenseItemClientEntity(api);
+    public ExpenseItemClient expenseitem() {
+        return new ExpenseItemClient(api);
     }
 
     @ApiChainElement
-    public DocumentProcessingClientEntity processing() {
-        return new DocumentProcessingClientEntity(api);
+    public DocumentProcessingClient processing() {
+        return new DocumentProcessingClient(api);
     }
 
     @ApiChainElement
-    public DocumentFactureInClientEntity facturein() {
-        return new DocumentFactureInClientEntity(api);
+    public DocumentFactureInClient facturein() {
+        return new DocumentFactureInClient(api);
     }
 
     @ApiChainElement
-    public DocumentFactureOutClientEntity factureout() {
-        return new DocumentFactureOutClientEntity(api);
+    public DocumentFactureOutClient factureout() {
+        return new DocumentFactureOutClient(api);
     }
 
     @ApiChainElement
-    public DocumentPricelistClientEntity pricelist() {
-        return new DocumentPricelistClientEntity(api);
+    public DocumentPricelistClient pricelist() {
+        return new DocumentPricelistClient(api);
     }
 
     @ApiChainElement
-    public CustomEntityClientEntity customentity() {
-        return new CustomEntityClientEntity(api);
+    public CustomEntityClient customentity() {
+        return new CustomEntityClient(api);
     }
 
     @ApiChainElement
-    public MetadataClientEntity metadata() {
-        return new MetadataClientEntity(api);
+    public MetadataClient metadata() {
+        return new MetadataClient(api);
     }
 
     @ApiChainElement
-    public CompanySettingsClientEntity companysettings() {
-        return new CompanySettingsClientEntity(api);
+    public CompanySettingsClient companysettings() {
+        return new CompanySettingsClient(api);
     }
 
     @ApiChainElement
-    public TaskClientEntity task() {
-        return new TaskClientEntity(api);
+    public TaskClient task() {
+        return new TaskClient(api);
     }
 }

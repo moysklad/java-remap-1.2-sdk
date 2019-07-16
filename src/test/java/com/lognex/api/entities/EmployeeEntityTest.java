@@ -1,6 +1,6 @@
 package com.lognex.api.entities;
 
-import com.lognex.api.clients.EntityApiClient;
+import com.lognex.api.clients.ApiClient;
 import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
@@ -71,7 +71,7 @@ public class EmployeeEntityTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    protected EntityApiClient entityClient() {
+    protected ApiClient entityClient() {
         return api.entity().employee();
     }
 

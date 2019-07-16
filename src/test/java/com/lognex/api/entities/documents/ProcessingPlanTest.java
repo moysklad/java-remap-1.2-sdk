@@ -1,6 +1,6 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.clients.EntityApiClient;
+import com.lognex.api.clients.ApiClient;
 import com.lognex.api.entities.EntityGetUpdateDeleteTest;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.ProcessingPlan.PlanItem;
@@ -79,7 +79,7 @@ public class ProcessingPlanTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    protected EntityApiClient entityClient() {
+    protected ApiClient entityClient() {
         return api.entity().processingplan();
     }
 

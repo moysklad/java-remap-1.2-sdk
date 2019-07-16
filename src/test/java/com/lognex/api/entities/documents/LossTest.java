@@ -1,6 +1,6 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.clients.EntityApiClient;
+import com.lognex.api.clients.ApiClient;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -103,7 +103,7 @@ public class LossTest extends DocumentWithPositionsTestBase {
     }
 
     @Override
-    protected EntityApiClient entityClient() {
+    protected ApiClient entityClient() {
         return api.entity().loss();
     }
 

@@ -1,6 +1,6 @@
 package com.lognex.api.entities;
 
-import com.lognex.api.clients.EntityApiClient;
+import com.lognex.api.clients.ApiClient;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
 import com.lognex.api.utils.LognexApiException;
@@ -59,7 +59,7 @@ public class ProjectTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    protected EntityApiClient entityClient() {
+    protected ApiClient entityClient() {
         return api.entity().project();
     }
 
