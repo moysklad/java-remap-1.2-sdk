@@ -55,7 +55,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void deleteByIdTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = simpleEntityManager.createSimple(CustomEntity.class);
+        CustomEntity customEntity = simpleEntityManager.createSimple(CustomEntity.class, true);
 
         CustomEntity retrievedOriginalEntity = getCustomEntityByHref(customEntity.getMeta().getHref());
         assertNotNull(retrievedOriginalEntity);
@@ -69,7 +69,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void deleteEntityTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = simpleEntityManager.createSimple(CustomEntity.class);
+        CustomEntity customEntity = simpleEntityManager.createSimple(CustomEntity.class, true);
 
         CustomEntity retrievedOriginalEntity = getCustomEntityByHref(customEntity.getMeta().getHref());
         assertNotNull(retrievedOriginalEntity);
@@ -125,7 +125,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void getByIdElementsTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = simpleEntityManager.createSimple(CustomEntity.class);
+        CustomEntity customEntity = simpleEntityManager.createSimple(CustomEntity.class, true);
 
         List<CustomEntityElement> customEntityElementList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -143,7 +143,7 @@ public class CustomEntityTest extends EntityTestBase {
 
     @Test
     public void getEntityElementsTest() throws IOException, LognexApiException {
-        CustomEntity customEntity = simpleEntityManager.createSimple(CustomEntity.class);
+        CustomEntity customEntity = simpleEntityManager.createSimple(CustomEntity.class, true);
 
         List<CustomEntityElement> customEntityElementList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -240,6 +240,10 @@ public class CustomEntityTest extends EntityTestBase {
 
     private CustomEntity getCustomEntityByHref(String href) throws IOException, LognexApiException{
         List<CustomEntityMetadata> entities = api.entity().companysettings().metadata().getCustomEntities();
+
+        if (entities == null) {
+            return null;
+        }
 
         return entities.stream().
                 filter(x -> x.getEntityMeta().getMeta().getHref().equals(href)).
