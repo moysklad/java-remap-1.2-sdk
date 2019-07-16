@@ -1,6 +1,6 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.clients.EntityApiClient;
 import com.lognex.api.entities.*;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -183,7 +183,7 @@ public class PaymentOutTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    protected ApiClient entityClient() {
+    protected EntityApiClient entityClient() {
         return api.entity().paymentout();
     }
 

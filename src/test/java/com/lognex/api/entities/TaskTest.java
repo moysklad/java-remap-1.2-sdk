@@ -1,6 +1,6 @@
 package com.lognex.api.entities;
 
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.clients.EntityApiClient;
 import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.responses.ListEntity;
@@ -205,7 +205,7 @@ public class TaskTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    protected ApiClient entityClient() {
+    protected EntityApiClient entityClient() {
         return api.entity().task();
     }
 

@@ -1,6 +1,6 @@
 package com.lognex.api.entities;
 
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.clients.EntityApiClient;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.LognexApiException;
 import org.junit.Test;
@@ -70,7 +70,7 @@ public class CurrencyTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    protected ApiClient entityClient() {
+    protected EntityApiClient entityClient() {
         return api.entity().currency();
     }
 

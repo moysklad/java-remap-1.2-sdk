@@ -1,6 +1,6 @@
 package com.lognex.api.entities;
 
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.clients.EntityApiClient;
 import com.lognex.api.entities.products.Bundle;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.ListEntity;
@@ -74,7 +74,7 @@ public class BundleEntityTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    protected ApiClient entityClient() {
+    protected EntityApiClient entityClient() {
         return api.entity().bundle();
     }
 

@@ -1,6 +1,6 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.clients.EntityApiClient;
 import com.lognex.api.entities.Contract;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.agents.Counterparty;
@@ -89,7 +89,7 @@ public class CommissionReportOutTest extends DocumentWithPositionsTestBase {
     }
 
     @Override
-    protected ApiClient entityClient() {
+    protected EntityApiClient entityClient() {
         return api.entity().commissionreportout();
     }
 
