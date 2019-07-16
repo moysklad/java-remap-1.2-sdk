@@ -5,7 +5,7 @@ import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.Uom;
 
 public final class UomClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Uom>,
         PostEndpoint<Uom>,

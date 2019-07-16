@@ -1,6 +1,6 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.EntityGetUpdateDeleteTest;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
@@ -118,7 +118,7 @@ public class FactureInTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    protected ApiClient entityClient() {
+    protected EntityClientBase entityClient() {
         return api.entity().facturein();
     }
 

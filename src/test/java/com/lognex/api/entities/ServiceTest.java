@@ -1,6 +1,6 @@
 package com.lognex.api.entities;
 
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.products.*;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.LognexApiException;
@@ -57,7 +57,7 @@ public class ServiceTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    protected ApiClient entityClient() {
+    protected EntityClientBase entityClient() {
         return api.entity().service();
     }
 

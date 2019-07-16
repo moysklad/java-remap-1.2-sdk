@@ -8,7 +8,7 @@ import com.lognex.api.responses.CompanySettingsResponse;
 import com.lognex.api.responses.metadata.CompanySettingsMetadata;
 
 public final class CompanySettingsClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements GetEndpoint<CompanySettingsResponse>,
         MetadataEndpoint<CompanySettingsMetadata> {
 

@@ -8,7 +8,7 @@ import com.lognex.api.utils.params.ApiParam;
 
 import java.io.IOException;
 
-public class MetadataClient extends com.lognex.api.clients.ApiClient {
+public class MetadataClient extends EntityClientBase {
     public MetadataClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/metadata/");
     }

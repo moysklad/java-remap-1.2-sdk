@@ -1,6 +1,6 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.clients.ApiClient;
+import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.Store;
 import com.lognex.api.entities.agents.Counterparty;
@@ -133,7 +133,7 @@ public class PurchaseReturnTest extends DocumentWithPositionsTestBase {
     }
 
     @Override
-    protected ApiClient entityClient() {
+    protected EntityClientBase entityClient() {
         return api.entity().purchasereturn();
     }
 

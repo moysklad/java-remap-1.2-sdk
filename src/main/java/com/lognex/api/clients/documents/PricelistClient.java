@@ -1,6 +1,7 @@
 package com.lognex.api.clients.documents;
 
 import com.lognex.api.ApiClient;
+import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.Pricelist;
@@ -16,8 +17,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public final class DocumentPricelistClient
-        extends com.lognex.api.clients.ApiClient
+public final class PricelistClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Pricelist>,
         PostEndpoint<Pricelist>,
@@ -28,7 +29,7 @@ public final class DocumentPricelistClient
         PutByIdEndpoint<Pricelist>,
         ExportEndpoint {
 
-    public DocumentPricelistClient(ApiClient api) {
+    public PricelistClient(ApiClient api) {
         super(api, "/entity/pricelist/");
     }
 

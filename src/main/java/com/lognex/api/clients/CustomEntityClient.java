@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public final class CustomEntityClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         PostEndpoint<CustomEntity>,
         PutByIdEndpoint<CustomEntity>,

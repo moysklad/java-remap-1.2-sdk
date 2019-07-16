@@ -6,7 +6,7 @@ import com.lognex.api.entities.Project;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
 
 public final class ProjectClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Project>,
         PostEndpoint<Project>,

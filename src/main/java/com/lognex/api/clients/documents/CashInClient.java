@@ -1,31 +1,32 @@
 package com.lognex.api.clients.documents;
 
 import com.lognex.api.ApiClient;
+import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.FactureOut;
+import com.lognex.api.entities.documents.CashIn;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
-public final class DocumentFactureOutClient
-        extends com.lognex.api.clients.ApiClient
+public final class CashInClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<FactureOut>,
-        PostEndpoint<FactureOut>,
+        GetListEndpoint<CashIn>,
+        PostEndpoint<CashIn>,
+        DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        DocumentNewEndpoint<FactureOut>,
-        GetByIdEndpoint<FactureOut>,
-        PutByIdEndpoint<FactureOut>,
-        DeleteByIdEndpoint,
+        DocumentNewEndpoint<CashIn>,
+        GetByIdEndpoint<CashIn>,
+        PutByIdEndpoint<CashIn>,
         ExportEndpoint {
 
-    public DocumentFactureOutClient(ApiClient api) {
-        super(api, "/entity/factureout/");
+    public CashInClient(ApiClient api) {
+        super(api, "/entity/cashin/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return FactureOut.class;
+        return CashIn.class;
     }
 
     @Override

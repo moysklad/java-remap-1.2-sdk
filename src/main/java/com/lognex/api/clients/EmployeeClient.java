@@ -6,7 +6,7 @@ import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
 
 public final class EmployeeClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Employee>,
         PostEndpoint<Employee>,

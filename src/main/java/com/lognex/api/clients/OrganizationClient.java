@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.Collection;
 
 public final class OrganizationClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Organization>,
         PostEndpoint<Organization>,

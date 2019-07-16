@@ -6,7 +6,7 @@ import com.lognex.api.entities.products.Service;
 import com.lognex.api.responses.metadata.MetadataAttributeResponse;
 
 public final class ServiceClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Service>,
         PostEndpoint<Service>,

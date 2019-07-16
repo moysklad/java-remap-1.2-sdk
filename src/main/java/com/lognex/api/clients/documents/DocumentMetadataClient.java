@@ -1,6 +1,7 @@
 package com.lognex.api.clients.documents;
 
 import com.lognex.api.ApiClient;
+import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.ApiEndpoint;
 import com.lognex.api.clients.endpoints.MetadataTemplatesEndpoint;
 import com.lognex.api.entities.MetaEntity;
@@ -10,7 +11,7 @@ import com.lognex.api.utils.LognexApiException;
 import java.io.IOException;
 
 public class DocumentMetadataClient<T extends MetaEntity>
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         MetadataTemplatesEndpoint {
 

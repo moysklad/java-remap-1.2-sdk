@@ -5,7 +5,7 @@ import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.Task;
 
 public final class TaskClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Task>,
         GetByIdEndpoint<Task>,

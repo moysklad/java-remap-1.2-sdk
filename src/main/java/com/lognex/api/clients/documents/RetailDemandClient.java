@@ -1,31 +1,31 @@
 package com.lognex.api.clients.documents;
 
 import com.lognex.api.ApiClient;
+import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.Enter;
+import com.lognex.api.entities.documents.RetailDemand;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
-public final class DocumentEnterClient
-        extends com.lognex.api.clients.ApiClient
+public final class RetailDemandClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<Enter>,
-        PostEndpoint<Enter>,
+        GetListEndpoint<RetailDemand>,
+        PostEndpoint<RetailDemand>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<Enter>,
-        PutByIdEndpoint<Enter>,
-        DocumentPositionsEndpoint,
+        GetByIdEndpoint<RetailDemand>,
+        PutByIdEndpoint<RetailDemand>,
         ExportEndpoint {
 
-    public DocumentEnterClient(ApiClient api) {
-        super(api, "/entity/enter/");
+    public RetailDemandClient(ApiClient api) {
+        super(api, "/entity/retaildemand/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return Enter.class;
+        return RetailDemand.class;
     }
 
     @Override

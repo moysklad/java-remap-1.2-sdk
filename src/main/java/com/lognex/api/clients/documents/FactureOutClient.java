@@ -1,31 +1,32 @@
 package com.lognex.api.clients.documents;
 
 import com.lognex.api.ApiClient;
+import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.CommissionReportIn;
+import com.lognex.api.entities.documents.FactureOut;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
-public final class DocumentCommissionReportInClient
-        extends com.lognex.api.clients.ApiClient
+public final class FactureOutClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<CommissionReportIn>,
-        PostEndpoint<CommissionReportIn>,
-        DeleteByIdEndpoint,
+        GetListEndpoint<FactureOut>,
+        PostEndpoint<FactureOut>,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<CommissionReportIn>,
-        PutByIdEndpoint<CommissionReportIn>,
-        DocumentPositionsEndpoint,
+        DocumentNewEndpoint<FactureOut>,
+        GetByIdEndpoint<FactureOut>,
+        PutByIdEndpoint<FactureOut>,
+        DeleteByIdEndpoint,
         ExportEndpoint {
 
-    public DocumentCommissionReportInClient(ApiClient api) {
-        super(api, "/entity/commissionreportin/");
+    public FactureOutClient(ApiClient api) {
+        super(api, "/entity/factureout/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return CommissionReportIn.class;
+        return FactureOut.class;
     }
 
     @Override

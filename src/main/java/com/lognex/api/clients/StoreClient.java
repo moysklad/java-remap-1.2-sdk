@@ -7,7 +7,7 @@ import com.lognex.api.entities.Store;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
 
 public final class StoreClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Store>,
         PostEndpoint<Store>,

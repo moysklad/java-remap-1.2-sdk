@@ -7,7 +7,7 @@ import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeResponse;
 
 public final class ConsignmentClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Consignment>,
         PostEndpoint<Consignment>,

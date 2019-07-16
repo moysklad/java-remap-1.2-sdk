@@ -6,7 +6,7 @@ import com.lognex.api.entities.products.Variant;
 import com.lognex.api.responses.metadata.VariantMetadataResponse;
 
 public final class VariantClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Variant>,
         PostEndpoint<Variant>,

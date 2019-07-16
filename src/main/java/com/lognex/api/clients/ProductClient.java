@@ -6,7 +6,7 @@ import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedPriceTypesResponse;
 
 public final class ProductClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Product>,
         PostEndpoint<Product>,

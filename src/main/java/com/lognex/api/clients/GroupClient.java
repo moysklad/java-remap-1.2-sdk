@@ -7,7 +7,7 @@ import com.lognex.api.entities.Group;
 import com.lognex.api.entities.MetaEntity;
 
 public final class GroupClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Group>,
         GetByIdEndpoint<Group> {

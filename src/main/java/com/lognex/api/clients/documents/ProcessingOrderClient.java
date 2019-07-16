@@ -1,32 +1,32 @@
 package com.lognex.api.clients.documents;
 
 import com.lognex.api.ApiClient;
+import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.PurchaseReturn;
+import com.lognex.api.entities.documents.ProcessingOrder;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
-public final class DocumentPurchaseReturnClient
-        extends com.lognex.api.clients.ApiClient
+public final class ProcessingOrderClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<PurchaseReturn>,
-        PostEndpoint<PurchaseReturn>,
+        GetListEndpoint<ProcessingOrder>,
+        PostEndpoint<ProcessingOrder>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        DocumentNewEndpoint<PurchaseReturn>,
-        GetByIdEndpoint<PurchaseReturn>,
-        PutByIdEndpoint<PurchaseReturn>,
-        DocumentPositionsEndpoint,
+        DocumentNewEndpoint<ProcessingOrder>,
+        GetByIdEndpoint<ProcessingOrder>,
+        PutByIdEndpoint<ProcessingOrder>,
         ExportEndpoint {
 
-    public DocumentPurchaseReturnClient(ApiClient api) {
-        super(api, "/entity/purchasereturn/");
+    public ProcessingOrderClient(ApiClient api) {
+        super(api, "/entity/processingorder/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return PurchaseReturn.class;
+        return ProcessingOrder.class;
     }
 
     @Override

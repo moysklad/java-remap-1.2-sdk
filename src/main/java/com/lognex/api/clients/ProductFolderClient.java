@@ -6,7 +6,7 @@ import com.lognex.api.entities.ProductFolder;
 import com.lognex.api.responses.metadata.MetadataAttributeResponse;
 
 public final class ProductFolderClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<ProductFolder>,
         PostEndpoint<ProductFolder>,

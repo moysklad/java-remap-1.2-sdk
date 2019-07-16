@@ -1,31 +1,32 @@
 package com.lognex.api.clients.documents;
 
 import com.lognex.api.ApiClient;
+import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.CashOut;
+import com.lognex.api.entities.documents.Inventory;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
-public final class DocumentCashOutClient
-        extends com.lognex.api.clients.ApiClient
+public final class InventoryClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<CashOut>,
-        PostEndpoint<CashOut>,
+        GetListEndpoint<Inventory>,
+        PostEndpoint<Inventory>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        DocumentNewEndpoint<CashOut>,
-        GetByIdEndpoint<CashOut>,
-        PutByIdEndpoint<CashOut>,
+        GetByIdEndpoint<Inventory>,
+        PutByIdEndpoint<Inventory>,
+        DocumentPositionsEndpoint,
         ExportEndpoint {
 
-    public DocumentCashOutClient(ApiClient api) {
-        super(api, "/entity/cashout/");
+    public InventoryClient(ApiClient api) {
+        super(api, "/entity/inventory/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return CashOut.class;
+        return Inventory.class;
     }
 
     @Override

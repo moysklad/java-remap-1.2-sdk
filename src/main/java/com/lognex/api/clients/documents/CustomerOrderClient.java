@@ -1,13 +1,14 @@
 package com.lognex.api.clients.documents;
 
 import com.lognex.api.ApiClient;
+import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.CustomerOrder;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
-public final class DocumentCustomerOrderClient
-        extends com.lognex.api.clients.ApiClient
+public final class CustomerOrderClient
+        extends EntityClientBase
         implements
         GetListEndpoint<CustomerOrder>,
         PostEndpoint<CustomerOrder>,
@@ -18,7 +19,7 @@ public final class DocumentCustomerOrderClient
         DocumentPositionsEndpoint,
         ExportEndpoint {
 
-    public DocumentCustomerOrderClient(ApiClient api) {
+    public CustomerOrderClient(ApiClient api) {
         super(api, "/entity/customerorder/");
     }
 

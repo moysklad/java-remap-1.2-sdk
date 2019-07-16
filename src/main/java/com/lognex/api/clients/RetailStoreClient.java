@@ -7,7 +7,7 @@ import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.RetailStore;
 
 public final class RetailStoreClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements GetListEndpoint<RetailStore>,
         DeleteByIdEndpoint,
         GetByIdEndpoint<RetailStore> {

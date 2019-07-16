@@ -10,7 +10,7 @@ import com.lognex.api.entities.documents.RetailShift;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class RetailShiftClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<RetailShift>,
         DeleteByIdEndpoint,

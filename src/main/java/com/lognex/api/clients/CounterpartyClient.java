@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 public final class CounterpartyClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Counterparty>,
         PostEndpoint<Counterparty>,

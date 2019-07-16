@@ -3,11 +3,11 @@ package com.lognex.api.clients;
 import com.lognex.api.clients.endpoints.Endpoint;
 import com.lognex.api.entities.MetaEntity;
 
-public abstract class ApiClient implements Endpoint {
+public abstract class EntityClientBase implements Endpoint {
     protected final com.lognex.api.ApiClient api;
     protected final String path;
 
-    public ApiClient(com.lognex.api.ApiClient api, String path) {
+    public EntityClientBase(com.lognex.api.ApiClient api, String path) {
         this.api = api;
         this.path = path;
     }

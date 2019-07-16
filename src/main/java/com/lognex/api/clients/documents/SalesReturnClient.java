@@ -1,31 +1,33 @@
 package com.lognex.api.clients.documents;
 
 import com.lognex.api.ApiClient;
+import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.InvoiceOut;
+import com.lognex.api.entities.documents.SalesReturn;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
-public final class DocumentInvoiceOutClient
-        extends com.lognex.api.clients.ApiClient
+public final class SalesReturnClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<InvoiceOut>,
-        PostEndpoint<InvoiceOut>,
+        GetListEndpoint<SalesReturn>,
+        PostEndpoint<SalesReturn>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<InvoiceOut>,
-        PutByIdEndpoint<InvoiceOut>,
+        DocumentNewEndpoint<SalesReturn>,
+        GetByIdEndpoint<SalesReturn>,
+        PutByIdEndpoint<SalesReturn>,
         DocumentPositionsEndpoint,
         ExportEndpoint {
 
-    public DocumentInvoiceOutClient(ApiClient api) {
-        super(api, "/entity/invoiceout/");
+    public SalesReturnClient(ApiClient api) {
+        super(api, "/entity/salesreturn/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return InvoiceOut.class;
+        return SalesReturn.class;
     }
 
     @Override

@@ -1,32 +1,32 @@
 package com.lognex.api.clients.documents;
 
 import com.lognex.api.ApiClient;
+import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.documents.SalesReturn;
+import com.lognex.api.entities.documents.CommissionReportOut;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
-public final class DocumentSalesReturnClient
-        extends com.lognex.api.clients.ApiClient
+public final class CommissionReportOutClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<SalesReturn>,
-        PostEndpoint<SalesReturn>,
+        GetListEndpoint<CommissionReportOut>,
+        PostEndpoint<CommissionReportOut>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        DocumentNewEndpoint<SalesReturn>,
-        GetByIdEndpoint<SalesReturn>,
-        PutByIdEndpoint<SalesReturn>,
+        GetByIdEndpoint<CommissionReportOut>,
+        PutByIdEndpoint<CommissionReportOut>,
         DocumentPositionsEndpoint,
         ExportEndpoint {
 
-    public DocumentSalesReturnClient(ApiClient api) {
-        super(api, "/entity/salesreturn/");
+    public CommissionReportOutClient(ApiClient api) {
+        super(api, "/entity/commissionreportout/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return SalesReturn.class;
+        return CommissionReportOut.class;
     }
 
     @Override

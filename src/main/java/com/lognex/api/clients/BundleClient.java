@@ -13,7 +13,7 @@ import com.lognex.api.utils.params.ApiParam;
 import java.io.IOException;
 
 public final class BundleClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Bundle>,
         PostEndpoint<Bundle>,

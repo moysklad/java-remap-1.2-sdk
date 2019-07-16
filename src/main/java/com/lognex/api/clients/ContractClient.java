@@ -7,7 +7,7 @@ import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class ContractClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Contract>,
         PostEndpoint<Contract>,

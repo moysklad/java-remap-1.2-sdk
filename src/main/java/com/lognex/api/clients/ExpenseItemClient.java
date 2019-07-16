@@ -5,7 +5,7 @@ import com.lognex.api.entities.ExpenseItem;
 import com.lognex.api.entities.MetaEntity;
 
 public final class ExpenseItemClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<ExpenseItem>,
         PostEndpoint<ExpenseItem>,

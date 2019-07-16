@@ -5,7 +5,7 @@ import com.lognex.api.entities.Currency;
 import com.lognex.api.entities.MetaEntity;
 
 public final class CurrencyClient
-        extends com.lognex.api.clients.ApiClient
+        extends EntityClientBase
         implements
         GetListEndpoint<Currency>,
         PostEndpoint<Currency>,
