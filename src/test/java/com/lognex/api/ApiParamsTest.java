@@ -210,17 +210,17 @@ public class ApiParamsTest implements TestRandomizers {
     public void test_multipleFilter() throws IOException, LognexApiException {
         GlobalMetadata metadataWithFilter = api.entity().metadata().get(
                 filterEq("type", "product"),
-                filterEq("type", "service"),
+                filterEq("type", "organization"),
                 filterEq("type", "demand")
         );
         assertNull(metadataWithFilter.getCounterparty());
         assertNotNull(metadataWithFilter.getProduct());
-        assertNotNull(metadataWithFilter.getService());
+        assertNotNull(metadataWithFilter.getOrganization());
         assertNotNull(metadataWithFilter.getDemand());
         assertEquals(
                 host + "/api/remap/1.2/entity/metadata/?filter=" +
                         "type" + URLEncoder.encode("=product;", "UTF-8") +
-                        "type" + URLEncoder.encode("=service;", "UTF-8") +
+                        "type" + URLEncoder.encode("=organization;", "UTF-8") +
                         "type" + URLEncoder.encode("=", "UTF-8") + "demand",
                 logHttpClient.getLastExecutedRequest().getRequestLine().getUri()
         );

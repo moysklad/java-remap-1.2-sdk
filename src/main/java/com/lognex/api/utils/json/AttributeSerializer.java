@@ -4,6 +4,7 @@ import com.google.gson.*;
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.products.markers.ProductMarker;
+import com.lognex.api.utils.MetaHrefUtils;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
@@ -114,9 +115,9 @@ public class AttributeSerializer implements JsonSerializer<Attribute>, JsonDeser
                     break;
 
                 case CUSTOM_ENTITY:
-                    ae.setValue(
-                            context.deserialize(jo.get("value"), CustomEntity.class)
-                    );
+                    CustomEntityElement customEntity = context.deserialize(jo.get("value"), CustomEntityElement.class);
+                    customEntity.setCustomDictionaryId(MetaHrefUtils.getCustomDictionaryIdFromHref(customEntity.getMeta().getHref()));
+                    ae.setValue(customEntity);
                     break;
             }
         }

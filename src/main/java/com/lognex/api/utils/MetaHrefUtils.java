@@ -1,9 +1,6 @@
 package com.lognex.api.utils;
 
-import com.lognex.api.entities.CustomEntityElement;
-import com.lognex.api.entities.Meta;
-import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.Template;
+import com.lognex.api.entities.*;
 import lombok.NoArgsConstructor;
 
 import java.lang.reflect.Field;
@@ -16,6 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static lombok.AccessLevel.PRIVATE;
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @NoArgsConstructor(access = PRIVATE)
@@ -40,26 +38,37 @@ public final class MetaHrefUtils {
             case CUSTOM_TEMPLATE:
             case EMBEDDED_TEMPLATE:
                 Meta.Type entityType = ((Template) entity).getEntityType();
-                if (entityType != null) {
-                    sb.append('/').append(entityType.getApiName()).append('/').append("metadata");
+                if (entityType == null) {
+                    return null;
                 }
+                sb.append('/').append(entityType.getApiName()).append('/').append("metadata");
                 break;
+            case ATTRIBUTE_METADATA:
+                if (((Attribute) entity).getAttributeEntityType() == null) {
+                    return null;
+                }
+                sb.append('/').append(((Attribute) entity).getAttributeEntityType().getApiName())
+                        .append("/metadata/attributes");
             default:
                 break;
         }
-        sb.append("/").append(type.getApiName());
+        sb.append('/');
         switch (type) {
             case CUSTOM_ENTITY:
-                if (((CustomEntityElement) entity).getCustomDictionaryId() != null) {
-                    sb.append('/').append(((CustomEntityElement) entity).getCustomDictionaryId())
-                            .append('/').append(id);
+                sb.append(type.getApiName());
+                if (((CustomEntityElement) entity).getCustomDictionaryId() == null) {
+                    return null;
                 }
+                sb.append('/').append(((CustomEntityElement) entity).getCustomDictionaryId())
+                        .append('/');
+                break;
+            case ATTRIBUTE_METADATA:
                 break;
             default:
-                sb.append('/').append(id);
+                sb.append(type.getApiName()).append('/');
                 break;
         }
-        return sb.toString();
+        return sb.append(id).toString();
     }
 
     public static <T extends MetaEntity> String makeMetadataHref(Meta.Type type, T entity, String host) {
@@ -67,6 +76,18 @@ public final class MetaHrefUtils {
             return host + "/entity/" + type.getApiName() + "/metadata";
         }
         return null;
+    }
+
+    public static String getCustomDictionaryIdFromHref(String href) {
+        if (isEmpty(href)) {
+            return null;
+        }
+        String[] hrefSplit = href.split("/");
+        if (hrefSplit.length < 2 || !href.contains("/entity/customentity/") ||
+                hrefSplit[hrefSplit.length - 2].equals("customentity")) {
+            return null;
+        }
+        return hrefSplit[hrefSplit.length - 2];
     }
 
     public static <T extends MetaEntity> T fillMeta(T entity, String host) {

@@ -2,10 +2,7 @@ package com.lognex.api.serializers;
 
 import com.google.gson.Gson;
 import com.lognex.api.ApiClient;
-import com.lognex.api.entities.Attribute;
-import com.lognex.api.entities.CustomEntity;
-import com.lognex.api.entities.MediaType;
-import com.lognex.api.entities.Meta;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.utils.TestAsserts;
 import com.lognex.api.utils.TestRandomizers;
@@ -204,7 +201,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
 
         Attribute e = new Attribute();
         e.setEntityType(Meta.Type.CUSTOM_ENTITY);
-        CustomEntity ce = new CustomEntity();
+        CustomEntityElement ce = new CustomEntityElement();
         ce.setMeta(new Meta());
         ce.getMeta().setType(Meta.Type.CUSTOM_ENTITY);
         ce.setName("CUSTOM VALUE");
@@ -216,7 +213,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
         Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
         assertEquals(Meta.Type.CUSTOM_ENTITY, parsed.getEntityType());
         assertNull(parsed.getType());
-        assertEquals(CustomEntity.class, parsed.getValue().getClass());
-        assertEquals("CUSTOM VALUE", parsed.getValueAs(CustomEntity.class).getName());
+        assertEquals(CustomEntityElement.class, parsed.getValue().getClass());
+        assertEquals("CUSTOM VALUE", parsed.getValueAs(CustomEntityElement.class).getName());
     }
 }
