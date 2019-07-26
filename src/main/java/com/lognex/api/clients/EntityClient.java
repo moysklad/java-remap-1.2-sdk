@@ -257,6 +257,11 @@ public final class EntityClient {
     }
 
     @ApiChainElement
+    public CountryClient country() {
+        return new CountryClient(api);
+    }
+
+    @ApiChainElement
     public MetadataClient metadata() {
         return new MetadataClient(api);
     }

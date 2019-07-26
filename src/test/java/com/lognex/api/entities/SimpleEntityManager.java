@@ -786,6 +786,17 @@ public class SimpleEntityManager implements TestRandomizers {
         return supply;
     }
 
+    public Country createSimpleCountry() throws IOException, ApiClientException {
+        Country country = new Country();
+        country.setName("country_" + randomStringTail());
+        country.setCode(randomString());
+        country.setExternalCode(randomString());
+
+        api.entity().country().create(country);
+
+        return country;
+    }
+
     public void clearAccessCounts() {
         for (Map.Entry<Class, Integer> entry : accessCounterMap.entrySet()) {
             entry.setValue(0);
