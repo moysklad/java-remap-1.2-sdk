@@ -790,7 +790,6 @@ public class SimpleEntityManager implements TestRandomizers {
         Country country = new Country();
         country.setName("country_" + randomStringTail());
         country.setCode(randomString());
-        country.setExternalCode(randomString());
 
         api.entity().country().create(country);
 
