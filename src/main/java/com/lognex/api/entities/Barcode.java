@@ -23,7 +23,7 @@ public class Barcode {
     String value;
 
     public enum Type {
-        ean13, ean8, code128, gtin
+        EAN3, EAN8, CODE128, GTIN
     }
 
     /**
@@ -40,7 +40,7 @@ public class Barcode {
             }
 
             Map.Entry<String, JsonElement> elementEntry = entries.iterator().next();
-            e.type = Type.valueOf(elementEntry.getKey());
+            e.type = Type.valueOf(elementEntry.getKey().toUpperCase());
             e.value =  elementEntry.getValue().getAsString();
 
             return e;
@@ -49,7 +49,7 @@ public class Barcode {
         @Override
         public JsonElement serialize(Barcode src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
             JsonObject e = new JsonObject();
-            e.add(src.type.toString(), context.serialize(src.value));
+            e.add(src.type.toString().toLowerCase(), context.serialize(src.value));
 
             return e;
         }
