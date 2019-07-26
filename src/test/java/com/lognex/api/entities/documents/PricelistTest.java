@@ -9,7 +9,7 @@ import com.lognex.api.entities.documents.Pricelist.PricelistRow.CellsItem;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
 
 public class PricelistTest extends EntityGetUpdateDeleteTest {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         Pricelist priceList = new Pricelist();
         priceList.setName("pricelist_" + randomString(3) + "_" + new Date().getTime());
         priceList.setMoment(LocalDateTime.now());
@@ -89,7 +89,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse response = api.entity().pricelist().metadata().get();
 
         assertFalse(response.getCreateShared());
@@ -127,7 +127,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void createPositionByIdTest() throws IOException, LognexApiException {
+    public void createPositionByIdTest() throws IOException, ApiClientException {
         Pricelist priceList = simpleEntityManager.createSimple(Pricelist.class);
 
         ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(priceList.getId());
@@ -160,7 +160,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void createPositionByEntityTest() throws IOException, LognexApiException {
+    public void createPositionByEntityTest() throws IOException, ApiClientException {
         Pricelist priceList = simpleEntityManager.createSimple(Pricelist.class);
 
         ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(priceList.getId());
@@ -193,7 +193,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void createPositionsByIdTest() throws IOException, LognexApiException {
+    public void createPositionsByIdTest() throws IOException, ApiClientException {
         Pricelist priceList = simpleEntityManager.createSimple(Pricelist.class);
 
         ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(priceList.getId());
@@ -239,7 +239,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void createPositionsByEntityTest() throws IOException, LognexApiException {
+    public void createPositionsByEntityTest() throws IOException, ApiClientException {
         Pricelist priceList = simpleEntityManager.createSimple(Pricelist.class);
 
         ListEntity<PricelistRow> originalPositions = api.entity().pricelist().getPositions(priceList.getId());
@@ -285,7 +285,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void getPositionTest() throws IOException, LognexApiException {
+    public void getPositionTest() throws IOException, ApiClientException {
         Pricelist priceList = simpleEntityManager.createSimple(Pricelist.class);
         List<PricelistRow> positions = createSimplePositions(priceList);
 
@@ -297,7 +297,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void putPositionByIdsTest() throws IOException, LognexApiException {
+    public void putPositionByIdsTest() throws IOException, ApiClientException {
         Pricelist priceList = simpleEntityManager.createSimple(Pricelist.class);
         List<PricelistRow> positions = createSimplePositions(priceList);
 
@@ -314,7 +314,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void putPositionByEntityIdTest() throws IOException, LognexApiException {
+    public void putPositionByEntityIdTest() throws IOException, ApiClientException {
         Pricelist priceList = simpleEntityManager.createSimple(Pricelist.class);
         List<PricelistRow> positions = createSimplePositions(priceList);
 
@@ -331,7 +331,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void putPositionByEntitiesTest() throws IOException, LognexApiException {
+    public void putPositionByEntitiesTest() throws IOException, ApiClientException {
         Pricelist priceList = simpleEntityManager.createSimple(Pricelist.class);
         List<PricelistRow> positions = createSimplePositions(priceList);
 
@@ -348,7 +348,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void putPositionBySelfTest() throws IOException, LognexApiException {
+    public void putPositionBySelfTest() throws IOException, ApiClientException {
         Pricelist priceList = simpleEntityManager.createSimple(Pricelist.class);
         List<PricelistRow> positions = createSimplePositions(priceList);
 
@@ -365,7 +365,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void deletePositionByIdsTest() throws IOException, LognexApiException {
+    public void deletePositionByIdsTest() throws IOException, ApiClientException {
         Pricelist priceList = simpleEntityManager.createSimple(Pricelist.class);
         List<PricelistRow> positions = createSimplePositions(priceList);
 
@@ -383,7 +383,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void deletePositionByEntityIdTest() throws IOException, LognexApiException {
+    public void deletePositionByEntityIdTest() throws IOException, ApiClientException {
         Pricelist priceList = simpleEntityManager.createSimple(Pricelist.class);
         List<PricelistRow> positions = createSimplePositions(priceList);
 
@@ -401,7 +401,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void deletePositionByEntitiesTest() throws IOException, LognexApiException {
+    public void deletePositionByEntitiesTest() throws IOException, ApiClientException {
         Pricelist priceList = simpleEntityManager.createSimple(Pricelist.class);
         List<PricelistRow> positions = createSimplePositions(priceList);
 
@@ -418,7 +418,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
         );
     }
 
-    private List<PricelistRow> createSimplePositions(Pricelist priceList) throws IOException, LognexApiException {
+    private List<PricelistRow> createSimplePositions(Pricelist priceList) throws IOException, ApiClientException {
         List<PricelistRow> positions = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
@@ -449,7 +449,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
         assertEquals(p.getCells(), retrievedPosition.getCells());
     }
 
-    private void putPositionAsserts(Pricelist priceList, PricelistRow p, PricelistRow retrievedOriginalPosition, CellsItem cellsItem) throws IOException, LognexApiException {
+    private void putPositionAsserts(Pricelist priceList, PricelistRow p, PricelistRow retrievedOriginalPosition, CellsItem cellsItem) throws IOException, ApiClientException {
         PricelistRow retrievedUpdatedPosition = api.entity().pricelist().getPosition(priceList, p.getId());
 
         assertNotEquals(retrievedOriginalPosition.getCells(), retrievedUpdatedPosition.getCells());

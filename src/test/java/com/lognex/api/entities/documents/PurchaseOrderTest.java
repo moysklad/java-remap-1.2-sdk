@@ -4,7 +4,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 public class PurchaseOrderTest extends DocumentWithPositionsTestBase {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         PurchaseOrder purchaseOrder = new PurchaseOrder();
         purchaseOrder.setName("purchaseorder_" + randomString(3) + "_" + new Date().getTime());
         purchaseOrder.setDescription(randomString());
@@ -45,14 +45,14 @@ public class PurchaseOrderTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse response = api.entity().purchaseorder().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
     @Test
-    public void newTest() throws IOException, LognexApiException {
+    public void newTest() throws IOException, ApiClientException {
         PurchaseOrder purchaseOrder = api.entity().purchaseorder().templateDocument();
         LocalDateTime time = LocalDateTime.now();
 
@@ -72,7 +72,7 @@ public class PurchaseOrderTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void newByInternalOrderTest() throws IOException, LognexApiException {
+    public void newByInternalOrderTest() throws IOException, ApiClientException {
         InternalOrder internalOrder = simpleEntityManager.createSimple(InternalOrder.class);
 
         PurchaseOrder purchaseOrder = api.entity().purchaseorder().templateDocument("internalOrder", internalOrder);
@@ -92,7 +92,7 @@ public class PurchaseOrderTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void newByCustomerOrdersTest() throws IOException, LognexApiException {
+    public void newByCustomerOrdersTest() throws IOException, ApiClientException {
         CustomerOrder customerOrder = simpleEntityManager.createSimple(CustomerOrder.class);
 
         PurchaseOrder purchaseOrder = api.entity().purchaseorder().templateDocument("customerOrders", Collections.singletonList(customerOrder));

@@ -10,7 +10,7 @@ import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.entities.agents.Organization;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.TestRandomizers;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -33,7 +33,7 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
     private Counterparty counterpartyEntity;
     private Organization organizationEntity;
 
-    public SchemaFiller(ApiClient api) throws IOException, LognexApiException {
+    public SchemaFiller(ApiClient api) throws IOException, ApiClientException {
         employeeEntity = api.entity().employee().get().getRows().get(0);
         group = api.entity().group().get().getRows().get(0);
         counterpartyEntity = api.entity().counterparty().get().getRows().get(0);

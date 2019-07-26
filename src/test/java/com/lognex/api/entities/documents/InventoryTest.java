@@ -4,7 +4,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 public class InventoryTest extends DocumentWithPositionsTestBase {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         Inventory inventory = new Inventory();
         inventory.setName("inventory_" + randomString(3) + "_" + new Date().getTime());
         inventory.setMoment(LocalDateTime.now());
@@ -36,7 +36,7 @@ public class InventoryTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse response = api.entity().inventory().metadata().get();
 
         assertFalse(response.getCreateShared());

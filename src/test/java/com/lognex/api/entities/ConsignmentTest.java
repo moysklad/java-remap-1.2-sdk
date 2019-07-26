@@ -3,7 +3,7 @@ package com.lognex.api.entities;
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 public class ConsignmentTest extends EntityGetUpdateDeleteTest {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         Consignment consignment = new Consignment();
         consignment.setLabel("consignment_" + randomString(3) + "_" + new Date().getTime());
 
@@ -34,7 +34,7 @@ public class ConsignmentTest extends EntityGetUpdateDeleteTest {
 
     @Override
     @Test
-    public void putTest() throws IOException, LognexApiException {
+    public void putTest() throws IOException, ApiClientException {
         doPutTest("Label");
     }
 

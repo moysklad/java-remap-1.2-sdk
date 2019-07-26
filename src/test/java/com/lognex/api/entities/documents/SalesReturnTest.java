@@ -7,7 +7,7 @@ import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 
 public class SalesReturnTest extends DocumentWithPositionsTestBase {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         SalesReturn salesReturn = new SalesReturn();
         salesReturn.setName("salesreturn_" + randomString(3) + "_" + new Date().getTime());
         salesReturn.setDescription(randomString());
@@ -62,14 +62,14 @@ public class SalesReturnTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse response = api.entity().salesreturn().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
     @Test
-    public void newTest() throws IOException, LognexApiException {
+    public void newTest() throws IOException, ApiClientException {
         SalesReturn salesReturn = api.entity().salesreturn().templateDocument();
         LocalDateTime time = LocalDateTime.now();
 
@@ -86,7 +86,7 @@ public class SalesReturnTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void newByDemandTest() throws IOException, LognexApiException {
+    public void newByDemandTest() throws IOException, ApiClientException {
         Demand demand = simpleEntityManager.createSimple(Demand.class);
 
         SalesReturn salesReturn = api.entity().salesreturn().templateDocument("demand", demand);

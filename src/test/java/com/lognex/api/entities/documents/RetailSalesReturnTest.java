@@ -5,7 +5,7 @@ import com.lognex.api.entities.EntityGetUpdateDeleteTest;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 public class RetailSalesReturnTest extends EntityGetUpdateDeleteTest {
     @Ignore
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         RetailSalesReturn retailSalesReturn = new RetailSalesReturn();
         retailSalesReturn.setName("retailsalesreturn_" + randomString(3) + "_" + new Date().getTime());
         retailSalesReturn.setDescription(randomString());
@@ -50,24 +50,24 @@ public class RetailSalesReturnTest extends EntityGetUpdateDeleteTest {
     @Ignore
     @Test
     @Override
-    public void putTest() throws IOException, LognexApiException {
+    public void putTest() throws IOException, ApiClientException {
     }
 
     @Ignore
     @Test
     @Override
-    public void deleteTest() throws IOException, LognexApiException {
+    public void deleteTest() throws IOException, ApiClientException {
     }
 
     @Ignore
     @Test
     @Override
-    public void getTest() throws IOException, LognexApiException {
+    public void getTest() throws IOException, ApiClientException {
     }
 
     @Ignore
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse response = api.entity().retailsalesreturn().metadata().get();
 
         assertFalse(response.getCreateShared());

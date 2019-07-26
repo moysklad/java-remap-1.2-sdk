@@ -4,7 +4,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 public class SupplyTest extends DocumentWithPositionsTestBase {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         Supply supply = new Supply();
         supply.setName("supply_" + randomString(3) + "_" + new Date().getTime());
         supply.setDescription(randomString());
@@ -45,14 +45,14 @@ public class SupplyTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse response = api.entity().supply().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
     @Test
-    public void newTest() throws IOException, LognexApiException {
+    public void newTest() throws IOException, ApiClientException {
         Supply supply = api.entity().supply().templateDocument();
         LocalDateTime time = LocalDateTime.now();
 
@@ -71,7 +71,7 @@ public class SupplyTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void newByPurchaseOrderTest() throws IOException, LognexApiException {
+    public void newByPurchaseOrderTest() throws IOException, ApiClientException {
         PurchaseOrder purchaseOrder = simpleEntityManager.createSimple(PurchaseOrder.class);
 
         Supply supply = api.entity().supply().templateDocument("purchaseOrder", purchaseOrder);
@@ -92,7 +92,7 @@ public class SupplyTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void newByInvoicesInTest() throws IOException, LognexApiException {
+    public void newByInvoicesInTest() throws IOException, ApiClientException {
         InvoiceIn invoiceIn = simpleEntityManager.createSimple(InvoiceIn.class);
 
         Supply supply = api.entity().supply().templateDocument("invoicesIn", Collections.singletonList(invoiceIn));

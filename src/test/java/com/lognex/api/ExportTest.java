@@ -6,7 +6,7 @@ import com.lognex.api.entities.Template;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.entities.documents.Demand;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class ExportTest {
     }
 
     @Test
-    public void test_exportSingle() throws IOException, LognexApiException {
+    public void test_exportSingle() throws IOException, ApiClientException {
         String docId;
         {
             Organization ag = api.entity().organization().get().getRows().get(0);
@@ -77,7 +77,7 @@ public class ExportTest {
     }
 
     @Test
-    public void test_exportMultiple() throws IOException, LognexApiException {
+    public void test_exportMultiple() throws IOException, ApiClientException {
         String docId;
         {
             Organization ag = api.entity().organization().get().getRows().get(0);

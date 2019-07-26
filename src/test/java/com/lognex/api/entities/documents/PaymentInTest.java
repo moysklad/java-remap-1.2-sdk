@@ -5,7 +5,7 @@ import com.lognex.api.entities.EntityGetUpdateDeleteTest;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 
 public class PaymentInTest extends EntityGetUpdateDeleteTest {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         PaymentIn paymentIn = new PaymentIn();
         paymentIn.setName("paymentin_" + randomString(3) + "_" + new Date().getTime());
         paymentIn.setMoment(LocalDateTime.now());
@@ -41,14 +41,14 @@ public class PaymentInTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse response = api.entity().paymentin().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
     @Test
-    public void newTest() throws IOException, LognexApiException {
+    public void newTest() throws IOException, ApiClientException {
         PaymentIn paymentIn = api.entity().paymentin().templateDocument();
         LocalDateTime time = LocalDateTime.now();
 
@@ -63,7 +63,7 @@ public class PaymentInTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void newByCustomerOrdersTest() throws IOException, LognexApiException {
+    public void newByCustomerOrdersTest() throws IOException, ApiClientException {
         CustomerOrder customerOrder = simpleEntityManager.createSimple(CustomerOrder.class);
 
         PaymentIn paymentIn = api.entity().paymentin().templateDocument("operations", Collections.singletonList(customerOrder));
@@ -82,7 +82,7 @@ public class PaymentInTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void newByPurchaseReturnsTest() throws IOException, LognexApiException {
+    public void newByPurchaseReturnsTest() throws IOException, ApiClientException {
         PurchaseReturn purchaseReturn = simpleEntityManager.createSimple(PurchaseReturn.class);
 
         PaymentIn paymentIn = api.entity().paymentin().templateDocument("operations", Collections.singletonList(purchaseReturn));
@@ -101,7 +101,7 @@ public class PaymentInTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void newByDemandsTest() throws IOException, LognexApiException {
+    public void newByDemandsTest() throws IOException, ApiClientException {
         Demand demand = simpleEntityManager.createSimple(Demand.class);
 
         PaymentIn paymentIn = api.entity().paymentin().templateDocument("operations", Collections.singletonList(demand));
@@ -120,7 +120,7 @@ public class PaymentInTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void newByInvoicesOutTest() throws IOException, LognexApiException {
+    public void newByInvoicesOutTest() throws IOException, ApiClientException {
         InvoiceOut invoiceOut = simpleEntityManager.createSimple(InvoiceOut.class);
 
         PaymentIn paymentIn = api.entity().paymentin().templateDocument("operations", Collections.singletonList(invoiceOut));
@@ -139,7 +139,7 @@ public class PaymentInTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void newByCommissionReportsInTest() throws IOException, LognexApiException {
+    public void newByCommissionReportsInTest() throws IOException, ApiClientException {
         CommissionReportIn commissionReportIn = simpleEntityManager.createSimple(CommissionReportIn.class);
 
         PaymentIn paymentIn = api.entity().paymentin().templateDocument("operations", Collections.singletonList(commissionReportIn));

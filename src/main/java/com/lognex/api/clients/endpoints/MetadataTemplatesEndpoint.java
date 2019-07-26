@@ -3,8 +3,8 @@ package com.lognex.api.clients.endpoints;
 import com.lognex.api.entities.Meta;
 import com.lognex.api.entities.Template;
 import com.lognex.api.responses.ListEntity;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.HttpRequestExecutor;
-import com.lognex.api.utils.LognexApiException;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public interface MetadataTemplatesEndpoint extends Endpoint {
     @ApiEndpoint
-    default ListEntity<Template> embeddedtemplate() throws IOException, LognexApiException {
+    default ListEntity<Template> embeddedtemplate() throws IOException, ApiClientException {
         ListEntity<Template> templates = HttpRequestExecutor.
                 path(api(), path() + (path().endsWith("metadata/") ? "" : "metadata/") + "embeddedtemplate/").
                 list(Template.class);
@@ -20,7 +20,7 @@ public interface MetadataTemplatesEndpoint extends Endpoint {
     }
 
     @ApiEndpoint
-    default Template embeddedtemplate(String id) throws IOException, LognexApiException {
+    default Template embeddedtemplate(String id) throws IOException, ApiClientException {
         Template template = HttpRequestExecutor.
                 path(api(), path() + (path().endsWith("metadata/") ? "" : "metadata/") + "embeddedtemplate/" + id).
                 get(Template.class);
@@ -30,7 +30,7 @@ public interface MetadataTemplatesEndpoint extends Endpoint {
     }
 
     @ApiEndpoint
-    default ListEntity<Template> customtemplate() throws IOException, LognexApiException {
+    default ListEntity<Template> customtemplate() throws IOException, ApiClientException {
         ListEntity<Template> templates = HttpRequestExecutor.
                 path(api(), path() + (path().endsWith("metadata/") ? "" : "metadata/") + "customtemplate/").
                 list(Template.class);
@@ -38,7 +38,7 @@ public interface MetadataTemplatesEndpoint extends Endpoint {
     }
 
     @ApiEndpoint
-    default Template customtemplate(String id) throws IOException, LognexApiException {
+    default Template customtemplate(String id) throws IOException, ApiClientException {
         Template template = HttpRequestExecutor.
                 path(api(), path() + (path().endsWith("metadata/") ? "" : "metadata/") + "customtemplate/" + id).
                 get(Template.class);

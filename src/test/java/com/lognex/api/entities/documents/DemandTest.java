@@ -4,7 +4,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 public class DemandTest extends DocumentWithPositionsTestBase {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         Demand demand = new Demand();
         demand.setName("demand_" + randomString(3) + "_" + new Date().getTime());
         demand.setDescription(randomString());
@@ -45,14 +45,14 @@ public class DemandTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse response = api.entity().demand().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
     @Test
-    public void newTest() throws IOException, LognexApiException {
+    public void newTest() throws IOException, ApiClientException {
         Demand demand = api.entity().demand().templateDocument();
         LocalDateTime time = LocalDateTime.now();
 
@@ -71,7 +71,7 @@ public class DemandTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void newByCustomerOrderTest() throws IOException, LognexApiException {
+    public void newByCustomerOrderTest() throws IOException, ApiClientException {
         CustomerOrder customerOrder = simpleEntityManager.createSimple(CustomerOrder.class);
 
         Demand demand = api.entity().demand().templateDocument("customerOrder", customerOrder);
@@ -92,7 +92,7 @@ public class DemandTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void newByInvoicesOutTest() throws IOException, LognexApiException {
+    public void newByInvoicesOutTest() throws IOException, ApiClientException {
         InvoiceOut invoiceOut = simpleEntityManager.createSimple(InvoiceOut.class);
 
         Demand demand = api.entity().demand().templateDocument("invoicesOut", Collections.singletonList(invoiceOut));

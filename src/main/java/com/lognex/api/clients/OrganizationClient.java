@@ -7,8 +7,8 @@ import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.HttpRequestExecutor;
-import com.lognex.api.utils.LognexApiException;
 import com.lognex.api.utils.params.ApiParam;
 
 import java.io.IOException;
@@ -40,7 +40,7 @@ public final class OrganizationClient
     }
 
     @ApiEndpoint
-    public ListEntity<AgentAccount> getAccounts(String organizationId, ApiParam... params) throws IOException, LognexApiException {
+    public ListEntity<AgentAccount> getAccounts(String organizationId, ApiParam... params) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + organizationId + "/accounts").
                 apiParams(params).
@@ -48,7 +48,7 @@ public final class OrganizationClient
     }
 
     @ApiEndpoint
-    public void createAccounts(String organizationId, Collection<AgentAccount> entities) throws IOException, LognexApiException {
+    public void createAccounts(String organizationId, Collection<AgentAccount> entities) throws IOException, ApiClientException {
         HttpRequestExecutor.
                 path(api(), path() + organizationId + "/accounts").
                 body(entities).

@@ -2,7 +2,7 @@ package com.lognex.api.entities;
 
 import com.lognex.api.clients.endpoints.GetByIdEndpoint;
 import com.lognex.api.clients.endpoints.PutByIdEndpoint;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -13,12 +13,12 @@ import static org.junit.Assert.fail;
 
 public abstract class EntityGetUpdateDeleteTest extends EntityGetDeleteTest {
     @Test
-    public void putTest() throws IOException, LognexApiException {
+    public void putTest() throws IOException, ApiClientException {
         doPutTest("Name");
     }
 
     @SuppressWarnings("unchecked")
-    public void doPutTest(String fieldName) throws IOException, LognexApiException {
+    public void doPutTest(String fieldName) throws IOException, ApiClientException {
         MetaEntity createdEntity = simpleEntityManager.createSimple(entityClass());
 
         // update by entity

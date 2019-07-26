@@ -4,7 +4,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 public class MoveTest extends DocumentWithPositionsTestBase {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         Move move = new Move();
         move.setName("move_" + randomString(3) + "_" + new Date().getTime());
         move.setDescription(randomString());
@@ -41,14 +41,14 @@ public class MoveTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse response = api.entity().move().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
     @Test
-    public void newTest() throws IOException, LognexApiException {
+    public void newTest() throws IOException, ApiClientException {
         Move move = api.entity().move().templateDocument();
         LocalDateTime time = LocalDateTime.now();
 
@@ -63,7 +63,7 @@ public class MoveTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void newByInternalOrderTest() throws IOException, LognexApiException {
+    public void newByInternalOrderTest() throws IOException, ApiClientException {
         InternalOrder internalOrder = simpleEntityManager.createSimple(InternalOrder.class);
 
         Move move = api.entity().move().templateDocument("internalOrder", internalOrder);

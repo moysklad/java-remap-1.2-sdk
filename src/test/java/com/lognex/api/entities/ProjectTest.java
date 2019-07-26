@@ -3,7 +3,7 @@ package com.lognex.api.entities;
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 public class ProjectTest extends EntityGetUpdateDeleteTest {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         Project project = new Project();
         project.setName("project_" + randomString(3) + "_" + new Date().getTime());
         project.setDescription(randomString());
@@ -34,7 +34,7 @@ public class ProjectTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedResponse metadata = api.entity().project().metadata();
         assertTrue(metadata.getCreateShared());
     }

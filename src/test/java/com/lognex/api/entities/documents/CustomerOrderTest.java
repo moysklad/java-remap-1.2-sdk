@@ -4,7 +4,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 public class CustomerOrderTest extends DocumentWithPositionsTestBase {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         CustomerOrder customerOrder = new CustomerOrder();
         customerOrder.setName("customerorder_" + randomString(3) + "_" + new Date().getTime());
         customerOrder.setDescription(randomString());
@@ -37,7 +37,7 @@ public class CustomerOrderTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse response = api.entity().customerorder().metadata().get();
 
         assertEquals(7, response.getStates().size());

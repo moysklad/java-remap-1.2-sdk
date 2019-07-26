@@ -3,7 +3,7 @@ package com.lognex.api.entities;
 import com.lognex.api.responses.CompanySettingsResponse;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.CompanySettingsMetadata;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 
 public class CompanySettingsTest extends EntityTestBase {
     @Test
-    public void getTest() throws IOException, LognexApiException {
+    public void getTest() throws IOException, ApiClientException {
         CompanySettingsResponse response = api.entity().companysettings().get();
         ListEntity<Currency> currency = api.entity().currency().get(filterEq("isoCode", "RUB"));
         assertEquals(1, currency.getRows().size());
@@ -23,7 +23,7 @@ public class CompanySettingsTest extends EntityTestBase {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         CustomEntity customEntity = simpleEntityManager.createSimple(CustomEntity.class);
         CompanySettingsMetadata metadata = api.entity().companysettings().metadata();
 

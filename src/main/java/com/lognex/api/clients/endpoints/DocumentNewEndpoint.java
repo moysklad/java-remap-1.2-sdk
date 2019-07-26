@@ -3,8 +3,8 @@ package com.lognex.api.clients.endpoints;
 import com.lognex.api.entities.DocumentTemplate;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.DocumentEntity;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.HttpRequestExecutor;
-import com.lognex.api.utils.LognexApiException;
 import com.lognex.api.utils.MetaHrefUtils;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import static com.lognex.api.utils.Constants.API_PATH;
 
 public interface DocumentNewEndpoint<T extends MetaEntity> extends Endpoint {
     @ApiEndpoint
-    default T templateDocument() throws IOException, LognexApiException {
+    default T templateDocument() throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + "new").
                 body(new Object()).
@@ -23,7 +23,7 @@ public interface DocumentNewEndpoint<T extends MetaEntity> extends Endpoint {
     }
 
     @ApiEndpoint
-    default T templateDocument(DocumentTemplate documentTemplate) throws IOException, LognexApiException {
+    default T templateDocument(DocumentTemplate documentTemplate) throws IOException, ApiClientException {
         if (documentTemplate.getDocument() != null) {
             MetaHrefUtils.fillMeta(documentTemplate.getDocument(), api().getHost() + API_PATH);
         } else if (documentTemplate.getDocuments() != null) {
@@ -40,7 +40,7 @@ public interface DocumentNewEndpoint<T extends MetaEntity> extends Endpoint {
     }
 
     @ApiEndpoint
-    default T templateDocument(String templateClassString, DocumentEntity document) throws IOException, LognexApiException {
+    default T templateDocument(String templateClassString, DocumentEntity document) throws IOException, ApiClientException {
         DocumentTemplate documentTemplate = new DocumentTemplate();
         documentTemplate.setDocumentType(templateClassString);
         documentTemplate.setDocument(document);
@@ -49,7 +49,7 @@ public interface DocumentNewEndpoint<T extends MetaEntity> extends Endpoint {
     }
 
     @ApiEndpoint
-    default T templateDocument(String templateClassString, List<DocumentEntity> documents) throws IOException, LognexApiException {
+    default T templateDocument(String templateClassString, List<DocumentEntity> documents) throws IOException, ApiClientException {
         DocumentTemplate documentTemplate = new DocumentTemplate();
         documentTemplate.setDocumentType(templateClassString);
         documentTemplate.setDocuments(documents);

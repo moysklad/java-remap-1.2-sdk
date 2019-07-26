@@ -1,7 +1,7 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class GroupTest extends EntityTestBase {
     @Test
-    public void getTest()  throws IOException, LognexApiException {
+    public void getTest()  throws IOException, ApiClientException {
         ListEntity<Group> groupList = api.entity().group().get();
         assertEquals(1, groupList.getRows().size());
         assertEquals("Основной", groupList.getRows().get(0).getName());

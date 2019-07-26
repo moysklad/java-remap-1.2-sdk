@@ -4,7 +4,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.CounterpartyMetadataResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
         counterparty.setDescription(randomString());
@@ -42,7 +42,7 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void getAccountTest() throws IOException, LognexApiException {
+    public void getAccountTest() throws IOException, ApiClientException {
         Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
 
@@ -80,7 +80,7 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void getContactPersonsTest() throws IOException, LognexApiException {
+    public void getContactPersonsTest() throws IOException, ApiClientException {
         Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
 
@@ -119,7 +119,7 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void postContactPersonTest() throws IOException, LognexApiException {
+    public void postContactPersonTest() throws IOException, ApiClientException {
         Counterparty counterparty = simpleEntityManager.createSimple(Counterparty.class);
 
         ContactPerson contactPerson = new ContactPerson();
@@ -131,7 +131,7 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void putContactPersonsTest() throws IOException, LognexApiException {
+    public void putContactPersonsTest() throws IOException, ApiClientException {
         Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
 
@@ -188,7 +188,7 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void getNotesTest() throws IOException, LognexApiException {
+    public void getNotesTest() throws IOException, ApiClientException {
         Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
 
@@ -233,7 +233,7 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void postNoteTest() throws IOException, LognexApiException {
+    public void postNoteTest() throws IOException, ApiClientException {
         Counterparty counterparty = simpleEntityManager.createSimple(Counterparty.class);
 
         Note note = new Note();
@@ -247,7 +247,7 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void getNoteTest() throws IOException, LognexApiException {
+    public void getNoteTest() throws IOException, ApiClientException {
         Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
 
@@ -276,7 +276,7 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void putNoteTest() throws IOException, LognexApiException {
+    public void putNoteTest() throws IOException, ApiClientException {
         Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
 
@@ -330,14 +330,14 @@ public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         CounterpartyMetadataResponse metadata = api.entity().counterparty().metadata();
         assertFalse(metadata.getCreateShared());
         assertEquals(5, metadata.getStates().size());
     }
 
     @Test
-    public void deleteNoteTest() throws IOException, LognexApiException {
+    public void deleteNoteTest() throws IOException, ApiClientException {
         Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
 

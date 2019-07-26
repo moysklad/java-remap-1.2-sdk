@@ -4,8 +4,8 @@ import com.lognex.api.entities.ExportExtension;
 import com.lognex.api.entities.ExportRequest;
 import com.lognex.api.entities.ExportRequest.ExportRequestItem;
 import com.lognex.api.entities.Template;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.HttpRequestExecutor;
-import com.lognex.api.utils.LognexApiException;
 import com.lognex.api.utils.MetaHrefUtils;
 
 import java.io.File;
@@ -16,33 +16,33 @@ import static com.lognex.api.utils.Constants.API_PATH;
 
 public interface ExportEndpoint extends Endpoint {
     @ApiEndpoint
-    default void export(String id, Template template, File file) throws IOException, LognexApiException {
+    default void export(String id, Template template, File file) throws IOException, ApiClientException {
         export(id, template, file, false);
     }
 
     @ApiEndpoint
-    default void export(String id, Template template, ExportExtension extension, File file) throws IOException, LognexApiException {
+    default void export(String id, Template template, ExportExtension extension, File file) throws IOException, ApiClientException {
         export(id, template, extension, file, false);
     }
 
     @ApiEndpoint
-    default void export(String id, File file, PrintRequest... printRequests) throws IOException, LognexApiException {
+    default void export(String id, File file, PrintRequest... printRequests) throws IOException, ApiClientException {
         export(id, file, false, printRequests);
     }
 
     @ApiEndpoint
-    default void export(String id, ExportRequest exportRequest, File file) throws IOException, LognexApiException {
+    default void export(String id, ExportRequest exportRequest, File file) throws IOException, ApiClientException {
         export(id, exportRequest, file, false);
     }
 
     @ApiEndpoint
-    default void export(String id, Template template, File file, boolean addPrintDocumentContentHeader) throws IOException, LognexApiException {
+    default void export(String id, Template template, File file, boolean addPrintDocumentContentHeader) throws IOException, ApiClientException {
         ExportExtension parsedExtension = ExportExtension.extractFromFile(file);
         export(id, template, parsedExtension, file, addPrintDocumentContentHeader);
     }
 
     @ApiEndpoint
-    default void export(String id, Template template, ExportExtension extension, File file, boolean addPrintDocumentContentHeader) throws IOException, LognexApiException {
+    default void export(String id, Template template, ExportExtension extension, File file, boolean addPrintDocumentContentHeader) throws IOException, ApiClientException {
         ExportRequest exportRequest = new ExportRequest();
         exportRequest.setTemplate(template);
         exportRequest.setExtension(extension);
@@ -50,7 +50,7 @@ public interface ExportEndpoint extends Endpoint {
     }
 
     @ApiEndpoint
-    default void export(String id, File file, boolean addPrintDocumentContentHeader, PrintRequest... printRequests) throws IOException, LognexApiException {
+    default void export(String id, File file, boolean addPrintDocumentContentHeader, PrintRequest... printRequests) throws IOException, ApiClientException {
         ExportRequest exportRequest = new ExportRequest();
 
         exportRequest.setTemplates(new ArrayList<>());
@@ -65,7 +65,7 @@ public interface ExportEndpoint extends Endpoint {
     }
 
     @ApiEndpoint
-    default void export(String id, ExportRequest exportRequest, File file, boolean addPrintDocumentContentHeader) throws IOException, LognexApiException {
+    default void export(String id, ExportRequest exportRequest, File file, boolean addPrintDocumentContentHeader) throws IOException, ApiClientException {
         if (exportRequest.getTemplate() != null) {
             MetaHrefUtils.fillMeta(exportRequest.getTemplate(), api().getHost() + API_PATH);
         } else if (exportRequest.getTemplates() != null) {

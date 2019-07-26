@@ -1,6 +1,6 @@
 package com.lognex.api;
 
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.TestAsserts;
 import com.lognex.api.utils.TestRandomizers;
 import org.junit.Test;
@@ -20,8 +20,8 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
 
         try {
             api.entity().counterparty().get();
-            fail("Ожидалось исключение LognexApiException!");
-        } catch (LognexApiException e) {
+            fail("Ожидалось исключение ApiClientException!");
+        } catch (ApiClientException e) {
             assertApiError(
                     e, 401, 1056,
                     "Ошибка аутентификации: Неправильный пароль или имя пользователя"
@@ -40,8 +40,8 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
 
         try {
             api.entity().counterparty().get();
-            fail("Ожидалось исключение LognexApiException!");
-        } catch (LognexApiException e) {
+            fail("Ожидалось исключение ApiClientException!");
+        } catch (ApiClientException e) {
             assertApiError(
                     e, 401, 1056,
                     "Ошибка аутентификации: Неверный формат имени пользователя: null"
@@ -62,8 +62,8 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
 
         try {
             api.entity().counterparty().get();
-            fail("Ожидалось исключение LognexApiException!");
-        } catch (LognexApiException e) {
+            fail("Ожидалось исключение ApiClientException!");
+        } catch (ApiClientException e) {
             assertApiError(
                     e, 401, 1056,
                     "Ошибка аутентификации: Неверный формат имени пользователя: " + login
@@ -82,8 +82,8 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
 
         try {
             api.entity().counterparty().get();
-            fail("Ожидалось исключение LognexApiException!");
-        } catch (LognexApiException e) {
+            fail("Ожидалось исключение ApiClientException!");
+        } catch (ApiClientException e) {
             assertApiError(
                     e, 401, 1056,
                     "Ошибка аутентификации: Неправильный пароль или имя пользователя"

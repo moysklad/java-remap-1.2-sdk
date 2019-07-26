@@ -1,7 +1,7 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.MockHttpClient;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 
 public class RetailStoreTest extends EntityTestBase {
     @Test
-    public void getTest() throws IOException, LognexApiException {
+    public void getTest() throws IOException, ApiClientException {
         ListEntity<RetailStore> retailStoreList = api.entity().retailstore().get(filterEq("name", "Точка продаж"));
         assertEquals(1, retailStoreList.getRows().size());
         RetailStore retailStore = retailStoreList.getRows().get(0);
@@ -29,7 +29,7 @@ public class RetailStoreTest extends EntityTestBase {
     }
 
     @Test
-    public void deleteTest() throws IOException, LognexApiException {
+    public void deleteTest() throws IOException, ApiClientException {
         String id = randomString();
         mockApi.entity().retailstore().delete(id);
 
@@ -41,7 +41,7 @@ public class RetailStoreTest extends EntityTestBase {
     }
 
     @Test
-    public void deleteByIdTest() throws IOException, LognexApiException {
+    public void deleteByIdTest() throws IOException, ApiClientException {
         RetailStore retailStore = new RetailStore();
         String id = randomString();
         retailStore.setId(id);

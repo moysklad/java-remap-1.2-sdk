@@ -6,7 +6,7 @@ import com.lognex.api.clients.endpoints.ApiEndpoint;
 import com.lognex.api.clients.endpoints.MetadataTemplatesEndpoint;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.utils.HttpRequestExecutor;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 
 import java.io.IOException;
 
@@ -23,7 +23,7 @@ public class DocumentMetadataClient<T extends MetaEntity>
     }
 
     @ApiEndpoint
-    public T get() throws IOException, LognexApiException {
+    public T get() throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path()).
                 get(metaEntityClass());

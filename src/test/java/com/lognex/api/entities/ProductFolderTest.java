@@ -2,7 +2,7 @@ package com.lognex.api.entities;
 
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 public class ProductFolderTest extends EntityGetUpdateDeleteTest {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         ProductFolder inner = new ProductFolder();
         inner.setName("innerproductfolder_" + randomString(3) + "_" + new Date().getTime());
         inner.setArchived(false);

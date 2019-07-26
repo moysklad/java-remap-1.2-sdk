@@ -5,7 +5,7 @@ import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.entities.documents.Inventory;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.MockHttpClient;
 import com.lognex.api.utils.RequestLogHttpClient;
 import com.lognex.api.utils.TestRandomizers;
@@ -66,7 +66,7 @@ public class ApiParamsTest implements TestRandomizers {
     }
 
     @Test
-    public void test_expand() throws IOException, LognexApiException {
+    public void test_expand() throws IOException, ApiClientException {
         /*
             Без expand
          */
@@ -107,7 +107,7 @@ public class ApiParamsTest implements TestRandomizers {
     }
 
     @Test
-    public void test_multipleExpand() throws IOException, LognexApiException {
+    public void test_multipleExpand() throws IOException, ApiClientException {
         /*
             expand двух полей
          */
@@ -149,7 +149,7 @@ public class ApiParamsTest implements TestRandomizers {
     }
 
     @Test
-    public void test_filter() throws IOException, LognexApiException {
+    public void test_filter() throws IOException, ApiClientException {
         /*
             Без фильтрации
          */
@@ -207,7 +207,7 @@ public class ApiParamsTest implements TestRandomizers {
     }
 
     @Test
-    public void test_multipleFilter() throws IOException, LognexApiException {
+    public void test_multipleFilter() throws IOException, ApiClientException {
         GlobalMetadata metadataWithFilter = api.entity().metadata().get(
                 filterEq("type", "product"),
                 filterEq("type", "organization"),
@@ -227,7 +227,7 @@ public class ApiParamsTest implements TestRandomizers {
     }
 
     @Test
-    public void test_hrefFilter() throws IOException, LognexApiException {
+    public void test_hrefFilter() throws IOException, ApiClientException {
         Inventory inventory = new Inventory();
         inventory.setName("HrefFilter_inventory_" + randomStringTail());
 
@@ -259,7 +259,7 @@ public class ApiParamsTest implements TestRandomizers {
     }
 
     @Test
-    public void test_attributeFilter() throws IOException, LognexApiException {
+    public void test_attributeFilter() throws IOException, ApiClientException {
         mockApi.entity().counterparty().get(
                 filterEq(new Attribute(Meta.Type.COUNTERPARTY, "ID", Attribute.Type.stringValue, "NOT_USED"), "VALUE")
         );
@@ -271,7 +271,7 @@ public class ApiParamsTest implements TestRandomizers {
     }
 
     @Test
-    public void test_limitOffset() throws IOException, LognexApiException {
+    public void test_limitOffset() throws IOException, ApiClientException {
         ListEntity<Uom> uomPlain = api.entity().uom().get();
         int actualSize = uomPlain.getMeta().getSize();
         assertTrue(actualSize >= 58);
@@ -316,7 +316,7 @@ public class ApiParamsTest implements TestRandomizers {
     }
 
     @Test
-    public void test_order() throws IOException, LognexApiException {
+    public void test_order() throws IOException, ApiClientException {
         ListEntity<Uom> uomPlain = api.entity().uom().get(limit(100));
         List<String> listAsIs = uomPlain.getRows().stream().map(MetaEntity::getName).collect(Collectors.toList());
 
@@ -370,7 +370,7 @@ public class ApiParamsTest implements TestRandomizers {
     }
 
     @Test
-    public void test_search() throws IOException, LognexApiException {
+    public void test_search() throws IOException, ApiClientException {
         ListEntity<Uom> uomPlain = api.entity().uom().get(limit(100));
         ListEntity<Uom> uomSearch = api.entity().uom().get(search("мил"));
 

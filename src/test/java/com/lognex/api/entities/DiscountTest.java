@@ -7,7 +7,7 @@ import com.lognex.api.entities.discounts.AccumulationDiscount;
 import com.lognex.api.entities.discounts.SpecialPriceDiscount;
 import com.lognex.api.entities.products.Variant;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.TestUtils;
 import org.junit.Test;
 
@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 public class DiscountTest extends EntityTestBase {
     @Test
-    public void getDiscountTest() throws IOException, LognexApiException {
+    public void getDiscountTest() throws IOException, ApiClientException {
         ListEntity<Discount> discountList = api.entity().discount().get();
         assertEquals(1, discountList.getRows().size());
         assertEquals(Meta.Type.DISCOUNT, discountList.getRows().get(0).getMeta().getType());

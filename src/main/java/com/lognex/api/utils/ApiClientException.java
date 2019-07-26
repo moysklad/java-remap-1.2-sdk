@@ -6,12 +6,12 @@ import lombok.Getter;
 import java.util.stream.Collectors;
 
 @Getter
-public class LognexApiException extends Exception {
+public class ApiClientException extends Exception {
     private final int statusCode;
     private final String reasonPhrase;
     private final ErrorResponse errorResponse;
 
-    public LognexApiException(String uri, int statusCode, String reasonPhrase) {
+    public ApiClientException(String uri, int statusCode, String reasonPhrase) {
         super(uri + ": " + statusCode + " " + reasonPhrase);
 
         this.statusCode = statusCode;
@@ -19,7 +19,7 @@ public class LognexApiException extends Exception {
         this.errorResponse = null;
     }
 
-    public LognexApiException(String uri, int statusCode, String reasonPhrase, ErrorResponse er) {
+    public ApiClientException(String uri, int statusCode, String reasonPhrase, ErrorResponse er) {
         super(
                 er.getErrors().isEmpty() ?
                         statusCode + " " + reasonPhrase :

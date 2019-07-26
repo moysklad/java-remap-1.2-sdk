@@ -5,7 +5,7 @@ import com.lognex.api.entities.EntityGetUpdateDeleteTest;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 
 public class FactureInTest extends EntityGetUpdateDeleteTest {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         FactureIn factureIn = new FactureIn();
         factureIn.setName("facturein_" + randomString(3) + "_" + new Date().getTime());
         factureIn.setDescription(randomString());
@@ -48,14 +48,14 @@ public class FactureInTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse response = api.entity().facturein().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
     @Test
-    public void newBySuppliesTest() throws IOException, LognexApiException {
+    public void newBySuppliesTest() throws IOException, ApiClientException {
         Supply supply = simpleEntityManager.createSimple(Supply.class);
 
         FactureIn factureIn = api.entity().facturein().templateDocument("supplies", Collections.singletonList(supply));
@@ -74,7 +74,7 @@ public class FactureInTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void newByPaymentsOutTest() throws IOException, LognexApiException {
+    public void newByPaymentsOutTest() throws IOException, ApiClientException {
         PaymentOut paymentOut = simpleEntityManager.createSimple(PaymentOut.class);
 
         FactureIn factureIn = api.entity().facturein().templateDocument("payments", Collections.singletonList(paymentOut));

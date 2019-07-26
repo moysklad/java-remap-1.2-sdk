@@ -8,7 +8,7 @@ import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 
 public class ProcessingTest extends EntityGetUpdateDeleteTest {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         Processing processing = new Processing();
         processing.setName("processing_" + randomString(3) + "_" + new Date().getTime());
         processing.setMoment(LocalDateTime.now());
@@ -96,7 +96,7 @@ public class ProcessingTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse response = api.entity().processing().metadata().get();
 
         assertFalse(response.getCreateShared());

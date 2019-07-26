@@ -2,8 +2,8 @@ package com.lognex.api.entities;
 
 import com.google.gson.annotations.SerializedName;
 import com.lognex.api.ApiClient;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.HttpRequestExecutor;
-import com.lognex.api.utils.LognexApiException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,7 +40,7 @@ public class State extends MetaEntity implements Fetchable {
     }
 
     @Override
-    public void fetch(ApiClient api) throws IOException, LognexApiException {
+    public void fetch(ApiClient api) throws IOException, ApiClientException {
         this.set(
                 HttpRequestExecutor.url(api, meta.getHref()).get(State.class)
         );

@@ -7,7 +7,7 @@ import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 
 public class CommissionReportOutTest extends DocumentWithPositionsTestBase {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         CommissionReportOut commissionReportOut = new CommissionReportOut();
         commissionReportOut.setName("commissionreportout_" + randomString(3) + "_" + new Date().getTime());
         commissionReportOut.setDescription(randomString());
@@ -59,7 +59,7 @@ public class CommissionReportOutTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse response = api.entity().commissionreportout().metadata().get();
 
         assertFalse(response.getCreateShared());

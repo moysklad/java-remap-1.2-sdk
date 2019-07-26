@@ -6,7 +6,7 @@ import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.ProcessingPlan.PlanItem;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 
 public class ProcessingPlanTest extends EntityGetUpdateDeleteTest {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         ProcessingPlan processingPlan = new ProcessingPlan();
         processingPlan.setName("processingplan_" + randomString(3) + "_" + new Date().getTime());
 

@@ -10,7 +10,7 @@ import com.lognex.api.entities.products.Product;
 import com.lognex.api.entities.products.Service;
 import com.lognex.api.entities.products.Variant;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.TestRandomizers;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -97,7 +97,7 @@ public class SimpleEntityManager implements TestRandomizers {
         }
     }
 
-    public Bundle createSimpleBundle() throws IOException, LognexApiException {
+    public Bundle createSimpleBundle() throws IOException, ApiClientException {
         Bundle bundle = new Bundle();
         bundle.setName("bundle_" + randomStringTail());
         bundle.setArticle(randomString());
@@ -115,7 +115,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return bundle;
     }
 
-    public Consignment createSimpleConsignment() throws IOException, LognexApiException {
+    public Consignment createSimpleConsignment() throws IOException, ApiClientException {
         Consignment consignment = new Consignment();
         consignment.setLabel("consignment_" + randomStringTail());
 
@@ -127,7 +127,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return consignment;
     }
 
-    public Contract createSimpleContract() throws IOException, LognexApiException {
+    public Contract createSimpleContract() throws IOException, ApiClientException {
         Contract contract = new Contract();
         contract.setName("contract_" + randomStringTail());
 
@@ -139,7 +139,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return contract;
     }
 
-    public Counterparty createSimpleCounterparty() throws IOException, LognexApiException {
+    public Counterparty createSimpleCounterparty() throws IOException, ApiClientException {
         Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomStringTail());
         counterparty.setCompanyType(CompanyType.legal);
@@ -154,7 +154,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return counterparty;
     }
 
-    public Currency getFirstCurrency() throws IOException, LognexApiException {
+    public Currency getFirstCurrency() throws IOException, ApiClientException {
         if (firstCurrency == null) {
             ListEntity<Currency> currencyEntityList = api.entity().currency().get();
             assertNotEquals(0, currencyEntityList.getRows().size());
@@ -163,7 +163,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return firstCurrency;
     }
 
-    public Currency createSimpleCurrency() throws IOException, LognexApiException {
+    public Currency createSimpleCurrency() throws IOException, ApiClientException {
         Currency currency = new Currency();
         currency.setName("currency_" + randomStringTail());
         currency.setCode(randomString(3));
@@ -174,7 +174,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return currency;
     }
 
-    public CustomEntity createSimpleCustomEntity() throws IOException, LognexApiException {
+    public CustomEntity createSimpleCustomEntity() throws IOException, ApiClientException {
         CustomEntity customEntity = new CustomEntity();
 
         customEntity.setName("custom_entity_" + randomStringTail());
@@ -183,7 +183,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return customEntity;
     }
 
-    public CustomEntityElement createSimpleCustomEntityElement(CustomEntity customEntity) throws IOException, LognexApiException {
+    public CustomEntityElement createSimpleCustomEntityElement(CustomEntity customEntity) throws IOException, ApiClientException {
         CustomEntityElement customEntityElement = new CustomEntityElement();
 
         customEntityElement.setName("custom_entity_element_" + randomStringTail());
@@ -194,7 +194,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return customEntityElement;
     }
 
-    public Employee createSimpleEmployee() throws IOException, LognexApiException {
+    public Employee createSimpleEmployee() throws IOException, ApiClientException {
         Employee employee = new Employee();
         employee.setLastName("employee_" + randomStringTail());
         employee.setFirstName(randomString());
@@ -205,7 +205,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return employee;
     }
 
-    public ExpenseItem createSimpleExpenseItem() throws IOException, LognexApiException {
+    public ExpenseItem createSimpleExpenseItem() throws IOException, ApiClientException {
         ExpenseItem expenseItem = new ExpenseItem();
         expenseItem.setName("expenseitem_" + randomStringTail());
         expenseItem.setDescription(randomString());
@@ -215,7 +215,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return expenseItem;
     }
 
-    public Group getMainGroup() throws IOException, LognexApiException {
+    public Group getMainGroup() throws IOException, ApiClientException {
         if (mainGroup == null) {
             ListEntity<Group> group = api.entity().group().get(search("Основной"));
             assertEquals(1, group.getRows().size());
@@ -224,7 +224,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return mainGroup;
     }
 
-    public Organization getOwnOrganization() throws IOException, LognexApiException {
+    public Organization getOwnOrganization() throws IOException, ApiClientException {
         if (ownOrganization == null) {
             ListEntity<Organization> orgList = api.entity().organization().get();
             Optional<Organization> orgOptional = orgList.getRows().stream().
@@ -240,7 +240,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return ownOrganization;
     }
 
-    public Organization createSimpleOrganization() throws IOException, LognexApiException {
+    public Organization createSimpleOrganization() throws IOException, ApiClientException {
         Organization organization = new Organization();
         organization.setName("organization_" + randomStringTail());
         organization.setCompanyType(CompanyType.legal);
@@ -252,7 +252,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return organization;
     }
 
-    public Product createSimpleProduct() throws IOException, LognexApiException {
+    public Product createSimpleProduct() throws IOException, ApiClientException {
         Product product = new Product();
         product.setName("product_" + randomStringTail());
         product.setDescription(randomString());
@@ -262,7 +262,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return product;
     }
 
-    public ProductFolder createSimpleProductFolder() throws IOException, LognexApiException {
+    public ProductFolder createSimpleProductFolder() throws IOException, ApiClientException {
         ProductFolder productFolder = new ProductFolder();
         productFolder.setName("productfolder_" + randomStringTail());
         productFolder.setDescription(randomString());
@@ -272,7 +272,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return productFolder;
     }
 
-    public Project createSimpleProject() throws IOException, LognexApiException {
+    public Project createSimpleProject() throws IOException, ApiClientException {
         Project project = new Project();
         project.setName("project_" + randomStringTail());
         project.setDescription(randomString());
@@ -282,7 +282,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return project;
     }
 
-    public Service createSimpleService() throws IOException, LognexApiException {
+    public Service createSimpleService() throws IOException, ApiClientException {
         Service service = new Service();
         service.setName("service_" + randomStringTail());
         service.setDescription(randomString());
@@ -292,7 +292,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return service;
     }
 
-    public Store getMainStore() throws IOException, LognexApiException {
+    public Store getMainStore() throws IOException, ApiClientException {
         if (mainStore == null) {
             ListEntity<Store> store = api.entity().store().get(filterEq("name", "Основной склад"));
             assertEquals(1, store.getRows().size());
@@ -301,7 +301,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return mainStore;
     }
 
-    public Store createSimpleStore() throws IOException, LognexApiException {
+    public Store createSimpleStore() throws IOException, ApiClientException {
         Store store = new Store();
         store.setName("store_" + randomStringTail());
         store.setDescription(randomString());
@@ -311,7 +311,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return store;
     }
 
-    public Task createSimpleTask() throws IOException, LognexApiException {
+    public Task createSimpleTask() throws IOException, ApiClientException {
         Employee adminEmpl = api.entity().employee().get(filterEq("name", "Администратор")).getRows().get(0);
 
         Task task = new Task();
@@ -321,7 +321,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return task;
     }
 
-    public Uom createSimpleUom() throws IOException, LognexApiException {
+    public Uom createSimpleUom() throws IOException, ApiClientException {
         Uom uom = new Uom();
         uom.setName("uom_" + randomStringTail());
         uom.setCode(randomString());
@@ -332,7 +332,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return uom;
     }
 
-    public Variant createSimpleVariant() throws IOException, LognexApiException {
+    public Variant createSimpleVariant() throws IOException, ApiClientException {
         Variant variant = new Variant();
         variant.setProduct(createSimpleProduct());
 
@@ -347,7 +347,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return variant;
     }
 
-    public CashIn createSimpleCashIn() throws IOException, LognexApiException {
+    public CashIn createSimpleCashIn() throws IOException, ApiClientException {
         CashIn cashIn = new CashIn();
         cashIn.setName("cashin_" + randomStringTail());
         cashIn.setDescription(randomString());
@@ -359,7 +359,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return cashIn;
     }
 
-    public CashOut createSimpleCashOut() throws IOException, LognexApiException {
+    public CashOut createSimpleCashOut() throws IOException, ApiClientException {
         CashOut cashOut = new CashOut();
         cashOut.setName("cashout_" + randomStringTail());
         cashOut.setDescription(randomString());
@@ -372,7 +372,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return cashOut;
     }
 
-    public CommissionReportIn createSimpleCommissionReportIn() throws IOException, LognexApiException {
+    public CommissionReportIn createSimpleCommissionReportIn() throws IOException, ApiClientException {
         CommissionReportIn commissionReportIn = new CommissionReportIn();
         commissionReportIn.setName("commissionreportin_" + randomStringTail());
         Organization ownOrganization = getOwnOrganization();
@@ -396,7 +396,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return commissionReportIn;
     }
 
-    public CommissionReportOut createSimpleCommissionReportOut() throws IOException, LognexApiException {
+    public CommissionReportOut createSimpleCommissionReportOut() throws IOException, ApiClientException {
         CommissionReportOut commissionReportOut = new CommissionReportOut();
         commissionReportOut.setName("commissionreportout_" + randomStringTail());
         Organization ownOrganization = getOwnOrganization();
@@ -420,7 +420,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return commissionReportOut;
     }
 
-    public CustomerOrder createSimpleCustomerOrder() throws IOException, LognexApiException {
+    public CustomerOrder createSimpleCustomerOrder() throws IOException, ApiClientException {
         CustomerOrder customerOrder = new CustomerOrder();
         customerOrder.setName("customerorder_" + randomStringTail());
         customerOrder.setDescription(randomString());
@@ -432,7 +432,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return customerOrder;
     }
 
-    public Demand createSimpleDemand() throws IOException, LognexApiException {
+    public Demand createSimpleDemand() throws IOException, ApiClientException {
         Demand demand = new Demand();
         demand.setName("demand_" + randomStringTail());
         demand.setDescription(randomString());
@@ -445,7 +445,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return demand;
     }
 
-    public Enter createSimpleEnter() throws IOException, LognexApiException {
+    public Enter createSimpleEnter() throws IOException, ApiClientException {
         Enter enter = new Enter();
         enter.setName("enter_" + randomStringTail());
         enter.setDescription(randomString());
@@ -457,7 +457,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return enter;
     }
 
-    public FactureIn createSimpleFactureIn() throws IOException, LognexApiException {
+    public FactureIn createSimpleFactureIn() throws IOException, ApiClientException {
         FactureIn factureIn = new FactureIn();
         factureIn.setName("facturein_" + randomStringTail());
         factureIn.setIncomingNumber(randomString());
@@ -472,7 +472,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return factureIn;
     }
 
-    public FactureOut createSimpleFactureOut() throws IOException, LognexApiException {
+    public FactureOut createSimpleFactureOut() throws IOException, ApiClientException {
         FactureOut factureOut = new FactureOut();
         factureOut.setName("factureout_" + randomStringTail());
         factureOut.setPaymentNumber(randomString());
@@ -487,7 +487,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return factureOut;
     }
 
-    public InternalOrder createSimpleInternalOrder() throws IOException, LognexApiException {
+    public InternalOrder createSimpleInternalOrder() throws IOException, ApiClientException {
         InternalOrder internalOrder = new InternalOrder();
         internalOrder.setName("internalorder_" + randomStringTail());
         internalOrder.setDescription(randomString());
@@ -499,7 +499,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return internalOrder;
     }
 
-    public Inventory createSimpleInventory() throws IOException, LognexApiException {
+    public Inventory createSimpleInventory() throws IOException, ApiClientException {
         Inventory inventory = new Inventory();
         inventory.setName("inventory_" + randomStringTail());
         inventory.setOrganization(getOwnOrganization());
@@ -510,7 +510,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return inventory;
     }
 
-    public InvoiceIn createSimpleInvoiceIn() throws IOException, LognexApiException {
+    public InvoiceIn createSimpleInvoiceIn() throws IOException, ApiClientException {
         InvoiceIn invoiceIn = new InvoiceIn();
         invoiceIn.setName("invoicein_" + randomStringTail());
         invoiceIn.setOrganization(getOwnOrganization());
@@ -521,7 +521,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return invoiceIn;
     }
 
-    public InvoiceOut createSimpleInvoiceOut() throws IOException, LognexApiException {
+    public InvoiceOut createSimpleInvoiceOut() throws IOException, ApiClientException {
         InvoiceOut invoiceOut = new InvoiceOut();
         invoiceOut.setName("invoiceout_" + randomStringTail());
         invoiceOut.setOrganization(getOwnOrganization());
@@ -532,7 +532,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return invoiceOut;
     }
 
-    public Loss createSimpleLoss() throws IOException, LognexApiException {
+    public Loss createSimpleLoss() throws IOException, ApiClientException {
         Loss loss = new Loss();
         loss.setName("loss_" + randomStringTail());
         loss.setDescription(randomString());
@@ -544,7 +544,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return loss;
     }
 
-    public Move createSimpleMove() throws IOException, LognexApiException {
+    public Move createSimpleMove() throws IOException, ApiClientException {
         Move move = new Move();
         move.setName("move_" + randomStringTail());
         move.setDescription(randomString());
@@ -557,7 +557,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return move;
     }
 
-    public PaymentIn createSimplePaymentIn() throws IOException, LognexApiException {
+    public PaymentIn createSimplePaymentIn() throws IOException, ApiClientException {
         PaymentIn paymentIn = new PaymentIn();
         paymentIn.setName("paymentin_" + randomStringTail());
         paymentIn.setOrganization(getOwnOrganization());
@@ -568,7 +568,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return paymentIn;
     }
 
-    public PaymentOut createSimplePaymentOut() throws IOException, LognexApiException {
+    public PaymentOut createSimplePaymentOut() throws IOException, ApiClientException {
         PaymentOut paymentOut = new PaymentOut();
         paymentOut.setName("paymentout_" + randomStringTail());
         paymentOut.setOrganization(getOwnOrganization());
@@ -580,7 +580,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return paymentOut;
     }
 
-    public Pricelist createSimplePricelist() throws IOException, LognexApiException {
+    public Pricelist createSimplePricelist() throws IOException, ApiClientException {
         Pricelist priceList = new Pricelist();
         priceList.setName("pricelist_" + randomStringTail());
 
@@ -607,7 +607,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return priceList;
     }
 
-    public Processing createSimpleProcessing() throws IOException, LognexApiException {
+    public Processing createSimpleProcessing() throws IOException, ApiClientException {
         Processing processing = new Processing();
         processing.setName("processing_" + randomStringTail());
         processing.setOrganization(getOwnOrganization());
@@ -660,7 +660,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return processing;
     }
 
-    public ProcessingOrder createSimpleProcessingOrder() throws IOException, LognexApiException {
+    public ProcessingOrder createSimpleProcessingOrder() throws IOException, ApiClientException {
         ProcessingOrder processingOrder = new ProcessingOrder();
         processingOrder.setName("processingorder_" + randomStringTail());
         processingOrder.setOrganization(getOwnOrganization());
@@ -699,7 +699,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return processingOrder;
     }
 
-    public ProcessingPlan createSimpleProcessingPlan() throws IOException, LognexApiException {
+    public ProcessingPlan createSimpleProcessingPlan() throws IOException, ApiClientException {
         ProcessingPlan processingPlan = new ProcessingPlan();
         processingPlan.setName("processingplan_" + randomStringTail());
 
@@ -724,7 +724,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return processingPlan;
     }
 
-    public PurchaseOrder createSimplePurchaseOrder() throws IOException, LognexApiException {
+    public PurchaseOrder createSimplePurchaseOrder() throws IOException, ApiClientException {
         PurchaseOrder purchaseOrder = new PurchaseOrder();
         purchaseOrder.setName("purchaseorder_" + randomStringTail());
         purchaseOrder.setDescription(randomString());
@@ -736,7 +736,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return purchaseOrder;
     }
 
-    public PurchaseReturn createSimplePurchaseReturn() throws IOException, LognexApiException {
+    public PurchaseReturn createSimplePurchaseReturn() throws IOException, ApiClientException {
         PurchaseReturn purchaseReturn = new PurchaseReturn();
         purchaseReturn.setName("purchasereturn_" + randomStringTail());
         purchaseReturn.setOrganization(getOwnOrganization());
@@ -748,7 +748,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return purchaseReturn;
     }
 
-    public RetailDemand createSimpleRetailDemand() throws IOException, LognexApiException {
+    public RetailDemand createSimpleRetailDemand() throws IOException, ApiClientException {
         RetailDemand retailDemand = new RetailDemand();
         retailDemand.setName("retaildemand_" + randomStringTail());
         retailDemand.setDescription(randomString());
@@ -761,7 +761,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return retailDemand;
     }
 
-    public SalesReturn createSimpleSalesReturn() throws IOException, LognexApiException {
+    public SalesReturn createSimpleSalesReturn() throws IOException, ApiClientException {
         SalesReturn salesReturn = new SalesReturn();
         salesReturn.setName("salesreturn_" + randomStringTail());
         salesReturn.setOrganization(getOwnOrganization());
@@ -773,7 +773,7 @@ public class SimpleEntityManager implements TestRandomizers {
         return salesReturn;
     }
 
-    public Supply createSimpleSupply() throws IOException, LognexApiException {
+    public Supply createSimpleSupply() throws IOException, ApiClientException {
         Supply supply = new Supply();
         supply.setName("supply_" + randomStringTail());
         supply.setDescription(randomString());

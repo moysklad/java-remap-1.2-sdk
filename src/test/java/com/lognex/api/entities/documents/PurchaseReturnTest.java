@@ -7,7 +7,7 @@ import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 
 public class PurchaseReturnTest extends DocumentWithPositionsTestBase {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         PurchaseReturn purchaseReturn = new PurchaseReturn();
         purchaseReturn.setName("purchasereturn_" + randomString(3) + "_" + new Date().getTime());
         purchaseReturn.setDescription(randomString());
@@ -61,14 +61,14 @@ public class PurchaseReturnTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse response = api.entity().purchasereturn().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
     @Test
-    public void newTest() throws IOException, LognexApiException {
+    public void newTest() throws IOException, ApiClientException {
         PurchaseReturn purchaseReturn = api.entity().purchasereturn().templateDocument();
         LocalDateTime time = LocalDateTime.now();
 
@@ -86,7 +86,7 @@ public class PurchaseReturnTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
-    public void newBySupplyTest() throws IOException, LognexApiException {
+    public void newBySupplyTest() throws IOException, ApiClientException {
         Supply supply = simpleEntityManager.createSimple(Supply.class);
 
         PurchaseReturn purchaseReturn = api.entity().purchasereturn().templateDocument("supply", supply);

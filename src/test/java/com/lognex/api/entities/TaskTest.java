@@ -4,7 +4,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.params.FilterParam;
 import com.lognex.api.utils.params.OrderParam;
 import org.apache.commons.lang3.tuple.Pair;
@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
 
 public class TaskTest extends EntityGetUpdateDeleteTest {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         Employee adminEmpl = api.entity().employee().get(filterEq("name", "Администратор")).getRows().get(0);
         Counterparty buyerAgent = api.entity().counterparty().get(filterEq("name", "ООО \"Покупатель\"")).getRows().get(0);
         LocalDateTime dueDate = LocalDateTime.now().plusMonths(1).withSecond(0).withNano(0);
@@ -52,19 +52,19 @@ public class TaskTest extends EntityGetUpdateDeleteTest {
 
     @Override
     @Test
-    public void putTest() throws IOException, LognexApiException {
+    public void putTest() throws IOException, ApiClientException {
         doPutTest("Description");
     }
 
     @Override
     @Test
-    public void deleteTest() throws IOException, LognexApiException {
+    public void deleteTest() throws IOException, ApiClientException {
         doDeleteTest("Description");
         doDeleteByIdTest("Description");
     }
 
     @Test
-    public void offsetTest() throws IOException, LognexApiException {
+    public void offsetTest() throws IOException, ApiClientException {
         int value = randomInteger(1, 100);
         mockApi.entity().task().get(offset(value));
 
@@ -74,7 +74,7 @@ public class TaskTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void limitTest() throws IOException, LognexApiException {
+    public void limitTest() throws IOException, ApiClientException {
         int value = randomInteger(1, 100);
         mockApi.entity().task().get(limit(value));
 
@@ -84,7 +84,7 @@ public class TaskTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void expandOrderFilterTest() throws IOException, LognexApiException {
+    public void expandOrderFilterTest() throws IOException, ApiClientException {
         {
             String value = randomString();
             mockApi.entity().task().get(expand(value));
@@ -156,7 +156,7 @@ public class TaskTest extends EntityGetUpdateDeleteTest {
             Task task = new Task();
             api.entity().task().create(task);
             fail("Ожидалось исключение");
-        } catch (LognexApiException task) {
+        } catch (ApiClientException task) {
             assertApiError(
                     task, 412,
                     Arrays.asList(
@@ -171,7 +171,7 @@ public class TaskTest extends EntityGetUpdateDeleteTest {
             task.setDescription(randomString());
             api.entity().task().create(task);
             fail("Ожидалось исключение");
-        } catch (LognexApiException task) {
+        } catch (ApiClientException task) {
             assertApiError(
                     task, 412,
                     3000, "Ошибка сохранения объекта: поле 'assignee' не может быть пустым или отсутствовать"

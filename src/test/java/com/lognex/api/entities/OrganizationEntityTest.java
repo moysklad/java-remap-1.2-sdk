@@ -4,7 +4,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         Organization organization = new Organization();
         organization.setName("organization_" + randomString(3) + "_" + new Date().getTime());
         organization.setArchived(false);
@@ -39,13 +39,13 @@ public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedResponse metadata = api.entity().organization().metadata();
         assertTrue(metadata.getCreateShared());
     }
 
     @Test
-    public void getAccountsTest() throws IOException, LognexApiException {
+    public void getAccountsTest() throws IOException, ApiClientException {
         Organization organization = new Organization();
         organization.setName("organization_" + randomString(3) + "_" + new Date().getTime());
 
@@ -71,7 +71,7 @@ public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void postAccountsTest() throws IOException, LognexApiException {
+    public void postAccountsTest() throws IOException, ApiClientException {
         Organization organization = new Organization();
         organization.setName("organization_" + randomString(3) + "_" + new Date().getTime());
 

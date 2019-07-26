@@ -4,7 +4,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 public class ContractTest extends EntityGetUpdateDeleteTest {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         Contract contract = new Contract();
         contract.setName("contract_" + randomString(3) + "_" + new Date().getTime());
         contract.setArchived(false);
@@ -49,7 +49,7 @@ public class ContractTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse metadata = api.entity().contract().metadata();
 
         assertFalse(metadata.getCreateShared());

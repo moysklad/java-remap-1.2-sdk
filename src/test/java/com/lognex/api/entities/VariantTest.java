@@ -4,7 +4,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.products.Variant;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.VariantMetadataResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 public class VariantTest extends EntityGetDeleteTest {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         Variant variant = new Variant();
         variant.setArchived(false);
         variant.setProduct(simpleEntityManager.createSimpleProduct());
@@ -43,7 +43,7 @@ public class VariantTest extends EntityGetDeleteTest {
     }
 
     @Test
-    public void putTest() throws IOException, LognexApiException {
+    public void putTest() throws IOException, ApiClientException {
         Variant variant = simpleEntityManager.createSimple(Variant.class);
 
         Variant retrievedOriginalEntity = api.entity().variant().get(variant.getId());
@@ -65,7 +65,7 @@ public class VariantTest extends EntityGetDeleteTest {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         Variant variant = simpleEntityManager.createSimple(Variant.class);
 
         VariantMetadataResponse metadata = api.entity().variant().metadata();
@@ -75,7 +75,7 @@ public class VariantTest extends EntityGetDeleteTest {
         );
     }
 
-    private void putAsserts(Variant variant, Variant retrievedOriginalEntity, String value) throws IOException, LognexApiException {
+    private void putAsserts(Variant variant, Variant retrievedOriginalEntity, String value) throws IOException, ApiClientException {
         Variant retrievedUpdatedEntity = api.entity().variant().get(variant.getId(), expand("product"));
 
         assertNotEquals(retrievedOriginalEntity.getCharacteristics().get(0).getValue(),

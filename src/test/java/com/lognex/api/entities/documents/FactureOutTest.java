@@ -8,7 +8,7 @@ import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 
 public class FactureOutTest extends EntityGetUpdateDeleteTest {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         FactureOut factureOut = new FactureOut();
         factureOut.setName("factureout_" + randomString(3) + "_" + new Date().getTime());
         factureOut.setDescription(randomString());
@@ -51,14 +51,14 @@ public class FactureOutTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void metadataTest() throws IOException, LognexApiException {
+    public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedStatesResponse response = api.entity().factureout().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
     @Test
-    public void newByDemandsTest() throws IOException, LognexApiException {
+    public void newByDemandsTest() throws IOException, ApiClientException {
         Demand demand = new Demand();
         demand.setName("demand_" + randomString(3) + "_" + new Date().getTime());
 
@@ -93,7 +93,7 @@ public class FactureOutTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void newByPurchaseReturnsTest() throws IOException, LognexApiException {
+    public void newByPurchaseReturnsTest() throws IOException, ApiClientException {
         PurchaseReturn purchaseReturn = simpleEntityManager.createSimple(PurchaseReturn.class);
 
         LocalDateTime time = LocalDateTime.now();
@@ -112,7 +112,7 @@ public class FactureOutTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void newByPaymentsInTest() throws IOException, LognexApiException {
+    public void newByPaymentsInTest() throws IOException, ApiClientException {
         PaymentIn paymentIn = simpleEntityManager.createSimple(PaymentIn.class);
 
         LocalDateTime time = LocalDateTime.now();

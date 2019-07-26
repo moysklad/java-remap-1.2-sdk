@@ -187,9 +187,9 @@ public final class HttpRequestExecutor {
      *
      * @return тело ответа
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка API
+     * @throws ApiClientException когда возникла ошибка API
      */
-    private String executeRequest(HttpUriRequest request) throws IOException, LognexApiException {
+    private String executeRequest(HttpUriRequest request) throws IOException, ApiClientException {
         logger.debug("Выполнение запроса  {} {}...", request.getMethod(), request.getURI());
         try (CloseableHttpResponse response = client.execute(request)) {
             String json = response.getStatusLine().getStatusCode() == 204 ?
@@ -209,7 +209,7 @@ public final class HttpRequestExecutor {
                     response.getStatusLine().getStatusCode() != 204) {
                 ErrorResponse er = gson.fromJson(json, ErrorResponse.class);
 
-                throw new LognexApiException(
+                throw new ApiClientException(
                         request.getMethod() + " " + request.getURI(),
                         response.getStatusLine().getStatusCode(),
                         response.getStatusLine().getReasonPhrase(),
@@ -226,9 +226,9 @@ public final class HttpRequestExecutor {
      *
      * @return тело ответа в виде массива байтов
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка API
+     * @throws ApiClientException когда возникла ошибка API
      */
-    private byte[] executeByteRequest(HttpUriRequest request) throws IOException, LognexApiException {
+    private byte[] executeByteRequest(HttpUriRequest request) throws IOException, ApiClientException {
         logger.debug("Выполнение запроса  {} {}...", request.getMethod(), request.getURI());
         try (CloseableHttpResponse response = client.execute(request)) {
             byte[] bytes = EntityUtils.toByteArray(response.getEntity());
@@ -247,7 +247,7 @@ public final class HttpRequestExecutor {
 
                 ErrorResponse er = gson.fromJson(json, ErrorResponse.class);
 
-                throw new LognexApiException(
+                throw new ApiClientException(
                         request.getMethod() + " " + request.getURI(),
                         response.getStatusLine().getStatusCode(),
                         response.getStatusLine().getReasonPhrase(),
@@ -264,9 +264,9 @@ public final class HttpRequestExecutor {
      *
      * @return тело ответа
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка API
+     * @throws ApiClientException когда возникла ошибка API
      */
-    public String get() throws IOException, LognexApiException {
+    public String get() throws IOException, ApiClientException {
         HttpGet request = new HttpGet(getFullUrl());
         applyHeaders(request);
         return executeRequest(request);
@@ -277,9 +277,9 @@ public final class HttpRequestExecutor {
      *
      * @param cl класс, в который нужно сконвертировать ответ на запрос
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка API
+     * @throws ApiClientException когда возникла ошибка API
      */
-    public <T> T get(Class<T> cl) throws IOException, LognexApiException {
+    public <T> T get(Class<T> cl) throws IOException, ApiClientException {
         return gson.fromJson(get(), cl);
     }
 
@@ -288,9 +288,9 @@ public final class HttpRequestExecutor {
      *
      * @param cl класс объектов массива, в который нужно сконвертировать ответ на запрос
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка API
+     * @throws ApiClientException когда возникла ошибка API
      */
-    public <T extends MetaEntity> ListEntity<T> list(Class<T> cl) throws IOException, LognexApiException {
+    public <T extends MetaEntity> ListEntity<T> list(Class<T> cl) throws IOException, ApiClientException {
         return gson.fromJson(get(), TypeToken.getParameterized(ListEntity.class, cl).getType());
     }
 
@@ -299,9 +299,9 @@ public final class HttpRequestExecutor {
      *
      * @return тело ответа
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка API
+     * @throws ApiClientException когда возникла ошибка API
      */
-    public String post() throws IOException, LognexApiException {
+    public String post() throws IOException, ApiClientException {
         HttpPost request = new HttpPost(getFullUrl());
         applyHeaders(request);
 
@@ -320,9 +320,9 @@ public final class HttpRequestExecutor {
      *
      * @return тело ответа
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка API
+     * @throws ApiClientException когда возникла ошибка API
      */
-    public File postAndSaveTo(File file) throws IOException, LognexApiException {
+    public File postAndSaveTo(File file) throws IOException, ApiClientException {
         HttpPost request = new HttpPost(getFullUrl());
         applyHeaders(request);
 
@@ -343,9 +343,9 @@ public final class HttpRequestExecutor {
      *
      * @param cl класс, в который нужно сконвертировать ответ на запрос
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка API
+     * @throws ApiClientException когда возникла ошибка API
      */
-    public <T> T post(Class<T> cl) throws IOException, LognexApiException {
+    public <T> T post(Class<T> cl) throws IOException, ApiClientException {
         return gson.fromJson(post(), cl);
     }
 
@@ -354,9 +354,9 @@ public final class HttpRequestExecutor {
      *
      * @param cl класс объектов массива, в который нужно сконвертировать ответ на запрос
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка API
+     * @throws ApiClientException когда возникла ошибка API
      */
-    public <T extends MetaEntity> List<T> postList(Class<T> cl) throws IOException, LognexApiException {
+    public <T extends MetaEntity> List<T> postList(Class<T> cl) throws IOException, ApiClientException {
         return gson.fromJson(post(), TypeToken.getParameterized(List.class, cl).getType());
     }
 
@@ -364,9 +364,9 @@ public final class HttpRequestExecutor {
      * Выполняет DELETE-запрос с указанными ранее параметрами
      *
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка API
+     * @throws ApiClientException когда возникла ошибка API
      */
-    public void delete() throws IOException, LognexApiException {
+    public void delete() throws IOException, ApiClientException {
         HttpDelete request = new HttpDelete(getFullUrl());
         applyHeaders(request);
         executeRequest(request);
@@ -377,9 +377,9 @@ public final class HttpRequestExecutor {
      *
      * @return тело ответа
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка API
+     * @throws ApiClientException когда возникла ошибка API
      */
-    public String put() throws IOException, LognexApiException {
+    public String put() throws IOException, ApiClientException {
         HttpPut request = new HttpPut(getFullUrl());
         applyHeaders(request);
 
@@ -398,9 +398,9 @@ public final class HttpRequestExecutor {
      *
      * @param cl класс, в который нужно сконвертировать ответ на запрос
      * @throws IOException        когда возникла сетевая ошибка
-     * @throws LognexApiException когда возникла ошибка API
+     * @throws ApiClientException когда возникла ошибка API
      */
-    public <T> T put(Class<? extends T> cl) throws IOException, LognexApiException {
+    public <T> T put(Class<? extends T> cl) throws IOException, ApiClientException {
         return gson.fromJson(put(), cl);
     }
 }

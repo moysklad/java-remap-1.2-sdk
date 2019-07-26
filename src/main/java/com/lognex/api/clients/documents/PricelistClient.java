@@ -8,8 +8,8 @@ import com.lognex.api.entities.documents.Pricelist;
 import com.lognex.api.entities.documents.Pricelist.PricelistRow;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.HttpRequestExecutor;
-import com.lognex.api.utils.LognexApiException;
 import com.lognex.api.utils.params.ApiParam;
 
 import java.io.IOException;
@@ -34,7 +34,7 @@ public final class PricelistClient
     }
 
     @ApiEndpoint
-    public List<PricelistRow> postPositions(String documentId, List<PricelistRow> updatedEntities) throws IOException, LognexApiException {
+    public List<PricelistRow> postPositions(String documentId, List<PricelistRow> updatedEntities) throws IOException, ApiClientException {
         List<PricelistRow> responseEntity = HttpRequestExecutor.
                 path(api(), path() + documentId + "/positions/").
                 body(updatedEntities).
@@ -47,12 +47,12 @@ public final class PricelistClient
     }
 
     @ApiEndpoint
-    public List<PricelistRow> postPositions(Pricelist document, List<PricelistRow> updatedEntities) throws IOException, LognexApiException {
+    public List<PricelistRow> postPositions(Pricelist document, List<PricelistRow> updatedEntities) throws IOException, ApiClientException {
         return postPositions(document.getId(), updatedEntities);
     }
 
     @ApiEndpoint
-    public PricelistRow postPosition(String documentId, PricelistRow updatedEntity) throws IOException, LognexApiException {
+    public PricelistRow postPosition(String documentId, PricelistRow updatedEntity) throws IOException, ApiClientException {
         List<PricelistRow> positionList = new ArrayList<>(Collections.singletonList(updatedEntity));
         List<PricelistRow> newPosition = postPositions(documentId, positionList);
 
@@ -61,12 +61,12 @@ public final class PricelistClient
     }
 
     @ApiEndpoint
-    public PricelistRow postPosition(Pricelist document, PricelistRow updatedEntity) throws IOException, LognexApiException {
+    public PricelistRow postPosition(Pricelist document, PricelistRow updatedEntity) throws IOException, ApiClientException {
         return postPosition(document.getId(), updatedEntity);
     }
 
     @ApiEndpoint
-    public ListEntity<PricelistRow> getPositions(String documentId, ApiParam... params) throws IOException, LognexApiException {
+    public ListEntity<PricelistRow> getPositions(String documentId, ApiParam... params) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + documentId + "/positions").
                 apiParams(params).
@@ -74,12 +74,12 @@ public final class PricelistClient
     }
 
     @ApiEndpoint
-    public ListEntity<PricelistRow> getPositions(Pricelist document, ApiParam... params) throws IOException, LognexApiException {
+    public ListEntity<PricelistRow> getPositions(Pricelist document, ApiParam... params) throws IOException, ApiClientException {
         return getPositions(document.getId(), params);
     }
 
     @ApiEndpoint
-    public PricelistRow getPosition(String documentId, String positionId, ApiParam... params) throws IOException, LognexApiException {
+    public PricelistRow getPosition(String documentId, String positionId, ApiParam... params) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + documentId + "/positions/" + positionId).
                 apiParams(params).
@@ -87,12 +87,12 @@ public final class PricelistClient
     }
 
     @ApiEndpoint
-    public PricelistRow getPosition(Pricelist document, String positionId, ApiParam... params) throws IOException, LognexApiException {
+    public PricelistRow getPosition(Pricelist document, String positionId, ApiParam... params) throws IOException, ApiClientException {
         return getPosition(document.getId(), positionId, params);
     }
 
     @ApiEndpoint
-    public void putPosition(String documentId, String positionId, PricelistRow updatedEntity) throws IOException, LognexApiException {
+    public void putPosition(String documentId, String positionId, PricelistRow updatedEntity) throws IOException, ApiClientException {
         PricelistRow responseEntity = HttpRequestExecutor.
                 path(api(), path() + documentId + "/positions/" + positionId).
                 body(updatedEntity).
@@ -102,34 +102,34 @@ public final class PricelistClient
     }
 
     @ApiEndpoint
-    public void putPosition(Pricelist document, String positionId, PricelistRow updatedEntity) throws IOException, LognexApiException {
+    public void putPosition(Pricelist document, String positionId, PricelistRow updatedEntity) throws IOException, ApiClientException {
         putPosition(document.getId(), positionId, updatedEntity);
     }
 
     @ApiEndpoint
-    public void putPosition(Pricelist document, PricelistRow position, PricelistRow updatedEntity) throws IOException, LognexApiException {
+    public void putPosition(Pricelist document, PricelistRow position, PricelistRow updatedEntity) throws IOException, ApiClientException {
         putPosition(document, position.getId(), updatedEntity);
     }
 
     @ApiEndpoint
-    public void putPosition(Pricelist document, PricelistRow position) throws IOException, LognexApiException {
+    public void putPosition(Pricelist document, PricelistRow position) throws IOException, ApiClientException {
         putPosition(document, position, position);
     }
 
     @ApiEndpoint
-    public void delete(String documentId, String positionId) throws IOException, LognexApiException {
+    public void delete(String documentId, String positionId) throws IOException, ApiClientException {
         HttpRequestExecutor.
                 path(api(), path() + documentId + "/positions/" + positionId).
                 delete();
     }
 
     @ApiEndpoint
-    public void delete(Pricelist document, String positionId) throws IOException, LognexApiException {
+    public void delete(Pricelist document, String positionId) throws IOException, ApiClientException {
         delete(document.getId(), positionId);
     }
 
     @ApiEndpoint
-    public void delete(Pricelist document, PricelistRow position) throws IOException, LognexApiException {
+    public void delete(Pricelist document, PricelistRow position) throws IOException, ApiClientException {
         delete(document, position.getId());
     }
 

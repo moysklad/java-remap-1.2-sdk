@@ -4,7 +4,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.products.Bundle;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 
 public class BundleEntityTest extends EntityGetUpdateDeleteTest {
     @Test
-    public void createTest() throws IOException, LognexApiException {
+    public void createTest() throws IOException, ApiClientException {
         Bundle bundle = new Bundle();
         bundle.setName("bundle_" + randomString(3) + "_" + new Date().getTime());
         bundle.setArchived(false);
