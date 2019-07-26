@@ -1,10 +1,7 @@
 package com.lognex.api.entities;
 
 import com.google.gson.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Map;
 import java.util.Set;
@@ -12,6 +9,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 public class Barcode {
     /**
@@ -22,7 +20,7 @@ public class Barcode {
     /**
      * Штрихкод
      */
-    String barcode;
+    String value;
 
     public enum Type {
         ean13, ean8, code128, gtin
@@ -43,7 +41,7 @@ public class Barcode {
 
             Map.Entry<String, JsonElement> elementEntry = entries.iterator().next();
             e.type = Type.valueOf(elementEntry.getKey());
-            e.barcode =  elementEntry.getValue().getAsString();
+            e.value =  elementEntry.getValue().getAsString();
 
             return e;
         }
@@ -51,7 +49,7 @@ public class Barcode {
         @Override
         public JsonElement serialize(Barcode src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
             JsonObject e = new JsonObject();
-            e.add(src.type.toString(), context.serialize(src.barcode));
+            e.add(src.type.toString(), context.serialize(src.value));
 
             return e;
         }

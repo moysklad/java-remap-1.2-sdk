@@ -1137,3 +1137,11 @@ GET;https://test.moysklad/api/remap/1.2/entity/retailstore/;ApiParam[];ListEntit
 PUT;https://test.moysklad/api/remap/1.2/entity/customerorder/ID;String,MetaEntity;void
 GET;https://test.moysklad/api/remap/1.2/entity/counterparty/ENTITY_ID/notes;Counterparty,ApiParam[];ListEntity
 POST;https://test.moysklad/api/remap/1.2/entity/commissionreportout/ID/positions/;String,DocumentPosition;DocumentPosition
+PUT;https://test.moysklad/api/remap/1.2/entity/country/ID;String,MetaEntity;void
+POST;https://test.moysklad/api/remap/1.2/entity/country/;MetaEntity;MetaEntity
+DELETE;https://test.moysklad/api/remap/1.2/entity/country/ID;String;void
+GET;https://test.moysklad/api/remap/1.2/entity/country/ENTITY_ID;MetaEntity,ApiParam[];Country
+GET;https://test.moysklad/api/remap/1.2/entity/country/ID;String,ApiParam[];Country
+GET;https://test.moysklad/api/remap/1.2/entity/country/;ApiParam[];ListEntity
+DELETE;https://test.moysklad/api/remap/1.2/entity/country/ENTITY_ID;MetaEntity;void
+PUT;https://test.moysklad/api/remap/1.2/entity/country/ENTITY_ID;MetaEntity;void
