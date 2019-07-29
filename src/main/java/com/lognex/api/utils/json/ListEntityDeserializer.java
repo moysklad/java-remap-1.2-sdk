@@ -23,33 +23,34 @@ public class ListEntityDeserializer implements JsonDeserializer<ListEntity> {
         le.setContext(context.deserialize(((JsonObject) json).getAsJsonObject("context"), Context.class));
 
         JsonArray rows = ((JsonObject) json).getAsJsonArray("rows");
-        if (rows != null && rows.size() > 0) {
+        if (rows != null) {
             le.setRows(new ArrayList());
+            if (rows.size() > 0) {
+                if (typeOfT instanceof ParameterizedType) {
+                    Type pcl = ((ParameterizedType) typeOfT).getActualTypeArguments()[0];
 
-            if (typeOfT instanceof ParameterizedType) {
-                Type pcl = ((ParameterizedType) typeOfT).getActualTypeArguments()[0];
-
-                for (JsonElement row : rows) {
-                    le.getRows().add(context.deserialize(row, pcl));
-                }
-            } else {
-                for (JsonElement row : rows) {
-                    Class<? extends MetaEntity> metaClass = MetaEntity.class;
-
-                    try {
-                        Meta.Type metaType = Meta.Type.find(((JsonObject) row).get("meta").getAsJsonObject().get("type").getAsString());
-
-                        switch (metaType) {
-                            case DEMAND_POSITION:
-                            case SUPPLY_POSITION:
-                                metaClass = DocumentPosition.class;
-                                break;
-                        }
-                    } catch (Exception e) {
-                        logger.warn("Ошибка во время десериализации массива rows", e);
+                    for (JsonElement row : rows) {
+                        le.getRows().add(context.deserialize(row, pcl));
                     }
+                } else {
+                    for (JsonElement row : rows) {
+                        Class<? extends MetaEntity> metaClass = MetaEntity.class;
 
-                    le.getRows().add(context.deserialize(row, metaClass));
+                        try {
+                            Meta.Type metaType = Meta.Type.find(((JsonObject) row).get("meta").getAsJsonObject().get("type").getAsString());
+
+                            switch (metaType) {
+                                case DEMAND_POSITION:
+                                case SUPPLY_POSITION:
+                                    metaClass = DocumentPosition.class;
+                                    break;
+                            }
+                        } catch (Exception e) {
+                            logger.warn("Ошибка во время десериализации массива rows", e);
+                        }
+
+                        le.getRows().add(context.deserialize(row, metaClass));
+                    }
                 }
             }
         }
