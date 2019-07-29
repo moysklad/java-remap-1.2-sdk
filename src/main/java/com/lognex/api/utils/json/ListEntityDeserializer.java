@@ -24,7 +24,7 @@ public class ListEntityDeserializer implements JsonDeserializer<ListEntity> {
 
         JsonArray rows = ((JsonObject) json).getAsJsonArray("rows");
         if (rows != null) {
-            le.setRows(new ArrayList());
+            le.setRows(new ArrayList(rows.size()));
             if (rows.size() > 0) {
                 if (typeOfT instanceof ParameterizedType) {
                     Type pcl = ((ParameterizedType) typeOfT).getActualTypeArguments()[0];
