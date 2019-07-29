@@ -19,6 +19,8 @@ public class CompanySettingsTest extends EntityTestBase {
         assertEquals(1, currency.getRows().size());
 
         assertEquals(response.getCurrency(), currency.getRows().get(0));
+        assertTrue(response.getPriceTypes().size() > 0);
+        assertTrue(response.getPriceTypes().stream().anyMatch(p -> p.getName().equals("Цена продажи")));
         assertEquals(CompanySettingsResponse.DiscountStrategy.bySum, response.getDiscountStrategy());
     }
 
