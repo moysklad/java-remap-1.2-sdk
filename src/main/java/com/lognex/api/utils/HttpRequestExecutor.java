@@ -295,6 +295,17 @@ public final class HttpRequestExecutor {
     }
 
     /**
+     * Выполняет GET-запрос с указанными ранее параметрами и конвертирует ответ в <b>список</b> объектов указанного класса
+     *
+     * @param cl класс объектов списка, в который нужно сконвертировать ответ на запрос
+     * @throws IOException        когда возникла сетевая ошибка
+     * @throws ApiClientException когда возникла ошибка API
+     */
+    public <T extends MetaEntity> List<T> plainList(Class<T> cl) throws IOException, ApiClientException {
+        return gson.fromJson(get(), TypeToken.getParameterized(List.class, cl).getType());
+    }
+
+    /**
      * Выполняет POST-запрос с указанными ранее параметрами
      *
      * @return тело ответа

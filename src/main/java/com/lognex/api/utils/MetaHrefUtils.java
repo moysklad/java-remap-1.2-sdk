@@ -33,7 +33,11 @@ public final class MetaHrefUtils {
             return null;
         }
         StringBuilder sb = new StringBuilder(host);
-        sb.append("/entity");
+        if (type == Meta.Type.PRICE_TYPE) {
+            sb.append("/context/companysettings");
+        } else {
+            sb.append("/entity");
+        }
         switch (type) {
             case CUSTOM_TEMPLATE:
             case EMBEDDED_TEMPLATE:
