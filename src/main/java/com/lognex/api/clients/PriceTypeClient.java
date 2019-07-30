@@ -16,8 +16,7 @@ import static com.lognex.api.utils.Constants.API_PATH;
 public final class PriceTypeClient
         extends EntityClientBase
         implements GetByIdEndpoint<PriceType>,
-        GetPlainListEndpoint<PriceType>,
-        PutEndpoint<PriceType> {
+        GetPlainListEndpoint<PriceType> {
 
     public PriceTypeClient(ApiClient api, String path) {
         super(api, path + "pricetype/");

@@ -1145,3 +1145,8 @@ GET;https://test.moysklad/api/remap/1.2/entity/country/ID;String,ApiParam[];Coun
 GET;https://test.moysklad/api/remap/1.2/entity/country/;ApiParam[];ListEntity
 DELETE;https://test.moysklad/api/remap/1.2/entity/country/ENTITY_ID;MetaEntity;void
 PUT;https://test.moysklad/api/remap/1.2/entity/country/ENTITY_ID;MetaEntity;void
+GET;https://test.moysklad/api/remap/1.2/context/companysettings/pricetype/ENTITY_ID;MetaEntity,ApiParam[];PriceType
+GET;https://test.moysklad/api/remap/1.2/context/companysettings/pricetype/ID;String,ApiParam[];PriceType
+GET;https://test.moysklad/api/remap/1.2/context/companysettings/pricetype/;ApiParam[];ArrayList
+GET;https://test.moysklad/api/remap/1.2/context/companysettings/pricetype/default/;;PriceType
+POST;https://test.moysklad/api/remap/1.2/context/companysettings/pricetype/;List;ArrayList
