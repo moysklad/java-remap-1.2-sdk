@@ -24,7 +24,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
         } catch (ApiClientException e) {
             assertApiError(
                     e, 401, 1056,
-                    "Ошибка аутентификации: Неправильный пароль или имя пользователя"
+                    "Ошибка аутентификации: Неправильный пароль или имя пользователя или ключ авторизации"
             );
 
             Thread.sleep(1500); // Защита от лимитов
