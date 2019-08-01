@@ -31,7 +31,7 @@ public class ExportTest {
 
     @After
     public void antiLimits() throws InterruptedException {
-        Thread.sleep(1500); // Защита от лимитов
+        Thread.sleep(1000); // Защита от лимитов
     }
 
     @Test
