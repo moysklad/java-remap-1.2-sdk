@@ -177,4 +177,15 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
         private Uom uom;
         private Double quantity;
     }
+
+    /**
+     * Тип маркируемой продукции
+     */
+    TrackingType trackingType;
+
+    enum TrackingType {
+        NOT_TRACKED,
+        TOBACCO,
+        SHOES
+    }
 }
