@@ -14,7 +14,7 @@ public class SearchParam extends ApiParam {
     }
 
     @Override
-    protected String render() {
+    protected String render(String host) {
         return value;
     }
 }

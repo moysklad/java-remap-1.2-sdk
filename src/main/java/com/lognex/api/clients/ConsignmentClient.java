@@ -1,29 +1,29 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
-import com.lognex.api.entities.ConsignmentEntity;
+import com.lognex.api.entities.Consignment;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeResponse;
 
 public final class ConsignmentClient
-        extends ApiClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<ConsignmentEntity>,
-        PostEndpoint<ConsignmentEntity>,
+        GetListEndpoint<Consignment>,
+        PostEndpoint<Consignment>,
         DeleteByIdEndpoint,
         MetadataEndpoint<MetadataAttributeResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<ConsignmentEntity>,
-        PutByIdEndpoint<ConsignmentEntity> {
+        GetByIdEndpoint<Consignment>,
+        PutByIdEndpoint<Consignment> {
 
-    public ConsignmentClient(LognexApi api) {
+    public ConsignmentClient(ApiClient api) {
         super(api, "/entity/consignment/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return ConsignmentEntity.class;
+        return Consignment.class;
     }
 
     @Override

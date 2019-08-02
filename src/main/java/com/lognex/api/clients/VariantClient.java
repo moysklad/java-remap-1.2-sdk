@@ -1,29 +1,28 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.products.VariantEntity;
+import com.lognex.api.entities.products.Variant;
 import com.lognex.api.responses.metadata.VariantMetadataResponse;
 
 public final class VariantClient
-        extends ApiClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<VariantEntity>,
-        PostEndpoint<VariantEntity>,
+        GetListEndpoint<Variant>,
+        PostEndpoint<Variant>,
         DeleteByIdEndpoint,
         MetadataEndpoint<VariantMetadataResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<VariantEntity>,
-        PutByIdEndpoint<VariantEntity> {
+        GetByIdEndpoint<Variant>,
+        PutByIdEndpoint<Variant> {
 
-    public VariantClient(LognexApi api) {
+    public VariantClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/variant/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return VariantEntity.class;
+        return Variant.class;
     }
 
     @Override

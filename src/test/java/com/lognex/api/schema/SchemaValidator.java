@@ -1,15 +1,15 @@
 package com.lognex.api.schema;
 
-import com.lognex.api.LognexApi;
+import com.lognex.api.ApiClient;
 import com.lognex.api.entities.Meta;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ErrorResponse;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.HttpRequestExecutor;
-import com.lognex.api.utils.LognexApiException;
 import com.lognex.api.utils.TestAsserts;
 import com.lognex.api.utils.TestRandomizers;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
@@ -20,7 +20,7 @@ import static java.util.stream.Collectors.joining;
 import static org.junit.Assert.*;
 
 public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestRandomizers {
-    private static final Logger logger = LogManager.getLogger(SchemaTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(SchemaTest.class);
     private final SchemaReport schemaReport = new SchemaReport();
 
     private static final List<String> filterOperators;
@@ -39,14 +39,14 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
     }
 
     private final Schema schema;
-    private final LognexApi api;
+    private final ApiClient api;
     private final String path;
     private final Class<T> clazz;
 
     private final SchemaFiller<T> schemaFiller;
     private Map<SchemaField, Field> fieldsMap = new HashMap<>();
 
-    public SchemaValidator(Schema schema, LognexApi api, String path, Class<T> clazz) throws Exception {
+    public SchemaValidator(Schema schema, ApiClient api, String path, Class<T> clazz) throws Exception {
         this.schema = schema;
         this.api = api;
         this.path = path;
@@ -145,7 +145,7 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
                         T created = post(entity);
                         assertMinimumEntity(created);
                         assertFieldEquals("Создание сущности с одним необязательным полем " + updatableField.getKey().getName(), value, updatableField.getValue().get(created));
-                    } catch (LognexApiException e) {
+                    } catch (ApiClientException e) {
                         schemaReport.log(e.getMessage());
                     }
                 }
@@ -181,7 +181,7 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
                     try {
                         T updated = put(current);
                         assertFieldEquals("Обновление " + entry.getKey().getName(), expected, entry.getValue().get(updated));
-                    } catch (LognexApiException e) {
+                    } catch (ApiClientException e) {
                         schemaReport.log(e.getMessage());
                     }
                 }
@@ -195,12 +195,12 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
                     try {
                         T updated = put(current, id);
                         assertFieldEquals("Обновление не обновляемого поля " + entry.getKey().getName(), expected, entry.getValue().get(updated));
-                    } catch (LognexApiException e) {
+                    } catch (ApiClientException e) {
                         schemaReport.log(e.getMessage());
                     }
                 }
                 schemaReport.endChapter();
-            } catch (LognexApiException e) {
+            } catch (ApiClientException e) {
                 schemaReport.log(e.getMessage());
             }
             schemaReport.endChapter();
@@ -244,7 +244,7 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
                         Integer filteredSize = filtered == null ? 0 : filtered.size();
                         List<T> expectedFiltered = filter(filterOperator, allEntities, entry.getValue().get(entityOptional.get()), entry);
                         assertWrap(() -> assertEquals("Сравниваем размер отфильтрованного списка (" + filter + ") ", (Integer) expectedFiltered.size(), filteredSize));
-                    } catch (LognexApiException e) {
+                    } catch (ApiClientException e) {
                         schemaReport.log(e.getMessage());
                     } catch (UnsupportedOperationException e) {
                         schemaReport.log(entry.getKey().getName() + "(" + filter + ") " + e.getMessage());
@@ -268,7 +268,7 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
                         Integer filteredSize = filtered == null ? 0 : filtered.size();
                         List<T> expectedFiltered = filter(filterOperator, allEntities, null, entry);
                         assertWrap(() -> assertEquals("Сравниваем размер отфильтрованного списка (" + filter + ") ", (Integer) expectedFiltered.size(), filteredSize));
-                    } catch (LognexApiException e) {
+                    } catch (ApiClientException e) {
                         schemaReport.log(e.getMessage());
                     }  catch (UnsupportedOperationException e) {
                         schemaReport.log(entry.getKey().getName() + "(" + filter + ") " + e.getMessage());
@@ -286,7 +286,7 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
                             query("filter", filter).
                             list(clazz).getRows();
                     assertWrap(() -> fail("Корректно отработал недопустимый фильтр (" + filter + ") "));
-                } catch (LognexApiException e) {
+                } catch (ApiClientException e) {
                     assertWrap(() -> {
                         Optional<ErrorResponse.Error> error = e.getErrorResponse().getErrors().stream()
                                 .filter(err -> err.getError().matches(".*Оператор.*не совместим.*"))
@@ -312,7 +312,7 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
                             query("filter", filter).
                             list(clazz).getRows();
                     assertWrap(() -> fail("Корректно отработал недопустимый фильтр (" + filter + ") "));
-                } catch (LognexApiException e) {
+                } catch (ApiClientException e) {
                     assertWrap(() -> {
                         Optional<ErrorResponse.Error> error = e.getErrorResponse().getErrors().stream()
                                 .filter(err -> err.getError().contains("Неизвестное поле фильтрации"))
@@ -351,7 +351,7 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
             try {
                 assertOrder(allEntities, Collections.singletonMap(entry.getValue(), true));
                 assertOrder(allEntities, Collections.singletonMap(entry.getValue(), false));
-            } catch (LognexApiException e) {
+            } catch (ApiClientException e) {
                 schemaReport.log(e.getMessage());
             }
             schemaReport.endChapter();
@@ -676,7 +676,7 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
             try {
                 T response = post(entity);
                 assertMinimumEntity(response);
-            } catch (LognexApiException e) {
+            } catch (ApiClientException e) {
                 schemaReport.log(e.getMessage());
             }
         }
@@ -703,8 +703,8 @@ public class SchemaValidator<T extends MetaEntity> implements TestAsserts, TestR
                 T entity = schemaFiller.prepareEntity(clazz, incompleteSet);
                 try {
                     post(entity);
-                    fail("Ожидалось исключение LognexApiException! На создание " + clazz.getSimpleName() + " не было передано обязательное поле " + removedField.getValue().getName());
-                } catch (LognexApiException e) {
+                    fail("Ожидалось исключение ApiClientException! На создание " + clazz.getSimpleName() + " не было передано обязательное поле " + removedField.getValue().getName());
+                } catch (ApiClientException e) {
                     assertWrap(() -> {
                         Optional<ErrorResponse.Error> error = e.getErrorResponse().getErrors().stream()
                                 .filter(err -> err.getError().equals("Ошибка сохранения объекта: поле '" + removedField.getValue().getName() + "' не может быть пустым или отсутствовать"))

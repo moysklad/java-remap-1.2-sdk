@@ -1,17 +1,21 @@
 package com.lognex.api.clients.endpoints;
 
-import com.lognex.api.entities.DocumentTemplateEntity;
+import com.lognex.api.entities.DocumentTemplate;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.DocumentEntity;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.HttpRequestExecutor;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.MetaHrefUtils;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.lognex.api.utils.Constants.API_PATH;
 
 public interface DocumentNewEndpoint<T extends MetaEntity> extends Endpoint {
     @ApiEndpoint
-    default T newDocument() throws IOException, LognexApiException {
+    default T templateDocument() throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + "new").
                 body(new Object()).
@@ -19,28 +23,37 @@ public interface DocumentNewEndpoint<T extends MetaEntity> extends Endpoint {
     }
 
     @ApiEndpoint
-    default T newDocument(DocumentTemplateEntity documentTemplateEntity) throws IOException, LognexApiException {
+    default T templateDocument(DocumentTemplate documentTemplate) throws IOException, ApiClientException {
+        if (documentTemplate.getDocument() != null) {
+            MetaHrefUtils.fillMeta(documentTemplate.getDocument(), api().getHost() + API_PATH);
+        } else if (documentTemplate.getDocuments() != null) {
+            List<DocumentEntity> documents = documentTemplate.getDocuments();
+            documents = documents.stream()
+                    .map(d -> MetaHrefUtils.fillMeta(d, api().getHost() + API_PATH))
+                    .collect(Collectors.toList());
+            documentTemplate.setDocuments(documents);
+        }
         return HttpRequestExecutor.
                 path(api(), path() + "new").
-                body(documentTemplateEntity).
+                body(documentTemplate).
                 put((Class<T>) entityClass());
     }
 
     @ApiEndpoint
-    default T newDocument(String templateClassString, DocumentEntity document) throws IOException, LognexApiException {
-        DocumentTemplateEntity documentTemplateEntity = new DocumentTemplateEntity();
-        documentTemplateEntity.setDocumentType(templateClassString);
-        documentTemplateEntity.setDocument(document);
+    default T templateDocument(String templateClassString, DocumentEntity document) throws IOException, ApiClientException {
+        DocumentTemplate documentTemplate = new DocumentTemplate();
+        documentTemplate.setDocumentType(templateClassString);
+        documentTemplate.setDocument(document);
 
-        return newDocument(documentTemplateEntity);
+        return templateDocument(documentTemplate);
     }
 
     @ApiEndpoint
-    default T newDocument(String templateClassString, List<DocumentEntity> documents) throws IOException, LognexApiException {
-        DocumentTemplateEntity documentTemplateEntity = new DocumentTemplateEntity();
-        documentTemplateEntity.setDocumentType(templateClassString);
-        documentTemplateEntity.setDocuments(documents);
+    default T templateDocument(String templateClassString, List<DocumentEntity> documents) throws IOException, ApiClientException {
+        DocumentTemplate documentTemplate = new DocumentTemplate();
+        documentTemplate.setDocumentType(templateClassString);
+        documentTemplate.setDocuments(documents);
 
-        return newDocument(documentTemplateEntity);
+        return templateDocument(documentTemplate);
     }
 }

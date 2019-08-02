@@ -2,18 +2,18 @@ package com.lognex.api.schema;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import com.lognex.api.LognexApi;
+import com.lognex.api.ApiClient;
 import com.lognex.api.entities.CompanyType;
-import com.lognex.api.entities.GroupEntity;
+import com.lognex.api.entities.Group;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.agents.AgentEntity;
-import com.lognex.api.entities.agents.CounterpartyEntity;
-import com.lognex.api.entities.agents.EmployeeEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.entities.agents.Agent;
+import com.lognex.api.entities.agents.Counterparty;
+import com.lognex.api.entities.agents.Employee;
+import com.lognex.api.entities.agents.Organization;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.TestRandomizers;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -22,20 +22,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static com.lognex.api.utils.json.LocalDateTimeSerializer.dateFormatPattern;
+import static com.lognex.api.utils.Constants.DATE_FORMAT_PATTERN;
 
 class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
-    private static final Logger logger = LogManager.getLogger(SchemaFiller.class);
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormatPattern);
+    private static final Logger logger = LoggerFactory.getLogger(SchemaFiller.class);
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN);
 
-    private EmployeeEntity employeeEntity;
-    private GroupEntity groupEntity;
-    private CounterpartyEntity counterpartyEntity;
-    private OrganizationEntity organizationEntity;
+    private Employee employeeEntity;
+    private Group group;
+    private Counterparty counterpartyEntity;
+    private Organization organizationEntity;
 
-    public SchemaFiller(LognexApi api) throws IOException, LognexApiException {
+    public SchemaFiller(ApiClient api) throws IOException, ApiClientException {
         employeeEntity = api.entity().employee().get().getRows().get(0);
-        groupEntity = api.entity().group().get().getRows().get(0);
+        group = api.entity().group().get().getRows().get(0);
         counterpartyEntity = api.entity().counterparty().get().getRows().get(0);
         organizationEntity = api.entity().organization().get().getRows().get(0);
         //todo get state, and other metadata
@@ -109,7 +109,7 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
         if (String.class.equals(field.getType())) {
             return Collections.singletonList(randomString(10));
         }
-        if (EmployeeEntity.class.equals(field.getType())) {
+        if (Employee.class.equals(field.getType())) {
             return Collections.singletonList(employeeEntity);
         }
         if (Boolean.class.equals(field.getType())) {
@@ -118,13 +118,13 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
         if (field.getType().isEnum()) {
             return Arrays.asList(field.getType().getEnumConstants());
         }
-        if (GroupEntity.class.equals(field.getType())) {
-            return Collections.singletonList(groupEntity);
+        if (Group.class.equals(field.getType())) {
+            return Collections.singletonList(group);
         }
-        if (OrganizationEntity.class.equals(field.getType())) {
+        if (Organization.class.equals(field.getType())) {
             return Collections.singletonList(organizationEntity);
         }
-        if (AgentEntity.class.equals(field.getType())) {
+        if (Agent.class.equals(field.getType())) {
             return Collections.singletonList(counterpartyEntity);
         }
         if (field.getType().isAssignableFrom(List.class)) {
@@ -134,7 +134,7 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
                 return Collections.singletonList(result);
             }
         }
-//        if (field.getType().equals(StateEntity.class)) {
+//        if (field.getType().equals(State.class)) {
 //            return CompanyType.entrepreneur;
 //        }
         logger.warn("Unable to form value for " + field.getName());
@@ -155,7 +155,7 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
             }
             return randomString(10);
         }
-        if (EmployeeEntity.class.equals(entry.getValue().getType())) {
+        if (Employee.class.equals(entry.getValue().getType())) {
             return employeeEntity;
         }
         if (Boolean.class.equals(entry.getValue().getType())) {
@@ -164,13 +164,13 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
         if (CompanyType.class.equals(entry.getValue().getType())) {
             return CompanyType.entrepreneur;
         }
-        if (GroupEntity.class.equals(entry.getValue().getType())) {
-            return groupEntity;
+        if (Group.class.equals(entry.getValue().getType())) {
+            return group;
         }
-        if (OrganizationEntity.class.equals(entry.getValue().getType())) {
+        if (Organization.class.equals(entry.getValue().getType())) {
             return organizationEntity;
         }
-        if (AgentEntity.class.equals(entry.getValue().getType())) {
+        if (Agent.class.equals(entry.getValue().getType())) {
             return counterpartyEntity;
         }
         if (LocalDateTime.class.equals(entry.getValue().getType())) {
@@ -184,7 +184,7 @@ class SchemaFiller<T extends MetaEntity> implements TestRandomizers {
             }
         }
         //todo attributes states
-//        if (field.getType().equals(StateEntity.class)) {
+//        if (field.getType().equals(State.class)) {
 //            return CompanyType.entrepreneur;
 //        }
         logger.warn("Unable to form value for " + entry.getValue().getName());

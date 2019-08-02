@@ -1,24 +1,23 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.DeleteByIdEndpoint;
 import com.lognex.api.clients.endpoints.GetByIdEndpoint;
 import com.lognex.api.clients.endpoints.GetListEndpoint;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.RetailStoreEntity;
+import com.lognex.api.entities.RetailStore;
 
 public final class RetailStoreClient
-        extends ApiClient
-        implements GetListEndpoint<RetailStoreEntity>,
+        extends EntityClientBase
+        implements GetListEndpoint<RetailStore>,
         DeleteByIdEndpoint,
-        GetByIdEndpoint<RetailStoreEntity> {
+        GetByIdEndpoint<RetailStore> {
 
-    public RetailStoreClient(LognexApi api) {
+    public RetailStoreClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/retailstore/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return RetailStoreEntity.class;
+        return RetailStore.class;
     }
 }

@@ -1,25 +1,24 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.*;
-import com.lognex.api.entities.ExpenseItemEntity;
+import com.lognex.api.entities.ExpenseItem;
 import com.lognex.api.entities.MetaEntity;
 
 public final class ExpenseItemClient
-        extends ApiClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<ExpenseItemEntity>,
-        PostEndpoint<ExpenseItemEntity>,
+        GetListEndpoint<ExpenseItem>,
+        PostEndpoint<ExpenseItem>,
         DeleteByIdEndpoint,
-        GetByIdEndpoint<ExpenseItemEntity>,
-        PutByIdEndpoint<ExpenseItemEntity> {
+        GetByIdEndpoint<ExpenseItem>,
+        PutByIdEndpoint<ExpenseItem> {
 
-    public ExpenseItemClient(LognexApi api) {
+    public ExpenseItemClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/expenseitem/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return ExpenseItemEntity.class;
+        return ExpenseItem.class;
     }
 }

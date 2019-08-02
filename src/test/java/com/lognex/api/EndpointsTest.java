@@ -3,9 +3,9 @@ package com.lognex.api;
 import com.lognex.api.clients.endpoints.ApiChainElement;
 import com.lognex.api.clients.endpoints.ApiEndpoint;
 import com.lognex.api.clients.endpoints.ExportEndpoint;
+import com.lognex.api.entities.Meta;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.TemplateEntity;
-import com.lognex.api.entities.documents.DemandDocumentEntity;
+import com.lognex.api.entities.Template;
 import com.lognex.api.entities.documents.DocumentEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.MockHttpClient;
@@ -25,14 +25,14 @@ import java.util.stream.Collectors;
 import static org.junit.Assert.*;
 
 public class EndpointsTest implements TestRandomizers {
-    private LognexApi api;
+    private ApiClient api;
     private MockHttpClient mockHttpClient;
     private Set<String> expected, newMethods;
 
     @Before
     public void init() {
         mockHttpClient = new MockHttpClient();
-        api = new LognexApi("test.moysklad", true, "[API_LOGIN]", "[API_PASSWORD]", mockHttpClient);
+        api = new ApiClient("test.moysklad", true, "[API_LOGIN]", "[API_PASSWORD]", mockHttpClient);
 
         ClassLoader classLoader = EndpointsTest.class.getClassLoader();
         try {
@@ -101,8 +101,8 @@ public class EndpointsTest implements TestRandomizers {
                         params.add("ID");
                     } else if (method1.getParameterTypes()[i] == ApiParam[].class) {
                         params.add(new ApiParam[0]);
-                    } else if (method1.getParameterTypes()[i] == TemplateEntity.class) {
-                        params.add(new TemplateEntity());
+                    } else if (method1.getParameterTypes()[i] == Template.class) {
+                        params.add(new Template());
                     } else if (method1.getParameterTypes()[i] == ExportEndpoint.PrintRequest[].class) {
                         params.add(new ExportEndpoint.PrintRequest[0]);
                     } else if (method1.getParameterTypes()[i] == boolean.class) {
@@ -122,6 +122,7 @@ public class EndpointsTest implements TestRandomizers {
                             }
                         };
                         documentEntity.setId("DOCUMENT_ID");
+                        documentEntity.setMeta(new Meta());
                         params.add(documentEntity);
                     } else if (DocumentEntity.class.isAssignableFrom(method1.getParameterTypes()[i])) {
                         DocumentEntity documentEntity = (DocumentEntity) method1.getParameterTypes()[i].newInstance();

@@ -1,12 +1,12 @@
 package com.lognex.api.clients.endpoints;
 
-import com.lognex.api.LognexApi;
+import com.lognex.api.ApiClient;
 import com.lognex.api.entities.MetaEntity;
 
 public interface Endpoint {
     String path();
 
-    LognexApi api();
+    ApiClient api();
 
     Class<? extends MetaEntity> entityClass();
 

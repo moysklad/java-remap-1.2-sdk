@@ -1,29 +1,28 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.products.ProductEntity;
+import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedPriceTypesResponse;
 
 public final class ProductClient
-        extends ApiClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<ProductEntity>,
-        PostEndpoint<ProductEntity>,
+        GetListEndpoint<Product>,
+        PostEndpoint<Product>,
         DeleteByIdEndpoint,
         MetadataEndpoint<MetadataAttributeSharedPriceTypesResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<ProductEntity>,
-        PutByIdEndpoint<ProductEntity> {
+        GetByIdEndpoint<Product>,
+        PutByIdEndpoint<Product> {
 
-    public ProductClient(LognexApi api) {
+    public ProductClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/product/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return ProductEntity.class;
+        return Product.class;
     }
 
     @Override

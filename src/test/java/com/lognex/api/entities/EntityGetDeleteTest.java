@@ -3,7 +3,7 @@ package com.lognex.api.entities;
 import com.lognex.api.clients.endpoints.DeleteByIdEndpoint;
 import com.lognex.api.clients.endpoints.GetListEndpoint;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -16,14 +16,14 @@ import static org.junit.Assert.fail;
 
 public abstract class EntityGetDeleteTest extends EntityGetTest {
     @Test
-    public void deleteTest() throws IOException, LognexApiException {
+    public void deleteTest() throws IOException, ApiClientException {
         doDeleteTest("Name");
         doDeleteByIdTest("Name");
     }
 
     @SuppressWarnings("unchecked")
-    public void doDeleteTest(String filter) throws IOException, LognexApiException {
-        MetaEntity createdEntity = simpleEntityFactory.createSimple(entityClass());
+    public void doDeleteTest(String filter) throws IOException, ApiClientException {
+        MetaEntity createdEntity = simpleEntityManager.createSimple(entityClass(), true);
 
         try {
             Method method = createdEntity.getClass().getMethod("get" + filter);
@@ -33,7 +33,9 @@ public abstract class EntityGetDeleteTest extends EntityGetTest {
                     (String) method.invoke(createdEntity)));
             assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
+            simpleEntityManager.removeSimpleFromPool(createdEntity);
             ((DeleteByIdEndpoint) entityClient()).delete(createdEntity.getId());
+
             entitiesList = ((GetListEndpoint) entityClient()).get(filterEq(filter.toLowerCase(),
                     (String) method.invoke(createdEntity)));
             assertEquals((Integer) 0, entitiesList.getMeta().getSize());
@@ -45,8 +47,8 @@ public abstract class EntityGetDeleteTest extends EntityGetTest {
     }
 
     @SuppressWarnings("unchecked")
-    public void doDeleteByIdTest(String filter) throws IOException, LognexApiException {
-        MetaEntity createdEntity = simpleEntityFactory.createSimple(entityClass());
+    public void doDeleteByIdTest(String filter) throws IOException, ApiClientException {
+        MetaEntity createdEntity = simpleEntityManager.createSimple(entityClass(), true);
 
         try {
             Method method = createdEntity.getClass().getMethod("get" + filter);
@@ -56,7 +58,9 @@ public abstract class EntityGetDeleteTest extends EntityGetTest {
                     (String) method.invoke(createdEntity)));
             assertEquals((Integer) 1, entitiesList.getMeta().getSize());
 
+            simpleEntityManager.removeSimpleFromPool(createdEntity);
             ((DeleteByIdEndpoint) entityClient()).delete(createdEntity);
+
             entitiesList = ((GetListEndpoint) entityClient()).get(filterEq(filter.toLowerCase(),
                     (String) method.invoke(createdEntity)));
             assertEquals((Integer) 0, entitiesList.getMeta().getSize());

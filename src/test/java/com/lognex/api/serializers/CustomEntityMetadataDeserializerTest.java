@@ -2,7 +2,7 @@ package com.lognex.api.serializers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.lognex.api.LognexApi;
+import com.lognex.api.ApiClient;
 import com.lognex.api.entities.CustomEntity;
 import com.lognex.api.entities.Meta;
 import com.lognex.api.responses.metadata.CompanySettingsMetadata.CustomEntityMetadata;
@@ -16,7 +16,7 @@ public class CustomEntityMetadataDeserializerTest implements TestAsserts, TestRa
     @Test
     public void test_deserialize() {
         Gson gson = new GsonBuilder().create();
-        Gson gsonCustom = LognexApi.createGson(true);
+        Gson gsonCustom = ApiClient.createGson(true);
 
         CustomEntityMetadata e = new CustomEntityMetadata();
 

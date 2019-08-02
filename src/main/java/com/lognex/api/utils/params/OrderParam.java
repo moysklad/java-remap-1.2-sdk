@@ -19,7 +19,7 @@ public class OrderParam extends ApiParam {
     }
 
     @Override
-    protected String render() {
+    protected String render(String host) {
         return fieldName + (direction == null ? "" : "," + direction.name());
     }
 

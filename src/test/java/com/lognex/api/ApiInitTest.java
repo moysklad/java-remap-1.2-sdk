@@ -1,6 +1,6 @@
 package com.lognex.api;
 
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.TestAsserts;
 import com.lognex.api.utils.TestRandomizers;
 import org.junit.Test;
@@ -13,18 +13,18 @@ import static org.junit.Assert.fail;
 public class ApiInitTest implements TestAsserts, TestRandomizers {
     @Test
     public void test_emptyAuthData() throws IOException, InterruptedException {
-        LognexApi api = new LognexApi(
+        ApiClient api = new ApiClient(
                 System.getenv("API_HOST"),
                 true, "", ""
         );
 
         try {
             api.entity().counterparty().get();
-            fail("Ожидалось исключение LognexApiException!");
-        } catch (LognexApiException e) {
+            fail("Ожидалось исключение ApiClientException!");
+        } catch (ApiClientException e) {
             assertApiError(
                     e, 401, 1056,
-                    "Ошибка аутентификации: Неправильный пароль или имя пользователя"
+                    "Ошибка аутентификации: Неправильный пароль или имя пользователя или ключ авторизации"
             );
 
             Thread.sleep(1500); // Защита от лимитов
@@ -33,15 +33,15 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
 
     @Test
     public void test_nullAuthData() throws IOException, InterruptedException {
-        LognexApi api = new LognexApi(
+        ApiClient api = new ApiClient(
                 System.getenv("API_HOST"),
                 true, null, null
         );
 
         try {
             api.entity().counterparty().get();
-            fail("Ожидалось исключение LognexApiException!");
-        } catch (LognexApiException e) {
+            fail("Ожидалось исключение ApiClientException!");
+        } catch (ApiClientException e) {
             assertApiError(
                     e, 401, 1056,
                     "Ошибка аутентификации: Неверный формат имени пользователя: null"
@@ -55,15 +55,15 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
     public void test_loginFormat() throws IOException, InterruptedException {
         String login = randomString();
 
-        LognexApi api = new LognexApi(
+        ApiClient api = new ApiClient(
                 System.getenv("API_HOST"),
                 true, login, randomString()
         );
 
         try {
             api.entity().counterparty().get();
-            fail("Ожидалось исключение LognexApiException!");
-        } catch (LognexApiException e) {
+            fail("Ожидалось исключение ApiClientException!");
+        } catch (ApiClientException e) {
             assertApiError(
                     e, 401, 1056,
                     "Ошибка аутентификации: Неверный формат имени пользователя: " + login
@@ -75,15 +75,15 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
 
     @Test
     public void test_correctLoginFormatWrongCredentials() throws IOException, InterruptedException {
-        LognexApi api = new LognexApi(
+        ApiClient api = new ApiClient(
                 System.getenv("API_HOST"),
                 true, randomString() + "@" + randomString(), randomString()
         );
 
         try {
             api.entity().counterparty().get();
-            fail("Ожидалось исключение LognexApiException!");
-        } catch (LognexApiException e) {
+            fail("Ожидалось исключение ApiClientException!");
+        } catch (ApiClientException e) {
             assertApiError(
                     e, 401, 1056,
                     "Ошибка аутентификации: Неправильный пароль или имя пользователя"
@@ -96,7 +96,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
     @Test
     public void test_nullHost() {
         try {
-            new LognexApi(
+            new ApiClient(
                     null,
                     true, randomString() + "@" + randomString(), randomString()
             );
@@ -109,7 +109,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
     @Test
     public void test_emptyHost() {
         try {
-            new LognexApi(
+            new ApiClient(
                     "",
                     true, randomString() + "@" + randomString(), randomString()
             );

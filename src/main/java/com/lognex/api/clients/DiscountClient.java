@@ -1,20 +1,19 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.GetListEndpoint;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.discounts.DiscountEntity;
+import com.lognex.api.entities.discounts.Discount;
 
 public final class DiscountClient
-        extends ApiClient
-        implements GetListEndpoint<DiscountEntity> {
+        extends EntityClientBase
+        implements GetListEndpoint<Discount> {
 
-    public DiscountClient(LognexApi api) {
+    public DiscountClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/discount/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return DiscountEntity.class;
+        return Discount.class;
     }
 }

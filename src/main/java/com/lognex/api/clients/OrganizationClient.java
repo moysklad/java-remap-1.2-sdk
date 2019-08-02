@@ -1,37 +1,37 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
-import com.lognex.api.entities.AccountEntity;
+import com.lognex.api.entities.AgentAccount;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
+import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
+import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.HttpRequestExecutor;
-import com.lognex.api.utils.LognexApiException;
 import com.lognex.api.utils.params.ApiParam;
 
 import java.io.IOException;
 import java.util.Collection;
 
 public final class OrganizationClient
-        extends ApiClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<OrganizationEntity>,
-        PostEndpoint<OrganizationEntity>,
+        GetListEndpoint<Organization>,
+        PostEndpoint<Organization>,
         DeleteByIdEndpoint,
         MetadataEndpoint<MetadataAttributeSharedResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<OrganizationEntity>,
-        PutByIdEndpoint<OrganizationEntity> {
+        GetByIdEndpoint<Organization>,
+        PutByIdEndpoint<Organization> {
 
-    public OrganizationClient(LognexApi api) {
+    public OrganizationClient(ApiClient api) {
         super(api, "/entity/organization/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return OrganizationEntity.class;
+        return Organization.class;
     }
 
     @Override
@@ -40,15 +40,15 @@ public final class OrganizationClient
     }
 
     @ApiEndpoint
-    public ListEntity<AccountEntity> getAccounts(String organizationId, ApiParam... params) throws IOException, LognexApiException {
+    public ListEntity<AgentAccount> getAccounts(String organizationId, ApiParam... params) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + organizationId + "/accounts").
                 apiParams(params).
-                list(AccountEntity.class);
+                list(AgentAccount.class);
     }
 
     @ApiEndpoint
-    public void postAccounts(String organizationId, Collection<AccountEntity> entities) throws IOException, LognexApiException {
+    public void createAccounts(String organizationId, Collection<AgentAccount> entities) throws IOException, ApiClientException {
         HttpRequestExecutor.
                 path(api(), path() + organizationId + "/accounts").
                 body(entities).

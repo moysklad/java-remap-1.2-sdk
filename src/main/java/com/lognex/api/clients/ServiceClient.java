@@ -1,29 +1,29 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.products.ServiceEntity;
+import com.lognex.api.entities.products.Service;
 import com.lognex.api.responses.metadata.MetadataAttributeResponse;
 
 public final class ServiceClient
-        extends ApiClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<ServiceEntity>,
-        PostEndpoint<ServiceEntity>,
+        GetListEndpoint<Service>,
+        PostEndpoint<Service>,
         DeleteByIdEndpoint,
         MetadataEndpoint<MetadataAttributeResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<ServiceEntity>,
-        PutByIdEndpoint<ServiceEntity> {
+        GetByIdEndpoint<Service>,
+        PutByIdEndpoint<Service>,
+        GetBySyncIdEndpoint<Service> {
 
-    public ServiceClient(LognexApi api) {
+    public ServiceClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/service/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return ServiceEntity.class;
+        return Service.class;
     }
 
     @Override

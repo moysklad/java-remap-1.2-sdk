@@ -1,0 +1,30 @@
+package com.lognex.api.entities;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+/**
+ * Цена
+ */
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode
+public class Price {
+    /**
+     * Название цены
+     */
+    private PriceType priceType;
+
+    /**
+     * Валюта цены
+     */
+    private Currency currency;
+
+    /**
+     * Значение (в копейках)
+     */
+    private Long value;
+}

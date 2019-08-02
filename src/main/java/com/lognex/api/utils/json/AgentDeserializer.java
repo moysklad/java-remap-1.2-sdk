@@ -2,10 +2,10 @@ package com.lognex.api.utils.json;
 
 import com.google.gson.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.agents.AgentEntity;
-import com.lognex.api.entities.agents.CounterpartyEntity;
-import com.lognex.api.entities.agents.EmployeeEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
+import com.lognex.api.entities.agents.Agent;
+import com.lognex.api.entities.agents.Counterparty;
+import com.lognex.api.entities.agents.Employee;
+import com.lognex.api.entities.agents.Organization;
 
 import java.lang.reflect.Type;
 
@@ -13,25 +13,25 @@ import java.lang.reflect.Type;
  * Десериализатор поля <code>agent</code>. В зависимости от метаданных, возвращает экземпляр
  * одного из классов, наследующихся от Agent: Organization, Counterparty, Employee
  */
-public class AgentDeserializer implements JsonDeserializer<AgentEntity> {
-    private final Gson gson = new GsonBuilder().create();
+public class AgentDeserializer implements JsonDeserializer<Agent> {
+    private final Gson gson = JsonUtils.createGsonWithMetaAdapter();
 
     @Override
-    public AgentEntity deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public Agent deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         MetaEntity me = gson.fromJson(json, MetaEntity.class);
 
         if (me.getMeta() == null) throw new JsonParseException("Can't parse field 'agent': meta is null");
         if (me.getMeta().getType() == null) throw new JsonParseException("Can't parse field 'agent': meta.type is null");
 
         switch (me.getMeta().getType()) {
-            case organization:
-                return context.deserialize(json, OrganizationEntity.class);
+            case ORGANIZATION:
+                return context.deserialize(json, Organization.class);
 
-            case counterparty:
-                return context.deserialize(json, CounterpartyEntity.class);
+            case COUNTERPARTY:
+                return context.deserialize(json, Counterparty.class);
 
-            case employee:
-                return context.deserialize(json, EmployeeEntity.class);
+            case EMPLOYEE:
+                return context.deserialize(json, Employee.class);
 
             default:
                 throw new JsonParseException("Can't parse field 'agent': meta.type must be one of [organization, counterparty, employee]");

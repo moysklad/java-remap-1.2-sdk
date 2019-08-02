@@ -17,7 +17,7 @@ public class ExpandParam extends ApiParam {
     }
 
     @Override
-    protected String render() {
+    protected String render(String host) {
         return Arrays.stream(fields).collect(Collectors.joining(type.getSeparator()));
     }
 }

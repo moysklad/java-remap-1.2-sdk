@@ -1,7 +1,7 @@
 package com.lognex.api.responses.metadata;
 
 import com.lognex.api.entities.CustomEntity;
-import com.lognex.api.entities.GlobalMetadataEntity.CreateSharedOption;
+import com.lognex.api.entities.GlobalMetadata.CreateSharedOption;
 import com.lognex.api.entities.MetaEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

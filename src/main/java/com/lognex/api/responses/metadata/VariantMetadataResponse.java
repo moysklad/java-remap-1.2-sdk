@@ -1,6 +1,6 @@
 package com.lognex.api.responses.metadata;
 
-import com.lognex.api.entities.products.VariantEntity;
+import com.lognex.api.entities.products.Variant;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,5 +13,5 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class VariantMetadataResponse extends MetadataAttributeSharedPriceTypesResponse {
-    private List<VariantEntity.Characteristic> characteristics;
+    private List<Variant.Characteristic> characteristics;
 }

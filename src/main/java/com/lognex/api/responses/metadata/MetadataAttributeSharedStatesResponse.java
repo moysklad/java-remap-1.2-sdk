@@ -1,6 +1,6 @@
 package com.lognex.api.responses.metadata;
 
-import com.lognex.api.entities.StateEntity;
+import com.lognex.api.entities.State;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,5 +13,5 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class MetadataAttributeSharedStatesResponse extends MetadataAttributeSharedResponse {
-    private List<StateEntity> states;
+    private List<State> states;
 }

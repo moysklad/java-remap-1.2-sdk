@@ -1,29 +1,28 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.ProjectEntity;
+import com.lognex.api.entities.Project;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
 
 public final class ProjectClient
-        extends ApiClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<ProjectEntity>,
-        PostEndpoint<ProjectEntity>,
+        GetListEndpoint<Project>,
+        PostEndpoint<Project>,
         DeleteByIdEndpoint,
         MetadataEndpoint<MetadataAttributeSharedResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<ProjectEntity>,
-        PutByIdEndpoint<ProjectEntity> {
+        GetByIdEndpoint<Project>,
+        PutByIdEndpoint<Project> {
 
-    public ProjectClient(LognexApi api) {
+    public ProjectClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/project/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return ProjectEntity.class;
+        return Project.class;
     }
 
     @Override

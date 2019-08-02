@@ -1,5 +1,6 @@
 package com.lognex.api.utils;
 
+import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -50,6 +51,10 @@ public interface TestRandomizers {
     default Enum randomEnum(Class<? extends Enum> enumClass) {
         int x = rnd.nextInt(enumClass.getEnumConstants().length);
         return enumClass.getEnumConstants()[x];
+    }
+
+    default String randomStringTail() {
+        return randomString(3) + "_" + new Date().getTime();
     }
 
     default boolean randomBoolean() {

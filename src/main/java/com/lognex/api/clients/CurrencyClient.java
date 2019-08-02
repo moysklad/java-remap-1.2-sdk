@@ -1,25 +1,24 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.*;
-import com.lognex.api.entities.CurrencyEntity;
+import com.lognex.api.entities.Currency;
 import com.lognex.api.entities.MetaEntity;
 
 public final class CurrencyClient
-        extends ApiClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<CurrencyEntity>,
-        PostEndpoint<CurrencyEntity>,
+        GetListEndpoint<Currency>,
+        PostEndpoint<Currency>,
         DeleteByIdEndpoint,
-        GetByIdEndpoint<CurrencyEntity>,
-        PutByIdEndpoint<CurrencyEntity> {
+        GetByIdEndpoint<Currency>,
+        PutByIdEndpoint<Currency> {
 
-    public CurrencyClient(LognexApi api) {
+    public CurrencyClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/currency/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return CurrencyEntity.class;
+        return Currency.class;
     }
 }

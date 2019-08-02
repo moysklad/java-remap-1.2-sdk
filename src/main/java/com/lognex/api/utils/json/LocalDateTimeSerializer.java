@@ -6,13 +6,13 @@ import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static com.lognex.api.utils.Constants.DATE_FORMAT_PATTERN;
+
 public class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {
     private final DateTimeFormatter formatter;
 
-    public static final String dateFormatPattern = "yyyy-MM-dd HH:mm:ss.SSS";
-
     public LocalDateTimeSerializer() {
-        formatter = DateTimeFormatter.ofPattern(dateFormatPattern);
+        formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN);
     }
 
     @Override

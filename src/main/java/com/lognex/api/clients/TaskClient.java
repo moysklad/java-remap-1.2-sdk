@@ -1,25 +1,24 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.TaskEntity;
+import com.lognex.api.entities.Task;
 
 public final class TaskClient
-        extends ApiClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<TaskEntity>,
-        GetByIdEndpoint<TaskEntity>,
-        PostEndpoint<TaskEntity>,
-        PutByIdEndpoint<TaskEntity>,
+        GetListEndpoint<Task>,
+        GetByIdEndpoint<Task>,
+        PostEndpoint<Task>,
+        PutByIdEndpoint<Task>,
         DeleteByIdEndpoint {
 
-    TaskClient(LognexApi api) {
+    TaskClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/task/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return TaskEntity.class;
+        return Task.class;
     }
 }

@@ -1,29 +1,29 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.LognexApi;
+import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.StoreEntity;
+import com.lognex.api.entities.Store;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
 
 public final class StoreClient
-        extends ApiClient
+        extends EntityClientBase
         implements
-        GetListEndpoint<StoreEntity>,
-        PostEndpoint<StoreEntity>,
+        GetListEndpoint<Store>,
+        PostEndpoint<Store>,
         DeleteByIdEndpoint,
         MetadataEndpoint<MetadataAttributeSharedResponse>,
         MetadataAttributeEndpoint,
-        GetByIdEndpoint<StoreEntity>,
-        PutByIdEndpoint<StoreEntity> {
+        GetByIdEndpoint<Store>,
+        PutByIdEndpoint<Store> {
 
-    public StoreClient(LognexApi api) {
+    public StoreClient(ApiClient api) {
         super(api, "/entity/store/");
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return StoreEntity.class;
+        return Store.class;
     }
 
     @Override

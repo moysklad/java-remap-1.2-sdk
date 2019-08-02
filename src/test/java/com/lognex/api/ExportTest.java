@@ -1,12 +1,12 @@
 package com.lognex.api;
 
 import com.lognex.api.entities.ExportExtension;
-import com.lognex.api.entities.StoreEntity;
-import com.lognex.api.entities.TemplateEntity;
-import com.lognex.api.entities.agents.OrganizationEntity;
-import com.lognex.api.entities.documents.DemandDocumentEntity;
+import com.lognex.api.entities.Store;
+import com.lognex.api.entities.Template;
+import com.lognex.api.entities.agents.Organization;
+import com.lognex.api.entities.documents.Demand;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.LognexApiException;
+import com.lognex.api.utils.ApiClientException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,11 +18,11 @@ import static com.lognex.api.clients.endpoints.ExportEndpoint.PrintRequest.print
 import static org.junit.Assert.*;
 
 public class ExportTest {
-    private LognexApi api;
+    private ApiClient api;
 
     @Before
     public void init() {
-        api = new LognexApi(
+        api = new ApiClient(
                 System.getenv("API_HOST"),
                 true, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
@@ -35,22 +35,22 @@ public class ExportTest {
     }
 
     @Test
-    public void test_exportSingle() throws IOException, LognexApiException {
+    public void test_exportSingle() throws IOException, ApiClientException {
         String docId;
         {
-            OrganizationEntity ag = api.entity().organization().get().getRows().get(0);
-            StoreEntity st = api.entity().store().get().getRows().get(0);
+            Organization ag = api.entity().organization().get().getRows().get(0);
+            Store st = api.entity().store().get().getRows().get(0);
 
-            DemandDocumentEntity doc = new DemandDocumentEntity();
+            Demand doc = new Demand();
             doc.setAgent(ag);
             doc.setOrganization(ag);
             doc.setStore(st);
-            api.entity().demand().post(doc);
+            api.entity().demand().create(doc);
 
             docId = doc.getId();
         }
 
-        ListEntity<TemplateEntity> templates = api.entity().demand().metadata().embeddedtemplate();
+        ListEntity<Template> templates = api.entity().demand().metadata().embeddedtemplate();
         assertNotNull(templates);
         assertNotNull(templates.getRows());
         assertFalse(templates.getRows().isEmpty());
@@ -77,22 +77,22 @@ public class ExportTest {
     }
 
     @Test
-    public void test_exportMultiple() throws IOException, LognexApiException {
+    public void test_exportMultiple() throws IOException, ApiClientException {
         String docId;
         {
-            OrganizationEntity ag = api.entity().organization().get().getRows().get(0);
-            StoreEntity st = api.entity().store().get().getRows().get(0);
+            Organization ag = api.entity().organization().get().getRows().get(0);
+            Store st = api.entity().store().get().getRows().get(0);
 
-            DemandDocumentEntity doc = new DemandDocumentEntity();
+            Demand doc = new Demand();
             doc.setAgent(ag);
             doc.setOrganization(ag);
             doc.setStore(st);
-            api.entity().demand().post(doc);
+            api.entity().demand().create(doc);
 
             docId = doc.getId();
         }
 
-        ListEntity<TemplateEntity> templates = api.entity().demand().metadata().embeddedtemplate();
+        ListEntity<Template> templates = api.entity().demand().metadata().embeddedtemplate();
         assertNotNull(templates);
         assertNotNull(templates.getRows());
         assertFalse(templates.getRows().isEmpty());

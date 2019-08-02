@@ -3,11 +3,11 @@ package com.lognex.api.serializers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
-import com.lognex.api.LognexApi;
-import com.lognex.api.entities.ContextEntity;
+import com.lognex.api.ApiClient;
+import com.lognex.api.entities.Context;
 import com.lognex.api.entities.Meta;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.agents.EmployeeEntity;
+import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.entities.documents.DocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.TestAsserts;
@@ -22,7 +22,7 @@ public class ListEntityDeserializerTest implements TestAsserts, TestRandomizers 
     @Test
     public void test_deserialize() {
         Gson gson = new GsonBuilder().create();
-        Gson gsonCustom = LognexApi.createGson(true);
+        Gson gsonCustom = ApiClient.createGson(true);
 
         ListEntity<MetaEntity> e = new ListEntity<>();
 
@@ -30,8 +30,8 @@ public class ListEntityDeserializerTest implements TestAsserts, TestRandomizers 
         e.getMeta().setHref(randomString());
         e.getMeta().setMetadataHref(randomString());
 
-        e.setContext(new ContextEntity());
-        e.getContext().setEmployee(new EmployeeEntity());
+        e.setContext(new Context());
+        e.getContext().setEmployee(new Employee());
         e.getContext().getEmployee().setId(randomString());
 
         e.setRows(new ArrayList<>());
@@ -39,22 +39,22 @@ public class ListEntityDeserializerTest implements TestAsserts, TestRandomizers 
         DocumentPosition m1 = new DocumentPosition();
         m1.setMeta(new Meta());
         m1.getMeta().setHref(randomString());
-        m1.getMeta().setType(Meta.Type.demandposition);
+        m1.getMeta().setType(Meta.Type.DEMAND_POSITION);
         e.getRows().add(m1);
 
         DocumentPosition m2 = new DocumentPosition();
         m2.setMeta(new Meta());
         m2.getMeta().setHref(randomString());
-        m2.getMeta().setType(Meta.Type.demandposition);
+        m2.getMeta().setType(Meta.Type.DEMAND_POSITION);
         e.getRows().add(m2);
 
         DocumentPosition m3 = new DocumentPosition();
         m3.setMeta(new Meta());
         m3.getMeta().setHref(randomString());
-        m3.getMeta().setType(Meta.Type.demandposition);
+        m3.getMeta().setType(Meta.Type.DEMAND_POSITION);
         e.getRows().add(m3);
 
-        String data = gson.toJson(e);
+        String data = gsonCustom.toJson(e);
 
         ListEntity<DocumentPosition> parsed1 = gson.fromJson(data, ListEntity.class);
         ListEntity<DocumentPosition> parsed2 = gsonCustom.fromJson(data, ListEntity.class);
