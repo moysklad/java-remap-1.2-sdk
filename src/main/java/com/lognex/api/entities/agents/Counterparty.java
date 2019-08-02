@@ -188,7 +188,7 @@ public final class Counterparty extends Agent implements IEntityWithAttributes {
     /**
      * Цена
      */
-    private String priceType;
+    private PriceType priceType;
 
     public Counterparty(String id) {
         super(id);
