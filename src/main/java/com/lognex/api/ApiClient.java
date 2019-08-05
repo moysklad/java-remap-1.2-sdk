@@ -14,6 +14,7 @@ import com.lognex.api.entities.products.markers.ProductMarker;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.CompanySettingsMetadata;
+import com.lognex.api.utils.NoAuthRedirectStrategy;
 import com.lognex.api.utils.json.*;
 import lombok.Getter;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -40,7 +41,10 @@ public final class ApiClient {
      * @param password   пароль пользователя
      */
     public ApiClient(String host, boolean forceHttps, String login, String password) {
-        this(host, forceHttps, login, password, HttpClients.createDefault());
+        this(host, forceHttps, login, password, HttpClients.custom()
+                .setRedirectStrategy(new NoAuthRedirectStrategy())
+                .build()
+        );
     }
 
     /**
