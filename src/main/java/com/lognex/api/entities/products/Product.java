@@ -181,9 +181,9 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
     /**
      * Тип маркируемой продукции
      */
-    TrackingType trackingType;
+    private TrackingType trackingType;
 
-    enum TrackingType {
+    public enum TrackingType {
         NOT_TRACKED,
         TOBACCO,
         SHOES
