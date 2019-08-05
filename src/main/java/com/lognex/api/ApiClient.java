@@ -18,7 +18,6 @@ import com.lognex.api.utils.json.*;
 import lombok.Getter;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.client.LaxRedirectStrategy;
 
 import java.time.LocalDateTime;
 
@@ -41,10 +40,7 @@ public final class ApiClient {
      * @param password   пароль пользователя
      */
     public ApiClient(String host, boolean forceHttps, String login, String password) {
-        this(host, forceHttps, login, password, HttpClients.custom()
-                .setRedirectStrategy(new LaxRedirectStrategy())
-                .build()
-        );
+        this(host, forceHttps, login, password, HttpClients.createDefault());
     }
 
     /**
