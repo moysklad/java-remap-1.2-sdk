@@ -23,7 +23,10 @@ public class NoAuthRedirectStrategy extends DefaultRedirectStrategy {
             return new HttpGet(uri) {
                 @Override
                 public void setHeaders(Header[] headers) {
-                    super.setHeaders((Header[]) Arrays.stream(headers).filter(h -> !h.getName().equals("Authorization")).toArray());
+                    super.setHeaders(Arrays.stream(headers)
+                            .filter(h -> !h.getName().equals("Authorization"))
+                            .toArray(Header[]::new)
+                    );
                 }
             };
         }
