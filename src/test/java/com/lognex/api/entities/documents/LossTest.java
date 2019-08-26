@@ -6,7 +6,6 @@ import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -55,7 +54,6 @@ public class LossTest extends DocumentWithPositionsTestBase {
         assertEquals(Long.valueOf(0), loss.getSum());
         assertFalse(loss.getShared());
         assertTrue(loss.getApplicable());
-        LoggerFactory.getLogger("idgaf").info(String.valueOf(ChronoUnit.MILLIS.between(time, loss.getMoment())));
         assertTrue(ChronoUnit.MILLIS.between(time, loss.getMoment()) < 1000);
 
         assertEquals(loss.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());
