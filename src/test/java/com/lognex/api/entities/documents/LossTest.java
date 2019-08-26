@@ -55,7 +55,7 @@ public class LossTest extends DocumentWithPositionsTestBase {
         assertEquals(Long.valueOf(0), loss.getSum());
         assertFalse(loss.getShared());
         assertTrue(loss.getApplicable());
-        LoggerFactory.getLogger("idgaf").info("Time between moment:" + ChronoUnit.MILLIS.between(time, loss.getMoment()));
+        LoggerFactory.getLogger("idgaf").info(String.valueOf(ChronoUnit.MILLIS.between(time, loss.getMoment())));
         assertTrue(ChronoUnit.MILLIS.between(time, loss.getMoment()) < 1000);
 
         assertEquals(loss.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());
