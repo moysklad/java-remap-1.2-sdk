@@ -64,7 +64,7 @@ public class DemandTest extends DocumentWithPositionsTestBase {
         assertEquals(Long.valueOf(0), demand.getSum());
         assertFalse(demand.getShared());
         assertTrue(demand.getApplicable());
-        LoggerFactory.getLogger("idgaf").info(String.valueOf(ChronoUnit.MILLIS.between(time, demand.getMoment())));
+        LoggerFactory.getLogger("idgaf").info("Time between moment:" + ChronoUnit.MILLIS.between(time, demand.getMoment()));
         assertTrue(ChronoUnit.MILLIS.between(time, demand.getMoment()) < 1000);
 
         assertEquals(demand.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());
