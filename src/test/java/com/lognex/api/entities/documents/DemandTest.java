@@ -6,6 +6,7 @@ import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -63,6 +64,7 @@ public class DemandTest extends DocumentWithPositionsTestBase {
         assertEquals(Long.valueOf(0), demand.getSum());
         assertFalse(demand.getShared());
         assertTrue(demand.getApplicable());
+        LoggerFactory.getLogger("idgaf").info(String.valueOf(ChronoUnit.MILLIS.between(time, demand.getMoment())));
         assertTrue(ChronoUnit.MILLIS.between(time, demand.getMoment()) < 1000);
 
         assertEquals(demand.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());

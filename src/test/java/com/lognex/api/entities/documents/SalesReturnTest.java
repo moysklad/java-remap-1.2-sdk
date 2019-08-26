@@ -26,7 +26,6 @@ public class SalesReturnTest extends DocumentWithPositionsTestBase {
         salesReturn.setDescription(randomString());
         salesReturn.setVatEnabled(true);
         salesReturn.setVatIncluded(true);
-        salesReturn.setMoment(LocalDateTime.now());
         Organization organization = simpleEntityManager.getOwnOrganization();
         salesReturn.setOrganization(organization);
         Counterparty agent = simpleEntityManager.createSimple(Counterparty.class);
@@ -44,6 +43,7 @@ public class SalesReturnTest extends DocumentWithPositionsTestBase {
         api.entity().demand().create(demand);
         salesReturn.setDemand(demand);
 
+        salesReturn.setMoment(LocalDateTime.now());
         api.entity().salesreturn().create(salesReturn);
 
         ListEntity<SalesReturn> updatedEntitiesList = api.entity().salesreturn().get(filterEq("name", salesReturn.getName()));
