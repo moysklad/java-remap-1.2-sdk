@@ -5,6 +5,7 @@ import com.lognex.api.entities.EntityGetUpdateDeleteTest;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.ApiClientException;
+import com.lognex.api.utils.TestUtils;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -84,7 +85,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
             products.add(product);
 
             position.setAssortment(product);
-            DecimalFormat df = new DecimalFormat("#.###");
+            DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(3);
             position.setQuantity(Double.valueOf(df.format(randomDouble(1, 5, 3))));
 
             positions.add(position);
@@ -124,7 +125,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
             products.add(product);
 
             position.setAssortment(product);
-            DecimalFormat df = new DecimalFormat("#.###");
+            DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(3);
             position.setQuantity(Double.valueOf(df.format(randomDouble(1, 5, 3))));
 
             positions.add(position);
@@ -168,7 +169,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         DocumentPosition position = positions.get(0);
         DocumentPosition retrievedPosition = ((DocumentPositionsEndpoint) entityClient()).getPosition(document.getId(), position.getId());
 
-        DecimalFormat df = new DecimalFormat("#.###");
+        DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(3);
         double quantity = Double.valueOf(df.format(position.getQuantity() + randomDouble(1, 1, 3)));
         position.setQuantity(quantity);
         ((DocumentPositionsEndpoint) entityClient()).updatePosition(document.getId(), position.getId(), position);
@@ -184,7 +185,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         DocumentPosition position = positions.get(0);
         DocumentPosition retrievedPosition = ((DocumentPositionsEndpoint) entityClient()).getPosition(document.getId(), position.getId());
 
-        DecimalFormat df = new DecimalFormat("#.###");
+        DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(3);
         double quantity = Double.valueOf(df.format(position.getQuantity() + randomDouble(1, 1, 3)));
         position.setQuantity(quantity);
         ((DocumentPositionsEndpoint) entityClient()).updatePosition(document, position.getId(), position);
@@ -200,7 +201,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         DocumentPosition position = positions.get(0);
         DocumentPosition retrievedPosition = ((DocumentPositionsEndpoint) entityClient()).getPosition(document.getId(), position.getId());
 
-        DecimalFormat df = new DecimalFormat("#.###");
+        DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(3);
         double quantity = Double.valueOf(df.format(position.getQuantity() + randomDouble(1, 1, 3)));
         position.setQuantity(quantity);
         ((DocumentPositionsEndpoint) entityClient()).updatePosition(document, position, position);
@@ -216,7 +217,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         DocumentPosition position = positions.get(0);
         DocumentPosition retrievedPosition = ((DocumentPositionsEndpoint) entityClient()).getPosition(document.getId(), position.getId());
 
-        DecimalFormat df = new DecimalFormat("#.###");
+        DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(3);
         double quantity = Double.valueOf(df.format(position.getQuantity() + randomDouble(1, 1, 3)));
         position.setQuantity(quantity);
         ((DocumentPositionsEndpoint) entityClient()).updatePosition(document, position);

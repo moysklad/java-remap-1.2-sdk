@@ -5,12 +5,15 @@ import com.lognex.api.entities.products.Bundle;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.ApiClientException;
+import com.lognex.api.utils.TestUtils;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import static com.lognex.api.utils.params.ExpandParam.expand;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
@@ -46,9 +49,7 @@ public class BundleEntityTest extends EntityGetUpdateDeleteTest {
         assertEquals(bundle.getComponents().getMeta().getSize(), retrievedEntity.getComponents().getMeta().getSize());
         assertTrue(retrievedEntity.getComponents().getRows().get(0).getAssortment() instanceof Product);
         assertEquals(product.getName(), ((Product) retrievedEntity.getComponents().getRows().get(0).getAssortment()).getName());
-        DecimalFormat df = new DecimalFormat("#.####");
-        df.setDecimalSeparatorAlwaysShown(true);
-        df.setMinimumFractionDigits(1);
+        DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(4);
         assertEquals(df.format(components.getRows().get(0).getQuantity()), retrievedEntity.getComponents().getRows().get(0).getQuantity().toString());
     }
 
