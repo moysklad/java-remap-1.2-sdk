@@ -9,6 +9,7 @@ import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.ApiClientException;
+import com.lognex.api.utils.TestUtils;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -98,7 +99,7 @@ public class ProcessingOrderTest extends EntityGetUpdateDeleteTest {
         Product material = simpleEntityManager.createSimple(Product.class);
         ProcessingPlan.PlanItem materialItem = new ProcessingPlan.PlanItem();
         materialItem.setProduct(material);
-        DecimalFormat df = new DecimalFormat("#.####");
+        DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(4);
         materialItem.setQuantity(Double.valueOf(df.format(randomDouble(1, 5, 4))));
         processingPlan.getMaterials().getRows().add(materialItem);
 
