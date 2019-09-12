@@ -18,7 +18,8 @@ public final class EnterClient
         GetByIdEndpoint<Enter>,
         PutByIdEndpoint<Enter>,
         DocumentPositionsEndpoint,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public EnterClient(ApiClient api) {
         super(api, "/entity/enter/");

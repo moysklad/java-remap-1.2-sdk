@@ -19,7 +19,8 @@ public final class DemandClient
         GetByIdEndpoint<Demand>,
         PutByIdEndpoint<Demand>,
         DocumentPositionsEndpoint,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public DemandClient(ApiClient api) {
         super(api, "/entity/demand/");

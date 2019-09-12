@@ -166,7 +166,12 @@ public final class Meta {
         INVENTORY("inventory", Inventory.class),
         INVENTORY_POSITION("inventoryposition", DocumentPosition.class),
         COMPANY_SETTINGS("companysettings", CompanySettingsResponse.class),
-        CASHIER("cashier", Cashier.class)
+        CASHIER("cashier", Cashier.class),
+        BONUS_TRANSACTION("bonustransaction", BonusTransaction.class),
+        REGION("region", Region.class),
+        ASSORTMENT("assortment", Assortment.class),
+        OPERATION_PUBLICATION("operationpublication", Publication.class),
+        CONTRACT_PUBLICATION("contractpublication", Publication.class)
         ;
 
         @Getter
@@ -185,11 +190,16 @@ public final class Meta {
                     return CUSTOM_TEMPLATE;
                 }
                 return ((Template) entity).getIsEmbedded() ? EMBEDDED_TEMPLATE : CUSTOM_TEMPLATE;
+            } else if (Publication.class.isAssignableFrom(entity.getClass())) {
+                if (((Publication) entity).getType() == null) {
+                    return OPERATION_PUBLICATION;
+                }
+                return ((Publication) entity).getType() == Publication.PublicationType.OPERATION ? OPERATION_PUBLICATION : CONTRACT_PUBLICATION;
             }
             return find(entity.getClass());
         }
 
-        public static Type find(Class<? extends MetaEntity> clazz){
+        private static Type find(Class<? extends MetaEntity> clazz){
             return Arrays.stream(values())
                     .filter(t -> t.modelClass.getSimpleName().equals(clazz.getSimpleName()))
                     .findFirst().orElseThrow(() -> new IllegalArgumentException("No type found for class: " + clazz.getSimpleName()));

@@ -19,7 +19,8 @@ public final class SupplyClient
         GetByIdEndpoint<Supply>,
         PutByIdEndpoint<Supply>,
         DocumentPositionsEndpoint,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public SupplyClient(ApiClient api) {
         super(api, "/entity/supply/");

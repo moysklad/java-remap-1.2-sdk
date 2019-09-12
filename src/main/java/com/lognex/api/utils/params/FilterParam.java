@@ -90,7 +90,7 @@ public class FilterParam extends ApiParam {
                 filterString.append(key)
                         .append(filterType.str);
                 if (hrefValue != null) {
-                    filterString.append(MetaHrefUtils.makeHref(Meta.Type.find(hrefValue.getClass()), hrefValue, host));
+                    filterString.append(MetaHrefUtils.makeHref(Meta.Type.find(hrefValue), hrefValue, host));
                 }
                 break;
             case ATTRIBUTE:
@@ -130,7 +130,7 @@ public class FilterParam extends ApiParam {
                         if (value != null) {
                             if (MetaEntity.class.isAssignableFrom(value.getClass())) {
                                 Meta.Type type = attrKey.getEntityType();
-                                type = type == null ? Meta.Type.find(((MetaEntity) value).getClass()) : type;
+                                type = type == null ? Meta.Type.find((MetaEntity) value) : type;
                                 filterString.append(MetaHrefUtils.makeHref(type, ((MetaEntity) value), host));
                             } else {
                                 throw new IllegalArgumentException("Неизвестный тип данных дополнительного поля: " + value.getClass().getSimpleName());

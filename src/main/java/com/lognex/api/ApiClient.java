@@ -128,6 +128,7 @@ public final class ApiClient {
         gb.registerTypeAdapter(ProductMarker.class, pmse);
         gb.registerTypeAdapter(SingleProductMarker.class, pmse);
         gb.registerTypeAdapter(ConsignmentParentMarker.class, pmse);
+        gb.registerTypeAdapter(Assortment.class, pmse);
 
         FinanceDocumentMarkerSerializer fdms = new FinanceDocumentMarkerSerializer();
         gb.registerTypeAdapter(FinanceDocumentMarker.class, fdms);
@@ -144,7 +145,8 @@ public final class ApiClient {
         gb.registerTypeAdapter(Barcode.class, new Barcode.Serializer());
         gb.registerTypeAdapter(DocumentTemplate.class, new DocumentTemplate.Serializer());
         gb.registerTypeAdapter(Meta.Type.class, new Meta.Type.Serializer());
-        gb.registerTypeAdapter(Template.class, new Template.Serializer());
+        gb.registerTypeAdapter(Template.class, new Template.Deserializer());
+        gb.registerTypeAdapter(Publication.class, new Publication.Deserializer());
 
         return gb.create();
     }

@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public abstract class AbstractProduct extends MetaEntity implements ProductMarker {
+public abstract class AbstractProduct extends Assortment implements ProductMarker {
     /**
      * Код Товара
      */

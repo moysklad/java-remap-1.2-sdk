@@ -17,7 +17,8 @@ public final class RetailDemandClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<RetailDemand>,
         PutByIdEndpoint<RetailDemand>,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public RetailDemandClient(ApiClient api) {
         super(api, "/entity/retaildemand/");

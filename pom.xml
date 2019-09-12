@@ -6,7 +6,7 @@
 
     <groupId>com.moysklad.api</groupId>
     <artifactId>java-remap-sdk</artifactId>
-    <version>2.1-BETA</version>
+    <version>2.2-BETA</version>
 
     <distributionManagement>
         <repository>

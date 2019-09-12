@@ -122,4 +122,26 @@ public class DiscountTest extends EntityTestBase {
         assertEquals(Long.valueOf(200000), accumulationDiscount.getLevels().get(1).getAmount());
         assertEquals(Integer.valueOf(15), accumulationDiscount.getLevels().get(1).getDiscount());
     }
+
+    @Test
+    public void deserializeBonusProgramDiscountTest() {
+        Gson gson = ApiClient.createGson();
+
+        BonusProgramDiscount bonusProgram = gson.fromJson(
+                TestUtils.getFile("discountJson/bonusprogram.json"), BonusProgramDiscount.class
+        );
+
+        assertEquals(Meta.Type.BONUS_PROGRAM, bonusProgram.getMeta().getType());
+        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/bonusprogram/96673f4d-9f4d-11e6-8af5-581e0000007b",
+                bonusProgram.getMeta().getHref()
+        );
+        assertEquals("96673f4d-9f4d-11e6-8af5-581e0000007b", bonusProgram.getId());
+        assertEquals("Бонусная программа", bonusProgram.getName());
+        assertTrue(bonusProgram.getActive());
+        assertTrue(bonusProgram.getAllProducts());
+        assertNull(bonusProgram.getAssortment());
+        assertEquals(Long.valueOf(1), bonusProgram.getEarnRateRoublesToPoint());
+        assertEquals(Long.valueOf(10), bonusProgram.getSpendRatePointsToRouble());
+        assertEquals(Long.valueOf(100), bonusProgram.getMaxPaidRatePercents());
+    }
 }

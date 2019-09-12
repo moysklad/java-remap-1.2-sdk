@@ -275,4 +275,24 @@ public final class EntityClient {
     public TaskClient task() {
         return new TaskClient(api);
     }
+
+    @ApiChainElement
+    public BonusProgramClient bonusprogram() {
+        return new BonusProgramClient(api);
+    }
+
+    @ApiChainElement
+    public BonusTransactionClient bonustransaction() {
+        return new BonusTransactionClient(api);
+    }
+
+    @ApiChainElement
+    public RegionClient region() {
+        return new RegionClient(api);
+    }
+
+    @ApiChainElement
+    public AssortmentClient assortment() {
+        return new AssortmentClient(api);
+    }
 }
