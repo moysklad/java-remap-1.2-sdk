@@ -24,4 +24,9 @@ public final class BonusTransactionClient
     public Class<? extends MetaEntity> entityClass() {
         return BonusTransaction.class;
     }
+
+    @Override
+    public Class<? extends MetaEntity> metaEntityClass() {
+        return MetadataAttributeSharedResponse.class;
+    }
 }
