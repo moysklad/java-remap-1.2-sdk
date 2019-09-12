@@ -24,7 +24,7 @@ public class PublicationTest {
     public void init() {
         api = new ApiClient(
                 System.getenv("API_HOST"),
-                false, System.getenv("API_LOGIN"),
+                true, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
         );
     }
