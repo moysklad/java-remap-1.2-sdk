@@ -9,6 +9,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class NotificationSubscribeTermsExpired extends NotificationSubscribeExpired {
-    private Integer daysLeft;
+public class NotificationSubscribeExpired extends Notification {
 }

@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "href": "https://online.moysklad.ru/api/remap/1.2/notification/c6082a9e-56e1-11e9-c0a8-100b00000011",
+    "type": "NotificationOrderNew",
+    "mediaType": "application/json"
+  },
+  "id": "c6082a9e-56e1-11e9-c0a8-100b00000011",
+  "accountId": "c45c23d5-5640-11e9-c0a8-100a00000001",
+  "created": "2019-04-04 16:58:50.000",
+  "read": false,
+  "title": "Новый заказ покупателя № 00001",
+  "description": "Сумма: 499.99. Покупатель: Розничный покупатель.",
+  "order": {
+    "meta": {
+      "href": "https://online.moysklad.ru/api/remap/1.2/entity/customerorder/c5ab5d93-56e1-11e9-c0a8-100a0000001d",
+      "metadataHref": "https://online.moysklad.ru/api/remap/1.2/entity/customerorder/metadata",
+      "type": "customerorder",
+      "mediaType": "application/json"
+    },
+    "id": "c5ab5d93-56e1-11e9-c0a8-100a0000001d",
+    "name": "00001",
+    "sum": 49999,
+    "agentName": "Розничный покупатель"
+  }
+}

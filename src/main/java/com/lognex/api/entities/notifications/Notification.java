@@ -1,6 +1,5 @@
 package com.lognex.api.entities.notifications;
 
-import com.google.gson.*;
 import com.lognex.api.entities.MetaEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Notification extends MetaEntity {
+public abstract class Notification extends MetaEntity {
     private LocalDateTime created;
     private Boolean read;
     private String title;

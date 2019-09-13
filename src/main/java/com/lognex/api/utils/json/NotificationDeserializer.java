@@ -27,7 +27,7 @@ public class NotificationDeserializer implements JsonDeserializer<Notification> 
                 return context.deserialize(json, NotificationInvoiceOutOverdue.class);
 
             case NOTIFICATION_GOOD_COUNT_TOO_LOW:
-                return gson.fromJson(json, NotificationGoodCountTooLow.class);
+                return context.deserialize(json, NotificationGoodCountTooLow.class);
 
             case NOTIFICATION_TASK_ASSIGNED:
             case NOTIFICATION_TASK_UNASSIGNED:
@@ -50,7 +50,7 @@ public class NotificationDeserializer implements JsonDeserializer<Notification> 
                 return context.deserialize(json, NotificationExchange.class);
 
             case NOTIFICATION_SUBSCRIBE_EXPIRED:
-                return context.deserialize(json, Notification.class);
+                return context.deserialize(json, NotificationSubscribeExpired.class);
 
             case NOTIFICATION_SUBSCRIBE_TERMS_EXPIRED:
                 return context.deserialize(json, NotificationSubscribeTermsExpired.class);

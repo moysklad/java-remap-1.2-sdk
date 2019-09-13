@@ -190,7 +190,7 @@ public final class Meta {
         NOTIFICATION_TASK_COMMENT_CHANGED("NotificationTaskCommentChanged", NotificationTaskChanged.class),
         NOTIFICATION_IMPORT_COMPLETED("NotificationImportCompleted", NotificationExchange.class),
         NOTIFICATION_EXPORT_COMPLETED("NotificationExportCompleted", NotificationExchange.class),
-        NOTIFICATION_SUBSCRIBE_EXPIRED("NotificationSubscribeExpired", Notification.class),
+        NOTIFICATION_SUBSCRIBE_EXPIRED("NotificationSubscribeExpired", NotificationSubscribeExpired.class),
         NOTIFICATION_SUBSCRIBE_TERMS_EXPIRED("NotificationSubscribeTermsExpired", NotificationSubscribeTermsExpired.class),
         NOTIFICATION_RETAIL_SHIFT_OPENED("NotificationRetailShiftOpened", NotificationRetailShift.class),
         NOTIFICATION_RETAIL_SHIFT_CLOSED("NotificationRetailShiftClosed", NotificationRetailShiftClosed.class),

@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "href": "https://online.moysklad.ru/api/remap/1.2/notification/8002409b-351d-11e9-9ff4-34e80002a126",
+    "type": "NotificationRetailShiftOpened",
+    "mediaType": "application/json"
+  },
+  "id": "8002409b-351d-11e9-9ff4-34e80002a126",
+  "accountId": "45eb22e0-0e7b-11e2-1c31-3c4a92f3a0a7",
+  "created": "2019-02-20 17:40:42.000",
+  "read": true,
+  "title": "Открыта смена в Точка продаж",
+  "description": "Кассир: Кассир Кладкин",
+  "user": {
+    "meta": {
+      "href": "https://online.moysklad.ru/api/remap/1.2/entity/employee/4d4ba195-0e7b-11e2-480d-3c4a92f3a0a7",
+      "metadataHref": "https://online.moysklad.ru/api/remap/1.2/entity/employee/metadata",
+      "type": "employee",
+      "mediaType": "application/json"
+    },
+    "id": "4d4ba195-0e7b-11e2-480d-3c4a92f3a0a7",
+    "name": "Кассир Кладкин"
+  },
+  "retailStore": {
+    "meta": {
+      "href": "https://online.moysklad.ru/api/remap/1.2/entity/retailstore/ffa5bbf4-351b-11e9-9ff4-34e800131be8",
+      "metadataHref": "https://online.moysklad.ru/api/remap/1.2/entity/retailstore/metadata",
+      "type": "retailstore",
+      "mediaType": "application/json"
+    },
+    "id": "ffa5bbf4-351b-11e9-9ff4-34e800131be8",
+    "name": "Точка продаж"
+  },
+  "retailShift": {
+    "meta": {
+      "href": "https://online.moysklad.ru/api/remap/1.2/entity/retailshift/7e41bd3c-351c-11e9-9ff4-34e80012cfc1",
+      "metadataHref": "https://online.moysklad.ru/api/remap/1.2/entity/retailshift/metadata",
+      "type": "retailshift",
+      "mediaType": "application/json"
+    },
+    "id": "7e41bd3c-351c-11e9-9ff4-34e80012cfc1",
+    "name": "00002",
+    "open": "2019-02-20 17:33:00.000",
+    "proceed": 3000000
+  }
+}
