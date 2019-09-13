@@ -45,11 +45,10 @@ public interface PublicationEndpoint extends Endpoint {
     @Setter
     @NoArgsConstructor
     class PublicationPayload {
+        private Template template;
+
         PublicationPayload(Template template) {
             this.template = template;
         }
-
-        private Template template;
-
     }
 }

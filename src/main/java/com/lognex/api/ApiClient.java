@@ -3,12 +3,16 @@ package com.lognex.api;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lognex.api.clients.EntityClient;
+import com.lognex.api.clients.NotificationClient;
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.discounts.Discount;
 import com.lognex.api.entities.documents.markers.FinanceDocumentMarker;
 import com.lognex.api.entities.documents.markers.FinanceInDocumentMarker;
 import com.lognex.api.entities.documents.markers.FinanceOutDocumentMarker;
+import com.lognex.api.entities.notifications.Notification;
+import com.lognex.api.entities.notifications.NotificationExchange;
+import com.lognex.api.entities.notifications.NotificationSubscription;
 import com.lognex.api.entities.products.markers.ConsignmentParentMarker;
 import com.lognex.api.entities.products.markers.ProductMarker;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
@@ -105,6 +109,15 @@ public final class ApiClient {
     }
 
     /**
+     * Группа методов API, соответствующих пути <code>/notification/*</code><br/>
+     * <br/>
+     * <b>Внимание!</b> Внутри этой цепочки методов каждый сегмент — это отдельный объект. По
+     * возможности избегайте их сохранения в переменные в долгоживущих объектах или не забывайте
+     * про них, так как неосторожное использование может вызвать <b>утечку памяти</b>!<br/><br/>
+     */
+    public NotificationClient notification() { return new NotificationClient(this); }
+
+    /**
      * Создаёт экземпляр GSON с настроенными сериализаторами и десериализаторами для
      * некоторых классов и сущностей
      */
@@ -147,6 +160,10 @@ public final class ApiClient {
         gb.registerTypeAdapter(Meta.Type.class, new Meta.Type.Serializer());
         gb.registerTypeAdapter(Template.class, new Template.Deserializer());
         gb.registerTypeAdapter(Publication.class, new Publication.Deserializer());
+        gb.registerTypeAdapter(NotificationExchange.TaskType.class, new EnumSwitchCaseSerializer<NotificationExchange.TaskType>());
+        gb.registerTypeAdapter(NotificationExchange.TaskState.class, new EnumSwitchCaseSerializer<NotificationExchange.TaskState>());
+        gb.registerTypeAdapter(Notification.class, new NotificationDeserializer());
+        gb.registerTypeAdapter(NotificationSubscription.Channel.class, new EnumSwitchCaseSerializer<NotificationSubscription.Channel>());
 
         return gb.create();
     }

@@ -6,6 +6,7 @@ import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.entities.discounts.*;
 import com.lognex.api.entities.documents.*;
+import com.lognex.api.entities.notifications.*;
 import com.lognex.api.entities.products.Bundle;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.entities.products.Service;
@@ -171,7 +172,28 @@ public final class Meta {
         REGION("region", Region.class),
         ASSORTMENT("assortment", Assortment.class),
         OPERATION_PUBLICATION("operationpublication", Publication.class),
-        CONTRACT_PUBLICATION("contractpublication", Publication.class)
+        CONTRACT_PUBLICATION("contractpublication", Publication.class),
+        NOTIFICATION("notification", Notification.class),
+        NOTIFICATION_ORDER_NEW("NotificationOrderNew", NotificationCustomerOrder.class),
+        NOTIFICATION_ORDER_OVERDUE("NotificationOrderOverdue", NotificationCustomerOrder.class),
+        NOTIFICATION_INVOICE_OUT_OVERDUE("NotificationInvoiceOutOverdue", NotificationInvoiceOutOverdue.class),
+        NOTIFICATION_GOOD_COUNT_TOO_LOW("NotificationGoodCountTooLow", NotificationGoodCountTooLow.class),
+        NOTIFICATION_TASK_ASSIGNED("NotificationTaskAssigned", NotificationTask.class),
+        NOTIFICATION_TASK_UNASSIGNED("NotificationTaskUnassigned", NotificationTask.class),
+        NOTIFICATION_TASK_OVERDUE("NotificationTaskOverdue", NotificationTask.class),
+        NOTIFICATION_TASK_COMPLETED("NotificationTaskCompleted", NotificationTask.class),
+        NOTIFICATION_TASK_REOPENED("NotificationTaskReopened", NotificationTask.class),
+        NOTIFICATION_TASK_NEW_COMMENT ("NotificationTaskNewComment", NotificationTaskComment.class),
+        NOTIFICATION_TASK_CHANGED("NotificationTaskChanged", NotificationTaskChanged.class),
+        NOTIFICATION_TASK_DELETED("NotificationTaskDeleted", NotificationTask.class),
+        NOTIFICATION_TASK_COMMENT_DELETED("NotificationTaskCommentDeleted", NotificationTaskComment.class),
+        NOTIFICATION_TASK_COMMENT_CHANGED("NotificationTaskCommentChanged", NotificationTaskChanged.class),
+        NOTIFICATION_IMPORT_COMPLETED("NotificationImportCompleted", NotificationExchange.class),
+        NOTIFICATION_EXPORT_COMPLETED("NotificationExportCompleted", NotificationExchange.class),
+        NOTIFICATION_SUBSCRIBE_EXPIRED("NotificationSubscribeExpired", Notification.class),
+        NOTIFICATION_SUBSCRIBE_TERMS_EXPIRED("NotificationSubscribeTermsExpired", NotificationSubscribeTermsExpired.class),
+        NOTIFICATION_RETAIL_SHIFT_OPENED("NotificationRetailShiftOpened", NotificationRetailShift.class),
+        NOTIFICATION_RETAIL_SHIFT_CLOSED("NotificationRetailShiftClosed", NotificationRetailShiftClosed.class),
         ;
 
         @Getter
