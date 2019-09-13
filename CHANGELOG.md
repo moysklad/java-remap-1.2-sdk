@@ -4,7 +4,7 @@
 
 ## 2.2-BETA (12.09.2019)
 * Добавлены справочники:
-    * `Assotment`
+    * `Assortment`
     * `Region`
     * `BonusProgram`
     * `BonusOperation`
