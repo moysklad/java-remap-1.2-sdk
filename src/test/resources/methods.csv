@@ -1251,7 +1251,7 @@ GET;https://test.moysklad/api/remap/1.2/entity/invoiceout/ID/publication/;String
 GET;https://test.moysklad/api/remap/1.2/entity/pricelist/ID/publication/ID;String,String;Publication
 GET;https://test.moysklad/api/remap/1.2/entity/contract/metadata/customtemplate/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/commissionreportin/ID/publication/ID;String,String;Publication
-GET;https://test.moysklad/api/remap/1.2/entity/bonusprogram/ID;String,ApiParam[];BonusProgramDiscount
+GET;https://test.moysklad/api/remap/1.2/entity/bonusprogram/ID;String,ApiParam[];BonusProgram
 DELETE;https://test.moysklad/api/remap/1.2/entity/retailsalesreturn/ID/publication/ID;String,String;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/invoiceout/ID/publication/ID;String,String;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/retaildemand/ID/publication/ID;String,String;void
@@ -1264,7 +1264,7 @@ POST;https://test.moysklad/api/remap/1.2/entity/pricelist/ID/publication/;String
 DELETE;https://test.moysklad/api/remap/1.2/entity/purchasereturn/ID/publication/ID;String,String;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/inventory/ID/publication/ID;String,String;void
 GET;https://test.moysklad/api/remap/1.2/entity/bonustransaction/;ApiParam[];ListEntity
-GET;https://test.moysklad/api/remap/1.2/entity/bonusprogram/ENTITY_ID;MetaEntity,ApiParam[];BonusProgramDiscount
+GET;https://test.moysklad/api/remap/1.2/entity/bonusprogram/ENTITY_ID;MetaEntity,ApiParam[];BonusProgram
 GET;https://test.moysklad/api/remap/1.2/entity/region/ENTITY_ID;MetaEntity,ApiParam[];Region
 DELETE;https://test.moysklad/api/remap/1.2/entity/bonustransaction/ENTITY_ID;MetaEntity;void
 GET;https://test.moysklad/api/remap/1.2/entity/factureout/ID/publication/ID;String,String;Publication
