@@ -8,8 +8,10 @@ import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
@@ -23,6 +25,11 @@ public class OrganizationTest extends EntityGetUpdateDeleteTest {
         organization.setCompanyType(CompanyType.legal);
         organization.setInn(randomString());
         organization.setOgrn(randomString());
+        organization.setSyncId(UUID.randomUUID().toString());
+        organization.setDescription(randomString());
+        organization.setCode(randomString());
+        organization.setTrackingContractNumber(randomString());
+        organization.setTrackingContractDate(LocalDateTime.now());
 
         api.entity().organization().create(organization);
 
@@ -36,6 +43,11 @@ public class OrganizationTest extends EntityGetUpdateDeleteTest {
         assertEquals(organization.getCompanyType(), retrievedEntity.getCompanyType());
         assertEquals(organization.getInn(), retrievedEntity.getInn());
         assertEquals(organization.getOgrn(), retrievedEntity.getOgrn());
+        assertEquals(organization.getSyncId(), retrievedEntity.getSyncId());
+        assertEquals(organization.getDescription(), retrievedEntity.getDescription());
+        assertEquals(organization.getCode(), retrievedEntity.getCode());
+        assertEquals(organization.getTrackingContractNumber(), retrievedEntity.getTrackingContractNumber());
+        assertEquals(organization.getTrackingContractDate(), retrievedEntity.getTrackingContractDate());
     }
 
     @Test

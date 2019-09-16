@@ -22,6 +22,9 @@ public class ProductTest extends EntityGetUpdateDeleteTest {
         product.setDescription(randomString());
         product.setArticle(randomString());
         product.setWeight(randomDouble(1, 5, 2));
+        product.setTrackingType(Product.TrackingType.TOBACCO);
+        product.setPaymentItemType(GoodPaymentItemType.GOOD);
+        product.setTaxSystem(TaxSystem.SIMPLIFIED_TAX_SYSTEM_INCOME);
 
         api.entity().product().create(product);
 
@@ -34,6 +37,9 @@ public class ProductTest extends EntityGetUpdateDeleteTest {
         assertEquals(product.getDescription(), retrievedEntity.getDescription());
         assertEquals(product.getArticle(), retrievedEntity.getArticle());
         assertEquals(product.getWeight(), retrievedEntity.getWeight());
+        assertEquals(product.getTrackingType(), retrievedEntity.getTrackingType());
+        assertEquals(product.getPaymentItemType(), retrievedEntity.getPaymentItemType());
+        assertEquals(product.getTaxSystem(), retrievedEntity.getTaxSystem());
     }
 
     @Test

@@ -14,8 +14,10 @@ import org.junit.Test;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static com.lognex.api.utils.params.ExpandParam.expand;
 import static com.lognex.api.utils.params.FilterParam.filter;
@@ -37,9 +39,10 @@ public class TaskTest extends EntityGetUpdateDeleteTest {
         task.setAssignee(adminEmpl);
         task.setAgent(buyerAgent);
         task.setDueToDate(dueDate);
+        task.setDone(false);
         api.entity().task().create(task);
 
-        ListEntity<Task> updatedEntitiesList = api.entity().task().get(filterEq("description", task.getDescription()));
+        ListEntity<Task> updatedEntitiesList = api.entity().task().get(filterEq("description", task.getDescription()), expand("notes"));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         Task retrievedEntity = updatedEntitiesList.getRows().get(0);
@@ -48,6 +51,7 @@ public class TaskTest extends EntityGetUpdateDeleteTest {
         assertEquals(buyerAgent.getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(dueDate, retrievedEntity.getDueToDate());
         assertFalse(retrievedEntity.getDone());
+        assertEquals(task.getImplementer(), retrievedEntity.getImplementer());
     }
 
     @Override
@@ -202,6 +206,77 @@ public class TaskTest extends EntityGetUpdateDeleteTest {
         assertEquals(changedField, updatedTask.getDescription());
         assertEquals(originalTask.getAuthor().getMeta().getHref(), updatedTask.getAuthor().getMeta().getHref());
         assertEquals(originalTask.getAssignee().getMeta().getHref(), updatedTask.getAssignee().getMeta().getHref());
+    }
+
+    @Test
+    public void createNoteTest() throws IOException, ApiClientException {
+        Task task = simpleEntityManager.createSimpleTask();
+        Task.TaskNote note = new Task.TaskNote();
+        String text = randomString();
+        note.setText(text);
+
+        api.entity().task().createNote(task, note);
+
+        Task.TaskNote retrievedNote = api.entity().task().getNote(task, note);
+
+        assertEquals(text, retrievedNote.getText());
+    }
+
+    @Test
+    public void getNotesTest() throws IOException, ApiClientException {
+        Task task = simpleEntityManager.createSimpleTask();
+
+        List<String> texts = new ArrayList<>();
+
+        for (int i = 0; i < 2; ++i) {
+            texts.add(randomString());
+            Task.TaskNote note = new Task.TaskNote();
+            note.setText(texts.get(i));
+            api.entity().task().createNote(task, note);
+        }
+
+        ListEntity<Task.TaskNote> retrievedNotes = api.entity().task().getNotes(task);
+
+        assertEquals(2, retrievedNotes.getRows().size());
+
+        assertTrue(retrievedNotes.getRows().stream()
+                .allMatch(p -> texts.stream().anyMatch(t -> t.equals(p.getText())))
+        );
+    }
+
+    @Test
+    public void updateNoteTest() throws IOException, ApiClientException {
+        Task task = simpleEntityManager.createSimple(Task.class);
+        Task.TaskNote note = new Task.TaskNote();
+        String text = randomString();
+        note.setText(text);
+
+        api.entity().task().createNote(task, note);
+
+        String updatedText = randomString();
+        note.setText(updatedText);
+        api.entity().task().updateNote(task, note);
+
+        Task.TaskNote retrievedNote = api.entity().task().getNote(task, note);
+
+        assertNotEquals(text, retrievedNote.getText());
+        assertEquals(updatedText, retrievedNote.getText());
+    }
+
+    @Test
+    public void deleteNoteTest() throws IOException, ApiClientException {
+        Task task = simpleEntityManager.createSimpleTask();
+        Task.TaskNote note = new Task.TaskNote();
+        String text = randomString();
+        note.setText(text);
+
+        api.entity().task().createNote(task, note);
+        ListEntity<Task.TaskNote> retrievedNotes = api.entity().task().getNotes(task);
+        assertEquals(1, retrievedNotes.getRows().size());
+
+        api.entity().task().deleteNote(task, note);
+        retrievedNotes = api.entity().task().getNotes(task);
+        assertEquals(0, retrievedNotes.getRows().size());
     }
 
     @Override

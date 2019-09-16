@@ -36,7 +36,7 @@ public class Task extends MetaEntity implements Fetchable {
     public static class TaskNote extends MetaEntity {
         private Employee author;
         private LocalDateTime moment;
-        private String description;
+        private String text;
     }
 
     public Task(String id) {

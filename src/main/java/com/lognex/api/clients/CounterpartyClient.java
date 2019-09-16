@@ -39,21 +39,20 @@ public final class CounterpartyClient
     }
 
     @ApiEndpoint
-    public AgentAccount getAccount(String counterpartyId, String accountId, ApiParam... params) throws IOException, ApiClientException {
+    public AgentAccount getAccount(String counterpartyId, String accountId) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + counterpartyId + "/accounts/" + accountId).
-                apiParams(params).
                 get(AgentAccount.class);
     }
 
     @ApiEndpoint
-    public AgentAccount getAccount(Counterparty counterparty, String accountId, ApiParam... params) throws IOException, ApiClientException {
-        return getAccount(counterparty.getId(), accountId, params);
+    public AgentAccount getAccount(Counterparty counterparty, String accountId) throws IOException, ApiClientException {
+        return getAccount(counterparty.getId(), accountId);
     }
 
     @ApiEndpoint
-    public AgentAccount getAccount(Counterparty counterparty, AgentAccount account, ApiParam... params) throws IOException, ApiClientException {
-        return getAccount(counterparty, account.getId(), params);
+    public AgentAccount getAccount(Counterparty counterparty, AgentAccount account) throws IOException, ApiClientException {
+        return getAccount(counterparty, account.getId());
     }
 
     @ApiEndpoint
@@ -81,21 +80,20 @@ public final class CounterpartyClient
     }
 
     @ApiEndpoint
-    public ContactPerson getContactPerson(String counterpartyId, String contactPersonId, ApiParam... params) throws IOException, ApiClientException {
+    public ContactPerson getContactPerson(String counterpartyId, String contactPersonId) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + counterpartyId + "/contactpersons/" + contactPersonId).
-                apiParams(params).
                 get(ContactPerson.class);
     }
 
     @ApiEndpoint
-    public ContactPerson getContactPerson(Counterparty counterparty, String contactPersonId, ApiParam... params) throws IOException, ApiClientException {
-        return getContactPerson(counterparty.getId(), contactPersonId, params);
+    public ContactPerson getContactPerson(Counterparty counterparty, String contactPersonId) throws IOException, ApiClientException {
+        return getContactPerson(counterparty.getId(), contactPersonId);
     }
 
     @ApiEndpoint
-    public ContactPerson getContactPerson(Counterparty counterparty, ContactPerson contactPerson, ApiParam... params) throws IOException, ApiClientException {
-        return getContactPerson(counterparty, contactPerson.getId(), params);
+    public ContactPerson getContactPerson(Counterparty counterparty, ContactPerson contactPerson) throws IOException, ApiClientException {
+        return getContactPerson(counterparty, contactPerson.getId());
     }
 
     @ApiEndpoint
@@ -148,21 +146,20 @@ public final class CounterpartyClient
     }
 
     @ApiEndpoint
-    public Note getNote(String counterpartyId, String noteId, ApiParam... params) throws IOException, ApiClientException {
+    public Note getNote(String counterpartyId, String noteId) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + counterpartyId + "/notes/" + noteId).
-                apiParams(params).
                 get(Note.class);
     }
 
     @ApiEndpoint
-    public Note getNote(Counterparty counterparty, String noteId, ApiParam... params) throws IOException, ApiClientException {
-        return getNote(counterparty.getId(), noteId, params);
+    public Note getNote(Counterparty counterparty, String noteId) throws IOException, ApiClientException {
+        return getNote(counterparty.getId(), noteId);
     }
 
     @ApiEndpoint
-    public Note getNote(Counterparty counterparty, Note note, ApiParam... params) throws IOException, ApiClientException {
-        return getNote(counterparty, note.getId(), params);
+    public Note getNote(Counterparty counterparty, Note note) throws IOException, ApiClientException {
+        return getNote(counterparty, note.getId());
     }
 
     @ApiEndpoint

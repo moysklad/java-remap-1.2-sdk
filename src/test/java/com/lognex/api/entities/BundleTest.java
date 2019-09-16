@@ -2,6 +2,7 @@ package com.lognex.api.entities;
 
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.products.Bundle;
+import com.lognex.api.entities.products.GoodPaymentItemType;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.ApiClientException;
@@ -10,10 +11,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
 import static com.lognex.api.utils.params.ExpandParam.expand;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
@@ -27,6 +26,9 @@ public class BundleTest extends EntityGetUpdateDeleteTest {
         bundle.setName("bundle_" + randomString(3) + "_" + new Date().getTime());
         bundle.setArchived(false);
         bundle.setArticle(randomString());
+        bundle.setTrackingType(Bundle.TrackingType.NOT_TRACKED);
+        bundle.setPaymentItemType(GoodPaymentItemType.COMPOUND_PAYMENT_ITEM);
+        bundle.setTaxSystem(TaxSystem.PRESUMPTIVE_TAX_SYSTEM);
 
         Product product = simpleEntityManager.createSimple(Product.class);
         ListEntity<Bundle.ComponentEntity> components = new ListEntity<>();
@@ -51,6 +53,9 @@ public class BundleTest extends EntityGetUpdateDeleteTest {
         assertEquals(product.getName(), ((Product) retrievedEntity.getComponents().getRows().get(0).getAssortment()).getName());
         DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(4);
         assertEquals(df.format(components.getRows().get(0).getQuantity()), retrievedEntity.getComponents().getRows().get(0).getQuantity().toString());
+        assertEquals(bundle.getTrackingType(), retrievedEntity.getTrackingType());
+        assertEquals(bundle.getPaymentItemType(), retrievedEntity.getPaymentItemType());
+        assertEquals(bundle.getTaxSystem(), retrievedEntity.getTaxSystem());
     }
 
     @Override
