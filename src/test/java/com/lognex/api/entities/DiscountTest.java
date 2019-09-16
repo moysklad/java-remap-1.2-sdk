@@ -127,8 +127,8 @@ public class DiscountTest extends EntityTestBase {
     public void deserializeBonusProgramDiscountTest() {
         Gson gson = ApiClient.createGson();
 
-        BonusProgramDiscount bonusProgram = gson.fromJson(
-                TestUtils.getFile("discountJson/bonusprogram.json"), BonusProgramDiscount.class
+        BonusProgram bonusProgram = gson.fromJson(
+                TestUtils.getFile("discountJson/bonusprogram.json"), BonusProgram.class
         );
 
         assertEquals(Meta.Type.BONUS_PROGRAM, bonusProgram.getMeta().getType());

@@ -4,13 +4,13 @@ import com.lognex.api.clients.endpoints.DeleteByIdEndpoint;
 import com.lognex.api.clients.endpoints.GetByIdEndpoint;
 import com.lognex.api.clients.endpoints.GetListEndpoint;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.discounts.BonusProgramDiscount;
+import com.lognex.api.entities.discounts.BonusProgram;
 
 public final class BonusProgramClient
         extends EntityClientBase
         implements
-        GetListEndpoint<BonusProgramDiscount>,
-        GetByIdEndpoint<BonusProgramDiscount>,
+        GetListEndpoint<BonusProgram>,
+        GetByIdEndpoint<BonusProgram>,
         DeleteByIdEndpoint {
 
     public BonusProgramClient(com.lognex.api.ApiClient api) {
@@ -19,6 +19,6 @@ public final class BonusProgramClient
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return BonusProgramDiscount.class;
+        return BonusProgram.class;
     }
 }

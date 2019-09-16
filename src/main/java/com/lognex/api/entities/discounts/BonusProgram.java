@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class BonusProgramDiscount extends Discount implements Fetchable {
+public class BonusProgram extends Discount implements Fetchable {
     private Long earnRateRoublesToPoint;
     private Long spendRatePointsToRouble;
     private Long maxPaidRatePercents;

@@ -3,7 +3,7 @@ package com.lognex.api.entities;
 import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.entities.agents.Organization;
-import com.lognex.api.entities.discounts.BonusProgramDiscount;
+import com.lognex.api.entities.discounts.BonusProgram;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ public class BonusTransaction extends MetaEntity{
     private LocalDateTime moment;
     private Agent agent;
     private BonusTransaction parentDocument;
-    private BonusProgramDiscount bonusProgram;
+    private BonusProgram bonusProgram;
     private Long bonusValue;
     private Organization organization;
     private TransactionType transactionType;

@@ -144,7 +144,7 @@ public final class Meta {
         PERSONAL_DISCOUNT("personaldiscount", PersonalDiscount.class),
         SPECIAL_PRICE_DISCOUNT("specialpricediscount", SpecialPriceDiscount.class),
         DISCOUNT("discount", Discount.class),
-        BONUS_PROGRAM("bonusprogram", BonusProgramDiscount.class),
+        BONUS_PROGRAM("bonusprogram", BonusProgram.class),
         ACCUMULATION_DISCOUNT("accumulationdiscount", AccumulationDiscount.class),
         CONTACT_PERSON("contactperson", ContactPerson.class),
         PRICE_TYPE("pricetype", PriceType.class),
