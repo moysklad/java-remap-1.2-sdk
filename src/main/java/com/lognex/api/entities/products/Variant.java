@@ -82,7 +82,7 @@ public class Variant extends MetaEntity implements SingleProductMarker, Consignm
     private List<String> things;
 
     /**
-     * Изобраения модификации
+     * Изображения модификации
      * */
 
     private ListEntity<Image> images;

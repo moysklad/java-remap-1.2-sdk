@@ -42,6 +42,7 @@ public class VariantTest extends EntityGetUpdateDeleteWithImageTest<Variant> {
         assertEquals(variant.getCharacteristics().get(0).getValue(), retrievedEntity.getCharacteristics().get(0).getValue());
     }
 
+    @Override
     @Test
     public void putTest() throws IOException, ApiClientException {
         Variant variant = simpleEntityManager.createSimple(Variant.class);
