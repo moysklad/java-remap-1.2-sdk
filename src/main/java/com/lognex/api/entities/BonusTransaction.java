@@ -24,6 +24,7 @@ public class BonusTransaction extends MetaEntity{
     private Boolean applicable;
     private LocalDateTime moment;
     private Agent agent;
+    private Group group;
     private BonusTransaction parentDocument;
     private BonusProgram bonusProgram;
     private Long bonusValue;
