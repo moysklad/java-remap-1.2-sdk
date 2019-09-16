@@ -20,7 +20,7 @@ import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static com.lognex.api.utils.params.LimitParam.limit;
 import static org.junit.Assert.*;
 
-public class BundleEntityTest extends EntityGetUpdateDeleteTest {
+public class BundleTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, ApiClientException {
         Bundle bundle = new Bundle();

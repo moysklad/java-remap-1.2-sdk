@@ -13,7 +13,7 @@ import java.util.Date;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class ProductEntityTest extends EntityGetUpdateDeleteTest {
+public class ProductTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, ApiClientException {
         Product product = new Product();

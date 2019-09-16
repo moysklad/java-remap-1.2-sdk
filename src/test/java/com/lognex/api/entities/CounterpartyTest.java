@@ -15,7 +15,7 @@ import java.util.List;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class CounterpartyEntityTest extends EntityGetUpdateDeleteTest {
+public class CounterpartyTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, ApiClientException {
         Counterparty counterparty = new Counterparty();

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Серия
@@ -17,6 +18,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Consignment extends MetaEntity implements ProductMarker {
+    /**
+     * Описание Серии
+     */
+    private String description;
+
+    /**
+     * Код Серии
+     */
+    private String code;
+
     /**
      * Внешний код
      */
@@ -41,6 +52,11 @@ public class Consignment extends MetaEntity implements ProductMarker {
      * Изображение товара
      */
     private Image image;
+
+    /**
+     * Штрихкоды серии
+     */
+    private List<Barcode> barcodes;
 
     public Consignment(String id) {
         super(id);

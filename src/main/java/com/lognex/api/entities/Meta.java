@@ -166,7 +166,8 @@ public final class Meta {
         INVENTORY("inventory", Inventory.class),
         INVENTORY_POSITION("inventoryposition", DocumentPosition.class),
         COMPANY_SETTINGS("companysettings", CompanySettingsResponse.class),
-        CASHIER("cashier", Cashier.class)
+        CASHIER("cashier", Cashier.class),
+        TASK_NOTE("tasknote", Task.TaskNote.class),
         ;
 
         @Getter

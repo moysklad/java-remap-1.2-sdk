@@ -14,7 +14,7 @@ import java.util.Date;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
+public class OrganizationTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, ApiClientException {
         Organization organization = new Organization();

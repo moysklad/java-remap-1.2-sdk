@@ -2,6 +2,7 @@ package com.lognex.api.entities.products;
 
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
+import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.entities.products.markers.ConsignmentParentMarker;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
@@ -69,7 +70,7 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
     /**
      * Поставщик
      */
-    private Agent supplier;
+    private Counterparty supplier;
 
     /**
      * Дополнительные поля
@@ -114,7 +115,7 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
     /**
      * Количество модификаций товара
      */
-    private Integer modificationsCount;
+    private Integer variantsCount;
 
     /**
      * Флаг учёта по серийным номерам
@@ -158,11 +159,6 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
          * Крепость
          */
         private Double strength;
-
-        /**
-         * Объём тары
-         */
-        private Double volume;
     }
 
     /**
@@ -172,10 +168,11 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
     @Setter
     @NoArgsConstructor
     @EqualsAndHashCode
-    private class ProductPack {
+    public static class ProductPack {
         private String id;
         private Uom uom;
         private Double quantity;
+        private List<Barcode> barcodes;
     }
 
     /**
@@ -188,4 +185,19 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
         TOBACCO,
         SHOES
     }
+
+    /**
+     * Код ТН ВЭД
+     */
+    private String tnved;
+
+    /**
+     * Признак предмета расчета
+     */
+    private GoodPaymentItemType paymentItemType;
+
+    /**
+     * Код системы налогообложения
+     */
+    private TaxSystem taxSystem;
 }
