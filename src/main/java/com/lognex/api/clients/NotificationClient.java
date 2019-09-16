@@ -35,7 +35,7 @@ public class NotificationClient
     @ApiEndpoint
     public void markAsReadAll() throws IOException, ApiClientException {
         HttpRequestExecutor.
-                path(api(), path() + "/markasreadall").
+                path(api(), path() + "markasreadall").
                 put();
     }
 
