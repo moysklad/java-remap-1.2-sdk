@@ -10,17 +10,15 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
 import static com.lognex.api.utils.params.ExpandParam.expand;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static com.lognex.api.utils.params.LimitParam.limit;
 import static org.junit.Assert.*;
 
-public class BundleEntityTest extends EntityGetUpdateDeleteTest {
+public class BundleEntityTest extends EntityGetUpdateDeleteWithImageTest<Bundle> {
     @Test
     public void createTest() throws IOException, ApiClientException {
         Bundle bundle = new Bundle();

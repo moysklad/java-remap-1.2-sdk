@@ -14,7 +14,8 @@ public final class VariantClient
         MetadataEndpoint<VariantMetadataResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Variant>,
-        PutByIdEndpoint<Variant> {
+        PutByIdEndpoint<Variant>,
+        HasImagesEndpoint<Variant> {
 
     public VariantClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/variant/");

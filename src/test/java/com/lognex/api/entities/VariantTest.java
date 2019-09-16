@@ -15,7 +15,7 @@ import static com.lognex.api.utils.params.ExpandParam.expand;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class VariantTest extends EntityGetDeleteTest {
+public class VariantTest extends EntityGetUpdateDeleteWithImageTest<Variant> {
     @Test
     public void createTest() throws IOException, ApiClientException {
         Variant variant = new Variant();
@@ -62,6 +62,11 @@ public class VariantTest extends EntityGetDeleteTest {
 
         api.entity().variant().update(variant);
         putAsserts(variant, retrievedOriginalEntity, value);
+    }
+
+    @Override
+    protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
+
     }
 
     @Test
