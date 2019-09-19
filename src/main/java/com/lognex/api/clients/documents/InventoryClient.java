@@ -18,7 +18,8 @@ public final class InventoryClient
         GetByIdEndpoint<Inventory>,
         PutByIdEndpoint<Inventory>,
         DocumentPositionsEndpoint,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public InventoryClient(ApiClient api) {
         super(api, "/entity/inventory/");

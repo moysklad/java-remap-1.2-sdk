@@ -54,7 +54,7 @@ public class Attribute extends MetaEntity {
         this.type = type;
         this.value = value;
         if (MetaEntity.class.isAssignableFrom(value.getClass())) {
-            entityType = Meta.Type.find(((MetaEntity) value).getClass());
+            entityType = Meta.Type.find((MetaEntity) value);
         }
         this.attributeEntityType = attributeEntityType;
     }
@@ -62,7 +62,7 @@ public class Attribute extends MetaEntity {
     public Attribute(Meta.Type attributeEntityType, String id, MetaEntity value){
         super(id);
         this.value = value;
-        entityType = Meta.Type.find(((MetaEntity) value).getClass());
+        entityType = Meta.Type.find(value);
         this.attributeEntityType = attributeEntityType;
     }
 

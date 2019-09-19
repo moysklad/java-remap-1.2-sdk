@@ -27,7 +27,8 @@ public final class PricelistClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Pricelist>,
         PutByIdEndpoint<Pricelist>,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public PricelistClient(ApiClient api) {
         super(api, "/entity/pricelist/");

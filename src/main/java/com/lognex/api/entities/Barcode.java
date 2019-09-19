@@ -15,12 +15,12 @@ public class Barcode {
     /**
      * Тип штрихкода
      */
-    Type type;
+    private Type type;
 
     /**
      * Штрихкод
      */
-    String value;
+    private String value;
 
     public enum Type {
         EAN13, EAN8, CODE128, GTIN

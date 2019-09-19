@@ -18,7 +18,8 @@ public final class CashOutClient
         DocumentNewEndpoint<CashOut>,
         GetByIdEndpoint<CashOut>,
         PutByIdEndpoint<CashOut>,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public CashOutClient(ApiClient api) {
         super(api, "/entity/cashout/");

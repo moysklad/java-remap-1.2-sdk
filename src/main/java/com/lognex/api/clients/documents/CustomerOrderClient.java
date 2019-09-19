@@ -17,7 +17,8 @@ public final class CustomerOrderClient
         GetByIdEndpoint<CustomerOrder>,
         PutByIdEndpoint<CustomerOrder>,
         DocumentPositionsEndpoint,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public CustomerOrderClient(ApiClient api) {
         super(api, "/entity/customerorder/");

@@ -9,7 +9,7 @@ import java.lang.reflect.Type;
 /**
  * Десериализатор поля <code>discount</code>. В зависимости от метаданных, возвращает экземпляр
  * одного из классов, наследующихся от Discount: AccumulationDiscount,
- * BonusProgramDiscount, PersonalDiscount, SpecialPriceDiscount,
+ * BonusProgram, PersonalDiscount, SpecialPriceDiscount,
  * или сам Discount
  */
 public class DiscountDeserializer implements JsonDeserializer<Discount> {
@@ -28,7 +28,7 @@ public class DiscountDeserializer implements JsonDeserializer<Discount> {
                 return context.deserialize(json, AccumulationDiscount.class);
 
             case BONUS_PROGRAM:
-                return context.deserialize(json, BonusProgramDiscount.class);
+                return context.deserialize(json, BonusProgram.class);
 
             case DISCOUNT:
                 return gson.fromJson(json, Discount.class);

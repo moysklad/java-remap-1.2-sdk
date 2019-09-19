@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "href": "https://online.moysklad.ru/api/remap/1.2/notification/9338c8bd-56e5-11e9-c0a8-100b00000023",
+    "type": "NotificationGoodCountTooLow",
+    "mediaType": "application/json"
+  },
+  "id": "9338c8bd-56e5-11e9-c0a8-100b00000023",
+  "accountId": "c45c23d5-5640-11e9-c0a8-100a00000001",
+  "created": "2019-04-04 17:26:02.000",
+  "read": false,
+  "title": "Заканчивается товар 1",
+  "description": "Остаток ниже 200",
+  "good": {
+    "meta": {
+      "href": "https://online.moysklad.ru/api/remap/1.2/entity/product/bdca925e-56e1-11e9-c0a8-100a00000016",
+      "metadataHref": "https://online.moysklad.ru/api/remap/1.2/entity/product/metadata",
+      "type": "product",
+      "mediaType": "application/json"
+    },
+    "id": "bdca925e-56e1-11e9-c0a8-100a00000016",
+    "name": "1"
+  },
+  "actualBalance": 180.0,
+  "minimumBalance": 200.0
+}

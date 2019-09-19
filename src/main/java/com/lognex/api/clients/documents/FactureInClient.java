@@ -18,7 +18,8 @@ public final class FactureInClient
         DocumentNewEndpoint<FactureIn>,
         GetByIdEndpoint<FactureIn>,
         PutByIdEndpoint<FactureIn>,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public FactureInClient(ApiClient api) {
         super(api, "/entity/facturein/");

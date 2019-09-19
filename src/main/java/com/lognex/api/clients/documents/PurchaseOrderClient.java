@@ -19,7 +19,8 @@ public final class PurchaseOrderClient
         GetByIdEndpoint<PurchaseOrder>,
         PutByIdEndpoint<PurchaseOrder>,
         DocumentPositionsEndpoint,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public PurchaseOrderClient(ApiClient api) {
         super(api, "/entity/purchaseorder/");

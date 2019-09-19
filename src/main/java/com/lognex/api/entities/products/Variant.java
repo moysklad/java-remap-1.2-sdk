@@ -1,5 +1,6 @@
 package com.lognex.api.entities.products;
 
+import com.lognex.api.entities.Assortment;
 import com.lognex.api.entities.Barcode;
 import com.lognex.api.entities.Image;
 import com.lognex.api.entities.MetaEntity;
@@ -25,7 +26,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Variant extends MetaEntity implements SingleProductMarker, ConsignmentParentMarker, ProductMarker, HasImages {
+public class Variant extends Assortment implements SingleProductMarker, ConsignmentParentMarker, ProductMarker, HasImages {
     /**
      * Дата последнего обновления сущности
      */

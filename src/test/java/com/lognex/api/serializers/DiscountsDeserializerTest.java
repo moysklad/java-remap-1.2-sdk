@@ -33,13 +33,13 @@ public class DiscountsDeserializerTest implements TestAsserts, TestRandomizers {
         Gson gson = new GsonBuilder().create();
         Gson gsonCustom = ApiClient.createGson();
 
-        Discount e = new BonusProgramDiscount();
+        Discount e = new BonusProgram();
         e.setMeta(new Meta());
         e.getMeta().setType(Meta.Type.BONUS_PROGRAM);
 
         String data = gsonCustom.toJson(e);
         Discount parsed = gsonCustom.fromJson(data, Discount.class);
-        assertEquals(BonusProgramDiscount.class, parsed.getClass());
+        assertEquals(BonusProgram.class, parsed.getClass());
     }
 
     @Test

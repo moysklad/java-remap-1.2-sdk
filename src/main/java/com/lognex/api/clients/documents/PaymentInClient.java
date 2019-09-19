@@ -18,7 +18,8 @@ public final class PaymentInClient
         DocumentNewEndpoint<PaymentIn>,
         GetByIdEndpoint<PaymentIn>,
         PutByIdEndpoint<PaymentIn>,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public PaymentInClient(ApiClient api) {
         super(api, "/entity/paymentin/");

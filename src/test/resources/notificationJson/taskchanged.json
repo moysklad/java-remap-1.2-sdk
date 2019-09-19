@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "href": "https://online.moysklad.ru/api/remap/1.2/notification/bd0dbccf-56ca-11e9-c0a8-100b00000003",
+    "type": "NotificationTaskChanged",
+    "mediaType": "application/json"
+  },
+  "id": "bd0dbccf-56ca-11e9-c0a8-100b00000003",
+  "accountId": "c45c23d5-5640-11e9-c0a8-100a00000001",
+  "created": "2019-04-04 14:13:56.000",
+  "read": false,
+  "title": "Задача изменена: Новый текст задачи 1",
+  "description": "ntest1 изменил задачу",
+  "performedBy": {
+    "meta": {
+      "href": "https://online.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
+      "metadataHref": "https://online.moysklad.ru/api/remap/1.2/entity/employee/metadata",
+      "type": "employee",
+      "mediaType": "application/json"
+    },
+    "id": "c4e1397b-807c-11e9-9ff4-31500025d4ed",
+    "name": "ntest1"
+  },
+  "task": {
+    "meta": {
+      "href": "https://online.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
+      "metadataHref": "https://online.moysklad.ru/api/remap/1.2/entity/task/metadata",
+      "type": "task",
+      "mediaType": "application/json"
+    },
+    "id": "91d6e8a5-807d-11e9-9109-f8fc0024968d",
+    "name": "Новый текст задачи 1",
+    "deadline": "2019-05-27 15:49:00.000"
+  },
+  "diff": {
+    "deadline": {
+      "oldValue": "2019-05-29 15:47:00.000",
+      "newValue": "2019-05-27 15:49:00.000"
+    }
+  }
+}
