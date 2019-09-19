@@ -801,6 +801,19 @@ public class SimpleEntityManager implements TestRandomizers {
         return country;
     }
 
+    public WebHook createSimpleWebHook() throws IOException, ApiClientException {
+        WebHook webHook = new WebHook();
+        webHook.setEntityType(randomWebhookType());
+        webHook.setAction(WebHook.EntityAction.CREATE);
+        webHook.setMethod(WebHook.HttpMethod.POST);
+        webHook.setEnabled(false);
+        webHook.setUrl(randomUrl());
+
+        api.entity().webhook().create(webHook);
+
+        return webHook;
+    }
+
     public void clearAccessCounts() {
         for (Map.Entry<Class, Integer> entry : accessCounterMap.entrySet()) {
             entry.setValue(0);

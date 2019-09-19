@@ -1,9 +1,12 @@
 package com.lognex.api.utils;
 
-import java.util.Date;
-import java.util.Random;
-import java.util.UUID;
+import com.google.common.collect.ImmutableList;
+import com.lognex.api.entities.Meta.Type;
+
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.lognex.api.entities.Meta.Type.*;
 
 public interface TestRandomizers {
     Random rnd = new Random();
@@ -41,6 +44,16 @@ public interface TestRandomizers {
                 mapToObj(i -> (char) i).
                 map(ch -> Character.toString(rnd.nextBoolean() ? Character.toUpperCase(ch) : Character.toLowerCase(ch))).
                 collect(Collectors.joining(""));
+    }
+
+    default String randomUrl() {
+        return "http://www." + randomString() + ".com";
+    }
+
+    default Type randomWebhookType() {
+        // not all available types for webhooks, but should be enough for testing
+        List<Type> webhookTypes = ImmutableList.of(DEMAND, LOSS, PRODUCT, CUSTOMER_ORDER, EMPLOYEE, GROUP, PROJECT, VARIANT, SERVICE, STORE);
+        return webhookTypes.get(randomInteger(0, webhookTypes.size() - 1));
     }
 
     default <T extends Enum<?>> T randomEnumGeneric(Class<T> enumClass) {

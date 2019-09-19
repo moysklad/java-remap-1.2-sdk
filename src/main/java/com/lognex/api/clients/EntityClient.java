@@ -295,4 +295,9 @@ public final class EntityClient {
     public AssortmentClient assortment() {
         return new AssortmentClient(api);
     }
+
+    @ApiChainElement
+    public WebHookClient webhook() {
+        return new WebHookClient(api);
+    }
 }

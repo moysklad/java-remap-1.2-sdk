@@ -1350,3 +1350,11 @@ GET;https://test.moysklad/api/remap/1.2/entity/variant/ID/images;String,ApiParam
 DELETE;https://test.moysklad/api/remap/1.2/entity/bundle/ENTITY_ID/images/ID;MetaEntity,String;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/bundle/ENTITY_ID/images/ENTITY_ID;MetaEntity,Image;void
 POST;https://test.moysklad/api/remap/1.2/entity/variant/ID/images;String,Image;ArrayList
+PUT;https://test.moysklad/api/remap/1.2/entity/webhook/ENTITY_ID;MetaEntity;void
+POST;https://test.moysklad/api/remap/1.2/entity/webhook/;MetaEntity;MetaEntity
+GET;https://test.moysklad/api/remap/1.2/entity/webhook/ENTITY_ID;MetaEntity,ApiParam[];WebHook
+PUT;https://test.moysklad/api/remap/1.2/entity/webhook/ID;String,MetaEntity;void
+DELETE;https://test.moysklad/api/remap/1.2/entity/webhook/ID;String;void
+DELETE;https://test.moysklad/api/remap/1.2/entity/webhook/ENTITY_ID;MetaEntity;void
+GET;https://test.moysklad/api/remap/1.2/entity/webhook/ID;String,ApiParam[];WebHook
+GET;https://test.moysklad/api/remap/1.2/entity/webhook/;ApiParam[];ListEntity
