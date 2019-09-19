@@ -19,7 +19,8 @@ public final class SalesReturnClient
         GetByIdEndpoint<SalesReturn>,
         PutByIdEndpoint<SalesReturn>,
         DocumentPositionsEndpoint,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public SalesReturnClient(ApiClient api) {
         super(api, "/entity/salesreturn/");

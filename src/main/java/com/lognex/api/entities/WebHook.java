@@ -8,9 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode
-public class WebHook {
-    private String entityType;
+@EqualsAndHashCode(callSuper = true)
+public class WebHook extends MetaEntity {
+    private Meta.Type entityType;
     private String url;
     private HttpMethod method;
     private Boolean enabled;

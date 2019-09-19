@@ -12,10 +12,12 @@ public final class ContractClient
         GetListEndpoint<Contract>,
         PostEndpoint<Contract>,
         DeleteByIdEndpoint,
-        MetadataEndpoint<MetadataAttributeSharedStatesResponse>,
+        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Contract>,
-        PutByIdEndpoint<Contract> {
+        PutByIdEndpoint<Contract>,
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public ContractClient(ApiClient api) {
         super(api, "/entity/contract/");

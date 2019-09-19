@@ -5,10 +5,7 @@ import lombok.NoArgsConstructor;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -19,9 +16,9 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 @NoArgsConstructor(access = PRIVATE)
 public final class MetaHrefUtils {
 
-    public static String getId(String href) {
+    public static Optional<String> getIdFromHref(String href) {
         String[] split = href.split("/");
-        return split[split.length-1];
+        return split.length == 0 ? Optional.empty() : Optional.of(split[split.length-1]);
     }
 
     public static <T extends MetaEntity> String makeHref(Meta.Type type, T entity, String host) {

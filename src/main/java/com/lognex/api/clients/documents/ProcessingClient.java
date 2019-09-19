@@ -17,7 +17,8 @@ public final class ProcessingClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Processing>,
         PutByIdEndpoint<Processing>,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public ProcessingClient(ApiClient api) {
         super(api, "/entity/processing/");

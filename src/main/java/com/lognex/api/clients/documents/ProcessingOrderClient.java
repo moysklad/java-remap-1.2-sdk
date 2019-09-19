@@ -18,7 +18,8 @@ public final class ProcessingOrderClient
         DocumentNewEndpoint<ProcessingOrder>,
         GetByIdEndpoint<ProcessingOrder>,
         PutByIdEndpoint<ProcessingOrder>,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public ProcessingOrderClient(ApiClient api) {
         super(api, "/entity/processingorder/");

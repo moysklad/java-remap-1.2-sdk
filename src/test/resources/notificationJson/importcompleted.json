@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "href": "https://online.moysklad.ru/api/remap/1.2/notification/02950e31-35f2-11e9-9ff4-34e8000799c0",
+    "type": "NotificationImportCompleted",
+    "mediaType": "application/json"
+  },
+  "id": "02950e31-35f2-11e9-9ff4-34e8000799c0",
+  "accountId": "45eb22e0-0e7b-11e2-1c31-3c4a92f3a0a7",
+  "created": "2019-02-21 19:01:55.277",
+  "read": true,
+  "title": "Импорт завершен",
+  "description": "Импорт контрагентов (Excel). Обработано 3 строки, создано 0 контрагентов, обновлено 0 контрагентов.",
+  "message": "Обработано 3 строки, создано 0 контрагентов, обновлено 0 контрагентов.",
+  "taskType": "importer_csv_agent",
+  "taskState": "completed"
+}

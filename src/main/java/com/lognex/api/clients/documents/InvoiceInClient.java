@@ -18,7 +18,8 @@ public final class InvoiceInClient
         GetByIdEndpoint<InvoiceIn>,
         PutByIdEndpoint<InvoiceIn>,
         DocumentPositionsEndpoint,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public InvoiceInClient(ApiClient api) {
         super(api, "/entity/invoicein/");

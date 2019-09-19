@@ -19,7 +19,8 @@ public final class LossClient
         GetByIdEndpoint<Loss>,
         PutByIdEndpoint<Loss>,
         DocumentPositionsEndpoint,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public LossClient(ApiClient api) {
         super(api, "/entity/loss/");

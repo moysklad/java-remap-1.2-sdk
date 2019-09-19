@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "href": "https://online.moysklad.ru/api/remap/1.2/notification/c2582a9e-56e1-11e9-c0a8-100b00000123",
+    "type": "NotificationSubscribeExpired",
+    "mediaType": "application/json"
+  },
+  "id": "c2582a9e-56e1-11e9-c0a8-100b00000123",
+  "accountId": "c45c23d5-5640-11e9-c0a8-100a00000001",
+  "created": "2019-04-04 16:58:50.000",
+  "read": false,
+  "title": "Окончание подписки",
+  "description": "Подписка на аккаунте AccountName окончена. Вы по-прежнему можете работать, используя бесплатный тарифный план. Подписка возобновится при пополнении баланса."
+}

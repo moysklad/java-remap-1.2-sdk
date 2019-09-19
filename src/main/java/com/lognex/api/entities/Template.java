@@ -39,7 +39,7 @@ public class Template extends MetaEntity {
 
     private transient Boolean isEmbedded;
 
-    public static class Serializer implements JsonDeserializer<Template> {
+    public static class Deserializer implements JsonDeserializer<Template> {
         private final Gson gson = JsonUtils.createGsonWithMetaAdapter();
 
         @Override

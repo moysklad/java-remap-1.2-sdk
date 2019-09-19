@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "href": "https://online.moysklad.ru/api/remap/1.2/notification/02950e3c-35f2-11e9-9ff4-34e8000799c0",
+    "type": "NotificationExportCompleted",
+    "mediaType": "application/json"
+  },
+  "id": "02950e3c-35f2-11e9-9ff4-34e8000799c0",
+  "accountId": "45eb22e0-0e7b-11e2-1c31-3c4a92f3a0a7",
+  "created": "2019-02-21 19:01:55.277",
+  "read": true,
+  "title": "Экспорт завершен",
+  "description": "Экспорт товаров (Excel). Экспортировано 43465 товаров и 2080 модификаций",
+  "message": "Экспортировано 43465 товаров и 2080 модификаций",
+  "taskType": "export_good",
+  "taskState": "completed"
+}

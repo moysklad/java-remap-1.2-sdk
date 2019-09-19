@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Consignment extends MetaEntity implements ProductMarker {
+public class Consignment extends Assortment implements ProductMarker {
     /**
      * Описание Серии
      */

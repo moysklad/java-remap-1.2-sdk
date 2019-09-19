@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "href": "https://online.moysklad.ru/api/remap/1.2/notification/572d1dd9-56fc-11e9-c0a8-100b00000006",
+    "type": "NotificationInvoiceOutOverdue",
+    "mediaType": "application/json"
+  },
+  "id": "572d1dd9-56fc-11e9-c0a8-100b00000006",
+  "accountId": "c45c23d5-5640-11e9-c0a8-100a00000001",
+  "created": "2019-04-04 20:09:00.000",
+  "read": false,
+  "title": "Счет покупателю №00003 просрочен",
+  "description": "Дата оплаты: 01.04.2019 20:08. Сумма: 500,00. Покупатель: Розничный покупатель.",
+  "invoice": {
+    "meta": {
+      "href": "https://online.moysklad.ru/api/remap/1.2/entity/invoiceout/571b1ac4-56fc-11e9-c0a8-100e0000002b",
+      "metadataHref": "https://online.moysklad.ru/api/remap/1.2/entity/invoiceout/metadata",
+      "type": "invoiceout",
+      "mediaType": "application/json"
+    },
+    "id": "571b1ac4-56fc-11e9-c0a8-100e0000002b",
+    "name": "00003",
+    "paymentPlannedMoment": "2019-04-01 20:08:00.000",
+    "sum": 50000,
+    "customerName": "Розничный покупатель"
+  }
+}

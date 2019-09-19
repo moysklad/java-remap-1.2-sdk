@@ -18,7 +18,8 @@ public final class InvoiceOutClient
         GetByIdEndpoint<InvoiceOut>,
         PutByIdEndpoint<InvoiceOut>,
         DocumentPositionsEndpoint,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public InvoiceOutClient(ApiClient api) {
         super(api, "/entity/invoiceout/");

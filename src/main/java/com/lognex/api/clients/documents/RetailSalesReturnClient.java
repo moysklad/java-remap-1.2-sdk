@@ -15,7 +15,8 @@ public final class RetailSalesReturnClient
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public RetailSalesReturnClient(ApiClient api) {
         super(api, "/entity/retailsalesreturn/");

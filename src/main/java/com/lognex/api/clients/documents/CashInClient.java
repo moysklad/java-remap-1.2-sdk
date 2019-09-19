@@ -18,7 +18,8 @@ public final class CashInClient
         DocumentNewEndpoint<CashIn>,
         GetByIdEndpoint<CashIn>,
         PutByIdEndpoint<CashIn>,
-        ExportEndpoint {
+        ExportEndpoint,
+        PublicationEndpoint {
 
     public CashInClient(ApiClient api) {
         super(api, "/entity/cashin/");
