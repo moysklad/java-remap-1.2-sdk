@@ -2,11 +2,14 @@ package com.lognex.api.entities.products;
 
 import com.lognex.api.entities.Assortment;
 import com.lognex.api.entities.Barcode;
+import com.lognex.api.entities.Image;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.Price;
 import com.lognex.api.entities.products.markers.ConsignmentParentMarker;
+import com.lognex.api.entities.products.markers.HasImages;
 import com.lognex.api.entities.products.markers.ProductMarker;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
+import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +26,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Variant extends Assortment implements SingleProductMarker, ConsignmentParentMarker, ProductMarker {
+public class Variant extends Assortment implements SingleProductMarker, ConsignmentParentMarker, ProductMarker, HasImages {
     /**
      * Дата последнего обновления сущности
      */
@@ -78,6 +81,12 @@ public class Variant extends Assortment implements SingleProductMarker, Consignm
      * Серийные номера
      */
     private List<String> things;
+
+    /**
+     * Изображения модификации
+     * */
+
+    private ListEntity<Image> images;
 
     /**
      * Характеристика Модификации

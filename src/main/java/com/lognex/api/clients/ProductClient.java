@@ -14,7 +14,8 @@ public final class ProductClient
         MetadataEndpoint<MetadataAttributeSharedPriceTypesResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Product>,
-        PutByIdEndpoint<Product> {
+        PutByIdEndpoint<Product>,
+        HasImagesEndpoint<Product> {
 
     public ProductClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/product/");
@@ -29,4 +30,5 @@ public final class ProductClient
     public Class<? extends MetaEntity> metaEntityClass() {
         return MetadataAttributeSharedPriceTypesResponse.class;
     }
+
 }

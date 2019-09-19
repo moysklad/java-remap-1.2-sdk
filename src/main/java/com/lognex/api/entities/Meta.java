@@ -14,7 +14,10 @@ import com.lognex.api.entities.products.Variant;
 import com.lognex.api.responses.CompanySettingsResponse;
 import com.lognex.api.responses.metadata.CompanySettingsMetadata;
 import com.lognex.api.utils.MetaHrefUtils;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Arrays;
 
@@ -168,6 +171,7 @@ public final class Meta {
         INVENTORY_POSITION("inventoryposition", DocumentPosition.class),
         COMPANY_SETTINGS("companysettings", CompanySettingsResponse.class),
         CASHIER("cashier", Cashier.class),
+        IMAGE("image", Image.class),
         BONUS_TRANSACTION("bonustransaction", BonusTransaction.class),
         REGION("region", Region.class),
         ASSORTMENT("assortment", Assortment.class),
