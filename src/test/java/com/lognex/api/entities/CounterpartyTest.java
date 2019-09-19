@@ -335,7 +335,7 @@ public class CounterpartyTest extends EntityGetUpdateDeleteTest {
     public void metadataTest() throws IOException, ApiClientException {
         CounterpartyMetadataResponse metadata = api.entity().counterparty().metadata();
         assertFalse(metadata.getCreateShared());
-        assertEquals(5, metadata.getStates().size());
+        assertNotNull(metadata.getStates());
     }
 
     @Test
