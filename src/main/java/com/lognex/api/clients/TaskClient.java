@@ -65,12 +65,12 @@ public final class TaskClient
 
     @ApiEndpoint
     public TaskNote getNote(Task task, String taskNoteId, ApiParam... params) throws IOException, ApiClientException {
-        return getNote(task.getId(), taskNoteId);
+        return getNote(task.getId(), taskNoteId, params);
     }
 
     @ApiEndpoint
     public TaskNote getNote(Task task, TaskNote taskNote, ApiParam... params) throws IOException, ApiClientException {
-        return getNote(task, taskNote.getId());
+        return getNote(task, taskNote.getId(), params);
     }
 
     @ApiEndpoint

@@ -49,12 +49,12 @@ public final class CounterpartyClient
 
     @ApiEndpoint
     public AgentAccount getAccount(Counterparty counterparty, String accountId, ApiParam... params) throws IOException, ApiClientException {
-        return getAccount(counterparty.getId(), accountId);
+        return getAccount(counterparty.getId(), accountId, params);
     }
 
     @ApiEndpoint
     public AgentAccount getAccount(Counterparty counterparty, AgentAccount account, ApiParam... params) throws IOException, ApiClientException {
-        return getAccount(counterparty, account.getId());
+        return getAccount(counterparty, account.getId(), params);
     }
 
     @ApiEndpoint
@@ -91,12 +91,12 @@ public final class CounterpartyClient
 
     @ApiEndpoint
     public ContactPerson getContactPerson(Counterparty counterparty, String contactPersonId, ApiParam... params) throws IOException, ApiClientException {
-        return getContactPerson(counterparty.getId(), contactPersonId);
+        return getContactPerson(counterparty.getId(), contactPersonId, params);
     }
 
     @ApiEndpoint
     public ContactPerson getContactPerson(Counterparty counterparty, ContactPerson contactPerson, ApiParam... params) throws IOException, ApiClientException {
-        return getContactPerson(counterparty, contactPerson.getId());
+        return getContactPerson(counterparty, contactPerson.getId(), params);
     }
 
     @ApiEndpoint
