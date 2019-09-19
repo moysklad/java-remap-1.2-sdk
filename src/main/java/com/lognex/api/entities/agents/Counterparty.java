@@ -1,7 +1,7 @@
 package com.lognex.api.entities.agents;
 
 import com.lognex.api.entities.*;
-import com.lognex.api.entities.discounts.BonusProgramDiscount;
+import com.lognex.api.entities.discounts.BonusProgram;
 import com.lognex.api.entities.discounts.Discount;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
@@ -222,7 +222,7 @@ public final class Counterparty extends Agent implements IEntityWithAttributes {
     /**
      * Бонусная программа
      */
-    private BonusProgramDiscount bonusProogram;
+    private BonusProgram bonusProogram;
 
     /**
      * Бонусные баллы

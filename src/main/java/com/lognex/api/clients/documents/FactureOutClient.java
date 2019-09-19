@@ -19,7 +19,8 @@ public final class FactureOutClient
         PutByIdEndpoint<FactureOut>,
         DeleteByIdEndpoint,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public FactureOutClient(ApiClient api) {
         super(api, "/entity/factureout/");

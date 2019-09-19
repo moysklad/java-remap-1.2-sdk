@@ -5,7 +5,7 @@ import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.CompanyType;
 import com.lognex.api.entities.Group;
 import com.lognex.api.entities.IEntityWithAttributes;
-import com.lognex.api.entities.discounts.BonusProgramDiscount;
+import com.lognex.api.entities.discounts.BonusProgram;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -177,7 +177,7 @@ public final class Organization extends Agent implements IEntityWithAttributes {
     /**
      * Бонусная программа
      */
-    private BonusProgramDiscount bonusProogram;
+    private BonusProgram bonusProogram;
 
     /**
      * Бонусные баллы

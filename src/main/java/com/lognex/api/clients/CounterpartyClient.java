@@ -24,7 +24,8 @@ public final class CounterpartyClient
         MetadataEndpoint<CounterpartyMetadataResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Counterparty>,
-        PutByIdEndpoint<Counterparty> {
+        PutByIdEndpoint<Counterparty>,
+        HasStatesEndpoint {
 
     public CounterpartyClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/counterparty/");

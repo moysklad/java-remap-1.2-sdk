@@ -20,7 +20,8 @@ public final class PurchaseReturnClient
         PutByIdEndpoint<PurchaseReturn>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public PurchaseReturnClient(ApiClient api) {
         super(api, "/entity/purchasereturn/");

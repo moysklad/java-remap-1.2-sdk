@@ -19,7 +19,8 @@ public final class ProcessingOrderClient
         GetByIdEndpoint<ProcessingOrder>,
         PutByIdEndpoint<ProcessingOrder>,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public ProcessingOrderClient(ApiClient api) {
         super(api, "/entity/processingorder/");

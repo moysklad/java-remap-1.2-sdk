@@ -20,7 +20,8 @@ public final class PurchaseOrderClient
         PutByIdEndpoint<PurchaseOrder>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public PurchaseOrderClient(ApiClient api) {
         super(api, "/entity/purchaseorder/");

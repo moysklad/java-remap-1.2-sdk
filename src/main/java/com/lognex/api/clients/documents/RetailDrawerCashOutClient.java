@@ -16,7 +16,8 @@ public final class RetailDrawerCashOutClient
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public RetailDrawerCashOutClient(ApiClient api) {
         super(api, "/entity/retaildrawercashout/");

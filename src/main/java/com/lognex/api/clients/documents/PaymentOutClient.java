@@ -19,7 +19,8 @@ public final class PaymentOutClient
         GetByIdEndpoint<PaymentOut>,
         PutByIdEndpoint<PaymentOut>,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public PaymentOutClient(ApiClient api) {
         super(api, "/entity/paymentout/");
