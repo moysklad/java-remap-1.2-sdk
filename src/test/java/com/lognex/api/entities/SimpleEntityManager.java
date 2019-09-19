@@ -194,6 +194,11 @@ public class SimpleEntityManager implements TestRandomizers {
         return customEntityElement;
     }
 
+    public Employee getAdminEmployee() throws IOException, ApiClientException {
+        Organization ownOrganization = getOwnOrganization();
+        return ownOrganization.getOwner();
+    }
+
     public Employee createSimpleEmployee() throws IOException, ApiClientException {
         Employee employee = new Employee();
         employee.setLastName("employee_" + randomStringTail());
@@ -312,7 +317,7 @@ public class SimpleEntityManager implements TestRandomizers {
     }
 
     public Task createSimpleTask() throws IOException, ApiClientException {
-        Employee adminEmpl = api.entity().employee().get(filterEq("name", "Администратор")).getRows().get(0);
+        Employee adminEmpl = getAdminEmployee();
 
         Task task = new Task();
         task.setDescription("task_" + randomStringTail());

@@ -30,7 +30,7 @@ import static org.junit.Assert.*;
 public class TaskTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, ApiClientException {
-        Employee adminEmpl = api.entity().employee().get(filterEq("name", "Администратор")).getRows().get(0);
+        Employee adminEmpl = simpleEntityManager.getAdminEmployee();
         Counterparty buyerAgent = api.entity().counterparty().get(filterEq("name", "ООО \"Покупатель\"")).getRows().get(0);
         LocalDateTime dueDate = LocalDateTime.now().plusMonths(1).withSecond(0).withNano(0);
 

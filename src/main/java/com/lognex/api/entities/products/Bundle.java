@@ -2,6 +2,7 @@ package com.lognex.api.entities.products;
 
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Employee;
+import com.lognex.api.entities.products.markers.HasImages;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
@@ -16,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Bundle extends AbstractProduct implements IEntityWithAttributes {
+public class Bundle extends AbstractProduct implements IEntityWithAttributes, HasImages {
     /**
      * Ссылка на Владельца (Сотрудника) в формате Метаданных
      */
@@ -75,7 +76,7 @@ public class Bundle extends AbstractProduct implements IEntityWithAttributes {
     /**
      * Изображение товара
      */
-    private Image image;
+    private ListEntity<Image> images;
 
     /**
      * Идентификатор синхронизации

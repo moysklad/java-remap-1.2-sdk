@@ -1,7 +1,7 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.clients.EntityClientBase;
-import com.lognex.api.entities.products.*;
+import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
 import com.lognex.api.utils.ApiClientException;
@@ -13,7 +13,7 @@ import java.util.Date;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class ProductTest extends EntityGetUpdateDeleteTest {
+public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> {
     @Test
     public void createTest() throws IOException, ApiClientException {
         Product product = new Product();

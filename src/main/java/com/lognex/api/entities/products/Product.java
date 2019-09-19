@@ -5,7 +5,9 @@ import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.entities.products.markers.ConsignmentParentMarker;
+import com.lognex.api.entities.products.markers.HasImages;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
+import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +23,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Product extends AbstractProduct implements SingleProductMarker, ConsignmentParentMarker, IEntityWithAttributes {
+public class Product extends AbstractProduct implements SingleProductMarker, ConsignmentParentMarker, IEntityWithAttributes, HasImages {
     /**
      * Сотрудник-владелец
      */
@@ -63,9 +65,9 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
     private String pathName;
 
     /**
-     * Изображение товара
+     * Изображения товаров
      */
-    private Image image;
+    private ListEntity<Image> images;
 
     /**
      * Поставщик
