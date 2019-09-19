@@ -40,19 +40,20 @@ public final class CounterpartyClient
     }
 
     @ApiEndpoint
-    public AgentAccount getAccount(String counterpartyId, String accountId) throws IOException, ApiClientException {
+    public AgentAccount getAccount(String counterpartyId, String accountId, ApiParam... params) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + counterpartyId + "/accounts/" + accountId).
+                apiParams(params).
                 get(AgentAccount.class);
     }
 
     @ApiEndpoint
-    public AgentAccount getAccount(Counterparty counterparty, String accountId) throws IOException, ApiClientException {
+    public AgentAccount getAccount(Counterparty counterparty, String accountId, ApiParam... params) throws IOException, ApiClientException {
         return getAccount(counterparty.getId(), accountId);
     }
 
     @ApiEndpoint
-    public AgentAccount getAccount(Counterparty counterparty, AgentAccount account) throws IOException, ApiClientException {
+    public AgentAccount getAccount(Counterparty counterparty, AgentAccount account, ApiParam... params) throws IOException, ApiClientException {
         return getAccount(counterparty, account.getId());
     }
 
@@ -81,19 +82,20 @@ public final class CounterpartyClient
     }
 
     @ApiEndpoint
-    public ContactPerson getContactPerson(String counterpartyId, String contactPersonId) throws IOException, ApiClientException {
+    public ContactPerson getContactPerson(String counterpartyId, String contactPersonId, ApiParam... params) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + counterpartyId + "/contactpersons/" + contactPersonId).
+                apiParams(params).
                 get(ContactPerson.class);
     }
 
     @ApiEndpoint
-    public ContactPerson getContactPerson(Counterparty counterparty, String contactPersonId) throws IOException, ApiClientException {
+    public ContactPerson getContactPerson(Counterparty counterparty, String contactPersonId, ApiParam... params) throws IOException, ApiClientException {
         return getContactPerson(counterparty.getId(), contactPersonId);
     }
 
     @ApiEndpoint
-    public ContactPerson getContactPerson(Counterparty counterparty, ContactPerson contactPerson) throws IOException, ApiClientException {
+    public ContactPerson getContactPerson(Counterparty counterparty, ContactPerson contactPerson, ApiParam... params) throws IOException, ApiClientException {
         return getContactPerson(counterparty, contactPerson.getId());
     }
 

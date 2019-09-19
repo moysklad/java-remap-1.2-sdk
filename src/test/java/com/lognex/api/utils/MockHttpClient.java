@@ -69,7 +69,9 @@ public class MockHttpClient extends CloseableHttpClient {
                         se = new StringEntity("[]");
                     } else if ((httpRequest.getRequestLine().getUri().endsWith("contactpersons") ||
                                 httpRequest.getRequestLine().getUri().endsWith("notes") ||
-                                httpRequest.getRequestLine().getUri().contains("images")) &&
+                                httpRequest.getRequestLine().getUri().endsWith("accounts") ||
+                                httpRequest.getRequestLine().getUri().contains("images")
+                            ) &&
                             httpRequest.getRequestLine().getMethod().equals("POST")) {
                         se = new StringEntity("[{}]");
                     }

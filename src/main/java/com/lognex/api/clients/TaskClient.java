@@ -56,19 +56,20 @@ public final class TaskClient
     }
 
     @ApiEndpoint
-    public TaskNote getNote(String taskId, String taskNoteId) throws IOException, ApiClientException {
+    public TaskNote getNote(String taskId, String taskNoteId, ApiParam... params) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + taskId + "/notes/" + taskNoteId).
+                apiParams(params).
                 get(TaskNote.class);
     }
 
     @ApiEndpoint
-    public TaskNote getNote(Task task, String taskNoteId) throws IOException, ApiClientException {
+    public TaskNote getNote(Task task, String taskNoteId, ApiParam... params) throws IOException, ApiClientException {
         return getNote(task.getId(), taskNoteId);
     }
 
     @ApiEndpoint
-    public TaskNote getNote(Task task, TaskNote taskNote) throws IOException, ApiClientException {
+    public TaskNote getNote(Task task, TaskNote taskNote, ApiParam... params) throws IOException, ApiClientException {
         return getNote(task, taskNote.getId());
     }
 
