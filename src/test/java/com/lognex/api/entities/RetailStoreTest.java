@@ -21,6 +21,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setExternalCode(randomString());
         retailStore.setAddress("ул. Пушкина, д. Колотушкина");
         retailStore.setAllowCreateProducts(true);
+        retailStore.setControlShippingStock(false);
         retailStore.setActive(false);
         retailStore.setControlCashierChoice(true);
         retailStore.setDiscountEnable(true);
@@ -61,6 +62,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getExternalCode(), retrievedEntity.getExternalCode());
         assertEquals(retailStore.getAddress(), retrievedEntity.getAddress());
         assertEquals(retailStore.getAllowCreateProducts(), retrievedEntity.getAllowCreateProducts());
+        assertEquals(retailStore.getControlShippingStock(), retrievedEntity.getControlShippingStock());
         assertEquals(retailStore.getActive(), retrievedEntity.getActive());
         assertEquals(retailStore.getControlCashierChoice(), retrievedEntity.getControlCashierChoice());
         assertEquals(retailStore.getDiscountEnable(), retrievedEntity.getDiscountEnable());
