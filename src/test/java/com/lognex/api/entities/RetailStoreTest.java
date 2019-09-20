@@ -49,6 +49,8 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setReturnFromClosedShiftEnabled(true);
         retailStore.setEnableReturnsWithNoReason(true);
         retailStore.setReservePrepaidGoods(true);
+        retailStore.setDefaultTaxSystem(TaxSystem.PRESUMPTIVE_TAX_SYSTEM);
+        retailStore.setOrderTaxSystem(TaxSystem.UNIFIED_AGRICULTURAL_TAX);
 
         api.entity().retailstore().create(retailStore);
 
@@ -88,6 +90,8 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getReturnFromClosedShiftEnabled(), retrievedEntity.getReturnFromClosedShiftEnabled());
         assertEquals(retailStore.getEnableReturnsWithNoReason(), retrievedEntity.getEnableReturnsWithNoReason());
         assertEquals(retailStore.getReservePrepaidGoods(), retrievedEntity.getReservePrepaidGoods());
+        assertEquals(retailStore.getDefaultTaxSystem(), retrievedEntity.getDefaultTaxSystem());
+        assertEquals(retailStore.getOrderTaxSystem(), retrievedEntity.getOrderTaxSystem());
     }
 
     @Override
