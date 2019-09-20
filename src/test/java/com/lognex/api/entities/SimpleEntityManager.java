@@ -824,6 +824,17 @@ public class SimpleEntityManager implements TestRandomizers {
         return api.entity().retailstore().create(retailStore);
     }
 
+    public State createSimpleState() throws IOException, ApiClientException {
+        State state = new State();
+        state.setName("state_" + randomStringTail());
+        state.setStateType(State.StateType.regular);
+        state.setColor(randomColor());
+
+        api.entity().counterparty().states().create(state);
+
+        return state;
+    }
+
     public void clearAccessCounts() {
         for (Map.Entry<Class, Integer> entry : accessCounterMap.entrySet()) {
             entry.setValue(0);

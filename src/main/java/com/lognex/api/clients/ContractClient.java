@@ -17,7 +17,8 @@ public final class ContractClient
         GetByIdEndpoint<Contract>,
         PutByIdEndpoint<Contract>,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public ContractClient(ApiClient api) {
         super(api, "/entity/contract/");

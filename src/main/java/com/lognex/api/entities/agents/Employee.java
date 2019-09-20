@@ -27,7 +27,7 @@ public final class Employee extends Agent implements IEntityWithAttributes {
     private String fullName;
     private Boolean archived;
     private String uid;
-    private Cashier cashier;
+    private List<Cashier> cashiers;
     private LocalDateTime updated;
     private String email;
     private Group group;

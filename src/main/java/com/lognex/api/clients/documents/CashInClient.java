@@ -19,7 +19,8 @@ public final class CashInClient
         GetByIdEndpoint<CashIn>,
         PutByIdEndpoint<CashIn>,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public CashInClient(ApiClient api) {
         super(api, "/entity/cashin/");

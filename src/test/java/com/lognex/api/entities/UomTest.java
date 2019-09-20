@@ -19,6 +19,9 @@ public class UomTest extends EntityGetUpdateDeleteTest {
         uom.setDescription(randomString());
         uom.setCode(randomString());
         uom.setExternalCode(randomString());
+        uom.setShared(true);
+        uom.setOwner(simpleEntityManager.createSimpleEmployee());
+        uom.setGroup(simpleEntityManager.getMainGroup());
 
         api.entity().uom().create(uom);
 
@@ -30,6 +33,9 @@ public class UomTest extends EntityGetUpdateDeleteTest {
         assertEquals(uom.getDescription(), retrievedEntity.getDescription());
         assertEquals(uom.getCode(), retrievedEntity.getCode());
         assertEquals(uom.getExternalCode(), retrievedEntity.getExternalCode());
+        assertEquals(uom.getShared(), retrievedEntity.getShared());
+        assertEquals(uom.getOwner(), retrievedEntity.getOwner());
+        assertEquals(uom.getGroup(), retrievedEntity.getGroup());
     }
 
     @Override

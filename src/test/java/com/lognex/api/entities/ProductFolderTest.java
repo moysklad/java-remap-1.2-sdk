@@ -19,9 +19,11 @@ public class ProductFolderTest extends EntityGetUpdateDeleteTest {
         ProductFolder inner = new ProductFolder();
         inner.setName("innerproductfolder_" + randomString(3) + "_" + new Date().getTime());
         inner.setArchived(false);
+        inner.setVat(randomInteger(10, 20));
 
         ProductFolder outer = new ProductFolder();
         outer.setName("outerproductfolder_" + randomString(3) + "_" + new Date().getTime());
+        outer.setTaxSystem(TaxSystem.PATENT_BASED);
 
         api.entity().productfolder().create(outer);
         inner.setProductFolder(outer);
@@ -34,7 +36,10 @@ public class ProductFolderTest extends EntityGetUpdateDeleteTest {
         ProductFolder retrievedEntity = updatedEntitiesList.getRows().get(0);
         assertEquals(inner.getName(), retrievedEntity.getName());
         assertEquals(inner.getArchived(), retrievedEntity.getArchived());
+        assertEquals(inner.getVat(), retrievedEntity.getVat());
+        assertEquals(inner.getEffectiveVat(), retrievedEntity.getEffectiveVat());
         assertEquals(outer.getName(), retrievedEntity.getProductFolder().getName());
+        assertEquals(outer.getTaxSystem(), retrievedEntity.getProductFolder().getTaxSystem());
     }
 
     @Override

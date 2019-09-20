@@ -18,7 +18,8 @@ public final class ProcessingClient
         GetByIdEndpoint<Processing>,
         PutByIdEndpoint<Processing>,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public ProcessingClient(ApiClient api) {
         super(api, "/entity/processing/");

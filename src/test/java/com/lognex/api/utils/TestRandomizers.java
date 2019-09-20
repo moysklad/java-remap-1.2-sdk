@@ -25,6 +25,10 @@ public interface TestRandomizers {
         return fromIncl + rnd.nextInt(toIncl - fromIncl + 1);
     }
 
+    default int randomColor() {
+        return rnd.nextInt(Integer.MAX_VALUE);
+    }
+
     default long randomLong(long fromIncl, long toIncl) {
         return fromIncl + (long) (rnd.nextDouble() * (toIncl - fromIncl + 1));
     }
