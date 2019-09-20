@@ -2,6 +2,7 @@ package com.lognex.api;
 
 import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.TestAsserts;
+import com.lognex.api.utils.TestConstants;
 import com.lognex.api.utils.TestRandomizers;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
     public void test_emptyAuthData() throws IOException, InterruptedException {
         ApiClient api = new ApiClient(
                 System.getenv("API_HOST"),
-                true, "", ""
+                TestConstants.FORCE_HTTPS_FOR_TESTS, "", ""
         );
 
         try {
@@ -35,7 +36,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
     public void test_nullAuthData() throws IOException, InterruptedException {
         ApiClient api = new ApiClient(
                 System.getenv("API_HOST"),
-                true, null, null
+                TestConstants.FORCE_HTTPS_FOR_TESTS, null, null
         );
 
         try {
@@ -57,7 +58,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
 
         ApiClient api = new ApiClient(
                 System.getenv("API_HOST"),
-                true, login, randomString()
+                TestConstants.FORCE_HTTPS_FOR_TESTS, login, randomString()
         );
 
         try {
@@ -77,7 +78,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
     public void test_correctLoginFormatWrongCredentials() throws IOException, InterruptedException {
         ApiClient api = new ApiClient(
                 System.getenv("API_HOST"),
-                true, randomString() + "@" + randomString(), randomString()
+                TestConstants.FORCE_HTTPS_FOR_TESTS, randomString() + "@" + randomString(), randomString()
         );
 
         try {
@@ -98,7 +99,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
         try {
             new ApiClient(
                     null,
-                    true, randomString() + "@" + randomString(), randomString()
+                    TestConstants.FORCE_HTTPS_FOR_TESTS, randomString() + "@" + randomString(), randomString()
             );
             fail("Ожидалось исключение IllegalArgumentException!");
         } catch (IllegalArgumentException e) {
@@ -111,7 +112,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
         try {
             new ApiClient(
                     "",
-                    true, randomString() + "@" + randomString(), randomString()
+                    TestConstants.FORCE_HTTPS_FOR_TESTS, randomString() + "@" + randomString(), randomString()
             );
             fail("Ожидалось исключение IllegalArgumentException!");
         } catch (IllegalArgumentException e) {

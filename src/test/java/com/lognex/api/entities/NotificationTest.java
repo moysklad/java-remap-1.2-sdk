@@ -5,6 +5,7 @@ import com.lognex.api.ApiClient;
 import com.lognex.api.entities.notifications.*;
 import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.MockHttpClient;
+import com.lognex.api.utils.TestConstants;
 import com.lognex.api.utils.TestUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -535,7 +536,7 @@ public class NotificationTest extends EntityTestBase {
         mockHttpClient = new MockHttpClient();
         mockApi = new ApiClient(
                 System.getenv("API_HOST"),
-                true, System.getenv("API_LOGIN"),
+                TestConstants.FORCE_HTTPS_FOR_TESTS, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD"),
                 mockHttpClient
         );
@@ -555,7 +556,7 @@ public class NotificationTest extends EntityTestBase {
         mockHttpClient = new MockHttpClient();
         mockApi = new ApiClient(
                 System.getenv("API_HOST"),
-                true, System.getenv("API_LOGIN"),
+                TestConstants.FORCE_HTTPS_FOR_TESTS, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD"),
                 mockHttpClient
         );

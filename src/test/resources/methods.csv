@@ -1358,3 +1358,6 @@ DELETE;https://test.moysklad/api/remap/1.2/entity/webhook/ID;String;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/webhook/ENTITY_ID;MetaEntity;void
 GET;https://test.moysklad/api/remap/1.2/entity/webhook/ID;String,ApiParam[];WebHook
 GET;https://test.moysklad/api/remap/1.2/entity/webhook/;ApiParam[];ListEntity
+POST;https://test.moysklad/api/remap/1.2/entity/retailstore/;MetaEntity;MetaEntity
+PUT;https://test.moysklad/api/remap/1.2/entity/retailstore/ID;String,MetaEntity;void
+PUT;https://test.moysklad/api/remap/1.2/entity/retailstore/ENTITY_ID;MetaEntity;void

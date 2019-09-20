@@ -4,6 +4,7 @@ import com.lognex.api.ApiClient;
 import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.documents.CustomerOrder;
 import com.lognex.api.utils.TestAsserts;
+import com.lognex.api.utils.TestConstants;
 import com.lognex.api.utils.TestRandomizers;
 import org.junit.Ignore;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public class SchemaTest implements TestAsserts, TestRandomizers {
         //todo register new company
         ApiClient api = new ApiClient(
                 System.getenv("API_HOST"),
-                true, System.getenv("API_LOGIN"),
+                TestConstants.FORCE_HTTPS_FOR_TESTS, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
         );
         Schema schema = SchemaMapper.readSchema("counterparty.json");
@@ -37,7 +38,7 @@ public class SchemaTest implements TestAsserts, TestRandomizers {
         //todo register new company
         ApiClient api = new ApiClient(
                 System.getenv("API_HOST"),
-                true, System.getenv("API_LOGIN"),
+                TestConstants.FORCE_HTTPS_FOR_TESTS, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
         );
         Schema schema = SchemaMapper.readSchema("customerorder.json");

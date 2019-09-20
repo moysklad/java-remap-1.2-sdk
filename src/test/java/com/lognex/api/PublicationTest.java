@@ -8,6 +8,7 @@ import com.lognex.api.entities.documents.Demand;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.MetaHrefUtils;
+import com.lognex.api.utils.TestConstants;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,7 +25,7 @@ public class PublicationTest {
     public void init() {
         api = new ApiClient(
                 System.getenv("API_HOST"),
-                true, System.getenv("API_LOGIN"),
+                TestConstants.FORCE_HTTPS_FOR_TESTS, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
         );
     }

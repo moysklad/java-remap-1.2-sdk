@@ -48,6 +48,22 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private Agent acquire;
     private State orderToState;
     private ListEntity<State> customerOrderStates;
+    private Boolean allowCreateProducts;
+    private PriorityOfdSend priorityOfdSend;
+    private String demandPrefix;
+    private Boolean allowSellTobaccoWithoutMRC;
+    private ListEntity<ProductFolder> productFolders;
+    private List<String> createAgentsTags;
+    private List<String> filterAgentsTags;
+    private Boolean printAlways;
+    private ReceiptTemplate receiptTemplate;
+    private Boolean createPaymentInOnRetailShiftClosing;
+    private Boolean createCashInOnRetailShiftClosing;
+    private Boolean returnFromClosedShiftEnabled;
+    private Boolean enableReturnsWithNoReason;
+    private State createOrderWithState;
+    private Boolean reservePrepaidGoods;
+    private Double bankPercent;
 
     public RetailStore(String id) {
         super(id);
@@ -58,7 +74,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
     @NoArgsConstructor
     public static class LastOperationNamesItem {
         private String name;
-        private String entity;
+        private Meta.Type entity;
     }
 
     @Getter
@@ -131,5 +147,9 @@ public class RetailStore extends MetaEntity implements Fetchable {
             private String code;
             private String message;
         }
+    }
+
+    public enum PriorityOfdSend {
+        PHONE, EMAIL, NONE
     }
 }
