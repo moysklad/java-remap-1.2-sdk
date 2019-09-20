@@ -24,7 +24,8 @@ public final class CounterpartyClient
         MetadataEndpoint<CounterpartyMetadataResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Counterparty>,
-        PutByIdEndpoint<Counterparty> {
+        PutByIdEndpoint<Counterparty>,
+        HasStatesEndpoint {
 
     public CounterpartyClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/counterparty/");
@@ -148,21 +149,20 @@ public final class CounterpartyClient
     }
 
     @ApiEndpoint
-    public Note getNote(String counterpartyId, String noteId, ApiParam... params) throws IOException, ApiClientException {
+    public Note getNote(String counterpartyId, String noteId) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + counterpartyId + "/notes/" + noteId).
-                apiParams(params).
                 get(Note.class);
     }
 
     @ApiEndpoint
-    public Note getNote(Counterparty counterparty, String noteId, ApiParam... params) throws IOException, ApiClientException {
-        return getNote(counterparty.getId(), noteId, params);
+    public Note getNote(Counterparty counterparty, String noteId) throws IOException, ApiClientException {
+        return getNote(counterparty.getId(), noteId);
     }
 
     @ApiEndpoint
-    public Note getNote(Counterparty counterparty, Note note, ApiParam... params) throws IOException, ApiClientException {
-        return getNote(counterparty, note.getId(), params);
+    public Note getNote(Counterparty counterparty, Note note) throws IOException, ApiClientException {
+        return getNote(counterparty, note.getId());
     }
 
     @ApiEndpoint

@@ -115,4 +115,30 @@ public class Bundle extends AbstractProduct implements IEntityWithAttributes, Ha
         private Currency currency;
         private Long value;
     }
+
+    /**
+     * Тип маркируемой продукции
+     */
+    private TrackingType trackingType;
+
+    public enum TrackingType {
+        NOT_TRACKED,
+        TOBACCO,
+        SHOES
+    }
+
+    /**
+     * Код ТН ВЭД
+     */
+    private String tnved;
+
+    /**
+     * Признак предмета расчета
+     */
+    private GoodPaymentItemType paymentItemType;
+
+    /**
+     * Код системы налогообложения
+     */
+    private TaxSystem taxSystem;
 }

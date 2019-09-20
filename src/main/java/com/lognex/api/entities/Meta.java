@@ -171,6 +171,7 @@ public final class Meta {
         INVENTORY_POSITION("inventoryposition", DocumentPosition.class),
         COMPANY_SETTINGS("companysettings", CompanySettingsResponse.class),
         CASHIER("cashier", Cashier.class),
+        TASK_NOTE("tasknote", Task.TaskNote.class),
         IMAGE("image", Image.class),
         BONUS_TRANSACTION("bonustransaction", BonusTransaction.class),
         REGION("region", Region.class),

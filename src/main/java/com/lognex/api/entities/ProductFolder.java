@@ -63,6 +63,21 @@ public class ProductFolder extends MetaEntity {
      */
     private Group group;
 
+    /**
+     * НДС
+     */
+    private Integer vat;
+
+    /**
+     * Реальный НДС
+     */
+    private Integer effectiveVat;
+
+    /**
+     * Код системы налогообложения
+     */
+    private TaxSystem taxSystem;
+
     public ProductFolder(String id) {
         super(id);
     }

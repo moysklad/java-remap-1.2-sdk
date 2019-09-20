@@ -20,7 +20,8 @@ public final class InternalOrderClient
         PutByIdEndpoint<InternalOrder>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public InternalOrderClient(ApiClient api) {
         super(api, "/entity/internalorder/");

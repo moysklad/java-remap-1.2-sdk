@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.entities.agents.Employee;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,21 @@ public class Uom extends MetaEntity {
      * Внешний код
      */
     private String externalCode;
+
+    /**
+     * Флаг Общий доступ
+     */
+    private Boolean shared;
+
+    /**
+     * Сотрудник-владелец
+     */
+    private Employee owner;
+
+    /**
+     * Отдел-владелец
+     */
+    private Group group;
 
     public Uom(String id) {
         super(id);

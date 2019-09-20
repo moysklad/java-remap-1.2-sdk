@@ -19,7 +19,8 @@ public final class PaymentInClient
         GetByIdEndpoint<PaymentIn>,
         PutByIdEndpoint<PaymentIn>,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public PaymentInClient(ApiClient api) {
         super(api, "/entity/paymentin/");
