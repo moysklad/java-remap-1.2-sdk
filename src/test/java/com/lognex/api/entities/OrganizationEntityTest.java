@@ -23,6 +23,10 @@ public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
         organization.setCompanyType(CompanyType.legal);
         organization.setInn(randomString());
         organization.setOgrn(randomString());
+        Address actualAddressFull = randomAddress(api);
+        Address legalAddressFull = randomAddress(api);
+        organization.setActualAddressFull(actualAddressFull);
+        organization.setLegalAddressFull(legalAddressFull);
 
         api.entity().organization().create(organization);
 
@@ -36,6 +40,8 @@ public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
         assertEquals(organization.getCompanyType(), retrievedEntity.getCompanyType());
         assertEquals(organization.getInn(), retrievedEntity.getInn());
         assertEquals(organization.getOgrn(), retrievedEntity.getOgrn());
+        assertAddressFull(actualAddressFull, organization.getActualAddressFull());
+        assertAddressFull(legalAddressFull, organization.getLegalAddressFull());
     }
 
     @Test

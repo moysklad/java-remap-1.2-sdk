@@ -1,5 +1,6 @@
 package com.lognex.api.utils;
 
+import com.lognex.api.entities.Address;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collection;
@@ -29,5 +30,17 @@ public interface TestAsserts {
                     e.getErrorResponse().getErrors().get(index++).getError()
             );
         }
+    }
+
+    default void assertAddressFull(Address expected, Address real) {
+        assertEquals(expected.getPostalCode(), real.getPostalCode());
+        assertEquals(expected.getCountry().getMeta().getUuidHref(), real.getCountry().getMeta().getUuidHref());
+        assertEquals(expected.getRegion().getMeta().getUuidHref(), real.getRegion().getMeta().getUuidHref());
+        assertEquals(expected.getCity(), real.getCity());
+        assertEquals(expected.getStreet(), real.getStreet());
+        assertEquals(expected.getHouse(), real.getHouse());
+        assertEquals(expected.getApartment(), real.getApartment());
+        assertEquals(expected.getAddInfo(), real.getAddInfo());
+        assertEquals(expected.getComment(), real.getComment());
     }
 }

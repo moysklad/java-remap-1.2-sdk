@@ -1,10 +1,6 @@
 package com.lognex.api.entities.agents;
 
-import com.lognex.api.entities.AgentAccount;
-import com.lognex.api.entities.Attribute;
-import com.lognex.api.entities.CompanyType;
-import com.lognex.api.entities.Group;
-import com.lognex.api.entities.IEntityWithAttributes;
+import com.lognex.api.entities.*;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -103,6 +99,11 @@ public final class Organization extends Agent implements IEntityWithAttributes {
     private String legalAddress;
 
     /**
+     * Структурированный Юридический адрес юрлица
+     * */
+    private Address legalAddressFull;
+
+    /**
      * ИНН
      */
     private String inn;
@@ -147,6 +148,7 @@ public final class Organization extends Agent implements IEntityWithAttributes {
     private String fsrarId;
     private String utmUrl;
     private String actualAddress;
+    private Address actualAddressFull;
 
     public Organization(String id) {
         super(id);
