@@ -85,7 +85,7 @@ public interface TestRandomizers {
         Address address = new Address();
         address.setPostalCode(randomString());
         List<Country> countries = api.entity().country().get().getRows();
-        address.setCountry(countries.get(randomInteger(0, countries.size())));
+        address.setCountry(countries.get(randomInteger(0, countries.size() - 1)));
         address.setRegion(api.entity().region().get("00000000-0000-0000-0000-000000000077"));
         address.setCity(randomString());
         address.setStreet(randomString());
