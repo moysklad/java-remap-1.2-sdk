@@ -1,6 +1,7 @@
 package com.lognex.api.entities.agents;
 
 import com.lognex.api.entities.*;
+import com.lognex.api.entities.discounts.BonusProgram;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
