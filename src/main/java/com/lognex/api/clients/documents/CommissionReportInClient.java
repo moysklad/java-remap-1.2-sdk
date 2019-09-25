@@ -19,7 +19,8 @@ public final class CommissionReportInClient
         PutByIdEndpoint<CommissionReportIn>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public CommissionReportInClient(ApiClient api) {
         super(api, "/entity/commissionreportin/");

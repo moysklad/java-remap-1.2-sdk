@@ -20,7 +20,8 @@ public final class MoveClient
         PutByIdEndpoint<Move>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public MoveClient(ApiClient api) {
         super(api, "/entity/move/");

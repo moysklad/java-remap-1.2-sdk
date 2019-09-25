@@ -13,6 +13,7 @@ import com.lognex.api.utils.params.ApiParam;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 
 public final class OrganizationClient
         extends EntityClientBase
@@ -48,10 +49,20 @@ public final class OrganizationClient
     }
 
     @ApiEndpoint
-    public void createAccounts(String organizationId, Collection<AgentAccount> entities) throws IOException, ApiClientException {
-        HttpRequestExecutor.
+    public ListEntity<AgentAccount> getAccounts(Organization organization, ApiParam... params) throws IOException, ApiClientException {
+        return getAccounts(organization.getId(), params);
+    }
+
+    @ApiEndpoint
+    public List<AgentAccount> createAccounts(String organizationId, Collection<AgentAccount> entities) throws IOException, ApiClientException {
+        return HttpRequestExecutor.
                 path(api(), path() + organizationId + "/accounts").
                 body(entities).
-                post();
+                postList(AgentAccount.class);
+    }
+
+    @ApiEndpoint
+    public List<AgentAccount> createAccounts(Organization organization, Collection<AgentAccount> entities) throws IOException, ApiClientException {
+        return createAccounts(organization.getId(), entities);
     }
 }

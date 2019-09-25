@@ -13,7 +13,7 @@ import java.util.Date;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class EmployeeEntityTest extends EntityGetUpdateDeleteTest {
+public class EmployeeTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, ApiClientException {
         Employee employee = new Employee();

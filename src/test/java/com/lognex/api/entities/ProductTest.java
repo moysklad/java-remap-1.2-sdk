@@ -1,7 +1,7 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.clients.EntityClientBase;
-import com.lognex.api.entities.products.Product;
+import com.lognex.api.entities.products.*;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
 import com.lognex.api.utils.ApiClientException;
@@ -13,7 +13,7 @@ import java.util.Date;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class ProductEntityTest extends EntityGetUpdateDeleteWithImageTest<Product> {
+public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> {
     @Test
     public void createTest() throws IOException, ApiClientException {
         Product product = new Product();
@@ -22,6 +22,9 @@ public class ProductEntityTest extends EntityGetUpdateDeleteWithImageTest<Produc
         product.setDescription(randomString());
         product.setArticle(randomString());
         product.setWeight(randomDouble(1, 5, 2));
+        product.setTrackingType(Product.TrackingType.TOBACCO);
+        product.setPaymentItemType(GoodPaymentItemType.GOOD);
+        product.setTaxSystem(TaxSystem.SIMPLIFIED_TAX_SYSTEM_INCOME);
 
         api.entity().product().create(product);
 
@@ -34,6 +37,9 @@ public class ProductEntityTest extends EntityGetUpdateDeleteWithImageTest<Produc
         assertEquals(product.getDescription(), retrievedEntity.getDescription());
         assertEquals(product.getArticle(), retrievedEntity.getArticle());
         assertEquals(product.getWeight(), retrievedEntity.getWeight());
+        assertEquals(product.getTrackingType(), retrievedEntity.getTrackingType());
+        assertEquals(product.getPaymentItemType(), retrievedEntity.getPaymentItemType());
+        assertEquals(product.getTaxSystem(), retrievedEntity.getTaxSystem());
     }
 
     @Test
