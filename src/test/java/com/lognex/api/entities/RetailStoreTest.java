@@ -10,8 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class RetailStoreTest extends EntityGetUpdateDeleteTest {
     @Test
@@ -20,7 +19,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setName("retailstore_" + randomStringTail());
         retailStore.setDescription(randomString());
         retailStore.setExternalCode(randomString());
-        retailStore.setAddress("ул. Пушкина, д. Колотушкина");
+        retailStore.setAddressFull(randomAddress(api));
         retailStore.setAllowCreateProducts(true);
         retailStore.setControlShippingStock(false);
         retailStore.setActive(false);
@@ -63,7 +62,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getName(), retrievedEntity.getName());
         assertEquals(retailStore.getDescription(), retrievedEntity.getDescription());
         assertEquals(retailStore.getExternalCode(), retrievedEntity.getExternalCode());
-        assertEquals(retailStore.getAddress(), retrievedEntity.getAddress());
+        assertAddressFull(retailStore.getAddressFull(), retrievedEntity.getAddressFull());
         assertEquals(retailStore.getAllowCreateProducts(), retrievedEntity.getAllowCreateProducts());
         assertEquals(retailStore.getControlShippingStock(), retrievedEntity.getControlShippingStock());
         assertEquals(retailStore.getActive(), retrievedEntity.getActive());
