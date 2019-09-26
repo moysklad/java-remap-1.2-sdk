@@ -55,7 +55,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private Boolean onlyInStock;
     private Agent acquire;
     private State orderToState;
-    private ListEntity<State> customerOrderStates;
+    private List<State> customerOrderStates;
     private TaxSystem defaultTaxSystem;
     private TaxSystem orderTaxSystem;
     private Boolean allowCreateProducts;
