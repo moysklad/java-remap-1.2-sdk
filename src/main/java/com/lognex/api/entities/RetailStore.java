@@ -201,7 +201,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
         @Override
         public JsonElement serialize(ListEntity<Cashier> src, Type typeOfSrc, JsonSerializationContext context) {
             if (src.getRows() == null) {
-                throw new JsonParseException("Can't parse field 'cashiers': rows is null");
+                return null;
             }
 
             return context.serialize(src.getRows().stream()
