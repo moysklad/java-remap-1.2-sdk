@@ -10,7 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class RetailStoreTest extends EntityGetUpdateDeleteTest {
     @Test

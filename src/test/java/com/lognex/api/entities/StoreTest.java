@@ -20,6 +20,8 @@ public class StoreTest extends EntityGetUpdateDeleteTest {
         store.setArchived(false);
         store.setDescription(randomString());
         store.setPathName(randomString());
+        Address addressFull = randomAddress(api);
+        store.setAddressFull(addressFull);
 
         api.entity().store().create(store);
 
@@ -31,6 +33,7 @@ public class StoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(store.getArchived(), retrievedEntity.getArchived());
         assertEquals(store.getDescription(), retrievedEntity.getDescription());
         assertEquals(store.getPathName(), retrievedEntity.getPathName());
+        assertAddressFull(addressFull, store.getAddressFull());
     }
 
     @Test

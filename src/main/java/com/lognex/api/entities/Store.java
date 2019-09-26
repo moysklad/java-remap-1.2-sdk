@@ -63,6 +63,12 @@ public class Store extends MetaEntity implements IEntityWithAttributes {
     private String address;
 
     /**
+     * Полный адресс склада
+     * */
+
+    private Address addressFull;
+
+    /**
      * Родительский склад (Группа)
      */
     private Store parent;
