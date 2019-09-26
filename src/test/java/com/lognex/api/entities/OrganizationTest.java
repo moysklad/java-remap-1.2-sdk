@@ -8,13 +8,15 @@ import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
+public class OrganizationTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, ApiClientException {
         Organization organization = new Organization();
@@ -27,6 +29,11 @@ public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
         Address legalAddressFull = randomAddress(api);
         organization.setActualAddressFull(actualAddressFull);
         organization.setLegalAddressFull(legalAddressFull);
+        organization.setSyncId(UUID.randomUUID().toString());
+        organization.setDescription(randomString());
+        organization.setCode(randomString());
+        organization.setTrackingContractNumber(randomString());
+        organization.setTrackingContractDate(LocalDateTime.now());
 
         api.entity().organization().create(organization);
 
@@ -42,6 +49,11 @@ public class OrganizationEntityTest extends EntityGetUpdateDeleteTest {
         assertEquals(organization.getOgrn(), retrievedEntity.getOgrn());
         assertAddressFull(actualAddressFull, organization.getActualAddressFull());
         assertAddressFull(legalAddressFull, organization.getLegalAddressFull());
+        assertEquals(organization.getSyncId(), retrievedEntity.getSyncId());
+        assertEquals(organization.getDescription(), retrievedEntity.getDescription());
+        assertEquals(organization.getCode(), retrievedEntity.getCode());
+        assertEquals(organization.getTrackingContractNumber(), retrievedEntity.getTrackingContractNumber());
+        assertEquals(organization.getTrackingContractDate(), retrievedEntity.getTrackingContractDate());
     }
 
     @Test

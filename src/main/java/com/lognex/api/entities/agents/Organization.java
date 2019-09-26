@@ -1,6 +1,7 @@
 package com.lognex.api.entities.agents;
 
 import com.lognex.api.entities.*;
+import com.lognex.api.entities.discounts.BonusProgram;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,6 +19,11 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public final class Organization extends Agent implements IEntityWithAttributes {
+    /**
+     * ID синхронизации
+     */
+    private String syncId;
+
     /**
      * Ссылка на Владельца (Сотрудника) в формате Метаданных
      */
@@ -37,6 +43,16 @@ public final class Organization extends Agent implements IEntityWithAttributes {
      * Момент последнего обновления сущности
      */
     private LocalDateTime updated;
+
+    /**
+     * Комментарий
+     */
+    private String description;
+
+    /**
+     * Код юрлица
+     */
+    private String code;
 
     /**
      * Внешний код юрлица
@@ -149,6 +165,26 @@ public final class Organization extends Agent implements IEntityWithAttributes {
     private String utmUrl;
     private String actualAddress;
     private Address actualAddressFull;
+
+    /**
+     * Номер договора с ЦРПТ
+     */
+    private String trackingContractNumber;
+
+    /**
+     * Дата договора с ЦРПТ
+     */
+    private LocalDateTime trackingContractDate;
+
+    /**
+     * Бонусная программа
+     */
+    private BonusProgram bonusProogram;
+
+    /**
+     * Бонусные баллы
+     */
+    private Long bonusPoints;
 
     public Organization(String id) {
         super(id);

@@ -23,6 +23,8 @@ public class ServiceTest extends EntityGetUpdateDeleteTest {
         minPrice.setValue(randomLong(10, 10000));
         minPrice.setCurrency(simpleEntityManager.getFirstCurrency());
         service.setMinPrice(minPrice);
+        service.setPaymentItemType(ServicePaymentItemType.WORK);
+        service.setTaxSystem(TaxSystem.GENERAL_TAX_SYSTEM);
 
         api.entity().service().create(service);
 
@@ -35,6 +37,8 @@ public class ServiceTest extends EntityGetUpdateDeleteTest {
         assertEquals(service.getDescription(), retrievedEntity.getDescription());
         assertEquals(service.getMinPrice().getValue(), retrievedEntity.getMinPrice().getValue());
         assertEquals(service.getMinPrice().getCurrency(), retrievedEntity.getMinPrice().getCurrency());
+        assertEquals(service.getPaymentItemType(), retrievedEntity.getPaymentItemType());
+        assertEquals(service.getTaxSystem(), retrievedEntity.getTaxSystem());
     }
 
     @Override

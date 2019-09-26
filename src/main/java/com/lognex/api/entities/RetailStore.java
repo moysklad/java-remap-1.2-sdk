@@ -26,7 +26,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private Boolean archived;
     private Boolean issueOrders;
     private List<LastOperationNamesItem> lastOperationNames;
-    private RetailStoreState retailStoreState;
+    private RetailStoreState state;
     private Group group;
     private Employee owner;
     private Boolean allowCustomPrice;
@@ -49,6 +49,8 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private Agent acquire;
     private State orderToState;
     private ListEntity<State> customerOrderStates;
+    private TaxSystem defaultTaxSystem;
+    private TaxSystem orderTaxSystem;
 
     public RetailStore(String id) {
         super(id);
@@ -66,8 +68,11 @@ public class RetailStore extends MetaEntity implements Fetchable {
     @Setter
     @NoArgsConstructor
     public static class Environment {
+        private String device;
+        private String os;
         private Software software;
         private ChequePrinter chequePrinter;
+        private PaymentTerminalState paymentTerminal;
 
         @Getter
         @Setter
@@ -97,6 +102,13 @@ public class RetailStore extends MetaEntity implements Fetchable {
                 private String name;
                 private String version;
             }
+
+            @Getter
+            @Setter
+            @NoArgsConstructor
+            public class FiscalMemory {
+                private String fiscalDataVersion;
+            }
         }
     }
 
@@ -106,7 +118,8 @@ public class RetailStore extends MetaEntity implements Fetchable {
     public static class RetailStoreState {
         private Sync sync;
         private LocalDateTime lastCheckMoment;
-        private FiscalMemory fiscalMemory;
+        private FiscalMemoryState fiscalMemory;
+        private PaymentTerminalState paymentTerminal;
 
         @Getter
         @Setter
@@ -115,22 +128,29 @@ public class RetailStore extends MetaEntity implements Fetchable {
             private String message;
             private String lastAttempMoment;
         }
+
+        @Getter
+        @Setter
+        @NoArgsConstructor
+        public static class FiscalMemoryState {
+            private Error error;
+            private Integer notSendDocCount;
+            private LocalDateTime notSendFirstDocMoment;
+
+            @Getter
+            @Setter
+            @NoArgsConstructor
+            public static class Error {
+                private String code;
+                private String message;
+            }
+        }
     }
 
     @Getter
     @Setter
     @NoArgsConstructor
-    public static class FiscalMemory {
-        private Error error;
-        private Integer notSendDocCount;
-        private LocalDateTime notSendFirstDocMoment;
-
-        @Getter
-        @Setter
-        @NoArgsConstructor
-        public static class Error {
-            private String code;
-            private String message;
-        }
+    public static class PaymentTerminalState {
+        private String acquiringType;
     }
 }

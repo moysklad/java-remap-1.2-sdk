@@ -52,11 +52,6 @@ public class AgentAccount extends MetaEntity {
      */
     private String bic;
 
-    /**
-     * Ссылка на юрлицо
-     */
-    private Agent agent;
-
     public AgentAccount(String id) {
         super(id);
     }

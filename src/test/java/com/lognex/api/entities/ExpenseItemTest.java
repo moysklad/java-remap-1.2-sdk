@@ -19,6 +19,7 @@ public class ExpenseItemTest extends EntityGetUpdateDeleteTest {
         expenceItem.setDescription(randomString());
         expenceItem.setCode(randomString());
         expenceItem.setExternalCode(randomString());
+        expenceItem.setArchived(true);
 
         api.entity().expenseitem().create(expenceItem);
 
@@ -30,6 +31,7 @@ public class ExpenseItemTest extends EntityGetUpdateDeleteTest {
         assertEquals(expenceItem.getDescription(), retrievedEntity.getDescription());
         assertEquals(expenceItem.getCode(), retrievedEntity.getCode());
         assertEquals(expenceItem.getExternalCode(), retrievedEntity.getExternalCode());
+        assertEquals(expenceItem.getArchived(), retrievedEntity.getArchived());
     }
 
     @Override

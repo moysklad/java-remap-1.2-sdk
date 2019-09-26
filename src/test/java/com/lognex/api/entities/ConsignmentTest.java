@@ -17,6 +17,8 @@ public class ConsignmentTest extends EntityGetUpdateDeleteTest {
     public void createTest() throws IOException, ApiClientException {
         Consignment consignment = new Consignment();
         consignment.setLabel("consignment_" + randomString(3) + "_" + new Date().getTime());
+        consignment.setDescription(randomString());
+        consignment.setCode(randomString());
 
         Product product = simpleEntityManager.createSimple(Product.class);
         consignment.setAssortment(product);
@@ -29,6 +31,8 @@ public class ConsignmentTest extends EntityGetUpdateDeleteTest {
         Consignment retrievedEntity = updatedEntitiesList.getRows().get(0);
         assertEquals(consignment.getName(), retrievedEntity.getName());
         assertEquals(consignment.getLabel(), retrievedEntity.getLabel());
+        assertEquals(consignment.getDescription(), retrievedEntity.getDescription());
+        assertEquals(consignment.getCode(), retrievedEntity.getCode());
         assertEquals(consignment.getAssortment(), retrievedEntity.getAssortment());
     }
 

@@ -17,6 +17,7 @@ public class ExpenseItem extends MetaEntity {
     private String externalCode;
     private String description;
     private LocalDateTime updated;
+    private Boolean archived;
 
     public ExpenseItem(String id) {
         super(id);
