@@ -2,13 +2,17 @@ package com.lognex.api.entities;
 
 import com.google.common.collect.ImmutableList;
 import com.lognex.api.clients.EntityClientBase;
+import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import static com.lognex.api.utils.params.ExpandParam.expand;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
@@ -92,6 +96,26 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getReservePrepaidGoods(), retrievedEntity.getReservePrepaidGoods());
         assertEquals(retailStore.getDefaultTaxSystem(), retrievedEntity.getDefaultTaxSystem());
         assertEquals(retailStore.getOrderTaxSystem(), retrievedEntity.getOrderTaxSystem());
+    }
+
+    @Test
+    public void cashiersTest() throws Exception {
+        RetailStore retailStore = simpleEntityManager.createSimple(RetailStore.class, true);
+        Employee employee1 = simpleEntityManager.createSimpleEmployee();
+        Employee employee2 = simpleEntityManager.createSimpleEmployee();
+        List<Employee> employeeList = ImmutableList.of(employee1, employee2);
+        retailStore.setCashiers(employeeList);
+
+        api.entity().retailstore().update(retailStore);
+        RetailStore updatedRetailStore = api.entity().retailstore().get(retailStore, expand("cashiers"));
+
+        assertEquals(2, updatedRetailStore.getCashiers().getRows().size());
+        assertTrue(updatedRetailStore.getCashiers().getRows().stream()
+                .allMatch(c -> Meta.Type.CASHIER.equals(c.getMeta().getType()) &&
+                        retailStore.getMeta().getHref().equals(c.getRetailStore().getMeta().getHref()) &&
+                        employeeList.stream().anyMatch(e -> e.getMeta().getHref().equals(c.getEmployee().getMeta().getHref()))
+                )
+        );
     }
 
     @Override

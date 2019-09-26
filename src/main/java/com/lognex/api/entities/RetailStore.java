@@ -1,16 +1,22 @@
 package com.lognex.api.entities;
 
+import com.google.gson.*;
+import com.google.gson.annotations.JsonAdapter;
 import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.responses.ListEntity;
+import com.lognex.api.utils.json.ListEntityDeserializer;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Getter
 @Setter
@@ -31,6 +37,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private Employee owner;
     private Boolean allowCustomPrice;
     private PriceType priceType;
+    @JsonAdapter(CashiersSerializer.class)
     private ListEntity<Cashier> cashiers;
     private Boolean active;
     private Store store;
@@ -172,5 +179,34 @@ public class RetailStore extends MetaEntity implements Fetchable {
 
     public enum PriorityOfdSend {
         PHONE, EMAIL, NONE
+    }
+
+    public void setCashiers(List<Employee> employees) {
+        this.cashiers = new ListEntity<>();
+        this.cashiers.setRows(employees.stream()
+                .map(e -> {
+                    Cashier cashier = new Cashier();
+                    cashier.setEmployee(e);
+                    return cashier;
+                })
+                .collect(toList()));
+    }
+
+    public void setCashiers(ListEntity<Cashier> cashiers) {
+        this.cashiers = cashiers;
+    }
+
+    public static class CashiersSerializer implements JsonSerializer<ListEntity<Cashier>> {
+
+        @Override
+        public JsonElement serialize(ListEntity<Cashier> src, Type typeOfSrc, JsonSerializationContext context) {
+            if (src.getRows() == null) {
+                throw new JsonParseException("Can't parse field 'cashiers': rows is null");
+            }
+
+            return context.serialize(src.getRows().stream()
+                    .map(Cashier::getEmployee)
+                    .collect(toList()));
+        }
     }
 }
