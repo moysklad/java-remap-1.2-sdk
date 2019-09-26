@@ -1362,6 +1362,8 @@ DELETE;https://test.moysklad/api/remap/1.2/entity/webhook/ID;String;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/webhook/ENTITY_ID;MetaEntity;void
 GET;https://test.moysklad/api/remap/1.2/entity/webhook/ID;String,ApiParam[];WebHook
 GET;https://test.moysklad/api/remap/1.2/entity/webhook/;ApiParam[];ListEntity
+PUT;https://test.moysklad/api/remap/1.2/entity/retailstore/ID;String,MetaEntity;void
+PUT;https://test.moysklad/api/remap/1.2/entity/retailstore/ENTITY_ID;MetaEntity;void
 POST;https://test.moysklad/api/remap/1.2/entity/processing/metadata/states/;MetaEntity;MetaEntity
 DELETE;https://test.moysklad/api/remap/1.2/entity/retaildrawercashin/metadata/states/ID;String;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/internalorder/metadata/states/ENTITY_ID;MetaEntity;void

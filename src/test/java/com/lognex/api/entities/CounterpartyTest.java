@@ -26,6 +26,10 @@ public class CounterpartyTest extends EntityGetUpdateDeleteTest {
         counterparty.setInn(randomString());
         counterparty.setOgrn(randomString());
         counterparty.setPriceType(api.entity().companysettings().pricetype().getDefault());
+        Address actualAddressFull = randomAddress(api);
+        Address legalAddressFull = randomAddress(api);
+        counterparty.setActualAddressFull(actualAddressFull);
+        counterparty.setLegalAddressFull(legalAddressFull);
 
         api.entity().counterparty().create(counterparty);
 
@@ -41,6 +45,8 @@ public class CounterpartyTest extends EntityGetUpdateDeleteTest {
         assertEquals(counterparty.getInn(), retrievedEntity.getInn());
         assertEquals(counterparty.getOgrn(), retrievedEntity.getOgrn());
         assertEquals(counterparty.getPriceType(), retrievedEntity.getPriceType());
+        assertAddressFull(actualAddressFull, counterparty.getActualAddressFull());
+        assertAddressFull(legalAddressFull, counterparty.getLegalAddressFull());
     }
 
     @Test

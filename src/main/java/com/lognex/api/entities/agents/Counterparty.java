@@ -87,6 +87,12 @@ public final class Counterparty extends Agent implements IEntityWithAttributes {
     private String legalAddress;
 
     /**
+     * Структурированный Юридический адрес
+     * */
+
+    private Address legalAddressFull;
+
+    /**
      * ИНН
      */
     private String inn;
@@ -140,6 +146,11 @@ public final class Counterparty extends Agent implements IEntityWithAttributes {
      * Фактический адрес
      */
     private String actualAddress;
+
+    /**
+     * Структурированный Фактический адрес
+     * */
+    private Address actualAddressFull;
 
     /**
      * Счета

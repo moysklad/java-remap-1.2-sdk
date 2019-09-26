@@ -1,9 +1,16 @@
 package com.lognex.api.utils;
 
 import com.google.common.collect.ImmutableList;
+import com.lognex.api.ApiClient;
+import com.lognex.api.entities.Address;
+import com.lognex.api.entities.Country;
 import com.lognex.api.entities.Meta.Type;
 
-import java.util.*;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.lognex.api.entities.Meta.Type.*;
@@ -76,5 +83,20 @@ public interface TestRandomizers {
 
     default boolean randomBoolean() {
         return rnd.nextBoolean();
+    }
+
+    default Address randomAddress(ApiClient api) throws IOException, ApiClientException {
+        Address address = new Address();
+        address.setPostalCode(randomString());
+        List<Country> countries = api.entity().country().get().getRows();
+        address.setCountry(countries.get(randomInteger(0, countries.size() - 1)));
+        address.setRegion(api.entity().region().get("00000000-0000-0000-0000-000000000077"));
+        address.setCity(randomString());
+        address.setStreet(randomString());
+        address.setHouse(randomString());
+        address.setApartment(randomString());
+        address.setAddInfo(randomString());
+        address.setComment(randomString());
+        return address;
     }
 }

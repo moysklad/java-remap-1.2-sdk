@@ -9,7 +9,8 @@ import java.io.IOException;
 
 import static com.lognex.api.utils.Constants.API_PATH;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class RetailStoreTest extends EntityTestBase {
     @Test
@@ -26,6 +27,17 @@ public class RetailStoreTest extends EntityTestBase {
 
         retrievedEntity = api.entity().retailstore().get(retailStore);
         getAsserts(retailStore, retrievedEntity);
+    }
+
+    @Test
+    public void updateTest() throws IOException, ApiClientException {
+        ListEntity<RetailStore> retailStoreList = api.entity().retailstore().get(filterEq("name", "Точка продаж"));
+        assertEquals(1, retailStoreList.getRows().size());
+        RetailStore retailStore = retailStoreList.getRows().get(0);
+        Address addressFull = randomAddress(api);
+        retailStore.setAddressFull(addressFull);
+        api.entity().retailstore().update(retailStore.getId(), retailStore);
+        assertAddressFull(addressFull, retailStore.getAddressFull());
     }
 
     @Test

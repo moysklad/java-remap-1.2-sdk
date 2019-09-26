@@ -44,6 +44,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private LocalDateTime updated;
     private String description;
     private String address;
+    private Address addressFull;
     private Boolean onlyInStock;
     private Agent acquire;
     private State orderToState;
