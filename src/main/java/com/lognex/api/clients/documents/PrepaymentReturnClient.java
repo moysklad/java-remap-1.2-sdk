@@ -21,7 +21,7 @@ public final class PrepaymentReturnClient
         HasStatesEndpoint {
 
     public PrepaymentReturnClient(ApiClient api) {
-        super(api, "/entity/Prepaymentreturn/");
+        super(api, "/entity/prepaymentreturn/");
     }
 
     @Override
