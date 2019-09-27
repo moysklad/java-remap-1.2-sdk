@@ -201,6 +201,10 @@ public final class Meta {
         NOTIFICATION_RETAIL_SHIFT_CLOSED("NotificationRetailShiftClosed", NotificationRetailShiftClosed.class),
         WEBHOOK("webhook", WebHook.class),
         RECEIPT_TEMPLATE("receipttemplate", ReceiptTemplate.class),
+        PREPAYMENT("prepayment", Prepayment.class),
+        PREPAYMENT_RETURN("prepaymentreturn", PrepaymentReturn.class),
+        PREPAYMENT_POSITION("prepaymentposition", DocumentPosition.class),
+        PREPAYMENT_RETURN_POSITION("prepaymentreturnposition", DocumentPosition.class),
         ;
 
         @Getter
