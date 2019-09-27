@@ -6,7 +6,6 @@ import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.json.ListEntityDeserializer;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +13,7 @@ import lombok.Setter;
 
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -181,7 +181,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
         PHONE, EMAIL, NONE
     }
 
-    public void setCashiers(List<Employee> employees) {
+    public void setCashiers(Collection<Employee> employees) {
         this.cashiers = new ListEntity<>();
         this.cashiers.setRows(employees.stream()
                 .map(e -> {
