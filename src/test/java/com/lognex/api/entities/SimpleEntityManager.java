@@ -814,6 +814,16 @@ public class SimpleEntityManager implements TestRandomizers {
         return webHook;
     }
 
+    public RetailStore createSimpleRetailStore() throws IOException, ApiClientException {
+        RetailStore retailStore = new RetailStore();
+        retailStore.setName("retailstore_" + randomStringTail());
+        retailStore.setOrganization(getOwnOrganization());
+        retailStore.setStore(getMainStore());
+        retailStore.setPriceType(api.entity().companysettings().pricetype().getDefault());
+
+        return api.entity().retailstore().create(retailStore);
+    }
+
     public State createSimpleState() throws IOException, ApiClientException {
         State state = new State();
         state.setName("state_" + randomStringTail());

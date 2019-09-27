@@ -164,6 +164,7 @@ public final class ApiClient {
         gb.registerTypeAdapter(NotificationExchange.TaskState.class, new EnumSwitchCaseSerializer<NotificationExchange.TaskState>());
         gb.registerTypeAdapter(Notification.class, new NotificationDeserializer());
         gb.registerTypeAdapter(NotificationSubscription.Channel.class, new EnumSwitchCaseSerializer<NotificationSubscription.Channel>());
+        gb.registerTypeAdapter(RetailStore.PriorityOfdSend.class, new EnumSwitchCaseSerializer<RetailStore.PriorityOfdSend>());
 
         return gb.create();
     }

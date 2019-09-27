@@ -15,7 +15,7 @@ public abstract class EntityTestBase implements TestRandomizers, TestAsserts, Te
     public void init() {
         api = new ApiClient(
                 System.getenv("API_HOST"),
-                true, System.getenv("API_LOGIN"),
+                TestConstants.FORCE_HTTPS_FOR_TESTS, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
         );
 

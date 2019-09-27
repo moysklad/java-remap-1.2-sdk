@@ -1536,3 +1536,6 @@ GET;https://test.moysklad/api/remap/1.2/entity/counterparty/ENTITY_ID/accounts/E
 POST;https://test.moysklad/api/remap/1.2/entity/organization/ENTITY_ID/accounts;Organization,Collection;ArrayList
 GET;https://test.moysklad/api/remap/1.2/entity/organization/ENTITY_ID/accounts;Organization,ApiParam[];ListEntity
 POST;https://test.moysklad/api/remap/1.2/entity/organization/ID/accounts;String,Collection;ArrayList
+POST;https://test.moysklad/api/remap/1.2/entity/retailstore/;MetaEntity;MetaEntity
+PUT;https://test.moysklad/api/remap/1.2/entity/retailstore/ID;String,MetaEntity;void
+PUT;https://test.moysklad/api/remap/1.2/entity/retailstore/ENTITY_ID;MetaEntity;void

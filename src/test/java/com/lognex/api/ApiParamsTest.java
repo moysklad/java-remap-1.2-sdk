@@ -5,10 +5,7 @@ import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.entities.documents.Inventory;
 import com.lognex.api.responses.ListEntity;
-import com.lognex.api.utils.ApiClientException;
-import com.lognex.api.utils.MockHttpClient;
-import com.lognex.api.utils.RequestLogHttpClient;
-import com.lognex.api.utils.TestRandomizers;
+import com.lognex.api.utils.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,7 +41,7 @@ public class ApiParamsTest implements TestRandomizers {
         logHttpClient = new RequestLogHttpClient();
         api = new ApiClient(
                 System.getenv("API_HOST"),
-                true, System.getenv("API_LOGIN"),
+                TestConstants.FORCE_HTTPS_FOR_TESTS, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD"),
                 logHttpClient
         );
@@ -54,7 +51,7 @@ public class ApiParamsTest implements TestRandomizers {
         mockHttpClient = new MockHttpClient();
         mockApi = new ApiClient(
                 System.getenv("API_HOST"),
-                true, System.getenv("API_LOGIN"),
+                TestConstants.FORCE_HTTPS_FOR_TESTS, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD"),
                 mockHttpClient
         );

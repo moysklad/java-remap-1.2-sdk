@@ -72,7 +72,7 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
     /**
      * Поставщик
      */
-    private Counterparty supplier;
+    private Agent supplier;
 
     /**
      * Дополнительные поля
@@ -161,6 +161,11 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
          * Крепость
          */
         private Double strength;
+
+        /**
+         * Объем
+         */
+        private Double volume;
     }
 
     /**

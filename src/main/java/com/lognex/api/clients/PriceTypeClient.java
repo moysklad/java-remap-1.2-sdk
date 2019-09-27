@@ -26,7 +26,6 @@ public final class PriceTypeClient
     public PriceType getDefault() throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + "default/").
-                apiParams().
                 get(PriceType.class);
     }
 
@@ -35,7 +34,6 @@ public final class PriceTypeClient
         priceTypes.forEach(pt -> MetaHrefUtils.fillMeta(pt, api.getHost() + API_PATH));
         return HttpRequestExecutor.
                 path(api(), path()).
-                apiParams().
                 body(priceTypes).
                 postList(PriceType.class);
     }

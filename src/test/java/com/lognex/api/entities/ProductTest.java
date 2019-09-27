@@ -1,6 +1,7 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.clients.EntityClientBase;
+import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.products.*;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
@@ -25,6 +26,7 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> {
         product.setTrackingType(Product.TrackingType.TOBACCO);
         product.setPaymentItemType(GoodPaymentItemType.GOOD);
         product.setTaxSystem(TaxSystem.SIMPLIFIED_TAX_SYSTEM_INCOME);
+        product.setSupplier(simpleEntityManager.createSimple(Counterparty.class));
 
         api.entity().product().create(product);
 
@@ -40,6 +42,7 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> {
         assertEquals(product.getTrackingType(), retrievedEntity.getTrackingType());
         assertEquals(product.getPaymentItemType(), retrievedEntity.getPaymentItemType());
         assertEquals(product.getTaxSystem(), retrievedEntity.getTaxSystem());
+        assertEquals(product.getSupplier(), retrievedEntity.getSupplier());
     }
 
     @Test

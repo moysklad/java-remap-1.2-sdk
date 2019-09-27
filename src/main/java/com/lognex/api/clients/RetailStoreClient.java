@@ -1,10 +1,6 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.clients.endpoints.ApiEndpoint;
-import com.lognex.api.clients.endpoints.DeleteByIdEndpoint;
-import com.lognex.api.clients.endpoints.GetByIdEndpoint;
-import com.lognex.api.clients.endpoints.GetListEndpoint;
-import com.lognex.api.clients.endpoints.PutByIdEndpoint;
+import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.Cashier;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.RetailStore;
@@ -17,7 +13,9 @@ import java.io.IOException;
 
 public final class RetailStoreClient
         extends EntityClientBase
-        implements GetListEndpoint<RetailStore>,
+        implements
+        GetListEndpoint<RetailStore>,
+        PostEndpoint<RetailStore>,
         DeleteByIdEndpoint,
         GetByIdEndpoint<RetailStore>,
         PutByIdEndpoint<RetailStore> {
