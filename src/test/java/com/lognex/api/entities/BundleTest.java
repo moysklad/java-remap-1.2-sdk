@@ -12,6 +12,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import static com.lognex.api.utils.params.ExpandParam.expand;
@@ -56,6 +57,21 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> {
         assertEquals(bundle.getTrackingType(), retrievedEntity.getTrackingType());
         assertEquals(bundle.getPaymentItemType(), retrievedEntity.getPaymentItemType());
         assertEquals(bundle.getTaxSystem(), retrievedEntity.getTaxSystem());
+    }
+
+    @Test
+    public void paymentItemTypeTest() {
+        Bundle bundle = simpleEntityManager.createSimple(Bundle.class);
+
+        Arrays.stream(GoodPaymentItemType.values()).forEach(goodPaymentItemType -> {
+            bundle.setPaymentItemType(goodPaymentItemType);
+            try {
+                api.entity().bundle().update(bundle);
+                assertEquals(goodPaymentItemType, bundle.getPaymentItemType());
+            } catch (IOException | ApiClientException e) {
+                fail();
+            }
+        });
     }
 
     @Override

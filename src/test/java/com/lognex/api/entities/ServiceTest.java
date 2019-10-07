@@ -7,6 +7,7 @@ import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
@@ -39,6 +40,21 @@ public class ServiceTest extends EntityGetUpdateDeleteTest {
         assertEquals(service.getMinPrice().getCurrency(), retrievedEntity.getMinPrice().getCurrency());
         assertEquals(service.getPaymentItemType(), retrievedEntity.getPaymentItemType());
         assertEquals(service.getTaxSystem(), retrievedEntity.getTaxSystem());
+    }
+
+    @Test
+    public void paymentItemTypeTest() {
+        Service service = simpleEntityManager.createSimple(Service.class);
+
+        Arrays.stream(ServicePaymentItemType.values()).forEach(servicePaymentItemType -> {
+            service.setPaymentItemType(servicePaymentItemType);
+            try {
+                api.entity().service().update(service);
+                assertEquals(servicePaymentItemType, service.getPaymentItemType());
+            } catch (IOException | ApiClientException e) {
+                fail();
+            }
+        });
     }
 
     @Override
