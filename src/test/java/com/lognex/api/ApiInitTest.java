@@ -25,7 +25,8 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
         } catch (ApiClientException e) {
             assertApiError(
                     e, 401, 1056,
-                    "Ошибка аутентификации: Неправильный пароль или имя пользователя или ключ авторизации"
+                    // FIXME add " или ключ авторизации" to the end of text after https://lognex.atlassian.net/browse/MC-35268
+                    "Ошибка аутентификации: Неправильный пароль или имя пользователя"
             );
 
             Thread.sleep(1500); // Защита от лимитов
