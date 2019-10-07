@@ -1,6 +1,7 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.clients.EntityClientBase;
+import com.lognex.api.entities.products.GoodTaxSystem;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
@@ -20,10 +21,11 @@ public class ProductFolderTest extends EntityGetUpdateDeleteTest {
         inner.setName("innerproductfolder_" + randomString(3) + "_" + new Date().getTime());
         inner.setArchived(false);
         inner.setVat(randomInteger(10, 20));
+        inner.setTaxSystem(GoodTaxSystem.TAX_SYSTEM_SAME_AS_GROUP);
 
         ProductFolder outer = new ProductFolder();
         outer.setName("outerproductfolder_" + randomString(3) + "_" + new Date().getTime());
-        outer.setTaxSystem(TaxSystem.PATENT_BASED);
+        outer.setTaxSystem(GoodTaxSystem.PATENT_BASED);
 
         api.entity().productfolder().create(outer);
         inner.setProductFolder(outer);
@@ -38,6 +40,7 @@ public class ProductFolderTest extends EntityGetUpdateDeleteTest {
         assertEquals(inner.getArchived(), retrievedEntity.getArchived());
         assertEquals(inner.getVat(), retrievedEntity.getVat());
         assertEquals(inner.getEffectiveVat(), retrievedEntity.getEffectiveVat());
+        assertEquals(inner.getTaxSystem(), retrievedEntity.getProductFolder().getTaxSystem());
         assertEquals(outer.getName(), retrievedEntity.getProductFolder().getName());
         assertEquals(outer.getTaxSystem(), retrievedEntity.getProductFolder().getTaxSystem());
     }

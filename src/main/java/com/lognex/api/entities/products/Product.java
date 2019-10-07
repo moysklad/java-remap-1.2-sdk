@@ -206,5 +206,5 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
     /**
      * Код системы налогообложения
      */
-    private TaxSystem taxSystem;
+    private GoodTaxSystem taxSystem;
 }

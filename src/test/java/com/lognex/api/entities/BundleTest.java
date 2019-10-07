@@ -3,6 +3,7 @@ package com.lognex.api.entities;
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.products.Bundle;
 import com.lognex.api.entities.products.GoodPaymentItemType;
+import com.lognex.api.entities.products.GoodTaxSystem;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.ApiClientException;
@@ -29,7 +30,7 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> {
         bundle.setArticle(randomString());
         bundle.setTrackingType(Bundle.TrackingType.NOT_TRACKED);
         bundle.setPaymentItemType(GoodPaymentItemType.COMPOUND_PAYMENT_ITEM);
-        bundle.setTaxSystem(TaxSystem.PRESUMPTIVE_TAX_SYSTEM);
+        bundle.setTaxSystem(GoodTaxSystem.PRESUMPTIVE_TAX_SYSTEM);
 
         Product product = simpleEntityManager.createSimple(Product.class);
         ListEntity<Bundle.ComponentEntity> components = new ListEntity<>();

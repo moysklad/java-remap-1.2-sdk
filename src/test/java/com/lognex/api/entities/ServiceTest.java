@@ -25,7 +25,7 @@ public class ServiceTest extends EntityGetUpdateDeleteTest {
         minPrice.setCurrency(simpleEntityManager.getFirstCurrency());
         service.setMinPrice(minPrice);
         service.setPaymentItemType(ServicePaymentItemType.WORK);
-        service.setTaxSystem(TaxSystem.GENERAL_TAX_SYSTEM);
+        service.setTaxSystem(GoodTaxSystem.GENERAL_TAX_SYSTEM);
 
         api.entity().service().create(service);
 

@@ -72,5 +72,5 @@ public class Service extends AbstractProduct implements SingleProductMarker, IEn
     /**
      * Код системы налогообложения
      */
-    private TaxSystem taxSystem;
+    private GoodTaxSystem taxSystem;
 }

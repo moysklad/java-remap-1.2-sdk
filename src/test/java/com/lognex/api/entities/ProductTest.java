@@ -26,7 +26,7 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> {
         product.setWeight(randomDouble(1, 5, 2));
         product.setTrackingType(Product.TrackingType.TOBACCO);
         product.setPaymentItemType(GoodPaymentItemType.GOOD);
-        product.setTaxSystem(TaxSystem.SIMPLIFIED_TAX_SYSTEM_INCOME);
+        product.setTaxSystem(GoodTaxSystem.SIMPLIFIED_TAX_SYSTEM_INCOME);
         product.setSupplier(simpleEntityManager.createSimple(Counterparty.class));
 
         api.entity().product().create(product);
