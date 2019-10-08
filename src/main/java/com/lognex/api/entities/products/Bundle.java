@@ -140,5 +140,5 @@ public class Bundle extends AbstractProduct implements IEntityWithAttributes, Ha
     /**
      * Код системы налогообложения
      */
-    private TaxSystem taxSystem;
+    private GoodTaxSystem taxSystem;
 }

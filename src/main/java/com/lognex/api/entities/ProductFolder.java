@@ -1,6 +1,7 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.entities.agents.Employee;
+import com.lognex.api.entities.products.GoodTaxSystem;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -76,7 +77,7 @@ public class ProductFolder extends MetaEntity {
     /**
      * Код системы налогообложения
      */
-    private TaxSystem taxSystem;
+    private GoodTaxSystem taxSystem;
 
     public ProductFolder(String id) {
         super(id);
