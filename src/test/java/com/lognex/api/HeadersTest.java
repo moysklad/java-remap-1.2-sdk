@@ -33,7 +33,7 @@ public class HeadersTest {
 
     @Test
     public void bearerAuthHeaderTest() throws IOException, ApiClientException {
-        api = ApiClient.createWithBaererToken("test.moysklad", true, "dummy-token", mockHttpClient);
+        api = ApiClient.createWithBearerToken("test.moysklad", true, "dummy-token", mockHttpClient);
         api.entity().counterparty().get();
 
         HttpRequest req = mockHttpClient.getLastExecutedRequest();

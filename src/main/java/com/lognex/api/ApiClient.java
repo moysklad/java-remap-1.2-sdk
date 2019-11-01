@@ -46,10 +46,7 @@ public final class ApiClient {
      * @param password   пароль пользователя
      */
     public ApiClient(String host, boolean forceHttps, String login, String password) {
-        this(host, forceHttps, login, password, HttpClients.custom()
-                .setRedirectStrategy(new NoAuthRedirectStrategy())
-                .build()
-        );
+        this(host, forceHttps, login, password, createHttpClient());
     }
 
     /**
@@ -80,16 +77,20 @@ public final class ApiClient {
     }
 
 
-    public static ApiClient createWithBaererToken(String host, boolean forceHttps, String token, CloseableHttpClient client) {
+    public static ApiClient createWithBearerToken(String host, boolean forceHttps, String token, CloseableHttpClient client) {
         ApiClient apiClient = new ApiClient(host, forceHttps, null, null, client);
         apiClient.setToken(token);
         return apiClient;
     }
 
-    public static ApiClient createWithBaererToken(String host, boolean forceHttps, String token) {
-        return createWithBaererToken(host, forceHttps, token, HttpClients.custom()
+    public static ApiClient createWithBearerToken(String host, boolean forceHttps, String token) {
+        return createWithBearerToken(host, forceHttps, token, createHttpClient());
+    }
+
+    private static CloseableHttpClient createHttpClient() {
+        return HttpClients.custom()
                 .setRedirectStrategy(new NoAuthRedirectStrategy())
-                .build());
+                .build();
     }
 
 
@@ -109,7 +110,7 @@ public final class ApiClient {
     /**
      * Устанавливает Bearer токен авторизации запрсоов к API
      *
-     * @param token    Bearer токен авторизации
+     * @param token Bearer токен авторизации
      */
     public void setToken(String token) {
         this.token = token;
