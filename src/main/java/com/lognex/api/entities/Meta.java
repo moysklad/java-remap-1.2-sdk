@@ -205,6 +205,7 @@ public final class Meta {
         PREPAYMENT_RETURN("prepaymentreturn", PrepaymentReturn.class),
         PREPAYMENT_POSITION("prepaymentposition", DocumentPosition.class),
         PREPAYMENT_RETURN_POSITION("prepaymentreturnposition", DocumentPosition.class),
+        APPLICATION("application", Application.class),
         ;
 
         @Getter

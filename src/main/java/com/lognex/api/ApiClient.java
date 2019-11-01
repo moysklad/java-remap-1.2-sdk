@@ -31,6 +31,7 @@ public final class ApiClient {
     private final String host;
     private String login;
     private String password;
+    private String token;
     private CloseableHttpClient client;
     private boolean prettyPrintJson = false;
     private boolean pricePrecision = false;
@@ -78,6 +79,20 @@ public final class ApiClient {
         setCredentials(login, password);
     }
 
+
+    public static ApiClient createWithBaererToken(String host, boolean forceHttps, String token, CloseableHttpClient client) {
+        ApiClient apiClient = new ApiClient(host, forceHttps, null, null, client);
+        apiClient.setToken(token);
+        return apiClient;
+    }
+
+    public static ApiClient createWithBaererToken(String host, boolean forceHttps, String token) {
+        return createWithBaererToken(host, forceHttps, token, HttpClients.custom()
+                .setRedirectStrategy(new NoAuthRedirectStrategy())
+                .build());
+    }
+
+
     /**
      * Устанавливает данные доступа, которые используются для авторизации
      * запросов к API
@@ -88,6 +103,16 @@ public final class ApiClient {
     public void setCredentials(String login, String password) {
         this.login = login;
         this.password = password;
+    }
+
+
+    /**
+     * Устанавливает Bearer токен авторизации запрсоов к API
+     *
+     * @param token    Bearer токен авторизации
+     */
+    public void setToken(String token) {
+        this.token = token;
     }
 
     /**
