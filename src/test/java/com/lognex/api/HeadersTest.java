@@ -32,6 +32,17 @@ public class HeadersTest {
     }
 
     @Test
+    public void bearerAuthHeaderTest() throws IOException, ApiClientException {
+        api = ApiClient.createWithBearerToken("test.moysklad", true, "dummy-token", mockHttpClient);
+        api.entity().counterparty().get();
+
+        HttpRequest req = mockHttpClient.getLastExecutedRequest();
+        assertNotNull(req);
+        assertEquals("Bearer dummy-token", req.getFirstHeader("Authorization").getValue());
+    }
+
+
+    @Test
     public void prettyPrintHeaderTest() throws IOException, ApiClientException {
         api = new ApiClient("test.moysklad", true, "[API_LOGIN]", "[API_PASSWORD]", mockHttpClient);
         api.entity().counterparty().get();

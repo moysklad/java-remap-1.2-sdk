@@ -25,6 +25,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.lognex.api.utils.Constants.API_PATH;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+
 
 public final class HttpRequestExecutor {
     private static final Logger logger = LoggerFactory.getLogger(HttpRequestExecutor.class);
@@ -98,6 +100,9 @@ public final class HttpRequestExecutor {
      * Добавляет авторизационный заголовок с данными доступа API
      */
     private HttpRequestExecutor auth(ApiClient api) {
+        if (!isBlank(api.getToken())) {
+            return this.header("Authorization", "Bearer " + api.getToken());
+        }
         return this.header(
                 "Authorization",
                 "Basic " + b64enc.encodeToString((api.getLogin() + ":" + api.getPassword()).getBytes())
