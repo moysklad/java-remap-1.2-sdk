@@ -44,7 +44,6 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> {
         assertEquals(product.getPaymentItemType(), retrievedEntity.getPaymentItemType());
         assertEquals(product.getTaxSystem(), retrievedEntity.getTaxSystem());
         assertEquals(product.getSupplier(), retrievedEntity.getSupplier());
-        assertFalse(product.getAttribute(null).isPresent());
     }
 
     @Test
