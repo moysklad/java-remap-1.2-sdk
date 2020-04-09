@@ -49,7 +49,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
         } catch (ApiClientException e) {
             assertApiError(
                     e, 401, 1056,
-                    "Ошибка аутентификации: Неверный формат имени пользователя: null"
+                    "Ошибка аутентификации: Неверный формат имени пользователя. Укажите свою учетную запись, например admin@romashka."
             );
 
             Thread.sleep(1500); // Защита от лимитов
@@ -71,7 +71,7 @@ public class ApiInitTest implements TestAsserts, TestRandomizers {
         } catch (ApiClientException e) {
             assertApiError(
                     e, 401, 1056,
-                    "Ошибка аутентификации: Неверный формат имени пользователя: " + login
+                    "Ошибка аутентификации: Неверный формат имени пользователя. Укажите свою учетную запись, например admin@romashka."
             );
 
             Thread.sleep(1500); // Защита от лимитов
