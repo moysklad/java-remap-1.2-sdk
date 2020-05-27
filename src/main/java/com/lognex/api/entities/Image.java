@@ -45,12 +45,12 @@ public class Image extends MetaEntity {
     /**
      * Ссылка на миниатюру изображения
      */
-    private MetaEntity miniature;
+    private Meta miniature;
 
     /**
      * Ссылка на уменьшенное изображение
      */
-    private MetaEntity tiny;
+    private Meta tiny;
 
     public Image(String id) {
         super(id);
