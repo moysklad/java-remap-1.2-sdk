@@ -24,4 +24,5 @@ public class DocumentPosition extends MetaEntity {
     private Integer vat;
     private Double discount;
     private List<String> things;
+    private Double reserve;
 }
