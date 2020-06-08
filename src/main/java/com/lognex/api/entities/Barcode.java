@@ -23,7 +23,7 @@ public class Barcode {
     private String value;
 
     public enum Type {
-        EAN13, EAN8, CODE128, GTIN
+        EAN13, EAN8, CODE128, GTIN, UPC
     }
 
     /**
