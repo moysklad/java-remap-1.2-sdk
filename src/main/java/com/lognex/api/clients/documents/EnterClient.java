@@ -17,6 +17,7 @@ public final class EnterClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Enter>,
         PutByIdEndpoint<Enter>,
+        MassCreateUpdateDeleteEndpoint<Enter>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
         PublicationEndpoint,

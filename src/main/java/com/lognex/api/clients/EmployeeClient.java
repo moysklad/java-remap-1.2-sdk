@@ -14,7 +14,8 @@ public final class EmployeeClient
         MetadataEndpoint<MetadataAttributeSharedResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Employee>,
-        PutByIdEndpoint<Employee> {
+        PutByIdEndpoint<Employee>,
+        MassCreateUpdateDeleteEndpoint<Employee> {
 
     public EmployeeClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/employee/");

@@ -18,6 +18,7 @@ public final class TaskClient
         implements
         GetListEndpoint<Task>,
         GetByIdEndpoint<Task>,
+        MassCreateUpdateDeleteEndpoint<Task>,
         PostEndpoint<Task>,
         PutByIdEndpoint<Task>,
         DeleteByIdEndpoint {

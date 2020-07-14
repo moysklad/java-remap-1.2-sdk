@@ -18,6 +18,7 @@ public final class PurchaseOrderClient
         DocumentNewEndpoint<PurchaseOrder>,
         GetByIdEndpoint<PurchaseOrder>,
         PutByIdEndpoint<PurchaseOrder>,
+        MassCreateUpdateDeleteEndpoint<PurchaseOrder>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
         PublicationEndpoint,

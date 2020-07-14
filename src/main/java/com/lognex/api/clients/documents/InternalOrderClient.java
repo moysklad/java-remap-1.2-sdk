@@ -18,6 +18,7 @@ public final class InternalOrderClient
         DocumentNewEndpoint<InternalOrder>,
         GetByIdEndpoint<InternalOrder>,
         PutByIdEndpoint<InternalOrder>,
+        MassCreateUpdateDeleteEndpoint<InternalOrder>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
         PublicationEndpoint,

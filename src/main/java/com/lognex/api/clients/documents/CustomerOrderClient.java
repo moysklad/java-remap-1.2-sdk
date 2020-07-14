@@ -16,6 +16,7 @@ public final class CustomerOrderClient
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         GetByIdEndpoint<CustomerOrder>,
         PutByIdEndpoint<CustomerOrder>,
+        MassCreateUpdateDeleteEndpoint<CustomerOrder>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
         PublicationEndpoint,

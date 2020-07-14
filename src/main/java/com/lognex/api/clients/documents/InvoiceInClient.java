@@ -17,6 +17,7 @@ public final class InvoiceInClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<InvoiceIn>,
         PutByIdEndpoint<InvoiceIn>,
+        MassCreateUpdateDeleteEndpoint<InvoiceIn>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
         PublicationEndpoint {

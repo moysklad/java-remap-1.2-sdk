@@ -18,6 +18,7 @@ public final class LossClient
         DocumentNewEndpoint<Loss>,
         GetByIdEndpoint<Loss>,
         PutByIdEndpoint<Loss>,
+        MassCreateUpdateDeleteEndpoint<Loss>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
         PublicationEndpoint,

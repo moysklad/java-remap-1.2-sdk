@@ -17,6 +17,7 @@ public final class CommissionReportInClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<CommissionReportIn>,
         PutByIdEndpoint<CommissionReportIn>,
+        MassCreateUpdateDeleteEndpoint<CommissionReportIn>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
         PublicationEndpoint,

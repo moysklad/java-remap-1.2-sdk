@@ -18,6 +18,7 @@ public final class FactureInClient
         DocumentNewEndpoint<FactureIn>,
         GetByIdEndpoint<FactureIn>,
         PutByIdEndpoint<FactureIn>,
+        MassCreateUpdateDeleteEndpoint<FactureIn>,
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint {

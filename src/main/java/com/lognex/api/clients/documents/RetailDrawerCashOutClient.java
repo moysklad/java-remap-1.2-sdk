@@ -12,6 +12,7 @@ public final class RetailDrawerCashOutClient
         implements
         GetListEndpoint<RetailDrawerCashOut>,
         PostEndpoint<RetailDrawerCashOut>,
+        MassCreateUpdateDeleteEndpoint<RetailDrawerCashOut>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,

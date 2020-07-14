@@ -18,6 +18,7 @@ public final class CashOutClient
         DocumentNewEndpoint<CashOut>,
         GetByIdEndpoint<CashOut>,
         PutByIdEndpoint<CashOut>,
+        MassCreateUpdateDeleteEndpoint<CashOut>,
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint {

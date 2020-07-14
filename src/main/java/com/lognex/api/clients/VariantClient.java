@@ -15,10 +15,15 @@ public final class VariantClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Variant>,
         PutByIdEndpoint<Variant>,
+        MassCreateUpdateDeleteEndpoint<Variant>,
         HasImagesEndpoint<Variant> {
 
     public VariantClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/variant/");
+    }
+
+    public CharacteristicClient characteristics() {
+        return new CharacteristicClient(api());
     }
 
     @Override

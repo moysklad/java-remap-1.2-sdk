@@ -24,7 +24,8 @@ public final class OrganizationClient
         MetadataEndpoint<MetadataAttributeSharedResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Organization>,
-        PutByIdEndpoint<Organization> {
+        PutByIdEndpoint<Organization>,
+        MassCreateUpdateDeleteEndpoint<Organization> {
 
     public OrganizationClient(ApiClient api) {
         super(api, "/entity/organization/");

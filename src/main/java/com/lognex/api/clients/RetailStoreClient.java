@@ -18,7 +18,8 @@ public final class RetailStoreClient
         PostEndpoint<RetailStore>,
         DeleteByIdEndpoint,
         GetByIdEndpoint<RetailStore>,
-        PutByIdEndpoint<RetailStore> {
+        PutByIdEndpoint<RetailStore>,
+        MassCreateUpdateDeleteEndpoint<RetailStore> {
 
     public RetailStoreClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/retailstore/");

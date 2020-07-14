@@ -1,10 +1,7 @@
 package com.lognex.api.clients;
 
 import com.lognex.api.ApiClient;
-import com.lognex.api.clients.endpoints.DeleteByIdEndpoint;
-import com.lognex.api.clients.endpoints.GetByIdEndpoint;
-import com.lognex.api.clients.endpoints.PostEndpoint;
-import com.lognex.api.clients.endpoints.PutByIdEndpoint;
+import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.State;
 
@@ -14,6 +11,7 @@ public class StateClient
         GetByIdEndpoint<State>,
         PostEndpoint<State>,
         PutByIdEndpoint<State>,
+        MassCreateUpdateEndpoint<State>,
         DeleteByIdEndpoint
 {
 

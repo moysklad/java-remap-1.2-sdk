@@ -18,6 +18,7 @@ public final class DemandClient
         DocumentNewEndpoint<Demand>,
         GetByIdEndpoint<Demand>,
         PutByIdEndpoint<Demand>,
+        MassCreateUpdateDeleteEndpoint<Demand>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
         PublicationEndpoint,

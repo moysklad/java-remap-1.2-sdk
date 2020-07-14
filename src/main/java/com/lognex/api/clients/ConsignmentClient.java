@@ -15,7 +15,8 @@ public final class ConsignmentClient
         MetadataEndpoint<MetadataAttributeResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Consignment>,
-        PutByIdEndpoint<Consignment> {
+        PutByIdEndpoint<Consignment>,
+        MassCreateUpdateDeleteEndpoint<Consignment> {
 
     public ConsignmentClient(ApiClient api) {
         super(api, "/entity/consignment/");

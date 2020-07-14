@@ -18,6 +18,7 @@ public final class CashInClient
         DocumentNewEndpoint<CashIn>,
         GetByIdEndpoint<CashIn>,
         PutByIdEndpoint<CashIn>,
+        MassCreateUpdateDeleteEndpoint<CashIn>,
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint {

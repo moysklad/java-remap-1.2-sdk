@@ -12,6 +12,7 @@ public final class RetailDrawerCashInClient
         implements
         GetListEndpoint<RetailDrawerCashIn>,
         PostEndpoint<RetailDrawerCashIn>,
+        MassCreateUpdateDeleteEndpoint<RetailDrawerCashIn>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,

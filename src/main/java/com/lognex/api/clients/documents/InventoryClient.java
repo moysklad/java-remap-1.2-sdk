@@ -17,6 +17,7 @@ public final class InventoryClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Inventory>,
         PutByIdEndpoint<Inventory>,
+        MassCreateUpdateDeleteEndpoint<Inventory>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
         PublicationEndpoint {

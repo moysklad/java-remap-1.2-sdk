@@ -12,6 +12,7 @@ public final class RetailSalesReturnClient
         implements
         GetListEndpoint<RetailSalesReturn>,
         PostEndpoint<RetailSalesReturn>,
+        MassCreateUpdateDeleteEndpoint<RetailSalesReturn>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,

@@ -18,6 +18,7 @@ public final class PurchaseReturnClient
         DocumentNewEndpoint<PurchaseReturn>,
         GetByIdEndpoint<PurchaseReturn>,
         PutByIdEndpoint<PurchaseReturn>,
+        MassCreateUpdateDeleteEndpoint<PurchaseReturn>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
         PublicationEndpoint,

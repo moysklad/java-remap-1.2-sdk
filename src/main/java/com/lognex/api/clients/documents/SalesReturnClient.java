@@ -18,6 +18,7 @@ public final class SalesReturnClient
         DocumentNewEndpoint<SalesReturn>,
         GetByIdEndpoint<SalesReturn>,
         PutByIdEndpoint<SalesReturn>,
+        MassCreateUpdateDeleteEndpoint<SalesReturn>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
         PublicationEndpoint {

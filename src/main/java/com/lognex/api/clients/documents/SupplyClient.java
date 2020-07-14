@@ -18,6 +18,7 @@ public final class SupplyClient
         DocumentNewEndpoint<Supply>,
         GetByIdEndpoint<Supply>,
         PutByIdEndpoint<Supply>,
+        MassCreateUpdateDeleteEndpoint<Supply>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
         PublicationEndpoint {

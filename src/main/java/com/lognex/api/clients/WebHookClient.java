@@ -11,7 +11,8 @@ public final class WebHookClient
         PostEndpoint<WebHook>,
         DeleteByIdEndpoint,
         GetByIdEndpoint<WebHook>,
-        PutByIdEndpoint<WebHook> {
+        PutByIdEndpoint<WebHook>,
+        MassCreateUpdateDeleteEndpoint<WebHook> {
 
     public WebHookClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/webhook/");

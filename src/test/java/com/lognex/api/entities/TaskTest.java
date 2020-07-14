@@ -55,9 +55,8 @@ public class TaskTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    @Test
-    public void putTest() throws IOException, ApiClientException {
-        doPutTest("Description");
+    protected String getFieldNameToUpdate() {
+        return "Description";
     }
 
     @Override

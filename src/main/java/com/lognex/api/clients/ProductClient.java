@@ -15,6 +15,7 @@ public final class ProductClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Product>,
         PutByIdEndpoint<Product>,
+        MassCreateUpdateDeleteEndpoint<Product>,
         HasImagesEndpoint<Product> {
 
     public ProductClient(com.lognex.api.ApiClient api) {

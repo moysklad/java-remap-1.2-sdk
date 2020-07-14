@@ -18,6 +18,7 @@ public final class MoveClient
         DocumentNewEndpoint<Move>,
         GetByIdEndpoint<Move>,
         PutByIdEndpoint<Move>,
+        MassCreateUpdateDeleteEndpoint<Move>,
         DocumentPositionsEndpoint,
         ExportEndpoint,
         PublicationEndpoint,

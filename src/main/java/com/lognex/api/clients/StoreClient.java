@@ -15,7 +15,8 @@ public final class StoreClient
         MetadataEndpoint<MetadataAttributeSharedResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Store>,
-        PutByIdEndpoint<Store> {
+        PutByIdEndpoint<Store>,
+        MassCreateUpdateDeleteEndpoint<Store> {
 
     public StoreClient(ApiClient api) {
         super(api, "/entity/store/");

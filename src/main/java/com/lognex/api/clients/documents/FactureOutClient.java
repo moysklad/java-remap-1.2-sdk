@@ -17,6 +17,7 @@ public final class FactureOutClient
         DocumentNewEndpoint<FactureOut>,
         GetByIdEndpoint<FactureOut>,
         PutByIdEndpoint<FactureOut>,
+        MassCreateUpdateDeleteEndpoint<FactureOut>,
         DeleteByIdEndpoint,
         ExportEndpoint,
         PublicationEndpoint,

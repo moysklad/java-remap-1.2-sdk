@@ -14,6 +14,7 @@ public final class ProcessingPlanClient
         DeleteByIdEndpoint,
         GetByIdEndpoint<ProcessingPlan>,
         PutByIdEndpoint<ProcessingPlan>,
+        MassCreateUpdateDeleteEndpoint<ProcessingPlan>,
         ExportEndpoint {
 
     public ProcessingPlanClient(ApiClient api) {

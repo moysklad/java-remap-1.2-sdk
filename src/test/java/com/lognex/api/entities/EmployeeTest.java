@@ -38,9 +38,8 @@ public class EmployeeTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    @Test
-    public void putTest() throws IOException, ApiClientException {
-        doPutTest("LastName");
+    protected String getFieldNameToUpdate() {
+        return "LastName";
     }
 
     @Test
