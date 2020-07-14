@@ -4,13 +4,15 @@ import com.lognex.api.ApiClient;
 import com.lognex.api.clients.endpoints.ApiChainElement;
 import com.lognex.api.clients.endpoints.GetEndpoint;
 import com.lognex.api.clients.endpoints.MetadataEndpoint;
+import com.lognex.api.clients.endpoints.PutByIdEndpoint;
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.responses.CompanySettingsResponse;
+import com.lognex.api.entities.CompanySettings;
 import com.lognex.api.responses.metadata.CompanySettingsMetadata;
 
 public final class CompanySettingsClient
         extends EntityClientBase
-        implements GetEndpoint<CompanySettingsResponse>,
+        implements GetEndpoint<CompanySettings>,
+        PutByIdEndpoint<CompanySettings>,
         MetadataEndpoint<CompanySettingsMetadata> {
 
     public CompanySettingsClient(ApiClient api) {
@@ -24,7 +26,7 @@ public final class CompanySettingsClient
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return CompanySettingsResponse.class;
+        return CompanySettings.class;
     }
 
     @Override

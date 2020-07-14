@@ -14,7 +14,7 @@ public interface PutByIdEndpoint<T extends MetaEntity> extends Endpoint {
     default void update(String id, T updatedEntity) throws IOException, ApiClientException {
         MetaHrefUtils.fillMeta(updatedEntity, api().getHost() + API_PATH);
         T responseEntity = HttpRequestExecutor
-                .path(api(), path() + id)
+                .path(api(), path() + (id == null ? "" : id))
                 .body(updatedEntity)
                 .put((Class<T>) entityClass());
 

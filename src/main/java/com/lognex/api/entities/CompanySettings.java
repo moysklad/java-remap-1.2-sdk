@@ -1,8 +1,5 @@
-package com.lognex.api.responses;
+package com.lognex.api.entities;
 
-import com.lognex.api.entities.Currency;
-import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.PriceType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class CompanySettingsResponse extends MetaEntity {
+public class CompanySettings extends MetaEntity {
     /**
      * Ссылка на стандартную валюту
      */
@@ -44,4 +41,40 @@ public class CompanySettingsResponse extends MetaEntity {
          */
         byPriority
     }
+
+    /**
+     * Использовать сквозную нумерацию локументов
+     * */
+
+    private Boolean globalOperationNumbering;
+
+    /**
+     * Запретить отгрузку отсутствующих товаров
+     * */
+
+    private Boolean checkShippingStock;
+
+    /**
+     * Автоматически устанавливать минимальную цену
+     * */
+
+    private Boolean checkMinPrice;
+
+    /**
+     * Использовать корзину
+     * */
+
+    private Boolean useRecycleBin;
+
+    /**
+     * Использовать адрес компании для электронных писем
+     * */
+
+    private Boolean useCompanyAddress;
+
+    /**
+     * Адрес компании для электронных писем
+     * */
+
+    private String companyAddress;
 }
