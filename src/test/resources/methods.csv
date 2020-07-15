@@ -81,8 +81,7 @@ POST;https://test.moysklad/api/remap/1.2/entity/customerorder/ID/export/;String,
 GET;https://test.moysklad/api/remap/1.2/entity/purchaseorder/ENTITY_ID;MetaEntity,ApiParam[];PurchaseOrder
 PUT;https://test.moysklad/api/remap/1.2/entity/loss/ID/positions/ID;String,String,DocumentPosition;void
 GET;https://test.moysklad/api/remap/1.2/context/companysettings/;ApiParam[];CompanySettings
-PUT;https://test.moysklad/api/remap/1.2/context/companysettings/ENTITY_ID;MetaEntity;void
-PUT;https://test.moysklad/api/remap/1.2/context/companysettings/ID;String,MetaEntity;void
+PUT;https://test.moysklad/api/remap/1.2/context/companysettings/;MetaEntity;void
 POST;https://test.moysklad/api/remap/1.2/entity/salesreturn/ID/export/;String,ExportRequest,File;void
 POST;https://test.moysklad/api/remap/1.2/entity/inventory/ID/export/;String,ExportRequest,File,boolean;void
 POST;https://test.moysklad/api/remap/1.2/entity/retaildrawercashout/ID/export/;String,Template,File,boolean;void

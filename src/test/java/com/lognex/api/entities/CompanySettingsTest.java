@@ -31,27 +31,34 @@ public class CompanySettingsTest extends EntityTestBase {
     @Test
     public void updateTest() throws IOException, ApiClientException {
         CompanySettings companySettings = api.entity().companysettings().get();
-        companySettings.setGlobalOperationNumbering(true);
-        companySettings.setCheckShippingStock(true);
-        companySettings.setCheckMinPrice(true);
-        companySettings.setUseRecycleBin(false);
-        companySettings.setUseCompanyAddress(true);
-        companySettings.setCompanyAddress("123@123.ru");
+        final Boolean globalOperationNumbering = companySettings.getGlobalOperationNumbering();
+        final Boolean checkShippingStock = companySettings.getCheckShippingStock();
+        final Boolean checkMinPrice = companySettings.getCheckMinPrice();
+        final Boolean useCompanyAddress = companySettings.getUseCompanyAddress();
+        final Boolean useRecycleBin = companySettings.getUseRecycleBin();
+        final String companyAddress = companySettings.getCompanyAddress();
+        final String testAddress = "123@123.ru";
+        companySettings.setGlobalOperationNumbering(!globalOperationNumbering);
+        companySettings.setCheckShippingStock(!checkShippingStock);
+        companySettings.setCheckMinPrice(!checkMinPrice);
+        companySettings.setUseRecycleBin(!useRecycleBin);
+        companySettings.setUseCompanyAddress(!useCompanyAddress);
+        companySettings.setCompanyAddress(testAddress);
         api.entity().companysettings().update(companySettings);
         companySettings = api.entity().companysettings().get();
-        assertEquals(true, companySettings.getGlobalOperationNumbering());
-        assertEquals(true, companySettings.getCheckShippingStock());
-        assertEquals(true, companySettings.getCheckMinPrice());
-        assertEquals(false, companySettings.getUseRecycleBin());
-        assertEquals(true, companySettings.getUseCompanyAddress());
-        assertEquals("123@123.ru", companySettings.getCompanyAddress());
+        assertEquals(!globalOperationNumbering, companySettings.getGlobalOperationNumbering());
+        assertEquals(!checkShippingStock, companySettings.getCheckShippingStock());
+        assertEquals(!checkMinPrice, companySettings.getCheckMinPrice());
+        assertEquals(!useRecycleBin, companySettings.getUseRecycleBin());
+        assertEquals(!useCompanyAddress, companySettings.getUseCompanyAddress());
+        assertEquals(testAddress, companySettings.getCompanyAddress());
         //revert changes
-        companySettings.setGlobalOperationNumbering(false);
-        companySettings.setCheckShippingStock(false);
-        companySettings.setCheckMinPrice(false);
-        companySettings.setUseRecycleBin(true);
-        companySettings.setUseCompanyAddress(false);
-        companySettings.setCompanyAddress(null);
+        companySettings.setGlobalOperationNumbering(globalOperationNumbering);
+        companySettings.setCheckShippingStock(checkShippingStock);
+        companySettings.setCheckMinPrice(checkMinPrice);
+        companySettings.setUseRecycleBin(useRecycleBin);
+        companySettings.setUseCompanyAddress(useCompanyAddress);
+        companySettings.setCompanyAddress(companyAddress);
         api.entity().companysettings().update(companySettings);
     }
 
