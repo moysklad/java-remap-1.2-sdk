@@ -9,6 +9,7 @@ import com.lognex.api.utils.params.FilterParam;
 import com.lognex.api.utils.params.OrderParam;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.http.RequestLine;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -276,6 +277,11 @@ public class TaskTest extends EntityGetUpdateDeleteTest {
         api.entity().task().deleteNote(task, note);
         retrievedNotes = api.entity().task().getNotes(task);
         assertEquals(0, retrievedNotes.getRows().size());
+    }
+
+    @Ignore
+    @Override
+    public void massCreateDeleteTest() {
     }
 
     @Override

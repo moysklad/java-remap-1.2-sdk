@@ -70,7 +70,13 @@ public class RetailDrawerCashInTest extends EntityGetUpdateDeleteTest {
     @Ignore
     @Test
     @Override
-    public void massCreateUpdateDelete() throws IOException, ApiClientException {
+    public void massUpdateTest() throws IOException, ApiClientException {
+    }
+
+    @Ignore
+    @Test
+    @Override
+    public void massCreateDeleteTest() {
     }
 
     @Override

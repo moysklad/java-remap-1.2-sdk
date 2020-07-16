@@ -7,6 +7,7 @@ import com.lognex.api.entities.documents.ProcessingPlan.PlanItem;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.ApiClientException;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -55,6 +56,11 @@ public class ProcessingPlanTest extends EntityGetUpdateDeleteTest {
         assertEquals(productItem.getQuantity(), retrievedEntity.getProducts().getRows().get(0).getQuantity());
         Product retrievedProduct = (Product) retrievedEntity.getProducts().getRows().get(0).getProduct();
         assertEquals(product.getMeta().getHref(), retrievedProduct.getMeta().getHref());
+    }
+
+    @Ignore
+    @Override
+    public void massCreateDeleteTest() {
     }
 
     @Override

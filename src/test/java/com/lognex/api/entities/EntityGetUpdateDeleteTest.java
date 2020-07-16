@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.responses.MassDeleteResponse;
 import com.lognex.api.utils.ApiClientException;
@@ -7,12 +8,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -66,40 +63,62 @@ public abstract class EntityGetUpdateDeleteTest extends EntityGetDeleteTest {
     protected abstract void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField);
 
     @Test
-    public void massCreateUpdateDelete() throws IOException, ApiClientException {
-        MetaEntity entity1 = simpleEntityManager.createSimple(entityClass(), true);
-        MetaEntity entity2 = simpleEntityManager.createSimple(entityClass(), true);
-        MetaEntity entity3 = simpleEntityManager.createSimple(entityClass(), true);
+    public void massUpdateTest() throws IOException, ApiClientException {
+        List<MetaEntity> entities = Arrays.asList(
+                simpleEntityManager.createSimple(entityClass()),
+                simpleEntityManager.createSimple(entityClass())
+        );
 
-        // отсоединяем от базы, чтобы проверить массовое создание
-        Stream.of(entity1, entity2, entity3).forEach(entity -> entity.setId(null));
+        MetaEntity origin1 = ((GetByIdEndpoint) entityClient()).get(entities.get(0).getId());
 
-        MassCreateUpdateEndpoint client = (MassCreateUpdateEndpoint) entityClient();
-
-        List<MetaEntity> created = client.createOrUpdate(Arrays.asList(entity1, entity2));
-        assertEquals(2, created.size());
-        assertEquals(2, created.stream().filter(p -> p.getId() != null).count());
-
-        Object newValue = updateField(getFieldNameToUpdate(), created.get(0));
-        List<MetaEntity> updated = client.createOrUpdate(Arrays.asList(created.get(0), created.get(1), entity3));
-        assertEquals(3, updated.size());
-        assertEquals(3, updated.stream().filter(p -> p.getId() != null).count());
+        Object newValue = updateField(getFieldNameToUpdate(), entities.get(0));
+        List<MetaEntity> updated = ((MassCreateUpdateEndpoint) entityClient()).createOrUpdate(entities);
+        assertEquals(entities.size(), updated.size());
+        assertEquals(entities.size(), updated.stream().filter(p -> p.getId() != null).count());
 
         MetaEntity firstUpdated = updated.stream()
-                .filter(p -> p.getId().equals(created.get(0).getId()))
+                .filter(p -> p.getId().equals(origin1.getId()))
                 .findFirst()
                 .orElseThrow(() -> new AssertionError("Сущность не найдена среди обновлённых"));
-        entity1.setId(created.get(0).getId());
-        putAsserts(entity1, firstUpdated, newValue);
+        putAsserts(origin1, firstUpdated, newValue);
 
-        if (client instanceof MassCreateUpdateDeleteEndpoint) {
-            List<MassDeleteResponse> deleteResult = ((MassCreateUpdateDeleteEndpoint)client).delete(updated);
-            assertEquals(updated.size(), deleteResult.size());
-            Set<String> entityIds = updated.stream().map(MetaEntity::getId).collect(Collectors.toSet());
-            ((GetListEndpoint<MetaEntity>) entityClient()).get().getRows().stream()
-                    .filter(item -> entityIds.contains(item.getId()))
-                    .findAny()
-                    .ifPresent(id -> fail("Сущность найдена после массового удаления"));
+        for (int i = 0; i < entities.size(); i++) {
+            entities.get(i).set(updated.get(i));
         }
+    }
+
+    @Test
+    public void massCreateDeleteTest() throws IOException, ApiClientException {
+        EntityClientBase client = entityClient();
+
+        List<MetaEntity> entities = Arrays.asList(
+                simpleEntityManager.createSimple(entityClass(), true),
+                simpleEntityManager.createSimple(entityClass(), true)
+        );
+        entities.forEach(simpleEntityManager::removeSimpleFromPool);
+
+        Set<String> entityIds = doMassDelete((MassCreateUpdateDeleteEndpoint) client, entities);
+        ((GetListEndpoint<MetaEntity>) entityClient()).get().getRows().stream()
+                .filter(item -> entityIds.contains(item.getId()))
+                .findAny()
+                .ifPresent(id -> fail("Сущность найдена после массового удаления"));
+
+        entities.forEach(entity -> {
+            entity.setId(null);
+            entity.setMeta(null);
+        });
+        List<MetaEntity> created = ((MassCreateUpdateEndpoint) client).createOrUpdate(entities);
+        assertEquals(entities.size(), created.size());
+        assertEquals(entities.size(), created.stream().filter(p -> p.getId() != null).count());
+
+        //подчистка базы
+        doMassDelete((MassCreateUpdateDeleteEndpoint) client, created);
+    }
+
+    private Set<String> doMassDelete(MassCreateUpdateDeleteEndpoint client, List<MetaEntity> entities) throws IOException, ApiClientException {
+        List<MassDeleteResponse> deleteResult = client.delete(entities);
+        assertEquals(entities.size(), deleteResult.size());
+        assertEquals(0, deleteResult.stream().filter(x -> x.getErrors() != null).count());
+        return entities.stream().map(MetaEntity::getId).collect(Collectors.toSet());
     }
 }

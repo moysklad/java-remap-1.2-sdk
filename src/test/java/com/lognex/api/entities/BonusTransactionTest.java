@@ -73,7 +73,13 @@ public class BonusTransactionTest  extends EntityGetUpdateDeleteTest {
     @Ignore
     @Test
     @Override
-    public void massCreateUpdateDelete() {
+    public void massUpdateTest() {
+    }
+
+    @Ignore
+    @Test
+    @Override
+    public void massCreateDeleteTest() {
     }
 
     @Override

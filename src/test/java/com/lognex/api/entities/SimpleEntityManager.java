@@ -76,6 +76,7 @@ public class SimpleEntityManager implements TestRandomizers {
             method = this.getClass().getMethod(methodName);
             entity = method.invoke(this);
             entityList.add(entityClass.cast(entity));
+            accessCounterMap.put(entityClass, accessCount+1);
         } catch (NoSuchMethodException e) {
             logger.error("Невозможно получить метод " + methodName);
             throw new IllegalArgumentException(e.getMessage(), e);
