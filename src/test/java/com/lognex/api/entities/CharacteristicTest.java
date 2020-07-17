@@ -23,12 +23,12 @@ public class CharacteristicTest extends EntityTestBase {
                 .collect(Collectors.toSet());
 
         String name1 = simpleEntityManager.randomString();
-        Variant.Characteristic characteristic1 = api.entity().variant().characteristics().create(name1);
+        Variant.Characteristic characteristic1 = api.entity().variant().characteristics().create(byName(name1));
         assertNotNull(characteristic1.getId());
         assertEquals(name1, characteristic1.getName());
 
         String name2 = simpleEntityManager.randomString();
-        Variant.Characteristic characteristic2 = api.entity().variant().characteristics().create(name2);
+        Variant.Characteristic characteristic2 = api.entity().variant().characteristics().create(byName(name2));
 
         Set<String> actualCharacteristics = api.entity().variant().characteristics().get()
                 .getCharacteristics().stream()
@@ -39,10 +39,17 @@ public class CharacteristicTest extends EntityTestBase {
         assertEquals(expectedCharacteristics, actualCharacteristics);
     }
 
+    private Variant.Characteristic byName(String name) {
+        Variant.Characteristic result = new Variant.Characteristic(name);
+        result.setName(name);
+        return result;
+    }
+
     @Test
     public void testMassCreate() throws IOException, ApiClientException {
         Set<String> names = new HashSet<>(Arrays.asList(simpleEntityManager.randomString(), simpleEntityManager.randomString()));
-        Set<String> received = api.entity().variant().characteristics().create(names).stream()
+        List<Variant.Characteristic> itemsToCreate = names.stream().map(this::byName).collect(Collectors.toList());
+        Set<String> received = api.entity().variant().characteristics().create(itemsToCreate).stream()
                 .map(MetaEntity::getName)
                 .collect(Collectors.toSet());
         assertEquals(names, received);
