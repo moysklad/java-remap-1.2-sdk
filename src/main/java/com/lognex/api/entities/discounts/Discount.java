@@ -1,7 +1,6 @@
 package com.lognex.api.entities.discounts;
 
 import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.products.markers.ProductMarker;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,19 +19,14 @@ public class Discount extends MetaEntity {
     private Boolean active;
 
     /**
-     * Индикатор, действует ли скидка на все товары
+     * Индикатор, действует ли скидка на всех агентов
      */
-    private Boolean allProducts;
+    private Boolean allAgents;
 
     /**
      * Теги контрагентов, к которым применяется скидка (если применяется не ко всем контрагентам)
      */
     private List<String> agentTags;
-
-    /**
-     * Товары и услуги, которые были выбраны для применения скидки (если применяется не ко всем товарам)
-     */
-    private List<ProductMarker> assortment;
 
     public Discount(String id) {
         super(id);

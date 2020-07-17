@@ -117,10 +117,10 @@ public class DiscountTest extends EntityTestBase {
                 ((Variant) accumulationDiscount.getAssortment().get(0)).getMeta().getHref()
         );
         assertEquals(2, accumulationDiscount.getLevels().size());
-        assertEquals(Long.valueOf(100000), accumulationDiscount.getLevels().get(0).getAmount());
-        assertEquals(Integer.valueOf(10), accumulationDiscount.getLevels().get(0).getDiscount());
-        assertEquals(Long.valueOf(200000), accumulationDiscount.getLevels().get(1).getAmount());
-        assertEquals(Integer.valueOf(15), accumulationDiscount.getLevels().get(1).getDiscount());
+        assertEquals(Double.valueOf(100000.0), accumulationDiscount.getLevels().get(0).getAmount());
+        assertEquals(Double.valueOf(10.0), accumulationDiscount.getLevels().get(0).getDiscount());
+        assertEquals(Double.valueOf(200000.0), accumulationDiscount.getLevels().get(1).getAmount());
+        assertEquals(Double.valueOf(15.0), accumulationDiscount.getLevels().get(1).getDiscount());
     }
 
     @Test
@@ -138,10 +138,8 @@ public class DiscountTest extends EntityTestBase {
         assertEquals("96673f4d-9f4d-11e6-8af5-581e0000007b", bonusProgram.getId());
         assertEquals("Бонусная программа", bonusProgram.getName());
         assertTrue(bonusProgram.getActive());
-        assertTrue(bonusProgram.getAllProducts());
-        assertNull(bonusProgram.getAssortment());
-        assertEquals(Long.valueOf(1), bonusProgram.getEarnRateRoublesToPoint());
-        assertEquals(Long.valueOf(10), bonusProgram.getSpendRatePointsToRouble());
-        assertEquals(Long.valueOf(100), bonusProgram.getMaxPaidRatePercents());
+        assertEquals(Integer.valueOf(1), bonusProgram.getEarnRateRoublesToPoint());
+        assertEquals(Integer.valueOf(10), bonusProgram.getSpendRatePointsToRouble());
+        assertEquals(Integer.valueOf(100), bonusProgram.getMaxPaidRatePercents());
     }
 }
