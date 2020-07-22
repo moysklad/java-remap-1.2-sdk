@@ -20,7 +20,6 @@ import java.util.List;
 public class PaymentIn extends DocumentEntity implements FinanceInDocumentMarker, IEntityWithAttributes {
     private Agent agent;
     private LocalDateTime created;
-    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private Organization organization;
     private Project project;

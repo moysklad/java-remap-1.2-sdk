@@ -1,13 +1,9 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.Attribute;
-import com.lognex.api.entities.IEntityWithAttributes;
-import com.lognex.api.entities.Rate;
-import com.lognex.api.entities.State;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.entities.documents.markers.FinanceOutDocumentMarker;
-import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,11 +29,6 @@ public class FactureIn extends DocumentEntity implements IEntityWithAttributes {
      * Внешний код
      */
     private String externalCode;
-
-    /**
-     * Печатные формы
-     */
-    private ListEntity<DocumentEntity> documents;
 
     /**
      * Дата создания
@@ -75,11 +66,6 @@ public class FactureIn extends DocumentEntity implements IEntityWithAttributes {
     private LocalDateTime incomingDate;
 
     /**
-     * Флаг удалённого документа
-     */
-    private Boolean isDeleted;
-
-    /**
      * Комментарий
      */
     private String description;
@@ -94,10 +80,13 @@ public class FactureIn extends DocumentEntity implements IEntityWithAttributes {
      */
     private List<Attribute> attributes;
 
+    /**
+     * Контракт
+     */
+    private Contract contract;
+
     private String syncId;
     private LocalDateTime deleted;
-    private String stateContractId;
-    private Agent consignee;
 
     public FactureIn(String id) {
         super(id);

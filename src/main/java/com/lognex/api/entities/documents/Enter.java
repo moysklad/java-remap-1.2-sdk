@@ -20,10 +20,10 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Enter extends DocumentEntity implements IEntityWithAttributes {
+    private Contract contract;
     private LocalDateTime created;
     private LocalDateTime deleted;
     private String description;
-    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private Organization organization;
     private ListEntity<DocumentPosition> positions;

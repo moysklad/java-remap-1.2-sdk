@@ -2,6 +2,7 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.Country;
 import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.products.Product;
 import com.lognex.api.entities.products.markers.ProductMarker;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class DocumentPosition extends MetaEntity {
     private Integer overhead;
     private Integer vat;
     private Double discount;
+    private Product.ProductPack pack;
     private List<String> things;
     private Double reserve;
 }

@@ -20,7 +20,6 @@ import java.util.List;
 public class PaymentOut extends DocumentEntity implements FinanceOutDocumentMarker, IEntityWithAttributes {
     private Agent agent;
     private LocalDateTime created;
-    private ListEntity<DocumentEntity> documents;
     private ExpenseItem expenseItem;
     private String externalCode;
     private Organization organization;

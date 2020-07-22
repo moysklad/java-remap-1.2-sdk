@@ -4,6 +4,7 @@ import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.entities.documents.markers.FinanceDocumentMarker;
+import com.lognex.api.entities.documents.positions.CustomerOrderDocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,12 +28,11 @@ public class CustomerOrder extends DocumentEntity implements IEntityWithAttribut
     private LocalDateTime created;
     private LocalDateTime deleted;
     private String description;
-    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private Long invoicedSum;
     private Organization organization;
     private Long payedSum;
-    private ListEntity<DocumentPosition> positions;
+    private ListEntity<CustomerOrderDocumentPosition> positions;
     private Rate rate;
     private Long reservedSum;
     private Long shippedSum;
@@ -51,6 +51,7 @@ public class CustomerOrder extends DocumentEntity implements IEntityWithAttribut
     private List<Demand> demands;
     private List<FinanceDocumentMarker> payments;
     private List<InvoiceOut> invoicesOut;
+    private TaxSystem taxSystem;
 
     public CustomerOrder(String id) {
         super(id);

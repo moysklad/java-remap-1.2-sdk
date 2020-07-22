@@ -22,12 +22,12 @@ public class SalesReturn extends DocumentEntity implements IEntityWithAttributes
     private LocalDateTime created;
     private Demand demand;
     private String description;
-    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private Organization organization;
     private Long payedSum;
     private ListEntity<DocumentPosition> positions;
     private Rate rate;
+    private State state;
     private Store store;
     private Boolean vatEnabled;
     private Boolean vatIncluded;

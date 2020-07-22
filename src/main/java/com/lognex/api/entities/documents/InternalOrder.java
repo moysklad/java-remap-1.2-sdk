@@ -17,7 +17,6 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class InternalOrder extends DocumentEntity implements IEntityWithAttributes {
     private LocalDateTime created;
-    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private Organization organization;
     private ListEntity<DocumentPosition> positions;

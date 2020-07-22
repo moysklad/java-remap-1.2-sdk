@@ -19,7 +19,6 @@ import java.util.List;
 public class PurchaseReturn extends DocumentEntity implements IEntityWithAttributes {
     private Agent agent;
     private LocalDateTime created;
-    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private Agent organization;
     private Long payedSum;

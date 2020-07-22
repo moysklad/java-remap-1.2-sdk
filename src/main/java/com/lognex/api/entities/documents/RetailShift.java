@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class RetailShift extends DocumentEntity {
     private String externalCode;
-    private ListEntity<DocumentEntity> documents;
     private LocalDateTime created;
     private LocalDateTime closeDate;
     private Double receivedCash;

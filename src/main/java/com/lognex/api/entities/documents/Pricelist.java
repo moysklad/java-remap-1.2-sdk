@@ -1,8 +1,8 @@
 package com.lognex.api.entities.documents;
 
-import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.PriceType;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Organization;
+import com.lognex.api.entities.products.Product;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
@@ -10,22 +10,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Pricelist extends DocumentEntity {
+public class Pricelist extends DocumentEntity implements IEntityWithAttributes {
     /**
      * Внешний код
      */
     private String externalCode;
-
-    /**
-     * Печатные формы
-     */
-    private ListEntity<DocumentEntity> documents;
 
     /**
      * Тип цены
@@ -47,6 +43,36 @@ public class Pricelist extends DocumentEntity {
      */
     private List<ColumnsItem> columns;
 
+    /**
+     * ID синхронизации
+     */
+    private String syncId;
+
+    /**
+     * Дата создания
+     */
+    private LocalDateTime created;
+
+    /**
+     * Дата удаления
+     */
+    private LocalDateTime deleted;
+
+    /**
+     * Комментарий
+     */
+    private String description;
+
+    /**
+     * Статус договора в формате Метаданных
+     */
+    private State state;
+
+    /**
+     * Коллекция доп. полей
+     */
+    private List<Attribute> attributes;
+
     public Pricelist(String id) {
         super(id);
     }
@@ -65,6 +91,11 @@ public class Pricelist extends DocumentEntity {
          * Товар/услуга/модификация, которую представляет собой позиция
          */
         private SingleProductMarker assortment;
+
+        /**
+         * Упаковка товара
+         */
+        private Product.ProductPack pack;
 
         @Getter
         @Setter
