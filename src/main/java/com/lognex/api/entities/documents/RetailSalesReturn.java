@@ -2,7 +2,7 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
-import com.lognex.api.entities.documents.positions.DocumentPositionWithCost;
+import com.lognex.api.entities.documents.positions.RetailSalesDocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class RetailSalesReturn extends DocumentEntity implements IEntityWithAttr
     private String externalCode;
     private Long noCashSum;
     private Agent organization;
-    private ListEntity<DocumentPositionWithCost> positions;
+    private ListEntity<RetailSalesDocumentPosition> positions;
     private Rate rate;
     private RetailShift retailShift;
     private RetailStore retailStore;

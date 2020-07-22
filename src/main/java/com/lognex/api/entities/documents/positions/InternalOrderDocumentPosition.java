@@ -6,13 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class LossDocumentPosition extends DocumentPosition {
-    private String reason;
-    private List<String> things;
+public class InternalOrderDocumentPosition extends DocumentPosition {
+    private Integer vat;
 }

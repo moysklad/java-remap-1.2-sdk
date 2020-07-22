@@ -11,6 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class PurchaseOrderDocumentPosition extends DocumentPosition {
+    private Double discount;
     private Long shipped;
+    private Integer vat;
     private Long wait;
 }

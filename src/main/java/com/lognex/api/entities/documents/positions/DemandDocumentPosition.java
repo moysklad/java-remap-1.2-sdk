@@ -13,6 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class DemandDocumentPosition extends DocumentPosition {
-    List<TrackingCode> trackingCodes;
     private Long cost;
+    private Double discount;
+    private Integer overhead;
+    private List<TrackingCode> trackingCodes;
+    private Integer vat;
 }

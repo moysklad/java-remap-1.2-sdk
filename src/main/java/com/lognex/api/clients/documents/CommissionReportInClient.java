@@ -5,6 +5,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.CommissionReportIn;
+import com.lognex.api.entities.documents.positions.CommissionReportDocumentPosition;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class CommissionReportInClient
@@ -18,7 +19,7 @@ public final class CommissionReportInClient
         GetByIdEndpoint<CommissionReportIn>,
         PutByIdEndpoint<CommissionReportIn>,
         MassCreateUpdateDeleteEndpoint<CommissionReportIn>,
-        DocumentPositionsEndpoint,
+        DocumentPositionsEndpoint<CommissionReportDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint {
@@ -35,5 +36,10 @@ public final class CommissionReportInClient
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
         return MetadataAttributeSharedStatesResponse.class;
+    }
+
+    @Override
+    public Class<CommissionReportDocumentPosition> documentPositionClass() {
+        return CommissionReportDocumentPosition.class;
     }
 }

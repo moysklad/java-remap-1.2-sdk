@@ -4,7 +4,9 @@ import com.lognex.api.ApiClient;
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.documents.DocumentPosition;
 import com.lognex.api.entities.documents.InternalOrder;
+import com.lognex.api.entities.documents.positions.InternalOrderDocumentPosition;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class InternalOrderClient
@@ -19,7 +21,7 @@ public final class InternalOrderClient
         GetByIdEndpoint<InternalOrder>,
         PutByIdEndpoint<InternalOrder>,
         MassCreateUpdateDeleteEndpoint<InternalOrder>,
-        DocumentPositionsEndpoint,
+        DocumentPositionsEndpoint<InternalOrderDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint {
@@ -36,5 +38,10 @@ public final class InternalOrderClient
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
         return MetadataAttributeSharedStatesResponse.class;
+    }
+
+    @Override
+    public Class<InternalOrderDocumentPosition> documentPositionClass() {
+        return InternalOrderDocumentPosition.class;
     }
 }

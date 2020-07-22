@@ -4,7 +4,6 @@ import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.entities.documents.markers.FinanceInDocumentMarker;
-import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

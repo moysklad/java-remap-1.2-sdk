@@ -3,8 +3,6 @@ package com.lognex.api.entities;
 import com.google.gson.Gson;
 import com.lognex.api.ApiClient;
 import com.lognex.api.entities.discounts.*;
-import com.lognex.api.entities.discounts.AccumulationDiscount;
-import com.lognex.api.entities.discounts.SpecialPriceDiscount;
 import com.lognex.api.entities.products.Variant;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.ApiClientException;

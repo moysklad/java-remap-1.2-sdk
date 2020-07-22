@@ -5,6 +5,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.Demand;
+import com.lognex.api.entities.documents.positions.DemandDocumentPosition;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class DemandClient
@@ -19,7 +20,7 @@ public final class DemandClient
         GetByIdEndpoint<Demand>,
         PutByIdEndpoint<Demand>,
         MassCreateUpdateDeleteEndpoint<Demand>,
-        DocumentPositionsEndpoint,
+        DocumentPositionsEndpoint<DemandDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint {
@@ -36,5 +37,10 @@ public final class DemandClient
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
         return MetadataAttributeSharedStatesResponse.class;
+    }
+
+    @Override
+    public Class<DemandDocumentPosition> documentPositionClass() {
+        return DemandDocumentPosition.class;
     }
 }

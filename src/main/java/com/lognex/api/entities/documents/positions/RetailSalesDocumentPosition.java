@@ -12,7 +12,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class LossDocumentPosition extends DocumentPosition {
-    private String reason;
+public class RetailSalesDocumentPosition extends DocumentPosition {
+    private Long cost;
+    private Double discount;
     private List<String> things;
+    private Integer vat;
 }

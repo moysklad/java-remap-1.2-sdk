@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class DocumentPositionWithCost extends DocumentPosition {
-    Long cost;
+public class PrepaymentDocumentPosition extends DocumentPosition {
+    private Double discount;
+    private Integer vat;
 }

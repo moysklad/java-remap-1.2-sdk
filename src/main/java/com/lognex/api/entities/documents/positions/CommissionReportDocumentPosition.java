@@ -11,5 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class CommissionReportDocumentPosition extends DocumentPosition {
-    Double reward;
+    private Double reward;
+    private Integer vat;
 }

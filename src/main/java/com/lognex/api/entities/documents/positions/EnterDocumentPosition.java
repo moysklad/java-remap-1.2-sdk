@@ -1,5 +1,7 @@
 package com.lognex.api.entities.documents.positions;
 
+import com.lognex.api.entities.Country;
+import com.lognex.api.entities.documents.DocumentEntity;
 import com.lognex.api.entities.documents.DocumentPosition;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,7 +14,10 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class LossDocumentPosition extends DocumentPosition {
+public class EnterDocumentPosition extends DocumentPosition {
+    private Country country;
+    private DocumentEntity.Gtd gtd;
+    private Integer overhead;
     private String reason;
     private List<String> things;
 }

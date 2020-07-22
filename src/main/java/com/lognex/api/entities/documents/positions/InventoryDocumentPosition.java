@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class InventoryDocumentPosition extends DocumentPosition {
-    private Long calculatedQuantity;
-    private Long correctionAmount;
-    private Long correctionSum;
+    private Double calculatedQuantity;
+    private Double correctionAmount;
+    private Double correctionSum;
 }

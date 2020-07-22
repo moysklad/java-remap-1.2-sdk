@@ -4,6 +4,7 @@ import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.entities.documents.markers.FinanceDocumentMarker;
+import com.lognex.api.entities.documents.positions.SalesReturnDocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,7 +26,7 @@ public class SalesReturn extends DocumentEntity implements IEntityWithAttributes
     private String externalCode;
     private Organization organization;
     private Long payedSum;
-    private ListEntity<DocumentPosition> positions;
+    private ListEntity<SalesReturnDocumentPosition> positions;
     private Rate rate;
     private State state;
     private Store store;

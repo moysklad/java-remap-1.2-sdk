@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class LossDocumentPosition extends DocumentPosition {
-    private String reason;
+public class MoveDocumentPosition extends DocumentPosition {
+    private Integer overhead;
     private List<String> things;
 }

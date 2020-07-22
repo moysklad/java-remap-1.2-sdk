@@ -5,6 +5,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.Move;
+import com.lognex.api.entities.documents.positions.MoveDocumentPosition;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class MoveClient
@@ -19,7 +20,7 @@ public final class MoveClient
         GetByIdEndpoint<Move>,
         PutByIdEndpoint<Move>,
         MassCreateUpdateDeleteEndpoint<Move>,
-        DocumentPositionsEndpoint,
+        DocumentPositionsEndpoint<MoveDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint {
@@ -36,5 +37,10 @@ public final class MoveClient
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
         return MetadataAttributeSharedStatesResponse.class;
+    }
+
+    @Override
+    public Class<MoveDocumentPosition> documentPositionClass() {
+        return MoveDocumentPosition.class;
     }
 }

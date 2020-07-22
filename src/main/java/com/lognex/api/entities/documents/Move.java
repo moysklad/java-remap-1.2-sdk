@@ -2,6 +2,7 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
+import com.lognex.api.entities.documents.positions.MoveDocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -23,7 +24,7 @@ public class Move extends DocumentEntity implements IEntityWithAttributes {
     private String externalCode;
     private Agent organization;
     private Overhead overhead;
-    private ListEntity<DocumentPosition> positions;
+    private ListEntity<MoveDocumentPosition> positions;
     private Project project;
     private Rate rate;
     private Store sourceStore;

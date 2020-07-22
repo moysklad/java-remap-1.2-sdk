@@ -3,6 +3,7 @@ package com.lognex.api.entities.documents;
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.documents.markers.FinanceDocumentMarker;
+import com.lognex.api.entities.documents.positions.PurchaseReturnDocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,7 +23,7 @@ public class PurchaseReturn extends DocumentEntity implements IEntityWithAttribu
     private String externalCode;
     private Agent organization;
     private Long payedSum;
-    private ListEntity<DocumentPosition> positions;
+    private ListEntity<PurchaseReturnDocumentPosition> positions;
     private Rate rate;
     private Store store;
     private Supply supply;

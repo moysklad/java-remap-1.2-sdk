@@ -1,4 +1,4 @@
-package com.lognex.api.entities.documents;
+package com.lognex.api.entities.documents.positions;
 
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.products.Product;
@@ -12,9 +12,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class DocumentPosition extends MetaEntity {
+public class ProcessingOrderPosition extends MetaEntity {
     private ProductMarker assortment;
     private Product.ProductPack pack;
-    private Long price;
     private Double quantity;
+    private Double reserve;
 }

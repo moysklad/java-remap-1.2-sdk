@@ -3,6 +3,7 @@ package com.lognex.api.entities.documents;
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.agents.Organization;
+import com.lognex.api.entities.documents.positions.InvoiceDocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -29,7 +30,7 @@ public class InvoiceIn extends DocumentEntity {
     private AgentAccount organizationAccount;
     private Long payedSum;
     private LocalDateTime paymentPlannedMoment;
-    private ListEntity<DocumentPosition> positions;
+    private ListEntity<InvoiceDocumentPosition> positions;
     private Rate rate;
     private Long shippedSum;
     private State state;

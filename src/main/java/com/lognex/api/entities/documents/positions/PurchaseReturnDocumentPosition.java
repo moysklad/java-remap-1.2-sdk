@@ -12,7 +12,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class LossDocumentPosition extends DocumentPosition {
-    private String reason;
+public class PurchaseReturnDocumentPosition extends DocumentPosition {
+    private Double discount;
     private List<String> things;
+    private Integer vat;
 }

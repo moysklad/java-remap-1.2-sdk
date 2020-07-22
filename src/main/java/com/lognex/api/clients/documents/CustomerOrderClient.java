@@ -5,6 +5,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.CustomerOrder;
+import com.lognex.api.entities.documents.positions.CustomerOrderDocumentPosition;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class CustomerOrderClient
@@ -17,7 +18,7 @@ public final class CustomerOrderClient
         GetByIdEndpoint<CustomerOrder>,
         PutByIdEndpoint<CustomerOrder>,
         MassCreateUpdateDeleteEndpoint<CustomerOrder>,
-        DocumentPositionsEndpoint,
+        DocumentPositionsEndpoint<CustomerOrderDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint {
@@ -34,5 +35,10 @@ public final class CustomerOrderClient
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
         return MetadataAttributeSharedStatesResponse.class;
+    }
+
+    @Override
+    public Class<CustomerOrderDocumentPosition> documentPositionClass() {
+        return CustomerOrderDocumentPosition.class;
     }
 }

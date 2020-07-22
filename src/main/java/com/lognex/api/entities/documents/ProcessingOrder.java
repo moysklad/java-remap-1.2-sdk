@@ -2,6 +2,7 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
+import com.lognex.api.entities.documents.positions.ProcessingOrderPosition;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,7 +21,7 @@ public class ProcessingOrder extends DocumentEntity implements IEntityWithAttrib
     private String description;
     private String externalCode;
     private Agent organization;
-    private ListEntity<DocumentPosition> positions;
+    private ListEntity<ProcessingOrderPosition> positions;
     private ProcessingPlan processingPlan;
     private Double quantity;
     private State state;

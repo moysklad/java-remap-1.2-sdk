@@ -12,6 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class CustomerOrderDocumentPosition extends DocumentPosition {
+    private Double discount;
+    private Double reserve;
     private Long shipped;
     private GoodTaxSystem taxSystem;
+    private Integer vat;
 }

@@ -5,6 +5,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.Enter;
+import com.lognex.api.entities.documents.positions.EnterDocumentPosition;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class EnterClient
@@ -18,7 +19,7 @@ public final class EnterClient
         GetByIdEndpoint<Enter>,
         PutByIdEndpoint<Enter>,
         MassCreateUpdateDeleteEndpoint<Enter>,
-        DocumentPositionsEndpoint,
+        DocumentPositionsEndpoint<EnterDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint {
@@ -35,5 +36,10 @@ public final class EnterClient
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
         return MetadataAttributeSharedStatesResponse.class;
+    }
+
+    @Override
+    public Class<EnterDocumentPosition> documentPositionClass() {
+        return EnterDocumentPosition.class;
     }
 }

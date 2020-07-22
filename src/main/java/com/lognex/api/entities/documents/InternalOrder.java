@@ -2,6 +2,7 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Organization;
+import com.lognex.api.entities.documents.positions.InternalOrderDocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,7 +20,7 @@ public class InternalOrder extends DocumentEntity implements IEntityWithAttribut
     private LocalDateTime created;
     private String externalCode;
     private Organization organization;
-    private ListEntity<DocumentPosition> positions;
+    private ListEntity<InternalOrderDocumentPosition> positions;
     private Rate rate;
     private Store store;
     private Boolean vatEnabled;
