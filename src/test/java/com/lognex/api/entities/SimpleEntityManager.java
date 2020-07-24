@@ -340,7 +340,7 @@ public class SimpleEntityManager implements TestRandomizers {
 
     public Variant createSimpleVariant() throws IOException, ApiClientException {
         Variant variant = new Variant();
-        variant.setProduct(createSimpleProduct());
+        variant.setProduct(createSimple(Product.class));
 
         Variant.Characteristic characteristic = new Variant.Characteristic();
         characteristic.setName(randomString());
