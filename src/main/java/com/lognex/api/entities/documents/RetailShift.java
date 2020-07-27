@@ -3,7 +3,6 @@ package com.lognex.api.entities.documents;
 import com.lognex.api.entities.RetailStore;
 import com.lognex.api.entities.Store;
 import com.lognex.api.entities.agents.Organization;
-import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class RetailShift extends DocumentEntity {
     private String externalCode;
-    private ListEntity<DocumentEntity> documents;
     private LocalDateTime created;
     private LocalDateTime closeDate;
     private Double receivedCash;

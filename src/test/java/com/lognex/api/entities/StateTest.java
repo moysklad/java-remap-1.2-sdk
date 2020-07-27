@@ -2,6 +2,7 @@ package com.lognex.api.entities;
 
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.utils.ApiClientException;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -27,6 +28,12 @@ public class StateTest extends EntityGetUpdateDeleteTest {
         assertEquals(state.getStateType(), retrievedState.getStateType());
         assertEquals(state.getColor(), retrievedState.getColor());
         assertEquals(state.getEntityType(), retrievedState.getEntityType());
+    }
+
+    @Test
+    @Ignore
+    @Override
+    public void massCreateDeleteTest() {
     }
 
     @Override

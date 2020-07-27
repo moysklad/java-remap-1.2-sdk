@@ -27,6 +27,7 @@ public final class PricelistClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Pricelist>,
         PutByIdEndpoint<Pricelist>,
+        MassCreateUpdateDeleteEndpoint<Pricelist>,
         ExportEndpoint,
         PublicationEndpoint {
 

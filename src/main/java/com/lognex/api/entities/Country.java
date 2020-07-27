@@ -1,5 +1,6 @@
 package com.lognex.api.entities;
 
+import com.lognex.api.entities.agents.Employee;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,6 +36,21 @@ public class Country extends MetaEntity {
      * Код
      */
     private String code;
+
+    /**
+     * Ссылка на Владельца (Сотрудника) в формате Метаданных
+     */
+    private Employee owner;
+
+    /**
+     * Общий доступ
+     */
+    private Boolean shared;
+
+    /**
+     * Отдел сотрудника в формате Метаданных
+     */
+    private Group group;
 
     public Country(String id) {
         super(id);

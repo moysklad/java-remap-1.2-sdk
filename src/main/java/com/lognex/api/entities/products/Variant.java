@@ -96,6 +96,11 @@ public class Variant extends Assortment implements SingleProductMarker, Consignm
     @NoArgsConstructor
     @EqualsAndHashCode(callSuper = true)
     public static class Characteristic extends MetaEntity {
+
+        public Characteristic(String name) {
+            this.setName(name);
+        }
+
         /**
          * Тип характеристики
          */

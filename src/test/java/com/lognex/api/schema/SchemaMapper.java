@@ -4,10 +4,8 @@ package com.lognex.api.schema;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lognex.api.utils.TestUtils;
-import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.*;
 
 import static com.lognex.api.schema.SchemaMapper.Constants.*;

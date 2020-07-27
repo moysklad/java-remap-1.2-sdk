@@ -6,7 +6,6 @@ import com.lognex.api.entities.Rate;
 import com.lognex.api.entities.State;
 import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.agents.Organization;
-import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +22,6 @@ public class RetailDrawerCashOut extends DocumentEntity implements IEntityWithAt
     private Agent agent;
     private LocalDateTime created;
     private String description;
-    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private Organization organization;
     private Rate rate;

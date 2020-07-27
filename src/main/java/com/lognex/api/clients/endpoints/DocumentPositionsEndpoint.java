@@ -16,16 +16,16 @@ import java.util.stream.Collectors;
 
 import static com.lognex.api.utils.Constants.API_PATH;
 
-public interface DocumentPositionsEndpoint extends Endpoint {
+public interface DocumentPositionsEndpoint<T extends DocumentPosition> extends Endpoint {
     @ApiEndpoint
-    default List<DocumentPosition> createPositions(String documentId, List<DocumentPosition> updatedEntities) throws IOException, ApiClientException {
+    default List<T> createPositions(String documentId, List<T> updatedEntities) throws IOException, ApiClientException {
         updatedEntities = updatedEntities.stream()
                 .map(e -> MetaHrefUtils.fillMeta(e, api().getHost() + API_PATH))
                 .collect(Collectors.toList());
-        List<DocumentPosition> responseEntity = HttpRequestExecutor.
+        List<T> responseEntity = HttpRequestExecutor.
                 path(api(), path() + documentId + "/positions/").
                 body(updatedEntities).
-                postList(DocumentPosition.class);
+                postList((Class<T>) documentPositionClass());
 
         for (int i = 0; i < responseEntity.size(); i++) {
             updatedEntities.set(i, responseEntity.get(i));
@@ -34,52 +34,52 @@ public interface DocumentPositionsEndpoint extends Endpoint {
     }
 
     @ApiEndpoint
-    default List<DocumentPosition> createPositions(DocumentEntity document, List<DocumentPosition> updatedEntities) throws IOException, ApiClientException {
+    default List<T> createPositions(DocumentEntity document, List<T> updatedEntities) throws IOException, ApiClientException {
         return createPositions(document.getId(), updatedEntities);
     }
 
     @ApiEndpoint
-    default DocumentPosition createPosition(String documentId, DocumentPosition updatedEntity) throws IOException, ApiClientException {
-        List<DocumentPosition> positionList = new ArrayList<>(Collections.singletonList(updatedEntity));
-        List<DocumentPosition> newPosition = createPositions(documentId, positionList);
+    default T createPosition(String documentId, T updatedEntity) throws IOException, ApiClientException {
+        List<T> positionList = new ArrayList<>(Collections.singletonList(updatedEntity));
+        List<T> newPosition = createPositions(documentId, positionList);
 
         updatedEntity.set(newPosition.get(0));
         return updatedEntity;
     }
 
     @ApiEndpoint
-    default DocumentPosition createPosition(DocumentEntity document, DocumentPosition updatedEntity) throws IOException, ApiClientException {
+    default T createPosition(DocumentEntity document, T updatedEntity) throws IOException, ApiClientException {
         return createPosition(document.getId(), updatedEntity);
     }
 
     @ApiEndpoint
-    default ListEntity<DocumentPosition> getPositions(String documentId, ApiParam... params) throws IOException, ApiClientException {
+    default ListEntity<T> getPositions(String documentId, ApiParam... params) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + documentId + "/positions").
                 apiParams(params).
-                list(DocumentPosition.class);
+                list((Class<T>) documentPositionClass());
     }
 
     @ApiEndpoint
-    default ListEntity<DocumentPosition> getPositions(DocumentEntity document, ApiParam... params) throws IOException, ApiClientException {
+    default ListEntity<T> getPositions(DocumentEntity document, ApiParam... params) throws IOException, ApiClientException {
         return getPositions(document.getId(), params);
     }
 
     @ApiEndpoint
-    default DocumentPosition getPosition(String documentId, String positionId, ApiParam... params) throws IOException, ApiClientException {
+    default T getPosition(String documentId, String positionId, ApiParam... params) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + documentId + "/positions/" + positionId).
                 apiParams(params).
-                get(DocumentPosition.class);
+                get((Class<T>) documentPositionClass());
     }
 
     @ApiEndpoint
-    default DocumentPosition getPosition(DocumentEntity document, String positionId, ApiParam... params) throws IOException, ApiClientException {
+    default T getPosition(DocumentEntity document, String positionId, ApiParam... params) throws IOException, ApiClientException {
         return getPosition(document.getId(), positionId, params);
     }
 
     @ApiEndpoint
-    default void updatePosition(String documentId, String positionId, DocumentPosition updatedEntity) throws IOException, ApiClientException {
+    default void updatePosition(String documentId, String positionId, T updatedEntity) throws IOException, ApiClientException {
         MetaHrefUtils.fillMeta(updatedEntity, api().getHost() + API_PATH);
         DocumentPosition responseEntity = HttpRequestExecutor.
                 path(api(), path() + documentId + "/positions/" + positionId).
@@ -90,17 +90,17 @@ public interface DocumentPositionsEndpoint extends Endpoint {
     }
 
     @ApiEndpoint
-    default void updatePosition(DocumentEntity document, String positionId, DocumentPosition updatedEntity) throws IOException, ApiClientException {
+    default void updatePosition(DocumentEntity document, String positionId, T updatedEntity) throws IOException, ApiClientException {
         updatePosition(document.getId(), positionId, updatedEntity);
     }
 
     @ApiEndpoint
-    default void updatePosition(DocumentEntity document, DocumentPosition position, DocumentPosition updatedEntity) throws IOException, ApiClientException {
+    default void updatePosition(DocumentEntity document, T position, T updatedEntity) throws IOException, ApiClientException {
         updatePosition(document, position.getId(), updatedEntity);
     }
 
     @ApiEndpoint
-    default void updatePosition(DocumentEntity document, DocumentPosition position) throws IOException, ApiClientException {
+    default void updatePosition(DocumentEntity document, T position) throws IOException, ApiClientException {
         updatePosition(document, position, position);
     }
 
@@ -117,7 +117,9 @@ public interface DocumentPositionsEndpoint extends Endpoint {
     }
 
     @ApiEndpoint
-    default void deletePosition(DocumentEntity document, DocumentPosition position) throws IOException, ApiClientException {
+    default void deletePosition(DocumentEntity document, T position) throws IOException, ApiClientException {
         deletePosition(document, position.getId());
     }
+
+    Class<? extends DocumentPosition> documentPositionClass();
 }

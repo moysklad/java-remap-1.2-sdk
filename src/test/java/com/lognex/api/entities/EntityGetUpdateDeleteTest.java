@@ -1,20 +1,27 @@
 package com.lognex.api.entities;
 
-import com.lognex.api.clients.endpoints.GetByIdEndpoint;
-import com.lognex.api.clients.endpoints.PutByIdEndpoint;
+import com.lognex.api.clients.EntityClientBase;
+import com.lognex.api.clients.endpoints.*;
+import com.lognex.api.responses.MassDeleteResponse;
 import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public abstract class EntityGetUpdateDeleteTest extends EntityGetDeleteTest {
+    protected String getFieldNameToUpdate() {
+        return "Name";
+    }
+
     @Test
     public void putTest() throws IOException, ApiClientException {
-        doPutTest("Name");
+        doPutTest(getFieldNameToUpdate());
     }
 
     @SuppressWarnings("unchecked")
@@ -54,4 +61,64 @@ public abstract class EntityGetUpdateDeleteTest extends EntityGetDeleteTest {
     }
 
     protected abstract void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField);
+
+    @Test
+    public void massUpdateTest() throws IOException, ApiClientException {
+        List<MetaEntity> entities = Arrays.asList(
+                simpleEntityManager.createSimple(entityClass()),
+                simpleEntityManager.createSimple(entityClass())
+        );
+
+        MetaEntity origin1 = ((GetByIdEndpoint) entityClient()).get(entities.get(0).getId());
+
+        Object newValue = updateField(getFieldNameToUpdate(), entities.get(0));
+        List<MetaEntity> updated = ((MassCreateUpdateEndpoint) entityClient()).createOrUpdate(entities);
+        assertEquals(entities.size(), updated.size());
+        assertEquals(entities.size(), updated.stream().filter(p -> p.getId() != null).count());
+
+        MetaEntity firstUpdated = updated.stream()
+                .filter(p -> p.getId().equals(origin1.getId()))
+                .findFirst()
+                .orElseThrow(() -> new AssertionError("Сущность не найдена среди обновлённых"));
+        putAsserts(origin1, firstUpdated, newValue);
+
+        for (int i = 0; i < entities.size(); i++) {
+            entities.get(i).set(updated.get(i));
+        }
+    }
+
+    @Test
+    public void massCreateDeleteTest() throws IOException, ApiClientException {
+        EntityClientBase client = entityClient();
+
+        List<MetaEntity> entities = Arrays.asList(
+                simpleEntityManager.createSimple(entityClass(), true),
+                simpleEntityManager.createSimple(entityClass(), true)
+        );
+        entities.forEach(simpleEntityManager::removeSimpleFromPool);
+
+        Set<String> entityIds = doMassDelete((MassCreateUpdateDeleteEndpoint) client, entities);
+        ((GetListEndpoint<MetaEntity>) entityClient()).get().getRows().stream()
+                .filter(item -> entityIds.contains(item.getId()))
+                .findAny()
+                .ifPresent(id -> fail("Сущность найдена после массового удаления"));
+
+        entities.forEach(entity -> {
+            entity.setId(null);
+            entity.setMeta(null);
+        });
+        List<MetaEntity> created = ((MassCreateUpdateEndpoint) client).createOrUpdate(entities);
+        assertEquals(entities.size(), created.size());
+        assertEquals(entities.size(), created.stream().filter(p -> p.getId() != null).count());
+
+        //подчистка базы
+        doMassDelete((MassCreateUpdateDeleteEndpoint) client, created);
+    }
+
+    private Set<String> doMassDelete(MassCreateUpdateDeleteEndpoint client, List<MetaEntity> entities) throws IOException, ApiClientException {
+        List<MassDeleteResponse> deleteResult = client.delete(entities);
+        assertEquals(entities.size(), deleteResult.size());
+        assertEquals(0, deleteResult.stream().filter(x -> x.getErrors() != null).count());
+        return entities.stream().map(MetaEntity::getId).collect(Collectors.toSet());
+    }
 }

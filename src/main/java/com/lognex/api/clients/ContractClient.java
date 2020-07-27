@@ -11,6 +11,7 @@ public final class ContractClient
         implements
         GetListEndpoint<Contract>,
         PostEndpoint<Contract>,
+        MassCreateUpdateDeleteEndpoint<Contract>,
         DeleteByIdEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         MetadataAttributeEndpoint,

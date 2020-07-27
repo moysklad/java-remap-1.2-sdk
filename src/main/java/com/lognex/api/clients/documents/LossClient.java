@@ -5,6 +5,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.Loss;
+import com.lognex.api.entities.documents.positions.LossDocumentPosition;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class LossClient
@@ -18,7 +19,8 @@ public final class LossClient
         DocumentNewEndpoint<Loss>,
         GetByIdEndpoint<Loss>,
         PutByIdEndpoint<Loss>,
-        DocumentPositionsEndpoint,
+        MassCreateUpdateDeleteEndpoint<Loss>,
+        DocumentPositionsEndpoint<LossDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint {
@@ -35,5 +37,10 @@ public final class LossClient
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
         return MetadataAttributeSharedStatesResponse.class;
+    }
+
+    @Override
+    public Class<LossDocumentPosition> documentPositionClass() {
+        return LossDocumentPosition.class;
     }
 }

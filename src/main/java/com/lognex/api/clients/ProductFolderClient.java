@@ -14,7 +14,8 @@ public final class ProductFolderClient
         MetadataEndpoint<MetadataAttributeResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<ProductFolder>,
-        PutByIdEndpoint<ProductFolder> {
+        PutByIdEndpoint<ProductFolder>,
+        MassCreateUpdateDeleteEndpoint<ProductFolder> {
 
     public ProductFolderClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/productfolder/");

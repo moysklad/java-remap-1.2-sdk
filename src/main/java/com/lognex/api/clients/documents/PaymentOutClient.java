@@ -18,6 +18,7 @@ public final class PaymentOutClient
         DocumentNewEndpoint<PaymentOut>,
         GetByIdEndpoint<PaymentOut>,
         PutByIdEndpoint<PaymentOut>,
+        MassCreateUpdateDeleteEndpoint<PaymentOut>,
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint {

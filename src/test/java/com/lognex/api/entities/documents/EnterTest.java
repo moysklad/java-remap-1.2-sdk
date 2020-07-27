@@ -2,9 +2,11 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.documents.positions.EnterDocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.ApiClientException;
+import com.lognex.api.utils.params.ExpandParam;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -24,6 +26,14 @@ public class EnterTest extends DocumentWithPositionsTestBase {
         enter.setOrganization(simpleEntityManager.getOwnOrganization());
         enter.setStore(simpleEntityManager.getMainStore());
 
+        EnterDocumentPosition position = new EnterDocumentPosition();
+        position.setAssortment(simpleEntityManager.createSimpleProduct());
+        position.setQuantity(1.);
+        position.setCountry(simpleEntityManager.createSimpleCountry());
+        position.setGtd(new DocumentEntity.Gtd(randomString()));
+        position.setReason(randomString());
+        enter.setPositions(new ListEntity<>(position));
+
         api.entity().enter().create(enter);
 
         ListEntity<Enter> updatedEntitiesList = api.entity().enter().get(filterEq("name", enter.getName()));
@@ -35,6 +45,13 @@ public class EnterTest extends DocumentWithPositionsTestBase {
         assertEquals(enter.getMoment(), retrievedEntity.getMoment());
         assertEquals(enter.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(enter.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
+
+        ListEntity<EnterDocumentPosition> retrievedPositions = api.entity().enter().getPositions(retrievedEntity.getId(), ExpandParam.expand("country"));
+        assertEquals(1, retrievedPositions.getRows().size());
+        EnterDocumentPosition retrievedPosition = retrievedPositions.getRows().get(0);
+        assertEquals(position.getReason(), retrievedPosition.getReason());
+        assertEquals(position.getGtd().getName(), retrievedPosition.getGtd().getName());
+        assertEquals(position.getCountry().getId(), retrievedPosition.getCountry().getId());
     }
 
     @Test

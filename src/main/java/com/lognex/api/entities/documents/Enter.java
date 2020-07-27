@@ -2,6 +2,7 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Organization;
+import com.lognex.api.entities.documents.positions.EnterDocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,13 +21,13 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Enter extends DocumentEntity implements IEntityWithAttributes {
+    private Contract contract;
     private LocalDateTime created;
     private LocalDateTime deleted;
     private String description;
-    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private Organization organization;
-    private ListEntity<DocumentPosition> positions;
+    private ListEntity<EnterDocumentPosition> positions;
     private Rate rate;
     private State state;
     private Store store;

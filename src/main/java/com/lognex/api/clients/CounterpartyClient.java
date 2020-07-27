@@ -25,6 +25,7 @@ public final class CounterpartyClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Counterparty>,
         PutByIdEndpoint<Counterparty>,
+        MassCreateUpdateDeleteEndpoint<Counterparty>,
         HasStatesEndpoint {
 
     public CounterpartyClient(com.lognex.api.ApiClient api) {

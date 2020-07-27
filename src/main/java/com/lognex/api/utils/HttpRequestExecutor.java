@@ -372,7 +372,7 @@ public final class HttpRequestExecutor {
      * @throws IOException        когда возникла сетевая ошибка
      * @throws ApiClientException когда возникла ошибка API
      */
-    public <T extends MetaEntity> List<T> postList(Class<T> cl) throws IOException, ApiClientException {
+    public <T> List<T> postList(Class<T> cl) throws IOException, ApiClientException {
         return gson.fromJson(post(), TypeToken.getParameterized(List.class, cl).getType());
     }
 

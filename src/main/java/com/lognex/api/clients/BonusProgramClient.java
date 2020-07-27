@@ -1,8 +1,6 @@
 package com.lognex.api.clients;
 
-import com.lognex.api.clients.endpoints.DeleteByIdEndpoint;
-import com.lognex.api.clients.endpoints.GetByIdEndpoint;
-import com.lognex.api.clients.endpoints.GetListEndpoint;
+import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.discounts.BonusProgram;
 
@@ -11,6 +9,8 @@ public final class BonusProgramClient
         implements
         GetListEndpoint<BonusProgram>,
         GetByIdEndpoint<BonusProgram>,
+        PostEndpoint<BonusProgram>,
+        PutByIdEndpoint<BonusProgram>,
         DeleteByIdEndpoint {
 
     public BonusProgramClient(com.lognex.api.ApiClient api) {

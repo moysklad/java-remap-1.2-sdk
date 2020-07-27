@@ -60,8 +60,8 @@ public class EndpointsTest implements TestRandomizers {
 
         if (!expected.isEmpty() && !newMethods.isEmpty()) fail(
                 "Не все методы из файла эталонов были найдены и некоторые текущие методы не были в него добавлены:" +
-                        "\n" + expected.stream().map(s -> " - " + s).collect(Collectors.joining("\n")) +
-                        "\n" + newMethods.stream().map(s -> " - " + s).collect(Collectors.joining("\n"))
+                        "\n" + expected.stream().sorted().map(s -> " - " + s).collect(Collectors.joining("\n")) +
+                        "\n" + newMethods.stream().sorted().map(s -> " + " + s).collect(Collectors.joining("\n"))
         );
 
         if (!expected.isEmpty()) fail("Не все методы из файла эталонов были найдены:\n " + expected.stream().map(s -> " - " + s).collect(Collectors.joining("\n")));

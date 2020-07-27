@@ -70,6 +70,18 @@ public class BonusTransactionTest  extends EntityGetUpdateDeleteTest {
     public void getTest() throws IOException, ApiClientException {
     }
 
+    @Ignore
+    @Test
+    @Override
+    public void massUpdateTest() {
+    }
+
+    @Ignore
+    @Test
+    @Override
+    public void massCreateDeleteTest() {
+    }
+
     @Override
     protected EntityClientBase entityClient() {
         return api.entity().bonustransaction();
