@@ -9,8 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class PersonalDiscount extends GoodDiscount {
-    public PersonalDiscount(String id) {
+public class RoundOffDiscount extends Discount {
+
+    public RoundOffDiscount(String id) {
         super(id);
     }
 }

@@ -190,7 +190,7 @@ public final class Counterparty extends Agent implements IEntityWithAttributes {
     /**
      * Сумма продаж
      */
-    private Integer salesAmount;
+    private Long salesAmount;
 
     /**
      * Дополнительные поля
