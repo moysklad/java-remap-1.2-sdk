@@ -1,6 +1,7 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.entities.discounts.SpecialPriceDiscount;
+import com.lognex.api.entities.documents.Pricelist;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.ApiClientException;
 import org.junit.Test;
@@ -28,7 +29,8 @@ public class SpecialPriceDiscountTest extends EntityTestBase {
         specialPriceDiscount.setProductFolders(new ArrayList<>());
         specialPriceDiscount.setDiscount(10.);
         specialPriceDiscount.setUsePriceType(false);
-        PriceType priceType = api.entity().pricelist().get().getRows().get(0).getPriceType();
+        Pricelist priceList = simpleEntityManager.createSimplePricelist();
+        PriceType priceType = priceList.getPriceType();
         SpecialPriceDiscount.SpecialPriceData specialPriceData = new SpecialPriceDiscount.SpecialPriceData();
         specialPriceData.setMeta(priceType.getMeta());
         specialPriceDiscount.setSpecialPrice(specialPriceData);
