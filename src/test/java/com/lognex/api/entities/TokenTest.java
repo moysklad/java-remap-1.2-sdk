@@ -12,7 +12,7 @@ public class TokenTest extends EntityTestBase {
     @Test
     public void getTest() throws IOException, ApiClientException {
         Token token = api.entity().token().create();
-        assertNotNull(token.getAccess_token());
-        assertTrue(token.getAccess_token().length() == 40);
+        assertNotNull(token.getAccessToken());
+        assertTrue(token.getAccessToken().length() == 40);
     }
 }
