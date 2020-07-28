@@ -1539,3 +1539,4 @@ POST;https://test.moysklad/api/remap/1.2/entity/organization/ID/accounts;String,
 POST;https://test.moysklad/api/remap/1.2/entity/retailstore/;MetaEntity;MetaEntity
 PUT;https://test.moysklad/api/remap/1.2/entity/retailstore/ID;String,MetaEntity;void
 PUT;https://test.moysklad/api/remap/1.2/entity/retailstore/ENTITY_ID;MetaEntity;void
+POST;https://test.moysklad/api/remap/1.2/security/token;;Token
