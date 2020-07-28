@@ -196,6 +196,28 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     }
 
     @Test
+    public void test_deserializeProductFolderEntity() {
+        Gson gsonCustom = ApiClient.createGson();
+
+        Attribute e = new Attribute();
+        e.setEntityType(Meta.Type.PRODUCT);
+        ProductFolder prf = new ProductFolder();
+        prf.setMeta(new Meta());
+        prf.getMeta().setType(Meta.Type.PRODUCT_FOLDER);
+        prf.setName("PRODUCT_FOLDER");
+        e.setValue(prf);
+
+        String data = gsonCustom.toJson(e);
+
+        assertEquals("{\"value\":{\"name\":\"PRODUCT_FOLDER\",\"meta\":{\"type\":\"productfolder\"}},\"type\":\"product\"}", data);
+        Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
+        assertEquals(Meta.Type.PRODUCT, parsed.getEntityType());
+        assertNull(parsed.getType());
+        assertEquals(ProductFolder.class, parsed.getValue().getClass());
+        assertEquals("PRODUCT_FOLDER", parsed.getValueAs(ProductFolder.class).getName());
+    }
+
+    @Test
     public void test_deserializeCustomEntity() {
         Gson gsonCustom = ApiClient.createGson();
 

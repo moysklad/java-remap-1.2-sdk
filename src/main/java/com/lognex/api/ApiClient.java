@@ -14,6 +14,7 @@ import com.lognex.api.entities.notifications.Notification;
 import com.lognex.api.entities.notifications.NotificationExchange;
 import com.lognex.api.entities.notifications.NotificationSubscription;
 import com.lognex.api.entities.products.markers.ConsignmentParentMarker;
+import com.lognex.api.entities.products.markers.ProductAttributeMarker;
 import com.lognex.api.entities.products.markers.ProductMarker;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
 import com.lognex.api.responses.ListEntity;
@@ -162,6 +163,9 @@ public final class ApiClient {
         if (prettyPrinting) {
             gb.setPrettyPrinting();
         }
+
+        ProductAttributeMarkerSerializer pams = new ProductAttributeMarkerSerializer();
+        gb.registerTypeAdapter(ProductAttributeMarker.class, pams);
 
         ProductMarkerSerializer pmse = new ProductMarkerSerializer();
         gb.registerTypeAdapter(ProductMarker.class, pmse);

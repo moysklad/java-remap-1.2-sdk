@@ -2,6 +2,7 @@ package com.lognex.api.entities;
 
 import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.entities.products.GoodTaxSystem;
+import com.lognex.api.entities.products.markers.ProductAttributeMarker;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ProductFolder extends MetaEntity {
+public class ProductFolder extends MetaEntity implements ProductAttributeMarker {
     /**
      * Ссылка на Владельца (Сотрудника) в формате Метаданных)
      */

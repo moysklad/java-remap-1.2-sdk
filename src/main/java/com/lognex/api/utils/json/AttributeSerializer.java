@@ -3,6 +3,7 @@ package com.lognex.api.utils.json;
 import com.google.gson.*;
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
+import com.lognex.api.entities.products.markers.ProductAttributeMarker;
 import com.lognex.api.entities.products.markers.ProductMarker;
 import com.lognex.api.utils.MetaHrefUtils;
 
@@ -92,7 +93,7 @@ public class AttributeSerializer implements JsonSerializer<Attribute>, JsonDeser
                 case BUNDLE:
                 case SERVICE:
                     ae.setValue(
-                            context.deserialize(jo.get("value"), ProductMarker.class)
+                            context.deserialize(jo.get("value"), ProductAttributeMarker.class)
                     );
                     break;
 
