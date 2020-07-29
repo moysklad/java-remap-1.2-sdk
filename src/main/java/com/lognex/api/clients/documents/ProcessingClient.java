@@ -17,6 +17,7 @@ public final class ProcessingClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Processing>,
         PutByIdEndpoint<Processing>,
+        MassCreateUpdateDeleteEndpoint<Processing>,
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint {

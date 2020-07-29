@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,4 +22,8 @@ import java.util.List;
 public final class ListEntity<T extends MetaEntity> extends MetaEntity implements Fetchable {
     private Context context;
     private List<T> rows;
+
+    public ListEntity(T... rows) {
+        this.rows = Arrays.asList(rows);
+    }
 }

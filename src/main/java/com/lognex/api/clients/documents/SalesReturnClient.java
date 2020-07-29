@@ -5,6 +5,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.SalesReturn;
+import com.lognex.api.entities.documents.positions.SalesReturnDocumentPosition;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class SalesReturnClient
@@ -18,7 +19,8 @@ public final class SalesReturnClient
         DocumentNewEndpoint<SalesReturn>,
         GetByIdEndpoint<SalesReturn>,
         PutByIdEndpoint<SalesReturn>,
-        DocumentPositionsEndpoint,
+        MassCreateUpdateDeleteEndpoint<SalesReturn>,
+        DocumentPositionsEndpoint<SalesReturnDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint {
 
@@ -34,5 +36,10 @@ public final class SalesReturnClient
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
         return MetadataAttributeSharedStatesResponse.class;
+    }
+
+    @Override
+    public Class<SalesReturnDocumentPosition> documentPositionClass() {
+        return SalesReturnDocumentPosition.class;
     }
 }

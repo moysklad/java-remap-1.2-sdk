@@ -8,6 +8,7 @@ import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.TestUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -73,6 +74,12 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> {
                 fail();
             }
         });
+    }
+
+    @Test
+    @Ignore
+    @Override
+    public void massCreateDeleteTest() {
     }
 
     @Override

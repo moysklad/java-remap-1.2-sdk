@@ -11,7 +11,8 @@ public final class CountryClient
         PostEndpoint<Country>,
         DeleteByIdEndpoint,
         GetByIdEndpoint<Country>,
-        PutByIdEndpoint<Country> {
+        PutByIdEndpoint<Country>,
+        MassCreateUpdateDeleteEndpoint<Country> {
 
     public CountryClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/country/");

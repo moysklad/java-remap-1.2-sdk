@@ -3,6 +3,7 @@ package com.lognex.api.entities.documents;
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.agents.Organization;
+import com.lognex.api.entities.documents.positions.PrepaymentDocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -37,7 +38,7 @@ public class Prepayment extends DocumentEntity implements IEntityWithAttributes 
     private Long cashSum;
     private Long noCashSum;
     private TaxSystem taxSystem;
-    private ListEntity<DocumentPosition> positions;
+    private ListEntity<PrepaymentDocumentPosition> positions;
 
     public Prepayment(String id) {
         super(id);

@@ -1,6 +1,5 @@
 package com.lognex.api.entities;
 
-import com.lognex.api.entities.agents.Agent;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -21,6 +21,7 @@ public final class BundleClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Bundle>,
         PutByIdEndpoint<Bundle>,
+        MassCreateUpdateDeleteEndpoint<Bundle>,
         DeleteByIdEndpoint,
         HasImagesEndpoint<Bundle> {
 

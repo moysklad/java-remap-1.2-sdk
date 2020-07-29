@@ -11,7 +11,8 @@ public final class UomClient
         PostEndpoint<Uom>,
         DeleteByIdEndpoint,
         GetByIdEndpoint<Uom>,
-        PutByIdEndpoint<Uom> {
+        PutByIdEndpoint<Uom>,
+        MassCreateUpdateDeleteEndpoint<Uom> {
 
     public UomClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/uom/");

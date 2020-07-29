@@ -5,6 +5,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.Inventory;
+import com.lognex.api.entities.documents.positions.InventoryDocumentPosition;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class InventoryClient
@@ -17,7 +18,8 @@ public final class InventoryClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Inventory>,
         PutByIdEndpoint<Inventory>,
-        DocumentPositionsEndpoint,
+        MassCreateUpdateDeleteEndpoint<Inventory>,
+        DocumentPositionsEndpoint<InventoryDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint {
 
@@ -33,5 +35,10 @@ public final class InventoryClient
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
         return MetadataAttributeSharedStatesResponse.class;
+    }
+
+    @Override
+    public Class<InventoryDocumentPosition> documentPositionClass() {
+        return InventoryDocumentPosition.class;
     }
 }

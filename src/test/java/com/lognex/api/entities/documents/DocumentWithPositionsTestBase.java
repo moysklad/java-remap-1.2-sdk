@@ -23,7 +23,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
 
         ListEntity<DocumentPosition> originalPositions = ((DocumentPositionsEndpoint) entityClient()).getPositions(document.getId());
 
-        DocumentPosition position = new DocumentPosition();
+        DocumentPosition position = createDocumentPosition();
 
         Product product = simpleEntityManager.createSimple(Product.class, true);
 
@@ -49,7 +49,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
 
         ListEntity<DocumentPosition> originalPositions = ((DocumentPositionsEndpoint) entityClient()).getPositions(document.getId());
 
-        DocumentPosition position = new DocumentPosition();
+        DocumentPosition position = createDocumentPosition();
 
         Product product = simpleEntityManager.createSimple(Product.class, true);
 
@@ -69,6 +69,14 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         );
     }
 
+    private DocumentPosition createDocumentPosition() {
+        try {
+            return (DocumentPosition) ((DocumentPositionsEndpoint) entityClient()).documentPositionClass().newInstance();
+        } catch (Exception e) {
+            throw new AssertionError("Fail to create empty DocumentPosition", e);
+        }
+    }
+
     @Test
     public void createPositionsByIdTest() throws IOException, ApiClientException {
         DocumentEntity document = (DocumentEntity) simpleEntityManager.createSimple(entityClass());
@@ -79,7 +87,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         List<Product> products = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
-            DocumentPosition position = new DocumentPosition();
+            DocumentPosition position = createDocumentPosition();
 
             Product product = simpleEntityManager.createSimple(Product.class, true);
             products.add(product);
@@ -119,7 +127,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         List<Product> products = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
-            DocumentPosition position = new DocumentPosition();
+            DocumentPosition position = createDocumentPosition();
 
             Product product = simpleEntityManager.createSimple(Product.class, true);
             products.add(product);
@@ -283,7 +291,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         List<DocumentPosition> positions = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
-            DocumentPosition position = new DocumentPosition();
+            DocumentPosition position = createDocumentPosition();
 
             Product product = simpleEntityManager.createSimple(Product.class, true);
             position.setAssortment(product);

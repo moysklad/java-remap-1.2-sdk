@@ -11,7 +11,8 @@ public final class ExpenseItemClient
         PostEndpoint<ExpenseItem>,
         DeleteByIdEndpoint,
         GetByIdEndpoint<ExpenseItem>,
-        PutByIdEndpoint<ExpenseItem> {
+        PutByIdEndpoint<ExpenseItem>,
+        MassCreateUpdateDeleteEndpoint<ExpenseItem> {
 
     public ExpenseItemClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/expenseitem/");

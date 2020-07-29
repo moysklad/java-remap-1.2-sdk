@@ -287,6 +287,26 @@ public final class EntityClient {
     }
 
     @ApiChainElement
+    public PersonalDiscountClient personaldiscount() {
+        return new PersonalDiscountClient(api);
+    }
+
+    @ApiChainElement
+    public AccumulationDiscountClient accumulationdiscount() {
+        return new AccumulationDiscountClient(api);
+    }
+
+    @ApiChainElement
+    public RoundOffDiscountClient roundoffdiscount() {
+        return new RoundOffDiscountClient(api);
+    }
+
+    @ApiChainElement
+    public SpecialPriceDiscountClient specialpricediscount() {
+        return new SpecialPriceDiscountClient(api);
+    }
+
+    @ApiChainElement
     public RegionClient region() {
         return new RegionClient(api);
     }

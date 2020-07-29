@@ -11,7 +11,6 @@ import com.lognex.api.entities.products.Bundle;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.entities.products.Service;
 import com.lognex.api.entities.products.Variant;
-import com.lognex.api.responses.CompanySettingsResponse;
 import com.lognex.api.responses.metadata.CompanySettingsMetadata;
 import com.lognex.api.utils.MetaHrefUtils;
 import lombok.EqualsAndHashCode;
@@ -100,7 +99,7 @@ public final class Meta {
         COMMISSION_REPORT_IN_POSITION("commissionreportinposition", DocumentPosition.class),
         COMMISSION_REPORT_OUT("commissionreportout", CommissionReportOut.class),
         COMMISSION_REPORT_OUT_POSITION("commissionreportoutposition", DocumentPosition.class),
-        COMPANY_SETTINGS("companysettings", CompanySettingsResponse.class),
+        COMPANY_SETTINGS("companysettings", CompanySettings.class),
         CONSIGNMENT("consignment", Consignment.class),
         CONTACT_PERSON("contactperson", ContactPerson.class),
         CONTRACT("contract", Contract.class),

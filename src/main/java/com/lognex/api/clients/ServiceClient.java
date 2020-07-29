@@ -15,6 +15,7 @@ public final class ServiceClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Service>,
         PutByIdEndpoint<Service>,
+        MassCreateUpdateDeleteEndpoint<Service>,
         GetBySyncIdEndpoint<Service> {
 
     public ServiceClient(com.lognex.api.ApiClient api) {

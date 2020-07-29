@@ -1,22 +1,20 @@
 package com.lognex.api.entities.discounts;
 
+import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.PriceType;
-import com.lognex.api.entities.ProductFolder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class SpecialPriceDiscount extends Discount {
-    private Double discount;
+public class SpecialPriceDiscount extends GoodDiscount {
+    private Boolean usePriceType;
     private SpecialPriceData specialPrice;
-    private List<ProductFolder> productFolders;
+    private Double discount;
 
     public SpecialPriceDiscount(String id) {
         super(id);
@@ -26,7 +24,7 @@ public class SpecialPriceDiscount extends Discount {
     @Setter
     @NoArgsConstructor
     @EqualsAndHashCode
-    public static class SpecialPriceData {
+    public static class SpecialPriceData extends MetaEntity {
         private Long value;
         private PriceType priceType;
     }

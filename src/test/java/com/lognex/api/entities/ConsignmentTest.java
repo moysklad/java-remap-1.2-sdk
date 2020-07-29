@@ -37,9 +37,8 @@ public class ConsignmentTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    @Test
-    public void putTest() throws IOException, ApiClientException {
-        doPutTest("Label");
+    protected String getFieldNameToUpdate() {
+        return "Label";
     }
 
     @Override

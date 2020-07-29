@@ -5,6 +5,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.PurchaseReturn;
+import com.lognex.api.entities.documents.positions.PurchaseReturnDocumentPosition;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class PurchaseReturnClient
@@ -18,7 +19,8 @@ public final class PurchaseReturnClient
         DocumentNewEndpoint<PurchaseReturn>,
         GetByIdEndpoint<PurchaseReturn>,
         PutByIdEndpoint<PurchaseReturn>,
-        DocumentPositionsEndpoint,
+        MassCreateUpdateDeleteEndpoint<PurchaseReturn>,
+        DocumentPositionsEndpoint<PurchaseReturnDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint {
@@ -35,5 +37,10 @@ public final class PurchaseReturnClient
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
         return MetadataAttributeSharedStatesResponse.class;
+    }
+
+    @Override
+    public Class<PurchaseReturnDocumentPosition> documentPositionClass() {
+        return PurchaseReturnDocumentPosition.class;
     }
 }

@@ -18,6 +18,7 @@ public final class ProcessingOrderClient
         DocumentNewEndpoint<ProcessingOrder>,
         GetByIdEndpoint<ProcessingOrder>,
         PutByIdEndpoint<ProcessingOrder>,
+        MassCreateUpdateDeleteEndpoint<ProcessingOrder>,
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint {

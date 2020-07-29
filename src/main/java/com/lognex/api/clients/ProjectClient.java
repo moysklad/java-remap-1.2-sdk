@@ -14,6 +14,7 @@ public final class ProjectClient
         MetadataEndpoint<MetadataAttributeSharedResponse>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Project>,
+        MassCreateUpdateDeleteEndpoint<Project>,
         PutByIdEndpoint<Project> {
 
     public ProjectClient(com.lognex.api.ApiClient api) {
