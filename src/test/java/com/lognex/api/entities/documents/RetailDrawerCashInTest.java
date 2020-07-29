@@ -67,6 +67,18 @@ public class RetailDrawerCashInTest extends EntityGetUpdateDeleteTest {
     public void getTest() throws IOException, ApiClientException {
     }
 
+    @Ignore
+    @Test
+    @Override
+    public void massUpdateTest() throws IOException, ApiClientException {
+    }
+
+    @Ignore
+    @Test
+    @Override
+    public void massCreateDeleteTest() {
+    }
+
     @Override
     protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
         RetailDrawerCashIn originalRetailDrawerCashIn = (RetailDrawerCashIn) originalEntity;

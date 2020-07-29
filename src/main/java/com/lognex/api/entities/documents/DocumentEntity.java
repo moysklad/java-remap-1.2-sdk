@@ -3,10 +3,7 @@ package com.lognex.api.entities.documents;
 import com.lognex.api.entities.Group;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.agents.Employee;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -34,6 +31,7 @@ public abstract class DocumentEntity extends MetaEntity {
     @Getter
     @Setter
     @NoArgsConstructor
+    @AllArgsConstructor
     public static class Gtd {
         private String name;
     }

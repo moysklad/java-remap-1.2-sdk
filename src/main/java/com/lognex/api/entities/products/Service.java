@@ -3,7 +3,6 @@ package com.lognex.api.entities.products;
 import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.Group;
 import com.lognex.api.entities.IEntityWithAttributes;
-import com.lognex.api.entities.TaxSystem;
 import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.entities.products.markers.SingleProductMarker;
 import lombok.EqualsAndHashCode;

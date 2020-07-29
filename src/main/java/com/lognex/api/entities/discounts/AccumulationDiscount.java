@@ -1,6 +1,5 @@
 package com.lognex.api.entities.discounts;
 
-import com.lognex.api.entities.ProductFolder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class AccumulationDiscount extends Discount {
-    private List<ProductFolder> productFolders;
+public class AccumulationDiscount extends GoodDiscount {
     public List<AccumulationLevel> levels;
 
     public AccumulationDiscount(String id) {
@@ -28,7 +26,7 @@ public class AccumulationDiscount extends Discount {
     @NoArgsConstructor
     @EqualsAndHashCode
     public static class AccumulationLevel {
-        private Long amount;
-        private Integer discount;
+        private Double amount;
+        private Double discount;
     }
 }

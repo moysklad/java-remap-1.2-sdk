@@ -2,6 +2,7 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.documents.positions.LossDocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.ApiClientException;
@@ -25,6 +26,12 @@ public class LossTest extends DocumentWithPositionsTestBase {
         loss.setOrganization(simpleEntityManager.getOwnOrganization());
         loss.setStore(simpleEntityManager.getMainStore());
 
+        LossDocumentPosition position = new LossDocumentPosition();
+        position.setAssortment(simpleEntityManager.createSimpleProduct());
+        position.setReason(randomString());
+        position.setQuantity(1.);
+        loss.setPositions(new ListEntity<>(position));
+
         api.entity().loss().create(loss);
 
         ListEntity<Loss> updatedEntitiesList = api.entity().loss().get(filterEq("name", loss.getName()));
@@ -36,6 +43,10 @@ public class LossTest extends DocumentWithPositionsTestBase {
         assertEquals(loss.getMoment(), retrievedEntity.getMoment());
         assertEquals(loss.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(loss.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
+
+        ListEntity<LossDocumentPosition> retrievedPositions = api.entity().loss().getPositions(retrievedEntity.getId());
+        assertEquals(1, retrievedPositions.getRows().size());
+        assertEquals(position.getReason(), retrievedPositions.getRows().get(0).getReason());
     }
 
     @Test

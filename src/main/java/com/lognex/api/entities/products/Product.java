@@ -2,7 +2,6 @@ package com.lognex.api.entities.products;
 
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
-import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.entities.products.markers.ConsignmentParentMarker;
 import com.lognex.api.entities.products.markers.HasImages;

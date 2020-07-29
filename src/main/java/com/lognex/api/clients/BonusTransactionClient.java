@@ -14,6 +14,7 @@ public final class BonusTransactionClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<BonusTransaction>,
         PutByIdEndpoint<BonusTransaction>,
+        MassCreateUpdateDeleteEndpoint<BonusTransaction>,
         DeleteByIdEndpoint {
 
     public BonusTransactionClient(com.lognex.api.ApiClient api) {

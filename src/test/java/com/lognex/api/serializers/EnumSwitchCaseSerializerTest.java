@@ -1,19 +1,14 @@
 package com.lognex.api.serializers;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParseException;
 import com.lognex.api.ApiClient;
 import com.lognex.api.entities.Meta;
-import com.lognex.api.entities.discounts.*;
-import com.lognex.api.entities.notifications.Notification;
 import com.lognex.api.entities.notifications.NotificationExchange;
 import com.lognex.api.utils.TestAsserts;
 import com.lognex.api.utils.TestRandomizers;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class EnumSwitchCaseSerializerTest implements TestAsserts, TestRandomizers {
     @Test

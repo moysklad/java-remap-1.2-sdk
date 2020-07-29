@@ -18,6 +18,7 @@ public final class PaymentInClient
         DocumentNewEndpoint<PaymentIn>,
         GetByIdEndpoint<PaymentIn>,
         PutByIdEndpoint<PaymentIn>,
+        MassCreateUpdateDeleteEndpoint<PaymentIn>,
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint {

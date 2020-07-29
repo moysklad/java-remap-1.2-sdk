@@ -5,6 +5,7 @@ import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Employee;
 import com.lognex.api.entities.agents.Organization;
 import com.lognex.api.entities.documents.*;
+import com.lognex.api.entities.documents.positions.ProcessingOrderPosition;
 import com.lognex.api.entities.products.Bundle;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.entities.products.Service;
@@ -76,6 +77,7 @@ public class SimpleEntityManager implements TestRandomizers {
             method = this.getClass().getMethod(methodName);
             entity = method.invoke(this);
             entityList.add(entityClass.cast(entity));
+            accessCounterMap.put(entityClass, accessCount+1);
         } catch (NoSuchMethodException e) {
             logger.error("Невозможно получить метод " + methodName);
             throw new IllegalArgumentException(e.getMessage(), e);
@@ -339,7 +341,7 @@ public class SimpleEntityManager implements TestRandomizers {
 
     public Variant createSimpleVariant() throws IOException, ApiClientException {
         Variant variant = new Variant();
-        variant.setProduct(createSimpleProduct());
+        variant.setProduct(createSimple(Product.class));
 
         Variant.Characteristic characteristic = new Variant.Characteristic();
         characteristic.setName(randomString());
@@ -694,7 +696,7 @@ public class SimpleEntityManager implements TestRandomizers {
 
         processingOrder.setPositions(new ListEntity<>());
         processingOrder.getPositions().setRows(new ArrayList<>());
-        DocumentPosition position = new DocumentPosition();
+        ProcessingOrderPosition position = new ProcessingOrderPosition();
         position.setQuantity(3.1234);
         position.setAssortment(material);
         processingOrder.getPositions().getRows().add(position);

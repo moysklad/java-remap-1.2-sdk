@@ -1,9 +1,11 @@
 package com.lognex.api.utils;
 
 import lombok.Getter;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.*;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -12,7 +14,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HttpContext;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 public class MockHttpClient extends CloseableHttpClient {
@@ -61,16 +63,19 @@ public class MockHttpClient extends CloseableHttpClient {
             public HttpEntity getEntity() {
                 HttpEntity se = null;
                 try {
-                    if (httpRequest.getRequestLine().getUri().contains("metadata/attributes/")) {
-                        se = new StringEntity("{\"type\":\"string\",\"value\":\"STRING\"}");
-                    } else if (httpRequest.getRequestLine().getUri().contains("positions") &&
-                            httpRequest.getRequestLine().getMethod().equals("POST") ||
-                            httpRequest.getRequestLine().getUri().endsWith("pricetype/")) {
+                    String uri = httpRequest.getRequestLine().getUri();
+                    if (looksLikeMassUpdate(httpRequest)) {
                         se = new StringEntity("[]");
-                    } else if ((httpRequest.getRequestLine().getUri().endsWith("contactpersons") ||
-                                httpRequest.getRequestLine().getUri().endsWith("notes") ||
-                                httpRequest.getRequestLine().getUri().endsWith("accounts") ||
-                                httpRequest.getRequestLine().getUri().contains("images")
+                    } else if (uri.contains("metadata/attributes/")) {
+                        se = new StringEntity("{\"type\":\"string\",\"value\":\"STRING\"}");
+                    } else if (uri.contains("positions") &&
+                            httpRequest.getRequestLine().getMethod().equals("POST") ||
+                            uri.endsWith("pricetype/")) {
+                        se = new StringEntity("[]");
+                    } else if ((uri.endsWith("contactpersons") ||
+                                uri.endsWith("notes") ||
+                                uri.endsWith("accounts") ||
+                                uri.contains("images")
                             ) &&
                             httpRequest.getRequestLine().getMethod().equals("POST")) {
                         se = new StringEntity("[{}]");
@@ -78,7 +83,7 @@ public class MockHttpClient extends CloseableHttpClient {
                     else {
                         se = new StringEntity("{}");
                     }
-                } catch (UnsupportedEncodingException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
                 return se;
@@ -187,6 +192,15 @@ public class MockHttpClient extends CloseableHttpClient {
 
         lastExecutedRequest = httpRequest;
         return resp;
+    }
+
+    private static boolean looksLikeMassUpdate(HttpRequest request) throws IOException {
+        if (request instanceof HttpPost && ((HttpPost) request).getEntity() != null) {
+            String content = IOUtils.toString(((HttpPost) request).getEntity().getContent(), StandardCharsets.UTF_8);
+            return "[]".equals(content);
+        } else {
+            return false;
+        }
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.lognex.api.entities.documents;
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.agents.Organization;
+import com.lognex.api.entities.documents.positions.RetailSalesDocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,13 +21,12 @@ public class RetailDemand extends DocumentEntity implements IEntityWithAttribute
     private Agent agent;
     private Long cashSum;
     private LocalDateTime created;
-    private ListEntity<DocumentEntity> documents;
     private String externalCode;
     private Boolean fiscal;
     private Long noCashSum;
     private Organization organization;
     private Long payedSum;
-    private ListEntity<DocumentPosition> positions;
+    private ListEntity<RetailSalesDocumentPosition> positions;
     private Rate rate;
     private RetailShift retailShift;
     private RetailStore retailStore;
@@ -47,6 +47,12 @@ public class RetailDemand extends DocumentEntity implements IEntityWithAttribute
     private String sessionNumber;
     private String ofdCode;
     private CustomerOrder customerOrder;
+    private Contract contract;
+    private Long prepaymentCashSum;
+    private Long prepaymentNoCashSum;
+    private Project project;
+    private State state;
+    private TaxSystem taxSystem;
 
     public RetailDemand(String id) {
         super(id);

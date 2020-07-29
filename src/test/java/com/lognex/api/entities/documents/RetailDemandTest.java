@@ -73,6 +73,18 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest {
         assertFalse(response.getCreateShared());
     }
 
+    @Ignore
+    @Test
+    @Override
+    public void massUpdateTest() {
+    }
+
+    @Ignore
+    @Test
+    @Override
+    public void massCreateDeleteTest() {
+    }
+
     @Override
     protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
         RetailDemand originalDemand = (RetailDemand) originalEntity;

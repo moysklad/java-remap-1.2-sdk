@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class PersonalDiscount extends Discount {
+public class PersonalDiscount extends GoodDiscount {
     public PersonalDiscount(String id) {
         super(id);
     }

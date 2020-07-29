@@ -1,6 +1,5 @@
 package com.lognex.api.entities.notifications;
 
-import com.google.gson.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

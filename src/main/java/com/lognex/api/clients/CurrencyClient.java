@@ -11,7 +11,8 @@ public final class CurrencyClient
         PostEndpoint<Currency>,
         DeleteByIdEndpoint,
         GetByIdEndpoint<Currency>,
-        PutByIdEndpoint<Currency> {
+        PutByIdEndpoint<Currency>,
+        MassCreateUpdateDeleteEndpoint<Currency> {
 
     public CurrencyClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/currency/");

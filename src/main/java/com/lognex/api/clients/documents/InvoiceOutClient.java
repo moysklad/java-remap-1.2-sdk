@@ -5,6 +5,7 @@ import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.endpoints.*;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.InvoiceOut;
+import com.lognex.api.entities.documents.positions.InvoiceDocumentPosition;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class InvoiceOutClient
@@ -17,7 +18,8 @@ public final class InvoiceOutClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<InvoiceOut>,
         PutByIdEndpoint<InvoiceOut>,
-        DocumentPositionsEndpoint,
+        MassCreateUpdateDeleteEndpoint<InvoiceOut>,
+        DocumentPositionsEndpoint<InvoiceDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint {
 
@@ -33,5 +35,10 @@ public final class InvoiceOutClient
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
         return MetadataAttributeSharedStatesResponse.class;
+    }
+
+    @Override
+    public Class<InvoiceDocumentPosition> documentPositionClass() {
+        return InvoiceDocumentPosition.class;
     }
 }

@@ -17,6 +17,7 @@ public final class RetailDemandClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<RetailDemand>,
         PutByIdEndpoint<RetailDemand>,
+        MassCreateUpdateDeleteEndpoint<RetailDemand>,
         ExportEndpoint,
         PublicationEndpoint {
 

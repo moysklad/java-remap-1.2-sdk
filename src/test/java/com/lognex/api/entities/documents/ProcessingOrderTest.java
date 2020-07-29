@@ -5,6 +5,7 @@ import com.lognex.api.entities.EntityGetUpdateDeleteTest;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.Store;
 import com.lognex.api.entities.agents.Organization;
+import com.lognex.api.entities.documents.positions.ProcessingOrderPosition;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -59,7 +60,7 @@ public class ProcessingOrderTest extends EntityGetUpdateDeleteTest {
 
         processingOrder.setPositions(new ListEntity<>());
         processingOrder.getPositions().setRows(new ArrayList<>());
-        DocumentPosition position = new DocumentPosition();
+        ProcessingOrderPosition position = new ProcessingOrderPosition();
         position.setQuantity(3.1234);
         position.setAssortment(material);
         processingOrder.getPositions().getRows().add(position);

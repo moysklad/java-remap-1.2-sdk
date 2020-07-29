@@ -5,6 +5,7 @@ import com.lognex.api.entities.Contract;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Organization;
+import com.lognex.api.entities.documents.positions.CommissionReportDocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.ApiClientException;
@@ -14,7 +15,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import static com.lognex.api.utils.params.ExpandParam.expand;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
+import static com.lognex.api.utils.params.LimitParam.limit;
 import static org.junit.Assert.*;
 
 public class CommissionReportInTest extends DocumentWithPositionsTestBase {
@@ -31,6 +34,12 @@ public class CommissionReportInTest extends DocumentWithPositionsTestBase {
         Organization organization = simpleEntityManager.getOwnOrganization();
         commissionReportIn.setOrganization(organization);
 
+        CommissionReportDocumentPosition position = new CommissionReportDocumentPosition();
+        position.setAssortment(simpleEntityManager.createSimpleProduct());
+        position.setQuantity(1.);
+        position.setReward(17.);
+        commissionReportIn.setPositions(new ListEntity<>(position));
+
         Contract contract = new Contract();
         contract.setName(randomString());
         contract.setOwnAgent(organization);
@@ -44,7 +53,11 @@ public class CommissionReportInTest extends DocumentWithPositionsTestBase {
 
         api.entity().commissionreportin().create(commissionReportIn);
 
-        ListEntity<CommissionReportIn> updatedEntitiesList = api.entity().commissionreportin().get(filterEq("name", commissionReportIn.getName()));
+        ListEntity<CommissionReportIn> updatedEntitiesList = api.entity().commissionreportin().get(
+                filterEq("name", commissionReportIn.getName()),
+                expand("positions"),
+                limit(5)
+        );
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         CommissionReportIn retrievedEntity = updatedEntitiesList.getRows().get(0);
@@ -56,6 +69,8 @@ public class CommissionReportInTest extends DocumentWithPositionsTestBase {
         assertEquals(commissionReportIn.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(commissionReportIn.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(commissionReportIn.getContract().getMeta().getHref(), retrievedEntity.getContract().getMeta().getHref());
+        assertEquals(1, retrievedEntity.getPositions().getRows().size());
+        assertEquals(position.getReward(), retrievedEntity.getPositions().getRows().get(0).getReward());
     }
 
     @Test
