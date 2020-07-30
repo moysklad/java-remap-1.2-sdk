@@ -320,4 +320,9 @@ public final class EntityClient {
     public WebHookClient webhook() {
         return new WebHookClient(api);
     }
+
+    @ApiChainElement
+    public TokenClient token() {
+        return new TokenClient(api);
+    }
 }

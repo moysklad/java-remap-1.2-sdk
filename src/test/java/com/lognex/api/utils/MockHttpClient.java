@@ -195,7 +195,7 @@ public class MockHttpClient extends CloseableHttpClient {
     }
 
     private static boolean looksLikeMassUpdate(HttpRequest request) throws IOException {
-        if (request instanceof HttpPost) {
+        if (request instanceof HttpPost && ((HttpPost) request).getEntity() != null) {
             String content = IOUtils.toString(((HttpPost) request).getEntity().getContent(), StandardCharsets.UTF_8);
             return "[]".equals(content);
         } else {

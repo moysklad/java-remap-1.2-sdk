@@ -5,10 +5,7 @@ import com.lognex.api.entities.Barcode;
 import com.lognex.api.entities.Image;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.Price;
-import com.lognex.api.entities.products.markers.ConsignmentParentMarker;
-import com.lognex.api.entities.products.markers.HasImages;
-import com.lognex.api.entities.products.markers.ProductMarker;
-import com.lognex.api.entities.products.markers.SingleProductMarker;
+import com.lognex.api.entities.products.markers.*;
 import com.lognex.api.responses.ListEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,7 +23,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Variant extends Assortment implements SingleProductMarker, ConsignmentParentMarker, ProductMarker, HasImages {
+public class Variant extends Assortment implements SingleProductMarker, ConsignmentParentMarker, ProductMarker, HasImages, ProductAttributeMarker {
     /**
      * Дата последнего обновления сущности
      */

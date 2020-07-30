@@ -1,6 +1,7 @@
 package com.lognex.api.entities.products;
 
 import com.lognex.api.entities.*;
+import com.lognex.api.entities.products.markers.ProductAttributeMarker;
 import com.lognex.api.entities.products.markers.ProductMarker;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public abstract class AbstractProduct extends Assortment implements ProductMarker {
+public abstract class AbstractProduct extends Assortment implements ProductMarker, ProductAttributeMarker {
     /**
      * Код Товара
      */
