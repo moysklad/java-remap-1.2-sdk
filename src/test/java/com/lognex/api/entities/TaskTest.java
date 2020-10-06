@@ -3,6 +3,7 @@ package com.lognex.api.entities;
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Employee;
+import com.lognex.api.entities.documents.Demand;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.utils.ApiClientException;
 import com.lognex.api.utils.params.FilterParam;
@@ -53,6 +54,17 @@ public class TaskTest extends EntityGetUpdateDeleteTest {
         assertEquals(dueDate, retrievedEntity.getDueToDate());
         assertFalse(retrievedEntity.getDone());
         assertEquals(task.getImplementer(), retrievedEntity.getImplementer());
+    }
+
+    @Test
+    public void serializeOperationField() throws Exception {
+        Demand demand = simpleEntityManager.createSimpleDemand();
+        Task task = simpleEntityManager.createSimpleTask();
+        task.setOperation(demand);
+        api.entity().task().update(task);
+
+        Task taskFromApi = api.entity().task().get(task.getId());
+        assertEquals(taskFromApi.getOperation().meta.getHref(), demand.getMeta().getHref());
     }
 
     @Override
