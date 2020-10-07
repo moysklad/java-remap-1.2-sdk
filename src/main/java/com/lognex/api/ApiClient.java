@@ -7,6 +7,7 @@ import com.lognex.api.clients.NotificationClient;
 import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Agent;
 import com.lognex.api.entities.discounts.Discount;
+import com.lognex.api.entities.documents.DocumentEntity;
 import com.lognex.api.entities.documents.markers.FinanceDocumentMarker;
 import com.lognex.api.entities.documents.markers.FinanceInDocumentMarker;
 import com.lognex.api.entities.documents.markers.FinanceOutDocumentMarker;
@@ -178,6 +179,7 @@ public final class ApiClient {
         gb.registerTypeAdapter(FinanceInDocumentMarker.class, fdms);
         gb.registerTypeAdapter(FinanceOutDocumentMarker.class, fdms);
 
+        gb.registerTypeAdapter(DocumentEntity.class, new DocumentEntitySerializer());
         gb.registerTypeAdapter(Agent.class, new AgentDeserializer());
         gb.registerTypeAdapter(Attribute.class, new AttributeSerializer());
         gb.registerTypeAdapter(Currency.MultiplicityType.class, new Currency.MultiplicityType.Serializer());
