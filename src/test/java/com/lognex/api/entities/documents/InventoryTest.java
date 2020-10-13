@@ -25,6 +25,7 @@ public class InventoryTest extends DocumentWithPositionsTestBase {
         inventory.setMoment(LocalDateTime.now());
         inventory.setOrganization(simpleEntityManager.getOwnOrganization());
         inventory.setStore(simpleEntityManager.getMainStore());
+        inventory.setDescription("inventory_description");
 
         InventoryDocumentPosition position = new InventoryDocumentPosition();
         position.setAssortment(simpleEntityManager.createSimpleProduct());
@@ -47,6 +48,7 @@ public class InventoryTest extends DocumentWithPositionsTestBase {
         assertEquals(inventory.getMoment(), retrievedEntity.getMoment());
         assertEquals(inventory.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(inventory.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
+        assertEquals(inventory.getDescription(), retrievedEntity.getDescription());
 
         assertEquals(1, retrievedEntity.getPositions().getRows().size());
         InventoryDocumentPosition retrievedPosition = retrievedEntity.getPositions().getRows().get(0);

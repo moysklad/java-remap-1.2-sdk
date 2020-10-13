@@ -29,6 +29,7 @@ public class Inventory extends DocumentEntity implements IEntityWithAttributes {
     private State state;
     private Store store;
     private String syncId;
+    private String description;
 
     public Inventory(String id) {
         super(id);
