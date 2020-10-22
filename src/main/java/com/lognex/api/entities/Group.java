@@ -10,6 +10,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Group extends MetaEntity {
+    /**
+     * Порядковый номер отдела в списке
+     */
+    private Integer index;
+
     public Group(String id) {
         super(id);
     }
