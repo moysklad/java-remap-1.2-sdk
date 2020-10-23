@@ -16,7 +16,8 @@ public final class ProductClient
         GetByIdEndpoint<Product>,
         PutByIdEndpoint<Product>,
         MassCreateUpdateDeleteEndpoint<Product>,
-        HasImagesEndpoint<Product> {
+        HasImagesEndpoint<Product>,
+        GetBySyncIdEndpoint<Product> {
 
     public ProductClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/product/");

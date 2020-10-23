@@ -1692,6 +1692,7 @@ POST;https://test.moysklad/api/remap/1.2/entity/product/;List;ArrayList
 POST;https://test.moysklad/api/remap/1.2/entity/cashout/metadata/states/;List;ArrayList
 POST;https://test.moysklad/api/remap/1.2/entity/processing/delete;List;ArrayList
 POST;https://test.moysklad/api/remap/1.2/security/token;;Token
+GET;https://test.moysklad/api/remap/1.2/entity/product/syncid/ID;String,ApiParam[];Product
 POST;https://test.moysklad/api/remap/1.2/entity/group/;MetaEntity;MetaEntity
 PUT;https://test.moysklad/api/remap/1.2/entity/group/ID;String,MetaEntity;void
 PUT;https://test.moysklad/api/remap/1.2/entity/group/ENTITY_ID;MetaEntity;void
