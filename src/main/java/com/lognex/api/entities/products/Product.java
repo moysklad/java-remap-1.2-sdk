@@ -139,6 +139,11 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
     private Double minimumBalance;
 
     /**
+     * Код вида номенклатурной классификации медицинских средств индивидуальной защиты
+     */
+    private String ppeType;
+
+    /**
      * Объект, содержащий данные алкогольной продукции
      */
     @Getter
