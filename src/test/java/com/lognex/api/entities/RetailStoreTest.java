@@ -54,6 +54,11 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setReservePrepaidGoods(true);
         retailStore.setDefaultTaxSystem(TaxSystem.PRESUMPTIVE_TAX_SYSTEM);
         retailStore.setOrderTaxSystem(TaxSystem.UNIFIED_AGRICULTURAL_TAX);
+        retailStore.setFiscalType(RetailStore.FiscalType.MASTER);
+        retailStore.setQrPayEnabled(true);
+        retailStore.setQrAcquire(simpleEntityManager.createSimpleOrganization());
+        retailStore.setMinionToMasterType(RetailStore.MinionToMasterType.SAME_GROUP);
+        retailStore.setQrBankPercent(10d);
 
         api.entity().retailstore().create(retailStore);
 
@@ -95,6 +100,11 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getReservePrepaidGoods(), retrievedEntity.getReservePrepaidGoods());
         assertEquals(retailStore.getDefaultTaxSystem(), retrievedEntity.getDefaultTaxSystem());
         assertEquals(retailStore.getOrderTaxSystem(), retrievedEntity.getOrderTaxSystem());
+        assertEquals(retailStore.getFiscalType(), retrievedEntity.getFiscalType());
+        assertEquals(retailStore.getQrPayEnabled(), retrievedEntity.getQrPayEnabled());
+        assertEquals(retailStore.getQrAcquire(), retrievedEntity.getQrAcquire());
+        assertEquals(retailStore.getMinionToMasterType(), retrievedEntity.getMinionToMasterType());
+        assertEquals(retailStore.getQrBankPercent(), retrievedEntity.getQrBankPercent());
     }
 
     @Test
@@ -115,6 +125,30 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
                         employeeList.stream().anyMatch(e -> e.getMeta().getHref().equals(c.getEmployee().getMeta().getHref()))
                 )
         );
+    }
+
+    @Test
+    public void addMasterRetailStoresTest() throws IOException, ApiClientException {
+        RetailStore master = new RetailStore();
+        master.setName("retailstore_" + randomStringTail());
+        master.setFiscalType(RetailStore.FiscalType.MASTER);
+        master.setPriceType(api.entity().companysettings().pricetype().getDefault());
+        master.setOrganization(simpleEntityManager.getOwnOrganization());
+        master.setStore(simpleEntityManager.getMainStore());
+        master = api.entity().retailstore().create(master);
+
+        RetailStore minion = new RetailStore();
+        minion.setName("retailstore_" + randomStringTail());
+        minion.setFiscalType(RetailStore.FiscalType.CLOUD);
+        minion.setMinionToMasterType(RetailStore.MinionToMasterType.CHOSEN);
+        minion.setMasterRetailStores(new ListEntity<>(master));
+        minion.setPriceType(api.entity().companysettings().pricetype().getDefault());
+        minion.setOrganization(simpleEntityManager.getOwnOrganization());
+        minion.setStore(simpleEntityManager.getMainStore());
+        api.entity().retailstore().create(minion);
+        minion = api.entity().retailstore().get(minion);
+        assertNotNull(minion.getMasterRetailStores());
+        assertEquals(1, minion.getMasterRetailStores().getMeta().getSize().intValue());
     }
 
     @Override
