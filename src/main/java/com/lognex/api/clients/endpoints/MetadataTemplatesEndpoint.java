@@ -1,5 +1,6 @@
 package com.lognex.api.clients.endpoints;
 
+import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.Meta;
 import com.lognex.api.entities.Template;
 import com.lognex.api.responses.ListEntity;
@@ -17,6 +18,14 @@ public interface MetadataTemplatesEndpoint extends Endpoint {
                 path(api(), path() + (path().endsWith("metadata/") ? "" : "metadata/") + "embeddedtemplate/").
                 list(Template.class);
         return setEntityType(templates);
+    }
+
+    @ApiEndpoint
+    default ListEntity<Attribute> attributes() throws IOException, ApiClientException {
+        ListEntity<Attribute> attributes = HttpRequestExecutor.
+                path(api(), path() + (path().endsWith("metadata/") ? "" : "metadata/") + "attributes/").
+                list(Attribute.class);
+        return attributes;
     }
 
     @ApiEndpoint
