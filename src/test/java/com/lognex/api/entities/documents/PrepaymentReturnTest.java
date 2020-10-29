@@ -66,5 +66,6 @@ public class PrepaymentReturnTest extends EntityTestBase {
         );
         assertEquals(Long.valueOf(15000), prepaymentReturn.getCashSum());
         assertEquals(Long.valueOf(15000), prepaymentReturn.getNoCashSum());
+        assertEquals(Long.valueOf(0), prepaymentReturn.getQrSum());
     }
 }

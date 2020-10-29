@@ -42,6 +42,7 @@ public class RetailSalesReturn extends DocumentEntity implements IEntityWithAttr
     private Contract contract;
     private State state;
     private TaxSystem taxSystem;
+    private Long qrSum;
 
     public RetailSalesReturn(String id) {
         super(id);
