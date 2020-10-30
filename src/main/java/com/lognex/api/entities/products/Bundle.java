@@ -124,7 +124,13 @@ public class Bundle extends AbstractProduct implements IEntityWithAttributes, Ha
     public enum TrackingType {
         NOT_TRACKED,
         TOBACCO,
-        SHOES
+        SHOES,
+        LP_CLOTHES,
+        LP_LINENS,
+        PERFUMERY,
+        ELECTRONICS,
+        TIRES,
+        OTP
     }
 
     /**

@@ -194,7 +194,13 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
     public enum TrackingType {
         NOT_TRACKED,
         TOBACCO,
-        SHOES
+        SHOES,
+        LP_CLOTHES,
+        LP_LINENS,
+        PERFUMERY,
+        ELECTRONICS,
+        TIRES,
+        OTP
     }
 
     /**
