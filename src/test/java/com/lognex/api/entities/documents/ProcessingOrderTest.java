@@ -1,6 +1,7 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
+import com.lognex.api.clients.documents.DocumentMetadataClient;
 import com.lognex.api.entities.EntityGetUpdateDeleteTest;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.Store;
@@ -85,9 +86,11 @@ public class ProcessingOrderTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        MetadataAttributeSharedStatesResponse response = api.entity().processingorder().metadata().get();
+        DocumentMetadataClient<MetadataAttributeSharedStatesResponse> metadata = api.entity().processingorder().metadata();
+        MetadataAttributeSharedStatesResponse response = metadata.get();
 
         assertFalse(response.getCreateShared());
+        assertNotNull(metadata.attributes());
     }
 
     @Test

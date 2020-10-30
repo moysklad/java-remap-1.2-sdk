@@ -1,7 +1,10 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
-import com.lognex.api.entities.*;
+import com.lognex.api.clients.documents.DocumentMetadataClient;
+import com.lognex.api.entities.Attribute;
+import com.lognex.api.entities.EntityGetUpdateDeleteTest;
+import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
 import com.lognex.api.utils.ApiClientException;
@@ -45,9 +48,13 @@ public class CashOutTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        MetadataAttributeSharedStatesResponse response = api.entity().cashout().metadata().get();
+        DocumentMetadataClient<MetadataAttributeSharedStatesResponse> metadata = api.entity().cashout().metadata();
+        MetadataAttributeSharedStatesResponse response = metadata.get();
 
         assertFalse(response.getCreateShared());
+
+        ListEntity<Attribute> attributes = metadata.attributes();
+        assertNotNull(attributes);
     }
 
     @Test

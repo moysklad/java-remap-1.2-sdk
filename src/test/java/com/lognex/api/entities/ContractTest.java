@@ -1,6 +1,7 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.clients.EntityClientBase;
+import com.lognex.api.clients.documents.DocumentMetadataClient;
 import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -50,9 +51,13 @@ public class ContractTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        MetadataAttributeSharedStatesResponse metadata = api.entity().contract().metadata().get();
+        DocumentMetadataClient<MetadataAttributeSharedStatesResponse> metadata = api.entity().contract().metadata();
 
-        assertFalse(metadata.getCreateShared());
+        assertFalse(metadata.get().getCreateShared());
+
+        ListEntity<Attribute> attributes = metadata.attributes();
+        assertNotNull(attributes);
+
     }
 
     @Override

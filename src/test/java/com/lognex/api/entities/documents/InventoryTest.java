@@ -1,6 +1,7 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
+import com.lognex.api.clients.documents.DocumentMetadataClient;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.positions.InventoryDocumentPosition;
 import com.lognex.api.responses.ListEntity;
@@ -58,9 +59,11 @@ public class InventoryTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        MetadataAttributeSharedStatesResponse response = api.entity().inventory().metadata().get();
+        DocumentMetadataClient<MetadataAttributeSharedStatesResponse> metadata = api.entity().inventory().metadata();
+        MetadataAttributeSharedStatesResponse response = metadata.get();
 
         assertFalse(response.getCreateShared());
+        assertNotNull(metadata.attributes());
     }
 
     @Override

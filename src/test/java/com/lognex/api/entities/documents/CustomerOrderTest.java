@@ -1,6 +1,8 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
+import com.lognex.api.clients.documents.DocumentMetadataClient;
+import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -38,10 +40,15 @@ public class CustomerOrderTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        MetadataAttributeSharedStatesResponse response = api.entity().customerorder().metadata().get();
+        DocumentMetadataClient<MetadataAttributeSharedStatesResponse> metadata = api.entity().customerorder().metadata();
+        MetadataAttributeSharedStatesResponse response = metadata.get();
 
         assertEquals(7, response.getStates().size());
         assertFalse(response.getCreateShared());
+
+        ListEntity<Attribute> attributes = metadata.attributes();
+        assertNotNull(attributes);
+
     }
 
     @Override

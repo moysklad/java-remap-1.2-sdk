@@ -1,6 +1,7 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
+import com.lognex.api.clients.documents.DocumentMetadataClient;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.documents.positions.LossDocumentPosition;
 import com.lognex.api.responses.ListEntity;
@@ -11,7 +12,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Date;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
@@ -51,9 +52,11 @@ public class LossTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        MetadataAttributeSharedStatesResponse response = api.entity().loss().metadata().get();
+        DocumentMetadataClient<MetadataAttributeSharedStatesResponse> metadata = api.entity().loss().metadata();
+        MetadataAttributeSharedStatesResponse response = metadata.get();
 
         assertFalse(response.getCreateShared());
+        assertNotNull(metadata.attributes());
     }
 
     @Test
