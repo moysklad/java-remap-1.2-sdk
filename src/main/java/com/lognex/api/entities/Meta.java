@@ -206,6 +206,7 @@ public final class Meta {
         UOM("uom", Uom.class),
         VARIANT("variant", Variant.class),
         WEBHOOK("webhook", WebHook.class),
+        COUNTERPARTY_SETTINGS("counterpartysettings", CounterpartySettings.class),
         ;
 
         @Getter
