@@ -345,6 +345,27 @@ public class CounterpartyTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
+    public void settingsTest() throws IOException, ApiClientException {
+        CounterpartySettings oldSettings = api.entity().counterparty().getSettings();
+
+        assertNotNull(oldSettings.getCreateShared());
+        assertNotNull(oldSettings.getUniqueCodeRules());
+        assertNotNull(oldSettings.getUniqueCodeRules().getCheckUniqueCode());
+        assertNotNull(oldSettings.getUniqueCodeRules().getFillUniqueCode());
+
+        CounterpartySettings settings = new CounterpartySettings();
+        settings.setCreateShared(!oldSettings.getCreateShared());
+        settings.getUniqueCodeRules().setCheckUniqueCode(!oldSettings.getUniqueCodeRules().getCheckUniqueCode());
+        settings.getUniqueCodeRules().setFillUniqueCode(!oldSettings.getUniqueCodeRules().getFillUniqueCode());
+        api.entity().counterparty().updateSettings(settings);
+
+        CounterpartySettings newSettings = api.entity().counterparty().getSettings();
+        assertEquals(!oldSettings.getCreateShared(), newSettings.getCreateShared());
+        assertEquals(!oldSettings.getUniqueCodeRules().getCheckUniqueCode(), newSettings.getUniqueCodeRules().getCheckUniqueCode());
+        assertEquals(!oldSettings.getUniqueCodeRules().getFillUniqueCode(), newSettings.getUniqueCodeRules().getFillUniqueCode());
+    }
+
+    @Test
     public void deleteNoteTest() throws IOException, ApiClientException {
         Counterparty counterparty = new Counterparty();
         counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());

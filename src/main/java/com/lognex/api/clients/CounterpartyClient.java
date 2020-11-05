@@ -1,10 +1,7 @@
 package com.lognex.api.clients;
 
 import com.lognex.api.clients.endpoints.*;
-import com.lognex.api.entities.AgentAccount;
-import com.lognex.api.entities.ContactPerson;
-import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.Note;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.CounterpartyMetadataResponse;
@@ -206,6 +203,23 @@ public final class CounterpartyClient
     @ApiEndpoint
     public void deleteNote(Counterparty counterparty, Note note) throws IOException, ApiClientException {
         deleteNote(counterparty, note.getId());
+    }
+
+    @ApiEndpoint
+    public CounterpartySettings getSettings() throws IOException, ApiClientException {
+        return HttpRequestExecutor
+                .path(api(), path() + "settings/")
+                .get(CounterpartySettings.class);
+    }
+
+    @ApiEndpoint
+    public void updateSettings(CounterpartySettings updatedEntity) throws IOException, ApiClientException {
+        CounterpartySettings updatedSettings = HttpRequestExecutor.
+                path(api(), path() + "settings/")
+                .body(updatedEntity)
+                .put(CounterpartySettings.class);
+
+        updatedEntity.set(updatedSettings);
     }
 
     @Override
