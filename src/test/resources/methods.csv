@@ -1698,3 +1698,5 @@ PUT;https://test.moysklad/api/remap/1.2/entity/group/ID;String,MetaEntity;void
 PUT;https://test.moysklad/api/remap/1.2/entity/group/ENTITY_ID;MetaEntity;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/group/ID;String;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/group/ENTITY_ID;MetaEntity;void
+GET;https://test.moysklad/api/remap/1.2/entity/counterparty/settings/;;CounterpartySettings
+PUT;https://test.moysklad/api/remap/1.2/entity/counterparty/settings/;CounterpartySettings;void
