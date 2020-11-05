@@ -38,13 +38,7 @@ public class ListEntityDeserializer implements JsonDeserializer<ListEntity> {
 
                         try {
                             Meta.Type metaType = Meta.Type.find(((JsonObject) row).get("meta").getAsJsonObject().get("type").getAsString());
-
-                            switch (metaType) {
-                                case DEMAND_POSITION:
-                                case SUPPLY_POSITION:
-                                    metaClass = DocumentPosition.class;
-                                    break;
-                            }
+                            metaClass = metaType.getModelClass();
                         } catch (Exception e) {
                             logger.warn("Ошибка во время десериализации массива rows", e);
                         }
