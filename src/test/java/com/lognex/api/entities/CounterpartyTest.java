@@ -363,6 +363,9 @@ public class CounterpartyTest extends EntityGetUpdateDeleteTest {
         assertEquals(!oldSettings.getCreatedShared(), newSettings.getCreatedShared());
         assertEquals(!oldSettings.getUniqueCodeRules().getCheckUniqueCode(), newSettings.getUniqueCodeRules().getCheckUniqueCode());
         assertEquals(!oldSettings.getUniqueCodeRules().getFillUniqueCode(), newSettings.getUniqueCodeRules().getFillUniqueCode());
+        
+        //cleanup
+        api.entity().counterparty().updateSettings(oldSettings);
     }
 
     @Test
