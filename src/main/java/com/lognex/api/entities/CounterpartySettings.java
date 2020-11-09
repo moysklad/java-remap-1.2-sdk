@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class CounterpartySettings extends MetaEntity {
-    public Boolean createdShared;
+    public Boolean createShared;
     public UniqueCodeRules uniqueCodeRules = new UniqueCodeRules();
 
     @Getter
