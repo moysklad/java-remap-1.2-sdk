@@ -23,7 +23,8 @@ public final class CounterpartyClient
         GetByIdEndpoint<Counterparty>,
         PutByIdEndpoint<Counterparty>,
         MassCreateUpdateDeleteEndpoint<Counterparty>,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasSettingsEndpoint<CounterpartySettings> {
 
     public CounterpartyClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/counterparty/");
@@ -205,23 +206,6 @@ public final class CounterpartyClient
         deleteNote(counterparty, note.getId());
     }
 
-    @ApiEndpoint
-    public CounterpartySettings getSettings() throws IOException, ApiClientException {
-        return HttpRequestExecutor
-                .path(api(), path() + "settings/")
-                .get(CounterpartySettings.class);
-    }
-
-    @ApiEndpoint
-    public void updateSettings(CounterpartySettings updatedEntity) throws IOException, ApiClientException {
-        CounterpartySettings updatedSettings = HttpRequestExecutor.
-                path(api(), path() + "settings/")
-                .body(updatedEntity)
-                .put(CounterpartySettings.class);
-
-        updatedEntity.set(updatedSettings);
-    }
-
     @Override
     public Class<? extends MetaEntity> entityClass() {
         return Counterparty.class;
@@ -230,5 +214,10 @@ public final class CounterpartyClient
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
         return CounterpartyMetadataResponse.class;
+    }
+
+    @Override
+    public Class<CounterpartySettings> settingsEntityClass() {
+        return CounterpartySettings.class;
     }
 }
