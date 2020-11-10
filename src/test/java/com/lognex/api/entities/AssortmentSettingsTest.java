@@ -30,7 +30,7 @@ public class AssortmentSettingsTest extends EntityTestBase {
         //revert changes
         assortmentSettings.setBarcodeRules(new BarcodeRules(barcodeRules.getFillEAN13Barcode(), barcodeRules.getWeightBarcode(), barcodeRules.getWeightBarcodePrefix()));
         assortmentSettings.setUniqueCodeRules(new UniqueCodeRules(uniqueCodeRules.getCheckUniqueCode(), uniqueCodeRules.getFillUniqueCode()));
-        assortmentSettings.setCreatedShared(!createdShared);
+        assortmentSettings.setCreatedShared(createdShared);
         api.entity().assortmentsettings().update(assortmentSettings);
     }
 }
