@@ -88,6 +88,7 @@ public final class Meta {
         ACCUMULATION_DISCOUNT("accumulationdiscount", AccumulationDiscount.class),
         APPLICATION("application", Application.class),
         ASSORTMENT("assortment", Assortment.class),
+        ASSORTMENT_SETTINGS("assortmentsettings", AssortmentSettings.class),
         ATTRIBUTE_METADATA("attributemetadata", Attribute.class),
         BONUS_PROGRAM("bonusprogram", BonusProgram.class),
         BONUS_TRANSACTION("bonustransaction", BonusTransaction.class),
