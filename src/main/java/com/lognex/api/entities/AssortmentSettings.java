@@ -23,5 +23,5 @@ public class AssortmentSettings extends MetaEntity {
     /**
      * Создавать новые документы с меткой «Общий»
      */
-    private Boolean cratedShared;
+    private Boolean createdShared;
 }
