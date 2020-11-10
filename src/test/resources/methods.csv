@@ -1702,3 +1702,5 @@ GET;https://test.moysklad/api/remap/1.2/entity/counterparty/settings/;;Counterpa
 PUT;https://test.moysklad/api/remap/1.2/entity/counterparty/settings/;CounterpartySettings;void
 GET;https://test.moysklad/api/remap/1.2/entity/assortment/settings/;AssortmentSettings
 PUT;https://test.moysklad/api/remap/1.2//entity/assortment/settings/;MetaEntity;void
+GET;https://test.moysklad/api/remap/1.2/entity/assortment/settings/;ApiParam[];AssortmentSettings
+PUT;https://test.moysklad/api/remap/1.2/entity/assortment/settings/;MetaEntity;void
