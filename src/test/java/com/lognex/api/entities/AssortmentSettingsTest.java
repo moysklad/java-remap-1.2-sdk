@@ -12,53 +12,26 @@ import static org.junit.Assert.*;
 
 public class AssortmentSettingsTest extends EntityTestBase {
     @Test
-    public void getTest() throws IOException, ApiClientException {
-        CompanySettings response = api.entity().companysettings().get();
-        ListEntity<Currency> currency = api.entity().currency().get(filterEq("isoCode", "RUB"));
-        assertEquals(1, currency.getRows().size());
-
-        assertEquals(response.getCurrency(), currency.getRows().get(0));
-        assertTrue(response.getPriceTypes().size() > 0);
-        assertTrue(response.getPriceTypes().stream().anyMatch(p -> p.getName().equals("Цена продажи")));
-        assertEquals(CompanySettings.DiscountStrategy.bySum, response.getDiscountStrategy());
-        assertEquals(false, response.getGlobalOperationNumbering());
-        assertEquals(false, response.getCheckShippingStock());
-        assertEquals(false, response.getCheckMinPrice());
-        assertEquals(true, response.getUseRecycleBin());
-        assertEquals(false, response.getUseCompanyAddress());
-    }
-
-    @Test
     public void updateTest() throws IOException, ApiClientException {
-        CompanySettings companySettings = api.entity().companysettings().get();
-        final Boolean globalOperationNumbering = companySettings.getGlobalOperationNumbering();
-        final Boolean checkShippingStock = companySettings.getCheckShippingStock();
-        final Boolean checkMinPrice = companySettings.getCheckMinPrice();
-        final Boolean useCompanyAddress = companySettings.getUseCompanyAddress();
-        final Boolean useRecycleBin = companySettings.getUseRecycleBin();
-        final String companyAddress = companySettings.getCompanyAddress();
+        AssortmentSettings assortmentSettings = api.entity().assortmentsettings().get();
+        final BarcodeRules barcodeRules= assortmentSettings.getBarcodeRules();
+        final UniqueCodeRules uniqueCodeRules = assortmentSettings.getUniqueCodeRules();
+        final Boolean createdShared = assortmentSettings.getCratedShared();
         final String testAddress = "123@123.ru";
-        companySettings.setGlobalOperationNumbering(!globalOperationNumbering);
-        companySettings.setCheckShippingStock(!checkShippingStock);
-        companySettings.setCheckMinPrice(!checkMinPrice);
-        companySettings.setUseRecycleBin(!useRecycleBin);
-        companySettings.setUseCompanyAddress(!useCompanyAddress);
-        companySettings.setCompanyAddress(testAddress);
-        api.entity().companysettings().update(companySettings);
-        companySettings = api.entity().companysettings().get();
-        assertEquals(!globalOperationNumbering, companySettings.getGlobalOperationNumbering());
-        assertEquals(!checkShippingStock, companySettings.getCheckShippingStock());
-        assertEquals(!checkMinPrice, companySettings.getCheckMinPrice());
-        assertEquals(!useRecycleBin, companySettings.getUseRecycleBin());
-        assertEquals(!useCompanyAddress, companySettings.getUseCompanyAddress());
-        assertEquals(testAddress, companySettings.getCompanyAddress());
+        assortmentSettings.setBarcodeRules(new BarcodeRules(!barcodeRules.getFillEAN13Barcode(), !barcodeRules.getWeightBarcode(), barcodeRules.getWeightBarcodePrefix());
+        assortmentSettings.setUniqueCodeRules(new UniqueCodeRules(!uniqueCodeRules.getCheckUniqueCode(), !uniqueCodeRules.getFillUniqueCode()));
+        assortmentSettings.setCratedShared(!createdShared);
+        api.entity().assortmentsettings().update(assortmentSettings);
+        assortmentSettings = api.entity().assortmentsettings().get();
+        assertEquals(!barcodeRules.getFillEAN13Barcode(), assortmentSettings.getBarcodeRules().getFillEAN13Barcode());
+        assertEquals(!barcodeRules.getWeightBarcode(), assortmentSettings.getBarcodeRules().getWeightBarcode());
+        assertEquals(!uniqueCodeRules.getCheckUniqueCode(), assortmentSettings.getUniqueCodeRules().getCheckUniqueCode());
+        assertEquals(!uniqueCodeRules.getFillUniqueCode(), assortmentSettings.getUniqueCodeRules().getFillUniqueCode());
+        assertEquals(!createdShared, assortmentSettings.getCratedShared());
         //revert changes
-        companySettings.setGlobalOperationNumbering(globalOperationNumbering);
-        companySettings.setCheckShippingStock(checkShippingStock);
-        companySettings.setCheckMinPrice(checkMinPrice);
-        companySettings.setUseRecycleBin(useRecycleBin);
-        companySettings.setUseCompanyAddress(useCompanyAddress);
-        companySettings.setCompanyAddress(companyAddress);
-        api.entity().companysettings().update(companySettings);
+        assortmentSettings.setBarcodeRules(new BarcodeRules(barcodeRules.getFillEAN13Barcode(), barcodeRules.getWeightBarcode(), barcodeRules.getWeightBarcodePrefix());
+        assortmentSettings.setUniqueCodeRules(new UniqueCodeRules(uniqueCodeRules.getCheckUniqueCode(), uniqueCodeRules.getFillUniqueCode()));
+        assortmentSettings.setCratedShared(!createdShared);
+        api.entity().assortmentsettings().update(assortmentSettings);
     }
 }

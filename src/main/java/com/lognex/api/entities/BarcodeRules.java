@@ -1,10 +1,12 @@
 package com.lognex.api.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class BarcodeRules {
     /**
      * Автоматически создавать штрихкод EAN13 для новых товаров, комплектов, модификаций и услуг
