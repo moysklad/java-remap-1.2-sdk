@@ -18,7 +18,7 @@ public class AssortmentSettingsTest extends EntityTestBase {
         final UniqueCodeRules uniqueCodeRules = assortmentSettings.getUniqueCodeRules();
         final Boolean createdShared = assortmentSettings.getCratedShared();
         final String testAddress = "123@123.ru";
-        assortmentSettings.setBarcodeRules(new BarcodeRules(!barcodeRules.getFillEAN13Barcode(), !barcodeRules.getWeightBarcode(), barcodeRules.getWeightBarcodePrefix());
+        assortmentSettings.setBarcodeRules(new BarcodeRules(!barcodeRules.getFillEAN13Barcode(), !barcodeRules.getWeightBarcode(), barcodeRules.getWeightBarcodePrefix()));
         assortmentSettings.setUniqueCodeRules(new UniqueCodeRules(!uniqueCodeRules.getCheckUniqueCode(), !uniqueCodeRules.getFillUniqueCode()));
         assortmentSettings.setCratedShared(!createdShared);
         api.entity().assortmentsettings().update(assortmentSettings);
@@ -29,7 +29,7 @@ public class AssortmentSettingsTest extends EntityTestBase {
         assertEquals(!uniqueCodeRules.getFillUniqueCode(), assortmentSettings.getUniqueCodeRules().getFillUniqueCode());
         assertEquals(!createdShared, assortmentSettings.getCratedShared());
         //revert changes
-        assortmentSettings.setBarcodeRules(new BarcodeRules(barcodeRules.getFillEAN13Barcode(), barcodeRules.getWeightBarcode(), barcodeRules.getWeightBarcodePrefix());
+        assortmentSettings.setBarcodeRules(new BarcodeRules(barcodeRules.getFillEAN13Barcode(), barcodeRules.getWeightBarcode(), barcodeRules.getWeightBarcodePrefix()));
         assortmentSettings.setUniqueCodeRules(new UniqueCodeRules(uniqueCodeRules.getCheckUniqueCode(), uniqueCodeRules.getFillUniqueCode()));
         assortmentSettings.setCratedShared(!createdShared);
         api.entity().assortmentsettings().update(assortmentSettings);
