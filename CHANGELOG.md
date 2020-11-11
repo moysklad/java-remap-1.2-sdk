@@ -2,11 +2,14 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
-## 1.8-release (29.10.2020)
+## 1.9-release (11.11.2020)
 * Добавлены поля `fiscalType`, `qrAcqire`, `qrPayEnabled`, `qrBankPercent`, `minionToMasterType`, `masterRetailStores` в `RetailStore`
 * Добавлено поле `ppeType` в `Product`
 * Добавлены поля `qrSum` и `prepaymentQrSum` в `RetailDemand`
 * Добавлено поле `qrSum` в `RetailSalesReturn`, `Prepayment`, `PrepaymentReturn` 
+
+## 1.8-release (02.11.2020)
+* Поправлена десериализация позиций документа, если они находятся внутри `ListEntity`
 
 ## 1.7-release (23.10.2020)
 * Добавлена возможность создавать и изменять отделы (`Group`)
