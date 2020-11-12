@@ -273,11 +273,6 @@ public final class EntityClient {
     }
 
     @ApiChainElement
-    public AssortmentSettingsClient assortmentsettings() {
-        return new AssortmentSettingsClient(api);
-    }
-
-    @ApiChainElement
     public TaskClient task() {
         return new TaskClient(api);
     }
