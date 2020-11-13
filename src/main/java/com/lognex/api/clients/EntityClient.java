@@ -3,7 +3,6 @@ package com.lognex.api.clients;
 import com.lognex.api.ApiClient;
 import com.lognex.api.clients.documents.*;
 import com.lognex.api.clients.endpoints.ApiChainElement;
-import com.lognex.api.entities.AssortmentSettings;
 
 public final class EntityClient {
     private final ApiClient api;
