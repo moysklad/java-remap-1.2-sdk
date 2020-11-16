@@ -69,7 +69,7 @@ public class AttributeSerializer implements JsonSerializer<Attribute>, JsonDeser
 
         Attribute ae = gson.fromJson(jo, Attribute.class);
 
-        if (ae.getType() != null) {
+        if (ae.getType() != null && ae.getValue() != null) {
             switch (ae.getType()) {
                 case longValue:
                     ae.setValue(((Double) ae.getValue()).longValue());
