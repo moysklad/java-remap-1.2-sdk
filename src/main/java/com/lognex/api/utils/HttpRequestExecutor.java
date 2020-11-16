@@ -201,7 +201,7 @@ public final class HttpRequestExecutor {
                     "" :
                     EntityUtils.toString(response.getEntity());
 
-            logger.warn(
+            logger.debug(
                     "Ответ на запрос     {} {}: ({}) {}",
                     request.getMethod(),
                     request.getURI(),
@@ -212,6 +212,15 @@ public final class HttpRequestExecutor {
             if (response.getStatusLine().getStatusCode() != 200 &&
                     response.getStatusLine().getStatusCode() != 201 &&
                     response.getStatusLine().getStatusCode() != 204) {
+
+                logger.warn(
+                        "Ошибка при запросе {} {}: ({}) {}",
+                        request.getMethod(),
+                        request.getURI(),
+                        response.getStatusLine().getStatusCode(),
+                        json
+                );
+
                 ErrorResponse er = gson.fromJson(json, ErrorResponse.class);
 
                 throw new ApiClientException(
@@ -243,7 +252,7 @@ public final class HttpRequestExecutor {
                 String json = new String(bytes);
 
                 logger.warn(
-                        "Ответ на запрос     {} {}: ({}) {}",
+                        "Ошибка при запросе {} {}: ({}) {}",
                         request.getMethod(),
                         request.getURI(),
                         response.getStatusLine().getStatusCode(),
