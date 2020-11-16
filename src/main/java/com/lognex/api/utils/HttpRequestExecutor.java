@@ -201,7 +201,7 @@ public final class HttpRequestExecutor {
                     "" :
                     EntityUtils.toString(response.getEntity());
 
-            logger.debug(
+            logger.warn(
                     "Ответ на запрос     {} {}: ({}) {}",
                     request.getMethod(),
                     request.getURI(),
@@ -242,7 +242,7 @@ public final class HttpRequestExecutor {
                     response.getStatusLine().getStatusCode() != 204) {
                 String json = new String(bytes);
 
-                logger.debug(
+                logger.warn(
                         "Ответ на запрос     {} {}: ({}) {}",
                         request.getMethod(),
                         request.getURI(),
