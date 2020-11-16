@@ -213,7 +213,7 @@ public final class HttpRequestExecutor {
                     response.getStatusLine().getStatusCode() != 201 &&
                     response.getStatusLine().getStatusCode() != 204) {
 
-                logger.warn(
+                logger.info(
                         "Ошибка при запросе {} {}: ({}) {}",
                         request.getMethod(),
                         request.getURI(),
@@ -251,7 +251,7 @@ public final class HttpRequestExecutor {
                     response.getStatusLine().getStatusCode() != 204) {
                 String json = new String(bytes);
 
-                logger.warn(
+                logger.info(
                         "Ошибка при запросе {} {}: ({}) {}",
                         request.getMethod(),
                         request.getURI(),
