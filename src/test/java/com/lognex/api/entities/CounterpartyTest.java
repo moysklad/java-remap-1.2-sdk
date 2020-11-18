@@ -355,8 +355,7 @@ public class CounterpartyTest extends EntityGetUpdateDeleteTest {
 
         CounterpartySettings settings = new CounterpartySettings();
         settings.setCreateShared(!oldSettings.getCreateShared());
-        settings.getUniqueCodeRules().setCheckUniqueCode(!oldSettings.getUniqueCodeRules().getCheckUniqueCode());
-        settings.getUniqueCodeRules().setFillUniqueCode(!oldSettings.getUniqueCodeRules().getFillUniqueCode());
+        settings.setUniqueCodeRules(new UniqueCodeRules(!oldSettings.getUniqueCodeRules().getCheckUniqueCode(), !oldSettings.getUniqueCodeRules().getFillUniqueCode()));
         api.entity().counterparty().settings().update(settings);
 
         CounterpartySettings newSettings = api.entity().counterparty().settings().get();
