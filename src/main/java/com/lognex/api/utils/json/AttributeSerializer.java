@@ -117,7 +117,9 @@ public class AttributeSerializer implements JsonSerializer<Attribute>, JsonDeser
 
                 case CUSTOM_ENTITY:
                     CustomEntityElement customEntity = context.deserialize(jo.get("value"), CustomEntityElement.class);
-                    customEntity.setCustomDictionaryId(MetaHrefUtils.getCustomDictionaryIdFromHref(customEntity.getMeta().getHref()));
+                    if (customEntity != null) {
+                        customEntity.setCustomDictionaryId(MetaHrefUtils.getCustomDictionaryIdFromHref(customEntity.getMeta().getHref()));
+                    }
                     ae.setValue(customEntity);
                     break;
             }
