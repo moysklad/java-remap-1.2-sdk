@@ -7,6 +7,7 @@
 * Добавлено поле `ppeType` в `Product`
 * Добавлены поля `qrSum` и `prepaymentQrSum` в `RetailDemand`
 * Добавлено поле `qrSum` в `RetailSalesReturn`, `Prepayment`, `PrepaymentReturn` 
+* Добавлены новые значения в справочник `TrackingType`
 
 ## 1.9-release (05.11.2020)
 * Добавлены настройки справочника контрагентов `CounterpartySettings` и ассортимента `AssortmentSettings`
