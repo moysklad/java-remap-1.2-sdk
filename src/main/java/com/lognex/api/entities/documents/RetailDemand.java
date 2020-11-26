@@ -53,6 +53,8 @@ public class RetailDemand extends DocumentEntity implements IEntityWithAttribute
     private Project project;
     private State state;
     private TaxSystem taxSystem;
+    private Long qrSum;
+    private Long prepaymentQrSum;
 
     public RetailDemand(String id) {
         super(id);

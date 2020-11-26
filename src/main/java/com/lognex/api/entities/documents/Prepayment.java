@@ -39,6 +39,7 @@ public class Prepayment extends DocumentEntity implements IEntityWithAttributes 
     private Long noCashSum;
     private TaxSystem taxSystem;
     private ListEntity<PrepaymentDocumentPosition> positions;
+    private Long qrSum;
 
     public Prepayment(String id) {
         super(id);

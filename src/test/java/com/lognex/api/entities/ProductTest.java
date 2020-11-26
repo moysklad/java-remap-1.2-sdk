@@ -28,6 +28,7 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> {
         product.setPaymentItemType(GoodPaymentItemType.GOOD);
         product.setTaxSystem(GoodTaxSystem.SIMPLIFIED_TAX_SYSTEM_INCOME);
         product.setSupplier(simpleEntityManager.createSimple(Counterparty.class));
+        product.setPpeType("2400001226108");
 
         api.entity().product().create(product);
 
@@ -45,6 +46,7 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> {
         assertEquals(product.getTaxSystem(), retrievedEntity.getTaxSystem());
         assertEquals(product.getSupplier(), retrievedEntity.getSupplier());
         assertFalse(product.getAttribute(null).isPresent());
+        assertEquals(product.getPpeType(), retrievedEntity.getPpeType());
     }
 
     @Test

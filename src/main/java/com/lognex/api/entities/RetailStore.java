@@ -74,6 +74,12 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private State createOrderWithState;
     private Boolean reservePrepaidGoods;
     private Double bankPercent;
+    private FiscalType fiscalType;
+    private Boolean qrPayEnabled;
+    private Agent qrAcquire;
+    private MinionToMasterType minionToMasterType;
+    private ListEntity<RetailStore> masterRetailStores;
+    private Double qrBankPercent;
 
     public RetailStore(String id) {
         super(id);
@@ -208,5 +214,13 @@ public class RetailStore extends MetaEntity implements Fetchable {
                     .map(Cashier::getEmployee)
                     .collect(toList()));
         }
+    }
+
+    public enum FiscalType {
+        STANDARD, MASTER, CLOUD
+    }
+
+    public enum MinionToMasterType {
+        ANY, SAME_GROUP, CHOSEN
     }
 }
