@@ -26,7 +26,7 @@ public class InvoiceInTest extends DocumentWithPositionsTestBase {
         invoiceIn.setOrganization(simpleEntityManager.getOwnOrganization());
         invoiceIn.setAgent(simpleEntityManager.createSimpleCounterparty());
         invoiceIn.setStore(simpleEntityManager.getMainStore());
-
+        invoiceIn.setp
         api.entity().invoicein().create(invoiceIn);
 
         ListEntity<InvoiceIn> updatedEntitiesList = api.entity().invoicein().get(filterEq("name", invoiceIn.getName()));
