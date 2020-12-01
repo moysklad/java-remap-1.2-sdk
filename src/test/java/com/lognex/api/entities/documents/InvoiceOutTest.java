@@ -26,7 +26,6 @@ public class InvoiceOutTest extends DocumentWithPositionsTestBase {
         invoiceOut.setOrganization(simpleEntityManager.getOwnOrganization());
         invoiceOut.setAgent(simpleEntityManager.createSimpleCounterparty());
         invoiceOut.setStore(simpleEntityManager.getMainStore());
-        invoiceOut.setProject();
         api.entity().invoiceout().create(invoiceOut);
 
         ListEntity<InvoiceOut> updatedEntitiesList = api.entity().invoiceout().get(filterEq("name", invoiceOut.getName()));
