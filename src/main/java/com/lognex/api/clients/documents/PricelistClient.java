@@ -29,7 +29,8 @@ public final class PricelistClient
         PutByIdEndpoint<Pricelist>,
         MassCreateUpdateDeleteEndpoint<Pricelist>,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public PricelistClient(ApiClient api) {
         super(api, "/entity/pricelist/");

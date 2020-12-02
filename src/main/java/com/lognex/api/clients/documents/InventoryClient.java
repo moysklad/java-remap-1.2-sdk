@@ -21,7 +21,8 @@ public final class InventoryClient
         MassCreateUpdateDeleteEndpoint<Inventory>,
         DocumentPositionsEndpoint<InventoryDocumentPosition>,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public InventoryClient(ApiClient api) {
         super(api, "/entity/inventory/");
