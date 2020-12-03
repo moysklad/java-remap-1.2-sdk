@@ -3,6 +3,7 @@ package com.lognex.api.entities.documents;
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.EntityGetUpdateDeleteTest;
 import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.State;
 import com.lognex.api.entities.documents.Pricelist.ColumnsItem;
 import com.lognex.api.entities.documents.Pricelist.PricelistRow;
 import com.lognex.api.entities.documents.Pricelist.PricelistRow.CellsItem;
@@ -93,6 +94,25 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
         MetadataAttributeSharedStatesResponse response = api.entity().pricelist().metadata().get();
 
         assertFalse(response.getCreateShared());
+    }
+
+    @Test
+    public void createStateTest() throws IOException, ApiClientException {
+        State state = new State();
+        state.setName("state_" + randomStringTail());
+        state.setStateType(State.StateType.regular);
+        state.setColor(randomColor());
+
+        api.entity().pricelist().states().create(state);
+
+        List<State> retrievedStates = api.entity().pricelist().metadata().get().getStates();
+
+        State retrievedState = retrievedStates.stream().filter(s -> s.getId().equals(state.getId())).findFirst().orElse(null);
+        assertNotNull(retrievedState);
+        assertEquals(state.getName(), retrievedState.getName());
+        assertEquals(state.getStateType(), retrievedState.getStateType());
+        assertEquals(state.getColor(), retrievedState.getColor());
+        assertEquals(state.getEntityType(), retrievedState.getEntityType());
     }
 
     @Override

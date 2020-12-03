@@ -2,15 +2,15 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 1.10-release (05.11.2020)
+* Добавлен эндпоинт `states` для документов, где он отсутствовал и поле `project` для `InvoiceIn`
+
 ## 1.10-release (25.11.2020)
 * Добавлены поля `fiscalType`, `qrAcqire`, `qrPayEnabled`, `qrBankPercent`, `minionToMasterType`, `masterRetailStores` в `RetailStore`
 * Добавлено поле `ppeType` в `Product`
 * Добавлены поля `qrSum` и `prepaymentQrSum` в `RetailDemand`
 * Добавлено поле `qrSum` в `RetailSalesReturn`, `Prepayment`, `PrepaymentReturn` 
 * Добавлены новые значения в справочник `TrackingType`
-
-## 1.10-release (05.11.2020)
-* Добавлен энжпоинт `states` для `InvoiceIn`, `InvoiceOut` и поле `project` для `InvoiceIn`
 
 ## 1.9-release (05.11.2020)
 * Добавлены настройки справочника контрагентов `CounterpartySettings` и ассортимента `AssortmentSettings`
