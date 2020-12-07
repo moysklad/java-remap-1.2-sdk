@@ -1,10 +1,7 @@
 package com.lognex.api.clients;
 
 import com.lognex.api.clients.endpoints.*;
-import com.lognex.api.entities.AgentAccount;
-import com.lognex.api.entities.ContactPerson;
-import com.lognex.api.entities.MetaEntity;
-import com.lognex.api.entities.Note;
+import com.lognex.api.entities.*;
 import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.CounterpartyMetadataResponse;
@@ -26,7 +23,8 @@ public final class CounterpartyClient
         GetByIdEndpoint<Counterparty>,
         PutByIdEndpoint<Counterparty>,
         MassCreateUpdateDeleteEndpoint<Counterparty>,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasSettingsEndpoint<CounterpartySettings> {
 
     public CounterpartyClient(com.lognex.api.ApiClient api) {
         super(api, "/entity/counterparty/");
@@ -216,5 +214,10 @@ public final class CounterpartyClient
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
         return CounterpartyMetadataResponse.class;
+    }
+
+    @Override
+    public Class<CounterpartySettings> settingsEntityClass() {
+        return CounterpartySettings.class;
     }
 }

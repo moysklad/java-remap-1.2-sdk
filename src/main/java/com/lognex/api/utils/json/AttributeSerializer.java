@@ -69,7 +69,7 @@ public class AttributeSerializer implements JsonSerializer<Attribute>, JsonDeser
 
         Attribute ae = gson.fromJson(jo, Attribute.class);
 
-        if (ae.getType() != null) {
+        if (ae.getType() != null && ae.getValue() != null) {
             switch (ae.getType()) {
                 case longValue:
                     ae.setValue(((Double) ae.getValue()).longValue());
@@ -117,7 +117,9 @@ public class AttributeSerializer implements JsonSerializer<Attribute>, JsonDeser
 
                 case CUSTOM_ENTITY:
                     CustomEntityElement customEntity = context.deserialize(jo.get("value"), CustomEntityElement.class);
-                    customEntity.setCustomDictionaryId(MetaHrefUtils.getCustomDictionaryIdFromHref(customEntity.getMeta().getHref()));
+                    if (customEntity != null) {
+                        customEntity.setCustomDictionaryId(MetaHrefUtils.getCustomDictionaryIdFromHref(customEntity.getMeta().getHref()));
+                    }
                     ae.setValue(customEntity);
                     break;
             }

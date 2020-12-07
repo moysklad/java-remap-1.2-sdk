@@ -38,6 +38,7 @@ public class PrepaymentReturn extends DocumentEntity implements IEntityWithAttri
     private Long noCashSum;
     private TaxSystem taxSystem;
     private ListEntity<PrepaymentDocumentPosition> positions;
+    private Long qrSum;
 
     public PrepaymentReturn(String id) {
         super(id);

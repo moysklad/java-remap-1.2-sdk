@@ -43,7 +43,9 @@ public final class HttpRequestExecutor {
     private Object body;
 
     private HttpRequestExecutor(ApiClient api, String url) {
-        if (api == null) throw new IllegalArgumentException("Для выполнения запроса к API нужен проинициализированный экземпляр ApiClient!");
+        if (api == null) {
+            throw new IllegalArgumentException("Для выполнения запроса к API нужен проинициализированный экземпляр ApiClient!");
+        }
 
         this.client = api.getClient();
         this.hostApiPath = api.getHost() + API_PATH;
@@ -61,7 +63,8 @@ public final class HttpRequestExecutor {
     }
 
     private HttpRequestExecutor(CloseableHttpClient client, String url) {
-        if (client == null) throw new IllegalArgumentException("Для выполнения запроса нужен проинициализированный экземпляр CloseableHttpClient!");
+        if (client == null)
+            throw new IllegalArgumentException("Для выполнения запроса нужен проинициализированный экземпляр CloseableHttpClient!");
 
         this.client = client;
         this.hostApiPath = ""; // TODO maybe parse url, but it is not necessary until where is no apiParams() calls after url(). Now used only in entity fetch()
@@ -201,17 +204,23 @@ public final class HttpRequestExecutor {
                     "" :
                     EntityUtils.toString(response.getEntity());
 
-            logger.debug(
-                    "Ответ на запрос     {} {}: ({}) {}",
-                    request.getMethod(),
-                    request.getURI(),
-                    response.getStatusLine().getStatusCode(),
-                    json
-            );
+            if (isOkResponse(response)) {
+                logger.debug(
+                        "Ответ на запрос     {} {}: ({}) {}",
+                        request.getMethod(),
+                        request.getURI(),
+                        response.getStatusLine().getStatusCode(),
+                        json
+                );
+            } else {
+                logger.info(
+                        "Ошибка при запросе {} {}: ({}) {}",
+                        request.getMethod(),
+                        request.getURI(),
+                        response.getStatusLine().getStatusCode(),
+                        json
+                );
 
-            if (response.getStatusLine().getStatusCode() != 200 &&
-                    response.getStatusLine().getStatusCode() != 201 &&
-                    response.getStatusLine().getStatusCode() != 204) {
                 ErrorResponse er = gson.fromJson(json, ErrorResponse.class);
 
                 throw new ApiClientException(
@@ -237,13 +246,19 @@ public final class HttpRequestExecutor {
         logger.debug("Выполнение запроса  {} {}...", request.getMethod(), request.getURI());
         try (CloseableHttpResponse response = client.execute(request)) {
             byte[] bytes = EntityUtils.toByteArray(response.getEntity());
-            if (response.getStatusLine().getStatusCode() != 200 &&
-                    response.getStatusLine().getStatusCode() != 201 &&
-                    response.getStatusLine().getStatusCode() != 204) {
+
+            if (isOkResponse(response)) {
+                logger.debug(
+                        "Ответ на запрос     {} {}: ({}) [bytes...]",
+                        request.getMethod(),
+                        request.getURI(),
+                        response.getStatusLine().getStatusCode()
+                );
+            } else {
                 String json = new String(bytes);
 
-                logger.debug(
-                        "Ответ на запрос     {} {}: ({}) {}",
+                logger.info(
+                        "Ошибка при запросе {} {}: ({}) {}",
                         request.getMethod(),
                         request.getURI(),
                         response.getStatusLine().getStatusCode(),
@@ -262,6 +277,13 @@ public final class HttpRequestExecutor {
 
             return bytes;
         }
+    }
+
+    private boolean isOkResponse(CloseableHttpResponse response) {
+        final int statusCode = response.getStatusLine().getStatusCode();
+        return statusCode == 200 ||
+                statusCode == 201 ||
+                statusCode == 204;
     }
 
     /**

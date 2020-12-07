@@ -104,5 +104,6 @@
     }
   },
   "cashSum": 15000,
-  "noCashSum": 15000
+  "noCashSum": 15000,
+  "qrSum": 0
 }

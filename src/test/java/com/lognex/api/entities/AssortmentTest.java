@@ -28,4 +28,27 @@ public class AssortmentTest extends EntityTestBase {
         assertEquals(Integer.valueOf(countBefore + 1), assortment.getMeta().getSize());
         assertEquals(product, assortment.getRows().get(0));
     }
+
+    @Test
+    public void settingsTest() throws IOException, ApiClientException {
+        AssortmentSettings assortmentSettings = api.entity().assortment().settings().get();
+        final BarcodeRules barcodeRules= assortmentSettings.getBarcodeRules();
+        final UniqueCodeRules uniqueCodeRules = assortmentSettings.getUniqueCodeRules();
+        final Boolean createdShared = assortmentSettings.getCreatedShared();
+        assortmentSettings.setBarcodeRules(new BarcodeRules(!barcodeRules.getFillEAN13Barcode(), !barcodeRules.getWeightBarcode(), barcodeRules.getWeightBarcodePrefix()));
+        assortmentSettings.setUniqueCodeRules(new UniqueCodeRules(!uniqueCodeRules.getCheckUniqueCode(), !uniqueCodeRules.getFillUniqueCode()));
+        assortmentSettings.setCreatedShared(!createdShared);
+        api.entity().assortment().settings().update(assortmentSettings);
+        assortmentSettings = api.entity().assortment().settings().get();
+        assertEquals(!barcodeRules.getFillEAN13Barcode(), assortmentSettings.getBarcodeRules().getFillEAN13Barcode());
+        assertEquals(!barcodeRules.getWeightBarcode(), assortmentSettings.getBarcodeRules().getWeightBarcode());
+        assertEquals(!uniqueCodeRules.getCheckUniqueCode(), assortmentSettings.getUniqueCodeRules().getCheckUniqueCode());
+        assertEquals(!uniqueCodeRules.getFillUniqueCode(), assortmentSettings.getUniqueCodeRules().getFillUniqueCode());
+        assertEquals(!createdShared, assortmentSettings.getCreatedShared());
+        //revert changes
+        assortmentSettings.setBarcodeRules(new BarcodeRules(barcodeRules.getFillEAN13Barcode(), barcodeRules.getWeightBarcode(), barcodeRules.getWeightBarcodePrefix()));
+        assortmentSettings.setUniqueCodeRules(new UniqueCodeRules(uniqueCodeRules.getCheckUniqueCode(), uniqueCodeRules.getFillUniqueCode()));
+        assortmentSettings.setCreatedShared(createdShared);
+        api.entity().assortment().settings().update(assortmentSettings);
+    }
 }
