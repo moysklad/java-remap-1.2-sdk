@@ -40,15 +40,15 @@ public class CustomerOrderTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        DocumentMetadataClient<MetadataAttributeSharedStatesResponse> metadata = api.entity().customerorder().metadata();
-        MetadataAttributeSharedStatesResponse response = metadata.get();
+        MetadataAttributeSharedStatesResponse response = api.entity().customerorder().metadata().get();
 
-        assertEquals(7, response.getStates().size());
         assertFalse(response.getCreateShared());
+    }
 
-        ListEntity<Attribute> attributes = metadata.attributes();
+    @Test
+    public void attributesTest() throws IOException, ApiClientException{
+        ListEntity<Attribute> attributes = api.entity().customerorder().metadataAttributes();
         assertNotNull(attributes);
-
     }
 
     @Override

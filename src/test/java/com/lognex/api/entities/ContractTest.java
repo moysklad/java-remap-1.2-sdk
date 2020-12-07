@@ -51,13 +51,15 @@ public class ContractTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        DocumentMetadataClient<MetadataAttributeSharedStatesResponse> metadata = api.entity().contract().metadata();
+        MetadataAttributeSharedStatesResponse response = api.entity().contract().metadata().get();
 
-        assertFalse(metadata.get().getCreateShared());
+        assertFalse(response.getCreateShared());
+    }
 
-        ListEntity<Attribute> attributes = metadata.attributes();
+    @Test
+    public void attributesTest() throws IOException, ApiClientException{
+        ListEntity<Attribute> attributes = api.entity().contract().metadataAttributes();
         assertNotNull(attributes);
-
     }
 
     @Override

@@ -62,12 +62,14 @@ public class CommissionReportOutTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        DocumentMetadataClient<MetadataAttributeSharedStatesResponse> metadata = api.entity().commissionreportout().metadata();
-        MetadataAttributeSharedStatesResponse response = metadata.get();
+        MetadataAttributeSharedStatesResponse response = api.entity().commissionreportout().metadata().get();
 
         assertFalse(response.getCreateShared());
+    }
 
-        ListEntity<Attribute> attributes = metadata.attributes();
+    @Test
+    public void attributesTest() throws IOException, ApiClientException{
+        ListEntity<Attribute> attributes = api.entity().commissionreportout().metadataAttributes();
         assertNotNull(attributes);
     }
 

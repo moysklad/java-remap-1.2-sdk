@@ -2,6 +2,7 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.documents.DocumentMetadataClient;
+import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -43,11 +44,15 @@ public class MoveTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        DocumentMetadataClient<MetadataAttributeSharedStatesResponse> metadata = api.entity().move().metadata();
-        MetadataAttributeSharedStatesResponse response = metadata.get();
+        MetadataAttributeSharedStatesResponse response = api.entity().move().metadata().get();
 
         assertFalse(response.getCreateShared());
-        assertNotNull(metadata.attributes());
+    }
+
+    @Test
+    public void attributesTest() throws IOException, ApiClientException{
+        ListEntity<Attribute> attributes = api.entity().move().metadataAttributes();
+        assertNotNull(attributes);
     }
 
     @Test

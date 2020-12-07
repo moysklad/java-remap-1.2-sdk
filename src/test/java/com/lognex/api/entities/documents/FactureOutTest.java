@@ -2,6 +2,7 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.documents.DocumentMetadataClient;
+import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.EntityGetUpdateDeleteTest;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.Store;
@@ -53,11 +54,15 @@ public class FactureOutTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        DocumentMetadataClient<MetadataAttributeSharedStatesResponse> metadata = api.entity().factureout().metadata();
-        MetadataAttributeSharedStatesResponse response = metadata.get();
+        MetadataAttributeSharedStatesResponse response = api.entity().factureout().metadata().get();
 
         assertFalse(response.getCreateShared());
-        assertNotNull(metadata.attributes());
+    }
+
+    @Test
+    public void attributesTest() throws IOException, ApiClientException{
+        ListEntity<Attribute> attributes = api.entity().factureout().metadataAttributes();
+        assertNotNull(attributes);
     }
 
     @Test

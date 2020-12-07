@@ -2,6 +2,7 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.clients.documents.DocumentMetadataClient;
+import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -48,11 +49,15 @@ public class PurchaseOrderTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        DocumentMetadataClient<MetadataAttributeSharedStatesResponse> metadata = api.entity().purchaseorder().metadata();
-        MetadataAttributeSharedStatesResponse response = metadata.get();
+        MetadataAttributeSharedStatesResponse response = api.entity().purchaseorder().metadata().get();
 
         assertFalse(response.getCreateShared());
-        assertNotNull(metadata.attributes());
+    }
+
+    @Test
+    public void attributesTest() throws IOException, ApiClientException{
+        ListEntity<Attribute> attributes = api.entity().purchaseorder().metadataAttributes();
+        assertNotNull(attributes);
     }
 
     @Test

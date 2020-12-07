@@ -21,14 +21,6 @@ public interface MetadataTemplatesEndpoint extends Endpoint {
     }
 
     @ApiEndpoint
-    default ListEntity<Attribute> attributes() throws IOException, ApiClientException {
-        ListEntity<Attribute> attributes = HttpRequestExecutor.
-                path(api(), path() + (path().endsWith("metadata/") ? "" : "metadata/") + "attributes/").
-                list(Attribute.class);
-        return attributes;
-    }
-
-    @ApiEndpoint
     default Template embeddedtemplate(String id) throws IOException, ApiClientException {
         Template template = HttpRequestExecutor.
                 path(api(), path() + (path().endsWith("metadata/") ? "" : "metadata/") + "embeddedtemplate/" + id).
