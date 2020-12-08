@@ -1,7 +1,6 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
-import com.lognex.api.clients.documents.DocumentMetadataClient;
 import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.EntityGetUpdateDeleteTest;
 import com.lognex.api.entities.MetaEntity;

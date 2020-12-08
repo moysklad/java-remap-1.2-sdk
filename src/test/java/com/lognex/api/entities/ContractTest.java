@@ -1,7 +1,6 @@
 package com.lognex.api.entities;
 
 import com.lognex.api.clients.EntityClientBase;
-import com.lognex.api.clients.documents.DocumentMetadataClient;
 import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
