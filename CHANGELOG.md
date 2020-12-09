@@ -2,6 +2,9 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 1.12-release (05.11.2020)
+* Добавлены поля `printed` и `published` во все документы
+
 ## 1.10-release (25.11.2020)
 * Добавлены поля `fiscalType`, `qrAcqire`, `qrPayEnabled`, `qrBankPercent`, `minionToMasterType`, `masterRetailStores` в `RetailStore`
 * Добавлено поле `ppeType` в `Product`
