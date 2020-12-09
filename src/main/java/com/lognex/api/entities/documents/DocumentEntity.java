@@ -23,6 +23,8 @@ public abstract class DocumentEntity extends MetaEntity {
     private LocalDateTime moment;
     private Boolean applicable;
     private Long sum;
+    private Boolean printed;
+    private Boolean published;
 
     public DocumentEntity(String id) {
         super(id);
