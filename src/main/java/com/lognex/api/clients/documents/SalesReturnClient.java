@@ -22,7 +22,8 @@ public final class SalesReturnClient
         MassCreateUpdateDeleteEndpoint<SalesReturn>,
         DocumentPositionsEndpoint<SalesReturnDocumentPosition>,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public SalesReturnClient(ApiClient api) {
         super(api, "/entity/salesreturn/");
