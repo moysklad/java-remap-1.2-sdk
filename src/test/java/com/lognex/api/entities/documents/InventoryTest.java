@@ -2,6 +2,7 @@ package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.State;
 import com.lognex.api.entities.documents.positions.InventoryDocumentPosition;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -11,6 +12,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import static com.lognex.api.utils.params.ExpandParam.expand;
 import static com.lognex.api.utils.params.FilterParam.filterEq;
@@ -61,6 +63,25 @@ public class InventoryTest extends DocumentWithPositionsTestBase {
         MetadataAttributeSharedStatesResponse response = api.entity().inventory().metadata().get();
 
         assertFalse(response.getCreateShared());
+    }
+
+    @Test
+    public void createStateTest() throws IOException, ApiClientException {
+        State state = new State();
+        state.setName("state_" + randomStringTail());
+        state.setStateType(State.StateType.regular);
+        state.setColor(randomColor());
+
+        api.entity().inventory().states().create(state);
+
+        List<State> retrievedStates = api.entity().inventory().metadata().get().getStates();
+
+        State retrievedState = retrievedStates.stream().filter(s -> s.getId().equals(state.getId())).findFirst().orElse(null);
+        assertNotNull(retrievedState);
+        assertEquals(state.getName(), retrievedState.getName());
+        assertEquals(state.getStateType(), retrievedState.getStateType());
+        assertEquals(state.getColor(), retrievedState.getColor());
+        assertEquals(state.getEntityType(), retrievedState.getEntityType());
     }
 
     @Override
