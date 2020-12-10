@@ -1,6 +1,7 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
+import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.EntityGetUpdateDeleteTest;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.State;
@@ -92,6 +93,13 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest {
         MetadataAttributeSharedStatesResponse response = api.entity().retaildemand().metadata().get();
 
         assertFalse(response.getCreateShared());
+    }
+
+    @Ignore
+    @Test
+    public void attributesTest() throws IOException, ApiClientException{
+        ListEntity<Attribute> attributes = api.entity().retaildemand().metadataAttributes();
+        assertNotNull(attributes);
     }
 
     @Ignore

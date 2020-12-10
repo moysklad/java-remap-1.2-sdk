@@ -1,6 +1,7 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
+import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.State;
 import com.lognex.api.responses.ListEntity;
@@ -49,6 +50,12 @@ public class InvoiceInTest extends DocumentWithPositionsTestBase {
         MetadataAttributeSharedStatesResponse response = api.entity().invoicein().metadata().get();
 
         assertFalse(response.getCreateShared());
+    }
+
+    @Test
+    public void attributesTest() throws IOException, ApiClientException {
+        ListEntity<Attribute> attributes = api.entity().invoicein().metadataAttributes();
+        assertNotNull(attributes);
     }
 
     @Test

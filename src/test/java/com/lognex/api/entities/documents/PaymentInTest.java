@@ -1,6 +1,7 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
+import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.EntityGetUpdateDeleteTest;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
@@ -45,6 +46,12 @@ public class PaymentInTest extends EntityGetUpdateDeleteTest {
         MetadataAttributeSharedStatesResponse response = api.entity().paymentin().metadata().get();
 
         assertFalse(response.getCreateShared());
+    }
+
+    @Test
+    public void attributesTest() throws IOException, ApiClientException{
+        ListEntity<Attribute> attributes = api.entity().paymentin().metadataAttributes();
+        assertNotNull(attributes);
     }
 
     @Test

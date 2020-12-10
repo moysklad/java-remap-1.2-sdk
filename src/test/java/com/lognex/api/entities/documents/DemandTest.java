@@ -1,6 +1,7 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
+import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -10,7 +11,8 @@ import org.junit.Test;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
@@ -49,6 +51,12 @@ public class DemandTest extends DocumentWithPositionsTestBase {
         MetadataAttributeSharedStatesResponse response = api.entity().demand().metadata().get();
 
         assertFalse(response.getCreateShared());
+    }
+
+    @Test
+    public void attributesTest() throws IOException, ApiClientException{
+        ListEntity<Attribute> attributes = api.entity().demand().metadataAttributes();
+        assertNotNull(attributes);
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.lognex.api.clients.endpoints;
 
+import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.Meta;
 import com.lognex.api.entities.Template;
 import com.lognex.api.responses.ListEntity;
