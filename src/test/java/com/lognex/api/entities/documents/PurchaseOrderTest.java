@@ -65,6 +65,8 @@ public class PurchaseOrderTest extends DocumentWithPositionsTestBase {
         assertEquals(Long.valueOf(0), purchaseOrder.getSum());
         assertFalse(purchaseOrder.getShared());
         assertTrue(purchaseOrder.getApplicable());
+        assertFalse(purchaseOrder.getPublished());
+        assertFalse(purchaseOrder.getPrinted());
         assertTrue(ChronoUnit.MILLIS.between(time, purchaseOrder.getMoment()) < 1000);
 
         assertEquals(purchaseOrder.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());

@@ -59,6 +59,8 @@ public class CashOutTest extends EntityGetUpdateDeleteTest {
         assertEquals(Long.valueOf(0), cashOut.getSum());
         assertFalse(cashOut.getShared());
         assertTrue(cashOut.getApplicable());
+        assertFalse(cashOut.getPublished());
+        assertFalse(cashOut.getPrinted());
         assertTrue(ChronoUnit.MILLIS.between(time, cashOut.getMoment()) < 1000);
 
         assertEquals(cashOut.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());

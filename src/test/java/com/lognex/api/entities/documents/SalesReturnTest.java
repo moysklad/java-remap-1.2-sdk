@@ -79,6 +79,8 @@ public class SalesReturnTest extends DocumentWithPositionsTestBase {
         assertEquals(Long.valueOf(0), salesReturn.getSum());
         assertFalse(salesReturn.getShared());
         assertTrue(salesReturn.getApplicable());
+        assertFalse(salesReturn.getPublished());
+        assertFalse(salesReturn.getPrinted());
         assertTrue(ChronoUnit.MILLIS.between(time, salesReturn.getMoment()) < 1000);
 
         assertEquals(salesReturn.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());

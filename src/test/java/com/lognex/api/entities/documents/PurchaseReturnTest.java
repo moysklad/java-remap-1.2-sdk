@@ -78,6 +78,8 @@ public class PurchaseReturnTest extends DocumentWithPositionsTestBase {
         assertEquals(Long.valueOf(0), purchaseReturn.getSum());
         assertFalse(purchaseReturn.getShared());
         assertTrue(purchaseReturn.getApplicable());
+        assertFalse(purchaseReturn.getPublished());
+        assertFalse(purchaseReturn.getPrinted());
         assertTrue(ChronoUnit.MILLIS.between(time, purchaseReturn.getMoment()) < 1000);
 
         assertEquals(purchaseReturn.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());

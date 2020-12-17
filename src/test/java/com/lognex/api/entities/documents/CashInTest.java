@@ -58,6 +58,8 @@ public class CashInTest extends EntityGetUpdateDeleteTest {
         assertEquals(Long.valueOf(0), cashIn.getSum());
         assertFalse(cashIn.getShared());
         assertTrue(cashIn.getApplicable());
+        assertFalse(cashIn.getPublished());
+        assertFalse(cashIn.getPrinted());
         assertTrue(ChronoUnit.MILLIS.between(time, cashIn.getMoment()) < 1000);
 
         assertEquals(cashIn.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());

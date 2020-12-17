@@ -56,6 +56,8 @@ public class MoveTest extends DocumentWithPositionsTestBase {
         assertEquals(Long.valueOf(0), move.getSum());
         assertFalse(move.getShared());
         assertTrue(move.getApplicable());
+        assertFalse(move.getPublished());
+        assertFalse(move.getPrinted());
         assertTrue(ChronoUnit.MILLIS.between(time, move.getMoment()) < 1000);
 
         assertEquals(move.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());

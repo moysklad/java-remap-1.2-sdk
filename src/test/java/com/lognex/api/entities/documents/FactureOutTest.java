@@ -84,6 +84,8 @@ public class FactureOutTest extends EntityGetUpdateDeleteTest {
         assertEquals(demand.getSum(), factureOut.getSum());
         assertFalse(factureOut.getShared());
         assertTrue(factureOut.getApplicable());
+        assertFalse(factureOut.getPublished());
+        assertFalse(factureOut.getPrinted());
         assertTrue(ChronoUnit.MILLIS.between(time, factureOut.getMoment()) < 1000);
         assertEquals(1, factureOut.getDemands().size());
         assertEquals(demand.getMeta().getHref(), factureOut.getDemands().get(0).getMeta().getHref());
