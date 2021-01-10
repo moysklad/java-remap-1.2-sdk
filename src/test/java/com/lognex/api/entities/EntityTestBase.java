@@ -14,9 +14,9 @@ public abstract class EntityTestBase implements TestRandomizers, TestAsserts, Te
     @Before
     public void init() {
         api = new ApiClient(
-                "http://localhost",
-                false, "admin@123",
-                "123123"
+                System.getenv("API_HOST"),
+                TestConstants.FORCE_HTTPS_FOR_TESTS, System.getenv("API_LOGIN"),
+                System.getenv("API_PASSWORD")
         );
 
         mockHttpClient = new MockHttpClient();
