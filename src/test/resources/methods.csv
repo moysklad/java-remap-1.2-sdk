@@ -1809,3 +1809,8 @@ PUT;https://test.moysklad/api/remap/1.2/entity/inventory/metadata/states/ID;Stri
 POST;https://test.moysklad/api/remap/1.2/entity/salesreturn/metadata/states/;MetaEntity;MetaEntity
 PUT;https://test.moysklad/api/remap/1.2/entity/pricelist/metadata/states/ID;String,MetaEntity;void
 POST;https://test.moysklad/api/remap/1.2/entity/supply/metadata/states/;List;ArrayList
+GET;https://test.moysklad/api/remap/1.2/entity/employee/ID/security;String;EmployeePermission
+PUT;https://test.moysklad/api/remap/1.2/entity/employee/ID/access/activate;String,EmployeePermission;MailActivationRequired
+PUT;https://test.moysklad/api/remap/1.2/entity/employee/ID/access/deactivate;String;void
+PUT;https://test.moysklad/api/remap/1.2/entity/employee/ID/access/resetpassword;String;void
+PUT;https://test.moysklad/api/remap/1.2/entity/employee/ID/security;String,EmployeePermissions;EmployeePermission

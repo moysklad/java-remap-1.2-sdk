@@ -2,6 +2,7 @@ package com.lognex.api.entities;
 
 import com.lognex.api.clients.EntityClientBase;
 import com.lognex.api.entities.agents.Employee;
+import com.lognex.api.entities.permissions.EmployeePermission;
 import com.lognex.api.responses.ListEntity;
 import com.lognex.api.responses.metadata.MetadataAttributeSharedResponse;
 import com.lognex.api.utils.ApiClientException;
@@ -35,6 +36,22 @@ public class EmployeeTest extends EntityGetUpdateDeleteTest {
         assertEquals(employee.getArchived(), retrievedEntity.getArchived());
         assertEquals(employee.getDescription(), retrievedEntity.getDescription());
         assertEquals(employee.getInn(), retrievedEntity.getInn());
+    }
+
+    @Test
+    public void getEmployeePermissionsTest() throws IOException, ApiClientException {
+        Employee employee = new Employee();
+        employee.setLastName("employee_" + randomString(3) + "_" + new Date().getTime());
+        employee.setEmail("test@test.ru");
+        api.entity().employee().create(employee);
+
+        ListEntity<Employee> updatedEntitiesList = api.entity().employee().get(filterEq("lastName", employee.getLastName()));
+        assertEquals(1, updatedEntitiesList.getRows().size());
+
+        Employee retrievedEntity = updatedEntitiesList.getRows().get(0);
+
+        EmployeePermission employeePermission = api.entity().employee().getPermissions(retrievedEntity.getId());
+        assertEquals(employeePermission.getIsActive(), false);
     }
 
     @Override

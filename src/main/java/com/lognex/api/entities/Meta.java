@@ -8,6 +8,7 @@ import com.lognex.api.entities.discounts.*;
 import com.lognex.api.entities.documents.*;
 import com.lognex.api.entities.documents.positions.*;
 import com.lognex.api.entities.notifications.*;
+import com.lognex.api.entities.permissions.EmployeeRole;
 import com.lognex.api.entities.products.Bundle;
 import com.lognex.api.entities.products.Product;
 import com.lognex.api.entities.products.Service;
@@ -208,6 +209,9 @@ public final class Meta {
         VARIANT("variant", Variant.class),
         WEBHOOK("webhook", WebHook.class),
         COUNTERPARTY_SETTINGS("counterpartysettings", CounterpartySettings.class),
+        SYSTEM_ROLE("systemrole", EmployeeRole.class),
+        INDIVIDUAL_ROLE("individualrole", EmployeeRole.class),
+        CUSTOM_ROLE("customrole", EmployeeRole.class)
         ;
 
         @Getter
