@@ -1,0 +1,11 @@
+package ru.moysklad.remap_1_2.entities.products;
+
+public enum GoodTaxSystem {
+    TAX_SYSTEM_SAME_AS_GROUP,
+    GENERAL_TAX_SYSTEM,
+    SIMPLIFIED_TAX_SYSTEM_INCOME,
+    SIMPLIFIED_TAX_SYSTEM_INCOME_OUTCOME,
+    UNIFIED_AGRICULTURAL_TAX,
+    PRESUMPTIVE_TAX_SYSTEM,
+    PATENT_BASED
+}
