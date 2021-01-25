@@ -72,6 +72,8 @@ public class LossTest extends DocumentWithPositionsTestBase {
         assertEquals(Long.valueOf(0), loss.getSum());
         assertFalse(loss.getShared());
         assertTrue(loss.getApplicable());
+        assertFalse(loss.getPublished());
+        assertFalse(loss.getPrinted());
         assertTrue(ChronoUnit.MILLIS.between(time, loss.getMoment()) < 1000);
 
         assertEquals(loss.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());

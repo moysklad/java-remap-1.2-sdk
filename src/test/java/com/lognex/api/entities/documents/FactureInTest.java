@@ -72,6 +72,8 @@ public class FactureInTest extends EntityGetUpdateDeleteTest {
         assertEquals(supply.getSum(), factureIn.getSum());
         assertFalse(factureIn.getShared());
         assertTrue(factureIn.getApplicable());
+        assertFalse(factureIn.getPublished());
+        assertFalse(factureIn.getPrinted());
         assertTrue(ChronoUnit.MILLIS.between(time, factureIn.getMoment()) < 1000);
         assertEquals(1, factureIn.getSupplies().size());
         assertEquals(supply.getMeta().getHref(), factureIn.getSupplies().get(0).getMeta().getHref());

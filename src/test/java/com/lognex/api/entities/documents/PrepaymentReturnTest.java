@@ -27,6 +27,8 @@ public class PrepaymentReturnTest extends EntityTestBase {
         assertEquals("7944ef04-f831-11e5-7a69-971500188b19", prepaymentReturn.getId());
         assertEquals("00002", prepaymentReturn.getName());
         assertTrue(prepaymentReturn.getApplicable());
+        assertFalse(prepaymentReturn.getPublished());
+        assertFalse(prepaymentReturn.getPrinted());
         assertFalse(prepaymentReturn.getShared());
         assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/employee/78d0453c-2e92-11e9-ac12-000e0000002f",
                 prepaymentReturn.getOwner().getMeta().getHref()

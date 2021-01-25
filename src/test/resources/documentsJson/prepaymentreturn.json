@@ -63,6 +63,8 @@
     }
   },
   "created": "2019-02-25 12:28:42.000",
+  "printed": false,
+  "published": false,
   "positions": {
     "meta": {
       "href": "https://online.moysklad.ru/api/remap/1.2/entity/prepaymentreturn/7944ef04-f831-11e5-7a69-971500188b19/positions",

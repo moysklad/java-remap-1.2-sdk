@@ -65,6 +65,8 @@ public class PaymentOutTest extends EntityGetUpdateDeleteTest {
         assertEquals(Long.valueOf(0), paymentOut.getSum());
         assertFalse(paymentOut.getShared());
         assertTrue(paymentOut.getApplicable());
+        assertFalse(paymentOut.getPublished());
+        assertFalse(paymentOut.getPrinted());
         assertTrue(ChronoUnit.MILLIS.between(time, paymentOut.getMoment()) < 1000);
 
         assertEquals(paymentOut.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());

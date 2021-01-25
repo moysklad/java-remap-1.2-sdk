@@ -32,6 +32,8 @@
   "externalCode": "wkOsJvdDguUeVJOB-g1LN1",
   "moment": "2019-02-22 09:31:00.000",
   "applicable": true,
+  "printed": false,
+  "published": false,
   "rate": {
     "currency": {
       "meta": {

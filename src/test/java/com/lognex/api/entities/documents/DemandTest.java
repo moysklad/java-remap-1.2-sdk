@@ -71,6 +71,8 @@ public class DemandTest extends DocumentWithPositionsTestBase {
         assertEquals(Long.valueOf(0), demand.getSum());
         assertFalse(demand.getShared());
         assertTrue(demand.getApplicable());
+        assertFalse(demand.getPublished());
+        assertFalse(demand.getPrinted());
         assertTrue(ChronoUnit.MILLIS.between(time, demand.getMoment()) < 1000);
 
         assertEquals(demand.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());

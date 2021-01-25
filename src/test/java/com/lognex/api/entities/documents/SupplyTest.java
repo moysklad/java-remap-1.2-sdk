@@ -73,6 +73,8 @@ public class SupplyTest extends DocumentWithPositionsTestBase {
         assertEquals(Long.valueOf(0), supply.getSum());
         assertFalse(supply.getShared());
         assertTrue(supply.getApplicable());
+        assertFalse(supply.getPublished());
+        assertFalse(supply.getPrinted());
         assertTrue(ChronoUnit.MILLIS.between(time, supply.getMoment()) < 1000);
 
         assertEquals(supply.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());

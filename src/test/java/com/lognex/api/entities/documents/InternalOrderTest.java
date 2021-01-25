@@ -67,6 +67,8 @@ public class InternalOrderTest extends DocumentWithPositionsTestBase {
         assertEquals(Long.valueOf(0), internalOrder.getSum());
         assertFalse(internalOrder.getShared());
         assertTrue(internalOrder.getApplicable());
+        assertFalse(internalOrder.getPublished());
+        assertFalse(internalOrder.getPrinted());
         assertTrue(ChronoUnit.MILLIS.between(time, internalOrder.getMoment()) < 1000);
 
         assertEquals(internalOrder.getOrganization().getMeta().getHref(), simpleEntityManager.getOwnOrganization().getMeta().getHref());
