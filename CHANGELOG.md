@@ -2,8 +2,14 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
-## 1.12-release (05.11.2020)
+## 1.13-release (05.11.2020)
 * Добавлены поля `printed` и `published` во все документы
+
+## 1.12-release (10.12.2020)
+* Добавлен запрос доп. полей документов
+
+## 1.11-release (2.12.2020)
+* Добавлен эндпоинт `states` для документов, где он отсутствовал и поле `project` для `InvoiceIn`
 
 ## 1.10-release (25.11.2020)
 * Добавлены поля `fiscalType`, `qrAcqire`, `qrPayEnabled`, `qrBankPercent`, `minionToMasterType`, `masterRetailStores` в `RetailStore`

@@ -22,7 +22,8 @@ public final class InvoiceInClient
         MassCreateUpdateDeleteEndpoint<InvoiceIn>,
         DocumentPositionsEndpoint<InvoiceDocumentPosition>,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public InvoiceInClient(ApiClient api) {
         super(api, "/entity/invoicein/");

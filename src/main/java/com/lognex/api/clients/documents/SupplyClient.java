@@ -22,7 +22,8 @@ public final class SupplyClient
         MassCreateUpdateDeleteEndpoint<Supply>,
         DocumentPositionsEndpoint<SupplyDocumentPosition>,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public SupplyClient(ApiClient api) {
         super(api, "/entity/supply/");

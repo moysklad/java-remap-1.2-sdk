@@ -1,7 +1,9 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
+import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.MetaEntity;
+import com.lognex.api.entities.State;
 import com.lognex.api.entities.Store;
 import com.lognex.api.entities.agents.Counterparty;
 import com.lognex.api.entities.agents.Organization;
@@ -13,7 +15,8 @@ import org.junit.Test;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 
 import static com.lognex.api.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
@@ -69,6 +72,12 @@ public class SalesReturnTest extends DocumentWithPositionsTestBase {
     }
 
     @Test
+    public void attributesTest() throws IOException, ApiClientException{
+        ListEntity<Attribute> attributes = api.entity().salesreturn().metadataAttributes();
+        assertNotNull(attributes);
+    }
+
+    @Test
     public void newTest() throws IOException, ApiClientException {
         SalesReturn salesReturn = api.entity().salesreturn().templateDocument();
         LocalDateTime time = LocalDateTime.now();
@@ -106,6 +115,25 @@ public class SalesReturnTest extends DocumentWithPositionsTestBase {
         assertEquals(demand.getAgent().getMeta().getHref(), salesReturn.getAgent().getMeta().getHref());
         assertEquals(demand.getStore().getMeta().getHref(), salesReturn.getStore().getMeta().getHref());
         assertEquals(demand.getOrganization().getMeta().getHref(), salesReturn.getOrganization().getMeta().getHref());
+    }
+
+    @Test
+    public void createStateTest() throws IOException, ApiClientException {
+        State state = new State();
+        state.setName("state_" + randomStringTail());
+        state.setStateType(State.StateType.regular);
+        state.setColor(randomColor());
+
+        api.entity().salesreturn().states().create(state);
+
+        List<State> retrievedStates = api.entity().salesreturn().metadata().get().getStates();
+
+        State retrievedState = retrievedStates.stream().filter(s -> s.getId().equals(state.getId())).findFirst().orElse(null);
+        assertNotNull(retrievedState);
+        assertEquals(state.getName(), retrievedState.getName());
+        assertEquals(state.getStateType(), retrievedState.getStateType());
+        assertEquals(state.getColor(), retrievedState.getColor());
+        assertEquals(state.getEntityType(), retrievedState.getEntityType());
     }
 
     @Override

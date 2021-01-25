@@ -21,7 +21,8 @@ public final class InvoiceOutClient
         MassCreateUpdateDeleteEndpoint<InvoiceOut>,
         DocumentPositionsEndpoint<InvoiceDocumentPosition>,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasStatesEndpoint {
 
     public InvoiceOutClient(ApiClient api) {
         super(api, "/entity/invoiceout/");

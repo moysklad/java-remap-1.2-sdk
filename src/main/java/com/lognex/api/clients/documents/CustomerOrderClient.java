@@ -21,7 +21,8 @@ public final class CustomerOrderClient
         DocumentPositionsEndpoint<CustomerOrderDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        MetadataAttributeEndpoint {
 
     public CustomerOrderClient(ApiClient api) {
         super(api, "/entity/customerorder/");

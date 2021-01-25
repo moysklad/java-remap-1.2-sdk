@@ -1,6 +1,7 @@
 package com.lognex.api.entities.documents;
 
 import com.lognex.api.clients.EntityClientBase;
+import com.lognex.api.entities.Attribute;
 import com.lognex.api.entities.Contract;
 import com.lognex.api.entities.MetaEntity;
 import com.lognex.api.entities.agents.Counterparty;
@@ -63,6 +64,12 @@ public class CommissionReportOutTest extends DocumentWithPositionsTestBase {
         MetadataAttributeSharedStatesResponse response = api.entity().commissionreportout().metadata().get();
 
         assertFalse(response.getCreateShared());
+    }
+
+    @Test
+    public void attributesTest() throws IOException, ApiClientException{
+        ListEntity<Attribute> attributes = api.entity().commissionreportout().metadataAttributes();
+        assertNotNull(attributes);
     }
 
     @Override

@@ -39,6 +39,7 @@ public class InvoiceIn extends DocumentEntity {
     private Boolean vatEnabled;
     private Boolean vatIncluded;
     private Long vatSum;
+    private Project project;
 
     public InvoiceIn(String id) {
         super(id);
