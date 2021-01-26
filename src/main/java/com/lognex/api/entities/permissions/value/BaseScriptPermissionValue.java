@@ -1,8 +1,9 @@
 package com.lognex.api.entities.permissions.value;
 
 public enum BaseScriptPermissionValue {
-    author,
-    assignee,
-    authorOrAssignee,
-    all
+    NO,
+    AUTHOR,
+    ASSIGNEE,
+    AUTHOR_OR_ASSIGNEE,
+    ALL
 }
