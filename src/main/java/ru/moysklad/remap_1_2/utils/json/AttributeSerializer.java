@@ -28,12 +28,15 @@ public class AttributeSerializer implements JsonSerializer<Attribute>, JsonDeser
         if (src.getType() != null) {
             switch (src.getType()) {
                 case timeValue:
-                    if (src.getValue() instanceof LocalDateTime) {
-                        src.setValue(context.serialize(((LocalDateTime) src.getValue()).format(formatter)));
-                    } else if (src.getValue() instanceof LocalDate) {
-                        src.setValue(context.serialize(((LocalDate) src.getValue()).format(formatter)));
-                    } else {
-                        throw new IllegalArgumentException("Неподдерживаемый тип данных для дополнительного поля с типом 'time': " + src.getValue().getClass().getSimpleName());
+                    if (src.getValue() != null) {
+                        if (src.getValue() instanceof LocalDateTime) {
+                            src.setValue(context.serialize(((LocalDateTime) src.getValue()).format(formatter)));
+                        } else if (src.getValue() instanceof LocalDate) {
+                            src.setValue(context.serialize(((LocalDate) src.getValue()).format(formatter)));
+                        } else {
+                            throw new IllegalArgumentException("Неподдерживаемый тип данных для дополнительного поля с типом 'time': " + src
+                                    .getValue().getClass().getSimpleName());
+                        }
                     }
                     break;
             }

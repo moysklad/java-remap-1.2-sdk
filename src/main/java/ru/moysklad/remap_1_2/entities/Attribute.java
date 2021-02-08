@@ -41,6 +41,11 @@ public class Attribute extends MetaEntity {
     private Meta download;
 
     /**
+     * Метадата сущности справочника
+     */
+    private Meta customEntityMeta;
+
+    /**
      * Тип сущности, которой принадлежит аттрибут
      */
     private transient Meta.Type attributeEntityType;
