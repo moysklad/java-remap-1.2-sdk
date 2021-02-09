@@ -68,11 +68,13 @@ public class ContractTest extends EntityGetUpdateDeleteTest {
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
+        attribute.setDescription("description");
         Attribute created = api.entity().contract().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
         assertEquals(Attribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
+        assertEquals("description", created.getDescription());
     }
 
     @Test

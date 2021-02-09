@@ -46,6 +46,11 @@ public class Attribute extends MetaEntity {
     private Meta customEntityMeta;
 
     /**
+     * Описание
+     */
+    private String description;
+
+    /**
      * Тип сущности, которой принадлежит аттрибут
      */
     private transient Meta.Type attributeEntityType;
