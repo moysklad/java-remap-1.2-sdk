@@ -5,6 +5,7 @@
 ## 2.1-release (10.02.2021)
 * Добавлены эндпоинты на создание/обновление/удаление доп. полей у сущностей с доп. полями
 * Добавлены клиенты `Prepayment` и `PrepaymentReturn`
+* Добавлены поля `Description` и `CustomEntityMeta` в сущность `Attribute`
 
 ## 1.14-release (26.01.2021)
 * artifactId изменен с api-remap-1.2-sdk на java-remap-sdk
