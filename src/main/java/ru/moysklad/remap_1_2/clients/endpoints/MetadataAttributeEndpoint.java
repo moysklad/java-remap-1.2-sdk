@@ -22,4 +22,41 @@ public interface MetadataAttributeEndpoint extends Endpoint {
                 list(Attribute.class);
         return attributes;
     }
+
+    @ApiEndpoint
+    default Attribute createMetadataAttribute(Attribute newEntity) throws IOException, ApiClientException {
+        Attribute responseEntity = HttpRequestExecutor.
+                path(api(), path() + "metadata/attributes/").
+                body(newEntity).
+                post(Attribute.class);
+        newEntity.set(responseEntity);
+        return newEntity;
+    }
+
+    @ApiEndpoint
+    default Attribute updateMetadataAttribute(String id, Attribute newEntity) throws IOException, ApiClientException {
+        Attribute responseEntity = HttpRequestExecutor.
+                path(api(), path() + "metadata/attributes/" + id).
+                body(newEntity).
+                put(Attribute.class);
+        newEntity.set(responseEntity);
+        return newEntity;
+    }
+
+    @ApiEndpoint
+    default Attribute updateMetadataAttribute(Attribute newEntity) throws IOException, ApiClientException {
+        return updateMetadataAttribute(newEntity.getId(), newEntity);
+    }
+
+    @ApiEndpoint
+    default void deleteMetadataAttribute(String id) throws IOException, ApiClientException {
+        HttpRequestExecutor.
+                path(api(), path() + "metadata/attributes/" + id).
+                delete();
+    }
+
+    @ApiEndpoint
+    default void deleteMetadataAttribute(Attribute entity) throws IOException, ApiClientException {
+        deleteMetadataAttribute(entity.getId());
+    }
 }

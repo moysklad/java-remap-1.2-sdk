@@ -221,8 +221,13 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     public void test_deserializeCustomEntity() {
         Gson gsonCustom = ApiClient.createGson();
 
+        Meta customEntityMeta = new Meta();
+        customEntityMeta.setHref("customentity/12341234");
+        customEntityMeta.setType(Meta.Type.CUSTOM_ENTITY_METADATA);
+
         Attribute e = new Attribute();
         e.setEntityType(Meta.Type.CUSTOM_ENTITY);
+        e.setCustomEntityMeta(customEntityMeta);
         CustomEntityElement ce = new CustomEntityElement();
         ce.setMeta(new Meta());
         ce.getMeta().setType(Meta.Type.CUSTOM_ENTITY);
@@ -231,11 +236,31 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
 
         String data = gsonCustom.toJson(e);
 
-        assertEquals("{\"value\":{\"name\":\"CUSTOM VALUE\",\"meta\":{\"type\":\"customentity\"}},\"type\":\"customentity\"}", data);
+        assertEquals("{\"value\":{\"name\":\"CUSTOM VALUE\",\"meta\":{\"type\":\"customentity\"}}," +
+                "\"customEntityMeta\":{\"href\":\"customentity/12341234\",\"type\":\"customentitymetadata\"}," +
+                "\"type\":\"customentity\"}", data);
         Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
         assertEquals(Meta.Type.CUSTOM_ENTITY, parsed.getEntityType());
         assertNull(parsed.getType());
         assertEquals(CustomEntityElement.class, parsed.getValue().getClass());
         assertEquals("CUSTOM VALUE", parsed.getValueAs(CustomEntityElement.class).getName());
+        assertEquals("customentity/12341234", customEntityMeta.getHref());
+        assertEquals(Meta.Type.CUSTOM_ENTITY_METADATA, customEntityMeta.getType());
+    }
+
+    @Test
+    public void test_deserializeNullTime() {
+        Gson gsonCustom = ApiClient.createGson();
+
+        Attribute e = new Attribute();
+        e.setType(Attribute.Type.timeValue);
+
+        String data = gsonCustom.toJson(e);
+
+        assertEquals("{\"type\":\"time\"}", data);
+        Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
+        assertEquals(Attribute.Type.timeValue, parsed.getType());
+        assertNull(parsed.getEntityType());
+        assertNull(parsed.getValue());
     }
 }

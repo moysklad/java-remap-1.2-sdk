@@ -325,4 +325,14 @@ public final class EntityClient {
     public TokenClient token() {
         return new TokenClient(api);
     }
+
+    @ApiChainElement
+    public PrepaymentClient prepayment() {
+        return new PrepaymentClient(api);
+    }
+
+    @ApiChainElement
+    public PrepaymentReturnClient prepaymentReturn() {
+        return new PrepaymentReturnClient(api);
+    }
 }
