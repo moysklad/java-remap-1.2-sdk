@@ -11,6 +11,10 @@
 * Добавлены клиенты `Prepayment` и `PrepaymentReturn`
 * Добавлены поля `Description` и `CustomEntityMeta` в сущность `Attribute`
 
+## 2.0-release (15.01.2021)
+* Изменен artifactId с java-remap-sdk на api-remap-1.2-sdk
+* Изменён базовый пакет с `com.lognex.api.*` на `ru.moysklad.remap_1_2.*`.
+
 ## 1.14-release (26.01.2021)
 * artifactId изменен с api-remap-1.2-sdk на java-remap-sdk
 
