@@ -35,9 +35,9 @@
 
     <distributionManagement>
         <repository>
-            <id>artifactory</id>
+            <id>ossrh</id>
             <name>Moysklad Libs Release Repo</name>
-            <url>https://repo.moysklad.ru/artifactory/libs-release-local/</url>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
         <snapshotRepository>
             <id>artifactory</id>
