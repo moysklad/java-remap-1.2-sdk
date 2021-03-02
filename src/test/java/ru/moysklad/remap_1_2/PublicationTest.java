@@ -54,7 +54,6 @@ public class PublicationTest {
         Publication publication = api.entity().demand().publish(docId, templates.getRows().get(0));
         assertEquals(templates.getRows().get(0).getMeta(), publication.getTemplate().getMeta());
         assertFalse(isEmpty(publication.getHref()));
-        assertTrue(publication.getHref().endsWith(".html"));
 
         Optional<String> publicationId = MetaHrefUtils.getIdFromHref(publication.getMeta().getHref());
         assertTrue(publicationId.isPresent());
