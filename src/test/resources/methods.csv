@@ -2101,3 +2101,8 @@ PUT;https://test.moysklad/api/remap/1.2/entity/move/metadata/attributes/ENTITY_I
 PUT;https://test.moysklad/api/remap/1.2/entity/purchasereturn/metadata/attributes/ID;String,Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/cashout/metadata/attributes/ENTITY_ID;Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/prepayment/ID/export/;String,Template,File,boolean;void
+GET;https://test.moysklad/api/remap/1.2/entity/employee/ID/security;String;EmployeePermission
+PUT;https://test.moysklad/api/remap/1.2/entity/employee/ID/access/activate;String,EmployeePermission;MailActivationRequired
+PUT;https://test.moysklad/api/remap/1.2/entity/employee/ID/access/deactivate;String;void
+PUT;https://test.moysklad/api/remap/1.2/entity/employee/ID/access/resetpassword;String;void
+PUT;https://test.moysklad/api/remap/1.2/entity/employee/ID/security;String,EmployeePermissions;EmployeePermission

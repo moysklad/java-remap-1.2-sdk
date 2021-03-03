@@ -13,6 +13,7 @@ import ru.moysklad.remap_1_2.utils.MetaHrefUtils;
 import ru.moysklad.remap_1_2.utils.TestConstants;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Optional;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
@@ -54,7 +55,8 @@ public class PublicationTest {
         Publication publication = api.entity().demand().publish(docId, templates.getRows().get(0));
         assertEquals(templates.getRows().get(0).getMeta(), publication.getTemplate().getMeta());
         assertFalse(isEmpty(publication.getHref()));
-        assertTrue(publication.getHref().endsWith(".html"));
+        assertNotNull("publication url " + publication.getHref() + " is relative or not an url",
+                new URL(publication.getHref()).getHost());
 
         Optional<String> publicationId = MetaHrefUtils.getIdFromHref(publication.getMeta().getHref());
         assertTrue(publicationId.isPresent());
