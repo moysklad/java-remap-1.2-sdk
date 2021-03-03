@@ -29,9 +29,10 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> {
         bundle.setName("bundle_" + randomString(3) + "_" + new Date().getTime());
         bundle.setArchived(false);
         bundle.setArticle(randomString());
-        bundle.setTrackingType(Bundle.TrackingType.NOT_TRACKED);
+        bundle.setTrackingType(Bundle.TrackingType.OTP);
         bundle.setPaymentItemType(GoodPaymentItemType.COMPOUND_PAYMENT_ITEM);
         bundle.setTaxSystem(GoodTaxSystem.PRESUMPTIVE_TAX_SYSTEM);
+        bundle.setPartialDisposal(true);
 
         Product product = simpleEntityManager.createSimple(Product.class);
         ListEntity<Bundle.ComponentEntity> components = new ListEntity<>();
@@ -59,6 +60,7 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> {
         assertEquals(bundle.getTrackingType(), retrievedEntity.getTrackingType());
         assertEquals(bundle.getPaymentItemType(), retrievedEntity.getPaymentItemType());
         assertEquals(bundle.getTaxSystem(), retrievedEntity.getTaxSystem());
+        assertEquals(bundle.getPartialDisposal(), retrievedEntity.getPartialDisposal());
     }
 
     @Test

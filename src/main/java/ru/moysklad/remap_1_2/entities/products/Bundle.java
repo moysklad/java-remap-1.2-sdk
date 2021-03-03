@@ -98,6 +98,11 @@ public class Bundle extends AbstractProduct implements IEntityWithAttributes, Ha
      */
     private Overhead overhead;
 
+    /**
+     * Флаг включения частичного выбытия
+     */
+    private Boolean partialDisposal;
+
     @Getter
     @Setter
     @NoArgsConstructor
