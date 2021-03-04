@@ -113,7 +113,7 @@ public final class HttpRequestExecutor {
     }
 
     /**
-     * Добавить параметр в строку запроса после URL в формате <code>key=value&</code>.
+     * Добавить параметр в строку запроса после URL в формате <code>key=value&amp;</code>.
      */
     public HttpRequestExecutor query(String key, Object value) {
         if (query == null) query = new HashMap<>();
