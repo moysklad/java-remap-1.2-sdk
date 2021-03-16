@@ -1,10 +1,6 @@
 package ru.moysklad.remap_1_2.entities;
 
 import com.google.gson.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import ru.moysklad.remap_1_2.entities.agents.Counterparty;
 import ru.moysklad.remap_1_2.entities.agents.Employee;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
@@ -12,12 +8,17 @@ import ru.moysklad.remap_1_2.entities.discounts.*;
 import ru.moysklad.remap_1_2.entities.documents.*;
 import ru.moysklad.remap_1_2.entities.documents.positions.*;
 import ru.moysklad.remap_1_2.entities.notifications.*;
+import ru.moysklad.remap_1_2.entities.permissions.EmployeeRole;
 import ru.moysklad.remap_1_2.entities.products.Bundle;
 import ru.moysklad.remap_1_2.entities.products.Product;
 import ru.moysklad.remap_1_2.entities.products.Service;
 import ru.moysklad.remap_1_2.entities.products.Variant;
 import ru.moysklad.remap_1_2.responses.metadata.CompanySettingsMetadata;
 import ru.moysklad.remap_1_2.utils.MetaHrefUtils;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Arrays;
 
@@ -208,6 +209,9 @@ public final class Meta {
         VARIANT("variant", Variant.class),
         WEBHOOK("webhook", WebHook.class),
         COUNTERPARTY_SETTINGS("counterpartysettings", CounterpartySettings.class),
+        SYSTEM_ROLE("systemrole", EmployeeRole.class),
+        INDIVIDUAL_ROLE("individualrole", EmployeeRole.class),
+        CUSTOM_ROLE("customrole", EmployeeRole.class)
         ;
 
         @Getter

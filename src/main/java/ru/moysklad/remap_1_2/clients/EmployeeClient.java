@@ -15,7 +15,9 @@ public final class EmployeeClient
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Employee>,
         PutByIdEndpoint<Employee>,
-        MassCreateUpdateDeleteEndpoint<Employee> {
+        MassCreateUpdateDeleteEndpoint<Employee>,
+        HasPermissionsEndpoint,
+        HasAccessManagmentEndpoint {
 
     public EmployeeClient(ru.moysklad.remap_1_2.ApiClient api) {
         super(api, "/entity/employee/");

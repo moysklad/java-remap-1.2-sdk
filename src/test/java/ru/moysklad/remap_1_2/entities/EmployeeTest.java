@@ -1,11 +1,12 @@
 package ru.moysklad.remap_1_2.entities;
 
-import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.agents.Employee;
+import ru.moysklad.remap_1_2.entities.permissions.EmployeePermission;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Date;
@@ -35,6 +36,22 @@ public class EmployeeTest extends EntityGetUpdateDeleteTest {
         assertEquals(employee.getArchived(), retrievedEntity.getArchived());
         assertEquals(employee.getDescription(), retrievedEntity.getDescription());
         assertEquals(employee.getInn(), retrievedEntity.getInn());
+    }
+
+    @Test
+    public void getEmployeePermissionsTest() throws IOException, ApiClientException {
+        Employee employee = new Employee();
+        employee.setLastName("employee_" + randomString(3) + "_" + new Date().getTime());
+        employee.setEmail("test@test.ru");
+        api.entity().employee().create(employee);
+
+        ListEntity<Employee> updatedEntitiesList = api.entity().employee().get(filterEq("lastName", employee.getLastName()));
+        assertEquals(1, updatedEntitiesList.getRows().size());
+
+        Employee retrievedEntity = updatedEntitiesList.getRows().get(0);
+
+        EmployeePermission employeePermission = api.entity().employee().getPermissions(retrievedEntity.getId());
+        assertEquals(employeePermission.getIsActive(), false);
     }
 
     @Override

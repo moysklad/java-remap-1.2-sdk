@@ -2,13 +2,24 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
-## 2.2-release (todo)
+## 2.4-release (16.03.2021)
 * Добавлено поле `partialDisposal` в сущности `Product` и `Bundle`
+
+## 2.3-release (4.03.2021)
+* Релиз в maven репозиторий
+
+## 2.2-release (3.03.2021)
+* Добавлены эндпоинты управления правами сотрудника `HasPermissionsEndpoint` и управления доступом сотрудника 
+к основному сервису МойСклад `HasAccessManagmentEndpoint`
 
 ## 2.1-release (10.02.2021)
 * Добавлены эндпоинты на создание/обновление/удаление доп. полей у сущностей с доп. полями
 * Добавлены клиенты `Prepayment` и `PrepaymentReturn`
 * Добавлены поля `Description` и `CustomEntityMeta` в сущность `Attribute`
+
+## 2.0-release (15.01.2021)
+* Изменен artifactId с java-remap-sdk на api-remap-1.2-sdk
+* Изменён базовый пакет с `com.lognex.api.*` на `ru.moysklad.remap_1_2.*`.
 
 ## 1.14-release (26.01.2021)
 * artifactId изменен с api-remap-1.2-sdk на java-remap-sdk
