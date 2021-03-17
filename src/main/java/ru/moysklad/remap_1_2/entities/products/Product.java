@@ -144,6 +144,11 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
     private String ppeType;
 
     /**
+     * Флаг включения частичного выбытия
+     */
+    private Boolean partialDisposal;
+
+    /**
      * Объект, содержащий данные алкогольной продукции
      */
     @Getter

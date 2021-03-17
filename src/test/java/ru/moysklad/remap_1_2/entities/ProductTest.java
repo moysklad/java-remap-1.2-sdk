@@ -24,11 +24,12 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> {
         product.setDescription(randomString());
         product.setArticle(randomString());
         product.setWeight(randomDouble(1, 5, 2));
-        product.setTrackingType(Product.TrackingType.TOBACCO);
+        product.setTrackingType(Product.TrackingType.OTP);
         product.setPaymentItemType(GoodPaymentItemType.GOOD);
         product.setTaxSystem(GoodTaxSystem.SIMPLIFIED_TAX_SYSTEM_INCOME);
         product.setSupplier(simpleEntityManager.createSimple(Counterparty.class));
         product.setPpeType("2400001226108");
+        product.setPartialDisposal(true);
 
         api.entity().product().create(product);
 
@@ -47,6 +48,7 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> {
         assertEquals(product.getSupplier(), retrievedEntity.getSupplier());
         assertFalse(product.getAttribute(null).isPresent());
         assertEquals(product.getPpeType(), retrievedEntity.getPpeType());
+        assertEquals(product.getPartialDisposal(), retrievedEntity.getPartialDisposal());
     }
 
     @Test
