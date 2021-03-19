@@ -3,9 +3,15 @@ package ru.moysklad.remap_1_2.entities.documents;
 import com.google.gson.Gson;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.ApiClient;
+import ru.moysklad.remap_1_2.entities.Attribute;
 import ru.moysklad.remap_1_2.entities.EntityTestBase;
 import ru.moysklad.remap_1_2.entities.Meta;
+import ru.moysklad.remap_1_2.responses.ListEntity;
+import ru.moysklad.remap_1_2.utils.ApiClientException;
 import ru.moysklad.remap_1_2.utils.TestUtils;
+
+import java.io.IOException;
+import java.util.Date;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
@@ -69,5 +75,63 @@ public class PrepaymentReturnTest extends EntityTestBase {
         assertEquals(Long.valueOf(15000), prepaymentReturn.getCashSum());
         assertEquals(Long.valueOf(15000), prepaymentReturn.getNoCashSum());
         assertEquals(Long.valueOf(0), prepaymentReturn.getQrSum());
+    }
+    
+    @Test
+    public void attributesTest() throws IOException, ApiClientException {
+        ListEntity<Attribute> attributes = api.entity().prepaymentReturn().metadataAttributes();
+        assertNotNull(attributes);
+    }
+
+    @Test
+    public void createAttributeTest() throws IOException, ApiClientException {
+        Attribute attribute = new Attribute();
+        attribute.setType(Attribute.Type.textValue);
+        String name = "field" + randomString(3) + "_" + new Date().getTime();
+        attribute.setName(name);
+        attribute.setRequired(false);
+        attribute.setDescription("description");
+        Attribute created = api.entity().prepaymentReturn().createMetadataAttribute(attribute);
+        assertNotNull(created);
+        assertEquals(name, created.getName());
+        assertEquals(Attribute.Type.textValue, created.getType());
+        assertFalse(created.getRequired());
+        assertEquals("description", created.getDescription());
+    }
+
+    @Test
+    public void updateAttributeTest2() throws IOException, ApiClientException {
+        Attribute attribute = new Attribute();
+        attribute.setEntityType(Meta.Type.PRODUCT);
+        attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
+        attribute.setRequired(true);
+        Attribute created = api.entity().prepaymentReturn().createMetadataAttribute(attribute);
+
+        String name = "field" + randomString(3) + "_" + new Date().getTime();
+        created.setName(name);
+        created.setRequired(false);
+        Attribute updated = api.entity().prepaymentReturn().updateMetadataAttribute(created);
+        assertNotNull(created);
+        assertEquals(name, updated.getName());
+        assertNull(updated.getType());
+        assertEquals(Meta.Type.PRODUCT, updated.getEntityType());
+        assertFalse(updated.getRequired());
+    }
+
+    @Test
+    public void deleteAttributeTest() throws IOException, ApiClientException{
+        Attribute attribute = new Attribute();
+        attribute.setEntityType(Meta.Type.PRODUCT);
+        attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
+        attribute.setRequired(true);
+        Attribute created = api.entity().prepaymentReturn().createMetadataAttribute(attribute);
+
+        api.entity().prepaymentReturn().deleteMetadataAttribute(created);
+
+        try {
+            api.entity().prepaymentReturn().metadataAttributes(created.getId());
+        } catch (ApiClientException e) {
+            assertEquals(404, e.getStatusCode());
+        }
     }
 }

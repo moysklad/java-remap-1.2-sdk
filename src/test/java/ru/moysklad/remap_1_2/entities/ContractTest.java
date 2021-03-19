@@ -107,7 +107,7 @@ public class ContractTest extends EntityGetUpdateDeleteTest {
         api.entity().contract().deleteMetadataAttribute(created);
 
         try {
-            Attribute founded = api.entity().contract().metadataAttributes(created.getId());
+            api.entity().contract().metadataAttributes(created.getId());
         } catch (ApiClientException e) {
             assertEquals(404, e.getStatusCode());
         }
