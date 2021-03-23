@@ -17,8 +17,6 @@ public final class BundleClient
         implements
         GetListEndpoint<Bundle>,
         PostEndpoint<Bundle>,
-        MetadataEndpoint<MetadataAttributeResponse>,
-        MetadataAttributeEndpoint,
         GetByIdEndpoint<Bundle>,
         PutByIdEndpoint<Bundle>,
         MassCreateUpdateDeleteEndpoint<Bundle>,

@@ -12,7 +12,6 @@ public final class ServiceClient
         PostEndpoint<Service>,
         DeleteByIdEndpoint,
         MetadataEndpoint<MetadataAttributeResponse>,
-        MetadataAttributeEndpoint,
         GetByIdEndpoint<Service>,
         PutByIdEndpoint<Service>,
         MassCreateUpdateDeleteEndpoint<Service>,

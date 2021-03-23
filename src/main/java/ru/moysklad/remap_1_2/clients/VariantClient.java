@@ -12,7 +12,6 @@ public final class VariantClient
         PostEndpoint<Variant>,
         DeleteByIdEndpoint,
         MetadataEndpoint<VariantMetadataResponse>,
-        MetadataAttributeEndpoint,
         GetByIdEndpoint<Variant>,
         PutByIdEndpoint<Variant>,
         MassCreateUpdateDeleteEndpoint<Variant>,

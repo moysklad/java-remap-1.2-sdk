@@ -12,7 +12,6 @@ public final class ProductFolderClient
         PostEndpoint<ProductFolder>,
         DeleteByIdEndpoint,
         MetadataEndpoint<MetadataAttributeResponse>,
-        MetadataAttributeEndpoint,
         GetByIdEndpoint<ProductFolder>,
         PutByIdEndpoint<ProductFolder>,
         MassCreateUpdateDeleteEndpoint<ProductFolder> {
