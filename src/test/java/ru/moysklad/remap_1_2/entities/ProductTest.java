@@ -95,7 +95,7 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> {
     }
 
     @Test
-    public void updateAttributeTest2() throws IOException, ApiClientException {
+    public void updateAttributeTest() throws IOException, ApiClientException {
         Attribute attribute = new Attribute();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
