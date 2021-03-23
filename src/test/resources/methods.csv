@@ -314,7 +314,6 @@ POST;https://test.moysklad/api/remap/1.2/entity/cashout/;MetaEntity;MetaEntity
 GET;https://test.moysklad/api/remap/1.2/entity/consignment/metadata/attributes/ID;String;Attribute
 GET;https://test.moysklad/api/remap/1.2/entity/supply/;ApiParam[];ListEntity
 POST;https://test.moysklad/api/remap/1.2/entity/retaildemand/ID/export/;String,Template,ExportExtension,File;void
-GET;https://test.moysklad/api/remap/1.2/entity/variant/metadata/attributes/ID;String;Attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/internalorder/ID;String;void
 POST;https://test.moysklad/api/remap/1.2/entity/supply/;MetaEntity;MetaEntity
 GET;https://test.moysklad/api/remap/1.2/entity/loss/ID/positions/ID;String,String,ApiParam[];LossDocumentPosition
@@ -356,7 +355,6 @@ POST;https://test.moysklad/api/remap/1.2/entity/commissionreportout/ID/positions
 GET;https://test.moysklad/api/remap/1.2/entity/cashout/metadata/attributes/ID;String;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/inventory/ID/export/;String,ExportRequest,File;void
 GET;https://test.moysklad/api/remap/1.2/entity/supply/DOCUMENT_ID/positions;DocumentEntity,ApiParam[];ListEntity
-GET;https://test.moysklad/api/remap/1.2/entity/productfolder/metadata/attributes/ID;String;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/supply/ID/positions/;String,List;ArrayList
 GET;https://test.moysklad/api/remap/1.2/entity/cashin/ID;String,ApiParam[];CashIn
 GET;https://test.moysklad/api/remap/1.2/entity/processing/metadata/embeddedtemplate/ID;String;Template
@@ -938,7 +936,6 @@ GET;https://test.moysklad/api/remap/1.2/entity/loss/DOCUMENT_ID/positions;Docume
 POST;https://test.moysklad/api/remap/1.2/entity/consignment/;MetaEntity;MetaEntity
 GET;https://test.moysklad/api/remap/1.2/entity/retaildrawercashin/metadata/attributes/ID;String;Attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/pricelist/ID;String;void
-GET;https://test.moysklad/api/remap/1.2/entity/bundle/metadata/attributes/ID;String;Attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/variant/ENTITY_ID;MetaEntity;void
 GET;https://test.moysklad/api/remap/1.2/entity/enter/ID/positions;String,ApiParam[];ListEntity
 DELETE;https://test.moysklad/api/remap/1.2/entity/service/ID;String;void
@@ -1081,7 +1078,6 @@ POST;https://test.moysklad/api/remap/1.2/entity/currency/;MetaEntity;MetaEntity
 GET;https://test.moysklad/api/remap/1.2/entity/inventory/metadata/embeddedtemplate/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/processing/metadata/embeddedtemplate/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/invoicein/metadata/;;MetadataAttributeSharedStatesResponse
-GET;https://test.moysklad/api/remap/1.2/entity/service/metadata/attributes/ID;String;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/invoiceout/ENTITY_ID;MetaEntity;void
 GET;https://test.moysklad/api/remap/1.2/entity/project/metadata/attributes/ID;String;Attribute
 GET;https://test.moysklad/api/remap/1.2/entity/inventory/metadata/customtemplate/;;ListEntity
@@ -1114,7 +1110,6 @@ GET;https://test.moysklad/api/remap/1.2/entity/pricelist/DOCUMENT_ID/positions/I
 POST;https://test.moysklad/api/remap/1.2/entity/purchaseorder/ID/export/;String,Template,ExportExtension,File;void
 POST;https://test.moysklad/api/remap/1.2/entity/purchaseorder/ID/positions/;String,List;ArrayList
 POST;https://test.moysklad/api/remap/1.2/entity/supply/DOCUMENT_ID/positions/;DocumentEntity,DocumentPosition;DocumentPosition
-GET;https://test.moysklad/api/remap/1.2/entity/bundle/metadata;;MetadataAttributeResponse
 PUT;https://test.moysklad/api/remap/1.2/entity/move/new;String,List;Move
 GET;https://test.moysklad/api/remap/1.2/entity/move/ID;String,ApiParam[];Move
 PUT;https://test.moysklad/api/remap/1.2/entity/paymentin/new;String,List;PaymentIn
@@ -1707,7 +1702,6 @@ GET;https://test.moysklad/api/remap/1.2/entity/commissionreportout/metadata/attr
 GET;https://test.moysklad/api/remap/1.2/entity/factureout/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/counterparty/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/cashin/metadata/attributes/;;ListEntity
-GET;https://test.moysklad/api/remap/1.2/entity/productfolder/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/paymentin/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/retaildemand/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/demand/metadata/attributes/;;ListEntity
@@ -1720,7 +1714,6 @@ GET;https://test.moysklad/api/remap/1.2/entity/product/metadata/attributes/;;Lis
 GET;https://test.moysklad/api/remap/1.2/entity/retailsalesreturn/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/cashout/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/consignment/metadata/attributes/;;ListEntity
-GET;https://test.moysklad/api/remap/1.2/entity/service/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/contract/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/retaildrawercashout/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/bonustransaction/metadata/attributes/;;ListEntity
@@ -1731,14 +1724,12 @@ GET;https://test.moysklad/api/remap/1.2/entity/invoiceout/metadata/attributes/;;
 GET;https://test.moysklad/api/remap/1.2/entity/purchaseorder/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/internalorder/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/employee/metadata/attributes/;;ListEntity
-GET;https://test.moysklad/api/remap/1.2/entity/variant/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/inventory/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/purchasereturn/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/customerorder/metadata/attributes/ID;String;Attribute
 GET;https://test.moysklad/api/remap/1.2/entity/invoicein/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/salesreturn/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/loss/metadata/attributes/;;ListEntity
-GET;https://test.moysklad/api/remap/1.2/entity/bundle/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/customerorder/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/enter/metadata/attributes/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/move/metadata/attributes/;;ListEntity
@@ -1815,7 +1806,6 @@ GET;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/metadata/attribu
 DELETE;https://test.moysklad/api/remap/1.2/entity/commissionreportout/metadata/attributes/ID;String;void
 POST;https://test.moysklad/api/remap/1.2/entity/prepayment/ID/publication/;String,Template;Publication
 DELETE;https://test.moysklad/api/remap/1.2/entity/cashout/metadata/attributes/ID;String;void
-DELETE;https://test.moysklad/api/remap/1.2/entity/service/metadata/attributes/ID;String;void
 PUT;https://test.moysklad/api/remap/1.2/entity/facturein/metadata/attributes/ID;String,Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/move/metadata/attributes/ID;String,Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/invoicein/metadata/attributes/ENTITY_ID;Attribute;Attribute
@@ -1837,7 +1827,6 @@ PUT;https://test.moysklad/api/remap/1.2/entity/consignment/metadata/attributes/E
 GET;https://test.moysklad/api/remap/1.2/entity/prepayment/metadata/attributes/ID;String;Attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/cashout/metadata/attributes/ENTITY_ID;Attribute;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/inventory/metadata/attributes/ENTITY_ID;Attribute;void
-PUT;https://test.moysklad/api/remap/1.2/entity/service/metadata/attributes/ID;String,Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/supply/metadata/attributes/;Attribute;Attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/paymentin/metadata/attributes/ENTITY_ID;Attribute;void
 PUT;https://test.moysklad/api/remap/1.2/entity/purchasereturn/metadata/attributes/ENTITY_ID;Attribute;Attribute
@@ -1854,7 +1843,6 @@ DELETE;https://test.moysklad/api/remap/1.2/entity/salesreturn/metadata/attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/ID/publication/ID;String,String;void
 GET;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/metadata/states/ID;String,ApiParam[];State
 POST;https://test.moysklad/api/remap/1.2/entity/paymentin/metadata/attributes/;Attribute;Attribute
-PUT;https://test.moysklad/api/remap/1.2/entity/bundle/metadata/attributes/ENTITY_ID;Attribute;Attribute
 GET;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/metadata/embeddedtemplate/;;ListEntity
 GET;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/ID/publication/;String;ListEntity
 POST;https://test.moysklad/api/remap/1.2/entity/pricelist/metadata/attributes/;Attribute;Attribute
@@ -1862,13 +1850,11 @@ PUT;https://test.moysklad/api/remap/1.2/entity/prepayment/metadata/states/ENTITY
 GET;https://test.moysklad/api/remap/1.2/entity/prepayment/ENTITY_ID;MetaEntity,ApiParam[];Prepayment
 DELETE;https://test.moysklad/api/remap/1.2/entity/customerorder/metadata/attributes/ENTITY_ID;Attribute;void
 PUT;https://test.moysklad/api/remap/1.2/entity/retailsalesreturn/metadata/attributes/ENTITY_ID;Attribute;Attribute
-DELETE;https://test.moysklad/api/remap/1.2/entity/variant/metadata/attributes/ID;String;void
 POST;https://test.moysklad/api/remap/1.2/entity/contract/metadata/attributes/;Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/purchasereturn/metadata/attributes/;Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/retailshift/metadata/attributes/;Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/metadata/attributes/;Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/prepayment/metadata/attributes/ID;String,Attribute;Attribute
-PUT;https://test.moysklad/api/remap/1.2/entity/productfolder/metadata/attributes/ID;String,Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/metadata/attributes/ENTITY_ID;Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/ID/export/;String,Template,ExportExtension,File;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/project/metadata/attributes/ID;String;void
@@ -1896,11 +1882,9 @@ DELETE;https://test.moysklad/api/remap/1.2/entity/retailshift/metadata/attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/supply/metadata/attributes/ID;String;void
 GET;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/ID;String,ApiParam[];PrepaymentReturn
 DELETE;https://test.moysklad/api/remap/1.2/entity/processingorder/metadata/attributes/ENTITY_ID;Attribute;void
-PUT;https://test.moysklad/api/remap/1.2/entity/variant/metadata/attributes/ID;String,Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/store/metadata/attributes/ID;String,Attribute;Attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/cashin/metadata/attributes/ENTITY_ID;Attribute;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/consignment/metadata/attributes/ID;String;void
-DELETE;https://test.moysklad/api/remap/1.2/entity/variant/metadata/attributes/ENTITY_ID;Attribute;void
 POST;https://test.moysklad/api/remap/1.2/entity/counterparty/metadata/attributes/;Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/project/metadata/attributes/;Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/ID/export/;String,ExportRequest,File,boolean;void
@@ -1923,7 +1907,6 @@ DELETE;https://test.moysklad/api/remap/1.2/entity/paymentout/metadata/attributes
 POST;https://test.moysklad/api/remap/1.2/entity/invoicein/metadata/attributes/;Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/move/metadata/attributes/;Attribute;Attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/counterparty/metadata/attributes/ID;String;void
-DELETE;https://test.moysklad/api/remap/1.2/entity/bundle/metadata/attributes/ID;String;void
 PUT;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/metadata/states/ID;String,MetaEntity;void
 GET;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/ENTITY_ID;MetaEntity,ApiParam[];PrepaymentReturn
 PUT;https://test.moysklad/api/remap/1.2/entity/retaildrawercashout/metadata/attributes/ID;String,Attribute;Attribute
@@ -1971,19 +1954,16 @@ DELETE;https://test.moysklad/api/remap/1.2/entity/prepayment/metadata/states/ENT
 POST;https://test.moysklad/api/remap/1.2/entity/consignment/metadata/attributes/;Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/invoiceout/metadata/attributes/;Attribute;Attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/counterparty/metadata/attributes/ENTITY_ID;Attribute;void
-PUT;https://test.moysklad/api/remap/1.2/entity/variant/metadata/attributes/ENTITY_ID;Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/ID/export/;String,Template,File;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/pricelist/metadata/attributes/ID;String;void
 PUT;https://test.moysklad/api/remap/1.2/entity/counterparty/metadata/attributes/ENTITY_ID;Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/store/metadata/attributes/ENTITY_ID;Attribute;Attribute
-POST;https://test.moysklad/api/remap/1.2/entity/bundle/metadata/attributes/;Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/purchaseorder/metadata/attributes/;Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/employee/metadata/attributes/;Attribute;Attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/project/metadata/attributes/ENTITY_ID;Attribute;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/invoicein/metadata/attributes/ID;String;void
 POST;https://test.moysklad/api/remap/1.2/entity/salesreturn/metadata/attributes/;Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/processingorder/metadata/attributes/ENTITY_ID;Attribute;Attribute
-PUT;https://test.moysklad/api/remap/1.2/entity/bundle/metadata/attributes/ID;String,Attribute;Attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/prepayment/ID/publication/ID;String,String;void
 GET;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/;ApiParam[];ListEntity
 DELETE;https://test.moysklad/api/remap/1.2/entity/bonustransaction/metadata/attributes/ID;String;void
@@ -1992,10 +1972,8 @@ POST;https://test.moysklad/api/remap/1.2/entity/prepayment/metadata/states/;List
 DELETE;https://test.moysklad/api/remap/1.2/entity/consignment/metadata/attributes/ENTITY_ID;Attribute;void
 PUT;https://test.moysklad/api/remap/1.2/entity/invoiceout/metadata/attributes/ENTITY_ID;Attribute;Attribute
 GET;https://test.moysklad/api/remap/1.2/entity/prepayment/ID/publication/ID;String,String;Publication
-POST;https://test.moysklad/api/remap/1.2/entity/variant/metadata/attributes/;Attribute;Attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/pricelist/metadata/attributes/ENTITY_ID;Attribute;void
 POST;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/metadata/states/;List;ArrayList
-PUT;https://test.moysklad/api/remap/1.2/entity/service/metadata/attributes/ENTITY_ID;Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/new;String,DocumentEntity;PrepaymentReturn
 DELETE;https://test.moysklad/api/remap/1.2/entity/enter/metadata/attributes/ID;String;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/store/metadata/attributes/ID;String;void
@@ -2003,7 +1981,6 @@ DELETE;https://test.moysklad/api/remap/1.2/entity/purchaseorder/metadata/attribu
 PUT;https://test.moysklad/api/remap/1.2/entity/commissionreportout/metadata/attributes/ID;String,Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/pricelist/metadata/attributes/ENTITY_ID;Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/project/metadata/attributes/ID;String,Attribute;Attribute
-DELETE;https://test.moysklad/api/remap/1.2/entity/service/metadata/attributes/ENTITY_ID;Attribute;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/retaildemand/metadata/attributes/ID;String;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/loss/metadata/attributes/ENTITY_ID;Attribute;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/prepayment/metadata/attributes/ID;String;void
@@ -2039,7 +2016,6 @@ POST;https://test.moysklad/api/remap/1.2/entity/retaildrawercashout/metadata/att
 PUT;https://test.moysklad/api/remap/1.2/entity/factureout/metadata/attributes/ENTITY_ID;Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/retailsalesreturn/metadata/attributes/;Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/salesreturn/metadata/attributes/ID;String,Attribute;Attribute
-POST;https://test.moysklad/api/remap/1.2/entity/service/metadata/attributes/;Attribute;Attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/invoiceout/metadata/attributes/ENTITY_ID;Attribute;void
 PUT;https://test.moysklad/api/remap/1.2/entity/processing/metadata/attributes/ENTITY_ID;Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/customerorder/metadata/attributes/ENTITY_ID;Attribute;Attribute
@@ -2059,13 +2035,10 @@ PUT;https://test.moysklad/api/remap/1.2/entity/cashout/metadata/attributes/ID;St
 DELETE;https://test.moysklad/api/remap/1.2/entity/demand/metadata/attributes/ID;String;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/processingorder/metadata/attributes/ID;String;void
 GET;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/metadata/customtemplate/ID;String;Template
-POST;https://test.moysklad/api/remap/1.2/entity/productfolder/metadata/attributes/;Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/organization/metadata/attributes/ENTITY_ID;Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/internalorder/metadata/attributes/ENTITY_ID;Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/internalorder/metadata/attributes/;Attribute;Attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/loss/metadata/attributes/ID;String;void
-PUT;https://test.moysklad/api/remap/1.2/entity/productfolder/metadata/attributes/ENTITY_ID;Attribute;Attribute
-DELETE;https://test.moysklad/api/remap/1.2/entity/productfolder/metadata/attributes/ID;String;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/cashin/metadata/attributes/ID;String;void
 DELETE;https://test.moysklad/api/remap/1.2/entity/prepayment/ID;String;void
 GET;https://test.moysklad/api/remap/1.2/entity/prepayment/metadata/customtemplate/ID;String;Template
@@ -2090,13 +2063,11 @@ GET;https://test.moysklad/api/remap/1.2/entity/prepayment/metadata/attributes/;;
 PUT;https://test.moysklad/api/remap/1.2/entity/product/metadata/attributes/ID;String,Attribute;Attribute
 POST;https://test.moysklad/api/remap/1.2/entity/store/metadata/attributes/;Attribute;Attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/retaildemand/metadata/attributes/ENTITY_ID;Attribute;void
-DELETE;https://test.moysklad/api/remap/1.2/entity/bundle/metadata/attributes/ENTITY_ID;Attribute;void
 GET;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/metadata/embeddedtemplate/ID;String;Template
 PUT;https://test.moysklad/api/remap/1.2/entity/prepaymentreturn/new;DocumentTemplate;PrepaymentReturn
 GET;https://test.moysklad/api/remap/1.2/entity/prepayment/ID;String,ApiParam[];Prepayment
 PUT;https://test.moysklad/api/remap/1.2/entity/retailsalesreturn/metadata/attributes/ID;String,Attribute;Attribute
 DELETE;https://test.moysklad/api/remap/1.2/entity/purchasereturn/metadata/attributes/ID;String;void
-DELETE;https://test.moysklad/api/remap/1.2/entity/productfolder/metadata/attributes/ENTITY_ID;Attribute;void
 PUT;https://test.moysklad/api/remap/1.2/entity/move/metadata/attributes/ENTITY_ID;Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/purchasereturn/metadata/attributes/ID;String,Attribute;Attribute
 PUT;https://test.moysklad/api/remap/1.2/entity/cashout/metadata/attributes/ENTITY_ID;Attribute;Attribute
