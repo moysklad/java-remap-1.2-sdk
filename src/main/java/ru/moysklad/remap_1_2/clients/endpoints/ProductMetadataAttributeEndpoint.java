@@ -7,7 +7,9 @@ import ru.moysklad.remap_1_2.utils.HttpRequestExecutor;
 
 import java.io.IOException;
 
-public interface ProductMetadataAttributeEndpoint extends MetadataEndpoint {
+public interface ProductMetadataAttributeEndpoint extends MetadataAttributeEndpoint {
+
+    @Override
     @ApiEndpoint
     default Attribute metadataAttributes(String id) throws IOException, ApiClientException {
         return HttpRequestExecutor.
@@ -15,6 +17,7 @@ public interface ProductMetadataAttributeEndpoint extends MetadataEndpoint {
                 get(Attribute.class);
     }
 
+    @Override
     @ApiEndpoint
     default ListEntity<Attribute> metadataAttributes() throws IOException, ApiClientException {
         ListEntity<Attribute> attributes = HttpRequestExecutor.
@@ -23,6 +26,7 @@ public interface ProductMetadataAttributeEndpoint extends MetadataEndpoint {
         return attributes;
     }
 
+    @Override
     @ApiEndpoint
     default Attribute createMetadataAttribute(Attribute newEntity) throws IOException, ApiClientException {
         Attribute responseEntity = HttpRequestExecutor.
@@ -33,6 +37,7 @@ public interface ProductMetadataAttributeEndpoint extends MetadataEndpoint {
         return newEntity;
     }
 
+    @Override
     @ApiEndpoint
     default Attribute updateMetadataAttribute(String id, Attribute newEntity) throws IOException, ApiClientException {
         Attribute responseEntity = HttpRequestExecutor.
@@ -43,11 +48,13 @@ public interface ProductMetadataAttributeEndpoint extends MetadataEndpoint {
         return newEntity;
     }
 
+    @Override
     @ApiEndpoint
     default Attribute updateMetadataAttribute(Attribute newEntity) throws IOException, ApiClientException {
         return updateMetadataAttribute(newEntity.getId(), newEntity);
     }
 
+    @Override
     @ApiEndpoint
     default void deleteMetadataAttribute(String id) throws IOException, ApiClientException {
         HttpRequestExecutor.
@@ -55,6 +62,7 @@ public interface ProductMetadataAttributeEndpoint extends MetadataEndpoint {
                 delete();
     }
 
+    @Override
     @ApiEndpoint
     default void deleteMetadataAttribute(Attribute entity) throws IOException, ApiClientException {
         deleteMetadataAttribute(entity.getId());
