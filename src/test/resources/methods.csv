@@ -2068,3 +2068,11 @@ PUT;https://test.moysklad/api/remap/1.2/entity/employee/ID/access/deactivate;Str
 PUT;https://test.moysklad/api/remap/1.2/entity/employee/ID/access/resetpassword;String;void
 PUT;https://test.moysklad/api/remap/1.2/entity/employee/ID/security;String,EmployeePermissions;EmployeePermission
 GET;https://test.moysklad/api/remap/1.2/entity/productfolder/metadata;;MetadataAttributeResponse
+GET;https://test.moysklad/api/remap/1.2/entity/product/metadata/attributes/;;ListEntity
+DELETE;https://test.moysklad/api/remap/1.2/entity/product/metadata/attributes/ID;String;void
+PUT;https://test.moysklad/api/remap/1.2/entity/product/metadata/attributes/ENTITY_ID;Attribute;Attribute
+DELETE;https://test.moysklad/api/remap/1.2/entity/product/metadata/attributes/ENTITY_ID;Attribute;void
+GET;https://test.moysklad/api/remap/1.2/entity/product/metadata/attributes/ID;String;Attribute
+POST;https://test.moysklad/api/remap/1.2/entity/product/metadata/attributes/;Attribute;Attribute
+PUT;https://test.moysklad/api/remap/1.2/entity/product/metadata/attributes/ID;String,Attribute;Attribute
+GET;https://test.moysklad/api/remap/1.2/entity/product/metadata;;MetadataAttributeSharedPriceTypesResponse
