@@ -5,7 +5,6 @@ import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.products.Bundle;
 import ru.moysklad.remap_1_2.responses.ListEntity;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeResponse;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedPriceTypesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 import ru.moysklad.remap_1_2.utils.HttpRequestExecutor;
@@ -20,7 +19,7 @@ public final class BundleClient
         PostEndpoint<Bundle>,
         GetByIdEndpoint<Bundle>,
         PutByIdEndpoint<Bundle>,
-        ProductMetadataEndpoint<MetadataAttributeSharedPriceTypesResponse>,
+        ProductMetadataEndpoint,
         ProductMetadataAttributeEndpoint,
         MassCreateUpdateDeleteEndpoint<Bundle>,
         DeleteByIdEndpoint,
