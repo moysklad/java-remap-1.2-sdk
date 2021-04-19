@@ -78,7 +78,7 @@ public class ContractTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
-    public void updateAttributeTest2() throws IOException, ApiClientException {
+    public void updateAttributeTest() throws IOException, ApiClientException {
         Attribute attribute = new Attribute();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
@@ -107,7 +107,7 @@ public class ContractTest extends EntityGetUpdateDeleteTest {
         api.entity().contract().deleteMetadataAttribute(created);
 
         try {
-            Attribute founded = api.entity().contract().metadataAttributes(created.getId());
+            api.entity().contract().metadataAttributes(created.getId());
         } catch (ApiClientException e) {
             assertEquals(404, e.getStatusCode());
         }

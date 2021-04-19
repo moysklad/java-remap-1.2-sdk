@@ -5,7 +5,7 @@ import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.products.Bundle;
 import ru.moysklad.remap_1_2.responses.ListEntity;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedPriceTypesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 import ru.moysklad.remap_1_2.utils.HttpRequestExecutor;
 import ru.moysklad.remap_1_2.utils.params.ApiParam;
@@ -17,10 +17,10 @@ public final class BundleClient
         implements
         GetListEndpoint<Bundle>,
         PostEndpoint<Bundle>,
-        MetadataEndpoint<MetadataAttributeResponse>,
-        MetadataAttributeEndpoint,
         GetByIdEndpoint<Bundle>,
         PutByIdEndpoint<Bundle>,
+        ProductMetadataEndpoint,
+        ProductMetadataAttributeEndpoint,
         MassCreateUpdateDeleteEndpoint<Bundle>,
         DeleteByIdEndpoint,
         HasImagesEndpoint<Bundle> {
@@ -36,7 +36,7 @@ public final class BundleClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeResponse.class;
+        return MetadataAttributeSharedPriceTypesResponse.class;
     }
 
     @ApiEndpoint

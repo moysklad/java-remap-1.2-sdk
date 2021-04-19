@@ -3,7 +3,7 @@ package ru.moysklad.remap_1_2.clients;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.products.Service;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedPriceTypesResponse;
 
 public final class ServiceClient
         extends EntityClientBase
@@ -11,8 +11,8 @@ public final class ServiceClient
         GetListEndpoint<Service>,
         PostEndpoint<Service>,
         DeleteByIdEndpoint,
-        MetadataEndpoint<MetadataAttributeResponse>,
-        MetadataAttributeEndpoint,
+        ProductMetadataEndpoint,
+        ProductMetadataAttributeEndpoint,
         GetByIdEndpoint<Service>,
         PutByIdEndpoint<Service>,
         MassCreateUpdateDeleteEndpoint<Service>,
@@ -29,6 +29,6 @@ public final class ServiceClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeResponse.class;
+        return MetadataAttributeSharedPriceTypesResponse.class;
     }
 }

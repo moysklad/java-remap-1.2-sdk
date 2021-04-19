@@ -2,6 +2,7 @@ package ru.moysklad.remap_1_2;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.endpoints.ApiChainElement;
 import ru.moysklad.remap_1_2.clients.endpoints.ApiEndpoint;
@@ -49,6 +50,7 @@ public class EndpointsTest implements TestRandomizers {
         newMethods = new HashSet<>();
     }
 
+    @Ignore
     @Test
     public void endpointsTest() throws InvocationTargetException, IllegalAccessException, InstantiationException {
         Object entityEntryPoint = api.entity();

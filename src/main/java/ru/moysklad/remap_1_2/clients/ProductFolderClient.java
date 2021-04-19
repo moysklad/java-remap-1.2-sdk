@@ -3,6 +3,7 @@ package ru.moysklad.remap_1_2.clients;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.ProductFolder;
+import ru.moysklad.remap_1_2.responses.MetadataListResponse;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeResponse;
 
 public final class ProductFolderClient
@@ -11,8 +12,7 @@ public final class ProductFolderClient
         GetListEndpoint<ProductFolder>,
         PostEndpoint<ProductFolder>,
         DeleteByIdEndpoint,
-        MetadataEndpoint<MetadataAttributeResponse>,
-        MetadataAttributeEndpoint,
+        MetadataEndpoint<MetadataListResponse>,
         GetByIdEndpoint<ProductFolder>,
         PutByIdEndpoint<ProductFolder>,
         MassCreateUpdateDeleteEndpoint<ProductFolder> {

@@ -44,7 +44,7 @@ public class ProductFolderTest extends EntityGetUpdateDeleteTest {
         assertEquals(outer.getName(), retrievedEntity.getProductFolder().getName());
         assertEquals(outer.getTaxSystem(), retrievedEntity.getProductFolder().getTaxSystem());
     }
-
+    
     @Override
     protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
         ProductFolder originalProductFolder = (ProductFolder) originalEntity;

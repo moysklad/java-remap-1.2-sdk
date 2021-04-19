@@ -2,10 +2,7 @@ package ru.moysklad.remap_1_2.entities.documents;
 
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
-import ru.moysklad.remap_1_2.entities.Attribute;
-import ru.moysklad.remap_1_2.entities.EntityGetUpdateDeleteTest;
-import ru.moysklad.remap_1_2.entities.MetaEntity;
-import ru.moysklad.remap_1_2.entities.Store;
+import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.agents.Counterparty;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
 import ru.moysklad.remap_1_2.responses.ListEntity;
@@ -62,6 +59,58 @@ public class FactureOutTest extends EntityGetUpdateDeleteTest {
     public void attributesTest() throws IOException, ApiClientException{
         ListEntity<Attribute> attributes = api.entity().factureout().metadataAttributes();
         assertNotNull(attributes);
+    }
+
+    @Test
+    public void createAttributeTest() throws IOException, ApiClientException {
+        Attribute attribute = new Attribute();
+        attribute.setType(Attribute.Type.textValue);
+        String name = "field" + randomString(3) + "_" + new Date().getTime();
+        attribute.setName(name);
+        attribute.setRequired(false);
+        attribute.setDescription("description");
+        Attribute created = api.entity().factureout().createMetadataAttribute(attribute);
+        assertNotNull(created);
+        assertEquals(name, created.getName());
+        assertEquals(Attribute.Type.textValue, created.getType());
+        assertFalse(created.getRequired());
+        assertEquals("description", created.getDescription());
+    }
+
+    @Test
+    public void updateAttributeTest() throws IOException, ApiClientException {
+        Attribute attribute = new Attribute();
+        attribute.setEntityType(Meta.Type.PRODUCT);
+        attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
+        attribute.setRequired(true);
+        Attribute created = api.entity().factureout().createMetadataAttribute(attribute);
+
+        String name = "field" + randomString(3) + "_" + new Date().getTime();
+        created.setName(name);
+        created.setRequired(false);
+        Attribute updated = api.entity().factureout().updateMetadataAttribute(created);
+        assertNotNull(created);
+        assertEquals(name, updated.getName());
+        assertNull(updated.getType());
+        assertEquals(Meta.Type.PRODUCT, updated.getEntityType());
+        assertFalse(updated.getRequired());
+    }
+
+    @Test
+    public void deleteAttributeTest() throws IOException, ApiClientException{
+        Attribute attribute = new Attribute();
+        attribute.setEntityType(Meta.Type.PRODUCT);
+        attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
+        attribute.setRequired(true);
+        Attribute created = api.entity().factureout().createMetadataAttribute(attribute);
+
+        api.entity().factureout().deleteMetadataAttribute(created);
+
+        try {
+            api.entity().factureout().metadataAttributes(created.getId());
+        } catch (ApiClientException e) {
+            assertEquals(404, e.getStatusCode());
+        }
     }
 
     @Test
