@@ -3,12 +3,15 @@ package ru.moysklad.remap_1_2.entities;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.agents.Counterparty;
+import ru.moysklad.remap_1_2.entities.discounts.Discount;
+import ru.moysklad.remap_1_2.entities.discounts.PersonalDiscount;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.responses.metadata.CounterpartyMetadataResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -454,6 +457,59 @@ public class CounterpartyTest extends EntityGetUpdateDeleteTest {
             assertEquals(404, e.getStatusCode());
         }
     }
+
+    @Test
+    public void createCounterpartyWithDiscountTest() throws ApiClientException, IOException {
+        Counterparty counterparty = new Counterparty();
+        counterparty.setName("counterparty_" + randomString(3) + "_" + new Date().getTime());
+        counterparty.setDescription(randomString());
+        counterparty.setArchived(false);
+        counterparty.setCompanyType(CompanyType.legal);
+        counterparty.setInn(randomString());
+        counterparty.setOgrn(randomString());
+        counterparty.setPriceType(api.entity().companysettings().pricetype().getDefault());
+        Address actualAddressFull = randomAddress(api);
+        Address legalAddressFull = randomAddress(api);
+        counterparty.setActualAddressFull(actualAddressFull);
+        counterparty.setLegalAddressFull(legalAddressFull);
+
+        final String discountName = "TestPersonalDiscount";
+        final Double personalDiscountValue = 45.0;
+        PersonalDiscount discount = new PersonalDiscount();
+        discount.setName(discountName);
+        discount.setActive(true);
+        discount.setAgentTags(new ArrayList<>());
+        discount.setAllAgents(true);
+        discount.setAllProducts(true);
+        discount.setAssortment(new ArrayList<>());
+        discount.setProductFolders(new ArrayList<>());
+        Discount savedDiscount = api.entity().personaldiscount().create(discount);
+        
+        Counterparty.DiscountData personalAgentDiscount = new Counterparty.DiscountData();
+        personalAgentDiscount.setDiscount(savedDiscount);
+        personalAgentDiscount.setPersonalDiscount(personalDiscountValue);
+        counterparty.setDiscounts(Collections.singletonList(personalAgentDiscount));
+        
+        api.entity().counterparty().create(counterparty);
+
+        ListEntity<Counterparty> updatedEntitiesList = api.entity().counterparty().get(filterEq("name", counterparty.getName()));
+
+        assertEquals(1, updatedEntitiesList.getRows().size());
+
+        Counterparty retrievedEntity = updatedEntitiesList.getRows().get(0);
+        
+        List<Counterparty.DiscountData> discounts = retrievedEntity.getDiscounts();;
+        assertEquals(1, discounts.size());
+
+        Counterparty.DiscountData discountData = discounts.get(0);
+
+        assertNotNull(discountData.getPersonalDiscount());
+        assertEquals(Double.valueOf(personalDiscountValue),discountData.getPersonalDiscount());
+        Discount discountType = discountData.getDiscount();
+        assertEquals(PersonalDiscount.class.getName(), discountType.getClass().getName());
+    }
+
+
     
     @Override
     protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
