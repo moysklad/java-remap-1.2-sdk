@@ -23,6 +23,7 @@ public class BonusTransactionTest  extends EntityGetUpdateDeleteTest {
         bonusTransaction.setName("bonusTransaction_" + randomString(3) + "_" + new Date().getTime());
         bonusTransaction.setAgent(simpleEntityManager.createSimpleCounterparty());
         bonusTransaction.setBonusProgram(simpleEntityManager.createSimpleBonusProgram());
+        bonusTransaction.setTransactionType(BonusTransaction.TransactionType.EARNING);
         bonusTransaction.setExternalCode(randomString(5));
         bonusTransaction.setExecutionDate(LocalDateTime.now());
 
@@ -34,6 +35,7 @@ public class BonusTransactionTest  extends EntityGetUpdateDeleteTest {
         BonusTransaction retrievedEntity = updatedEntitiesList.getRows().get(0);
         assertEquals(bonusTransaction.getName(), retrievedEntity.getName());
         assertEquals(bonusTransaction.getExternalCode(), retrievedEntity.getExternalCode());
+        assertEquals(bonusTransaction.getTransactionType(), retrievedEntity.getTransactionType());
         assertEquals(bonusTransaction.getTransactionStatus(), BonusTransaction.TransactionStatus.COMPLETED);
         assertEquals(bonusTransaction.getExecutionDate(), retrievedEntity.getExecutionDate());
         assertEquals(bonusTransaction.getCategoryType(), BonusTransaction.CategoryType.REGULAR);
