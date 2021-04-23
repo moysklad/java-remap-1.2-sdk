@@ -19,8 +19,7 @@ public class BonusProgramTest extends EntityTestBase {
         assertEquals(0, bonusProgramList.getRows().size());
         //create one discount
         BonusProgram bonusProgram = new BonusProgram();
-        String bonusProgramName = "bonusProgram_" + randomStringTail();
-        bonusProgram.setName(bonusProgramName);
+        bonusProgram.setName("test");
         bonusProgram.setActive(false);
         bonusProgram.setAgentTags(new ArrayList<>());
         bonusProgram.setAllAgents(true);
@@ -28,7 +27,7 @@ public class BonusProgramTest extends EntityTestBase {
         bonusProgram.setMaxPaidRatePercents(2);
         bonusProgram.setSpendRatePointsToRouble(3);
         bonusProgram = api.entity().bonusprogram().create(bonusProgram);
-        assertEquals(bonusProgramName, bonusProgram.getName());
+        assertEquals("test", bonusProgram.getName());
         assertFalse(bonusProgram.getActive());
         assertTrue(bonusProgram.getAllAgents());
         assertEquals(Integer.valueOf(1), bonusProgram.getEarnRateRoublesToPoint());
@@ -40,7 +39,7 @@ public class BonusProgramTest extends EntityTestBase {
         assertEquals(1, bonusProgramList.getRows().size());
         //get one
         bonusProgram = api.entity().bonusprogram().get(bonusProgram.getId());
-        assertEquals(bonusProgramName, bonusProgram.getName());
+        assertEquals("test", bonusProgram.getName());
         //update one
         bonusProgram.setName("new");
         api.entity().bonusprogram().update(bonusProgram.getId(), bonusProgram);

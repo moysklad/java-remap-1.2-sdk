@@ -20,8 +20,7 @@ public class AccumulationDiscountTest extends EntityTestBase {
         assertEquals(0, accumulationDiscountList.getRows().size());
         //create one discount
         AccumulationDiscount accumulationDiscount = new AccumulationDiscount();
-        String accumulationDiscountName = "accumulationDiscount_" + randomStringTail();
-        accumulationDiscount.setName(accumulationDiscountName);
+        accumulationDiscount.setName("test");
         accumulationDiscount.setActive(false);
         accumulationDiscount.setAgentTags(new ArrayList<>());
         accumulationDiscount.setAllAgents(true);
@@ -33,7 +32,7 @@ public class AccumulationDiscountTest extends EntityTestBase {
         accumulationLevel.setDiscount(5.);
         accumulationDiscount.setLevels(new ArrayList(Arrays.asList(accumulationLevel)));
         accumulationDiscount = api.entity().accumulationdiscount().create(accumulationDiscount);
-        assertEquals(accumulationDiscountName, accumulationDiscount.getName());
+        assertEquals("test", accumulationDiscount.getName());
         assertFalse(accumulationDiscount.getActive());
         assertTrue(accumulationDiscount.getAllAgents());
         assertTrue(accumulationDiscount.getAllProducts());
@@ -46,7 +45,7 @@ public class AccumulationDiscountTest extends EntityTestBase {
         assertEquals(1, accumulationDiscountList.getRows().size());
         //get one
         accumulationDiscount = api.entity().accumulationdiscount().get(accumulationDiscount.getId());
-        assertEquals(accumulationDiscountName, accumulationDiscount.getName());
+        assertEquals("test", accumulationDiscount.getName());
         //update one
         accumulationDiscount.setName("new");
         api.entity().accumulationdiscount().update(accumulationDiscount.getId(), accumulationDiscount);
