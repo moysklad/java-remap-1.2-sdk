@@ -30,6 +30,9 @@ public class BonusTransaction extends MetaEntity{
     private Long bonusValue;
     private Organization organization;
     private TransactionType transactionType;
+    private TransactionStatus transactionStatus;
+    private LocalDateTime executionDate;
+    private CategoryType categoryType;
 
     public BonusTransaction(String id) {
         super(id);
@@ -37,5 +40,13 @@ public class BonusTransaction extends MetaEntity{
 
     public enum TransactionType {
         EARNING, SPENDING
+    }
+
+    public enum TransactionStatus {
+        WAIT_PROCESSING, COMPLETED, CANCELED
+    }
+
+    public enum CategoryType {
+        REGULAR, WELCOME
     }
 }

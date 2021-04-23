@@ -15,5 +15,6 @@
   "allProducts": true,
   "earnRateRoublesToPoint": 1,
   "spendRatePointsToRouble": 10,
-  "maxPaidRatePercents": 100
+  "maxPaidRatePercents": 100,
+  "postponedBonusesDelayDays": 7
 }
