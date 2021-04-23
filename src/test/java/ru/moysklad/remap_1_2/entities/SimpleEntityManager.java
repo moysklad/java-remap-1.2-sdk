@@ -842,7 +842,7 @@ public class SimpleEntityManager implements TestRandomizers {
         BonusProgram bonusProgram = new BonusProgram();
 
         bonusProgram.setName("bonusProgram_" + randomStringTail());
-        bonusProgram.setActive(true);
+        bonusProgram.setActive(false);
         bonusProgram.setAllAgents(true);
 
         bonusProgram.setEarnRateRoublesToPoint(1);
@@ -850,9 +850,7 @@ public class SimpleEntityManager implements TestRandomizers {
         bonusProgram.setMaxPaidRatePercents(100);
         bonusProgram.setPostponedBonusesDelayDays(0);
 
-        api.entity().bonusprogram().create(bonusProgram);
-
-        return bonusProgram;
+        return api.entity().bonusprogram().create(bonusProgram);
     }
 
     public void clearAccessCounts() {
