@@ -6,7 +6,6 @@ import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.entities.agents.Counterparty;
 import ru.moysklad.remap_1_2.entities.agents.Employee;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
-import ru.moysklad.remap_1_2.entities.discounts.BonusProgram;
 import ru.moysklad.remap_1_2.entities.documents.*;
 import ru.moysklad.remap_1_2.entities.documents.positions.ProcessingOrderPosition;
 import ru.moysklad.remap_1_2.entities.products.Bundle;
@@ -836,21 +835,6 @@ public class SimpleEntityManager implements TestRandomizers {
         api.entity().counterparty().states().create(state);
 
         return state;
-    }
-
-    public BonusProgram createSimpleBonusProgram() throws IOException, ApiClientException {
-        BonusProgram bonusProgram = new BonusProgram();
-
-        bonusProgram.setName("bonusProgram_" + randomStringTail());
-        bonusProgram.setActive(false);
-        bonusProgram.setAllAgents(true);
-
-        bonusProgram.setEarnRateRoublesToPoint(1);
-        bonusProgram.setSpendRatePointsToRouble(1);
-        bonusProgram.setMaxPaidRatePercents(100);
-        bonusProgram.setPostponedBonusesDelayDays(0);
-
-        return api.entity().bonusprogram().create(bonusProgram);
     }
 
     public void clearAccessCounts() {
