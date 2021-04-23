@@ -20,7 +20,8 @@ public class SpecialPriceDiscountTest extends EntityTestBase {
         assertEquals(0, specialPriceDiscountList.getRows().size());
         //create one discount
         SpecialPriceDiscount specialPriceDiscount = new SpecialPriceDiscount();
-        specialPriceDiscount.setName("test");
+        String specialPriceName = "specialPrice_" + randomStringTail();
+        specialPriceDiscount.setName(specialPriceName);
         specialPriceDiscount.setActive(false);
         specialPriceDiscount.setAgentTags(new ArrayList<>());
         specialPriceDiscount.setAllAgents(true);
@@ -36,7 +37,7 @@ public class SpecialPriceDiscountTest extends EntityTestBase {
         specialPriceDiscount.setSpecialPrice(specialPriceData);
         //check
         specialPriceDiscount = api.entity().specialpricediscount().create(specialPriceDiscount);
-        assertEquals("test", specialPriceDiscount.getName());
+        assertEquals(specialPriceName, specialPriceDiscount.getName());
         assertFalse(specialPriceDiscount.getActive());
         assertTrue(specialPriceDiscount.getAllAgents());
         assertTrue(specialPriceDiscount.getAllProducts());
@@ -48,7 +49,7 @@ public class SpecialPriceDiscountTest extends EntityTestBase {
         assertEquals(1, specialPriceDiscountList.getRows().size());
         //get one
         specialPriceDiscount = api.entity().specialpricediscount().get(specialPriceDiscount.getId());
-        assertEquals("test", specialPriceDiscount.getName());
+        assertEquals(specialPriceName, specialPriceDiscount.getName());
         //update one
         specialPriceDiscount.setName("new");
         specialPriceDiscount.setSpecialPrice(specialPriceData);

@@ -19,7 +19,8 @@ public class PersonalDiscountTest extends EntityTestBase {
         assertEquals(0, personalDiscountList.getRows().size());
         //create one discount
         PersonalDiscount personalDiscount = new PersonalDiscount();
-        personalDiscount.setName("test");
+        String personalDiscountName = "personalDiscount_ " + randomStringTail();
+        personalDiscount.setName(personalDiscountName);
         personalDiscount.setActive(false);
         personalDiscount.setAgentTags(new ArrayList<>());
         personalDiscount.setAllAgents(true);
@@ -27,7 +28,7 @@ public class PersonalDiscountTest extends EntityTestBase {
         personalDiscount.setAssortment(new ArrayList<>());
         personalDiscount.setProductFolders(new ArrayList<>());
         personalDiscount = api.entity().personaldiscount().create(personalDiscount);
-        assertEquals("test", personalDiscount.getName());
+        assertEquals(personalDiscountName, personalDiscount.getName());
         assertEquals(false, personalDiscount.getActive());
         assertEquals(true, personalDiscount.getAllAgents());
         assertEquals(true, personalDiscount.getAllProducts());
@@ -37,7 +38,7 @@ public class PersonalDiscountTest extends EntityTestBase {
         assertEquals(1, personalDiscountList.getRows().size());
         //get one
         personalDiscount = api.entity().personaldiscount().get(personalDiscount.getId());
-        assertEquals("test", personalDiscount.getName());
+        assertEquals(personalDiscountName, personalDiscount.getName());
         //update one
         personalDiscount.setName("new");
         api.entity().personaldiscount().update(personalDiscount.getId(), personalDiscount);
