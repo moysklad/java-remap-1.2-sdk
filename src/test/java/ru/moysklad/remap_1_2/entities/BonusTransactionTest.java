@@ -25,6 +25,7 @@ public class BonusTransactionTest  extends EntityGetUpdateDeleteTest {
         Counterparty agent = simpleEntityManager.createSimpleCounterparty();
         bonusTransaction.setAgent(agent);
         bonusTransaction.setBonusProgram(null); // can not create bonusprogram through api
+        bonusTransaction.setTransactionType(BonusTransaction.TransactionType.EARNING);
         bonusTransaction.setExternalCode(randomString(5));
 
         api.entity().bonustransaction().create(bonusTransaction);
@@ -35,6 +36,10 @@ public class BonusTransactionTest  extends EntityGetUpdateDeleteTest {
         BonusTransaction retrievedEntity = updatedEntitiesList.getRows().get(0);
         assertEquals(bonusTransaction.getName(), retrievedEntity.getName());
         assertEquals(bonusTransaction.getExternalCode(), retrievedEntity.getExternalCode());
+        assertEquals(bonusTransaction.getTransactionType(), retrievedEntity.getTransactionType());
+        assertEquals(bonusTransaction.getTransactionStatus(), BonusTransaction.TransactionStatus.COMPLETED);
+        assertEquals(bonusTransaction.getExecutionDate(), retrievedEntity.getExecutionDate());
+        assertEquals(bonusTransaction.getCategoryType(), BonusTransaction.CategoryType.REGULAR);
     }
 
     @Override
