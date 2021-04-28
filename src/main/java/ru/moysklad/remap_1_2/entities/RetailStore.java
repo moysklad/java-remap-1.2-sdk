@@ -61,7 +61,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private Boolean allowCreateProducts;
     private PriorityOfdSend priorityOfdSend;
     private String demandPrefix;
-    private Boolean allowSellTobaccoWithoutMRC;
+    private TobaccoMrcControlType tobaccoMrcControlType;
     private ListEntity<ProductFolder> productFolders;
     private List<String> createAgentsTags;
     private List<String> filterAgentsTags;
@@ -222,5 +222,9 @@ public class RetailStore extends MetaEntity implements Fetchable {
 
     public enum MinionToMasterType {
         ANY, SAME_GROUP, CHOSEN
+    }
+
+    public enum TobaccoMrcControlType {
+        USER_PRICE, MRC_PRICE, SAME_PRICE;
     }
 }
