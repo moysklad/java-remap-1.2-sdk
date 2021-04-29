@@ -61,6 +61,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private Boolean allowCreateProducts;
     private PriorityOfdSend priorityOfdSend;
     private String demandPrefix;
+    private Boolean allowSellTobaccoWithoutMRC;
     private TobaccoMrcControlType tobaccoMrcControlType;
     private ListEntity<ProductFolder> productFolders;
     private List<String> createAgentsTags;
