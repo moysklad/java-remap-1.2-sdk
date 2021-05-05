@@ -32,19 +32,6 @@
         <tag>HEAD</tag>
     </scm>
 
-    <distributionManagement>
-        <repository>
-            <id>ossrh</id>
-            <name>Moysklad Libs Release Repo</name>
-            <url>${publishingRepo}service/local/staging/deploy/maven2/</url>
-        </repository>
-        <snapshotRepository>
-            <id>artifactory</id>
-            <name>Moysklad Libs Snapshot Repo</name>
-            <url>https://repo.moysklad.ru/artifactory/libs-snapshot-local/</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -141,7 +128,24 @@
 
     <profiles>
         <profile>
-            <id>publishing</id>
+            <id>publishing-artifactory</id>
+            <distributionManagement>
+                <repository>
+                    <id>artifactory</id>
+                    <name>Moysklad Libs Artifactory Release Repo</name>
+                    <url>https://repo.moysklad.ru/artifactory/libs-release-local/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>publishing-central</id>
+            <distributionManagement>
+                <repository>
+                    <id>ossrh</id>
+                    <name>Moysklad Libs Central Release Repo</name>
+                    <url>${publishingRepo}service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
             <build>
                 <plugins>
                     <plugin>
