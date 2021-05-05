@@ -132,7 +132,7 @@
             <distributionManagement>
                 <repository>
                     <id>artifactory</id>
-                    <name>Moysklad Libs Artifactory Release Repo</name>
+                    <name>Moysklad Development Repository</name>
                     <url>https://repo.moysklad.ru/artifactory/libs-release-local/</url>
                 </repository>
             </distributionManagement>
@@ -142,7 +142,7 @@
             <distributionManagement>
                 <repository>
                     <id>ossrh</id>
-                    <name>Moysklad Libs Central Release Repo</name>
+                    <name>Maven Central Repository</name>
                     <url>${publishingRepo}service/local/staging/deploy/maven2/</url>
                 </repository>
             </distributionManagement>
