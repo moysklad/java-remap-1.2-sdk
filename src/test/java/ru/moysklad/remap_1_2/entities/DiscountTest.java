@@ -139,5 +139,6 @@ public class DiscountTest extends EntityTestBase {
         assertEquals(Integer.valueOf(1), bonusProgram.getEarnRateRoublesToPoint());
         assertEquals(Integer.valueOf(10), bonusProgram.getSpendRatePointsToRouble());
         assertEquals(Integer.valueOf(100), bonusProgram.getMaxPaidRatePercents());
+        assertEquals(Integer.valueOf(7), bonusProgram.getPostponedBonusesDelayDays());
     }
 }

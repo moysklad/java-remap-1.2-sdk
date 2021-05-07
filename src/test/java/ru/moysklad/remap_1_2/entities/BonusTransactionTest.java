@@ -15,14 +15,17 @@ import static org.junit.Assert.assertFalse;
 import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
 
 public class BonusTransactionTest  extends EntityGetUpdateDeleteTest {
+
     @Test
-    @Ignore
+    @Ignore(value = "Для создания бонусной операции необходима бонусная программа, но если она будет создаваться в рамках этого теста," +
+            " то часть других тестов будет падать, так как завязана на кол-во объектов скидок (например RoundOffDiscountCrudTest).")
     public void createTest() throws IOException, ApiClientException {
         BonusTransaction bonusTransaction = new BonusTransaction();
         bonusTransaction.setName("bonusTransaction_" + randomString(3) + "_" + new Date().getTime());
         Counterparty agent = simpleEntityManager.createSimpleCounterparty();
         bonusTransaction.setAgent(agent);
         bonusTransaction.setBonusProgram(null); // can not create bonusprogram through api
+        bonusTransaction.setTransactionType(BonusTransaction.TransactionType.EARNING);
         bonusTransaction.setExternalCode(randomString(5));
 
         api.entity().bonustransaction().create(bonusTransaction);
@@ -33,6 +36,10 @@ public class BonusTransactionTest  extends EntityGetUpdateDeleteTest {
         BonusTransaction retrievedEntity = updatedEntitiesList.getRows().get(0);
         assertEquals(bonusTransaction.getName(), retrievedEntity.getName());
         assertEquals(bonusTransaction.getExternalCode(), retrievedEntity.getExternalCode());
+        assertEquals(bonusTransaction.getTransactionType(), retrievedEntity.getTransactionType());
+        assertEquals(bonusTransaction.getTransactionStatus(), BonusTransaction.TransactionStatus.COMPLETED);
+        assertEquals(bonusTransaction.getExecutionDate(), retrievedEntity.getExecutionDate());
+        assertEquals(bonusTransaction.getCategoryType(), BonusTransaction.CategoryType.REGULAR);
     }
 
     @Override

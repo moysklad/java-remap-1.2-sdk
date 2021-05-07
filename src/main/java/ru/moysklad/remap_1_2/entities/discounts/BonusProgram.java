@@ -17,4 +17,5 @@ public class BonusProgram extends Discount implements Fetchable {
     private Integer earnRateRoublesToPoint;
     private Integer spendRatePointsToRouble;
     private Integer maxPaidRatePercents;
+    private Integer postponedBonusesDelayDays;
 }

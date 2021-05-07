@@ -41,6 +41,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setAllowCustomPrice(true);
         retailStore.setDemandPrefix(randomString(3) + "_");
         retailStore.setAllowSellTobaccoWithoutMRC(true);
+        retailStore.setTobaccoMrcControlType(RetailStore.TobaccoMrcControlType.USER_PRICE);
         retailStore.setProductFolders(new ListEntity<>());
         retailStore.getProductFolders().setRows(new ArrayList<>());
         retailStore.getProductFolders().getRows().add(simpleEntityManager.createSimpleProductFolder());
@@ -89,6 +90,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getAllowCustomPrice(), retrievedEntity.getAllowCustomPrice());
         assertEquals(retailStore.getDemandPrefix(), retrievedEntity.getDemandPrefix());
         assertEquals(retailStore.getAllowSellTobaccoWithoutMRC(), retrievedEntity.getAllowSellTobaccoWithoutMRC());
+        assertEquals(retailStore.getTobaccoMrcControlType(), retrievedEntity.getTobaccoMrcControlType());
         assertEquals(retailStore.getProductFolders(), retrievedEntity.getProductFolders());
         assertEquals(retailStore.getCreateAgentsTags(), retrievedEntity.getCreateAgentsTags());
         assertEquals(retailStore.getFilterAgentsTags(), retrievedEntity.getFilterAgentsTags());

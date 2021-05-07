@@ -30,9 +30,9 @@ public class BonusProgramTest extends EntityTestBase {
         assertEquals("test", bonusProgram.getName());
         assertFalse(bonusProgram.getActive());
         assertTrue(bonusProgram.getAllAgents());
-        assertTrue(bonusProgram.getEarnRateRoublesToPoint() == 1);
-        assertTrue(bonusProgram.getMaxPaidRatePercents() == 2);
-        assertTrue(bonusProgram.getSpendRatePointsToRouble() == 3);
+        assertEquals(Integer.valueOf(1), bonusProgram.getEarnRateRoublesToPoint());
+        assertEquals(Integer.valueOf(2), bonusProgram.getMaxPaidRatePercents());
+        assertEquals(Integer.valueOf(3), bonusProgram.getSpendRatePointsToRouble());
         assertEquals(0, bonusProgram.getAgentTags().size());
         //get all discount
         bonusProgramList = api.entity().bonusprogram().get();
