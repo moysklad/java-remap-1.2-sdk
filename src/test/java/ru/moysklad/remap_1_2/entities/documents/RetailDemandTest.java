@@ -16,7 +16,7 @@ import java.util.List;
 import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class RetailDemandTest extends EntityGetUpdateDeleteTest {
+public class RetailDemandTest extends EntityGetUpdateDeleteTest implements FilesTest<RetailDemand> {
     @Ignore
     @Test
     public void createTest() throws IOException, ApiClientException {
@@ -187,13 +187,19 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest {
         assertEquals(originalDemand.getStore().getMeta().getHref(), updatedDemand.getStore().getMeta().getHref());
     }
 
+    @Ignore // cant create demand without retailShift
+    @Test
+    public void testFiles() throws IOException, ApiClientException {
+        doTestFiles();
+    }
+
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().retaildemand();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return RetailDemand.class;
     }
 }

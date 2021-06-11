@@ -21,7 +21,8 @@ public final class PaymentOutClient
         MassCreateUpdateDeleteEndpoint<PaymentOut>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<PaymentOut> {
 
     public PaymentOutClient(ApiClient api) {
         super(api, "/entity/paymentout/");

@@ -3,6 +3,8 @@ package ru.moysklad.remap_1_2.entities.documents;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.endpoints.DocumentPositionsEndpoint;
 import ru.moysklad.remap_1_2.entities.EntityGetUpdateDeleteTest;
+import ru.moysklad.remap_1_2.entities.FilesTest;
+import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.products.Product;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
@@ -16,7 +18,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
-public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDeleteTest {
+public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDeleteTest implements FilesTest {
     @Test
     public void createPositionByIdTest() throws IOException, ApiClientException {
         DocumentEntity document = (DocumentEntity) simpleEntityManager.createSimple(entityClass());
@@ -285,6 +287,11 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
                 anyMatch(x -> ((Product) positions.get(0).getAssortment()).getMeta().getHref().
                         equals(((Product) x.getAssortment()).getMeta().getHref()))
         );
+    }
+
+    @Test
+    public void testFiles() throws IOException, ApiClientException {
+        doTestFiles();
     }
 
     private List<DocumentPosition> createSimplePositions(DocumentEntity document) throws IOException, ApiClientException {

@@ -145,12 +145,12 @@ public class EnterTest extends DocumentWithPositionsTestBase {
     }
 
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().enter();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return Enter.class;
     }
 }

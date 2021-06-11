@@ -1,11 +1,9 @@
 package ru.moysklad.remap_1_2.entities.documents;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
-import ru.moysklad.remap_1_2.entities.Attribute;
-import ru.moysklad.remap_1_2.entities.EntityGetUpdateDeleteTest;
-import ru.moysklad.remap_1_2.entities.Meta;
-import ru.moysklad.remap_1_2.entities.MetaEntity;
+import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
@@ -21,7 +19,7 @@ import java.util.List;
 import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class FactureInTest extends EntityGetUpdateDeleteTest {
+public class FactureInTest extends EntityGetUpdateDeleteTest implements FilesTest<FactureIn> {
     @Test
     public void createTest() throws IOException, ApiClientException {
         FactureIn factureIn = new FactureIn();
@@ -179,13 +177,19 @@ public class FactureInTest extends EntityGetUpdateDeleteTest {
         assertEquals(originalFactureIn.getSupplies().get(0).getMeta().getHref(), updatedFactureIn.getSupplies().get(0).getMeta().getHref());
     }
 
+    @Ignore // https://lognex.atlassian.net/browse/MC-46799
+    @Test
+    public void testFiles() throws IOException, ApiClientException {
+        doTestFiles();
+    }
+
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().facturein();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return FactureIn.class;
     }
 }

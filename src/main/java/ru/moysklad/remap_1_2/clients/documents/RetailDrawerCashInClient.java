@@ -18,7 +18,8 @@ public final class RetailDrawerCashInClient
         MetadataAttributeEndpoint,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<RetailDrawerCashIn> {
 
     public RetailDrawerCashInClient(ApiClient api) {
         super(api, "/entity/retaildrawercashin/");

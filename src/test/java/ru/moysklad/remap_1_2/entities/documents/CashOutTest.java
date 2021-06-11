@@ -2,10 +2,7 @@ package ru.moysklad.remap_1_2.entities.documents;
 
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
-import ru.moysklad.remap_1_2.entities.Attribute;
-import ru.moysklad.remap_1_2.entities.EntityGetUpdateDeleteTest;
-import ru.moysklad.remap_1_2.entities.Meta;
-import ru.moysklad.remap_1_2.entities.MetaEntity;
+import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
@@ -19,7 +16,7 @@ import java.util.Date;
 import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class CashOutTest extends EntityGetUpdateDeleteTest {
+public class CashOutTest extends EntityGetUpdateDeleteTest implements FilesTest<CashOut> {
     @Test
     public void createTest() throws IOException, ApiClientException {
         CashOut cashOut = new CashOut();
@@ -249,13 +246,18 @@ public class CashOutTest extends EntityGetUpdateDeleteTest {
         assertEquals(originalCashOut.getExpenseItem().getMeta().getHref(), updatedCashOut.getExpenseItem().getMeta().getHref());
     }
 
+    @Test
+    public void testFiles() throws IOException, ApiClientException {
+        doTestFiles();
+    }
+
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().cashout();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return CashOut.class;
     }
 }

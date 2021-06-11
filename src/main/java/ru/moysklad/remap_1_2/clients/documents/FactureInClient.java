@@ -4,6 +4,7 @@ import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
+import ru.moysklad.remap_1_2.entities.documents.Enter;
 import ru.moysklad.remap_1_2.entities.documents.FactureIn;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 
@@ -21,7 +22,8 @@ public final class FactureInClient
         MassCreateUpdateDeleteEndpoint<FactureIn>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<FactureIn> {
 
     public FactureInClient(ApiClient api) {
         super(api, "/entity/facturein/");

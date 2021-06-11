@@ -120,12 +120,12 @@ public class StoreTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().store();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return Store.class;
     }
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.agents.Agent;
 import ru.moysklad.remap_1_2.entities.documents.positions.MoveDocumentPosition;
+import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Move extends DocumentEntity implements IEntityWithAttributes {
+public class Move extends DocumentEntity implements IEntityWithAttributes, HasFiles {
     private List<Attribute> attributes;
     private LocalDateTime created;
     private LocalDateTime deleted;
@@ -32,6 +33,7 @@ public class Move extends DocumentEntity implements IEntityWithAttributes {
     private String syncId;
     private Store targetStore;
     private InternalOrder internalOrder;
+    private ListEntity<AttachedFile> files;
 
     public Move(String id) {
         super(id);

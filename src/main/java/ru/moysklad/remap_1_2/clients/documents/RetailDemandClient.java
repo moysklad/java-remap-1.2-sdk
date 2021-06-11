@@ -20,7 +20,8 @@ public final class RetailDemandClient
         MassCreateUpdateDeleteEndpoint<RetailDemand>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<RetailDemand> {
 
     public RetailDemandClient(ApiClient api) {
         super(api, "/entity/retaildemand/");

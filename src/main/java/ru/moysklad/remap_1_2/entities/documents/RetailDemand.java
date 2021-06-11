@@ -8,6 +8,7 @@ import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.agents.Agent;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
 import ru.moysklad.remap_1_2.entities.documents.positions.RetailSalesDocumentPosition;
+import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class RetailDemand extends DocumentEntity implements IEntityWithAttributes {
+public class RetailDemand extends DocumentEntity implements IEntityWithAttributes, HasFiles {
     private Agent agent;
     private Long cashSum;
     private LocalDateTime created;
@@ -55,6 +56,7 @@ public class RetailDemand extends DocumentEntity implements IEntityWithAttribute
     private TaxSystem taxSystem;
     private Long qrSum;
     private Long prepaymentQrSum;
+    private ListEntity<AttachedFile> files;
 
     public RetailDemand(String id) {
         super(id);

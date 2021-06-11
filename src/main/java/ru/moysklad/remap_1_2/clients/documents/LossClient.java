@@ -23,7 +23,8 @@ public final class LossClient
         DocumentPositionsEndpoint<LossDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<Loss> {
 
     public LossClient(ApiClient api) {
         super(api, "/entity/loss/");

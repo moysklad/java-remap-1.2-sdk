@@ -110,12 +110,12 @@ public class VariantTest extends EntityGetUpdateDeleteWithImageTest<Variant> {
     }
 
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().variant();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return Variant.class;
     }
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 import ru.moysklad.remap_1_2.entities.agents.Agent;
 import ru.moysklad.remap_1_2.entities.agents.Employee;
 import ru.moysklad.remap_1_2.entities.documents.DocumentEntity;
+import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Task extends MetaEntity implements Fetchable {
+public class Task extends MetaEntity implements Fetchable, HasFiles {
     private Employee author;
     private LocalDateTime created;
     private LocalDateTime updated;
@@ -28,6 +29,7 @@ public class Task extends MetaEntity implements Fetchable {
     private Agent agent;
     private DocumentEntity operation;
     private ListEntity<TaskNote> notes;
+    private ListEntity<AttachedFile> files;
 
     @Getter
     @Setter

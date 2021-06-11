@@ -23,7 +23,8 @@ public final class BundleClient
         ProductMetadataAttributeEndpoint,
         MassCreateUpdateDeleteEndpoint<Bundle>,
         DeleteByIdEndpoint,
-        HasImagesEndpoint<Bundle> {
+        HasImagesEndpoint<Bundle>,
+        HasFilesEndpoint<Bundle> {
 
     public BundleClient(ApiClient api) {
         super(api, "/entity/bundle/");

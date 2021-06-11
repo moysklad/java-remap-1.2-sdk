@@ -18,7 +18,8 @@ public final class PrepaymentReturnClient
         GetByIdEndpoint<PrepaymentReturn>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<PrepaymentReturn> {
 
     public PrepaymentReturnClient(ApiClient api) {
         super(api, "/entity/prepaymentreturn/");

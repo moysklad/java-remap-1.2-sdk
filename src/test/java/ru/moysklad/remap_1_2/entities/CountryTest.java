@@ -51,12 +51,12 @@ public class CountryTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().country();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return Country.class;
     }
 }

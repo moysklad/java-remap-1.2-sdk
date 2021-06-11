@@ -20,7 +20,7 @@ import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
 import static ru.moysklad.remap_1_2.utils.params.LimitParam.limit;
 import static org.junit.Assert.*;
 
-public class ProcessingTest extends EntityGetUpdateDeleteTest {
+public class ProcessingTest extends EntityGetUpdateDeleteTest implements FilesTest<Processing> {
     @Test
     public void createTest() throws IOException, ApiClientException {
         Processing processing = new Processing();
@@ -189,13 +189,18 @@ public class ProcessingTest extends EntityGetUpdateDeleteTest {
         assertEquals(originalProcessing.getProcessingPlan().getMeta().getHref(), updatedProcessing.getProcessingPlan().getMeta().getHref());
     }
 
+    @Test
+    public void testFiles() throws IOException, ApiClientException {
+        doTestFiles();
+    }
+
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().processing();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return Processing.class;
     }
 }

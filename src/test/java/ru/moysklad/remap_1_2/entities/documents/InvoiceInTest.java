@@ -153,12 +153,12 @@ public class InvoiceInTest extends DocumentWithPositionsTestBase {
 
 
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().invoicein();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return InvoiceIn.class;
     }
 }

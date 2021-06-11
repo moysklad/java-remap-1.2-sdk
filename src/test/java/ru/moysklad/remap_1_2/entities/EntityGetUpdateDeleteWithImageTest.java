@@ -18,7 +18,8 @@ import java.util.Objects;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public abstract class EntityGetUpdateDeleteWithImageTest<T extends MetaEntity & HasImages> extends EntityGetUpdateDeleteTest {
+public abstract class EntityGetUpdateDeleteWithImageTest<T extends MetaEntity & HasImages> extends EntityGetUpdateDeleteTest
+        implements FileTestBase<T> {
 
     @Test
     public void getImageTest() throws IOException, ApiClientException {
@@ -141,7 +142,7 @@ public abstract class EntityGetUpdateDeleteWithImageTest<T extends MetaEntity & 
         return image;
     }
 
-    private File getFile(String relativePath) {
+    public File getFile(String relativePath) {
         String path = this
                 .getClass()
                 .getClassLoader()
@@ -159,20 +160,7 @@ public abstract class EntityGetUpdateDeleteWithImageTest<T extends MetaEntity & 
         };
     }
 
-    protected T generateInstance() {
-        return (T) simpleEntityManager.createSimple(entityClass(), true);
-    }
-
-    protected T updateInstance(T entity) throws IOException, ApiClientException {
-        ((PutByIdEndpoint<T>) entityClient()).update(entity);
-        return ((GetByIdEndpoint<T>) entityClient()).get(entity.getId());
-    }
-
-    protected T getInstance(String entityId, ApiParam... params) throws IOException, ApiClientException {
-        return ((GetByIdEndpoint<T>) entityClient()).get(entityId, params);
-    }
-
-    protected HasImagesEndpoint getImagesEndpoint() {
+    public HasImagesEndpoint getImagesEndpoint() {
         return (HasImagesEndpoint) entityClient();
     }
 }

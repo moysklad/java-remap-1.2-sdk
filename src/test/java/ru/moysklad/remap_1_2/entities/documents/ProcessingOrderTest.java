@@ -24,7 +24,7 @@ import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
 import static ru.moysklad.remap_1_2.utils.params.LimitParam.limit;
 import static org.junit.Assert.*;
 
-public class ProcessingOrderTest extends EntityGetUpdateDeleteTest {
+public class ProcessingOrderTest extends EntityGetUpdateDeleteTest implements FilesTest<ProcessingOrder> {
     @Test
     public void createTest() throws IOException, ApiClientException {
         ProcessingOrder processingOrder = new ProcessingOrder();
@@ -221,13 +221,18 @@ public class ProcessingOrderTest extends EntityGetUpdateDeleteTest {
         assertEquals(originalProcessingOrder.getPositions().getMeta().getSize(), updatedProcessingOrder.getPositions().getMeta().getSize());
     }
 
+    @Test
+    public void testFiles() throws IOException, ApiClientException {
+        doTestFiles();
+    }
+
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().processingorder();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return ProcessingOrder.class;
     }
 }

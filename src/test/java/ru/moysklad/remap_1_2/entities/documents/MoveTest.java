@@ -168,12 +168,12 @@ public class MoveTest extends DocumentWithPositionsTestBase {
     }
 
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().move();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return Move.class;
     }
 }

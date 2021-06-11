@@ -246,12 +246,12 @@ public class PaymentOutTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().paymentout();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return PaymentOut.class;
     }
 }

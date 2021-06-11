@@ -65,12 +65,12 @@ public class ProductFolderTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().productfolder();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return ProductFolder.class;
     }
 }

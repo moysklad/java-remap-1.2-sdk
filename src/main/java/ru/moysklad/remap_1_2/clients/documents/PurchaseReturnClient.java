@@ -23,7 +23,8 @@ public final class PurchaseReturnClient
         DocumentPositionsEndpoint<PurchaseReturnDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<PurchaseReturn> {
 
     public PurchaseReturnClient(ApiClient api) {
         super(api, "/entity/purchasereturn/");

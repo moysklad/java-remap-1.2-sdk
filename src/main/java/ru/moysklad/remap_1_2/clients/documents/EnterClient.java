@@ -22,7 +22,8 @@ public final class EnterClient
         DocumentPositionsEndpoint<EnterDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<Enter> {
 
     public EnterClient(ApiClient api) {
         super(api, "/entity/enter/");

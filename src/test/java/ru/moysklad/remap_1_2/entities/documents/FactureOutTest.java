@@ -1,5 +1,6 @@
 package ru.moysklad.remap_1_2.entities.documents;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.*;
@@ -20,7 +21,7 @@ import java.util.List;
 import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class FactureOutTest extends EntityGetUpdateDeleteTest {
+public class FactureOutTest extends EntityGetUpdateDeleteTest implements FilesTest<FactureOut> {
     @Test
     public void createTest() throws IOException, ApiClientException {
         FactureOut factureOut = new FactureOut();
@@ -213,13 +214,19 @@ public class FactureOutTest extends EntityGetUpdateDeleteTest {
         assertEquals(originalFactureOut.getDemands().get(0).getMeta().getHref(), updatedFactureOut.getDemands().get(0).getMeta().getHref());
     }
 
+    @Ignore // https://lognex.atlassian.net/browse/MC-46799
+    @Test
+    public void testFiles() throws IOException, ApiClientException {
+        doTestFiles();
+    }
+
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().factureout();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return FactureOut.class;
     }
 }

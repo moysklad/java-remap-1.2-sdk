@@ -164,12 +164,12 @@ public class CommissionReportInTest extends DocumentWithPositionsTestBase {
     }
 
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().commissionreportin();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return CommissionReportIn.class;
     }
 }

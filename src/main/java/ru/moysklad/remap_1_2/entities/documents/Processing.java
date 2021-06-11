@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
+import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Processing extends DocumentEntity implements IEntityWithAttributes {
+public class Processing extends DocumentEntity implements IEntityWithAttributes, HasFiles {
     private LocalDateTime created;
     private String externalCode;
     private ListEntity<DocumentPosition> materials;
@@ -34,6 +35,7 @@ public class Processing extends DocumentEntity implements IEntityWithAttributes 
     private List<Attribute> attributes;
     private Project project;
     private ProcessingOrder processingOrder;
+    private ListEntity<AttachedFile> files;
 
     public Processing(String id) {
         super(id);

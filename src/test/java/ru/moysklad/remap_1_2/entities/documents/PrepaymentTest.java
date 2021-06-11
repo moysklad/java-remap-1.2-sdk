@@ -1,10 +1,12 @@
 package ru.moysklad.remap_1_2.entities.documents;
 
 import com.google.gson.Gson;
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.entities.Attribute;
 import ru.moysklad.remap_1_2.entities.EntityTestBase;
+import ru.moysklad.remap_1_2.entities.FilesTest;
 import ru.moysklad.remap_1_2.entities.Meta;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
@@ -16,7 +18,7 @@ import java.util.Date;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
-public class PrepaymentTest extends EntityTestBase {
+public class PrepaymentTest extends EntityTestBase implements FilesTest<Prepayment> {
 
     @Test
     public void deserializePrepayment() {
@@ -133,5 +135,11 @@ public class PrepaymentTest extends EntityTestBase {
         } catch (ApiClientException e) {
             assertEquals(404, e.getStatusCode());
         }
+    }
+
+    @Ignore // cant create prepayment without retailShift
+    @Test
+    public void testFiles() throws IOException, ApiClientException {
+        doTestFiles();
     }
 }

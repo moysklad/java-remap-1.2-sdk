@@ -22,7 +22,7 @@ import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
 import static ru.moysklad.remap_1_2.utils.params.LimitParam.limit;
 import static org.junit.Assert.*;
 
-public class PricelistTest extends EntityGetUpdateDeleteTest {
+public class PricelistTest extends EntityGetUpdateDeleteTest implements FilesTest<Pricelist> {
     @Test
     public void createTest() throws IOException, ApiClientException {
         Pricelist priceList = new Pricelist();
@@ -135,12 +135,12 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
     }
 
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().pricelist();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return Pricelist.class;
     }
 
@@ -492,6 +492,11 @@ public class PricelistTest extends EntityGetUpdateDeleteTest {
         } catch (ApiClientException e) {
             assertEquals(404, e.getStatusCode());
         }
+    }
+
+    @Test
+    public void testFiles() throws IOException, ApiClientException {
+        doTestFiles();
     }
     
     private List<PricelistRow> createSimplePositions(Pricelist priceList) throws IOException, ApiClientException {

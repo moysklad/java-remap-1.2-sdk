@@ -56,12 +56,12 @@ public class CharacteristicTest extends EntityTestBase {
     }
 
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().variant().characteristics();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return Variant.Characteristic.class;
     }
 }

@@ -18,7 +18,8 @@ public final class PrepaymentClient
         GetByIdEndpoint<Prepayment>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<Prepayment> {
 
     public PrepaymentClient(ApiClient api) {
         super(api, "/entity/prepayment/");

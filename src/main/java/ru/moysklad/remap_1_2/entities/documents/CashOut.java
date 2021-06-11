@@ -8,6 +8,8 @@ import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.agents.Agent;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
 import ru.moysklad.remap_1_2.entities.documents.markers.FinanceOutDocumentMarker;
+import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
+import ru.moysklad.remap_1_2.responses.ListEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class CashOut extends DocumentEntity implements FinanceOutDocumentMarker, IEntityWithAttributes {
+public class CashOut extends DocumentEntity implements FinanceOutDocumentMarker, IEntityWithAttributes, HasFiles {
     private Agent agent;
     private LocalDateTime created;
     private ExpenseItem expenseItem;
@@ -34,6 +36,7 @@ public class CashOut extends DocumentEntity implements FinanceOutDocumentMarker,
     private List<Attribute> attributes;
     private List<MetaEntity> operations;
     private FactureIn factureIn;
+    private ListEntity<AttachedFile> files;
 
     public CashOut(String id) {
         super(id);

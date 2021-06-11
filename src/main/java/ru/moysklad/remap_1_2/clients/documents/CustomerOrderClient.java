@@ -22,7 +22,8 @@ public final class CustomerOrderClient
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint,
-        MetadataAttributeEndpoint {
+        MetadataAttributeEndpoint,
+        HasFilesEndpoint<CustomerOrder> {
 
     public CustomerOrderClient(ApiClient api) {
         super(api, "/entity/customerorder/");

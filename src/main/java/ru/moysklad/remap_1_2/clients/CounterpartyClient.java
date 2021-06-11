@@ -24,7 +24,8 @@ public final class CounterpartyClient
         PutByIdEndpoint<Counterparty>,
         MassCreateUpdateDeleteEndpoint<Counterparty>,
         HasStatesEndpoint,
-        HasSettingsEndpoint<CounterpartySettings> {
+        HasSettingsEndpoint<CounterpartySettings>,
+        HasFilesEndpoint<Counterparty> {
 
     public CounterpartyClient(ru.moysklad.remap_1_2.ApiClient api) {
         super(api, "/entity/counterparty/");

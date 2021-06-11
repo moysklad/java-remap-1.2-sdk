@@ -8,6 +8,7 @@ import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.agents.Agent;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
 import ru.moysklad.remap_1_2.entities.documents.positions.InvoiceDocumentPosition;
+import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class InvoiceIn extends DocumentEntity {
+public class InvoiceIn extends DocumentEntity implements HasFiles {
     private Agent agent;
     private AgentAccount agentAccount;
     private Contract contract;
@@ -40,6 +41,7 @@ public class InvoiceIn extends DocumentEntity {
     private Boolean vatIncluded;
     private Long vatSum;
     private Project project;
+    private ListEntity<AttachedFile> files;
 
     public InvoiceIn(String id) {
         super(id);
