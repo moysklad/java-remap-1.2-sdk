@@ -22,7 +22,8 @@ public final class CommissionReportInClient
         DocumentPositionsEndpoint<CommissionReportDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<CommissionReportIn> {
 
     public CommissionReportInClient(ApiClient api) {
         super(api, "/entity/commissionreportin/");

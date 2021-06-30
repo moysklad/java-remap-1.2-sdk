@@ -23,7 +23,8 @@ public final class SupplyClient
         DocumentPositionsEndpoint<SupplyDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<Supply> {
 
     public SupplyClient(ApiClient api) {
         super(api, "/entity/supply/");

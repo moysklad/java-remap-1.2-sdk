@@ -21,7 +21,8 @@ public final class ProcessingOrderClient
         MassCreateUpdateDeleteEndpoint<ProcessingOrder>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<ProcessingOrder> {
 
     public ProcessingOrderClient(ApiClient api) {
         super(api, "/entity/processingorder/");

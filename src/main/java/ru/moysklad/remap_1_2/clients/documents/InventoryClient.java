@@ -22,7 +22,8 @@ public final class InventoryClient
         DocumentPositionsEndpoint<InventoryDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<Inventory> {
 
     public InventoryClient(ApiClient api) {
         super(api, "/entity/inventory/");

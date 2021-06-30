@@ -8,6 +8,7 @@ import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.agents.Agent;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
 import ru.moysklad.remap_1_2.entities.documents.positions.PrepaymentDocumentPosition;
+import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class PrepaymentReturn extends DocumentEntity implements IEntityWithAttributes {
+public class PrepaymentReturn extends DocumentEntity implements IEntityWithAttributes, HasFiles {
     private String syncId;
     private LocalDateTime deleted;
     private String description;
@@ -39,6 +40,7 @@ public class PrepaymentReturn extends DocumentEntity implements IEntityWithAttri
     private TaxSystem taxSystem;
     private ListEntity<PrepaymentDocumentPosition> positions;
     private Long qrSum;
+    private ListEntity<AttachedFile> files;
 
     public PrepaymentReturn(String id) {
         super(id);

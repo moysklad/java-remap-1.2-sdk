@@ -20,7 +20,8 @@ public final class ProcessingClient
         MassCreateUpdateDeleteEndpoint<Processing>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<Processing> {
 
     public ProcessingClient(ApiClient api) {
         super(api, "/entity/processing/");

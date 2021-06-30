@@ -6,7 +6,7 @@ import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.utils.*;
 
-public abstract class EntityTestBase implements TestRandomizers, TestAsserts, TestUtils {
+public abstract class EntityTestBase implements TestRandomizers, TestAsserts, TestUtils, IEntityTestBase {
     protected ApiClient api, mockApi;
     protected MockHttpClient mockHttpClient;
     protected SimpleEntityManager simpleEntityManager;
@@ -34,11 +34,7 @@ public abstract class EntityTestBase implements TestRandomizers, TestAsserts, Te
         Thread.sleep(200); // Защита от лимитов
     }
 
-    protected EntityClientBase entityClient() {
-        return null;
-    }
-
-    protected Class<? extends MetaEntity> entityClass() {
-        return null;
+    public SimpleEntityManager getSimpleEntityManager() {
+        return simpleEntityManager;
     }
 }

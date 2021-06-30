@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.moysklad.remap_1_2.entities.*;
+import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
 import ru.moysklad.remap_1_2.entities.products.markers.ProductAttributeMarker;
 import ru.moysklad.remap_1_2.entities.products.markers.ProductMarker;
+import ru.moysklad.remap_1_2.responses.ListEntity;
 
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public abstract class AbstractProduct extends Assortment implements ProductMarker, ProductAttributeMarker {
+public abstract class AbstractProduct extends Assortment implements ProductMarker, ProductAttributeMarker, HasFiles {
     /**
      * Код Товара
      */
@@ -67,4 +69,9 @@ public abstract class AbstractProduct extends Assortment implements ProductMarke
      * Массив штрихкодов товара
      */
     private List<Barcode> barcodes;
+
+    /**
+     * Прикрепленные файлы
+     */
+    private ListEntity<AttachedFile> files;
 }

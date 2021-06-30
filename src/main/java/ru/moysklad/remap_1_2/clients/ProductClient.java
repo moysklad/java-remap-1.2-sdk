@@ -17,7 +17,8 @@ public final class ProductClient
         PutByIdEndpoint<Product>,
         MassCreateUpdateDeleteEndpoint<Product>,
         HasImagesEndpoint<Product>,
-        GetBySyncIdEndpoint<Product> {
+        GetBySyncIdEndpoint<Product>,
+        HasFilesEndpoint<Product> {
 
     public ProductClient(ru.moysklad.remap_1_2.ApiClient api) {
         super(api, "/entity/product/");

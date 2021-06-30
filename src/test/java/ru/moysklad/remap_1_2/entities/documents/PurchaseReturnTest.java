@@ -195,12 +195,12 @@ public class PurchaseReturnTest extends DocumentWithPositionsTestBase {
     }
 
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().purchasereturn();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return PurchaseReturn.class;
     }
 }

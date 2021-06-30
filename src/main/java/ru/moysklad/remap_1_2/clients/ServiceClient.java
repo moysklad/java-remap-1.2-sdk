@@ -16,7 +16,8 @@ public final class ServiceClient
         GetByIdEndpoint<Service>,
         PutByIdEndpoint<Service>,
         MassCreateUpdateDeleteEndpoint<Service>,
-        GetBySyncIdEndpoint<Service> {
+        GetBySyncIdEndpoint<Service>,
+        HasFilesEndpoint<Service> {
 
     public ServiceClient(ru.moysklad.remap_1_2.ApiClient api) {
         super(api, "/entity/service/");

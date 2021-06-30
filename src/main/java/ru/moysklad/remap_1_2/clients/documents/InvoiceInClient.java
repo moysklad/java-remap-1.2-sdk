@@ -22,7 +22,8 @@ public final class InvoiceInClient
         DocumentPositionsEndpoint<InvoiceDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<InvoiceIn> {
 
     public InvoiceInClient(ApiClient api) {
         super(api, "/entity/invoicein/");

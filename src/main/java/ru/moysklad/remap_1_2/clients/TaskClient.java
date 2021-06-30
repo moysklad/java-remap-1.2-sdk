@@ -20,7 +20,8 @@ public final class TaskClient
         MassCreateUpdateDeleteEndpoint<Task>,
         PostEndpoint<Task>,
         PutByIdEndpoint<Task>,
-        DeleteByIdEndpoint {
+        DeleteByIdEndpoint,
+        HasFilesEndpoint<Task> {
 
     TaskClient(ru.moysklad.remap_1_2.ApiClient api) {
         super(api, "/entity/task/");

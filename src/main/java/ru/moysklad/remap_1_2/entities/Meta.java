@@ -127,6 +127,7 @@ public final class Meta {
         FACTURE_OUT("factureout", FactureOut.class),
         GROUP("group", Group.class),
         IMAGE("image", Image.class),
+        FILE("files", AttachedFile.class),
         INTERNAL_ORDER("internalorder", InternalOrder.class),
         INTERNAL_ORDER_POSITION("internalorderposition", InternalOrderDocumentPosition.class),
         INVENTORY("inventory", Inventory.class),

@@ -15,7 +15,8 @@ public final class RetailShiftClient
         MetadataAttributeEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
         ExportEndpoint,
-        PublicationEndpoint {
+        PublicationEndpoint,
+        HasFilesEndpoint<RetailShift> {
 
     public RetailShiftClient(ApiClient api) {
         super(api, "/entity/retailshift/");

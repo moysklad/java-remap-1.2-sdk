@@ -23,7 +23,8 @@ public final class SalesReturnClient
         DocumentPositionsEndpoint<SalesReturnDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<SalesReturn> {
 
     public SalesReturnClient(ApiClient api) {
         super(api, "/entity/salesreturn/");

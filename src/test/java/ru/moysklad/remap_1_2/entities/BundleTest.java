@@ -23,7 +23,7 @@ import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
 import static ru.moysklad.remap_1_2.utils.params.LimitParam.limit;
 import static org.junit.Assert.*;
 
-public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> {
+public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> implements FilesTest<Bundle> {
     @Test
     public void createTest() throws IOException, ApiClientException {
         Bundle bundle = new Bundle();
@@ -170,13 +170,18 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> {
         assertEquals(originalBundle.getComponents().getMeta().getSize(), retrievedBundle.getComponents().getMeta().getSize());
     }
 
+    @Test
+    public void testFiles() throws IOException, ApiClientException {
+        doTestFiles();
+    }
+
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().bundle();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return Bundle.class;
     }
 }

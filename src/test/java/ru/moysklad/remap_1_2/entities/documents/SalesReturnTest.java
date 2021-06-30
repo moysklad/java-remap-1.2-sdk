@@ -2,10 +2,7 @@ package ru.moysklad.remap_1_2.entities.documents;
 
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
-import ru.moysklad.remap_1_2.entities.Attribute;
-import ru.moysklad.remap_1_2.entities.MetaEntity;
-import ru.moysklad.remap_1_2.entities.State;
-import ru.moysklad.remap_1_2.entities.Store;
+import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.agents.Counterparty;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
 import ru.moysklad.remap_1_2.responses.ListEntity;
@@ -160,12 +157,12 @@ public class SalesReturnTest extends DocumentWithPositionsTestBase {
     }
 
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().salesreturn();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return SalesReturn.class;
     }
 }

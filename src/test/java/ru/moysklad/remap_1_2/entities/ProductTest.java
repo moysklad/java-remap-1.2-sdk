@@ -15,7 +15,7 @@ import java.util.Date;
 import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> {
+public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> implements FilesTest<Product> {
     @Test
     public void createTest() throws IOException, ApiClientException {
         Product product = new Product();
@@ -149,13 +149,18 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> {
         assertEquals(originalProduct.getDescription(), updatedProduct.getDescription());
     }
 
+    @Test
+    public void testFiles() throws IOException, ApiClientException {
+        doTestFiles();
+    }
+
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().product();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return Product.class;
     }
 }

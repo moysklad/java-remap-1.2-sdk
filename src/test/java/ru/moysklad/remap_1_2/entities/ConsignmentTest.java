@@ -121,12 +121,12 @@ public class ConsignmentTest extends EntityGetUpdateDeleteTest {
     }
     
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().consignment();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return Consignment.class;
     }
 }

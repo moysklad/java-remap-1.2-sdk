@@ -29,7 +29,7 @@ import static ru.moysklad.remap_1_2.utils.params.OffsetParam.offset;
 import static ru.moysklad.remap_1_2.utils.params.OrderParam.order;
 import static org.junit.Assert.*;
 
-public class TaskTest extends EntityGetUpdateDeleteTest {
+public class TaskTest extends EntityGetUpdateDeleteTest implements FilesTest<Task> {
     @Test
     public void createTest() throws IOException, ApiClientException {
         Employee adminEmpl = simpleEntityManager.getAdminEmployee();
@@ -291,18 +291,23 @@ public class TaskTest extends EntityGetUpdateDeleteTest {
         assertEquals(0, retrievedNotes.getRows().size());
     }
 
+    @Test
+    public void testFiles() throws IOException, ApiClientException {
+        doTestFiles();
+    }
+
     @Ignore
     @Override
     public void massCreateDeleteTest() {
     }
 
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().task();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return Task.class;
     }
 }

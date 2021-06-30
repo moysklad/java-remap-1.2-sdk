@@ -21,7 +21,8 @@ public final class CashInClient
         MassCreateUpdateDeleteEndpoint<CashIn>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<CashIn> {
 
     public CashInClient(ApiClient api) {
         super(api, "/entity/cashin/");

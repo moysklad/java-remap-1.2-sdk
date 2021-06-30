@@ -9,6 +9,7 @@ import ru.moysklad.remap_1_2.entities.agents.Agent;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
 import ru.moysklad.remap_1_2.entities.documents.markers.FinanceDocumentMarker;
 import ru.moysklad.remap_1_2.entities.documents.positions.DemandDocumentPosition;
+import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 
 import java.time.LocalDateTime;
@@ -22,7 +23,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Demand extends DocumentEntity implements IEntityWithAttributes {
+public class Demand extends DocumentEntity implements IEntityWithAttributes, HasFiles {
     private Agent agent;
     private AgentAccount agentAccount;
     private List<Attribute> attributes;
@@ -57,6 +58,7 @@ public class Demand extends DocumentEntity implements IEntityWithAttributes {
     private Integer goodPackQuantity;
     private Agent carrier;
     private String stateContractId;
+    private ListEntity<AttachedFile> files;
 
     public Demand(String id) {
         super(id);

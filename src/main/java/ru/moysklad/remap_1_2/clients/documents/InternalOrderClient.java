@@ -23,7 +23,8 @@ public final class InternalOrderClient
         DocumentPositionsEndpoint<InternalOrderDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<InternalOrder> {
 
     public InternalOrderClient(ApiClient api) {
         super(api, "/entity/internalorder/");

@@ -23,7 +23,8 @@ public final class DemandClient
         DocumentPositionsEndpoint<DemandDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<Demand> {
 
     public DemandClient(ApiClient api) {
         super(api, "/entity/demand/");

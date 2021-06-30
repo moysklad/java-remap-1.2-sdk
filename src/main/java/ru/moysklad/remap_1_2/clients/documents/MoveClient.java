@@ -23,7 +23,8 @@ public final class MoveClient
         DocumentPositionsEndpoint<MoveDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<Move> {
 
     public MoveClient(ApiClient api) {
         super(api, "/entity/move/");

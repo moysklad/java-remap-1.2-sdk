@@ -3,10 +3,7 @@ package ru.moysklad.remap_1_2.entities.documents;
 import org.junit.Ignore;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
-import ru.moysklad.remap_1_2.entities.Attribute;
-import ru.moysklad.remap_1_2.entities.EntityGetUpdateDeleteTest;
-import ru.moysklad.remap_1_2.entities.Meta;
-import ru.moysklad.remap_1_2.entities.MetaEntity;
+import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
@@ -18,7 +15,7 @@ import java.util.Date;
 import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
 
-public class RetailDrawerCashInTest extends EntityGetUpdateDeleteTest {
+public class RetailDrawerCashInTest extends EntityGetUpdateDeleteTest implements FilesTest<RetailDrawerCashIn> {
     @Ignore
     @Test
     public void createTest() throws IOException, ApiClientException {
@@ -162,13 +159,19 @@ public class RetailDrawerCashInTest extends EntityGetUpdateDeleteTest {
         assertEquals(originalRetailDrawerCashIn.getAgent().getMeta().getHref(), updatedRetailDrawerCashIn.getAgent().getMeta().getHref());
     }
 
+    @Ignore // cant create cashin without retailShift
+    @Test
+    public void testFiles() throws IOException, ApiClientException {
+        doTestFiles();
+    }
+
     @Override
-    protected EntityClientBase entityClient() {
+    public EntityClientBase entityClient() {
         return api.entity().retaildrawercashin();
     }
 
     @Override
-    protected Class<? extends MetaEntity> entityClass() {
+    public Class<? extends MetaEntity> entityClass() {
         return RetailDrawerCashIn.class;
     }
 }

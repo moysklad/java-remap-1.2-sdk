@@ -18,7 +18,8 @@ public final class RetailSalesReturnClient
         MetadataAttributeEndpoint,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint {
+        HasStatesEndpoint,
+        HasFilesEndpoint<RetailSalesReturn> {
 
     public RetailSalesReturnClient(ApiClient api) {
         super(api, "/entity/retailsalesreturn/");
