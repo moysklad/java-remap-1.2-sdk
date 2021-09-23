@@ -22,7 +22,7 @@ public class ServiceTest extends EntityGetUpdateDeleteTest implements FilesTest<
         service.setArchived(false);
         service.setDescription(randomString());
         Price minPrice = new Price();
-        minPrice.setValue(randomLong(10, 10000));
+        minPrice.setValue(22.2345);
         minPrice.setCurrency(simpleEntityManager.getFirstCurrency());
         service.setMinPrice(minPrice);
         service.setPaymentItemType(ServicePaymentItemType.WORK);

@@ -26,5 +26,5 @@ public class Price {
     /**
      * Значение (в копейках)
      */
-    private Long value;
+    private Double value;
 }
