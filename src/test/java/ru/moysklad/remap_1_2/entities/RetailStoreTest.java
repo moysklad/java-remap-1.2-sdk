@@ -60,7 +60,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setQrAcquire(simpleEntityManager.createSimpleOrganization());
         retailStore.setMinionToMasterType(RetailStore.MinionToMasterType.SAME_GROUP);
         retailStore.setQrBankPercent(10d);
-        retailStore.setSendMarksForCheck(true);
+        retailStore.setSendMarksForCheck(false);
         retailStore.setMarkingSellingMode(RetailStore.MarkingSellingMode.WITHOUT_ERRORS);
 
         api.entity().retailstore().create(retailStore);
