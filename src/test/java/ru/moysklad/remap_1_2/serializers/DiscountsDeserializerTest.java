@@ -133,7 +133,7 @@ public class DiscountsDeserializerTest implements TestAsserts, TestRandomizers {
         } catch (JsonParseException ex) {
             assertEquals(
                     ex.getMessage(),
-                    "Can't parse field 'discount': meta.type must be one of [accumulationdiscount, bonusprogram, discount, personaldiscount, specialpricediscount]"
+                    "Can't parse field 'discount': meta.type must be one of [accumulationdiscount, bonusprogram, discount, personaldiscount, specialpricediscount, roundoffdiscount]"
             );
         }
     }
