@@ -9,7 +9,7 @@ import java.lang.reflect.Type;
 /**
  * Десериализатор поля <code>discount</code>. В зависимости от метаданных, возвращает экземпляр
  * одного из классов, наследующихся от Discount: AccumulationDiscount,
- * BonusProgram, PersonalDiscount, SpecialPriceDiscount,
+ * BonusProgram, PersonalDiscount, SpecialPriceDiscount, RoundOffDiscount
  * или сам Discount
  */
 public class DiscountDeserializer implements JsonDeserializer<Discount> {
@@ -39,8 +39,11 @@ public class DiscountDeserializer implements JsonDeserializer<Discount> {
             case SPECIAL_PRICE_DISCOUNT:
                 return context.deserialize(json, SpecialPriceDiscount.class);
 
+            case ROUND_OFF_DISCOUNT:
+                return context.deserialize(json, RoundOffDiscount.class);
+
             default:
-                throw new JsonParseException("Can't parse field 'discount': meta.type must be one of [accumulationdiscount, bonusprogram, discount, personaldiscount, specialpricediscount]");
+                throw new JsonParseException("Can't parse field 'discount': meta.type must be one of [accumulationdiscount, bonusprogram, discount, personaldiscount, specialpricediscount, roundoffdiscount]");
         }
     }
 }
