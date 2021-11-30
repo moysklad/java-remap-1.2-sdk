@@ -148,10 +148,10 @@ public class FilterParam extends ApiParam {
 
     public enum FilterType {
         equals("="),
-        greater("~"),
-        lesser("~"),
-        greater_or_equals("~"),
-        lesser_or_equals("~"),
+        greater(">"),
+        lesser("<"),
+        greater_or_equals(">="),
+        lesser_or_equals("<="),
         not_equals("!="),
         equivalence("~"),
         equivalence_left("~="),
