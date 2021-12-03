@@ -60,6 +60,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setQrAcquire(simpleEntityManager.createSimpleOrganization());
         retailStore.setMinionToMasterType(RetailStore.MinionToMasterType.SAME_GROUP);
         retailStore.setQrBankPercent(10d);
+        retailStore.setMarkingSellingMode(RetailStore.MarkingSellingMode.CORRECT_MARKS_ONLY);
 
         api.entity().retailstore().create(retailStore);
 
@@ -107,6 +108,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getQrAcquire(), retrievedEntity.getQrAcquire());
         assertEquals(retailStore.getMinionToMasterType(), retrievedEntity.getMinionToMasterType());
         assertEquals(retailStore.getQrBankPercent(), retrievedEntity.getQrBankPercent());
+        assertEquals(retailStore.getMarkingSellingMode(), retrievedEntity.getMarkingSellingMode());
     }
 
     @Test
@@ -151,6 +153,28 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         minion = api.entity().retailstore().get(minion);
         assertNotNull(minion.getMasterRetailStores());
         assertEquals(1, minion.getMasterRetailStores().getMeta().getSize().intValue());
+    }
+
+    @Test
+    public void markingModeTest() throws ApiClientException, IOException {
+        RetailStore retailStore = simpleEntityManager.createSimple(RetailStore.class, true);
+        retailStore.setMarkingSellingMode(RetailStore.MarkingSellingMode.ALL);
+        api.entity().retailstore().create(retailStore);
+
+        retailStore = api.entity().retailstore().get(retailStore);
+        assertEquals(retailStore.getMarkingSellingMode(), RetailStore.MarkingSellingMode.ALL);
+
+        retailStore.setMarkingSellingMode(RetailStore.MarkingSellingMode.WITHOUT_ERRORS);
+        api.entity().retailstore().update(retailStore);
+
+        retailStore = api.entity().retailstore().get(retailStore);
+        assertEquals(retailStore.getMarkingSellingMode(), RetailStore.MarkingSellingMode.WITHOUT_ERRORS);
+
+        retailStore.setMarkingSellingMode(RetailStore.MarkingSellingMode.CORRECT_MARKS_ONLY);
+        api.entity().retailstore().update(retailStore);
+
+        retailStore = api.entity().retailstore().get(retailStore);
+        assertEquals(retailStore.getMarkingSellingMode(), RetailStore.MarkingSellingMode.CORRECT_MARKS_ONLY);
     }
 
     @Override
