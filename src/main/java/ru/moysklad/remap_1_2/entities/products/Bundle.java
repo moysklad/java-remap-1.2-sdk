@@ -135,7 +135,9 @@ public class Bundle extends AbstractProduct implements IEntityWithAttributes, Ha
         PERFUMERY,
         ELECTRONICS,
         TIRES,
-        OTP
+        OTP,
+        MILK,
+        WATER
     }
 
     /**
