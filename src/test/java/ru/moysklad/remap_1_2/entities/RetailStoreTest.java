@@ -55,13 +55,13 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setReservePrepaidGoods(true);
         retailStore.setDefaultTaxSystem(TaxSystem.PRESUMPTIVE_TAX_SYSTEM);
         retailStore.setOrderTaxSystem(TaxSystem.UNIFIED_AGRICULTURAL_TAX);
-        retailStore.setFiscalType(RetailStore.FiscalType.CLOUD);
+        retailStore.setFiscalType(RetailStore.FiscalType.MASTER);
         retailStore.setQrPayEnabled(true);
         retailStore.setQrAcquire(simpleEntityManager.createSimpleOrganization());
         retailStore.setMinionToMasterType(RetailStore.MinionToMasterType.SAME_GROUP);
         retailStore.setQrBankPercent(10d);
         retailStore.setSendMarksForCheck(false);
-        retailStore.setMarkingSellingMode(RetailStore.MarkingSellingMode.WITHOUT_ERRORS);
+        retailStore.setMarkingSellingMode(RetailStore.MarkingSellingMode.CORRECT_MARKS_ONLY);
 
         api.entity().retailstore().create(retailStore);
 
