@@ -157,6 +157,28 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(1, minion.getMasterRetailStores().getMeta().getSize().intValue());
     }
 
+    @Test
+    public void markingModeTest() throws ApiClientException, IOException {
+        RetailStore retailStore = simpleEntityManager.createSimple(RetailStore.class, true);
+        retailStore.setMarkingSellingMode(RetailStore.MarkingSellingMode.ALL);
+        api.entity().retailstore().create(retailStore);
+
+        retailStore = api.entity().retailstore().get(retailStore);
+        assertEquals(retailStore.getMarkingSellingMode(), RetailStore.MarkingSellingMode.ALL);
+
+        retailStore.setMarkingSellingMode(RetailStore.MarkingSellingMode.WITHOUT_ERRORS);
+        api.entity().retailstore().update(retailStore);
+
+        retailStore = api.entity().retailstore().get(retailStore);
+        assertEquals(retailStore.getMarkingSellingMode(), RetailStore.MarkingSellingMode.WITHOUT_ERRORS);
+
+        retailStore.setMarkingSellingMode(RetailStore.MarkingSellingMode.CORRECT_MARKS_ONLY);
+        api.entity().retailstore().update(retailStore);
+
+        retailStore = api.entity().retailstore().get(retailStore);
+        assertEquals(retailStore.getMarkingSellingMode(), RetailStore.MarkingSellingMode.CORRECT_MARKS_ONLY);
+    }
+
     @Override
     protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
         RetailStore retailStore = (RetailStore) originalEntity;

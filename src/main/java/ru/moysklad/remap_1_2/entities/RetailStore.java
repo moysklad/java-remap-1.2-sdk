@@ -81,8 +81,8 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private MinionToMasterType minionToMasterType;
     private ListEntity<RetailStore> masterRetailStores;
     private Double qrBankPercent;
-    private Boolean sendMarksForCheck;
     private MarkingSellingMode markingSellingMode;
+    private Boolean sendMarksForCheck;
 
     public RetailStore(String id) {
         super(id);
@@ -232,6 +232,6 @@ public class RetailStore extends MetaEntity implements Fetchable {
     }
 
     public enum MarkingSellingMode {
-        CORRECT_MARKS_ONLY, WITHOUT_ERRORS, ALL;
+        CORRECT_MARKS_ONLY, WITHOUT_ERRORS, ALL
     }
 }

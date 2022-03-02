@@ -196,6 +196,7 @@ public final class Meta {
         RETAIL_SALES_RETURN("retailsalesreturn", RetailSalesReturn.class),
         RETAIL_SHIFT("retailshift", RetailShift.class),
         RETAIL_STORE("retailstore", RetailStore.class),
+        ROUND_OFF_DISCOUNT("roundoffdiscount", RoundOffDiscount.class),
         SALES_RETURN("salesreturn", SalesReturn.class),
         SALES_RETURN_POSITION("salesreturnposition", SalesReturnDocumentPosition.class),
         SERVICE("service", Service.class),
