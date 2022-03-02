@@ -60,6 +60,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setQrAcquire(simpleEntityManager.createSimpleOrganization());
         retailStore.setMinionToMasterType(RetailStore.MinionToMasterType.SAME_GROUP);
         retailStore.setQrBankPercent(10d);
+        retailStore.setSendMarksForCheck(false);
         retailStore.setMarkingSellingMode(RetailStore.MarkingSellingMode.CORRECT_MARKS_ONLY);
 
         api.entity().retailstore().create(retailStore);
@@ -108,6 +109,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getQrAcquire(), retrievedEntity.getQrAcquire());
         assertEquals(retailStore.getMinionToMasterType(), retrievedEntity.getMinionToMasterType());
         assertEquals(retailStore.getQrBankPercent(), retrievedEntity.getQrBankPercent());
+        assertEquals(retailStore.getSendMarksForCheck(), retrievedEntity.getSendMarksForCheck());
         assertEquals(retailStore.getMarkingSellingMode(), retrievedEntity.getMarkingSellingMode());
     }
 

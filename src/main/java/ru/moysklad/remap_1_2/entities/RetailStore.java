@@ -82,6 +82,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private ListEntity<RetailStore> masterRetailStores;
     private Double qrBankPercent;
     private MarkingSellingMode markingSellingMode;
+    private Boolean sendMarksForCheck;
 
     public RetailStore(String id) {
         super(id);

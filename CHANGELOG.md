@@ -2,6 +2,9 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 4.5-release (02.03.2022)
+* Добавлены поля `markingSellingMode`, `sendMarksForCheck` в `RetailStore`
+
 ## 4.0-release (23.09.2021)
 * Изменен тип значения цены на Double
 
