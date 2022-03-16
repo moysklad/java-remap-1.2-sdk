@@ -137,7 +137,8 @@ public class Bundle extends AbstractProduct implements IEntityWithAttributes, Ha
         TIRES,
         OTP,
         MILK,
-        WATER
+        WATER,
+        NCP
     }
 
     /**

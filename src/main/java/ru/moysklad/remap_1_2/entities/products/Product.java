@@ -207,7 +207,8 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
         TIRES,
         OTP,
         MILK,
-        WATER
+        WATER,
+        NCP
     }
 
     /**
