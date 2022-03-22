@@ -28,7 +28,6 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> imp
         product.setPaymentItemType(GoodPaymentItemType.GOOD);
         product.setTaxSystem(GoodTaxSystem.SIMPLIFIED_TAX_SYSTEM_INCOME);
         product.setSupplier(simpleEntityManager.createSimple(Counterparty.class));
-        product.setPpeType("2400001226108");
         product.setPartialDisposal(true);
 
         api.entity().product().create(product);
@@ -49,6 +48,21 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> imp
         assertFalse(product.getAttribute(null).isPresent());
         assertEquals(product.getPpeType(), retrievedEntity.getPpeType());
         assertEquals(product.getPartialDisposal(), retrievedEntity.getPartialDisposal());
+    }
+
+    @Test
+    public void createOnTapProduct() throws ApiClientException, IOException {
+        Product product = new Product();
+        product.setName("product_" + randomString(3) + "_" + new Date().getTime());
+        product.setArchived(false);
+        product.setDescription(randomString());
+        product.setArticle(randomString());
+        product.setOnTap(true);
+        api.entity().product().create(product);
+        ListEntity<Product> updatedEntitiesList = api.entity().product().get(filterEq("name", product.getName()));
+        assertEquals(1, updatedEntitiesList.getRows().size());
+        Product retrievedEntity = updatedEntitiesList.getRows().get(0);
+        assertEquals(product.getOnTap(), retrievedEntity.getOnTap());
     }
 
     @Test

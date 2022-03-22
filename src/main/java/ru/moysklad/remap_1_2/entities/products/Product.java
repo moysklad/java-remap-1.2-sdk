@@ -149,6 +149,11 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
     private Boolean partialDisposal;
 
     /**
+     * Флаг разливного товара
+     */
+    private Boolean onTap;
+
+    /**
      * Объект, содержащий данные алкогольной продукции
      */
     @Getter
