@@ -156,7 +156,7 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
     /**
      * Флаг для отображения запрета скидки
      */
-    private Boolean isDiscountProhibited;
+    private Boolean discountProhibited;
 
     /**
      * Объект, содержащий данные алкогольной продукции
