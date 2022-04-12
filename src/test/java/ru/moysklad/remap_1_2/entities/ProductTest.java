@@ -66,6 +66,35 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> imp
     }
 
     @Test
+    public void createDiscountProhibitedProduct() throws ApiClientException, IOException {
+        Product productDiscountProhibited = new Product();
+        productDiscountProhibited.setName("product_" + randomString(3) + "_" + new Date().getTime());
+        productDiscountProhibited.setArchived(false);
+        productDiscountProhibited.setDescription(randomString());
+        productDiscountProhibited.setArticle(randomString());
+        productDiscountProhibited.setDiscountProhibited(true);
+
+        api.entity().product().create(productDiscountProhibited);
+        ListEntity<Product> updatedEntitiesList = api.entity().product().get(filterEq("name", productDiscountProhibited.getName()));
+        assertEquals(1, updatedEntitiesList.getRows().size());
+        Product retrievedEntity = updatedEntitiesList.getRows().get(0);
+        assertEquals(productDiscountProhibited.getDiscountProhibited(), retrievedEntity.getDiscountProhibited());
+
+        Product productDiscountNotProhibited = new Product();
+        productDiscountNotProhibited.setName("product_" + randomString(3) + "_" + new Date().getTime());
+        productDiscountNotProhibited.setArchived(false);
+        productDiscountNotProhibited.setDescription(randomString());
+        productDiscountNotProhibited.setArticle(randomString());
+        productDiscountNotProhibited.setDiscountProhibited(false);
+
+        api.entity().product().create(productDiscountNotProhibited);
+        ListEntity<Product> updatedEntitiesList2 = api.entity().product().get(filterEq("name", productDiscountNotProhibited.getName()));
+        assertEquals(1, updatedEntitiesList2.getRows().size());
+        Product retrievedEntity2 = updatedEntitiesList2.getRows().get(0);
+        assertEquals(productDiscountNotProhibited.getDiscountProhibited(), retrievedEntity2.getDiscountProhibited());
+    }
+
+    @Test
     public void paymentItemTypeTest() {
         Product product = simpleEntityManager.createSimple(Product.class);
 
