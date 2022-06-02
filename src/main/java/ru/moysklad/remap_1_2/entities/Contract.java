@@ -113,6 +113,16 @@ public class Contract extends MetaEntity implements IEntityWithAttributes {
     private Rate rate;
 
     /**
+     * Напечатан ли документ
+     */
+    private Boolean printed;
+
+    /**
+     * Опубликован ли документ
+     */
+    private Boolean published;
+
+    /**
      * Коллекция доп. полей
      */
     private List<Attribute> attributes;
