@@ -46,6 +46,8 @@ public class ContractTest extends EntityGetUpdateDeleteTest {
         assertEquals(contract.getRewardType(), retrievedEntity.getRewardType());
         assertEquals(contract.getOwnAgent().getMeta().getHref(), retrievedEntity.getOwnAgent().getMeta().getHref());
         assertEquals(contract.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+        assertFalse(contract.getPrinted());
+        assertFalse(contract.getPublished());
     }
 
     @Test
