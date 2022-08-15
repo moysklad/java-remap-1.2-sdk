@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Tolerate;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 
@@ -58,6 +59,7 @@ public class Attachment extends MetaEntity {
      * @param file Файл, который нужно загрузить
      * @throws IOException когда возникла проблема с чтением файла
      */
+    @Tolerate
     public void setContent(File file) throws IOException {
         byte[] encoded = Base64.encodeBase64(FileUtils.readFileToByteArray(file));
         filename = file.getName();
