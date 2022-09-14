@@ -44,6 +44,47 @@ public class ServiceTest extends EntityGetUpdateDeleteTest implements FilesTest<
     }
 
     @Test
+    public void createDiscountProhibitedService() throws ApiClientException, IOException {
+        Service serviceDiscountProhibited = new Service();
+        serviceDiscountProhibited.setName("service_" + randomString(3) + "_" + new Date().getTime());
+        serviceDiscountProhibited.setArchived(false);
+        serviceDiscountProhibited.setDescription(randomString());
+        Price minPrice = new Price();
+        minPrice.setValue(22.2345);
+        minPrice.setCurrency(simpleEntityManager.getFirstCurrency());
+        serviceDiscountProhibited.setMinPrice(minPrice);
+        serviceDiscountProhibited.setPaymentItemType(ServicePaymentItemType.WORK);
+        serviceDiscountProhibited.setTaxSystem(GoodTaxSystem.GENERAL_TAX_SYSTEM);
+        serviceDiscountProhibited.setDiscountProhibited(true);
+
+        api.entity().service().create(serviceDiscountProhibited);
+        ListEntity<Service> updatedEntitiesList = api.entity().service()
+                .get(filterEq("name", serviceDiscountProhibited.getName()));
+        assertEquals(1, updatedEntitiesList.getRows().size());
+        Service retrievedEntity = updatedEntitiesList.getRows().get(0);
+        assertEquals(serviceDiscountProhibited.getDiscountProhibited(), retrievedEntity.getDiscountProhibited());
+
+        Service serviceDiscountNotProhibited = new Service();
+        serviceDiscountNotProhibited.setName("service_" + randomString(3) + "_" + new Date().getTime());
+        serviceDiscountNotProhibited.setArchived(false);
+        serviceDiscountNotProhibited.setDescription(randomString());
+        Price minPrice2 = new Price();
+        minPrice2.setValue(22.2345);
+        minPrice2.setCurrency(simpleEntityManager.getFirstCurrency());
+        serviceDiscountNotProhibited.setMinPrice(minPrice2);
+        serviceDiscountNotProhibited.setPaymentItemType(ServicePaymentItemType.WORK);
+        serviceDiscountNotProhibited.setTaxSystem(GoodTaxSystem.GENERAL_TAX_SYSTEM);
+        serviceDiscountNotProhibited.setDiscountProhibited(false);
+
+        api.entity().service().create(serviceDiscountNotProhibited);
+        ListEntity<Service> updatedEntitiesList2 = api.entity().service()
+                .get(filterEq("name", serviceDiscountNotProhibited.getName()));
+        assertEquals(1, updatedEntitiesList2.getRows().size());
+        Service retrievedEntity2 = updatedEntitiesList2.getRows().get(0);
+        assertEquals(serviceDiscountNotProhibited.getDiscountProhibited(), retrievedEntity2.getDiscountProhibited());
+    }
+
+    @Test
     public void paymentItemTypeTest() {
         Service service = simpleEntityManager.createSimple(Service.class);
 

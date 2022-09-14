@@ -1,10 +1,7 @@
 package ru.moysklad.remap_1_2.entities;
 
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
-import ru.moysklad.remap_1_2.entities.products.Bundle;
-import ru.moysklad.remap_1_2.entities.products.GoodPaymentItemType;
-import ru.moysklad.remap_1_2.entities.products.GoodTaxSystem;
-import ru.moysklad.remap_1_2.entities.products.Product;
+import ru.moysklad.remap_1_2.entities.products.*;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
@@ -62,6 +59,61 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> imple
         assertEquals(bundle.getPaymentItemType(), retrievedEntity.getPaymentItemType());
         assertEquals(bundle.getTaxSystem(), retrievedEntity.getTaxSystem());
         assertEquals(bundle.getPartialDisposal(), retrievedEntity.getPartialDisposal());
+    }
+
+    @Test
+    public void createDiscountProhibitedBundle() throws IOException, ApiClientException {
+        Bundle bundleDiscountProhibited = new Bundle();
+        bundleDiscountProhibited.setName("bundle_" + randomString(3) + "_" + new Date().getTime());
+        bundleDiscountProhibited.setArchived(false);
+        bundleDiscountProhibited.setArticle(randomString());
+        bundleDiscountProhibited.setTrackingType(Bundle.TrackingType.OTP);
+        bundleDiscountProhibited.setPaymentItemType(GoodPaymentItemType.COMPOUND_PAYMENT_ITEM);
+        bundleDiscountProhibited.setTaxSystem(GoodTaxSystem.PRESUMPTIVE_TAX_SYSTEM);
+        bundleDiscountProhibited.setPartialDisposal(true);
+        bundleDiscountProhibited.setDiscountProhibited(true);
+
+        Product product = simpleEntityManager.createSimple(Product.class);
+        ListEntity<Bundle.ComponentEntity> components = new ListEntity<>();
+        components.setRows(new ArrayList<>());
+        components.getRows().add(new Bundle.ComponentEntity());
+        components.getRows().get(0).setQuantity(randomDouble(1, 5, 2));
+        components.getRows().get(0).setAssortment(product);
+        bundleDiscountProhibited.setComponents(components);
+
+        api.entity().bundle().create(bundleDiscountProhibited);
+
+        ListEntity<Bundle> updatedEntitiesList = api.entity().bundle()
+                .get(limit(20), expand("components.assortment"), filterEq("name", bundleDiscountProhibited.getName()));
+        assertEquals(1, updatedEntitiesList.getRows().size());
+        Bundle retrievedEntity = updatedEntitiesList.getRows().get(0);
+        assertEquals(bundleDiscountProhibited.getDiscountProhibited(), retrievedEntity.getDiscountProhibited());
+
+        Bundle bundleDiscountNotProhibited = new Bundle();
+        bundleDiscountNotProhibited.setName("bundle_" + randomString(3) + "_" + new Date().getTime());
+        bundleDiscountNotProhibited.setArchived(false);
+        bundleDiscountNotProhibited.setArticle(randomString());
+        bundleDiscountNotProhibited.setTrackingType(Bundle.TrackingType.OTP);
+        bundleDiscountNotProhibited.setPaymentItemType(GoodPaymentItemType.COMPOUND_PAYMENT_ITEM);
+        bundleDiscountNotProhibited.setTaxSystem(GoodTaxSystem.PRESUMPTIVE_TAX_SYSTEM);
+        bundleDiscountNotProhibited.setPartialDisposal(true);
+        bundleDiscountNotProhibited.setDiscountProhibited(false);
+
+        Product product2 = simpleEntityManager.createSimple(Product.class);
+        ListEntity<Bundle.ComponentEntity> components2 = new ListEntity<>();
+        components2.setRows(new ArrayList<>());
+        components2.getRows().add(new Bundle.ComponentEntity());
+        components2.getRows().get(0).setQuantity(randomDouble(1, 5, 2));
+        components2.getRows().get(0).setAssortment(product2);
+        bundleDiscountNotProhibited.setComponents(components2);
+
+        api.entity().bundle().create(bundleDiscountNotProhibited);
+
+        ListEntity<Bundle> updatedEntitiesList2 = api.entity().bundle().
+                get(limit(20), expand("components.assortment"), filterEq("name", bundleDiscountNotProhibited.getName()));
+        assertEquals(1, updatedEntitiesList2.getRows().size());
+        Bundle retrievedEntity2 = updatedEntitiesList2.getRows().get(0);
+        assertEquals(bundleDiscountNotProhibited.getDiscountProhibited(), retrievedEntity2.getDiscountProhibited());
     }
 
     @Test
