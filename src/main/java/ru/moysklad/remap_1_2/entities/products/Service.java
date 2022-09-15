@@ -44,6 +44,11 @@ public class Service extends AbstractProduct implements SingleProductMarker, IEn
     private Boolean archived;
 
     /**
+     * Флаг для отображения запрета скидки
+     */
+    private Boolean discountProhibited;
+
+    /**
      * Момент последнего обновления сущности
      */
     private LocalDateTime updated;

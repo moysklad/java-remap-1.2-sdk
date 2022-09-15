@@ -64,6 +64,11 @@ public class Bundle extends AbstractProduct implements IEntityWithAttributes, Ha
     private Boolean archived;
 
     /**
+     * Флаг для отображения запрета скидки
+     */
+    private Boolean discountProhibited;
+
+    /**
      * Момент последнего обновления сущности
      */
     private LocalDateTime updated;
