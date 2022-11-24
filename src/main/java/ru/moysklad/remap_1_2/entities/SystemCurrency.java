@@ -6,18 +6,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Валюта
+ * Системная валюта
  */
 
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Currency extends AbstractCurrency {
+public class SystemCurrency extends AbstractCurrency {
+
+    /**
+     * Способ обновления курса для системной Валюты
+     */
+    private AbstractCurrency.UpdateType rateUpdateType;
 
     /**
      * Основана ли эта Валюта на Валюте из системного справочника
      */
-    final private Boolean system = false;
+    final private Boolean system = true;
 }
 

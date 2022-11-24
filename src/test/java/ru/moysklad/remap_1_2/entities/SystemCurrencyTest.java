@@ -1,45 +1,32 @@
 package ru.moysklad.remap_1_2.entities;
 
+import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
-import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
-import static org.junit.Assert.*;
 
-public class CurrencyTest extends EntityGetUpdateDeleteTest {
+public class SystemCurrencyTest extends EntityGetUpdateDeleteTest {
     @Test
     public void createTest() throws IOException, ApiClientException {
-        Currency currency = new Currency();
-        currency.setName("currency_" + randomString(3) + "_" + new Date().getTime());
+        SystemCurrency currency = new SystemCurrency();
         currency.setArchived(false);
-        currency.setCode(randomString(3));
-        currency.setIsoCode(randomString(3));
+        currency.setIsoCode("RUB");
 
-        Currency.Unit major = new Currency.Unit();
-        major.setGender(Currency.Unit.Gender.masculine);
-        major.setS1(randomString());
-        major.setS2(randomString());
-        major.setS5(randomString());
-        currency.setMajorUnit(major);
+        int sizeRubCurrencies = api.entity().currency().get(filterEq("name", "руб")).getRows().size();
 
-        Currency.Unit minor = new Currency.Unit();
-        minor.setGender(Currency.Unit.Gender.feminine);
-        minor.setS1(randomString());
-        minor.setS2(randomString());
-        minor.setS5(randomString());
-        currency.setMinorUnit(minor);
+        api.entity().systemcurrency().create(currency);
 
-        api.entity().currency().create(currency);
+        ListEntity<SystemCurrency> updatedEntitiesList = api.entity().systemcurrency().get(filterEq("name", currency.getName()));
 
-        ListEntity<Currency> updatedEntitiesList = api.entity().currency().get(filterEq("name", currency.getName()));
-        assertEquals(1, updatedEntitiesList.getRows().size());
+        assertEquals(sizeRubCurrencies + 1, updatedEntitiesList.getRows().size());
 
-        Currency retrievedEntity = updatedEntitiesList.getRows().get(0);
+        SystemCurrency retrievedEntity = updatedEntitiesList.getRows().get(0);
         assertEquals(currency.getName(), retrievedEntity.getName());
         assertEquals(currency.getArchived(), retrievedEntity.getArchived());
         assertEquals(currency.getCode(), retrievedEntity.getCode());
@@ -50,8 +37,8 @@ public class CurrencyTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected void getAsserts(MetaEntity originalEntity, MetaEntity retrievedEntity) {
-        Currency originalCurrency = (Currency) originalEntity;
-        Currency retrievedCurrency = (Currency) retrievedEntity;
+        SystemCurrency originalCurrency = (SystemCurrency) originalEntity;
+        SystemCurrency retrievedCurrency = (SystemCurrency) retrievedEntity;
 
         assertEquals(originalCurrency.getName(), retrievedCurrency.getName());
         assertEquals(originalCurrency.getCode(), retrievedCurrency.getCode());
@@ -60,8 +47,8 @@ public class CurrencyTest extends EntityGetUpdateDeleteTest {
 
     @Override
     protected void putAsserts(MetaEntity originalEntity, MetaEntity updatedEntity, Object changedField) {
-        Currency originalCurrency = (Currency) originalEntity;
-        Currency updatedCurrency = (Currency) updatedEntity;
+        SystemCurrency originalCurrency = (SystemCurrency) originalEntity;
+        SystemCurrency updatedCurrency = (SystemCurrency) updatedEntity;
 
         assertNotEquals(originalCurrency.getName(), updatedCurrency.getName());
         assertEquals(changedField, updatedCurrency.getName());
@@ -71,12 +58,12 @@ public class CurrencyTest extends EntityGetUpdateDeleteTest {
 
     @Override
     public EntityClientBase entityClient() {
-        return api.entity().currency();
+        return api.entity().systemcurrency();
     }
 
     @Override
     public Class<? extends MetaEntity> entityClass() {
-        return Currency.class;
+        return SystemCurrency.class;
     }
 }
 
