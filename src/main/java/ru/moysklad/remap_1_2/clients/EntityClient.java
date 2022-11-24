@@ -112,11 +112,6 @@ public final class EntityClient {
     }
 
     @ApiChainElement
-    public SystemCurrencyClient systemcurrency() {
-        return new SystemCurrencyClient(api);
-    }
-
-    @ApiChainElement
     public DiscountClient discount() {
         return new DiscountClient(api);
     }

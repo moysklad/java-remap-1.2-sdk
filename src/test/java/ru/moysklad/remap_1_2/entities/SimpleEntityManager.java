@@ -176,13 +176,6 @@ public class SimpleEntityManager implements TestRandomizers {
         return currency;
     }
 
-    public SystemCurrency createSimpleSystemCurrency() throws IOException, ApiClientException {
-        SystemCurrency currency = new SystemCurrency();
-        currency.setIsoCode("RUB");
-        api.entity().systemcurrency().create(currency);
-        return currency;
-    }
-
     public CustomEntity createSimpleCustomEntity() throws IOException, ApiClientException {
         CustomEntity customEntity = new CustomEntity();
 
