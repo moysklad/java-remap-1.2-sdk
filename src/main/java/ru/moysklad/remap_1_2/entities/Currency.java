@@ -83,14 +83,6 @@ public class Currency extends MetaEntity implements Fetchable {
         super(id);
     }
 
-    public void setRateUpdateType(UpdateType rateUpdateType) {
-        if (this.system) {
-            this.rateUpdateType = rateUpdateType;
-        } else {
-            this.rateUpdateType = null;
-        }
-    }
-
     @Getter
     @Setter
     @NoArgsConstructor
