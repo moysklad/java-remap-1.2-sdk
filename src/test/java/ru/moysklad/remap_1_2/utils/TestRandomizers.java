@@ -58,7 +58,7 @@ public interface TestRandomizers {
     }
 
     default String randomUrl() {
-        return "http://www." + randomString() + ".com";
+        return "http://www.example.com/" + randomString();
     }
 
     default Type randomWebhookType() {

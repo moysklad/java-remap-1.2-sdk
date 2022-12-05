@@ -1,6 +1,5 @@
 package ru.moysklad.remap_1_2.entities;
 
-import org.junit.Ignore;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
@@ -47,29 +46,6 @@ public class CurrencyTest extends EntityGetUpdateDeleteTest {
         assertEquals(currency.getIsoCode(), retrievedEntity.getIsoCode());
         assertEquals(currency.getMajorUnit(), retrievedEntity.getMajorUnit());
         assertEquals(currency.getMinorUnit(), retrievedEntity.getMinorUnit());
-    }
-
-
-    //три теста ниже игнорятся до разнесения валюты на системную и несистемную
-    @Ignore
-    @Test
-    @Override
-    public void putTest() throws IOException, ApiClientException {
-        super.putTest();
-    }
-
-    @Ignore
-    @Test
-    @Override
-    public void massUpdateTest() throws IOException, ApiClientException {
-        super.massUpdateTest();
-    }
-
-    @Ignore
-    @Test
-    @Override
-    public void massCreateDeleteTest() throws IOException, ApiClientException {
-        super.massCreateDeleteTest();
     }
 
     @Override
