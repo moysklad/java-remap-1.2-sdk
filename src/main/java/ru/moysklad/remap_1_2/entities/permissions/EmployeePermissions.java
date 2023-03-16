@@ -47,6 +47,7 @@ public class EmployeePermissions {
     private Boolean subscriptionControl;
     private Boolean purchaseControl;
     private Boolean listenCalls;
+    private Boolean payQrAlfa;
 
     /**
      * Entity permissions
