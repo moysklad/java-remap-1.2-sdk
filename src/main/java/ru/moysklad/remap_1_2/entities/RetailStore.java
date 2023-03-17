@@ -15,6 +15,7 @@ import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import static java.util.stream.Collectors.toList;
 
@@ -83,6 +84,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private Double qrBankPercent;
     private MarkingSellingMode markingSellingMode;
     private Boolean sendMarksForCheck;
+    private UUID payQrBankId;
 
     public RetailStore(String id) {
         super(id);
