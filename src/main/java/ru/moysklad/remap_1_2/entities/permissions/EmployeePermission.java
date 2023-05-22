@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,4 +18,5 @@ public class EmployeePermission {
     private String email;
     private Group group;
     private EmployeeRole role;
+    private List<String> authorizedHosts;
 }
