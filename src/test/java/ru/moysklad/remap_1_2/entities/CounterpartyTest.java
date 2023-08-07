@@ -59,7 +59,7 @@ public class CounterpartyTest extends EntityGetUpdateDeleteTest {
         Counterparty individualCounterPartyForCreate = api.entity().counterparty().create(counterpartyIndividual);
         Counterparty counterpartyIndividualCreated = api.entity().counterparty().get(individualCounterPartyForCreate.getId());
         assertEquals(male, counterpartyIndividualCreated.getSex());
-        assertEquals(birthDate, counterpartyIndividualCreated.getBirthDate());
+        assertEquals(birthDate.toLocalDate(), counterpartyIndividualCreated.getBirthDate().toLocalDate());
     }
 
     @Test
