@@ -211,7 +211,7 @@ public final class Counterparty extends Agent implements IEntityWithAttributes {
      * Дата рождения контрагента
      */
 
-    private LocalDateTime birthDay;
+    private LocalDateTime birthDate;
 
     public Counterparty(String id) {
         super(id);
