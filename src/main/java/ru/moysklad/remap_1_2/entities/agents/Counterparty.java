@@ -202,6 +202,17 @@ public final class Counterparty extends Agent implements IEntityWithAttributes {
      */
     private PriceType priceType;
 
+    /**
+     * Пол контрагента
+     */
+    private String sex;
+
+    /**
+     * Дата рождения контрагента
+     */
+
+    private LocalDateTime birthDay;
+
     public Counterparty(String id) {
         super(id);
     }

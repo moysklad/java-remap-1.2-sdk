@@ -1,5 +1,6 @@
 package ru.moysklad.remap_1_2.entities;
 
+import java.time.LocalDateTime;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.agents.Counterparty;
@@ -47,6 +48,18 @@ public class CounterpartyTest extends EntityGetUpdateDeleteTest {
         assertEquals(counterparty.getPriceType(), retrievedEntity.getPriceType());
         assertAddressFull(actualAddressFull, counterparty.getActualAddressFull());
         assertAddressFull(legalAddressFull, counterparty.getLegalAddressFull());
+
+        Counterparty counterpartyIndividual = new Counterparty();
+        String male = "MALE";
+        LocalDateTime birthDay = LocalDateTime.now().minusYears(1);
+        counterpartyIndividual.setCompanyType(CompanyType.individual);
+        counterpartyIndividual.setSex(male);
+        counterpartyIndividual.setBirthDay(birthDay);
+        counterparty.setName("counterparty_" + randomString(4) + "_" + new Date().getTime());
+        Counterparty individualCounterPartyForCreate = api.entity().counterparty().create(counterpartyIndividual);
+        Counterparty counterpartyIndividualCreated = api.entity().counterparty().get(individualCounterPartyForCreate.getId());
+        assertEquals(male, counterpartyIndividualCreated.getSex());
+        assertEquals(birthDay, counterpartyIndividualCreated.getBirthDay());
     }
 
     @Test
