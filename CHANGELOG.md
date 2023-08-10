@@ -2,6 +2,9 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 4.12-release (10.08.2023)
+* Добавлены поля `sex`, `birthDate` в `Counterparty`
+
 ## 4.11-release (14.09.2022)
 * Добавлено поле `discountProhibited` в `Service`, `Bundle`
 
