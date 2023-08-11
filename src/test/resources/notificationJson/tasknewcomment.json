@@ -1,6 +1,6 @@
 {
   "meta": {
-    "href": "https://online.moysklad.ru/api/remap/1.2/notification/240706df-5704-11e9-c0a8-100b00000003",
+    "href": "https://api.moysklad.ru/api/remap/1.2/notification/240706df-5704-11e9-c0a8-100b00000003",
     "type": "NotificationTaskNewComment",
     "mediaType": "application/json"
   },
@@ -12,8 +12,8 @@
   "description": "ntest1 добавил комментарий Комментарий 1",
   "performedBy": {
     "meta": {
-      "href": "https://online.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
-      "metadataHref": "https://online.moysklad.ru/api/remap/1.2/entity/employee/metadata",
+      "href": "https://api.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
+      "metadataHref": "https://api.moysklad.ru/api/remap/1.2/entity/employee/metadata",
       "type": "employee",
       "mediaType": "application/json"
     },
@@ -22,8 +22,8 @@
   },
   "task": {
     "meta": {
-      "href": "https://online.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
-      "metadataHref": "https://online.moysklad.ru/api/remap/1.2/entity/task/metadata",
+      "href": "https://api.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
+      "metadataHref": "https://api.moysklad.ru/api/remap/1.2/entity/task/metadata",
       "type": "task",
       "mediaType": "application/json"
     },

@@ -51,7 +51,7 @@ public final class HttpRequestExecutor {
         this.hostApiPath = api.getHost() + API_PATH;
         this.url = hostApiPath + url;
         query = new HashMap<>();
-        headers = new HashMap<>();
+        headers = createRequiredHeadersMap();
         body = null;
         auth(api);
 
@@ -70,7 +70,7 @@ public final class HttpRequestExecutor {
         this.hostApiPath = ""; // TODO maybe parse url, but it is not necessary until where is no apiParams() calls after url(). Now used only in entity fetch()
         this.url = url;
         query = new HashMap<>();
-        headers = new HashMap<>();
+        headers = createRequiredHeadersMap();
         body = null;
         gson = ApiClient.createGson();
     }
@@ -125,7 +125,7 @@ public final class HttpRequestExecutor {
      * Добавить параметр в заголовки запроса
      */
     public HttpRequestExecutor header(String key, Object value) {
-        if (headers == null) headers = new HashMap<>();
+        if (headers == null) headers = createRequiredHeadersMap();
         headers.put(key, value);
         return this;
     }
@@ -284,6 +284,10 @@ public final class HttpRequestExecutor {
         return statusCode == 200 ||
                 statusCode == 201 ||
                 statusCode == 204;
+    }
+
+    private Map<String, Object> createRequiredHeadersMap() {
+        return new HashMap<>(Collections.singletonMap("Accept-Encoding", "gzip"));
     }
 
     /**
