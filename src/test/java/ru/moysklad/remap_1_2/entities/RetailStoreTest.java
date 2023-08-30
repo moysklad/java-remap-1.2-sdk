@@ -68,6 +68,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setRequiredBirthdate(true);
         retailStore.setRequiredSex(true);
         retailStore.setRequiredDiscountCardNumber(true);
+        retailStore.setAllowDeleteReceiptPositions(false);
 
         api.entity().retailstore().create(retailStore);
 
@@ -123,6 +124,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getRequiredBirthdate(), retrievedEntity.getRequiredBirthdate());
         assertEquals(retailStore.getRequiredSex(), retrievedEntity.getRequiredSex());
         assertEquals(retailStore.getRequiredDiscountCardNumber(), retrievedEntity.getRequiredDiscountCardNumber());
+        assertEquals(retailStore.getAllowDeleteReceiptPositions(), retrievedEntity.getAllowDeleteReceiptPositions());
     }
 
     @Test
