@@ -3,7 +3,7 @@
 Все крупные изменения в проекте будут отражены в этом файле.
 
 ## 4.16-release (31.08.2023)
-* Добавлено поле `allowDeleteReceiptPositions` в ``
+* Добавлено поле `allowDeleteReceiptPositions` в `RetailStore`
 
 ## 4.15-release (10.08.2023)
 * Добавлены поля `sex`, `birthDate` в `Counterparty`
