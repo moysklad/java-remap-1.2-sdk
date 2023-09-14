@@ -2,6 +2,9 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 4.17-release (14.09.2023)
+* Добавлено поле `syncAgents` в `Retailstore`
+
 ## 4.16-release (31.08.2023)
 * Добавлено поле `allowDeleteReceiptPositions` в `RetailStore`
 
