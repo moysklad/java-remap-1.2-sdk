@@ -62,6 +62,13 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setQrBankPercent(10d);
         retailStore.setSendMarksForCheck(false);
         retailStore.setMarkingSellingMode(RetailStore.MarkingSellingMode.CORRECT_MARKS_ONLY);
+        retailStore.setRequiredFio(true);
+        retailStore.setRequiredPhone(true);
+        retailStore.setRequiredEmail(true);
+        retailStore.setRequiredBirthdate(true);
+        retailStore.setRequiredSex(true);
+        retailStore.setRequiredDiscountCardNumber(true);
+        retailStore.setAllowDeleteReceiptPositions(false);
 
         api.entity().retailstore().create(retailStore);
 
@@ -111,6 +118,13 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getQrBankPercent(), retrievedEntity.getQrBankPercent());
         assertEquals(retailStore.getSendMarksForCheck(), retrievedEntity.getSendMarksForCheck());
         assertEquals(retailStore.getMarkingSellingMode(), retrievedEntity.getMarkingSellingMode());
+        assertEquals(retailStore.getRequiredFio(), retrievedEntity.getRequiredFio());
+        assertEquals(retailStore.getRequiredPhone(), retrievedEntity.getRequiredPhone());
+        assertEquals(retailStore.getRequiredEmail(), retrievedEntity.getRequiredEmail());
+        assertEquals(retailStore.getRequiredBirthdate(), retrievedEntity.getRequiredBirthdate());
+        assertEquals(retailStore.getRequiredSex(), retrievedEntity.getRequiredSex());
+        assertEquals(retailStore.getRequiredDiscountCardNumber(), retrievedEntity.getRequiredDiscountCardNumber());
+        assertEquals(retailStore.getAllowDeleteReceiptPositions(), retrievedEntity.getAllowDeleteReceiptPositions());
     }
 
     @Test
