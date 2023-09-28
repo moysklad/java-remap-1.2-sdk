@@ -4,7 +4,7 @@
 
     <groupId>ru.moysklad.api</groupId>
     <artifactId>api-remap-1.2-sdk</artifactId>
-    <version>4.16-SNAPSHOT</version>
+    <version>4.17-SNAPSHOT</version>
 
     <name>SDK for MoySklad / MyStore remap api</name>
     <description>Simplest way to work with entities like assortment and documents from moysklad.ru and mystorehq.com</description>
