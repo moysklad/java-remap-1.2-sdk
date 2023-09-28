@@ -1,7 +1,7 @@
 {
   "meta": {
-    "href": "https://online.moysklad.ru/api/remap/1.1/entity/specialpricediscount/bd1235f2-9c60-11e6-8af5-581e00000009",
-    "metadataHref": "https://online.moysklad.ru/api/remap/1.1/entity/specialpricediscount/metadata",
+    "href": "https://api.moysklad.ru/api/remap/1.1/entity/specialpricediscount/bd1235f2-9c60-11e6-8af5-581e00000009",
+    "metadataHref": "https://api.moysklad.ru/api/remap/1.1/entity/specialpricediscount/metadata",
     "type": "specialpricediscount",
     "mediaType": "application/json"
   },
@@ -13,8 +13,8 @@
   "productFolders": [
     {
       "meta": {
-        "href": "https://online.moysklad.ru/api/remap/1.1/entity/productfolder/a7a589e5-9c60-11e6-8af5-581e00000006",
-        "metadataHref": "https://online.moysklad.ru/api/remap/1.1/entity/productfolder/metadata",
+        "href": "https://api.moysklad.ru/api/remap/1.1/entity/productfolder/a7a589e5-9c60-11e6-8af5-581e00000006",
+        "metadataHref": "https://api.moysklad.ru/api/remap/1.1/entity/productfolder/metadata",
         "type": "productfolder",
         "mediaType": "application/json"
       }
@@ -23,8 +23,8 @@
   "assortment": [
     {
       "meta": {
-        "href": "https://online.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
-        "metadataHref": "https://online.moysklad.ru/api/remap/1.1/entity/variant/metadata",
+        "href": "https://api.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
+        "metadataHref": "https://api.moysklad.ru/api/remap/1.1/entity/variant/metadata",
         "type": "variant",
         "mediaType": "application/json"
       }

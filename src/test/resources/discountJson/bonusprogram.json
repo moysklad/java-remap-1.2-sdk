@@ -1,7 +1,7 @@
 {
   "meta": {
-    "href": "https://online.moysklad.ru/api/remap/1.1/entity/bonusprogram/96673f4d-9f4d-11e6-8af5-581e0000007b",
-    "metadataHref": "https://online.moysklad.ru/api/remap/1.1/entity/bonusprogram/metadata",
+    "href": "https://api.moysklad.ru/api/remap/1.1/entity/bonusprogram/96673f4d-9f4d-11e6-8af5-581e0000007b",
+    "metadataHref": "https://api.moysklad.ru/api/remap/1.1/entity/bonusprogram/metadata",
     "type": "bonusprogram",
     "mediaType": "application/json"
   },

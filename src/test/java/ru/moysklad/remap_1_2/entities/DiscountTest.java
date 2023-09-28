@@ -31,7 +31,7 @@ public class DiscountTest extends EntityTestBase {
         );
 
         assertEquals(Meta.Type.SPECIAL_PRICE_DISCOUNT, specialPriceDiscount.getMeta().getType());
-        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/specialpricediscount/96673f4d-9f4d-11e6-8af5-581e0000007b",
+        assertEquals("https://api.moysklad.ru/api/remap/1.1/entity/specialpricediscount/96673f4d-9f4d-11e6-8af5-581e0000007b",
                 specialPriceDiscount.getMeta().getHref()
         );
         assertEquals("96673f4d-9f4d-11e6-8af5-581e0000007b", specialPriceDiscount.getId());
@@ -41,7 +41,7 @@ public class DiscountTest extends EntityTestBase {
         assertEquals("группа агентов", specialPriceDiscount.getAgentTags().get(0));
         assertFalse(specialPriceDiscount.getAllProducts());
         assertEquals(1, specialPriceDiscount.getAssortment().size());
-        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
+        assertEquals("https://api.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
                 ((Variant) specialPriceDiscount.getAssortment().get(0)).getMeta().getHref()
         );
         assertEquals((Double) 5.0, specialPriceDiscount.getDiscount());
@@ -56,7 +56,7 @@ public class DiscountTest extends EntityTestBase {
         );
 
         assertEquals(Meta.Type.SPECIAL_PRICE_DISCOUNT, specialPriceDiscount.getMeta().getType());
-        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/specialpricediscount/bd1235f2-9c60-11e6-8af5-581e00000009",
+        assertEquals("https://api.moysklad.ru/api/remap/1.1/entity/specialpricediscount/bd1235f2-9c60-11e6-8af5-581e00000009",
                 specialPriceDiscount.getMeta().getHref()
         );
         assertEquals("bd1235f2-9c60-11e6-8af5-581e00000009", specialPriceDiscount.getId());
@@ -64,7 +64,7 @@ public class DiscountTest extends EntityTestBase {
         assertTrue(specialPriceDiscount.getActive());
         assertFalse(specialPriceDiscount.getAllProducts());
         assertEquals(1, specialPriceDiscount.getAssortment().size());
-        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
+        assertEquals("https://api.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
                 ((Variant) specialPriceDiscount.getAssortment().get(0)).getMeta().getHref()
         );
         assertEquals(Long.valueOf(15), specialPriceDiscount.getSpecialPrice().getValue());
@@ -85,7 +85,7 @@ public class DiscountTest extends EntityTestBase {
         );
 
         assertEquals(Meta.Type.PERSONAL_DISCOUNT, personalDiscount.getMeta().getType());
-        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/personaldiscount/0623d6b4-9ceb-11e6-8af5-581e00000003",
+        assertEquals("https://api.moysklad.ru/api/remap/1.1/entity/personaldiscount/0623d6b4-9ceb-11e6-8af5-581e00000003",
                 personalDiscount.getMeta().getHref()
         );
         assertEquals("0623d6b4-9ceb-11e6-8af5-581e00000003", personalDiscount.getId());
@@ -103,7 +103,7 @@ public class DiscountTest extends EntityTestBase {
         );
 
         assertEquals(Meta.Type.ACCUMULATION_DISCOUNT, accumulationDiscount.getMeta().getType());
-        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/accumulationdiscount/dce08f7f-9a09-11e6-8af5-581e0000007e",
+        assertEquals("https://api.moysklad.ru/api/remap/1.1/entity/accumulationdiscount/dce08f7f-9a09-11e6-8af5-581e0000007e",
                 accumulationDiscount.getMeta().getHref()
         );
         assertEquals("dce08f7f-9a09-11e6-8af5-581e0000007e", accumulationDiscount.getId());
@@ -111,7 +111,7 @@ public class DiscountTest extends EntityTestBase {
         assertTrue(accumulationDiscount.getActive());
         assertFalse(accumulationDiscount.getAllProducts());
         assertEquals(1, accumulationDiscount.getAssortment().size());
-        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
+        assertEquals("https://api.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
                 ((Variant) accumulationDiscount.getAssortment().get(0)).getMeta().getHref()
         );
         assertEquals(2, accumulationDiscount.getLevels().size());
@@ -130,7 +130,7 @@ public class DiscountTest extends EntityTestBase {
         );
 
         assertEquals(Meta.Type.BONUS_PROGRAM, bonusProgram.getMeta().getType());
-        assertEquals("https://online.moysklad.ru/api/remap/1.1/entity/bonusprogram/96673f4d-9f4d-11e6-8af5-581e0000007b",
+        assertEquals("https://api.moysklad.ru/api/remap/1.1/entity/bonusprogram/96673f4d-9f4d-11e6-8af5-581e0000007b",
                 bonusProgram.getMeta().getHref()
         );
         assertEquals("96673f4d-9f4d-11e6-8af5-581e0000007b", bonusProgram.getId());

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "href": "https://online.moysklad.ru/api/remap/1.2/notification/c2582a9e-56e1-11e9-c0a8-100b00000125",
+    "href": "https://api.moysklad.ru/api/remap/1.2/notification/c2582a9e-56e1-11e9-c0a8-100b00000125",
     "type": "NotificationSubscribeTermsExpired",
     "mediaType": "application/json"
   },

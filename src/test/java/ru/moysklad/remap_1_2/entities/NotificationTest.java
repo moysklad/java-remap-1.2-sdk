@@ -84,7 +84,7 @@ public class NotificationTest extends EntityTestBase {
         assertFalse(notification.getRead());
         assertEquals("Новый заказ покупателя № 00001", notification.getTitle());
         assertEquals("Сумма: 499.99. Покупатель: Розничный покупатель.", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/customerorder/c5ab5d93-56e1-11e9-c0a8-100a0000001d",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/customerorder/c5ab5d93-56e1-11e9-c0a8-100a0000001d",
                 ((NotificationCustomerOrder) notification).getOrder().getMeta().getHref());
         assertEquals("00001", ((NotificationCustomerOrder) notification).getOrder().getName());
         assertEquals(Long.valueOf(49999), ((NotificationCustomerOrder) notification).getOrder().getSum());
@@ -105,7 +105,7 @@ public class NotificationTest extends EntityTestBase {
         assertFalse(notification.getRead());
         assertEquals("Просрочен заказ покупателя № 00001", notification.getTitle());
         assertEquals("Просрочен заказ покупателя № 00001 Сумма: 300.00. Покупатель: Розничный покупатель.", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/customerorder/c5ab5d93-56e1-11e9-c0a8-100a0000001d",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/customerorder/c5ab5d93-56e1-11e9-c0a8-100a0000001d",
                 ((NotificationCustomerOrder) notification).getOrder().getMeta().getHref());
         assertEquals("00001", ((NotificationCustomerOrder) notification).getOrder().getName());
         assertEquals(Long.valueOf(30000), ((NotificationCustomerOrder) notification).getOrder().getSum());
@@ -126,7 +126,7 @@ public class NotificationTest extends EntityTestBase {
         assertFalse(notification.getRead());
         assertEquals("Счет покупателю №00003 просрочен", notification.getTitle());
         assertEquals("Дата оплаты: 01.04.2019 20:08. Сумма: 500,00. Покупатель: Розничный покупатель.", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/invoiceout/571b1ac4-56fc-11e9-c0a8-100e0000002b",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/invoiceout/571b1ac4-56fc-11e9-c0a8-100e0000002b",
                 ((NotificationInvoiceOutOverdue) notification).getInvoice().getMeta().getHref());
         assertEquals("00003", ((NotificationInvoiceOutOverdue) notification).getInvoice().getName());
         assertEquals(Long.valueOf(50000), ((NotificationInvoiceOutOverdue) notification).getInvoice().getSum());
@@ -147,7 +147,7 @@ public class NotificationTest extends EntityTestBase {
         assertFalse(notification.getRead());
         assertEquals("Заканчивается товар 1", notification.getTitle());
         assertEquals("Остаток ниже 200", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/product/bdca925e-56e1-11e9-c0a8-100a00000016",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/product/bdca925e-56e1-11e9-c0a8-100a00000016",
                 ((NotificationGoodCountTooLow) notification).getGood().getMeta().getHref());
         assertEquals("1", ((NotificationGoodCountTooLow) notification).getGood().getName());
         assertEquals(Double.valueOf(180.0), ((NotificationGoodCountTooLow) notification).getActualBalance());
@@ -168,10 +168,10 @@ public class NotificationTest extends EntityTestBase {
         assertFalse(notification.getRead());
         assertEquals("Новая задача: Текст задачи 1", notification.getTitle());
         assertEquals("ntest1 назначил вам задачу Текст задачи 1", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
                 ((NotificationTask) notification).getPerformedBy().getMeta().getHref());
         assertEquals("ntest1", ((NotificationTask) notification).getPerformedBy().getName());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
                 ((NotificationTask) notification).getTask().getMeta().getHref());
         assertEquals("Текст задачи 1", ((NotificationTask) notification).getTask().getName());
     }
@@ -190,10 +190,10 @@ public class NotificationTest extends EntityTestBase {
         assertFalse(notification.getRead());
         assertEquals("Задача снята: Новый текст задачи 1", notification.getTitle());
         assertEquals("ntest1 снял с вас задачу", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
                 ((NotificationTask) notification).getPerformedBy().getMeta().getHref());
         assertEquals("ntest1", ((NotificationTask) notification).getPerformedBy().getName());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
                 ((NotificationTask) notification).getTask().getMeta().getHref());
         assertEquals("Новый текст задачи 1", ((NotificationTask) notification).getTask().getName());
         assertEquals(LocalDateTime.of(2019, Month.MAY, 27, 15, 49, 0, 0),
@@ -214,7 +214,7 @@ public class NotificationTest extends EntityTestBase {
         assertFalse(notification.getRead());
         assertEquals("Просрочена задача: Новый текст задачи 1", notification.getTitle());
         assertEquals("Задача просрочена Новый текст задачи 1 Срок: 27.05.2019 15:49", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
                 ((NotificationTask) notification).getTask().getMeta().getHref());
         assertEquals("Новый текст задачи 1", ((NotificationTask) notification).getTask().getName());
         assertEquals(LocalDateTime.of(2019, Month.MAY, 27, 15, 49, 0, 0),
@@ -235,10 +235,10 @@ public class NotificationTest extends EntityTestBase {
         assertFalse(notification.getRead());
         assertEquals("Задача выполнена: Новый текст задачи 1", notification.getTitle());
         assertEquals("ntest1 выполнил задачу Новый текст задачи 1 Срок: 29.05.2019 15:47", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
                 ((NotificationTask) notification).getPerformedBy().getMeta().getHref());
         assertEquals("ntest1", ((NotificationTask) notification).getPerformedBy().getName());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
                 ((NotificationTask) notification).getTask().getMeta().getHref());
         assertEquals("Новый текст задачи 1", ((NotificationTask) notification).getTask().getName());
         assertEquals(LocalDateTime.of(2019, Month.MAY, 29, 15, 47, 0, 0),
@@ -259,10 +259,10 @@ public class NotificationTest extends EntityTestBase {
         assertFalse(notification.getRead());
         assertEquals("Задача открыта: Новый текст задачи 1", notification.getTitle());
         assertEquals("ntest1 открыл задачу Новый текст задачи 1 Срок: 29.05.2019 15:47", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
                 ((NotificationTask) notification).getPerformedBy().getMeta().getHref());
         assertEquals("ntest1", ((NotificationTask) notification).getPerformedBy().getName());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
                 ((NotificationTask) notification).getTask().getMeta().getHref());
         assertEquals("Новый текст задачи 1", ((NotificationTask) notification).getTask().getName());
         assertEquals(LocalDateTime.of(2019, Month.MAY, 29, 15, 47, 0, 0),
@@ -283,7 +283,7 @@ public class NotificationTest extends EntityTestBase {
         assertFalse(notification.getRead());
         assertEquals("Задача удалена: Текст задачи 2", notification.getTitle());
         assertEquals("ntest1 удалил задачу Текст задачи 2", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
                 ((NotificationTask) notification).getPerformedBy().getMeta().getHref());
         assertEquals("ntest1", ((NotificationTask) notification).getPerformedBy().getName());
         assertEquals("Текст задачи 2", ((NotificationTask) notification).getTask().getName());
@@ -303,10 +303,10 @@ public class NotificationTest extends EntityTestBase {
         assertFalse(notification.getRead());
         assertEquals("Новый комментарий: Новый текст задачи 1", notification.getTitle());
         assertEquals("ntest1 добавил комментарий Комментарий 1", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
                 ((NotificationTaskComment) notification).getPerformedBy().getMeta().getHref());
         assertEquals("ntest1", ((NotificationTaskComment) notification).getPerformedBy().getName());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
                 ((NotificationTaskComment) notification).getTask().getMeta().getHref());
         assertEquals("Новый текст задачи 1", ((NotificationTaskComment) notification).getTask().getName());
         assertEquals(LocalDateTime.of(2019, Month.MAY, 27, 15, 49, 0, 0),
@@ -328,10 +328,10 @@ public class NotificationTest extends EntityTestBase {
         assertFalse(notification.getRead());
         assertEquals("Комментарий изменен: Новый текст задачи 1", notification.getTitle());
         assertEquals("ntest1 изменил комментарий Новый текст комментария 1, Комментарий 1", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
                 ((NotificationTaskChanged) notification).getPerformedBy().getMeta().getHref());
         assertEquals("ntest1", ((NotificationTaskChanged) notification).getPerformedBy().getName());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
                 ((NotificationTaskChanged) notification).getTask().getMeta().getHref());
         assertEquals("Новый текст задачи 1", ((NotificationTaskChanged) notification).getTask().getName());
         assertEquals(LocalDateTime.of(2019, Month.MAY, 27, 15, 49, 0, 0),
@@ -358,10 +358,10 @@ public class NotificationTest extends EntityTestBase {
         assertFalse(notification.getRead());
         assertEquals("Комментарий удален: Новый текст задачи 1", notification.getTitle());
         assertEquals("ntest1 удалил комментарий Новый текст комментария 1", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
                 ((NotificationTaskComment) notification).getPerformedBy().getMeta().getHref());
         assertEquals("ntest1", ((NotificationTaskComment) notification).getPerformedBy().getName());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
                 ((NotificationTaskComment) notification).getTask().getMeta().getHref());
         assertEquals("Новый текст задачи 1", ((NotificationTaskComment) notification).getTask().getName());
         assertEquals(LocalDateTime.of(2019, Month.MAY, 27, 15, 49, 0, 0),
@@ -383,10 +383,10 @@ public class NotificationTest extends EntityTestBase {
         assertFalse(notification.getRead());
         assertEquals("Задача изменена: Новый текст задачи 1", notification.getTitle());
         assertEquals("ntest1 изменил задачу", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/employee/c4e1397b-807c-11e9-9ff4-31500025d4ed",
                 ((NotificationTaskChanged) notification).getPerformedBy().getMeta().getHref());
         assertEquals("ntest1", ((NotificationTaskChanged) notification).getPerformedBy().getName());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
                 ((NotificationTaskChanged) notification).getTask().getMeta().getHref());
         assertEquals("Новый текст задачи 1", ((NotificationTaskChanged) notification).getTask().getName());
         assertEquals(LocalDateTime.of(2019, Month.MAY, 27, 15, 49, 0, 0),
@@ -483,13 +483,13 @@ public class NotificationTest extends EntityTestBase {
         assertTrue(notification.getRead());
         assertEquals("Открыта смена в Точка продаж", notification.getTitle());
         assertEquals("Кассир: Кассир Кладкин", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/employee/4d4ba195-0e7b-11e2-480d-3c4a92f3a0a7",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/employee/4d4ba195-0e7b-11e2-480d-3c4a92f3a0a7",
                 ((NotificationRetailShift) notification).getUser().getMeta().getHref());
         assertEquals("Кассир Кладкин", ((NotificationRetailShift) notification).getUser().getName());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/retailstore/ffa5bbf4-351b-11e9-9ff4-34e800131be8",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/retailstore/ffa5bbf4-351b-11e9-9ff4-34e800131be8",
                 ((NotificationRetailShift) notification).getRetailStore().getMeta().getHref());
         assertEquals("Точка продаж", ((NotificationRetailShift) notification).getRetailStore().getName());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/retailshift/7e41bd3c-351c-11e9-9ff4-34e80012cfc1",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/retailshift/7e41bd3c-351c-11e9-9ff4-34e80012cfc1",
                 ((NotificationRetailShift) notification).getRetailShift().getMeta().getHref());
         assertEquals("00002", ((NotificationRetailShift) notification).getRetailShift().getName());
         assertEquals(LocalDateTime.of(2019, Month.FEBRUARY, 20, 17, 33, 0, 0),
@@ -511,13 +511,13 @@ public class NotificationTest extends EntityTestBase {
         assertTrue(notification.getRead());
         assertEquals("Закрыта смена в Точка продаж", notification.getTitle());
         assertEquals("Кассир: Кассир Кладкин. Длительность: 1 мин. Продаж: 2. Возвратов: 0. Выручка: 40000.00", notification.getDescription());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/employee/4d4ba195-0e7b-11e2-480d-3c4a92f3a0a7",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/employee/4d4ba195-0e7b-11e2-480d-3c4a92f3a0a7",
                 ((NotificationRetailShiftClosed) notification).getUser().getMeta().getHref());
         assertEquals("Кассир Кладкин", ((NotificationRetailShiftClosed) notification).getUser().getName());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/retailstore/ffa5bbf4-351b-11e9-9ff4-34e800131be8",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/retailstore/ffa5bbf4-351b-11e9-9ff4-34e800131be8",
                 ((NotificationRetailShiftClosed) notification).getRetailStore().getMeta().getHref());
         assertEquals("Точка продаж", ((NotificationRetailShiftClosed) notification).getRetailStore().getName());
-        assertEquals("https://online.moysklad.ru/api/remap/1.2/entity/retailshift/08fd47a8-351c-11e9-9109-f8fc0013f6cd",
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/retailshift/08fd47a8-351c-11e9-9109-f8fc0013f6cd",
                 ((NotificationRetailShiftClosed) notification).getRetailShift().getMeta().getHref());
         assertEquals("00001", ((NotificationRetailShiftClosed) notification).getRetailShift().getName());
         assertEquals(LocalDateTime.of(2019, Month.FEBRUARY, 20, 17, 30, 0, 0),
