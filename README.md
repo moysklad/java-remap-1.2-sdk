@@ -21,7 +21,7 @@
 ```java
 import ru.moysklad.remap_1_2.ApiClient;
 
-ApiClient api = new ApiClient("online.moysklad.ru", true, "[API_LOGIN]", "[API_PASSWORD]");
+ApiClient api = new ApiClient("api.moysklad.ru", true, "[API_LOGIN]", "[API_PASSWORD]");
 ```
 
 ### Работа с сущностями
@@ -76,6 +76,6 @@ api.entity().demand().export("{demand_id}", templates.getRows().get(0), exportFi
 Запуск всех тестов требует корпоративного аккаунта и не рекомендуется.
 
 Для запуска тестов нужно в переменные среды прописать корректные данные для доступа к API:  
-* `API_HOST` — хост API (например `online.moysklad.ru`)
+* `API_HOST` — хост API (например `api.moysklad.ru`)
 * `API_LOGIN` — логин в формате `[имя пользователя]@[название компании]`
 * `API_PASSWORD` — пароль

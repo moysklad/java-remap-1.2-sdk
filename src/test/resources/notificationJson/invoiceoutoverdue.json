@@ -1,6 +1,6 @@
 {
   "meta": {
-    "href": "https://online.moysklad.ru/api/remap/1.2/notification/572d1dd9-56fc-11e9-c0a8-100b00000006",
+    "href": "https://api.moysklad.ru/api/remap/1.2/notification/572d1dd9-56fc-11e9-c0a8-100b00000006",
     "type": "NotificationInvoiceOutOverdue",
     "mediaType": "application/json"
   },
@@ -12,8 +12,8 @@
   "description": "Дата оплаты: 01.04.2019 20:08. Сумма: 500,00. Покупатель: Розничный покупатель.",
   "invoice": {
     "meta": {
-      "href": "https://online.moysklad.ru/api/remap/1.2/entity/invoiceout/571b1ac4-56fc-11e9-c0a8-100e0000002b",
-      "metadataHref": "https://online.moysklad.ru/api/remap/1.2/entity/invoiceout/metadata",
+      "href": "https://api.moysklad.ru/api/remap/1.2/entity/invoiceout/571b1ac4-56fc-11e9-c0a8-100e0000002b",
+      "metadataHref": "https://api.moysklad.ru/api/remap/1.2/entity/invoiceout/metadata",
       "type": "invoiceout",
       "mediaType": "application/json"
     },

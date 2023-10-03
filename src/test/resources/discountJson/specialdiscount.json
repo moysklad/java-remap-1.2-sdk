@@ -1,7 +1,7 @@
 {
   "meta": {
-    "href": "https://online.moysklad.ru/api/remap/1.1/entity/specialpricediscount/96673f4d-9f4d-11e6-8af5-581e0000007b",
-    "metadataHref": "https://online.moysklad.ru/api/remap/1.1/entity/specialpricediscount/metadata",
+    "href": "https://api.moysklad.ru/api/remap/1.1/entity/specialpricediscount/96673f4d-9f4d-11e6-8af5-581e0000007b",
+    "metadataHref": "https://api.moysklad.ru/api/remap/1.1/entity/specialpricediscount/metadata",
     "type": "specialpricediscount",
     "mediaType": "application/json"
   },
@@ -16,8 +16,8 @@
   "assortment": [
     {
       "meta": {
-        "href": "https://online.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
-        "metadataHref": "https://online.moysklad.ru/api/remap/1.1/entity/variant/metadata",
+        "href": "https://api.moysklad.ru/api/remap/1.1/entity/variant/9881531b-9a09-11e6-8af5-581e00000078",
+        "metadataHref": "https://api.moysklad.ru/api/remap/1.1/entity/variant/metadata",
         "type": "variant",
         "mediaType": "application/json"
       }

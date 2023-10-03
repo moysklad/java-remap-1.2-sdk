@@ -1,6 +1,6 @@
 {
   "meta": {
-    "href": "https://online.moysklad.ru/api/remap/1.2/notification/c6082a9e-56e1-11e9-c0a8-100b00000011",
+    "href": "https://api.moysklad.ru/api/remap/1.2/notification/c6082a9e-56e1-11e9-c0a8-100b00000011",
     "type": "NotificationOrderOverdue",
     "mediaType": "application/json"
   },
@@ -12,8 +12,8 @@
   "description": "Просрочен заказ покупателя № 00001 Сумма: 300.00. Покупатель: Розничный покупатель.",
   "order": {
     "meta": {
-      "href": "https://online.moysklad.ru/api/remap/1.2/entity/customerorder/c5ab5d93-56e1-11e9-c0a8-100a0000001d",
-      "metadataHref": "https://online.moysklad.ru/api/remap/1.2/entity/customerorder/metadata",
+      "href": "https://api.moysklad.ru/api/remap/1.2/entity/customerorder/c5ab5d93-56e1-11e9-c0a8-100a0000001d",
+      "metadataHref": "https://api.moysklad.ru/api/remap/1.2/entity/customerorder/metadata",
       "type": "customerorder",
       "mediaType": "application/json"
     },

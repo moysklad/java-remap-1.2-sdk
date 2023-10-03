@@ -1,6 +1,6 @@
 {
   "meta": {
-    "href": "https://online.moysklad.ru/api/remap/1.2/notification/51a5b0a3-56e4-11e9-c0a8-100b00000014",
+    "href": "https://api.moysklad.ru/api/remap/1.2/notification/51a5b0a3-56e4-11e9-c0a8-100b00000014",
     "type": "NotificationTaskOverdue",
     "mediaType": "application/json"
   },
@@ -12,8 +12,8 @@
   "description": "Задача просрочена Новый текст задачи 1 Срок: 27.05.2019 15:49",
   "task": {
     "meta": {
-      "href": "https://online.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
-      "metadataHref": "https://online.moysklad.ru/api/remap/1.2/entity/task/metadata",
+      "href": "https://api.moysklad.ru/api/remap/1.2/entity/task/91d6e8a5-807d-11e9-9109-f8fc0024968d",
+      "metadataHref": "https://api.moysklad.ru/api/remap/1.2/entity/task/metadata",
       "type": "task",
       "mediaType": "application/json"
     },
