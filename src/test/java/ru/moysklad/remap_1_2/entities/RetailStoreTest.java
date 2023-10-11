@@ -69,6 +69,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setRequiredSex(true);
         retailStore.setRequiredDiscountCardNumber(true);
         retailStore.setAllowDeleteReceiptPositions(false);
+        retailStore.setSyncAgents(true);
 
         api.entity().retailstore().create(retailStore);
 

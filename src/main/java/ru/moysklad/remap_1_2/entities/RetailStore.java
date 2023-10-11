@@ -90,6 +90,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private Boolean requiredSex;
     private Boolean requiredDiscountCardNumber;
     private Boolean allowDeleteReceiptPositions;
+    private Boolean syncAgents;
 
     public RetailStore(String id) {
         super(id);
