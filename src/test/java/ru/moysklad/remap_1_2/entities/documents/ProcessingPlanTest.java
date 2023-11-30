@@ -30,7 +30,7 @@ public class ProcessingPlanTest extends EntityGetUpdateDeleteTest {
         Product material = simpleEntityManager.createSimple(Product.class);
         PlanItem materialItem = new PlanItem();
         materialItem.setProduct(material);
-        materialItem.setQuantity(randomDouble(1, 5, 10));
+        materialItem.setQuantity(round4(randomDouble(1, 5, 10)));
         processingPlan.getMaterials().getRows().add(materialItem);
 
         processingPlan.setProducts(new ListEntity<>());
@@ -38,7 +38,7 @@ public class ProcessingPlanTest extends EntityGetUpdateDeleteTest {
         Product product = simpleEntityManager.createSimple(Product.class);
         PlanItem productItem = new PlanItem();
         productItem.setProduct(product);
-        productItem.setQuantity(randomDouble(1, 5, 10));
+        productItem.setQuantity(round4(randomDouble(1, 5, 10)));
         processingPlan.getProducts().getRows().add(productItem);
 
         api.entity().processingplan().create(processingPlan);
@@ -92,5 +92,9 @@ public class ProcessingPlanTest extends EntityGetUpdateDeleteTest {
     @Override
     public Class<? extends MetaEntity> entityClass() {
         return ProcessingPlan.class;
+    }
+
+    private double round4(double num) {
+        return ((int)(num * 10000 + 0.5) / 10000);
     }
 }
