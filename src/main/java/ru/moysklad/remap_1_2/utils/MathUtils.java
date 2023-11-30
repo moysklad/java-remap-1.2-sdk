@@ -6,6 +6,6 @@ public class MathUtils {
     }
 
     public static double round4(double value) {
-        return (double)Math.round(value * 10000.0) / 10000.0;
+        return (double) Math.round(value * 10000.0) / 10000.0;
     }
 }
