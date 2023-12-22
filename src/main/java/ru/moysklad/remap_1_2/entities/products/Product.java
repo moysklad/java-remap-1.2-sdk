@@ -219,7 +219,8 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
         MILK,
         WATER,
         NCP,
-        BEER_ALCOHOL
+        BEER_ALCOHOL,
+        FOOD_SUPPLEMENT
     }
 
     /**
