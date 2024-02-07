@@ -5,7 +5,7 @@
 ## 4.19-release (07.02.2024)
 * Добавлено поле `marksCheckMode` в `RetailStore`
 
-## 4.18-release (28.11.2023)
+## 4.18-release (05.12.2023)
 * Добавлено поле `showBeerOnTap` в `RetailStore`
 
 ## 4.17-release (03.10.2023)
