@@ -92,6 +92,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private Boolean allowDeleteReceiptPositions;
     private Boolean syncAgents;
     private Boolean showBeerOnTap;
+    private MarkingSellingMode marksCheckMode;
 
     public RetailStore(String id) {
         super(id);

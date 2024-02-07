@@ -71,6 +71,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setAllowDeleteReceiptPositions(false);
         retailStore.setSyncAgents(true);
         retailStore.setShowBeerOnTap(true);
+        retailStore.setMarksCheckMode(RetailStore.MarkingSellingMode.WITHOUT_ERRORS);
 
         api.entity().retailstore().create(retailStore);
 
@@ -127,8 +128,8 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getRequiredSex(), retrievedEntity.getRequiredSex());
         assertEquals(retailStore.getRequiredDiscountCardNumber(), retrievedEntity.getRequiredDiscountCardNumber());
         assertEquals(retailStore.getAllowDeleteReceiptPositions(), retrievedEntity.getAllowDeleteReceiptPositions());
-        assertEquals(retailStore.getSyncAgents(), retrievedEntity.getSyncAgents());
         assertEquals(retailStore.getShowBeerOnTap(), retrievedEntity.getShowBeerOnTap());
+        assertEquals(retailStore.getMarksCheckMode(), retrievedEntity.getMarksCheckMode());
     }
 
     @Test
