@@ -128,6 +128,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getRequiredSex(), retrievedEntity.getRequiredSex());
         assertEquals(retailStore.getRequiredDiscountCardNumber(), retrievedEntity.getRequiredDiscountCardNumber());
         assertEquals(retailStore.getAllowDeleteReceiptPositions(), retrievedEntity.getAllowDeleteReceiptPositions());
+        assertEquals(retailStore.getSyncAgents(), retrievedEntity.getSyncAgents());
         assertEquals(retailStore.getShowBeerOnTap(), retrievedEntity.getShowBeerOnTap());
         assertEquals(retailStore.getMarksCheckMode(), retrievedEntity.getMarksCheckMode());
     }
