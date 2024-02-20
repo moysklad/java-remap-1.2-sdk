@@ -2,6 +2,9 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 4.19-release (07.02.2024)
+* Добавлено поле `marksCheckMode` в `RetailStore`
+
 ## 4.18-release (05.12.2023)
 * Добавлено поле `showBeerOnTap` в `RetailStore`
 
