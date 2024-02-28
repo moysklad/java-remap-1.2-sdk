@@ -72,7 +72,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setSyncAgents(true);
         retailStore.setShowBeerOnTap(true);
         retailStore.setMarksCheckMode(RetailStore.MarkingSellingMode.WITHOUT_ERRORS);
-        retailStore.setSendMarksToChestnyZnakOnCloud(true);
+        retailStore.setSendMarksToChestnyZnakOnCloud(false);
 
         api.entity().retailstore().create(retailStore);
 
