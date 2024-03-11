@@ -2,7 +2,7 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
-## 4.20-release (27.02.2024)
+## 4.20-release (11.03.2024)
 * Добавлено поле `sendMarksToChestnyZnakOnCloud` в `RetailStore`
 
 ## 4.19-release (07.02.2024)
