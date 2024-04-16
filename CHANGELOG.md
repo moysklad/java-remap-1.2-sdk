@@ -2,6 +2,9 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 4.21-release (17.04.2024)
+* Добавлено поле `testChestnyZnakMode` в `Retailstore`
+
 ## 4.20-release (11.03.2024)
 * Добавлено поле `sendMarksToChestnyZnakOnCloud` в `RetailStore`
 
