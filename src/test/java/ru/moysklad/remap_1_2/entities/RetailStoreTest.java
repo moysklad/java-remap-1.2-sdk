@@ -73,6 +73,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setShowBeerOnTap(true);
         retailStore.setMarksCheckMode(RetailStore.MarkingSellingMode.WITHOUT_ERRORS);
         retailStore.setSendMarksToChestnyZnakOnCloud(false);
+        retailStore.setAllowNonFiscalTransactions(true);
 
         api.entity().retailstore().create(retailStore);
 
@@ -133,6 +134,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getShowBeerOnTap(), retrievedEntity.getShowBeerOnTap());
         assertEquals(retailStore.getMarksCheckMode(), retrievedEntity.getMarksCheckMode());
         assertEquals(retailStore.getSendMarksToChestnyZnakOnCloud(), retrievedEntity.getSendMarksToChestnyZnakOnCloud());
+        assertEquals(retailStore.getAllowNonFiscalTransactions(), retrievedEntity.getAllowNonFiscalTransactions());
     }
 
     @Test
