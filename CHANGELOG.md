@@ -2,6 +2,9 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 4.21-release (24.04.2024)
+* Добавлено поле `allowNonFiscalTransactions` в `RetailStore`
+
 ## 4.20-release (11.03.2024)
 * Добавлено поле `sendMarksToChestnyZnakOnCloud` в `RetailStore`
 
