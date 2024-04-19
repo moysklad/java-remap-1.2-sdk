@@ -49,8 +49,8 @@ public class ProcessingPlan extends DocumentEntity {
     @EqualsAndHashCode(callSuper = true)
     public static class StageItem extends MetaEntity {
         private ProcessingProcess.ProcessingProcessPosition processingProcessPosition;
-        private Double cost;
-        private Double labourCost;
+        private Long cost;
+        private Long labourCost;
 
     }
 }
