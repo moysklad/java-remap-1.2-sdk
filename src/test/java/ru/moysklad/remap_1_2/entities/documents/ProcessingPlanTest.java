@@ -5,7 +5,7 @@ import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.EntityGetUpdateDeleteTest;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
-import ru.moysklad.remap_1_2.entities.documents.ProcessingPlan.PlanItem;
+import ru.moysklad.remap_1_2.entities.documents.ProcessingPlan.ProductItem;
 import ru.moysklad.remap_1_2.entities.products.Product;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
@@ -29,16 +29,16 @@ public class ProcessingPlanTest extends EntityGetUpdateDeleteTest {
         processingPlan.setMaterials(new ListEntity<>());
         processingPlan.getMaterials().setRows(new ArrayList<>());
         Product material = simpleEntityManager.createSimple(Product.class);
-        PlanItem materialItem = new PlanItem();
-        materialItem.setProduct(material);
+        ProductItem materialItem = new ProductItem();
+        materialItem.setAssortment(material);
         materialItem.setQuantity(MathUtils.round4(randomDouble(1, 5, 10)));
         processingPlan.getMaterials().getRows().add(materialItem);
 
         processingPlan.setProducts(new ListEntity<>());
         processingPlan.getProducts().setRows(new ArrayList<>());
         Product product = simpleEntityManager.createSimple(Product.class);
-        PlanItem productItem = new PlanItem();
-        productItem.setProduct(product);
+        ProductItem productItem = new ProductItem();
+        productItem.setAssortment(product);
         productItem.setQuantity(MathUtils.round4(randomDouble(1, 5, 10)));
         processingPlan.getProducts().getRows().add(productItem);
 
@@ -52,10 +52,10 @@ public class ProcessingPlanTest extends EntityGetUpdateDeleteTest {
         assertEquals(processingPlan.getName(), retrievedEntity.getName());
         assertEquals(processingPlan.getMoment(), retrievedEntity.getMoment());
         assertEquals(materialItem.getQuantity(), retrievedEntity.getMaterials().getRows().get(0).getQuantity());
-        Product retrievedMaterial = (Product) retrievedEntity.getMaterials().getRows().get(0).getProduct();
+        Product retrievedMaterial = (Product) retrievedEntity.getMaterials().getRows().get(0).getAssortment();
         assertEquals(material.getMeta().getHref(), retrievedMaterial.getMeta().getHref());
         assertEquals(productItem.getQuantity(), retrievedEntity.getProducts().getRows().get(0).getQuantity());
-        Product retrievedProduct = (Product) retrievedEntity.getProducts().getRows().get(0).getProduct();
+        Product retrievedProduct = (Product) retrievedEntity.getProducts().getRows().get(0).getAssortment();
         assertEquals(product.getMeta().getHref(), retrievedProduct.getMeta().getHref());
     }
 

@@ -335,4 +335,14 @@ public final class EntityClient {
     public PrepaymentReturnClient prepaymentReturn() {
         return new PrepaymentReturnClient(api);
     }
+
+    @ApiChainElement
+    public ProcessingStageClient processingStage() {
+        return new ProcessingStageClient(api);
+    }
+
+    @ApiChainElement
+    public ProcessingProcessClient processingProcess() {
+        return new ProcessingProcessClient(api);
+    }
 }
