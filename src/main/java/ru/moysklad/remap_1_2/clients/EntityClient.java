@@ -345,4 +345,9 @@ public final class EntityClient {
     public ProcessingProcessClient processingProcess() {
         return new ProcessingProcessClient(api);
     }
+
+    @ApiChainElement
+    public ProductionTaskClient productionTask() {
+        return new ProductionTaskClient(api);
+    }
 }
