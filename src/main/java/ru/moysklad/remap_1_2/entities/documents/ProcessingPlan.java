@@ -38,7 +38,7 @@ public class ProcessingPlan extends DocumentEntity {
     @NoArgsConstructor
     @EqualsAndHashCode(callSuper = true)
     public static class ProductItem extends MetaEntity {
-        private ProcessingProcess.ProcessPosition processPosition;
+        private ProcessingProcess.ProcessPosition processingProcessPosition;
         private ProductMarker assortment;
         private Double quantity;
     }
@@ -48,7 +48,7 @@ public class ProcessingPlan extends DocumentEntity {
     @NoArgsConstructor
     @EqualsAndHashCode(callSuper = true)
     public static class StageItem extends MetaEntity {
-        private ProcessingProcess.ProcessPosition processPosition;
+        private ProcessingProcess.ProcessPosition processingProcessPosition;
         private Long cost;
         private Long labourCost;
     }
