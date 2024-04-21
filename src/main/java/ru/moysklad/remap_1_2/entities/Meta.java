@@ -184,7 +184,7 @@ public final class Meta {
         PROCESSING_POSITION_RESULT("processingpositionresult", DocumentPosition.class),
         PROCESSING_STAGE("processingstage", ProcessingStage.class),
         PROCESSING_PROCESS("processingprocess", ProcessingProcess.class),
-        PROCESSING_PROCESS_POSITION("processingprocessposition", ProcessingProcess.ProcessingProcessPosition.class),
+        PROCESSING_PROCESS_POSITION("processingprocessposition", ProcessingProcess.ProcessPosition.class),
         PRODUCT("product", Product.class),
         PRODUCT_FOLDER("productfolder", ProductFolder.class),
         PROJECT("project", Project.class),

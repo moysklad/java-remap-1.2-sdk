@@ -20,11 +20,11 @@ public class ProcessingProcessClient extends EntityClientBase
     }
 
     @ApiEndpoint
-    public ListEntity<ProcessingProcess.ProcessingProcessPosition> getPositions(String processId, ApiParam... params) throws IOException, ApiClientException {
+    public ListEntity<ProcessingProcess.ProcessPosition> getPositions(String processId, ApiParam... params) throws IOException, ApiClientException {
         return HttpRequestExecutor
                 .path(api(), path() + processId + "/positions")
                 .apiParams(params)
-                .list(ProcessingProcess.ProcessingProcessPosition.class);
+                .list(ProcessingProcess.ProcessPosition.class);
     }
 
     @Override
