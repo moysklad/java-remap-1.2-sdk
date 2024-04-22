@@ -8,6 +8,7 @@ import ru.moysklad.remap_1_2.entities.ProcessingStage;
 public class ProcessingStageClient extends EntityClientBase
         implements
         GetListEndpoint<ProcessingStage>,
+        GetByIdEndpoint<ProcessingStage>,
         PostEndpoint<ProcessingStage> {
 
     public ProcessingStageClient(ApiClient api) {

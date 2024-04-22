@@ -731,6 +731,29 @@ public class SimpleEntityManager implements TestRandomizers {
         return processingPlan;
     }
 
+    public ProcessingProcess createSimpleProcessingProcess() throws IOException, ApiClientException {
+        ProcessingProcess processingProcess = new ProcessingProcess();
+        processingProcess.setName("processingprocess_" + randomStringTail());
+        processingProcess.setDescription(randomString());
+
+        processingProcess.setPositions(new ListEntity<>());
+        processingProcess.getPositions().setRows(new ArrayList<>());
+        ProcessingProcess.ProcessPosition processPosition = new ProcessingProcess.ProcessPosition();
+        processPosition.setProcessingstage(createSimpleProcessingStage());
+        processingProcess.getPositions().getRows().add(processPosition);
+
+        api.entity().processingProcess().create(processingProcess);
+        return processingProcess;
+    }
+
+    public ProcessingStage createSimpleProcessingStage() throws IOException, ApiClientException {
+        ProcessingStage processingStage = new ProcessingStage();
+        processingStage.setName("processingstage_" + randomStringTail());
+        processingStage.setDescription(randomString());
+        api.entity().processingStage().create(processingStage);
+        return processingStage;
+    }
+
     public PurchaseOrder createSimplePurchaseOrder() throws IOException, ApiClientException {
         PurchaseOrder purchaseOrder = new PurchaseOrder();
         purchaseOrder.setName("purchaseorder_" + randomStringTail());

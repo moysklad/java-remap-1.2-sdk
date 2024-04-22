@@ -2,6 +2,9 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 4.28-release (23.04.2024)
+* Добавлены операции `get`, `create` для сущностей Производства `ProcessingStage`, `ProcessingProcess` и `ProcessingPlan`
+
 ## 4.20-release (11.03.2024)
 * Добавлено поле `sendMarksToChestnyZnakOnCloud` в `RetailStore`
 
