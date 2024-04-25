@@ -40,16 +40,16 @@ public class ProcessingOrderTest extends EntityGetUpdateDeleteTest implements Fi
         processingPlan.setMaterials(new ListEntity<>());
         processingPlan.getMaterials().setRows(new ArrayList<>());
         Product material = simpleEntityManager.createSimple(Product.class);
-        ProcessingPlan.PlanItem materialItem = new ProcessingPlan.PlanItem();
-        materialItem.setProduct(material);
+        ProcessingPlan.ProductItem materialItem = new ProcessingPlan.ProductItem();
+        materialItem.setAssortment(material);
         materialItem.setQuantity(randomDouble(1, 5, 10));
         processingPlan.getMaterials().getRows().add(materialItem);
 
         processingPlan.setProducts(new ListEntity<>());
         processingPlan.getProducts().setRows(new ArrayList<>());
         Product product = simpleEntityManager.createSimple(Product.class);
-        ProcessingPlan.PlanItem productItem = new ProcessingPlan.PlanItem();
-        productItem.setProduct(product);
+        ProcessingPlan.ProductItem productItem = new ProcessingPlan.ProductItem();
+        productItem.setAssortment(product);
         productItem.setQuantity(randomDouble(1, 5, 10));
         processingPlan.getProducts().getRows().add(productItem);
 
@@ -154,8 +154,8 @@ public class ProcessingOrderTest extends EntityGetUpdateDeleteTest implements Fi
         processingPlan.setMaterials(new ListEntity<>());
         processingPlan.getMaterials().setRows(new ArrayList<>());
         Product material = simpleEntityManager.createSimple(Product.class);
-        ProcessingPlan.PlanItem materialItem = new ProcessingPlan.PlanItem();
-        materialItem.setProduct(material);
+        ProcessingPlan.ProductItem materialItem = new ProcessingPlan.ProductItem();
+        materialItem.setAssortment(material);
         DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(4);
         materialItem.setQuantity(Double.valueOf(df.format(randomDouble(1, 5, 4))));
         processingPlan.getMaterials().getRows().add(materialItem);
@@ -163,8 +163,8 @@ public class ProcessingOrderTest extends EntityGetUpdateDeleteTest implements Fi
         processingPlan.setProducts(new ListEntity<>());
         processingPlan.getProducts().setRows(new ArrayList<>());
         Product product = simpleEntityManager.createSimple(Product.class);
-        ProcessingPlan.PlanItem productItem = new ProcessingPlan.PlanItem();
-        productItem.setProduct(product);
+        ProcessingPlan.ProductItem productItem = new ProcessingPlan.ProductItem();
+        productItem.setAssortment(product);
         productItem.setQuantity(Double.valueOf(df.format(randomDouble(1, 5, 4))));
         processingPlan.getProducts().getRows().add(productItem);
 
