@@ -2,6 +2,9 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 4.29-release (27.05.2024)
+* Добавлено поле `standardHour` в `ProcessingPlan`
+
 ## 4.28-release (25.04.2024)
 * Добавлены операции `get`, `create` для сущностей Производства `ProcessingStage`, `ProcessingProcess` и `ProcessingPlan`
 

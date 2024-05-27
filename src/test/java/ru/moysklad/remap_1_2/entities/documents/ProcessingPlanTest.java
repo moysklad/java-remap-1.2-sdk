@@ -118,6 +118,7 @@ public class ProcessingPlanTest extends EntityGetUpdateDeleteTest {
         stageItem.setProcessingProcessPosition(process.getPositions().getRows().get(0));
         stageItem.setCost(randomLong(1000, 2000));
         stageItem.setLabourCost(randomLong(1000, 2000));
+        stageItem.setStandardHour(randomLong(1000, 2000));
         processingPlan.getStages().getRows().add(stageItem);
         expectedStages.put(process.getPositions().getRows().get(0).getId(), stageItem);
 
@@ -125,6 +126,7 @@ public class ProcessingPlanTest extends EntityGetUpdateDeleteTest {
         stageItem.setProcessingProcessPosition(process.getPositions().getRows().get(1));
         stageItem.setCost(randomLong(1000, 2000));
         stageItem.setLabourCost(randomLong(1000, 2000));
+        stageItem.setStandardHour(randomLong(1000, 2000));
         processingPlan.getStages().getRows().add(stageItem);
         expectedStages.put(process.getPositions().getRows().get(1).getId(), stageItem);
 
@@ -224,5 +226,6 @@ public class ProcessingPlanTest extends EntityGetUpdateDeleteTest {
         assertNotNull(actualItem);
         assertEquals(expectedItem.getCost(), actualItem.getCost());
         assertEquals(expectedItem.getLabourCost(), actualItem.getLabourCost());
+        assertEquals(expectedItem.getStandardHour(), actualItem.getStandardHour());
     }
 }
