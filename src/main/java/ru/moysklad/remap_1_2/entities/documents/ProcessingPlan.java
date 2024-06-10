@@ -51,5 +51,6 @@ public class ProcessingPlan extends DocumentEntity {
         private ProcessingProcess.ProcessPosition processingProcessPosition;
         private Long cost;
         private Long labourCost;
+        private Long standardHour;
     }
 }
