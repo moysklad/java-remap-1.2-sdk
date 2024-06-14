@@ -67,7 +67,7 @@ public class EmployeeTest extends EntityGetUpdateDeleteTest {
 
         Employee retrievedEntity = updatedEntitiesList.getRows().get(0);
         EmployeePermission employeePermission = new EmployeePermission();
-        employeePermission.setLogin(employee.getLastName() + "@moysklad");
+        employeePermission.setLogin(employee.getLastName() + "@" + api.getLogin().split("@")[1]);
         api.entity().employee().activate(retrievedEntity.getId(), employeePermission);
         employeePermission = api.entity().employee().getPermissions(retrievedEntity.getId());
         assertTrue(employeePermission.getIsActive());
