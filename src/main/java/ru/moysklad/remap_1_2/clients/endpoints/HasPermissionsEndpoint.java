@@ -1,11 +1,13 @@
 package ru.moysklad.remap_1_2.clients.endpoints;
 
 import ru.moysklad.remap_1_2.entities.permissions.EmployeePermission;
-import ru.moysklad.remap_1_2.entities.permissions.EmployeePermissions;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 import ru.moysklad.remap_1_2.utils.HttpRequestExecutor;
+import ru.moysklad.remap_1_2.utils.MetaHrefUtils;
 
 import java.io.IOException;
+
+import static ru.moysklad.remap_1_2.utils.Constants.API_PATH;
 
 public interface HasPermissionsEndpoint extends Endpoint {
     @ApiEndpoint
@@ -16,10 +18,13 @@ public interface HasPermissionsEndpoint extends Endpoint {
     }
 
     @ApiEndpoint
-    default EmployeePermission updatePermissions(String id, EmployeePermissions employeePermissions) throws IOException, ApiClientException {
-        return HttpRequestExecutor
+    default EmployeePermission updatePermissions(String id, EmployeePermission employeePermission) throws IOException, ApiClientException {
+        MetaHrefUtils.fillMeta(employeePermission.getRole(), api().getHost() + API_PATH);
+        final EmployeePermission result = HttpRequestExecutor
                 .path(api(), path() + id + "/security")
-                .body(employeePermissions)
+                .body(employeePermission)
                 .put(EmployeePermission.class);
+        employeePermission.set(result);
+        return result;
     }
 }

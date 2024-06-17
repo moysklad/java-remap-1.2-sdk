@@ -2,6 +2,7 @@ package ru.moysklad.remap_1_2.utils;
 
 import lombok.NoArgsConstructor;
 import ru.moysklad.remap_1_2.entities.*;
+import ru.moysklad.remap_1_2.entities.permissions.EmployeeRole;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -79,6 +80,13 @@ public final class MetaHrefUtils {
         return null;
     }
 
+    public static <T extends MetaEntity> String makeRoleHref(String name, String host) {
+        if (name != null && host != null) {
+            return host + "/entity/role/" + name;
+        }
+        return null;
+    }
+
     public static String getCustomDictionaryIdFromHref(String href) {
         if (isEmpty(href)) {
             return null;
@@ -92,7 +100,7 @@ public final class MetaHrefUtils {
     }
 
     public static <T extends MetaEntity> T fillMeta(T entity, String host) {
-        if (entity != null && entity.getClass() != MetaEntity.class) {
+        if (entity != null && entity.getClass() != MetaEntity.class && !(entity instanceof EmployeeRole.DefaultRole)) {
             if (entity.getId() != null && entity.getMeta() == null) {
                 entity.setMeta(new Meta(entity, host));
             }
@@ -100,6 +108,12 @@ public final class MetaHrefUtils {
             List<MetaEntity> fields = getAllMetaFields(clazz, entity);
             fields.addAll(getAllListMetaFields(clazz, entity));
             fields.forEach(f -> f.setMeta(new Meta(f, host)));
+        } else if (entity instanceof EmployeeRole.DefaultRole) {
+            final Meta meta = new Meta();
+            final EmployeeRole.DefaultRole defaultRole = (EmployeeRole.DefaultRole) entity;
+            meta.setHref(makeRoleHref(defaultRole.name(), host));
+            meta.setType(defaultRole.type());
+            entity.setMeta(meta);
         }
         return entity;
     }

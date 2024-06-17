@@ -1,5 +1,6 @@
 package ru.moysklad.remap_1_2.entities.permissions;
 
+import ru.moysklad.remap_1_2.entities.Entity;
 import ru.moysklad.remap_1_2.entities.Group;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
-public class EmployeePermission {
+public class EmployeePermission extends Entity {
     private Boolean isActive;
     private String login;
     private String email;
