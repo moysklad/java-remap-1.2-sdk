@@ -3,7 +3,7 @@
 Все крупные изменения в проекте будут отражены в этом файле.
 
 ## 5.1-release (15.06.2024)
-* Добавлено поле `inTransit` в `PurchaseOrderDocumentPosition` 
+* Переименовал поле `wait` в `inTransit` в `PurchaseOrderDocumentPosition` 
 
 ## 5.0-release (17.06.2024)
 * Исправлено обновление информации о правах сотрудника `entity/employee/{id}/security`
