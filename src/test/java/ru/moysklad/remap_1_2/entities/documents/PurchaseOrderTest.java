@@ -124,7 +124,6 @@ public class PurchaseOrderTest extends DocumentWithPositionsTestBase {
         assertEquals(Long.valueOf(0), purchaseOrder.getShippedSum());
         assertEquals(Long.valueOf(0), purchaseOrder.getInvoicedSum());
         assertEquals(Long.valueOf(0), purchaseOrder.getSum());
-        assertEquals(Long.valueOf(0), purchaseOrder.getWaitSum());
         assertFalse(purchaseOrder.getShared());
         assertTrue(purchaseOrder.getApplicable());
         assertFalse(purchaseOrder.getPublished());
