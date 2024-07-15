@@ -14,6 +14,5 @@ public class PurchaseOrderDocumentPosition extends DocumentPosition {
     private Double discount;
     private Long shipped;
     private Integer vat;
-    private Long wait;
     private Double inTransit;
 }
