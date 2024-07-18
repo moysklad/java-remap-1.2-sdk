@@ -145,7 +145,8 @@ public class Bundle extends AbstractProduct implements IEntityWithAttributes, Ha
         WATER,
         NCP,
         FOOD_SUPPLEMENT,
-        SANITIZER
+        SANITIZER,
+        MEDICAL_DEVICES
     }
 
     /**
