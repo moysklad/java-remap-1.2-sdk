@@ -2,6 +2,9 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 6.0-release (18.07.2024)
+* Изменен тип и поле с `Long` и `wait` на `Double` и `inTransit` в `PurchaseOrderDocumentPosition` 
+
 ## 5.0-release (17.06.2024)
 * Исправлено обновление информации о правах сотрудника `entity/employee/{id}/security`
 
