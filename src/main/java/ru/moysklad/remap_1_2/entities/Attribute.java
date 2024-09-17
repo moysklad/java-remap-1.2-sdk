@@ -36,7 +36,7 @@ public class Attribute extends MetaEntity {
     private Boolean required;
 
     /**
-     * Флажок о том, является ли доп. поле видимым на UI
+     * Флажок о том, является ли доп. поле видимым на UI. Не может быть скрытым и обязательным одновременно. Только для операций
      */
     private Boolean show;
 

@@ -83,7 +83,7 @@ public class PurchaseOrderTest extends DocumentWithPositionsTestBase {
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
-        attribute.setShow(false);
+        attribute.setShow(true);
         Attribute created = api.entity().purchaseorder().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
@@ -103,7 +103,7 @@ public class PurchaseOrderTest extends DocumentWithPositionsTestBase {
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
-        attribute.setShow(false);
+        attribute.setShow(true);
         Attribute created = api.entity().purchaseorder().createMetadataAttribute(attribute);
 
         api.entity().purchaseorder().deleteMetadataAttribute(created);
