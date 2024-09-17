@@ -36,6 +36,11 @@ public class Attribute extends MetaEntity {
     private Boolean required;
 
     /**
+     * Флажок о том, является ли доп. поле видимым на UI
+     */
+    private Boolean show;
+
+    /**
      * (для поля типа "Файл") Метаданные файла
      */
     private Meta download;
