@@ -68,6 +68,7 @@ public class CashInTest extends EntityGetUpdateDeleteTest implements FilesTest<C
         assertEquals(name, created.getName());
         assertEquals(Attribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
+        assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
     }
 

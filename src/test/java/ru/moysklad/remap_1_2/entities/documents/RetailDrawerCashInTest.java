@@ -61,12 +61,14 @@ public class RetailDrawerCashInTest extends EntityGetUpdateDeleteTest implements
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
+        attribute.setShow(true);
         attribute.setDescription("description");
         Attribute created = api.entity().retaildrawercashin().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
         assertEquals(Attribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
+        assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
     }
 

@@ -62,6 +62,7 @@ public class StoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(name, created.getName());
         assertEquals(Attribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
+        assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
     }
 

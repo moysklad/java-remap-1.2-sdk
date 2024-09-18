@@ -66,12 +66,14 @@ public class InvoiceOutTest extends DocumentWithPositionsTestBase {
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
+        attribute.setShow(true);
         attribute.setDescription("description");
         Attribute created = api.entity().invoiceout().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
         assertEquals(Attribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
+        assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
     }
 

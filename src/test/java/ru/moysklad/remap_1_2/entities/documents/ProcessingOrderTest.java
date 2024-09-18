@@ -108,6 +108,7 @@ public class ProcessingOrderTest extends EntityGetUpdateDeleteTest implements Fi
         assertEquals(name, created.getName());
         assertEquals(Attribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
+        assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
     }
 

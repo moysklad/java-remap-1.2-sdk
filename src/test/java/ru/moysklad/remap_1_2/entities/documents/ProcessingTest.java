@@ -121,6 +121,7 @@ public class ProcessingTest extends EntityGetUpdateDeleteTest implements FilesTe
         assertEquals(name, created.getName());
         assertEquals(Attribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
+        assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
     }
 

@@ -74,6 +74,8 @@ public class PurchaseOrderTest extends DocumentWithPositionsTestBase {
         assertEquals(name, created.getName());
         assertEquals(Attribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
+        assertTrue(created.getShow());
+        assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
     }
 
@@ -96,6 +98,7 @@ public class PurchaseOrderTest extends DocumentWithPositionsTestBase {
         assertNull(updated.getType());
         assertEquals(Meta.Type.PRODUCT, updated.getEntityType());
         assertFalse(updated.getRequired());
+        assertFalse(updated.getShow());
     }
 
     @Test
