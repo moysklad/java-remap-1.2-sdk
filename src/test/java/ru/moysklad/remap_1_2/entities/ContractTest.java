@@ -68,12 +68,14 @@ public class ContractTest extends EntityGetUpdateDeleteTest {
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
+        attribute.setShow(true);
         attribute.setDescription("description");
         Attribute created = api.entity().contract().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
         assertEquals(Attribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
+        assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
     }
 
@@ -83,17 +85,20 @@ public class ContractTest extends EntityGetUpdateDeleteTest {
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().contract().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
+        attribute.setShow(false);
         Attribute updated = api.entity().contract().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
         assertEquals(Meta.Type.PRODUCT, updated.getEntityType());
         assertFalse(updated.getRequired());
+        assertFalse(updated.getShow());
     }
 
     @Test
@@ -102,6 +107,7 @@ public class ContractTest extends EntityGetUpdateDeleteTest {
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().contract().createMetadataAttribute(attribute);
 
         api.entity().contract().deleteMetadataAttribute(created);
