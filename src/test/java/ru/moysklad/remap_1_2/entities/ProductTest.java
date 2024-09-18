@@ -158,6 +158,7 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> imp
         assertNull(updated.getType());
         assertEquals(Meta.Type.PRODUCT, updated.getEntityType());
         assertFalse(updated.getRequired());
+        assertFalse(updated.getShow());
     }
 
     @Test

@@ -99,6 +99,7 @@ public class FactureOutTest extends EntityGetUpdateDeleteTest implements FilesTe
         assertNull(updated.getType());
         assertEquals(Meta.Type.PRODUCT, updated.getEntityType());
         assertFalse(updated.getRequired());
+        assertFalse(updated.getShow());
     }
 
     @Test

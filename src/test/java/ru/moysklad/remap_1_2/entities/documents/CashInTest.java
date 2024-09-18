@@ -91,6 +91,7 @@ public class CashInTest extends EntityGetUpdateDeleteTest implements FilesTest<C
         assertNull(updated.getType());
         assertEquals(Meta.Type.PRODUCT, updated.getEntityType());
         assertFalse(updated.getRequired());
+        assertFalse(updated.getShow());
     }
 
     @Test

@@ -83,6 +83,7 @@ public class InvoiceOutTest extends DocumentWithPositionsTestBase {
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().invoiceout().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
@@ -94,6 +95,7 @@ public class InvoiceOutTest extends DocumentWithPositionsTestBase {
         assertNull(updated.getType());
         assertEquals(Meta.Type.PRODUCT, updated.getEntityType());
         assertFalse(updated.getRequired());
+        assertFalse(updated.getShow());
     }
 
     @Test

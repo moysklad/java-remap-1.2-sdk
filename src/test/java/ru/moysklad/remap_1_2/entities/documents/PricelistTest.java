@@ -479,6 +479,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest implements FilesTes
         assertNull(updated.getType());
         assertEquals(Meta.Type.PRODUCT, updated.getEntityType());
         assertFalse(updated.getRequired());
+        assertFalse(updated.getShow());
     }
 
     @Test

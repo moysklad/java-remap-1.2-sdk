@@ -180,6 +180,7 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> imple
         assertNull(updated.getType());
         assertEquals(Meta.Type.PRODUCT, updated.getEntityType());
         assertFalse(updated.getRequired());
+        assertFalse(updated.getShow());
     }
 
     @Test
