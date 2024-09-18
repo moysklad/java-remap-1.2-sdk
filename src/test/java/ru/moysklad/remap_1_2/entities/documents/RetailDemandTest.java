@@ -105,6 +105,7 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest implements Files
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
+        attribute.setShow(true);
         attribute.setDescription("description");
         Attribute created = api.entity().retaildemand().createMetadataAttribute(attribute);
         assertNotNull(created);
@@ -120,11 +121,13 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest implements Files
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().retaildemand().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
+        attribute.setShow(false);
         Attribute updated = api.entity().retaildemand().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
@@ -139,6 +142,7 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest implements Files
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().retaildemand().createMetadataAttribute(attribute);
 
         api.entity().retaildemand().deleteMetadataAttribute(created);

@@ -165,11 +165,13 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> imple
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().bundle().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
+        attribute.setShow(false);
         Attribute updated = api.entity().bundle().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
@@ -184,6 +186,7 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> imple
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().bundle().createMetadataAttribute(attribute);
 
         api.entity().bundle().deleteMetadataAttribute(created);

@@ -89,6 +89,7 @@ public class PurchaseOrderTest extends DocumentWithPositionsTestBase {
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
+        attribute.setShow(false);
         Attribute updated = api.entity().purchaseorder().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());

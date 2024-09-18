@@ -101,6 +101,7 @@ public class ProcessingOrderTest extends EntityGetUpdateDeleteTest implements Fi
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
+        attribute.setShow(true);
         attribute.setDescription("description");
         Attribute created = api.entity().processingorder().createMetadataAttribute(attribute);
         assertNotNull(created);
@@ -116,11 +117,13 @@ public class ProcessingOrderTest extends EntityGetUpdateDeleteTest implements Fi
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().processingorder().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
+        attribute.setShow(false);
         Attribute updated = api.entity().processingorder().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
@@ -135,6 +138,7 @@ public class ProcessingOrderTest extends EntityGetUpdateDeleteTest implements Fi
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().processingorder().createMetadataAttribute(attribute);
 
         api.entity().processingorder().deleteMetadataAttribute(created);

@@ -102,6 +102,7 @@ public class EmployeeTest extends EntityGetUpdateDeleteTest {
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
+        attribute.setShow(true);
         attribute.setDescription("description");
         Attribute created = api.entity().employee().createMetadataAttribute(attribute);
         assertNotNull(created);
@@ -117,11 +118,13 @@ public class EmployeeTest extends EntityGetUpdateDeleteTest {
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().employee().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
+        attribute.setShow(false);
         Attribute updated = api.entity().employee().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());

@@ -61,6 +61,7 @@ public class CashInTest extends EntityGetUpdateDeleteTest implements FilesTest<C
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
+        attribute.setShow(true);
         attribute.setDescription("description");
         Attribute created = api.entity().cashin().createMetadataAttribute(attribute);
         assertNotNull(created);
@@ -76,11 +77,13 @@ public class CashInTest extends EntityGetUpdateDeleteTest implements FilesTest<C
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().cashin().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
+        attribute.setShow(false);
         Attribute updated = api.entity().cashin().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
@@ -95,6 +98,7 @@ public class CashInTest extends EntityGetUpdateDeleteTest implements FilesTest<C
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().cashin().createMetadataAttribute(attribute);
 
         api.entity().cashin().deleteMetadataAttribute(created);

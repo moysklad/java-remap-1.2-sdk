@@ -76,6 +76,7 @@ public class EnterTest extends DocumentWithPositionsTestBase {
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
+        attribute.setShow(true);
         attribute.setDescription("description");
         Attribute created = api.entity().enter().createMetadataAttribute(attribute);
         assertNotNull(created);
@@ -91,11 +92,13 @@ public class EnterTest extends DocumentWithPositionsTestBase {
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().enter().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
+        attribute.setShow(false);
         Attribute updated = api.entity().enter().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
@@ -110,6 +113,7 @@ public class EnterTest extends DocumentWithPositionsTestBase {
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().enter().createMetadataAttribute(attribute);
 
         api.entity().enter().deleteMetadataAttribute(created);

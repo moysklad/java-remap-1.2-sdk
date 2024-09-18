@@ -449,6 +449,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest implements FilesTes
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
+        attribute.setShow(true);
         attribute.setDescription("description");
         Attribute created = api.entity().pricelist().createMetadataAttribute(attribute);
         assertNotNull(created);
@@ -464,11 +465,13 @@ public class PricelistTest extends EntityGetUpdateDeleteTest implements FilesTes
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().pricelist().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
+        attribute.setShow(false);
         Attribute updated = api.entity().pricelist().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
@@ -483,6 +486,7 @@ public class PricelistTest extends EntityGetUpdateDeleteTest implements FilesTes
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
+        attribute.setShow(true);
         Attribute created = api.entity().pricelist().createMetadataAttribute(attribute);
 
         api.entity().pricelist().deleteMetadataAttribute(created);
