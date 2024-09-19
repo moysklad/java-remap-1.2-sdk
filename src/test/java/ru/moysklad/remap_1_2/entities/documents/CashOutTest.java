@@ -86,7 +86,7 @@ public class CashOutTest extends EntityGetUpdateDeleteTest implements FilesTest<
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
-        attribute.setShow(false);
+        created.setShow(false);
         Attribute updated = api.entity().cashout().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());

@@ -127,7 +127,7 @@ public class RetailSalesReturnTest extends EntityGetUpdateDeleteTest implements 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
-        attribute.setShow(false);
+        created.setShow(false);
         Attribute updated = api.entity().retailsalesreturn().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());

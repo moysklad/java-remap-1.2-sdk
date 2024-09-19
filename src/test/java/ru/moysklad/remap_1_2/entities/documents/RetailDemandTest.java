@@ -128,7 +128,7 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest implements Files
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
-        attribute.setShow(false);
+        created.setShow(false);
         Attribute updated = api.entity().retaildemand().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
