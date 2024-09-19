@@ -423,14 +423,14 @@ public class CounterpartyTest extends EntityGetUpdateDeleteTest {
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
-        attribute.setShow(true);
+        attribute.setShow(false);
         attribute.setDescription("description");
         Attribute created = api.entity().counterparty().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
         assertEquals(Attribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
-        assertTrue(created.getShow());
+        assertFalse(created.getShow());
         assertEquals("description", created.getDescription());
     }
 
@@ -446,7 +446,7 @@ public class CounterpartyTest extends EntityGetUpdateDeleteTest {
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
-        attribute.setShow(false);
+        created.setShow(false);
         Attribute updated = api.entity().counterparty().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
