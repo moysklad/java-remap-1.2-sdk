@@ -56,14 +56,14 @@ public class RetailDrawerCashInTest extends EntityGetUpdateDeleteTest implements
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
-        Attribute attribute = new Attribute();
+        AttributeOperation attribute = new AttributeOperation();
         attribute.setType(Attribute.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
         attribute.setShow(true);
         attribute.setDescription("description");
-        Attribute created = api.entity().retaildrawercashin().createMetadataAttribute(attribute);
+        AttributeOperation created = (AttributeOperation) api.entity().retaildrawercashin().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
         assertEquals(Attribute.Type.textValue, created.getType());
@@ -74,18 +74,18 @@ public class RetailDrawerCashInTest extends EntityGetUpdateDeleteTest implements
 
     @Test
     public void updateAttributeTest() throws IOException, ApiClientException {
-        Attribute attribute = new Attribute();
+        AttributeOperation attribute = new AttributeOperation();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        Attribute created = api.entity().retaildrawercashin().createMetadataAttribute(attribute);
+        AttributeOperation created = (AttributeOperation) api.entity().retaildrawercashin().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
         created.setShow(false);
-        Attribute updated = api.entity().retaildrawercashin().updateMetadataAttribute(created);
+        AttributeOperation updated = (AttributeOperation) api.entity().retaildrawercashin().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
@@ -96,11 +96,12 @@ public class RetailDrawerCashInTest extends EntityGetUpdateDeleteTest implements
 
     @Test
     public void deleteAttributeTest() throws IOException, ApiClientException{
-        Attribute attribute = new Attribute();
+        AttributeOperation attribute = new AttributeOperation();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
-        Attribute created = api.entity().retaildrawercashin().createMetadataAttribute(attribute);
+        attribute.setShow(true);
+        AttributeOperation created = (AttributeOperation) api.entity().retaildrawercashin().createMetadataAttribute(attribute);
 
         api.entity().retaildrawercashin().deleteMetadataAttribute(created);
 

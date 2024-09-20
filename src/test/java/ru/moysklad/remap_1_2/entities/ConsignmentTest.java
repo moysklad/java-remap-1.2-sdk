@@ -70,7 +70,7 @@ public class ConsignmentTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
-        Attribute attribute = new Attribute();
+        Attribute attribute = new AttributeEntity();
         attribute.setType(Attribute.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
@@ -86,16 +86,16 @@ public class ConsignmentTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void updateAttributeTest() throws IOException, ApiClientException {
-        Attribute attribute = new Attribute();
+        Attribute attribute = new AttributeEntity();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
-        Attribute created = api.entity().consignment().createMetadataAttribute(attribute);
+        AttributeEntity created = (AttributeEntity) api.entity().consignment().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
-        Attribute updated = api.entity().consignment().updateMetadataAttribute(created);
+        AttributeEntity updated = (AttributeEntity) api.entity().consignment().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
@@ -105,11 +105,11 @@ public class ConsignmentTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void deleteAttributeTest() throws IOException, ApiClientException{
-        Attribute attribute = new Attribute();
+        Attribute attribute = new AttributeEntity();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
-        Attribute created = api.entity().consignment().createMetadataAttribute(attribute);
+        AttributeEntity created = (AttributeEntity) api.entity().consignment().createMetadataAttribute(attribute);
 
         api.entity().consignment().deleteMetadataAttribute(created);
 

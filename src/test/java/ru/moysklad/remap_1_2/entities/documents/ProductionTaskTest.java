@@ -1,7 +1,7 @@
 package ru.moysklad.remap_1_2.entities.documents;
 
 import org.junit.Test;
-import ru.moysklad.remap_1_2.entities.Attribute;
+import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.EntityTestBase;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 
@@ -14,14 +14,14 @@ public class ProductionTaskTest extends EntityTestBase {
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
-        Attribute attribute = new Attribute();
+        AttributeOperation attribute = new AttributeOperation();
         attribute.setType(Attribute.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
         attribute.setShow(true);
         attribute.setDescription("description");
-        Attribute created = api.entity().productionTask().createMetadataAttribute(attribute);
+        AttributeOperation created = (AttributeOperation) api.entity().productionTask().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
         assertEquals(Attribute.Type.textValue, created.getType());

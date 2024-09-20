@@ -2,7 +2,7 @@ package ru.moysklad.remap_1_2.entities.documents;
 
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
-import ru.moysklad.remap_1_2.entities.Attribute;
+import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.Meta;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.State;
@@ -75,14 +75,14 @@ public class InventoryTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
-        Attribute attribute = new Attribute();
+        AttributeOperation attribute = new AttributeOperation();
         attribute.setType(Attribute.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
         attribute.setShow(true);
         attribute.setDescription("description");
-        Attribute created = api.entity().inventory().createMetadataAttribute(attribute);
+        AttributeOperation created = (AttributeOperation) api.entity().inventory().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
         assertEquals(Attribute.Type.textValue, created.getType());
@@ -93,18 +93,18 @@ public class InventoryTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void updateAttributeTest() throws IOException, ApiClientException {
-        Attribute attribute = new Attribute();
+        AttributeOperation attribute = new AttributeOperation();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        Attribute created = api.entity().inventory().createMetadataAttribute(attribute);
+        AttributeOperation created = (AttributeOperation) api.entity().inventory().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
         created.setShow(false);
-        Attribute updated = api.entity().inventory().updateMetadataAttribute(created);
+        AttributeOperation updated = (AttributeOperation) api.entity().inventory().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
@@ -115,12 +115,12 @@ public class InventoryTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void deleteAttributeTest() throws IOException, ApiClientException{
-        Attribute attribute = new Attribute();
+        AttributeOperation attribute = new AttributeOperation();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        Attribute created = api.entity().inventory().createMetadataAttribute(attribute);
+        AttributeOperation created = (AttributeOperation) api.entity().inventory().createMetadataAttribute(attribute);
 
         api.entity().inventory().deleteMetadataAttribute(created);
 

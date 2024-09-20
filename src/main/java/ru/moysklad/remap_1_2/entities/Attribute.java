@@ -14,7 +14,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Attribute extends MetaEntity {
+public abstract class Attribute extends MetaEntity {
+
     /**
      * Тип доп. поля
      */
@@ -36,11 +37,6 @@ public class Attribute extends MetaEntity {
     private Boolean required;
 
     /**
-     * Флажок о том, является ли доп. поле видимым на UI. Не может быть скрытым и обязательным одновременно. Только для операций
-     */
-    private Boolean show;
-
-    /**
      * (для поля типа "Файл") Метаданные файла
      */
     private Meta download;
@@ -58,27 +54,31 @@ public class Attribute extends MetaEntity {
     /**
      * Тип сущности, которой принадлежит аттрибут
      */
-    private transient Meta.Type attributeEntityType;
+    private transient Meta.Type AttributeType;
 
     public Attribute(String id) {
         super(id);
     }
 
-    public Attribute(Meta.Type attributeEntityType, String id, Type type, Object value){
+    public Attribute(Meta.Type AttributeType, String id, Type type, Object value){
         super(id);
         this.type = type;
         this.value = value;
         if (MetaEntity.class.isAssignableFrom(value.getClass())) {
             entityType = Meta.Type.find((MetaEntity) value);
         }
-        this.attributeEntityType = attributeEntityType;
+        this.AttributeType = AttributeType;
     }
 
-    public Attribute(Meta.Type attributeEntityType, String id, MetaEntity value){
+    public Attribute(Meta.Type AttributeType, String id, MetaEntity value){
         super(id);
         this.value = value;
         entityType = Meta.Type.find(value);
-        this.attributeEntityType = attributeEntityType;
+        this.AttributeType = AttributeType;
+    }
+
+    public <T> T getValueAs(Class<T> tClass) {
+        return (T) value;
     }
 
     /**
@@ -124,9 +124,5 @@ public class Attribute extends MetaEntity {
          * Ссылка
          */
         @SerializedName("link") linkValue
-    }
-
-    public <T> T getValueAs(Class<T> tClass) {
-        return (T) value;
     }
 }
