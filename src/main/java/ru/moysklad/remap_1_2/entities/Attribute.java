@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public abstract class Attribute extends MetaEntity {
+public class Attribute extends MetaEntity {
 
     /**
      * Тип доп. поля

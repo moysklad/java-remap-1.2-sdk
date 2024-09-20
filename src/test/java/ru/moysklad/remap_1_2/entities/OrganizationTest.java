@@ -123,13 +123,13 @@ public class OrganizationTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
-        AttributeEntity attribute = new AttributeEntity();
+        AttributeCustomEntity attribute = new AttributeCustomEntity();
         attribute.setType(Attribute.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
         attribute.setDescription("description");
-        AttributeEntity created = (AttributeEntity) api.entity().organization().createMetadataAttribute(attribute);
+        AttributeCustomEntity created = (AttributeCustomEntity) api.entity().organization().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
         assertEquals(Attribute.Type.textValue, created.getType());
@@ -139,16 +139,16 @@ public class OrganizationTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void updateAttributeTest() throws IOException, ApiClientException {
-        AttributeEntity attribute = new AttributeEntity();
+        AttributeCustomEntity attribute = new AttributeCustomEntity();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
-        AttributeEntity created = (AttributeEntity) api.entity().organization().createMetadataAttribute(attribute);
+        AttributeCustomEntity created = (AttributeCustomEntity) api.entity().organization().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
-        AttributeEntity updated = (AttributeEntity) api.entity().organization().updateMetadataAttribute(created);
+        AttributeCustomEntity updated = (AttributeCustomEntity) api.entity().organization().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
@@ -158,11 +158,11 @@ public class OrganizationTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void deleteAttributeTest() throws IOException, ApiClientException{
-        AttributeEntity attribute = new AttributeEntity();
+        AttributeCustomEntity attribute = new AttributeCustomEntity();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
-        AttributeEntity created = (AttributeEntity) api.entity().organization().createMetadataAttribute(attribute);
+        AttributeCustomEntity created = (AttributeCustomEntity) api.entity().organization().createMetadataAttribute(attribute);
 
         api.entity().organization().deleteMetadataAttribute(created);
 

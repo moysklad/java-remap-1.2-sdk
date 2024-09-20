@@ -18,7 +18,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     public void test_deserializeString() {
         Gson gsonCustom = ApiClient.createGson();
 
-        Attribute e = new AttributeEntity();
+        Attribute e = new Attribute();
         e.setType(Attribute.Type.stringValue);
         e.setValue("STRING");
 
@@ -36,7 +36,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     public void test_deserializeLong() {
         Gson gsonCustom = ApiClient.createGson();
 
-        Attribute e = new AttributeEntity();
+        Attribute e = new Attribute();
         e.setType(Attribute.Type.longValue);
         e.setValue(1234567L);
 
@@ -54,7 +54,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     public void test_deserializeTime() {
         Gson gsonCustom = ApiClient.createGson();
 
-        Attribute e = new AttributeEntity();
+        Attribute e = new Attribute();
         e.setType(Attribute.Type.timeValue);
 
         LocalDateTime date = LocalDateTime.now();
@@ -75,7 +75,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     public void test_deserializeFile() {
         Gson gsonCustom = ApiClient.createGson();
 
-        Attribute e = new AttributeEntity();
+        Attribute e = new Attribute();
         e.setType(Attribute.Type.fileValue);
         e.setValue("picture");
         e.setDownload(new Meta());
@@ -99,7 +99,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     public void test_deserializeDouble() {
         Gson gsonCustom = ApiClient.createGson();
 
-        Attribute e = new AttributeEntity();
+        Attribute e = new Attribute();
         e.setType(Attribute.Type.doubleValue);
         e.setValue(12.345);
 
@@ -117,7 +117,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     public void test_deserializeBoolean() {
         Gson gsonCustom = ApiClient.createGson();
 
-        Attribute e = new AttributeEntity();
+        Attribute e = new Attribute();
         e.setType(Attribute.Type.booleanValue);
         e.setValue(true);
 
@@ -135,7 +135,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     public void test_deserializeText() {
         Gson gsonCustom = ApiClient.createGson();
 
-        Attribute e = new AttributeEntity();
+        Attribute e = new AttributeCustomEntity();
         e.setType(Attribute.Type.textValue);
         e.setValue(
                 "123\n" +
@@ -159,7 +159,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     public void test_deserializeLink() {
         Gson gsonCustom = ApiClient.createGson();
 
-        Attribute e = new AttributeEntity();
+        Attribute e = new AttributeCustomEntity();
         e.setType(Attribute.Type.linkValue);
         e.setValue("http://moysklad.ru");
 
@@ -177,7 +177,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     public void test_deserializeProductEntity() {
         Gson gsonCustom = ApiClient.createGson();
 
-        Attribute e = new AttributeEntity();
+        Attribute e = new AttributeCustomEntity();
         e.setEntityType(Meta.Type.PRODUCT);
         Product pr = new Product();
         pr.setMeta(new Meta());
@@ -199,7 +199,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     public void test_deserializeProductFolderEntity() {
         Gson gsonCustom = ApiClient.createGson();
 
-        Attribute e = new AttributeEntity();
+        Attribute e = new AttributeCustomEntity();
         e.setEntityType(Meta.Type.PRODUCT);
         ProductFolder prf = new ProductFolder();
         prf.setMeta(new Meta());
@@ -225,7 +225,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
         customEntityMeta.setHref("customentity/12341234");
         customEntityMeta.setType(Meta.Type.CUSTOM_ENTITY_METADATA);
 
-        Attribute e = new AttributeEntity();
+        Attribute e = new AttributeCustomEntity();
         e.setEntityType(Meta.Type.CUSTOM_ENTITY);
         e.setCustomEntityMeta(customEntityMeta);
         CustomEntityElement ce = new CustomEntityElement();
@@ -252,7 +252,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     public void test_deserializeNullTime() {
         Gson gsonCustom = ApiClient.createGson();
 
-        Attribute e = new AttributeEntity();
+        Attribute e = new AttributeCustomEntity();
         e.setType(Attribute.Type.timeValue);
 
         String data = gsonCustom.toJson(e);

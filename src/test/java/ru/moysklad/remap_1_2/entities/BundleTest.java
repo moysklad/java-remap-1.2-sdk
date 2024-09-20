@@ -145,7 +145,7 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> imple
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
-        Attribute attribute = new AttributeEntity();
+        Attribute attribute = new AttributeCustomEntity();
         attribute.setType(Attribute.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
@@ -161,16 +161,16 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> imple
 
     @Test
     public void updateAttributeTest() throws IOException, ApiClientException {
-        Attribute attribute = new AttributeEntity();
+        Attribute attribute = new AttributeCustomEntity();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
-        AttributeEntity created = (AttributeEntity) api.entity().bundle().createMetadataAttribute(attribute);
+        AttributeCustomEntity created = (AttributeCustomEntity) api.entity().bundle().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
-        AttributeEntity updated = (AttributeEntity) api.entity().bundle().updateMetadataAttribute(created);
+        AttributeCustomEntity updated = (AttributeCustomEntity) api.entity().bundle().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
@@ -180,11 +180,11 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> imple
 
     @Test
     public void deleteAttributeTest() throws IOException, ApiClientException{
-        AttributeEntity attribute = new AttributeEntity();
+        AttributeCustomEntity attribute = new AttributeCustomEntity();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
-        AttributeEntity created = (AttributeEntity) api.entity().bundle().createMetadataAttribute(attribute);
+        AttributeCustomEntity created = (AttributeCustomEntity) api.entity().bundle().createMetadataAttribute(attribute);
 
         api.entity().bundle().deleteMetadataAttribute(created);
 
