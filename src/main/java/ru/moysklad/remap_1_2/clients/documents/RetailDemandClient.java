@@ -5,7 +5,7 @@ import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.RetailDemand;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
 
 public final class RetailDemandClient
         extends EntityClientBase
@@ -13,8 +13,8 @@ public final class RetailDemandClient
         GetListEndpoint<RetailDemand>,
         PostEndpoint<RetailDemand>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
+        MetadataAttributeOperationEndpoint,
         GetByIdEndpoint<RetailDemand>,
         PutByIdEndpoint<RetailDemand>,
         MassCreateUpdateDeleteEndpoint<RetailDemand>,
@@ -34,6 +34,6 @@ public final class RetailDemandClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeSharedStatesResponse.class;
+        return MetadataAttributeOperationSharedStatesResponse.class;
     }
 }

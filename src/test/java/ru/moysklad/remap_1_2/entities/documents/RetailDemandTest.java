@@ -5,7 +5,7 @@ import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.responses.ListEntity;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 
 import java.io.IOException;
@@ -87,30 +87,30 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest implements Files
     @Ignore
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        MetadataAttributeSharedStatesResponse response = api.entity().retaildemand().metadata().get();
+        MetadataAttributeOperationSharedStatesResponse response = api.entity().retaildemand().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
     @Test
     public void attributesTest() throws IOException, ApiClientException{
-        ListEntity<Attribute> attributes = api.entity().retaildemand().metadataAttributes();
+        ListEntity<AttributeOperation> attributes = api.entity().retaildemand().metadataAttributes();
         assertNotNull(attributes);
     }
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
         AttributeOperation attribute = new AttributeOperation();
-        attribute.setType(Attribute.Type.textValue);
+        attribute.setType(AttributeOperation.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
         attribute.setShow(true);
         attribute.setDescription("description");
-        AttributeOperation created = (AttributeOperation) api.entity().retaildemand().createMetadataAttribute(attribute);
+        AttributeOperation created =  api.entity().retaildemand().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
-        assertEquals(Attribute.Type.textValue, created.getType());
+        assertEquals(AttributeOperation.Type.textValue, created.getType());
         assertFalse(created.getRequired());
         assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
@@ -123,13 +123,13 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest implements Files
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        AttributeOperation created = (AttributeOperation) api.entity().retaildemand().createMetadataAttribute(attribute);
+        AttributeOperation created =  api.entity().retaildemand().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
         created.setShow(false);
-        AttributeOperation updated = (AttributeOperation) api.entity().retaildemand().updateMetadataAttribute(created);
+        AttributeOperation updated =  api.entity().retaildemand().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
@@ -145,7 +145,7 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest implements Files
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        AttributeOperation created = (AttributeOperation) api.entity().retaildemand().createMetadataAttribute(attribute);
+        AttributeOperation created =  api.entity().retaildemand().createMetadataAttribute(attribute);
 
         api.entity().retaildemand().deleteMetadataAttribute(created);
 

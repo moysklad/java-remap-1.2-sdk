@@ -6,7 +6,7 @@ import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.Move;
 import ru.moysklad.remap_1_2.entities.documents.positions.MoveDocumentPosition;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
 
 public final class MoveClient
         extends EntityClientBase
@@ -14,8 +14,8 @@ public final class MoveClient
         GetListEndpoint<Move>,
         PostEndpoint<Move>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
+        MetadataAttributeOperationEndpoint,
         DocumentNewEndpoint<Move>,
         GetByIdEndpoint<Move>,
         PutByIdEndpoint<Move>,
@@ -37,7 +37,7 @@ public final class MoveClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeSharedStatesResponse.class;
+        return MetadataAttributeOperationSharedStatesResponse.class;
     }
 
     @Override

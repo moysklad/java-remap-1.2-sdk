@@ -1,6 +1,7 @@
 package ru.moysklad.remap_1_2.clients.endpoints;
 
 import ru.moysklad.remap_1_2.entities.Attribute;
+import ru.moysklad.remap_1_2.entities.AttributeCustomEntity;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 import ru.moysklad.remap_1_2.utils.HttpRequestExecutor;
@@ -11,46 +12,46 @@ public interface ProductMetadataAttributeEndpoint extends MetadataAttributeEndpo
 
     @Override
     @ApiEndpoint
-    default Attribute metadataAttributes(String id) throws IOException, ApiClientException {
+    default AttributeCustomEntity metadataAttributes(String id) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), "/entity/product/metadata/attributes/" + id).
-                get(Attribute.class);
+                get(AttributeCustomEntity.class);
     }
 
     @Override
     @ApiEndpoint
-    default ListEntity<Attribute> metadataAttributes() throws IOException, ApiClientException {
-        ListEntity<Attribute> attributes = HttpRequestExecutor.
+    default ListEntity<AttributeCustomEntity> metadataAttributes() throws IOException, ApiClientException {
+        ListEntity<AttributeCustomEntity> attributes = HttpRequestExecutor.
                 path(api(), "/entity/product/metadata/attributes/").
-                list(Attribute.class);
+                list(AttributeCustomEntity.class);
         return attributes;
     }
 
     @Override
     @ApiEndpoint
-    default Attribute createMetadataAttribute(Attribute newEntity) throws IOException, ApiClientException {
-        Attribute responseEntity = HttpRequestExecutor.
+    default AttributeCustomEntity createMetadataAttribute(AttributeCustomEntity newEntity) throws IOException, ApiClientException {
+        AttributeCustomEntity responseEntity = HttpRequestExecutor.
                 path(api(), "/entity/product/metadata/attributes/").
                 body(newEntity).
-                post(Attribute.class);
+                post(AttributeCustomEntity.class);
         newEntity.set(responseEntity);
         return newEntity;
     }
 
     @Override
     @ApiEndpoint
-    default Attribute updateMetadataAttribute(String id, Attribute newEntity) throws IOException, ApiClientException {
-        Attribute responseEntity = HttpRequestExecutor.
+    default AttributeCustomEntity updateMetadataAttribute(String id, AttributeCustomEntity newEntity) throws IOException, ApiClientException {
+        AttributeCustomEntity responseEntity = HttpRequestExecutor.
                 path(api(), "/entity/product/metadata/attributes/" + id).
                 body(newEntity).
-                put(Attribute.class);
+                put(AttributeCustomEntity.class);
         newEntity.set(responseEntity);
         return newEntity;
     }
 
     @Override
     @ApiEndpoint
-    default Attribute updateMetadataAttribute(Attribute newEntity) throws IOException, ApiClientException {
+    default AttributeCustomEntity updateMetadataAttribute(AttributeCustomEntity newEntity) throws IOException, ApiClientException {
         return updateMetadataAttribute(newEntity.getId(), newEntity);
     }
 
@@ -64,7 +65,7 @@ public interface ProductMetadataAttributeEndpoint extends MetadataAttributeEndpo
 
     @Override
     @ApiEndpoint
-    default void deleteMetadataAttribute(Attribute entity) throws IOException, ApiClientException {
+    default void deleteMetadataAttribute(AttributeCustomEntity entity) throws IOException, ApiClientException {
         deleteMetadataAttribute(entity.getId());
     }
 }

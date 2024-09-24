@@ -41,22 +41,22 @@ public class ProjectTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void attributesTest() throws IOException, ApiClientException{
-        ListEntity<Attribute> attributes = api.entity().project().metadataAttributes();
+        ListEntity<AttributeCustomEntity> attributes = api.entity().project().metadataAttributes();
         assertNotNull(attributes);
     }
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
         AttributeCustomEntity attribute = new AttributeCustomEntity();
-        attribute.setType(Attribute.Type.textValue);
+        attribute.setType(AttributeCustomEntity.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
         attribute.setDescription("description");
-        AttributeCustomEntity created = (AttributeCustomEntity) api.entity().project().createMetadataAttribute(attribute);
+        AttributeCustomEntity created = api.entity().project().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
-        assertEquals(Attribute.Type.textValue, created.getType());
+        assertEquals(AttributeCustomEntity.Type.textValue, created.getType());
         assertFalse(created.getRequired());
         assertEquals("description", created.getDescription());
     }
@@ -67,12 +67,12 @@ public class ProjectTest extends EntityGetUpdateDeleteTest {
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
-        AttributeCustomEntity created = (AttributeCustomEntity) api.entity().project().createMetadataAttribute(attribute);
+        AttributeCustomEntity created = api.entity().project().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
-        AttributeCustomEntity updated = (AttributeCustomEntity) api.entity().project().updateMetadataAttribute(created);
+        AttributeCustomEntity updated = api.entity().project().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
@@ -86,7 +86,7 @@ public class ProjectTest extends EntityGetUpdateDeleteTest {
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
-        Attribute created = api.entity().project().createMetadataAttribute(attribute);
+        AttributeCustomEntity created = api.entity().project().createMetadataAttribute(attribute);
 
         api.entity().project().deleteMetadataAttribute(created);
 

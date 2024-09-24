@@ -6,7 +6,7 @@ import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.InternalOrder;
 import ru.moysklad.remap_1_2.entities.documents.positions.InternalOrderDocumentPosition;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
 
 public final class InternalOrderClient
         extends EntityClientBase
@@ -14,8 +14,8 @@ public final class InternalOrderClient
         GetListEndpoint<InternalOrder>,
         PostEndpoint<InternalOrder>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
+        MetadataAttributeOperationEndpoint,
         DocumentNewEndpoint<InternalOrder>,
         GetByIdEndpoint<InternalOrder>,
         PutByIdEndpoint<InternalOrder>,
@@ -37,7 +37,7 @@ public final class InternalOrderClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeSharedStatesResponse.class;
+        return MetadataAttributeOperationSharedStatesResponse.class;
     }
 
     @Override

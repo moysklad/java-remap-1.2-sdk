@@ -7,7 +7,7 @@ import ru.moysklad.remap_1_2.entities.EntityGetUpdateDeleteTest;
 import ru.moysklad.remap_1_2.entities.Meta;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.responses.ListEntity;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 
 import java.io.IOException;
@@ -46,21 +46,21 @@ public class PaymentOutTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        MetadataAttributeSharedStatesResponse response = api.entity().paymentout().metadata().get();
+        MetadataAttributeOperationSharedStatesResponse response = api.entity().paymentout().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
     
     @Test
     public void attributesTest() throws IOException, ApiClientException{
-        ListEntity<Attribute> attributes = api.entity().paymentout().metadataAttributes();
+        ListEntity<AttributeOperation> attributes = api.entity().paymentout().metadataAttributes();
         assertNotNull(attributes);
     }
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
         AttributeOperation attribute = new AttributeOperation();
-        attribute.setType(Attribute.Type.textValue);
+        attribute.setType(AttributeOperation.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
@@ -69,7 +69,7 @@ public class PaymentOutTest extends EntityGetUpdateDeleteTest {
         AttributeOperation created = (AttributeOperation) api.entity().paymentout().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
-        assertEquals(Attribute.Type.textValue, created.getType());
+        assertEquals(AttributeOperation.Type.textValue, created.getType());
         assertFalse(created.getRequired());
         assertTrue(created.getShow());
         assertEquals("description", created.getDescription());

@@ -258,7 +258,7 @@ public class ApiParamsTest implements TestRandomizers {
     @Test
     public void test_attributeFilter() throws IOException, ApiClientException {
         mockApi.entity().counterparty().get(
-                filterEq(new Attribute(Meta.Type.COUNTERPARTY, "ID", Attribute.Type.stringValue, "NOT_USED"), "VALUE")
+                filterEq(new AttributeCustomEntity(Meta.Type.COUNTERPARTY, "ID", AttributeCustomEntity.Type.stringValue, "NOT_USED"), "VALUE")
         );
         assertEquals(
                 host + "/api/remap/1.2/entity/counterparty/?filter=" +

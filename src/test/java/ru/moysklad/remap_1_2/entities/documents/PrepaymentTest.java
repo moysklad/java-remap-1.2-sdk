@@ -81,23 +81,23 @@ public class PrepaymentTest extends EntityTestBase implements FilesTest<Prepayme
 
     @Test
     public void attributesTest() throws IOException, ApiClientException {
-        ListEntity<Attribute> attributes = api.entity().prepayment().metadataAttributes();
+        ListEntity<AttributeOperation> attributes = api.entity().prepayment().metadataAttributes();
         assertNotNull(attributes);
     }
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
         AttributeOperation attribute = new AttributeOperation();
-        attribute.setType(Attribute.Type.textValue);
+        attribute.setType(AttributeOperation.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
         attribute.setShow(true);
         attribute.setDescription("description");
-        AttributeOperation created = (AttributeOperation) api.entity().prepayment().createMetadataAttribute(attribute);
+        AttributeOperation created =  api.entity().prepayment().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
-        assertEquals(Attribute.Type.textValue, created.getType());
+        assertEquals(AttributeOperation.Type.textValue, created.getType());
         assertFalse(created.getRequired());
         assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
@@ -110,13 +110,13 @@ public class PrepaymentTest extends EntityTestBase implements FilesTest<Prepayme
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        AttributeOperation created = (AttributeOperation) api.entity().prepayment().createMetadataAttribute(attribute);
+        AttributeOperation created =  api.entity().prepayment().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
         created.setShow(false);
-        AttributeOperation updated = (AttributeOperation) api.entity().prepayment().updateMetadataAttribute(created);
+        AttributeOperation updated =  api.entity().prepayment().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
@@ -132,7 +132,7 @@ public class PrepaymentTest extends EntityTestBase implements FilesTest<Prepayme
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        AttributeOperation created = (AttributeOperation) api.entity().prepayment().createMetadataAttribute(attribute);
+        AttributeOperation created =  api.entity().prepayment().createMetadataAttribute(attribute);
 
         api.entity().prepayment().deleteMetadataAttribute(created);
 

@@ -6,7 +6,7 @@ import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.PurchaseReturn;
 import ru.moysklad.remap_1_2.entities.documents.positions.PurchaseReturnDocumentPosition;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
 
 public final class PurchaseReturnClient
         extends EntityClientBase
@@ -14,8 +14,8 @@ public final class PurchaseReturnClient
         GetListEndpoint<PurchaseReturn>,
         PostEndpoint<PurchaseReturn>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
+        MetadataAttributeOperationEndpoint,
         DocumentNewEndpoint<PurchaseReturn>,
         GetByIdEndpoint<PurchaseReturn>,
         PutByIdEndpoint<PurchaseReturn>,
@@ -37,7 +37,7 @@ public final class PurchaseReturnClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeSharedStatesResponse.class;
+        return MetadataAttributeOperationSharedStatesResponse.class;
     }
 
     @Override

@@ -46,10 +46,10 @@ public final class MetaHrefUtils {
                 sb.append('/').append(entityType.getApiName()).append('/').append("metadata");
                 break;
             case ATTRIBUTE_METADATA:
-                if (((Attribute) entity).getAttributeType() == null) {
+                if (((Attribute) entity).getAttributeEntityType() == null) {
                     return null;
                 }
-                sb.append('/').append(((Attribute) entity).getAttributeType().getApiName())
+                sb.append('/').append(((Attribute) entity).getAttributeEntityType().getApiName())
                         .append("/metadata/attributes");
             default:
                 break;

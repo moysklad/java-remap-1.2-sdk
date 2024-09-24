@@ -9,7 +9,7 @@ import ru.moysklad.remap_1_2.entities.Store;
 import ru.moysklad.remap_1_2.entities.agents.Counterparty;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
 import ru.moysklad.remap_1_2.responses.ListEntity;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 
 import java.io.IOException;
@@ -64,30 +64,30 @@ public class PurchaseReturnTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        MetadataAttributeSharedStatesResponse response = api.entity().purchasereturn().metadata().get();
+        MetadataAttributeOperationSharedStatesResponse response = api.entity().purchasereturn().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
     @Test
     public void attributesTest() throws IOException, ApiClientException{
-        ListEntity<Attribute> attributes = api.entity().purchasereturn().metadataAttributes();
+        ListEntity<AttributeOperation> attributes = api.entity().purchasereturn().metadataAttributes();
         assertNotNull(attributes);
     }
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
         AttributeOperation attribute = new AttributeOperation();
-        attribute.setType(Attribute.Type.textValue);
+        attribute.setType(AttributeOperation.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
         attribute.setShow(true);
         attribute.setDescription("description");
-        AttributeOperation created = (AttributeOperation) api.entity().purchasereturn().createMetadataAttribute(attribute);
+        AttributeOperation created =  api.entity().purchasereturn().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
-        assertEquals(Attribute.Type.textValue, created.getType());
+        assertEquals(AttributeOperation.Type.textValue, created.getType());
         assertFalse(created.getRequired());
         assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
@@ -100,13 +100,13 @@ public class PurchaseReturnTest extends DocumentWithPositionsTestBase {
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        AttributeOperation created = (AttributeOperation) api.entity().purchasereturn().createMetadataAttribute(attribute);
+        AttributeOperation created =  api.entity().purchasereturn().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
         created.setShow(false);
-        AttributeOperation updated = (AttributeOperation) api.entity().purchasereturn().updateMetadataAttribute(created);
+        AttributeOperation updated =  api.entity().purchasereturn().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
@@ -122,7 +122,7 @@ public class PurchaseReturnTest extends DocumentWithPositionsTestBase {
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        AttributeOperation created = (AttributeOperation) api.entity().purchasereturn().createMetadataAttribute(attribute);
+        AttributeOperation created =  api.entity().purchasereturn().createMetadataAttribute(attribute);
 
         api.entity().purchasereturn().deleteMetadataAttribute(created);
 

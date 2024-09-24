@@ -6,7 +6,7 @@ import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.Supply;
 import ru.moysklad.remap_1_2.entities.documents.positions.SupplyDocumentPosition;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
 
 public final class SupplyClient
         extends EntityClientBase
@@ -14,8 +14,8 @@ public final class SupplyClient
         GetListEndpoint<Supply>,
         PostEndpoint<Supply>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
+        MetadataAttributeOperationEndpoint,
         DocumentNewEndpoint<Supply>,
         GetByIdEndpoint<Supply>,
         PutByIdEndpoint<Supply>,
@@ -37,7 +37,7 @@ public final class SupplyClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeSharedStatesResponse.class;
+        return MetadataAttributeOperationSharedStatesResponse.class;
     }
 
     @Override

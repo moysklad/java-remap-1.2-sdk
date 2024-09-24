@@ -6,7 +6,7 @@ import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.InvoiceIn;
 import ru.moysklad.remap_1_2.entities.documents.positions.InvoiceDocumentPosition;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
 
 public final class InvoiceInClient
         extends EntityClientBase
@@ -14,8 +14,8 @@ public final class InvoiceInClient
         GetListEndpoint<InvoiceIn>,
         PostEndpoint<InvoiceIn>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
+        MetadataAttributeOperationEndpoint,
         GetByIdEndpoint<InvoiceIn>,
         PutByIdEndpoint<InvoiceIn>,
         MassCreateUpdateDeleteEndpoint<InvoiceIn>,
@@ -36,7 +36,7 @@ public final class InvoiceInClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeSharedStatesResponse.class;
+        return MetadataAttributeOperationSharedStatesResponse.class;
     }
 
     @Override

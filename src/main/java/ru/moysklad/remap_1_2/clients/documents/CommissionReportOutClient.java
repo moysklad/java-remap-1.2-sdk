@@ -6,7 +6,7 @@ import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.CommissionReportOut;
 import ru.moysklad.remap_1_2.entities.documents.positions.CommissionReportDocumentPosition;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
 
 public final class CommissionReportOutClient
         extends EntityClientBase
@@ -14,8 +14,8 @@ public final class CommissionReportOutClient
         GetListEndpoint<CommissionReportOut>,
         PostEndpoint<CommissionReportOut>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
+        MetadataAttributeOperationEndpoint,
         GetByIdEndpoint<CommissionReportOut>,
         PutByIdEndpoint<CommissionReportOut>,
         MassCreateUpdateDeleteEndpoint<CommissionReportOut>,
@@ -36,7 +36,7 @@ public final class CommissionReportOutClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeSharedStatesResponse.class;
+        return MetadataAttributeOperationSharedStatesResponse.class;
     }
 
     @Override

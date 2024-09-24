@@ -5,15 +5,15 @@ import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.RetailShift;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
 
 public final class RetailShiftClient
         extends EntityClientBase
         implements
         GetListEndpoint<RetailShift>,
         DeleteByIdEndpoint,
-        MetadataAttributeEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
+        MetadataAttributeOperationEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
         ExportEndpoint,
         PublicationEndpoint,
         HasFilesEndpoint<RetailShift> {
@@ -29,6 +29,6 @@ public final class RetailShiftClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeSharedStatesResponse.class;
+        return MetadataAttributeOperationSharedStatesResponse.class;
     }
 }

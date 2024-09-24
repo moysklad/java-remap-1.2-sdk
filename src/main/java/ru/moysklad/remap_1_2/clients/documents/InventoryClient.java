@@ -6,7 +6,7 @@ import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.Inventory;
 import ru.moysklad.remap_1_2.entities.documents.positions.InventoryDocumentPosition;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
 
 public final class InventoryClient
         extends EntityClientBase
@@ -14,8 +14,8 @@ public final class InventoryClient
         GetListEndpoint<Inventory>,
         PostEndpoint<Inventory>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
+        MetadataAttributeOperationEndpoint,
         GetByIdEndpoint<Inventory>,
         PutByIdEndpoint<Inventory>,
         MassCreateUpdateDeleteEndpoint<Inventory>,
@@ -36,7 +36,7 @@ public final class InventoryClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeSharedStatesResponse.class;
+        return MetadataAttributeOperationSharedStatesResponse.class;
     }
 
     @Override

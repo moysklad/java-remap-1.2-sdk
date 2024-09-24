@@ -6,7 +6,7 @@ import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.PurchaseOrder;
 import ru.moysklad.remap_1_2.entities.documents.positions.PurchaseOrderDocumentPosition;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
 
 public final class PurchaseOrderClient
         extends EntityClientBase
@@ -14,8 +14,8 @@ public final class PurchaseOrderClient
         GetListEndpoint<PurchaseOrder>,
         PostEndpoint<PurchaseOrder>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
+        MetadataAttributeOperationEndpoint,
         DocumentNewEndpoint<PurchaseOrder>,
         GetByIdEndpoint<PurchaseOrder>,
         PutByIdEndpoint<PurchaseOrder>,
@@ -37,7 +37,7 @@ public final class PurchaseOrderClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeSharedStatesResponse.class;
+        return MetadataAttributeOperationSharedStatesResponse.class;
     }
 
     @Override

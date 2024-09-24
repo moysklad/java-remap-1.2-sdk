@@ -5,7 +5,7 @@ import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.ProcessingOrder;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
 
 public final class ProcessingOrderClient
         extends EntityClientBase
@@ -13,8 +13,8 @@ public final class ProcessingOrderClient
         GetListEndpoint<ProcessingOrder>,
         PostEndpoint<ProcessingOrder>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
+        MetadataAttributeOperationEndpoint,
         DocumentNewEndpoint<ProcessingOrder>,
         GetByIdEndpoint<ProcessingOrder>,
         PutByIdEndpoint<ProcessingOrder>,
@@ -35,6 +35,6 @@ public final class ProcessingOrderClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeSharedStatesResponse.class;
+        return MetadataAttributeOperationSharedStatesResponse.class;
     }
 }

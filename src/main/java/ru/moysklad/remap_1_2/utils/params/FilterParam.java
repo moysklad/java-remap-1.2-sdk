@@ -98,14 +98,14 @@ public class FilterParam extends ApiParam {
                 if (attrKey == null) {
                     throw new IllegalArgumentException("key не может быть null");
                 } else if (attrKey.getMeta() == null || attrKey.getMeta().getHref() == null) {
-                    if (attrKey.getAttributeType() == null) {
+                    if (attrKey.getAttributeEntityType() == null) {
                         throw new IllegalArgumentException("key.AttributeType не может быть null");
                     } else if (attrKey.getId() == null) {
                         throw new IllegalArgumentException("key.id не может быть null");
                     }
                     filterString.append(host)
                             .append("/entity/")
-                            .append(attrKey.getAttributeType().getApiName())
+                            .append(attrKey.getAttributeEntityType().getApiName())
                             .append("/metadata/attributes/")
                             .append(attrKey.getId())
                             .append(filterType.str);

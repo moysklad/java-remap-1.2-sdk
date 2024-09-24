@@ -6,7 +6,7 @@ import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.Enter;
 import ru.moysklad.remap_1_2.entities.documents.positions.EnterDocumentPosition;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
 
 public final class EnterClient
         extends EntityClientBase
@@ -14,8 +14,8 @@ public final class EnterClient
         GetListEndpoint<Enter>,
         PostEndpoint<Enter>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
+        MetadataAttributeOperationEndpoint,
         GetByIdEndpoint<Enter>,
         PutByIdEndpoint<Enter>,
         MassCreateUpdateDeleteEndpoint<Enter>,
@@ -36,7 +36,7 @@ public final class EnterClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeSharedStatesResponse.class;
+        return MetadataAttributeOperationSharedStatesResponse.class;
     }
 
     @Override
