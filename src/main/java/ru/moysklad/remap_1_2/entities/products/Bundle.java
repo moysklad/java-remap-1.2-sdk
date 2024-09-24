@@ -91,7 +91,7 @@ public class Bundle extends AbstractProduct implements IEntityWithAttributes, Ha
     /**
      * Дополнительные поля
      */
-    private List<Attribute> attributes;
+    private List<AttributeCustomEntity> attributes;
 
     /**
      * Страна

@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.moysklad.remap_1_2.entities.Attribute;
+import ru.moysklad.remap_1_2.entities.AttributeCustomEntity;
 import ru.moysklad.remap_1_2.entities.Group;
 import ru.moysklad.remap_1_2.entities.IEntityWithAttributes;
 import ru.moysklad.remap_1_2.entities.agents.Employee;
@@ -66,7 +66,7 @@ public class Service extends AbstractProduct implements SingleProductMarker, IEn
     /**
      * Дополнительные поля
      */
-    private List<Attribute> attributes;
+    private List<AttributeCustomEntity> attributes;
 
     /**
      * Признак предмета расчета
