@@ -21,7 +21,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Enter extends DocumentEntity implements IEntityWithAttributes, HasFiles {
+public class Enter extends DocumentEntity implements IEntityOperationWithAttributes, HasFiles {
     private Contract contract;
     private LocalDateTime created;
     private LocalDateTime deleted;

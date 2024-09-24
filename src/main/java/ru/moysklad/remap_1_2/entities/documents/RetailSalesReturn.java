@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class RetailSalesReturn extends DocumentEntity implements IEntityWithAttributes, HasFiles {
+public class RetailSalesReturn extends DocumentEntity implements IEntityOperationWithAttributes, HasFiles {
     private Agent agent;
     private Long cashSum;
     private LocalDateTime created;

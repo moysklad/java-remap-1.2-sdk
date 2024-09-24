@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Pricelist extends DocumentEntity implements IEntityWithAttributes, HasFiles {
+public class Pricelist extends DocumentEntity implements IEntityOperationWithAttributes, HasFiles {
     /**
      * Внешний код
      */

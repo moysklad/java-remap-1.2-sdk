@@ -21,7 +21,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class FactureIn extends DocumentEntity implements IEntityWithAttributes, HasFiles {
+public class FactureIn extends DocumentEntity implements IEntityOperationWithAttributes, HasFiles {
     /**
      * Контрагента
      */

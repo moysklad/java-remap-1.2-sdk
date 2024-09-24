@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 
 import static ru.moysklad.remap_1_2.utils.Constants.DATE_FORMAT_PATTERN;
 
-public class AttributeSerializer implements JsonSerializer<Attribute>, JsonDeserializer<Attribute> {
+public class AttributeSerializer implements JsonSerializer<AttributeOperation>, JsonDeserializer<AttributeOperation> {
     private final Gson gson = JsonUtils.createGsonWithMetaAdapter();
     private final DateTimeFormatter formatter;
 
@@ -22,7 +22,7 @@ public class AttributeSerializer implements JsonSerializer<Attribute>, JsonDeser
     }
 
     @Override
-    public JsonElement serialize(Attribute src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(AttributeOperation src, Type typeOfSrc, JsonSerializationContext context) {
         JsonElement je = null;
 
         if (src.getType() != null) {
@@ -40,9 +40,9 @@ public class AttributeSerializer implements JsonSerializer<Attribute>, JsonDeser
                     }
                     break;
             }
-            je = gson.toJsonTree(src, Attribute.class);
+            je = gson.toJsonTree(src, AttributeOperation.class);
         } else if (src.getEntityType() != null) {
-            je = gson.toJsonTree(src, Attribute.class).getAsJsonObject();
+            je = gson.toJsonTree(src, AttributeOperation.class).getAsJsonObject();
             JsonObject jo = (JsonObject) je;
             jo.add("type", jo.get("entityType"));
             jo.remove("entityType");
@@ -54,7 +54,7 @@ public class AttributeSerializer implements JsonSerializer<Attribute>, JsonDeser
 
 
     @Override
-    public Attribute deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public AttributeOperation deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jo = gson.toJsonTree(json).getAsJsonObject();
 
         if (!jo.has("type"))
@@ -69,7 +69,7 @@ public class AttributeSerializer implements JsonSerializer<Attribute>, JsonDeser
         } catch (IllegalArgumentException ignored) {
         }
 
-        Attribute ae = gson.fromJson(jo, Attribute.class);
+        AttributeOperation ae = gson.fromJson(jo, AttributeOperation.class);
 
         if (ae.getType() != null && ae.getValue() != null) {
             switch (ae.getType()) {

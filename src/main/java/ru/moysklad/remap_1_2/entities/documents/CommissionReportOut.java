@@ -19,7 +19,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class CommissionReportOut extends DocumentEntity implements IEntityWithAttributes, HasFiles {
+public class CommissionReportOut extends DocumentEntity implements IEntityOperationWithAttributes, HasFiles {
     private Agent agent;
     private LocalDateTime commissionPeriodEnd;
     private LocalDateTime commissionPeriodStart;

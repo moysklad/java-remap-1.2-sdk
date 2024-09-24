@@ -19,7 +19,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Supply extends DocumentEntity implements IEntityWithAttributes, HasFiles {
+public class Supply extends DocumentEntity implements IEntityOperationWithAttributes, HasFiles {
     private Agent agent;
     private Contract contract;
     private LocalDateTime created;

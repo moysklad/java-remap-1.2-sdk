@@ -76,7 +76,7 @@ public class GlobalMetadata extends Entity {
     @NoArgsConstructor
     @EqualsAndHashCode(callSuper = true)
     public static class ProductMetadata extends CreateSharedOption {
-        private ListEntity<Attribute> attributes;
+        private ListEntity<AttributeCustomEntity> attributes;
         private List<PriceTypesItem> priceTypes;
 
         @Getter
