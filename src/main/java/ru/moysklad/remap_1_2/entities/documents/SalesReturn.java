@@ -40,7 +40,7 @@ public class SalesReturn extends DocumentEntity implements IEntityOperationWithA
     private Project project;
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
-    private List<Attribute> attributes;
+    private List<AttributeOperation> attributes;
     private List<Loss> losses;
     private List<FinanceDocumentMarker> payments;
     private ListEntity<AttachedFile> files;

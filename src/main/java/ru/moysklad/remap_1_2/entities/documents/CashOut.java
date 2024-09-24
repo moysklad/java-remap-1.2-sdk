@@ -33,7 +33,7 @@ public class CashOut extends DocumentEntity implements FinanceOutDocumentMarker,
     private String syncId;
     private LocalDateTime deleted;
     private String description;
-    private List<Attribute> attributes;
+    private List<AttributeOperation> attributes;
     private List<MetaEntity> operations;
     private FactureIn factureIn;
     private ListEntity<AttachedFile> files;

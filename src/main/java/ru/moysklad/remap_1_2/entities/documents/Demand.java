@@ -26,7 +26,7 @@ import java.util.List;
 public class Demand extends DocumentEntity implements IEntityOperationWithAttributes, HasFiles {
     private Agent agent;
     private AgentAccount agentAccount;
-    private List<Attribute> attributes;
+    private List<AttributeOperation> attributes;
     private Contract contract;
     private LocalDateTime created;
     private CustomerOrder customerOrder;

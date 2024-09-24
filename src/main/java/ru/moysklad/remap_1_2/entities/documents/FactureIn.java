@@ -80,7 +80,7 @@ public class FactureIn extends DocumentEntity implements IEntityOperationWithAtt
     /**
      * Коллекция доп. полей
      */
-    private List<Attribute> attributes;
+    private List<AttributeOperation> attributes;
 
     /**
      * Контракт

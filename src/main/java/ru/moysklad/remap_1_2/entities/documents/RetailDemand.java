@@ -40,7 +40,7 @@ public class RetailDemand extends DocumentEntity implements IEntityOperationWith
     private String description;
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
-    private List<Attribute> attributes;
+    private List<AttributeOperation> attributes;
     private String fiscalPrinterInfo;
     private String documentNumber;
     private String checkNumber;

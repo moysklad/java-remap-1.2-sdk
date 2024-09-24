@@ -39,7 +39,7 @@ public class RetailSalesReturn extends DocumentEntity implements IEntityOperatio
     private Project project;
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
-    private List<Attribute> attributes;
+    private List<AttributeOperation> attributes;
     private Contract contract;
     private State state;
     private TaxSystem taxSystem;

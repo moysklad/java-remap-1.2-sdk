@@ -41,7 +41,7 @@ public class PurchaseOrder extends DocumentEntity implements IEntityOperationWit
     private LocalDateTime deleted;
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
-    private List<Attribute> attributes;
+    private List<AttributeOperation> attributes;
     private LocalDateTime deliveryPlannedMoment;
     private Project project;
     private List<CustomerOrder> customerOrders;

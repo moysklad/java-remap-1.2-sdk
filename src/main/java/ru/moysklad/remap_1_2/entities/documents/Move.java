@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Move extends DocumentEntity implements IEntityOperationWithAttributes, HasFiles {
-    private List<Attribute> attributes;
+    private List<AttributeOperation> attributes;
     private LocalDateTime created;
     private LocalDateTime deleted;
     private String description;

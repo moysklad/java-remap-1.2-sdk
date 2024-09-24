@@ -34,7 +34,7 @@ public class Enter extends DocumentEntity implements IEntityOperationWithAttribu
     private Store store;
     private String syncId;
     private Project project;
-    private List<Attribute> attributes;
+    private List<AttributeOperation> attributes;
     private Overhead overhead;
     private ListEntity<AttachedFile> files;
 

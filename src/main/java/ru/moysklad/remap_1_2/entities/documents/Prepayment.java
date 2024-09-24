@@ -27,7 +27,7 @@ public class Prepayment extends DocumentEntity implements IEntityOperationWithAt
     private Agent agent;
     private Organization organization;
     private State state;
-    private List<Attribute> attributes;
+    private List<AttributeOperation> attributes;
     private LocalDateTime created;
     private Boolean vatEnabled;
     private Boolean vatIncluded;

@@ -28,7 +28,7 @@ public class RetailDrawerCashOut extends DocumentEntity implements IEntityOperat
     private String syncId;
     private LocalDateTime deleted;
     private State state;
-    private List<Attribute> attributes;
+    private List<AttributeOperation> attributes;
     private ListEntity<AttachedFile> files;
 
     public RetailDrawerCashOut(String id) {
