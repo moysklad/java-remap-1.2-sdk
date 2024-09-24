@@ -23,7 +23,7 @@ public class Project extends MetaEntity {
     private LocalDateTime updated;
     private Group group;
 
-    private List<Attribute> attributes;
+    private List<AttributeCustomEntity> attributes;
 
     public Project(String id) {
         super(id);

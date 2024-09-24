@@ -195,7 +195,7 @@ public final class Counterparty extends Agent implements IEntityWithAttributes {
     /**
      * Дополнительные поля
      */
-    private List<Attribute> attributes;
+    private List<AttributeCustomEntity> attributes;
 
     /**
      * Цена

@@ -4,11 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.moysklad.remap_1_2.entities.Attribute;
-import ru.moysklad.remap_1_2.entities.Cashier;
-import ru.moysklad.remap_1_2.entities.Group;
-import ru.moysklad.remap_1_2.entities.Image;
-import ru.moysklad.remap_1_2.entities.IEntityWithAttributes;
+import ru.moysklad.remap_1_2.entities.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,7 +31,7 @@ public final class Employee extends Agent implements IEntityWithAttributes {
     private String phone;
     private String firstName;
     private String middleName;
-    private List<Attribute> attributes;
+    private List<AttributeCustomEntity> attributes;
     private Image image;
     private String inn;
     private String position;

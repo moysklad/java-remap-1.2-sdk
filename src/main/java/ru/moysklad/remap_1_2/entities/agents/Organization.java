@@ -157,7 +157,7 @@ public final class Organization extends Agent implements IEntityWithAttributes {
     /**
      * Коллекция доп. полей
      */
-    private List<Attribute> attributes;
+    private List<AttributeCustomEntity> attributes;
 
     private String phone;
     private String fax;
