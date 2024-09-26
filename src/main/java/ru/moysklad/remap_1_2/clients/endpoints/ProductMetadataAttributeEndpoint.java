@@ -1,6 +1,5 @@
 package ru.moysklad.remap_1_2.clients.endpoints;
 
-import ru.moysklad.remap_1_2.entities.Attribute;
 import ru.moysklad.remap_1_2.entities.AttributeCustomEntity;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
