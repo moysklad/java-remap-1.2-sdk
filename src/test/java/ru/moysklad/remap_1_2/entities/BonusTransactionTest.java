@@ -61,7 +61,7 @@ public class BonusTransactionTest  extends EntityGetUpdateDeleteTest {
 
     @Test
     public void attributesTest() throws IOException, ApiClientException{
-        ListEntity<Attribute> attributes = api.entity().bonustransaction().metadataAttributes();
+        ListEntity<AttributeOperation> attributes = api.entity().bonustransaction().metadataAttributes();
         assertNotNull(attributes);
     }
 
@@ -74,7 +74,7 @@ public class BonusTransactionTest  extends EntityGetUpdateDeleteTest {
         attribute.setRequired(false);
         attribute.setShow(true);
         attribute.setDescription("description");
-        AttributeOperation created = (AttributeOperation) api.entity().bonustransaction().createMetadataAttribute(attribute);
+        AttributeOperation created = api.entity().bonustransaction().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
         assertEquals(AttributeOperation.Type.textValue, created.getType());
@@ -90,13 +90,13 @@ public class BonusTransactionTest  extends EntityGetUpdateDeleteTest {
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        AttributeOperation created = (AttributeOperation) api.entity().bonustransaction().createMetadataAttribute(attribute);
+        AttributeOperation created = api.entity().bonustransaction().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
         created.setShow(false);
-        AttributeOperation updated = (AttributeOperation) api.entity().bonustransaction().updateMetadataAttribute(created);
+        AttributeOperation updated = api.entity().bonustransaction().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
@@ -112,7 +112,7 @@ public class BonusTransactionTest  extends EntityGetUpdateDeleteTest {
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        Attribute created = api.entity().bonustransaction().createMetadataAttribute(attribute);
+        AttributeOperation created = api.entity().bonustransaction().createMetadataAttribute(attribute);
 
         api.entity().bonustransaction().deleteMetadataAttribute(created);
 
