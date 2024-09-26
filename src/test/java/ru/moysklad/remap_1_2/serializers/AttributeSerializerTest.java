@@ -159,7 +159,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     public void test_deserializeLink() {
         Gson gsonCustom = ApiClient.createGson();
 
-        AttributeOperation e = new AttributeOperation;
+        AttributeOperation e = new AttributeOperation();
         e.setType(AttributeOperation.Type.linkValue);
         e.setValue("http://moysklad.ru");
 
