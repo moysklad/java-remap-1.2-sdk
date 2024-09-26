@@ -181,7 +181,8 @@ public final class ApiClient {
 
         gb.registerTypeAdapter(DocumentEntity.class, new DocumentEntitySerializer());
         gb.registerTypeAdapter(Agent.class, new AgentDeserializer());
-        gb.registerTypeAdapter(Attribute.class, new AttributeSerializer());
+        gb.registerTypeAdapter(AttributeCustomEntity.class, new AttributeSerializer());
+        gb.registerTypeAdapter(AttributeOperation.class, new AttributeOperationSerializer());
         gb.registerTypeAdapter(Currency.MultiplicityType.class, new Currency.MultiplicityType.Serializer());
         gb.registerTypeAdapter(Discount.class, new DiscountDeserializer());
         gb.registerTypeAdapter(ListEntity.class, new ListEntityDeserializer());
