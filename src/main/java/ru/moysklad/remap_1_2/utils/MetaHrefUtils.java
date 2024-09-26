@@ -2,6 +2,7 @@ package ru.moysklad.remap_1_2.utils;
 
 import lombok.NoArgsConstructor;
 import ru.moysklad.remap_1_2.entities.*;
+import ru.moysklad.remap_1_2.entities.documents.DocumentEntity;
 import ru.moysklad.remap_1_2.entities.permissions.EmployeeRole;
 
 import java.lang.reflect.Field;
@@ -49,8 +50,13 @@ public final class MetaHrefUtils {
                 if (((AttributeOperation) entity).getAttributeEntityType() == null) {
                     return null;
                 }
-                sb.append('/').append(((AttributeOperation) entity).getAttributeEntityType().getApiName())
-                        .append("/metadata/attributes");
+                if (entity instanceof DocumentEntity) {
+                    sb.append('/').append(((AttributeOperation) entity).getAttributeEntityType().getApiName())
+                            .append("/metadata/attributes");
+                } else {
+                    sb.append('/').append(((AttributeCustomEntity) entity).getAttributeEntityType().getApiName())
+                            .append("/metadata/attributes");
+                }
             default:
                 break;
         }
