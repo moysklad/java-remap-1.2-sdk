@@ -86,49 +86,4 @@ public class AttributeOperation extends MetaEntity implements Attribute {
         return (T) value;
     }
 
-    /**
-     * Тип дополнительного поля
-     */
-    public enum Type {
-        /**
-         * Строка
-         */
-        @SerializedName("string") stringValue,
-
-        /**
-         * Целое число
-         */
-        @SerializedName("long") longValue,
-
-        /**
-         * Дата
-         */
-        @SerializedName("time") timeValue,
-
-        /**
-         * Файл
-         */
-        @SerializedName("file") fileValue,
-
-        /**
-         * Число дробное
-         */
-        @SerializedName("double") doubleValue,
-
-        /**
-         * Флажок
-         */
-        @SerializedName("boolean") booleanValue,
-
-        /**
-         * Текст
-         */
-        @SerializedName("text") textValue,
-
-        /**
-         * Ссылка
-         */
-        @SerializedName("link") linkValue
-    }
-
 }

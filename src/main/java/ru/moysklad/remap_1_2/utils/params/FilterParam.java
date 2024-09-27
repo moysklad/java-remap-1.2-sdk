@@ -95,7 +95,7 @@ public class FilterParam extends ApiParam {
                 }
                 break;
             case ATTRIBUTE:
-                AttributeOperation attrKey = (AttributeOperation) key;
+                Attribute attrKey = (Attribute) key;
                 if (attrKey == null) {
                     throw new IllegalArgumentException("key не может быть null");
                 } else if (attrKey.getMeta() == null || attrKey.getMeta().getHref() == null) {

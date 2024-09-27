@@ -80,49 +80,4 @@ public class AttributeCustomEntity extends MetaEntity implements Attribute {
     public <T> T getValueAs(Class<T> tClass) {
         return (T) value;
     }
-
-    /**
-     * Тип дополнительного поля
-     */
-    public enum Type {
-        /**
-         * Строка
-         */
-        @SerializedName("string") stringValue,
-
-        /**
-         * Целое число
-         */
-        @SerializedName("long") longValue,
-
-        /**
-         * Дата
-         */
-        @SerializedName("time") timeValue,
-
-        /**
-         * Файл
-         */
-        @SerializedName("file") fileValue,
-
-        /**
-         * Число дробное
-         */
-        @SerializedName("double") doubleValue,
-
-        /**
-         * Флажок
-         */
-        @SerializedName("boolean") booleanValue,
-
-        /**
-         * Текст
-         */
-        @SerializedName("text") textValue,
-
-        /**
-         * Ссылка
-         */
-        @SerializedName("link") linkValue
-    }
 }
