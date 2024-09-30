@@ -1,7 +1,6 @@
 package ru.moysklad.remap_1_2.utils.params;
 
 import ru.moysklad.remap_1_2.entities.Attribute;
-import ru.moysklad.remap_1_2.entities.AttributeOperation;
 import ru.moysklad.remap_1_2.entities.Meta;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.utils.MetaHrefUtils;

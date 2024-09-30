@@ -34,7 +34,7 @@ public class PaymentIn extends DocumentEntity implements FinanceInDocumentMarker
     private String description;
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
-    private List<AttributeOperation> attributes;
+    private List<OperationAttribute> attributes;
     private LocalDateTime incomingDate;
     private String incomingNumber;
     private FactureOut factureOut;

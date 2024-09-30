@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.moysklad.remap_1_2.entities.Attribute;
 import ru.moysklad.remap_1_2.entities.State;
 
 import java.util.List;
@@ -12,6 +13,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class MetadataAttributeSharedStatesResponse extends MetadataAttributeSharedResponse {
+public class MetadataAttributeSharedStatesResponse<ATR extends Attribute> extends MetadataAttributeSharedResponse<ATR> {
     private List<State> states;
 }

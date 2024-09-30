@@ -3,11 +3,12 @@ package ru.moysklad.remap_1_2.clients.documents;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
+import ru.moysklad.remap_1_2.entities.OperationAttribute;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.Pricelist;
 import ru.moysklad.remap_1_2.entities.documents.Pricelist.PricelistRow;
 import ru.moysklad.remap_1_2.responses.ListEntity;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 import ru.moysklad.remap_1_2.utils.HttpRequestExecutor;
 import ru.moysklad.remap_1_2.utils.params.ApiParam;
@@ -23,8 +24,8 @@ public final class PricelistClient
         GetListEndpoint<Pricelist>,
         PostEndpoint<Pricelist>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
-        MetadataAttributeOperationEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse<OperationAttribute>>,
+        MetadataDocumentAttributeEndpoint,
         GetByIdEndpoint<Pricelist>,
         PutByIdEndpoint<Pricelist>,
         MassCreateUpdateDeleteEndpoint<Pricelist>,
@@ -144,6 +145,6 @@ public final class PricelistClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeOperationSharedStatesResponse.class;
+        return MetadataAttributeSharedStatesResponse.class;
     }
 }

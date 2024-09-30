@@ -32,7 +32,7 @@ public class CashIn extends DocumentEntity implements FinanceInDocumentMarker, I
     private String syncId;
     private LocalDateTime deleted;
     private String description;
-    private List<AttributeOperation> attributes;
+    private List<OperationAttribute> attributes;
     private List<MetaEntity> operations;
     private FactureOut factureOut;
     private ListEntity<AttachedFile> files;

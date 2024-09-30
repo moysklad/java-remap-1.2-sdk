@@ -2,6 +2,7 @@ package ru.moysklad.remap_1_2.clients;
 
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
+import ru.moysklad.remap_1_2.entities.Attribute;
 import ru.moysklad.remap_1_2.entities.Consignment;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeResponse;
@@ -12,7 +13,7 @@ public final class ConsignmentClient
         GetListEndpoint<Consignment>,
         PostEndpoint<Consignment>,
         DeleteByIdEndpoint,
-        MetadataEndpoint<MetadataAttributeResponse>,
+        MetadataEndpoint<MetadataAttributeResponse<Attribute>>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Consignment>,
         PutByIdEndpoint<Consignment>,

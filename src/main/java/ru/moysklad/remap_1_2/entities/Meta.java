@@ -90,7 +90,7 @@ public final class Meta {
         APPLICATION("application", Application.class),
         ASSORTMENT("assortment", Assortment.class),
         ASSORTMENT_SETTINGS("assortmentsettings", AssortmentSettings.class),
-        ATTRIBUTE_METADATA("attributemetadata", AttributeOperation.class),
+        ATTRIBUTE_METADATA("attributemetadata", OperationAttribute.class),
         BONUS_PROGRAM("bonusprogram", BonusProgram.class),
         BONUS_TRANSACTION("bonustransaction", BonusTransaction.class),
         BUNDLE("bundle", Bundle.class),

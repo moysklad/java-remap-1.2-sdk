@@ -19,7 +19,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class Loss extends DocumentEntity implements IEntityOperationWithAttributes, HasFiles {
     private Agent agent;
-    private List<AttributeOperation> attributes;
+    private List<OperationAttribute> attributes;
     private LocalDateTime created;
     private Contract contract;
     private LocalDateTime deleted;

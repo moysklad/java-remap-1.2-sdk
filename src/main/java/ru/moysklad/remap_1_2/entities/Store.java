@@ -81,7 +81,7 @@ public class Store extends MetaEntity implements IEntityWithAttributes {
     /**
      * Дополнительные поля Склада в формате Метаданных
      */
-    private List<AttributeCustomEntity> attributes;
+    private List<Attribute> attributes;
 
     public Store(String id) {
         super(id);

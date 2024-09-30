@@ -3,10 +3,11 @@ package ru.moysklad.remap_1_2.clients.documents;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
+import ru.moysklad.remap_1_2.entities.OperationAttribute;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.Loss;
 import ru.moysklad.remap_1_2.entities.documents.positions.LossDocumentPosition;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class LossClient
         extends EntityClientBase
@@ -14,8 +15,8 @@ public final class LossClient
         GetListEndpoint<Loss>,
         PostEndpoint<Loss>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
-        MetadataAttributeOperationEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse<OperationAttribute>>,
+        MetadataDocumentAttributeEndpoint,
         DocumentNewEndpoint<Loss>,
         GetByIdEndpoint<Loss>,
         PutByIdEndpoint<Loss>,
@@ -37,7 +38,7 @@ public final class LossClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeOperationSharedStatesResponse.class;
+        return MetadataAttributeSharedStatesResponse.class;
     }
 
     @Override

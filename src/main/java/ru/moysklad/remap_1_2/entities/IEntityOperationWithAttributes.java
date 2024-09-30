@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IEntityOperationWithAttributes {
-    List<AttributeOperation> getAttributes();
+    List<OperationAttribute> getAttributes();
 
-    default Optional<AttributeOperation> getAttribute(String attributeId) {
+    default Optional<OperationAttribute> getAttribute(String attributeId) {
         if (getAttributes() == null){
             return Optional.empty();
         }

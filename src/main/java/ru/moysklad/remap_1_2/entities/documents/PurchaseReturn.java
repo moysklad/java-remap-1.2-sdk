@@ -39,7 +39,7 @@ public class PurchaseReturn extends DocumentEntity implements IEntityOperationWi
     private State state;
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
-    private List<AttributeOperation> attributes;
+    private List<OperationAttribute> attributes;
     private FactureOut factureOut;
     private List<FinanceDocumentMarker> payments;
     private ListEntity<AttachedFile> files;

@@ -3,9 +3,10 @@ package ru.moysklad.remap_1_2.clients.documents;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
+import ru.moysklad.remap_1_2.entities.OperationAttribute;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.CashIn;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class CashInClient
         extends EntityClientBase
@@ -13,8 +14,8 @@ public final class CashInClient
         GetListEndpoint<CashIn>,
         PostEndpoint<CashIn>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
-        MetadataAttributeOperationEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse<OperationAttribute>>,
+        MetadataDocumentAttributeEndpoint,
         DocumentNewEndpoint<CashIn>,
         GetByIdEndpoint<CashIn>,
         PutByIdEndpoint<CashIn>,
@@ -35,6 +36,6 @@ public final class CashInClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeOperationSharedStatesResponse.class;
+        return MetadataAttributeSharedStatesResponse.class;
     }
 }

@@ -3,10 +3,11 @@ package ru.moysklad.remap_1_2.clients.documents;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
+import ru.moysklad.remap_1_2.entities.OperationAttribute;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.CustomerOrder;
 import ru.moysklad.remap_1_2.entities.documents.positions.CustomerOrderDocumentPosition;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 
 public final class CustomerOrderClient
         extends EntityClientBase
@@ -14,7 +15,7 @@ public final class CustomerOrderClient
         GetListEndpoint<CustomerOrder>,
         PostEndpoint<CustomerOrder>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeOperationSharedStatesResponse>,
+        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse<OperationAttribute>>,
         GetByIdEndpoint<CustomerOrder>,
         PutByIdEndpoint<CustomerOrder>,
         MassCreateUpdateDeleteEndpoint<CustomerOrder>,
@@ -22,7 +23,7 @@ public final class CustomerOrderClient
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint,
-        MetadataAttributeOperationEndpoint,
+        MetadataDocumentAttributeEndpoint,
         HasFilesEndpoint<CustomerOrder> {
 
     public CustomerOrderClient(ApiClient api) {
@@ -36,7 +37,7 @@ public final class CustomerOrderClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeOperationSharedStatesResponse.class;
+        return MetadataAttributeSharedStatesResponse.class;
     }
 
     @Override

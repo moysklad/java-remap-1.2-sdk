@@ -41,7 +41,7 @@ public class Supply extends DocumentEntity implements IEntityOperationWithAttrib
     private State state;
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
-    private List<AttributeOperation> attributes;
+    private List<OperationAttribute> attributes;
     private String incomingNumber;
     private LocalDateTime incomingDate;
     private FactureIn factureIn;

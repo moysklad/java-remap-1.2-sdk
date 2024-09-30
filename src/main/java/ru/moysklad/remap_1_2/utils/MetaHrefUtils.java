@@ -47,14 +47,14 @@ public final class MetaHrefUtils {
                 sb.append('/').append(entityType.getApiName()).append('/').append("metadata");
                 break;
             case ATTRIBUTE_METADATA:
-                if (((AttributeOperation) entity).getAttributeEntityType() == null) {
+                if (((OperationAttribute) entity).getAttributeEntityType() == null) {
                     return null;
                 }
                 if (entity instanceof DocumentEntity) {
-                    sb.append('/').append(((AttributeOperation) entity).getAttributeEntityType().getApiName())
+                    sb.append('/').append(((OperationAttribute) entity).getAttributeEntityType().getApiName())
                             .append("/metadata/attributes");
                 } else {
-                    sb.append('/').append(((AttributeCustomEntity) entity).getAttributeEntityType().getApiName())
+                    sb.append('/').append(((Attribute) entity).getAttributeEntityType().getApiName())
                             .append("/metadata/attributes");
                 }
             default:

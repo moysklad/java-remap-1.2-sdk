@@ -43,7 +43,7 @@ public class CommissionReportOut extends DocumentEntity implements IEntityOperat
     private String description;
     private Project project;
     private AgentAccount agentAccount;
-    private List<AttributeOperation> attributes;
+    private List<OperationAttribute> attributes;
     private List<FinanceDocumentMarker> payments;
     private ListEntity<AttachedFile> files;
 

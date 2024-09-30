@@ -32,7 +32,7 @@ public class InternalOrder extends DocumentEntity implements IEntityOperationWit
     private String description;
     private Project project;
     private State state;
-    private List<AttributeOperation> attributes;
+    private List<OperationAttribute> attributes;
     private LocalDateTime deliveryPlannedMoment;
     private List<PurchaseOrder> purchaseOrders;
     private List<Move> moves;

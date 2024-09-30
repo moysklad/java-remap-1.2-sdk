@@ -3,6 +3,7 @@ package ru.moysklad.remap_1_2.clients;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.AgentAccount;
+import ru.moysklad.remap_1_2.entities.Attribute;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
 import ru.moysklad.remap_1_2.responses.ListEntity;
@@ -21,7 +22,7 @@ public final class OrganizationClient
         GetListEndpoint<Organization>,
         PostEndpoint<Organization>,
         DeleteByIdEndpoint,
-        MetadataEndpoint<MetadataAttributeSharedResponse>,
+        MetadataEndpoint<MetadataAttributeSharedResponse<Attribute>>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Organization>,
         PutByIdEndpoint<Organization>,

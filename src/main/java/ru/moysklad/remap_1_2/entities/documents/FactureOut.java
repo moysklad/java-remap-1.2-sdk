@@ -95,7 +95,7 @@ public class FactureOut extends DocumentEntity implements IEntityOperationWithAt
     /**
      * Коллекция доп. полей
      */
-    private List<AttributeOperation> attributes;
+    private List<OperationAttribute> attributes;
 
     /**
      * Контракт

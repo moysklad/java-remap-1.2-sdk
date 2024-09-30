@@ -32,7 +32,7 @@ public class Processing extends DocumentEntity implements IEntityOperationWithAt
     private String description;
     private AgentAccount organizationAccount;
     private State state;
-    private List<AttributeOperation> attributes;
+    private List<OperationAttribute> attributes;
     private Project project;
     private ProcessingOrder processingOrder;
     private ListEntity<AttachedFile> files;

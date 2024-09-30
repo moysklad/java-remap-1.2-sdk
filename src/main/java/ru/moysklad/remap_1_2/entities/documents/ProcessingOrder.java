@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class ProcessingOrder extends DocumentEntity implements IEntityOperationWithAttributes, HasFiles {
-    private List<AttributeOperation> attributes;
+    private List<OperationAttribute> attributes;
     private String description;
     private String externalCode;
     private Agent organization;

@@ -45,7 +45,7 @@ public class CustomerOrder extends DocumentEntity implements IEntityOperationWit
     private Long vatSum;
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
-    private List<AttributeOperation> attributes;
+    private List<OperationAttribute> attributes;
     private LocalDateTime deliveryPlannedMoment;
     private Project project;
     private List<PurchaseOrder> purchaseOrders;

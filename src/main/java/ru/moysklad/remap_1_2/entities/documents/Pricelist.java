@@ -72,7 +72,7 @@ public class Pricelist extends DocumentEntity implements IEntityOperationWithAtt
     /**
      * Коллекция доп. полей
      */
-    private List<AttributeOperation> attributes;
+    private List<OperationAttribute> attributes;
 
     private ListEntity<AttachedFile> files;
 

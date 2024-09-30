@@ -14,17 +14,17 @@ public class ProductionTaskTest extends EntityTestBase {
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
-        AttributeOperation attribute = new AttributeOperation();
-        attribute.setType(AttributeOperation.Type.textValue);
+        OperationAttribute attribute = new OperationAttribute();
+        attribute.setType(OperationAttribute.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
         attribute.setShow(true);
         attribute.setDescription("description");
-        AttributeOperation created =  api.entity().productionTask().createMetadataAttribute(attribute);
+        OperationAttribute created =  api.entity().productionTask().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
-        assertEquals(AttributeOperation.Type.textValue, created.getType());
+        assertEquals(OperationAttribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
         assertTrue(created.getShow());
         assertEquals("description", created.getDescription());

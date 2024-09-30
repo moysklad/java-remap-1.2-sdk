@@ -31,7 +31,7 @@ public final class Employee extends Agent implements IEntityWithAttributes {
     private String phone;
     private String firstName;
     private String middleName;
-    private List<AttributeCustomEntity> attributes;
+    private List<Attribute> attributes;
     private Image image;
     private String inn;
     private String position;

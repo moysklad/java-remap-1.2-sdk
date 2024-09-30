@@ -76,7 +76,7 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
     /**
      * Дополнительные поля
      */
-    private List<AttributeCustomEntity> attributes;
+    private List<Attribute> attributes;
 
     /**
      * Страна

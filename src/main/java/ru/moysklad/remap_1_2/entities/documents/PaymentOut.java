@@ -35,7 +35,7 @@ public class PaymentOut extends DocumentEntity implements FinanceOutDocumentMark
     private String description;
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
-    private List<AttributeOperation> attributes;
+    private List<OperationAttribute> attributes;
     private FactureIn factureIn;
     private List<MetaEntity> operations;
     private ListEntity<AttachedFile> files;

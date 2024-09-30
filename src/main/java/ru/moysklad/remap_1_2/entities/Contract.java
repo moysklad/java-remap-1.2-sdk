@@ -115,7 +115,7 @@ public class Contract extends MetaEntity implements IEntityWithAttributes {
     /**
      * Коллекция доп. полей
      */
-    private List<AttributeCustomEntity> attributes;
+    private List<Attribute> attributes;
 
     public Contract(String id) {
         super(id);

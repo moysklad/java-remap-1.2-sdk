@@ -4,7 +4,7 @@ import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.responses.ListEntity;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 
 import java.io.IOException;
@@ -45,30 +45,30 @@ public class CashOutTest extends EntityGetUpdateDeleteTest implements FilesTest<
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        MetadataAttributeOperationSharedStatesResponse response = api.entity().cashout().metadata().get();
+        MetadataAttributeSharedStatesResponse<OperationAttribute> response = api.entity().cashout().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
     @Test
     public void attributesTest() throws IOException, ApiClientException{
-        ListEntity<AttributeOperation> attributes = api.entity().cashout().metadataAttributes();
+        ListEntity<Attribute> attributes = api.entity().cashout().metadataAttributes();
         assertNotNull(attributes);
     }
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
-        AttributeOperation attribute = new AttributeOperation();
-        attribute.setType(AttributeOperation.Type.textValue);
+        OperationAttribute attribute = new OperationAttribute();
+        attribute.setType(OperationAttribute.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
         attribute.setShow(true);
         attribute.setDescription("description");
-        AttributeOperation created =  api.entity().cashout().createMetadataAttribute(attribute);
+        OperationAttribute created =  api.entity().cashout().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
-        assertEquals(AttributeOperation.Type.textValue, created.getType());
+        assertEquals(OperationAttribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
         assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
@@ -76,18 +76,18 @@ public class CashOutTest extends EntityGetUpdateDeleteTest implements FilesTest<
 
     @Test
     public void updateAttributeTest() throws IOException, ApiClientException {
-        AttributeOperation attribute = new AttributeOperation();
+        OperationAttribute attribute = new OperationAttribute();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        AttributeOperation created =  api.entity().cashout().createMetadataAttribute(attribute);
+        OperationAttribute created =  api.entity().cashout().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
         created.setShow(false);
-        AttributeOperation updated =  api.entity().cashout().updateMetadataAttribute(created);
+        OperationAttribute updated =  api.entity().cashout().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
@@ -98,12 +98,12 @@ public class CashOutTest extends EntityGetUpdateDeleteTest implements FilesTest<
 
     @Test
     public void deleteAttributeTest() throws IOException, ApiClientException{
-        AttributeOperation attribute = new AttributeOperation();
+        OperationAttribute attribute = new OperationAttribute();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        AttributeOperation created =  api.entity().cashout().createMetadataAttribute(attribute);
+        OperationAttribute created =  api.entity().cashout().createMetadataAttribute(attribute);
 
         api.entity().cashout().deleteMetadataAttribute(created);
 

@@ -1,12 +1,12 @@
 package ru.moysklad.remap_1_2.entities.documents;
 
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
-import ru.moysklad.remap_1_2.entities.*;
-import ru.moysklad.remap_1_2.entities.AttributeOperation;
+import ru.moysklad.remap_1_2.entities.Attribute;
+import ru.moysklad.remap_1_2.entities.OperationAttribute;
 import ru.moysklad.remap_1_2.entities.Meta;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.responses.ListEntity;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 import org.junit.Test;
 
@@ -41,7 +41,7 @@ public class CustomerOrderTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        MetadataAttributeOperationSharedStatesResponse response = api.entity().customerorder().metadata().get();
+        MetadataAttributeSharedStatesResponse<OperationAttribute> response = api.entity().customerorder().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
@@ -49,23 +49,23 @@ public class CustomerOrderTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void attributesTest() throws IOException, ApiClientException{
-        ListEntity<AttributeOperation> attributes = api.entity().customerorder().metadataAttributes();
+        ListEntity<Attribute> attributes = api.entity().customerorder().metadataAttributes();
         assertNotNull(attributes);
     }
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
-        AttributeOperation attribute = new AttributeOperation();
-        attribute.setType(AttributeOperation.Type.textValue);
+        OperationAttribute attribute = new OperationAttribute();
+        attribute.setType(OperationAttribute.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
         attribute.setShow(true);
         attribute.setDescription("description");
-        AttributeOperation created =  api.entity().customerorder().createMetadataAttribute(attribute);
+        OperationAttribute created =  api.entity().customerorder().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
-        assertEquals(AttributeOperation.Type.textValue, created.getType());
+        assertEquals(OperationAttribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
         assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
@@ -73,18 +73,18 @@ public class CustomerOrderTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void updateAttributeTest() throws IOException, ApiClientException {
-        AttributeOperation attribute = new AttributeOperation();
+        OperationAttribute attribute = new OperationAttribute();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        AttributeOperation created =  api.entity().customerorder().createMetadataAttribute(attribute);
+        OperationAttribute created =  api.entity().customerorder().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
         created.setShow(false);
-        AttributeOperation updated =  api.entity().customerorder().updateMetadataAttribute(created);
+        OperationAttribute updated =  api.entity().customerorder().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
@@ -95,12 +95,12 @@ public class CustomerOrderTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void deleteAttributeTest() throws IOException, ApiClientException{
-        AttributeOperation attribute = new AttributeOperation();
+        OperationAttribute attribute = new OperationAttribute();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        AttributeOperation created =  api.entity().customerorder().createMetadataAttribute(attribute);
+        OperationAttribute created =  api.entity().customerorder().createMetadataAttribute(attribute);
 
         api.entity().customerorder().deleteMetadataAttribute(created);
 

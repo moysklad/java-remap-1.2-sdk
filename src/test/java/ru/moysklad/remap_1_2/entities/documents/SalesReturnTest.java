@@ -6,7 +6,7 @@ import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.agents.Counterparty;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
 import ru.moysklad.remap_1_2.responses.ListEntity;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedStatesResponse;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 
 import java.io.IOException;
@@ -63,14 +63,14 @@ public class SalesReturnTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        MetadataAttributeOperationSharedStatesResponse response = api.entity().salesreturn().metadata().get();
+        MetadataAttributeSharedStatesResponse<OperationAttribute> response = api.entity().salesreturn().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
 
     @Test
     public void attributesTest() throws IOException, ApiClientException{
-        ListEntity<AttributeOperation> attributes = api.entity().salesreturn().metadataAttributes();
+        ListEntity<Attribute> attributes = api.entity().salesreturn().metadataAttributes();
         assertNotNull(attributes);
     }
 

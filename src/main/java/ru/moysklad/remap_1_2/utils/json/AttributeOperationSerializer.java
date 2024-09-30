@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 
 import static ru.moysklad.remap_1_2.utils.Constants.DATE_FORMAT_PATTERN;
 
-public class AttributeOperationSerializer implements JsonSerializer<AttributeOperation>, JsonDeserializer<AttributeOperation> {
+public class AttributeOperationSerializer implements JsonSerializer<OperationAttribute>, JsonDeserializer<OperationAttribute> {
     private final Gson gson = JsonUtils.createGsonWithMetaAdapter();
     private final DateTimeFormatter formatter;
 
@@ -22,7 +22,7 @@ public class AttributeOperationSerializer implements JsonSerializer<AttributeOpe
     }
 
     @Override
-    public JsonElement serialize(AttributeOperation src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(OperationAttribute src, Type typeOfSrc, JsonSerializationContext context) {
         JsonElement je = null;
 
         if (src.getType() != null) {
@@ -40,9 +40,9 @@ public class AttributeOperationSerializer implements JsonSerializer<AttributeOpe
                     }
                     break;
             }
-            je = gson.toJsonTree(src, AttributeOperation.class);
+            je = gson.toJsonTree(src, OperationAttribute.class);
         } else if (src.getEntityType() != null) {
-            je = gson.toJsonTree(src, AttributeOperation.class).getAsJsonObject();
+            je = gson.toJsonTree(src, OperationAttribute.class).getAsJsonObject();
             JsonObject jo = (JsonObject) je;
             jo.add("type", jo.get("entityType"));
             jo.remove("entityType");
@@ -54,7 +54,7 @@ public class AttributeOperationSerializer implements JsonSerializer<AttributeOpe
 
 
     @Override
-    public AttributeOperation deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public OperationAttribute deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jo = gson.toJsonTree(json).getAsJsonObject();
 
         if (!jo.has("type"))
@@ -69,7 +69,7 @@ public class AttributeOperationSerializer implements JsonSerializer<AttributeOpe
         } catch (IllegalArgumentException ignored) {
         }
 
-        AttributeOperation ae = gson.fromJson(jo, AttributeOperation.class);
+        OperationAttribute ae = gson.fromJson(jo, OperationAttribute.class);
 
         if (ae.getType() != null && ae.getValue() != null) {
             switch (ae.getType()) {

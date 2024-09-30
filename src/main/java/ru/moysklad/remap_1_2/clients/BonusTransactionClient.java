@@ -3,15 +3,16 @@ package ru.moysklad.remap_1_2.clients;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
 import ru.moysklad.remap_1_2.entities.BonusTransaction;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
-import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeOperationSharedResponse;
+import ru.moysklad.remap_1_2.entities.OperationAttribute;
+import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedResponse;
 
 public final class BonusTransactionClient
         extends EntityClientBase
         implements
         GetListEndpoint<BonusTransaction>,
         PostEndpoint<BonusTransaction>,
-        MetadataEndpoint<MetadataAttributeOperationSharedResponse>,
-        MetadataAttributeOperationEndpoint,
+        MetadataEndpoint<MetadataAttributeSharedResponse<OperationAttribute>>,
+        MetadataDocumentAttributeEndpoint,
         GetByIdEndpoint<BonusTransaction>,
         PutByIdEndpoint<BonusTransaction>,
         MassCreateUpdateDeleteEndpoint<BonusTransaction>,
@@ -28,6 +29,6 @@ public final class BonusTransactionClient
 
     @Override
     public Class<? extends MetaEntity> metaEntityClass() {
-        return MetadataAttributeOperationSharedResponse.class;
+        return MetadataAttributeSharedResponse.class;
     }
 }

@@ -81,23 +81,23 @@ public class PrepaymentReturnTest extends EntityTestBase implements FilesTest<Pr
     
     @Test
     public void attributesTest() throws IOException, ApiClientException {
-        ListEntity<AttributeOperation> attributes = api.entity().prepaymentReturn().metadataAttributes();
+        ListEntity<Attribute> attributes = api.entity().prepaymentReturn().metadataAttributes();
         assertNotNull(attributes);
     }
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
-        AttributeOperation attribute = new AttributeOperation();
-        attribute.setType(AttributeOperation.Type.textValue);
+        OperationAttribute attribute = new OperationAttribute();
+        attribute.setType(OperationAttribute.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
         attribute.setShow(true);
         attribute.setDescription("description");
-        AttributeOperation created =  api.entity().prepaymentReturn().createMetadataAttribute(attribute);
+        OperationAttribute created =  api.entity().prepaymentReturn().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
-        assertEquals(AttributeOperation.Type.textValue, created.getType());
+        assertEquals(OperationAttribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
         assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
@@ -105,18 +105,18 @@ public class PrepaymentReturnTest extends EntityTestBase implements FilesTest<Pr
 
     @Test
     public void updateAttributeTest() throws IOException, ApiClientException {
-        AttributeOperation attribute = new AttributeOperation();
+        OperationAttribute attribute = new OperationAttribute();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        AttributeOperation created =  api.entity().prepaymentReturn().createMetadataAttribute(attribute);
+        OperationAttribute created =  api.entity().prepaymentReturn().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
         created.setShow(false);
-        AttributeOperation updated =  api.entity().prepaymentReturn().updateMetadataAttribute(created);
+        OperationAttribute updated =  api.entity().prepaymentReturn().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
@@ -127,12 +127,12 @@ public class PrepaymentReturnTest extends EntityTestBase implements FilesTest<Pr
 
     @Test
     public void deleteAttributeTest() throws IOException, ApiClientException{
-        AttributeOperation attribute = new AttributeOperation();
+        OperationAttribute attribute = new OperationAttribute();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        AttributeOperation created =  api.entity().prepaymentReturn().createMetadataAttribute(attribute);
+        OperationAttribute created =  api.entity().prepaymentReturn().createMetadataAttribute(attribute);
 
         api.entity().prepaymentReturn().deleteMetadataAttribute(created);
 
