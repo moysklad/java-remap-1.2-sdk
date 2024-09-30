@@ -51,17 +51,6 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> imp
     }
 
     @Test
-    public void createOnTapProduc333t() throws ApiClientException, IOException {
-        Product product = new Product();
-        product.setVat(20);
-        api.entity().product().update("0b9df582-5a3c-11ef-0a80-08a8002453ae", product);
-
-        System.out.println();
-
-
-    }
-
-    @Test
     public void createOnTapProduct() throws ApiClientException, IOException {
         Product product = new Product();
         product.setName("product_" + randomString(3) + "_" + new Date().getTime());
