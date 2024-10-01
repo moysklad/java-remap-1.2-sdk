@@ -27,7 +27,6 @@ public class Attribute extends MetaEntity {
 
     /**
      * Значение
-     * Значение
      */
     private Object value;
 

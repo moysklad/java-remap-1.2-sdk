@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class PaymentIn extends DocumentEntity implements FinanceInDocumentMarker, IEntityOperationWithAttributes, HasFiles {
+public class PaymentIn extends DocumentEntity implements FinanceInDocumentMarker, IEntityWithAttributes<OperationAttribute>, HasFiles {
     private Agent agent;
     private LocalDateTime created;
     private String externalCode;

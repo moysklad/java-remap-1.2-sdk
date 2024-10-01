@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class InternalOrder extends DocumentEntity implements IEntityOperationWithAttributes, HasFiles {
+public class InternalOrder extends DocumentEntity implements IEntityWithAttributes<OperationAttribute>, HasFiles {
     private LocalDateTime created;
     private String externalCode;
     private Organization organization;
