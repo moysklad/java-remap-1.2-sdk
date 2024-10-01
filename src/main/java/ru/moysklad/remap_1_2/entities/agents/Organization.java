@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public final class Organization extends Agent implements IEntityWithAttributes {
+public final class Organization extends Agent implements IEntityWithAttributes<Attribute> {
     /**
      * ID синхронизации
      */

@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public final class Employee extends Agent implements IEntityWithAttributes {
+public final class Employee extends Agent implements IEntityWithAttributes<Attribute> {
     private Employee owner;
     private Boolean shared;
     private String lastName;

@@ -20,7 +20,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public final class Counterparty extends Agent implements IEntityWithAttributes {
+public final class Counterparty extends Agent implements IEntityWithAttributes<Attribute> {
     /**
      * Владелец
      */
