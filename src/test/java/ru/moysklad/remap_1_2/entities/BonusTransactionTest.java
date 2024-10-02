@@ -61,23 +61,23 @@ public class BonusTransactionTest  extends EntityGetUpdateDeleteTest {
 
     @Test
     public void attributesTest() throws IOException, ApiClientException{
-        ListEntity<OperationAttribute> attributes = api.entity().bonustransaction().metadataDocumentAttributes();
+        ListEntity<DocumentAttribute> attributes = api.entity().bonustransaction().metadataDocumentAttributes();
         assertNotNull(attributes);
     }
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
-        OperationAttribute attribute = new OperationAttribute();
-        attribute.setType(OperationAttribute.Type.textValue);
+        DocumentAttribute attribute = new DocumentAttribute();
+        attribute.setType(DocumentAttribute.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
         attribute.setShow(true);
         attribute.setDescription("description");
-        OperationAttribute created = api.entity().bonustransaction().createMetadataAttribute(attribute);
+        DocumentAttribute created = api.entity().bonustransaction().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
-        assertEquals(OperationAttribute.Type.textValue, created.getType());
+        assertEquals(DocumentAttribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
         assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
@@ -85,18 +85,18 @@ public class BonusTransactionTest  extends EntityGetUpdateDeleteTest {
 
     @Test
     public void updateAttributeTest() throws IOException, ApiClientException {
-        OperationAttribute attribute = new OperationAttribute();
+        DocumentAttribute attribute = new DocumentAttribute();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        OperationAttribute created = api.entity().bonustransaction().createMetadataAttribute(attribute);
+        DocumentAttribute created = api.entity().bonustransaction().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
         created.setShow(false);
-        OperationAttribute updated = api.entity().bonustransaction().updateMetadataAttribute(created);
+        DocumentAttribute updated = api.entity().bonustransaction().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
@@ -107,12 +107,12 @@ public class BonusTransactionTest  extends EntityGetUpdateDeleteTest {
 
     @Test
     public void deleteAttributeTest() throws IOException, ApiClientException{
-        OperationAttribute attribute = new OperationAttribute();
+        DocumentAttribute attribute = new DocumentAttribute();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        OperationAttribute created = api.entity().bonustransaction().createMetadataAttribute(attribute);
+        DocumentAttribute created = api.entity().bonustransaction().createMetadataAttribute(attribute);
 
         api.entity().bonustransaction().deleteMetadataAttribute(created);
 

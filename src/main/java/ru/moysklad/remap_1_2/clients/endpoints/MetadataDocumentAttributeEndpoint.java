@@ -1,7 +1,7 @@
 package ru.moysklad.remap_1_2.clients.endpoints;
 
 import ru.moysklad.remap_1_2.entities.Attribute;
-import ru.moysklad.remap_1_2.entities.OperationAttribute;
+import ru.moysklad.remap_1_2.entities.DocumentAttribute;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 import ru.moysklad.remap_1_2.utils.HttpRequestExecutor;
@@ -10,47 +10,47 @@ import java.io.IOException;
 
 public interface MetadataDocumentAttributeEndpoint extends MetadataAttributeEndpoint {
     @ApiEndpoint
-    default OperationAttribute metadataAttributes(String id) throws IOException, ApiClientException {
+    default DocumentAttribute metadataAttributes(String id) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + "metadata/attributes/" + id).
-                get(OperationAttribute.class);
+                get(DocumentAttribute.class);
     }
 
     @ApiEndpoint
-    default ListEntity<OperationAttribute> metadataDocumentAttributes() throws IOException, ApiClientException {
-        ListEntity<OperationAttribute> DocumentAttribute = HttpRequestExecutor.
+    default ListEntity<DocumentAttribute> metadataDocumentAttributes() throws IOException, ApiClientException {
+        ListEntity<DocumentAttribute> DocumentAttribute = HttpRequestExecutor.
                 path(api(), path() + "metadata/attributes/").
-                list(OperationAttribute.class);
+                list(ru.moysklad.remap_1_2.entities.DocumentAttribute.class);
         return DocumentAttribute;
     }
 
     @ApiEndpoint
-    default OperationAttribute createMetadataAttribute(OperationAttribute newEntity) throws IOException, ApiClientException {
-        OperationAttribute responseEntity = HttpRequestExecutor.
+    default DocumentAttribute createMetadataAttribute(DocumentAttribute newEntity) throws IOException, ApiClientException {
+        DocumentAttribute responseEntity = HttpRequestExecutor.
                 path(api(), path() + "metadata/attributes/").
                 body(newEntity).
-                post(OperationAttribute.class);
+                post(DocumentAttribute.class);
         newEntity.set(responseEntity);
         return newEntity;
     }
 
     @ApiEndpoint
-    default OperationAttribute updateMetadataAttribute(String id, OperationAttribute newEntity) throws IOException, ApiClientException {
-        OperationAttribute responseEntity = HttpRequestExecutor.
+    default DocumentAttribute updateMetadataAttribute(String id, DocumentAttribute newEntity) throws IOException, ApiClientException {
+        DocumentAttribute responseEntity = HttpRequestExecutor.
                 path(api(), path() + "metadata/attributes/" + id).
                 body(newEntity).
-                put(OperationAttribute.class);
+                put(DocumentAttribute.class);
         newEntity.set(responseEntity);
         return newEntity;
     }
 
     @ApiEndpoint
-    default OperationAttribute updateMetadataAttribute(OperationAttribute newEntity) throws IOException, ApiClientException {
+    default DocumentAttribute updateMetadataAttribute(DocumentAttribute newEntity) throws IOException, ApiClientException {
         return updateMetadataAttribute(newEntity.getId(), newEntity);
     }
 
     @ApiEndpoint
-    default void deleteMetadataAttribute(OperationAttribute entity) throws IOException, ApiClientException {
+    default void deleteMetadataAttribute(DocumentAttribute entity) throws IOException, ApiClientException {
         deleteMetadataAttribute(entity.getId());
     }
 
@@ -78,7 +78,6 @@ public interface MetadataDocumentAttributeEndpoint extends MetadataAttributeEndp
         return MetadataAttributeEndpoint.super.updateMetadataAttribute(newEntity);
     }
 
-    @Override
     @Deprecated
     default void deleteMetadataAttribute(String id) throws IOException, ApiClientException {
         MetadataAttributeEndpoint.super.deleteMetadataAttribute(id);

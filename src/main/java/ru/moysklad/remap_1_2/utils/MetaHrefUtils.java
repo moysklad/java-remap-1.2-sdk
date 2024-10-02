@@ -2,7 +2,6 @@ package ru.moysklad.remap_1_2.utils;
 
 import lombok.NoArgsConstructor;
 import ru.moysklad.remap_1_2.entities.*;
-import ru.moysklad.remap_1_2.entities.documents.DocumentEntity;
 import ru.moysklad.remap_1_2.entities.permissions.EmployeeRole;
 
 import java.lang.reflect.Field;

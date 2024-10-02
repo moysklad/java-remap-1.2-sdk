@@ -99,7 +99,7 @@ public class FilterParam extends ApiParam {
                     throw new IllegalArgumentException("key не может быть null");
                 } else if (attrKey.getMeta() == null || attrKey.getMeta().getHref() == null) {
                     if (attrKey.getAttributeEntityType() == null) {
-                        throw new IllegalArgumentException("key.AttributeType не может быть null");
+                        throw new IllegalArgumentException("key.attributeEntityType не может быть null");
                     } else if (attrKey.getId() == null) {
                         throw new IllegalArgumentException("key.id не может быть null");
                     }

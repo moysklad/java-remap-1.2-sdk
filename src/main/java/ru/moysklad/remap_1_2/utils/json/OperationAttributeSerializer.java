@@ -13,16 +13,16 @@ import java.time.format.DateTimeFormatter;
 
 import static ru.moysklad.remap_1_2.utils.Constants.DATE_FORMAT_PATTERN;
 
-public class AttributeOperationSerializer implements JsonSerializer<OperationAttribute>, JsonDeserializer<OperationAttribute> {
+public class OperationAttributeSerializer implements JsonSerializer<DocumentAttribute>, JsonDeserializer<DocumentAttribute> {
     private final Gson gson = JsonUtils.createGsonWithMetaAdapter();
     private final DateTimeFormatter formatter;
 
-    public AttributeOperationSerializer() {
+    public OperationAttributeSerializer() {
         formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN);
     }
 
     @Override
-    public JsonElement serialize(OperationAttribute src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(DocumentAttribute src, Type typeOfSrc, JsonSerializationContext context) {
         JsonElement je = null;
 
         if (src.getType() != null) {
@@ -40,9 +40,9 @@ public class AttributeOperationSerializer implements JsonSerializer<OperationAtt
                     }
                     break;
             }
-            je = gson.toJsonTree(src, OperationAttribute.class);
+            je = gson.toJsonTree(src, DocumentAttribute.class);
         } else if (src.getEntityType() != null) {
-            je = gson.toJsonTree(src, OperationAttribute.class).getAsJsonObject();
+            je = gson.toJsonTree(src, DocumentAttribute.class).getAsJsonObject();
             JsonObject jo = (JsonObject) je;
             jo.add("type", jo.get("entityType"));
             jo.remove("entityType");
@@ -54,7 +54,7 @@ public class AttributeOperationSerializer implements JsonSerializer<OperationAtt
 
 
     @Override
-    public OperationAttribute deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public DocumentAttribute deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jo = gson.toJsonTree(json).getAsJsonObject();
 
         if (!jo.has("type"))
@@ -69,7 +69,7 @@ public class AttributeOperationSerializer implements JsonSerializer<OperationAtt
         } catch (IllegalArgumentException ignored) {
         }
 
-        OperationAttribute ae = gson.fromJson(jo, OperationAttribute.class);
+        DocumentAttribute ae = gson.fromJson(jo, DocumentAttribute.class);
 
         if (ae.getType() != null && ae.getValue() != null) {
             switch (ae.getType()) {

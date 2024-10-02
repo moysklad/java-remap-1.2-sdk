@@ -3,7 +3,7 @@ package ru.moysklad.remap_1_2.entities.documents;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.Attribute;
-import ru.moysklad.remap_1_2.entities.OperationAttribute;
+import ru.moysklad.remap_1_2.entities.DocumentAttribute;
 import ru.moysklad.remap_1_2.entities.Meta;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.responses.ListEntity;
@@ -47,7 +47,7 @@ public class InternalOrderTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        MetadataAttributeSharedStatesResponse<OperationAttribute> response = api.entity().internalorder().metadata().get();
+        MetadataAttributeSharedStatesResponse<DocumentAttribute> response = api.entity().internalorder().metadata().get();
 
         assertFalse(response.getCreateShared());
     }
@@ -60,17 +60,17 @@ public class InternalOrderTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void createAttributeTest() throws IOException, ApiClientException {
-        OperationAttribute attribute = new OperationAttribute();
-        attribute.setType(OperationAttribute.Type.textValue);
+        DocumentAttribute attribute = new DocumentAttribute();
+        attribute.setType(DocumentAttribute.Type.textValue);
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         attribute.setName(name);
         attribute.setRequired(false);
         attribute.setShow(true);
         attribute.setDescription("description");
-        OperationAttribute created =  api.entity().internalorder().createMetadataAttribute(attribute);
+        DocumentAttribute created = api.entity().internalorder().createMetadataAttribute(attribute);
         assertNotNull(created);
         assertEquals(name, created.getName());
-        assertEquals(OperationAttribute.Type.textValue, created.getType());
+        assertEquals(DocumentAttribute.Type.textValue, created.getType());
         assertFalse(created.getRequired());
         assertTrue(created.getShow());
         assertEquals("description", created.getDescription());
@@ -78,18 +78,18 @@ public class InternalOrderTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void updateAttributeTest() throws IOException, ApiClientException {
-        OperationAttribute attribute = new OperationAttribute();
+        DocumentAttribute attribute = new DocumentAttribute();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        OperationAttribute created =  api.entity().internalorder().createMetadataAttribute(attribute);
+        DocumentAttribute created = api.entity().internalorder().createMetadataAttribute(attribute);
 
         String name = "field" + randomString(3) + "_" + new Date().getTime();
         created.setName(name);
         created.setRequired(false);
         created.setShow(false);
-        OperationAttribute updated = (OperationAttribute) api.entity().internalorder().updateMetadataAttribute(created);
+        DocumentAttribute updated = api.entity().internalorder().updateMetadataAttribute(created);
         assertNotNull(created);
         assertEquals(name, updated.getName());
         assertNull(updated.getType());
@@ -100,12 +100,12 @@ public class InternalOrderTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void deleteAttributeTest() throws IOException, ApiClientException{
-        OperationAttribute attribute = new OperationAttribute();
+        DocumentAttribute attribute = new DocumentAttribute();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        OperationAttribute created = (OperationAttribute) api.entity().internalorder().createMetadataAttribute(attribute);
+        DocumentAttribute created = api.entity().internalorder().createMetadataAttribute(attribute);
 
         api.entity().internalorder().deleteMetadataAttribute(created);
 

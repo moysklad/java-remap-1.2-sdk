@@ -17,8 +17,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Inventory extends DocumentEntity implements IEntityWithAttributes<OperationAttribute>, HasFiles {
-    private List<OperationAttribute> attributes;
+public class Inventory extends DocumentEntity implements IEntityWithAttributes<DocumentAttribute>, HasFiles {
+    private List<DocumentAttribute> attributes;
     private LocalDateTime created;
     private LocalDateTime deleted;
     private String externalCode;

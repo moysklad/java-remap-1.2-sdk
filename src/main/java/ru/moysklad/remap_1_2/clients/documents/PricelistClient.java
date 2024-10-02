@@ -3,7 +3,7 @@ package ru.moysklad.remap_1_2.clients.documents;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
-import ru.moysklad.remap_1_2.entities.OperationAttribute;
+import ru.moysklad.remap_1_2.entities.DocumentAttribute;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.Pricelist;
 import ru.moysklad.remap_1_2.entities.documents.Pricelist.PricelistRow;
@@ -24,7 +24,7 @@ public final class PricelistClient
         GetListEndpoint<Pricelist>,
         PostEndpoint<Pricelist>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse<OperationAttribute>>,
+        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse<DocumentAttribute>>,
         MetadataDocumentAttributeEndpoint,
         GetByIdEndpoint<Pricelist>,
         PutByIdEndpoint<Pricelist>,

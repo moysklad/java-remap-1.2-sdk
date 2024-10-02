@@ -13,22 +13,22 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class OperationAttribute extends Attribute {
+public class DocumentAttribute extends Attribute {
 
     /**
      * Флажок о том, является ли доп. поле видимым на UI. Не может быть скрытым и обязательным одновременно. Только для операций
      */
     private Boolean show;
 
-    public OperationAttribute(String id) {
+    public DocumentAttribute(String id) {
         super(id);
     }
 
-    public OperationAttribute(Meta.Type AttributeType, String id, Type type, Object value){
-        super(AttributeType, id, type, value);
+    public DocumentAttribute(Meta.Type attributeType, String id, Type type, Object value){
+        super(attributeType, id, type, value);
     }
 
-    public OperationAttribute(Meta.Type AttributeType, String id, MetaEntity value){
-        super(AttributeType, id, value);
+    public DocumentAttribute(Meta.Type attributeType, String id, MetaEntity value){
+        super(attributeType, id, value);
     }
 }

@@ -3,7 +3,7 @@ package ru.moysklad.remap_1_2.clients.documents;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
-import ru.moysklad.remap_1_2.entities.OperationAttribute;
+import ru.moysklad.remap_1_2.entities.DocumentAttribute;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.Move;
 import ru.moysklad.remap_1_2.entities.documents.positions.MoveDocumentPosition;
@@ -15,7 +15,7 @@ public final class MoveClient
         GetListEndpoint<Move>,
         PostEndpoint<Move>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse<OperationAttribute>>,
+        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse<DocumentAttribute>>,
         MetadataDocumentAttributeEndpoint,
         DocumentNewEndpoint<Move>,
         GetByIdEndpoint<Move>,

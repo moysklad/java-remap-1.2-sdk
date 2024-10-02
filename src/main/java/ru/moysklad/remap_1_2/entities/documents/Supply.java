@@ -19,7 +19,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Supply extends DocumentEntity implements IEntityWithAttributes<OperationAttribute>, HasFiles {
+public class Supply extends DocumentEntity implements IEntityWithAttributes<DocumentAttribute>, HasFiles {
     private Agent agent;
     private Contract contract;
     private LocalDateTime created;
@@ -41,7 +41,7 @@ public class Supply extends DocumentEntity implements IEntityWithAttributes<Oper
     private State state;
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
-    private List<OperationAttribute> attributes;
+    private List<DocumentAttribute> attributes;
     private String incomingNumber;
     private LocalDateTime incomingDate;
     private FactureIn factureIn;
