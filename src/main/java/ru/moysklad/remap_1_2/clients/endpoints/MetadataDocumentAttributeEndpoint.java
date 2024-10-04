@@ -18,10 +18,10 @@ public interface MetadataDocumentAttributeEndpoint extends MetadataAttributeEndp
 
     @ApiEndpoint
     default ListEntity<DocumentAttribute> metadataDocumentAttributes() throws IOException, ApiClientException {
-        ListEntity<DocumentAttribute> DocumentAttribute = HttpRequestExecutor.
+        ListEntity<DocumentAttribute> documentAttribute = HttpRequestExecutor.
                 path(api(), path() + "metadata/attributes/").
                 list(ru.moysklad.remap_1_2.entities.DocumentAttribute.class);
-        return DocumentAttribute;
+        return documentAttribute;
     }
 
     @ApiEndpoint
@@ -76,11 +76,6 @@ public interface MetadataDocumentAttributeEndpoint extends MetadataAttributeEndp
     @Deprecated
     default Attribute updateMetadataAttribute(Attribute newEntity) throws IOException, ApiClientException {
         return MetadataAttributeEndpoint.super.updateMetadataAttribute(newEntity);
-    }
-
-    @Deprecated
-    default void deleteMetadataAttribute(String id) throws IOException, ApiClientException {
-        MetadataAttributeEndpoint.super.deleteMetadataAttribute(id);
     }
 
     @Override

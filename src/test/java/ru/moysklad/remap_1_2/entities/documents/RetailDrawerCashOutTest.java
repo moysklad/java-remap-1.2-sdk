@@ -101,7 +101,7 @@ public class RetailDrawerCashOutTest extends EntityGetUpdateDeleteTest implement
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        DocumentAttribute created =  api.entity().retaildrawercashout().createMetadataAttribute(attribute);
+        DocumentAttribute created = api.entity().retaildrawercashout().createMetadataAttribute(attribute);
 
         api.entity().retaildrawercashout().deleteMetadataAttribute(created);
 

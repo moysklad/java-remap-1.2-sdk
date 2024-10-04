@@ -13,11 +13,11 @@ import java.time.format.DateTimeFormatter;
 
 import static ru.moysklad.remap_1_2.utils.Constants.DATE_FORMAT_PATTERN;
 
-public class OperationAttributeSerializer implements JsonSerializer<DocumentAttribute>, JsonDeserializer<DocumentAttribute> {
+public class DocumentAttributeSerializer implements JsonSerializer<DocumentAttribute>, JsonDeserializer<DocumentAttribute> {
     private final Gson gson = JsonUtils.createGsonWithMetaAdapter();
     private final DateTimeFormatter formatter;
 
-    public OperationAttributeSerializer() {
+    public DocumentAttributeSerializer() {
         formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN);
     }
 

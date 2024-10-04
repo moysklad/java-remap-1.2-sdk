@@ -132,7 +132,7 @@ public class PrepaymentReturnTest extends EntityTestBase implements FilesTest<Pr
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
         attribute.setRequired(true);
         attribute.setShow(true);
-        DocumentAttribute created =  api.entity().prepaymentReturn().createMetadataAttribute(attribute);
+        DocumentAttribute created = api.entity().prepaymentReturn().createMetadataAttribute(attribute);
 
         api.entity().prepaymentReturn().deleteMetadataAttribute(created);
 
