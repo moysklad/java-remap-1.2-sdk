@@ -8,6 +8,7 @@ import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +35,7 @@ public class OrganizationTest extends EntityGetUpdateDeleteTest {
         organization.setCode(randomString());
         organization.setTrackingContractNumber(randomString());
         organization.setTrackingContractDate(LocalDateTime.now());
+        organization.setAdvancePaymentVat(BigDecimal.TEN);
 
         api.entity().organization().create(organization);
 
@@ -54,6 +56,7 @@ public class OrganizationTest extends EntityGetUpdateDeleteTest {
         assertEquals(organization.getCode(), retrievedEntity.getCode());
         assertEquals(organization.getTrackingContractNumber(), retrievedEntity.getTrackingContractNumber());
         assertEquals(organization.getTrackingContractDate(), retrievedEntity.getTrackingContractDate());
+        assertEquals(organization.getAdvancePaymentVat(), retrievedEntity.getAdvancePaymentVat());
     }
 
     @Test

@@ -8,6 +8,7 @@ import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.discounts.BonusProgram;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -185,6 +186,11 @@ public final class Organization extends Agent implements IEntityWithAttributes {
      * Бонусные баллы
      */
     private Long bonusPoints;
+
+    /**
+     * Налоговая ставка для авансов для плательщиков НДС
+     */
+    private BigDecimal advancePaymentVat;
 
     public Organization(String id) {
         super(id);
