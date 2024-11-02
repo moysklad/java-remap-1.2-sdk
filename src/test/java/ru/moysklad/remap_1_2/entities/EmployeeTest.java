@@ -85,7 +85,7 @@ public class EmployeeTest extends EntityGetUpdateDeleteTest {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        MetadataAttributeSharedResponse metadata = api.entity().employee().metadata();
+        MetadataAttributeSharedResponse<Attribute> metadata = api.entity().employee().metadata();
         assertTrue(metadata.getCreateShared());
     }
     

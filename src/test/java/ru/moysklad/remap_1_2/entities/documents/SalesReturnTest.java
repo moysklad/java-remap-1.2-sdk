@@ -63,7 +63,7 @@ public class SalesReturnTest extends DocumentWithPositionsTestBase {
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
-        MetadataAttributeSharedStatesResponse response = api.entity().salesreturn().metadata().get();
+        MetadataAttributeSharedStatesResponse<DocumentAttribute> response = api.entity().salesreturn().metadata().get();
 
         assertFalse(response.getCreateShared());
     }

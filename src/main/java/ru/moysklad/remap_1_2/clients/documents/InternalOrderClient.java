@@ -3,6 +3,7 @@ package ru.moysklad.remap_1_2.clients.documents;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
+import ru.moysklad.remap_1_2.entities.DocumentAttribute;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.InternalOrder;
 import ru.moysklad.remap_1_2.entities.documents.positions.InternalOrderDocumentPosition;
@@ -14,8 +15,8 @@ public final class InternalOrderClient
         GetListEndpoint<InternalOrder>,
         PostEndpoint<InternalOrder>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse<DocumentAttribute>>,
+        MetadataDocumentAttributeEndpoint,
         DocumentNewEndpoint<InternalOrder>,
         GetByIdEndpoint<InternalOrder>,
         PutByIdEndpoint<InternalOrder>,

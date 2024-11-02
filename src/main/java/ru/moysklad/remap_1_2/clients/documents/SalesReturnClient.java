@@ -3,6 +3,7 @@ package ru.moysklad.remap_1_2.clients.documents;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
+import ru.moysklad.remap_1_2.entities.DocumentAttribute;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.SalesReturn;
 import ru.moysklad.remap_1_2.entities.documents.positions.SalesReturnDocumentPosition;
@@ -14,8 +15,8 @@ public final class SalesReturnClient
         GetListEndpoint<SalesReturn>,
         PostEndpoint<SalesReturn>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse<DocumentAttribute>>,
+        MetadataDocumentAttributeEndpoint,
         DocumentNewEndpoint<SalesReturn>,
         GetByIdEndpoint<SalesReturn>,
         PutByIdEndpoint<SalesReturn>,

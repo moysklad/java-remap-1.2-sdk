@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Дополнительное поле
+ * Дополнительное поле типа справочник
  */
 
 @Getter

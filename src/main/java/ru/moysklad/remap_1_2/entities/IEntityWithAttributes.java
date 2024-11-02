@@ -3,10 +3,10 @@ package ru.moysklad.remap_1_2.entities;
 import java.util.List;
 import java.util.Optional;
 
-public interface IEntityWithAttributes {
-    List<Attribute> getAttributes();
+public interface IEntityWithAttributes <ATR extends Attribute> {
+    List<ATR> getAttributes();
 
-    default Optional<Attribute> getAttribute(String attributeId) {
+    default Optional<ATR> getAttribute(String attributeId) {
         if (getAttributes() == null){
             return Optional.empty();
         }

@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Store extends MetaEntity implements IEntityWithAttributes {
+public class Store extends MetaEntity implements IEntityWithAttributes<Attribute> {
     /**
      * Ссылка на Владельца (Сотрудника) в формате Метаданных
      */

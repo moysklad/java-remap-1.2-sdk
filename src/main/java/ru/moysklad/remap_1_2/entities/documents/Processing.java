@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Processing extends DocumentEntity implements IEntityWithAttributes, HasFiles {
+public class Processing extends DocumentEntity implements IEntityWithAttributes<DocumentAttribute>, HasFiles {
     private LocalDateTime created;
     private String externalCode;
     private ListEntity<DocumentPosition> materials;
@@ -32,7 +32,7 @@ public class Processing extends DocumentEntity implements IEntityWithAttributes,
     private String description;
     private AgentAccount organizationAccount;
     private State state;
-    private List<Attribute> attributes;
+    private List<DocumentAttribute> attributes;
     private Project project;
     private ProcessingOrder processingOrder;
     private ListEntity<AttachedFile> files;

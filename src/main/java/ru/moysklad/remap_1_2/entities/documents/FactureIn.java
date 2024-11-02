@@ -21,7 +21,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class FactureIn extends DocumentEntity implements IEntityWithAttributes, HasFiles {
+public class FactureIn extends DocumentEntity implements IEntityWithAttributes<DocumentAttribute>, HasFiles {
     /**
      * Контрагента
      */
@@ -80,7 +80,7 @@ public class FactureIn extends DocumentEntity implements IEntityWithAttributes, 
     /**
      * Коллекция доп. полей
      */
-    private List<Attribute> attributes;
+    private List<DocumentAttribute> attributes;
 
     /**
      * Контракт

@@ -2,6 +2,7 @@ package ru.moysklad.remap_1_2.clients;
 
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
+import ru.moysklad.remap_1_2.entities.Attribute;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.Store;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedResponse;
@@ -12,7 +13,7 @@ public final class StoreClient
         GetListEndpoint<Store>,
         PostEndpoint<Store>,
         DeleteByIdEndpoint,
-        MetadataEndpoint<MetadataAttributeSharedResponse>,
+        MetadataEndpoint<MetadataAttributeSharedResponse<Attribute>>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Store>,
         PutByIdEndpoint<Store>,

@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Service extends AbstractProduct implements SingleProductMarker, IEntityWithAttributes {
+public class Service extends AbstractProduct implements SingleProductMarker, IEntityWithAttributes<Attribute> {
     /**
      * Ссылка на Владельца (Сотрудника) в формате Метаданных
      */

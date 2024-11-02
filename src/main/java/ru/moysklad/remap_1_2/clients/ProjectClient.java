@@ -1,6 +1,7 @@
 package ru.moysklad.remap_1_2.clients;
 
 import ru.moysklad.remap_1_2.clients.endpoints.*;
+import ru.moysklad.remap_1_2.entities.Attribute;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.Project;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedResponse;
@@ -11,7 +12,7 @@ public final class ProjectClient
         GetListEndpoint<Project>,
         PostEndpoint<Project>,
         DeleteByIdEndpoint,
-        MetadataEndpoint<MetadataAttributeSharedResponse>,
+        MetadataEndpoint<MetadataAttributeSharedResponse<Attribute>>,
         MetadataAttributeEndpoint,
         GetByIdEndpoint<Project>,
         MassCreateUpdateDeleteEndpoint<Project>,

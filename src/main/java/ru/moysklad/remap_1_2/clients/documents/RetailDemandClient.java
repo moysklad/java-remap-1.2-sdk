@@ -3,6 +3,7 @@ package ru.moysklad.remap_1_2.clients.documents;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
+import ru.moysklad.remap_1_2.entities.DocumentAttribute;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.RetailDemand;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
@@ -13,8 +14,8 @@ public final class RetailDemandClient
         GetListEndpoint<RetailDemand>,
         PostEndpoint<RetailDemand>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse<DocumentAttribute>>,
+        MetadataDocumentAttributeEndpoint,
         GetByIdEndpoint<RetailDemand>,
         PutByIdEndpoint<RetailDemand>,
         MassCreateUpdateDeleteEndpoint<RetailDemand>,

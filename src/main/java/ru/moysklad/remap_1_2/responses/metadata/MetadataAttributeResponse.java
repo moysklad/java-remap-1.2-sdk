@@ -12,6 +12,6 @@ import ru.moysklad.remap_1_2.responses.ListEntity;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class MetadataAttributeResponse extends MetaEntity {
-    private ListEntity<Attribute> attributes;
+public class MetadataAttributeResponse<ATR extends Attribute> extends MetaEntity {
+    private ListEntity<ATR> attributes;
 }

@@ -23,10 +23,10 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Demand extends DocumentEntity implements IEntityWithAttributes, HasFiles {
+public class Demand extends DocumentEntity implements IEntityWithAttributes<DocumentAttribute>, HasFiles {
     private Agent agent;
     private AgentAccount agentAccount;
-    private List<Attribute> attributes;
+    private List<DocumentAttribute> attributes;
     private Contract contract;
     private LocalDateTime created;
     private CustomerOrder customerOrder;

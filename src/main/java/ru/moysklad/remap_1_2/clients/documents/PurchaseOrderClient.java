@@ -3,6 +3,7 @@ package ru.moysklad.remap_1_2.clients.documents;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
+import ru.moysklad.remap_1_2.entities.DocumentAttribute;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.PurchaseOrder;
 import ru.moysklad.remap_1_2.entities.documents.positions.PurchaseOrderDocumentPosition;
@@ -14,8 +15,8 @@ public final class PurchaseOrderClient
         GetListEndpoint<PurchaseOrder>,
         PostEndpoint<PurchaseOrder>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse<DocumentAttribute>>,
+        MetadataDocumentAttributeEndpoint,
         DocumentNewEndpoint<PurchaseOrder>,
         GetByIdEndpoint<PurchaseOrder>,
         PutByIdEndpoint<PurchaseOrder>,

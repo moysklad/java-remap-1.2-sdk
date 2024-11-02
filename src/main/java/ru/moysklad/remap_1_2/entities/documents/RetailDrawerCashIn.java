@@ -17,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class RetailDrawerCashIn extends DocumentEntity implements IEntityWithAttributes, HasFiles {
+public class RetailDrawerCashIn extends DocumentEntity implements IEntityWithAttributes<DocumentAttribute>, HasFiles {
     private Agent agent;
     private LocalDateTime created;
     private String description;
@@ -28,7 +28,7 @@ public class RetailDrawerCashIn extends DocumentEntity implements IEntityWithAtt
     private String syncId;
     private LocalDateTime deleted;
     private State state;
-    private List<Attribute> attributes;
+    private List<DocumentAttribute> attributes;
     private ListEntity<AttachedFile> files;
 
     public RetailDrawerCashIn(String id) {

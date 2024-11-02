@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class PurchaseReturn extends DocumentEntity implements IEntityWithAttributes, HasFiles {
+public class PurchaseReturn extends DocumentEntity implements IEntityWithAttributes<DocumentAttribute>, HasFiles {
     private Agent agent;
     private LocalDateTime created;
     private String externalCode;
@@ -39,7 +39,7 @@ public class PurchaseReturn extends DocumentEntity implements IEntityWithAttribu
     private State state;
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
-    private List<Attribute> attributes;
+    private List<DocumentAttribute> attributes;
     private FactureOut factureOut;
     private List<FinanceDocumentMarker> payments;
     private ListEntity<AttachedFile> files;

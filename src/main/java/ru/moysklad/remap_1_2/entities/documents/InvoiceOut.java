@@ -21,7 +21,7 @@ import java.util.List;
 public class InvoiceOut extends DocumentEntity implements HasFiles {
     private Agent agent;
     private AgentAccount agentAccount;
-    private List<Attribute> attributes;
+    private List<DocumentAttribute> attributes;
     private Contract contract;
     private LocalDateTime created;
     private LocalDateTime deleted;

@@ -23,7 +23,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class CustomerOrder extends DocumentEntity implements IEntityWithAttributes, HasFiles {
+public class CustomerOrder extends DocumentEntity implements IEntityWithAttributes<DocumentAttribute>, HasFiles {
     private Agent agent;
     private Contract contract;
     private LocalDateTime created;
@@ -45,7 +45,7 @@ public class CustomerOrder extends DocumentEntity implements IEntityWithAttribut
     private Long vatSum;
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
-    private List<Attribute> attributes;
+    private List<DocumentAttribute> attributes;
     private LocalDateTime deliveryPlannedMoment;
     private Project project;
     private List<PurchaseOrder> purchaseOrders;

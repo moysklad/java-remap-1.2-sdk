@@ -22,7 +22,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Product extends AbstractProduct implements SingleProductMarker, ConsignmentParentMarker, IEntityWithAttributes, HasImages {
+public class Product extends AbstractProduct implements SingleProductMarker, ConsignmentParentMarker, IEntityWithAttributes<Attribute>, HasImages {
     /**
      * Сотрудник-владелец
      */

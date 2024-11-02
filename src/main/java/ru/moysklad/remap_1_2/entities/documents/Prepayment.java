@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Prepayment extends DocumentEntity implements IEntityWithAttributes, HasFiles {
+public class Prepayment extends DocumentEntity implements IEntityWithAttributes<DocumentAttribute>, HasFiles {
     private String syncId;
     private LocalDateTime deleted;
     private String description;
@@ -27,7 +27,7 @@ public class Prepayment extends DocumentEntity implements IEntityWithAttributes,
     private Agent agent;
     private Organization organization;
     private State state;
-    private List<Attribute> attributes;
+    private List<DocumentAttribute> attributes;
     private LocalDateTime created;
     private Boolean vatEnabled;
     private Boolean vatIncluded;

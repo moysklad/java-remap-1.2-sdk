@@ -18,7 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class PaymentOut extends DocumentEntity implements FinanceOutDocumentMarker, IEntityWithAttributes, HasFiles {
+public class PaymentOut extends DocumentEntity implements FinanceOutDocumentMarker, IEntityWithAttributes<DocumentAttribute>, HasFiles {
     private Agent agent;
     private LocalDateTime created;
     private ExpenseItem expenseItem;
@@ -35,7 +35,7 @@ public class PaymentOut extends DocumentEntity implements FinanceOutDocumentMark
     private String description;
     private AgentAccount organizationAccount;
     private AgentAccount agentAccount;
-    private List<Attribute> attributes;
+    private List<DocumentAttribute> attributes;
     private FactureIn factureIn;
     private List<MetaEntity> operations;
     private ListEntity<AttachedFile> files;

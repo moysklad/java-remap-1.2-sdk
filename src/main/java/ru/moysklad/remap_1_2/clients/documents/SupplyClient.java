@@ -3,6 +3,7 @@ package ru.moysklad.remap_1_2.clients.documents;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.clients.endpoints.*;
+import ru.moysklad.remap_1_2.entities.DocumentAttribute;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.documents.Supply;
 import ru.moysklad.remap_1_2.entities.documents.positions.SupplyDocumentPosition;
@@ -14,8 +15,8 @@ public final class SupplyClient
         GetListEndpoint<Supply>,
         PostEndpoint<Supply>,
         DeleteByIdEndpoint,
-        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse>,
-        MetadataAttributeEndpoint,
+        DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse<DocumentAttribute>>,
+        MetadataDocumentAttributeEndpoint,
         DocumentNewEndpoint<Supply>,
         GetByIdEndpoint<Supply>,
         PutByIdEndpoint<Supply>,

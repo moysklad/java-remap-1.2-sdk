@@ -17,9 +17,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Loss extends DocumentEntity implements IEntityWithAttributes, HasFiles {
+public class Loss extends DocumentEntity implements IEntityWithAttributes<DocumentAttribute>, HasFiles {
     private Agent agent;
-    private List<Attribute> attributes;
+    private List<DocumentAttribute> attributes;
     private LocalDateTime created;
     private Contract contract;
     private LocalDateTime deleted;

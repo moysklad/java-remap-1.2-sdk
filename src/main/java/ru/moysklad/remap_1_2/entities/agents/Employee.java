@@ -4,11 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.moysklad.remap_1_2.entities.Attribute;
-import ru.moysklad.remap_1_2.entities.Cashier;
-import ru.moysklad.remap_1_2.entities.Group;
-import ru.moysklad.remap_1_2.entities.Image;
-import ru.moysklad.remap_1_2.entities.IEntityWithAttributes;
+import ru.moysklad.remap_1_2.entities.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public final class Employee extends Agent implements IEntityWithAttributes {
+public final class Employee extends Agent implements IEntityWithAttributes<Attribute> {
     private Employee owner;
     private Boolean shared;
     private String lastName;
