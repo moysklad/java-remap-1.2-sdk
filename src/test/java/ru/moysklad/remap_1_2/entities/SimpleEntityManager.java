@@ -38,6 +38,7 @@ public class SimpleEntityManager implements TestRandomizers {
     private static Organization ownOrganization = null;
     private static Currency firstCurrency = null;
     private static Group mainGroup = null;
+    private static RetailStore retailStore = null;
 
     public SimpleEntityManager(ApiClient api) {
         this.api = api;
@@ -306,6 +307,15 @@ public class SimpleEntityManager implements TestRandomizers {
             mainStore = store.getRows().get(0);
         }
         return mainStore;
+    }
+
+    public RetailStore getRetailStore() throws IOException, ApiClientException {
+        if (retailStore == null) {
+            ListEntity<RetailStore> retailStores = api.entity().retailstore().get(filterEq("name", "Точка продаж"));
+            assertEquals(1, retailStores.getRows().size());
+            retailStore = retailStores.getRows().get(0);
+        }
+        return retailStore;
     }
 
     public Store createSimpleStore() throws IOException, ApiClientException {

@@ -4,6 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.*;
+import ru.moysklad.remap_1_2.entities.documents.positions.RetailSalesDocumentPosition;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
@@ -13,11 +14,11 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
+import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
+import static ru.moysklad.remap_1_2.utils.params.LimitParam.limit;
 
 public class RetailDemandTest extends EntityGetUpdateDeleteTest implements FilesTest<RetailDemand> {
-    @Ignore
     @Test
     public void createTest() throws IOException, ApiClientException {
         RetailDemand retailDemand = new RetailDemand();
@@ -27,9 +28,20 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest implements Files
         retailDemand.setVatIncluded(true);
         retailDemand.setMoment(LocalDateTime.now());
 
+        RetailSalesDocumentPosition position = new RetailSalesDocumentPosition();
+        position.setQuantity(10.0);
+        position.setPrice(10_000L);
+        position.setAssortment(simpleEntityManager.createSimpleProduct());
+        retailDemand.setPositions(new ListEntity<>(position));
+
+        retailDemand.setCashSum(50_000L);
+        retailDemand.setNoCashSum(30_000L);
+        retailDemand.setAdvancePaymentSum(20_000L);
+
         retailDemand.setOrganization(simpleEntityManager.getOwnOrganization());
         retailDemand.setAgent(simpleEntityManager.createSimpleCounterparty());
         retailDemand.setStore(simpleEntityManager.getMainStore());
+        retailDemand.setRetailShift(getAnyOrCreateRetailShift());
 
         api.entity().retaildemand().create(retailDemand);
 
@@ -45,6 +57,9 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest implements Files
         assertEquals(retailDemand.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(retailDemand.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(retailDemand.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
+        assertEquals(retailDemand.getCashSum(), retrievedEntity.getCashSum());
+        assertEquals(retailDemand.getNoCashSum(), retrievedEntity.getNoCashSum());
+        assertEquals(retailDemand.getAdvancePaymentSum(), retrievedEntity.getAdvancePaymentSum());
     }
 
     @Test
@@ -208,4 +223,19 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest implements Files
     public Class<? extends MetaEntity> entityClass() {
         return RetailDemand.class;
     }
+
+    private RetailShift getAnyOrCreateRetailShift() throws IOException, ApiClientException {
+        List<RetailShift> retailShifts = api.entity().retailshift().get(limit(1)).getRows();
+        RetailShift retailShift;
+        if (retailShifts.isEmpty()) {
+            retailShift = new RetailShift();
+            retailShift.setRetailStore(simpleEntityManager.getRetailStore());
+            retailShift.setOrganization(simpleEntityManager.getOwnOrganization());
+            api.entity().retailshift().create(retailShift);
+        } else {
+            retailShift = retailShifts.get(0);
+        }
+        return retailShift;
+    }
+
 }

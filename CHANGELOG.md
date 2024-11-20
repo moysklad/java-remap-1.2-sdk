@@ -2,6 +2,10 @@
 
 Все крупные изменения в проекте будут отражены в этом файле.
 
+## 6.6-release (20.11.2024)
+* Добавлено поле `advancePaymentSum` в `RetailDemand`
+* Добавлена операция `create` для сущности Розничная смена `RetailShift`
+
 ## 6.0-release (18.07.2024)
 * Изменен тип и поле с `Long` и `wait` на `Double` и `inTransit` в `PurchaseOrderDocumentPosition` 
 
