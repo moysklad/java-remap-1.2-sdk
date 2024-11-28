@@ -47,8 +47,10 @@ public class PaymentIn extends DocumentEntity implements FinanceInDocumentMarker
     }
 
     public void setOperations(List<LinkedOperation> operations) {
-        this.operations = new ArrayList<>();
-        this.operations.addAll(operations);
+        if (operations != null) {
+            this.operations = new ArrayList<>();
+            this.operations.addAll(operations);
+        }
     }
 
 }

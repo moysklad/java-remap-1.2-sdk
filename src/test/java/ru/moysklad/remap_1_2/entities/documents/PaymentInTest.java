@@ -122,7 +122,7 @@ public class PaymentInTest extends EntityGetUpdateDeleteTest implements FilesTes
         assertEquals(1, updatedPaymentIns.size());
         assertEquals(paymentIn.getName(), updatedPaymentIns.get(0).getName());
         assertEquals(1, updatedPaymentIns.get(0).getOperations().size());
-        assertEquals(operation.getName(), updatedPaymentIns.get(0).getOperations().get(0).getName());
+        assertEquals(operation.getMeta().getHref(), updatedPaymentIns.get(0).getOperations().get(0).getMeta().getHref());
     }
 
     @Test
