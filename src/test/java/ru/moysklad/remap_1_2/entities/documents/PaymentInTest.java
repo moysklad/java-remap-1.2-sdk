@@ -114,7 +114,7 @@ public class PaymentInTest extends EntityGetUpdateDeleteTest implements FilesTes
 
         Demand createdDemand = api.entity().demand().create(demand);
         PaymentIn createdPaymentIn = api.entity().paymentin().create(paymentIn);
-        LinkedOperation operation = new LinkedOperation(createdDemand, paymentIn.getSum());
+        LinkedOperation operation = new LinkedOperation(createdDemand, paymentIn.getSum().doubleValue());
         createdPaymentIn.setOperations(ImmutableList.of(operation));
         List<PaymentIn> updatedPaymentIns = api.entity().paymentin().createOrUpdate(ImmutableList.of(createdPaymentIn));
 
