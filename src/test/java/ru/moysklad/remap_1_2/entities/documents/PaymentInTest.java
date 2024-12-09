@@ -1,5 +1,6 @@
 package ru.moysklad.remap_1_2.entities.documents;
 
+import com.google.common.collect.ImmutableList;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.*;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
 import static org.junit.Assert.*;
@@ -90,6 +92,37 @@ public class PaymentInTest extends EntityGetUpdateDeleteTest implements FilesTes
         assertEquals(Meta.Type.PRODUCT, updated.getEntityType());
         assertFalse(updated.getRequired());
         assertFalse(updated.getShow());
+    }
+
+    @Test
+    public void linkDemandToPaymentInWithLinkedSumTest() throws ApiClientException, IOException {
+        Demand demand = new Demand();
+        demand.setName("demand_" + randomString(3) + "_" + new Date().getTime());
+        demand.setDescription(randomString());
+        demand.setVatEnabled(true);
+        demand.setVatIncluded(true);
+        demand.setMoment(LocalDateTime.now());
+        demand.setOrganization(simpleEntityManager.getOwnOrganization());
+        demand.setAgent(simpleEntityManager.createSimpleCounterparty());
+        demand.setStore(simpleEntityManager.getMainStore());
+        PaymentIn paymentIn = new PaymentIn();
+        paymentIn.setName("paymentin_" + randomString(3) + "_" + new Date().getTime());
+        paymentIn.setMoment(LocalDateTime.now());
+        paymentIn.setSum(randomLong(10, 10000));
+        paymentIn.setOrganization(simpleEntityManager.getOwnOrganization());
+        paymentIn.setAgent(simpleEntityManager.createSimpleCounterparty());
+
+        Demand createdDemand = api.entity().demand().create(demand);
+        PaymentIn createdPaymentIn = api.entity().paymentin().create(paymentIn);
+        LinkedOperation operation = new LinkedOperation(createdDemand, paymentIn.getSum().doubleValue());
+        createdPaymentIn.setLinkedOperations(ImmutableList.of(operation));
+        List<PaymentIn> updatedPaymentIns = api.entity().paymentin().createOrUpdate(ImmutableList.of(createdPaymentIn));
+
+        assertNotNull(updatedPaymentIns);
+        assertEquals(1, updatedPaymentIns.size());
+        assertEquals(paymentIn.getName(), updatedPaymentIns.get(0).getName());
+        assertEquals(1, updatedPaymentIns.get(0).getOperations().size());
+        assertEquals(operation.getMeta().getHref(), updatedPaymentIns.get(0).getOperations().get(0).getMeta().getHref());
     }
 
     @Test

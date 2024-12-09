@@ -10,6 +10,7 @@ import ru.moysklad.remap_1_2.utils.TestRandomizers;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import static org.junit.Assert.*;
 
@@ -57,7 +58,7 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
         Attribute e = new Attribute();
         e.setType(Attribute.Type.timeValue);
 
-        LocalDateTime date = LocalDateTime.now();
+        LocalDateTime date = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         e.setValue(date);
 

@@ -12,6 +12,7 @@ import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -44,4 +45,12 @@ public class PaymentIn extends DocumentEntity implements FinanceInDocumentMarker
     public PaymentIn(String id) {
         super(id);
     }
+
+    public void setLinkedOperations(List<LinkedOperation> operations) {
+        if (operations != null) {
+            this.operations = new ArrayList<>();
+            this.operations.addAll(operations);
+        }
+    }
+
 }

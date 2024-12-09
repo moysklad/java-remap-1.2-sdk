@@ -10,6 +10,7 @@ import ru.moysklad.remap_1_2.utils.TestRandomizers;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import static java.time.LocalDateTime.now;
 import static org.junit.Assert.*;
@@ -32,7 +33,7 @@ public class LocalDateTimeSerializerTest implements TestAsserts, TestRandomizers
         Gson gson = new GsonBuilder().create();
         Gson gsonCustom = ApiClient.createGson();
 
-        LocalDateTime expected = now();
+        LocalDateTime expected = now().truncatedTo(ChronoUnit.MILLIS);
         String date = "\"" + expected.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")) + "\"";
 
         try {
