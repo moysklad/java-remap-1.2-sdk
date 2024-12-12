@@ -147,7 +147,11 @@ public class Bundle extends AbstractProduct implements IEntityWithAttributes<Att
         FOOD_SUPPLEMENT,
         SANITIZER,
         MEDICAL_DEVICES,
-        SOFT_DRINKS
+        SOFT_DRINKS,
+        VETPHARMA,
+        SEAFOOD,
+        BICYCLE,
+        NABEER
     }
 
     /**
