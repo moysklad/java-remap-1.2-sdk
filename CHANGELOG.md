@@ -5,7 +5,6 @@
 ## 6.01-release (16.01.2025)
 * Добавлено поле `standardHourcost` в `ProcessingStage`
 
-
 ## 6.0-release (18.07.2024)
 * Изменен тип и поле с `Long` и `wait` на `Double` и `inTransit` в `PurchaseOrderDocumentPosition` 
 
