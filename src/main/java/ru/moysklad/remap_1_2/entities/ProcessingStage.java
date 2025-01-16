@@ -20,4 +20,5 @@ public class ProcessingStage extends MetaEntity {
     private Employee owner;
     private Boolean shared;
     private LocalDateTime updated;
+    private Double standardHourCost;
 }
