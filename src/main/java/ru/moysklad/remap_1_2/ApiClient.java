@@ -30,6 +30,7 @@ import ru.moysklad.remap_1_2.utils.NoAuthRedirectStrategy;
 import ru.moysklad.remap_1_2.utils.json.*;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 
 @Getter
@@ -40,7 +41,6 @@ public final class ApiClient {
     private String token;
     private CloseableHttpClient client;
     private boolean prettyPrintJson = false;
-    private boolean nullSerialize = false;
     private boolean pricePrecision = false;
     private boolean withoutWebhookContent = false;
 
@@ -155,17 +155,17 @@ public final class ApiClient {
      * некоторых классов и сущностей
      */
     public static ObjectMapper createObjectMapper() {
-        return createObjectMapper(false, false);
+        return createObjectMapper(false);
     }
 
-    public static ObjectMapper createObjectMapper(boolean prettyPrinting, boolean nullSerialize) {
+    public static ObjectMapper createObjectMapper(boolean prettyPrinting) {
         ObjectMapper objectMapper = new ObjectMapper();
         if (prettyPrinting) {
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         }
-        if (!nullSerialize) {
-            objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        }
+
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
         objectMapper.configure(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
@@ -208,6 +208,7 @@ public final class ApiClient {
         module.addDeserializer(NotificationSubscription.Channel.class, new EnumSwitchCaseDeserializer<>(NotificationSubscription.Channel.class));
         module.addSerializer(RetailStore.PriorityOfdSend.class, new EnumSwitchCaseSerializer<>(RetailStore.PriorityOfdSend.class));
         module.addDeserializer(RetailStore.PriorityOfdSend.class, new EnumSwitchCaseDeserializer<>(RetailStore.PriorityOfdSend.class));
+        module.addSerializer(Optional.class, new OptionalEmptyAsNullSerializer());
 
         objectMapper.registerModule(module);
 
@@ -240,11 +241,4 @@ public final class ApiClient {
         this.withoutWebhookContent = without;
         return this;
     }
-
-    public ApiClient serializeNulls() {
-        // все поля будут сериализоваться нуллами
-        nullSerialize = true;
-        return this;
-    }
-
 }

@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 public class ListEntityDeserializerTest implements TestAsserts, TestRandomizers {
     @Test
     public void test_deserialize() throws JsonProcessingException {
-        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper(true, false);
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper(false);
 
         ListEntity<MetaEntity> e = new ListEntity<>();
 
@@ -69,7 +69,7 @@ public class ListEntityDeserializerTest implements TestAsserts, TestRandomizers 
 
     @Test
     public void test_deserializeListOfChildClasses() throws JsonProcessingException {
-        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper(true, false);
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper(false);
         ListEntity<MetaEntity> e = new ListEntity<>();
 
         e.setMeta(new Meta());
