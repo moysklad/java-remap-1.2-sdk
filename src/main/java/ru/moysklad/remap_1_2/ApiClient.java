@@ -40,7 +40,7 @@ public final class ApiClient {
     private String token;
     private CloseableHttpClient client;
     private boolean prettyPrintJson = false;
-    private static boolean nullSerialize = false;
+    private boolean nullSerialize = false;
     private boolean pricePrecision = false;
     private boolean withoutWebhookContent = false;
 
@@ -155,10 +155,10 @@ public final class ApiClient {
      * некоторых классов и сущностей
      */
     public static ObjectMapper createObjectMapper() {
-        return createObjectMapper(false);
+        return createObjectMapper(false, false);
     }
 
-    public static ObjectMapper createObjectMapper(boolean prettyPrinting) {
+    public static ObjectMapper createObjectMapper(boolean prettyPrinting, boolean nullSerialize) {
         ObjectMapper objectMapper = new ObjectMapper();
         if (prettyPrinting) {
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);

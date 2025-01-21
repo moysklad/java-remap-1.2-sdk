@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 public class CustomEntityMetadataDeserializerTest implements TestAsserts, TestRandomizers {
     @Test
     public void test_deserialize() throws JsonProcessingException {
-        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper(true);
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper(true, false);
 
         CustomEntityMetadata e = new CustomEntityMetadata();
 
