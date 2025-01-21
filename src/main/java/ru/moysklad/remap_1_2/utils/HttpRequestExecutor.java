@@ -1,7 +1,7 @@
 package ru.moysklad.remap_1_2.utils;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.ContentType;
@@ -38,7 +38,7 @@ public final class HttpRequestExecutor {
     private List<ApiParam> apiParams;
     private Map<String, Object> query;
     private Map<String, Object> headers;
-    private final Gson gson;
+    private final ObjectMapper objectMapper;
     private final CloseableHttpClient client;
     private Object body;
 
@@ -59,7 +59,7 @@ public final class HttpRequestExecutor {
         if (api.isPricePrecision()) header("X-Lognex-Precision", "true");
         if (api.isWithoutWebhookContent()) header("X-Lognex-WebHook-Disable", "true");
 
-        gson = ApiClient.createGson();
+        objectMapper = ApiClient.createObjectMapper();
     }
 
     private HttpRequestExecutor(CloseableHttpClient client, String url) {
@@ -72,7 +72,7 @@ public final class HttpRequestExecutor {
         query = new HashMap<>();
         headers = createRequiredHeadersMap();
         body = null;
-        gson = ApiClient.createGson();
+        objectMapper = ApiClient.createObjectMapper();
     }
 
     /**
@@ -221,7 +221,7 @@ public final class HttpRequestExecutor {
                         json
                 );
 
-                ErrorResponse er = gson.fromJson(json, ErrorResponse.class);
+                ErrorResponse er = objectMapper.readValue(json, ErrorResponse.class);
 
                 throw new ApiClientException(
                         request.getMethod() + " " + request.getURI(),
@@ -265,7 +265,7 @@ public final class HttpRequestExecutor {
                         json
                 );
 
-                ErrorResponse er = gson.fromJson(json, ErrorResponse.class);
+                ErrorResponse er = objectMapper.readValue(json, ErrorResponse.class);
 
                 throw new ApiClientException(
                         request.getMethod() + " " + request.getURI(),
@@ -311,7 +311,7 @@ public final class HttpRequestExecutor {
      * @throws ApiClientException когда возникла ошибка API
      */
     public <T> T get(Class<T> cl) throws IOException, ApiClientException {
-        return gson.fromJson(get(), cl);
+        return objectMapper.readValue(get(), cl);
     }
 
     /**
@@ -322,7 +322,8 @@ public final class HttpRequestExecutor {
      * @throws ApiClientException когда возникла ошибка API
      */
     public <T extends MetaEntity> ListEntity<T> list(Class<T> cl) throws IOException, ApiClientException {
-        return gson.fromJson(get(), TypeToken.getParameterized(ListEntity.class, cl).getType());
+        JavaType type = objectMapper.getTypeFactory().constructParametricType(ListEntity.class, cl);
+        return objectMapper.readValue(get(), type);
     }
 
     /**
@@ -333,7 +334,8 @@ public final class HttpRequestExecutor {
      * @throws ApiClientException когда возникла ошибка API
      */
     public <T extends MetaEntity> List<T> plainList(Class<T> cl) throws IOException, ApiClientException {
-        return gson.fromJson(get(), TypeToken.getParameterized(List.class, cl).getType());
+        JavaType type = objectMapper.getTypeFactory().constructParametricType(List.class, cl);
+        return objectMapper.readValue(get(), type);
     }
 
     /**
@@ -348,7 +350,7 @@ public final class HttpRequestExecutor {
         applyHeaders(request);
 
         if (body != null) {
-            String strBody = gson.toJson(body);
+            String strBody = objectMapper.writeValueAsString(body);
             logger.debug("Тело запроса        {} {}: {}", request.getMethod(), request.getURI(), strBody);
             StringEntity requestEntity = new StringEntity(strBody, ContentType.APPLICATION_JSON);
             request.setEntity(requestEntity);
@@ -369,7 +371,7 @@ public final class HttpRequestExecutor {
         applyHeaders(request);
 
         if (body != null) {
-            String strBody = gson.toJson(body);
+            String strBody = objectMapper.writeValueAsString(body);
             logger.debug("Тело запроса        {} {}: {}", request.getMethod(), request.getURI(), strBody);
             StringEntity requestEntity = new StringEntity(strBody, ContentType.APPLICATION_JSON);
             request.setEntity(requestEntity);
@@ -388,7 +390,8 @@ public final class HttpRequestExecutor {
      * @throws ApiClientException когда возникла ошибка API
      */
     public <T> T post(Class<T> cl) throws IOException, ApiClientException {
-        return gson.fromJson(post(), cl);
+        String str = post();
+        return objectMapper.readValue(str, cl);
     }
 
     /**
@@ -399,7 +402,10 @@ public final class HttpRequestExecutor {
      * @throws ApiClientException когда возникла ошибка API
      */
     public <T> List<T> postList(Class<T> cl) throws IOException, ApiClientException {
-        return gson.fromJson(post(), TypeToken.getParameterized(List.class, cl).getType());
+        JavaType type = objectMapper.getTypeFactory().constructParametricType(List.class, cl);
+        String str = post();
+        if (str == null || str.isEmpty()) return null;
+        return objectMapper.readValue(str, type);
     }
 
     /**
@@ -426,7 +432,7 @@ public final class HttpRequestExecutor {
         applyHeaders(request);
 
         if (body != null) {
-            String strBody = gson.toJson(body);
+            String strBody = objectMapper.writeValueAsString(body);
             logger.debug("Тело запроса        {} {}: {}", request.getMethod(), request.getURI(), strBody);
             StringEntity requestEntity = new StringEntity(strBody, ContentType.APPLICATION_JSON);
             request.setEntity(requestEntity);
@@ -443,6 +449,6 @@ public final class HttpRequestExecutor {
      * @throws ApiClientException когда возникла ошибка API
      */
     public <T> T put(Class<? extends T> cl) throws IOException, ApiClientException {
-        return gson.fromJson(put(), cl);
+        return objectMapper.readValue(put(), cl);
     }
 }

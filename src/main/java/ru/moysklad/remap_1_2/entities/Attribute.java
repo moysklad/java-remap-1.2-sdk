@@ -1,6 +1,6 @@
 package ru.moysklad.remap_1_2.entities;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -83,42 +83,42 @@ public class Attribute extends MetaEntity {
         /**
          * Строка
          */
-        @SerializedName("string") stringValue,
+        @JsonProperty("string") stringValue,
 
         /**
          * Целое число
          */
-        @SerializedName("long") longValue,
+        @JsonProperty("long") longValue,
 
         /**
          * Дата
          */
-        @SerializedName("time") timeValue,
+        @JsonProperty("time") timeValue,
 
         /**
          * Файл
          */
-        @SerializedName("file") fileValue,
+        @JsonProperty("file") fileValue,
 
         /**
          * Число дробное
          */
-        @SerializedName("double") doubleValue,
+        @JsonProperty("double") doubleValue,
 
         /**
          * Флажок
          */
-        @SerializedName("boolean") booleanValue,
+        @JsonProperty("boolean") booleanValue,
 
         /**
          * Текст
          */
-        @SerializedName("text") textValue,
+        @JsonProperty("text") textValue,
 
         /**
          * Ссылка
          */
-        @SerializedName("link") linkValue
+        @JsonProperty("link") linkValue
     }
 
     public <T> T getValueAs(Class<T> tClass) {

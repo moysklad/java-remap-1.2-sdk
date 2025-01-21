@@ -1,6 +1,6 @@
 package ru.moysklad.remap_1_2.entities;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -128,11 +128,11 @@ public class Contract extends MetaEntity implements IEntityWithAttributes<Attrib
         /**
          * Договор комиссии
          */
-        @SerializedName("Commission") commission,
+        @JsonProperty("Commission") commission,
 
         /**
          * Договор купли-продажи
          */
-        @SerializedName("Sales") sales
+        @JsonProperty("Sales") sales
     }
 }

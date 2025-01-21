@@ -1,6 +1,7 @@
 package ru.moysklad.remap_1_2.entities;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.entities.discounts.*;
 import ru.moysklad.remap_1_2.entities.products.Variant;
@@ -23,10 +24,10 @@ public class DiscountTest extends EntityTestBase {
     }
 
     @Test
-    public void deserializeSpecialPriceDiscountWithDiscountTest() {
-        Gson gson = ApiClient.createGson();
+    public void deserializeSpecialPriceDiscountWithDiscountTest() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        SpecialPriceDiscount specialPriceDiscount = gson.fromJson(
+        SpecialPriceDiscount specialPriceDiscount = objectMapper.readValue(
                 TestUtils.getFile("discountJson/specialdiscount.json"), SpecialPriceDiscount.class
         );
 
@@ -48,10 +49,10 @@ public class DiscountTest extends EntityTestBase {
     }
 
     @Test
-    public void deserializeSpecialPriceDiscountWithSpecialPriceTest() {
-        Gson gson = ApiClient.createGson();
+    public void deserializeSpecialPriceDiscountWithSpecialPriceTest() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        SpecialPriceDiscount specialPriceDiscount = gson.fromJson(
+        SpecialPriceDiscount specialPriceDiscount = objectMapper.readValue(
                 TestUtils.getFile("discountJson/specialprice.json"), SpecialPriceDiscount.class
         );
 
@@ -77,10 +78,10 @@ public class DiscountTest extends EntityTestBase {
     }
 
     @Test
-    public void deserializePersonalDiscountTest() {
-        Gson gson = ApiClient.createGson();
+    public void deserializePersonalDiscountTest() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        PersonalDiscount personalDiscount = gson.fromJson(
+        PersonalDiscount personalDiscount = objectMapper.readValue(
                 TestUtils.getFile("discountJson/personaldiscount.json"), PersonalDiscount.class
         );
 
@@ -95,10 +96,10 @@ public class DiscountTest extends EntityTestBase {
     }
 
     @Test
-    public void deserializeAccumulationDiscountTest() {
-        Gson gson = ApiClient.createGson();
+    public void deserializeAccumulationDiscountTest() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        AccumulationDiscount accumulationDiscount = gson.fromJson(
+        AccumulationDiscount accumulationDiscount = objectMapper.readValue(
                 TestUtils.getFile("discountJson/accumulationdiscount.json"), AccumulationDiscount.class
         );
 
@@ -122,10 +123,10 @@ public class DiscountTest extends EntityTestBase {
     }
 
     @Test
-    public void deserializeBonusProgramDiscountTest() {
-        Gson gson = ApiClient.createGson();
+    public void deserializeBonusProgramDiscountTest() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        BonusProgram bonusProgram = gson.fromJson(
+        BonusProgram bonusProgram = objectMapper.readValue(
                 TestUtils.getFile("discountJson/bonusprogram.json"), BonusProgram.class
         );
 

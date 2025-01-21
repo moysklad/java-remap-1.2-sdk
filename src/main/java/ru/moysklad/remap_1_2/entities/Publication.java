@@ -1,11 +1,18 @@
 package ru.moysklad.remap_1_2.entities;
 
-import com.google.gson.*;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.moysklad.remap_1_2.utils.json.JsonUtils;
+
+import java.io.IOException;
 
 @Getter
 @Setter
@@ -22,16 +29,17 @@ public class Publication extends MetaEntity {
         CONTRACT
     }
 
-    public static class Deserializer implements JsonDeserializer<Publication> {
-        private final Gson gson = JsonUtils.createGsonWithMetaAdapter();
+    public static class Deserializer extends JsonDeserializer<Publication> {
+        private final ObjectMapper objectMapper = JsonUtils.createObjectMapperWithMetaAdapter();
 
         @Override
-        public Publication deserialize(JsonElement json, java.lang.reflect.Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            Publication publication = gson.fromJson(json, Publication.class);
+        public Publication deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+            JsonNode node = p.getCodec().readTree(p);
+            Publication publication = objectMapper.treeToValue(node, Publication.class);
 
             if (publication.getMeta() != null) {
                 if (publication.getMeta().getType() == null) {
-                    throw new JsonParseException("Can't parse publication: meta.type is null");
+                    throw new JsonParseException(p, "Can't parse publication: meta.type is null");
                 }
                 switch (publication.getMeta().getType()) {
                     case CONTRACT_PUBLICATION:
@@ -41,7 +49,7 @@ public class Publication extends MetaEntity {
                         publication.setType(PublicationType.OPERATION);
                         break;
                     default:
-                        throw new JsonParseException("Can't parse publication: meta.type must be one of [\"contractpublication\", \"operationpublication\"]");
+                        throw new JsonParseException(p, "Can't parse publication: meta.type must be one of [\"contractpublication\", \"operationpublication\"]");
                 }
             }
 
