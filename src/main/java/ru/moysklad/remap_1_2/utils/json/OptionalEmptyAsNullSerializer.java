@@ -11,9 +11,7 @@ public class OptionalEmptyAsNullSerializer extends JsonSerializer<Optional> {
 
     @Override
     public void serialize(Optional value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-        if (value == null) {
-            gen.writeNull();
-        } else if (!value.isPresent()) {
+        if (!value.isPresent()) {
             gen.writeNull();
         } else {
             gen.writeObject(value.get());

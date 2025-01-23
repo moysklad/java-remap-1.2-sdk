@@ -74,13 +74,13 @@ public class ProductMarkerSerializerTest implements TestAsserts, TestRandomizers
         try {
             objectMapper.readValue(data, ProductMarker.class);
             fail("Ожидалось исключение InvalidDefinitionException!");
-        } catch (Exception ex) {
-            if (!(ex instanceof InvalidDefinitionException)) fail("Ожидалось исключение InvalidDefinitionException!");
-
+        } catch (InvalidDefinitionException ex) {
             assertEquals(
                     "Cannot construct instance of `" + ProductMarker.class.getCanonicalName() + "` (no Creators, like default constructor, exist): abstract types either need to be mapped to concrete types, have custom deserializer, or contain additional type information",
-                    ((InvalidDefinitionException) ex).getOriginalMessage()
+                    ex.getOriginalMessage()
             );
+        } catch (Exception ex) {
+            fail("Ожидалось исключение InvalidDefinitionException!");
         }
 
         ProductMarker parsed = objectMapperCustom.readValue(data, ProductMarker.class);

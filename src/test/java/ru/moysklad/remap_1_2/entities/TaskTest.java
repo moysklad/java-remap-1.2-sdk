@@ -83,10 +83,18 @@ public class TaskTest extends EntityGetUpdateDeleteTest implements FilesTest<Tas
 
         Task updatedTask = new Task();
         updatedTask.setId(task.getId());
-        updatedTask.setAgent(null);
+        updatedTask.setDescription("task_" + randomString(3) + "_" + new Date().getTime());
         api.entity().task().update(updatedTask);
 
         Task taskFromApi = api.entity().task().get(task.getId());
+        assertNotNull(taskFromApi.getAgent());
+
+        updatedTask = new Task();
+        updatedTask.setId(task.getId());
+        updatedTask.setAgent(null);
+        api.entity().task().update(updatedTask);
+
+        taskFromApi = api.entity().task().get(task.getId());
         assertNull(taskFromApi.getAgent());
     }
 

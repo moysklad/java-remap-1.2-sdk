@@ -31,13 +31,13 @@ public class AgentDeserializerTest implements TestAsserts, TestRandomizers {
         try {
             objectMapper.readValue(data, Agent.class);
             fail("Ожидалось исключение InvalidDefinitionException!");
-        } catch (Exception ex) {
-            if (!(ex instanceof InvalidDefinitionException)) fail("Ожидалось исключение InvalidDefinitionException!");
-
+        } catch (InvalidDefinitionException ex) {
             assertEquals(
                     "Cannot construct instance of `" + Agent.class.getName() + "` (no Creators, like default constructor, exist): abstract types either need to be mapped to concrete types, have custom deserializer, or contain additional type information",
-                    ((InvalidDefinitionException) ex).getOriginalMessage()
+                    ex.getOriginalMessage()
             );
+        } catch (Exception ex) {
+            fail("Ожидалось исключение InvalidDefinitionException!");
         }
 
         Agent parsed = objectMapperCustom.readValue(data, Agent.class);
@@ -58,13 +58,13 @@ public class AgentDeserializerTest implements TestAsserts, TestRandomizers {
         try {
             objectMapper.readValue(data, Agent.class);
             fail("Ожидалось исключение InvalidDefinitionException!");
-        } catch (Exception ex) {
-            if (!(ex instanceof InvalidDefinitionException)) fail("Ожидалось исключение InvalidDefinitionException!");
-
+        } catch (InvalidDefinitionException ex) {
             assertEquals(
                     "Cannot construct instance of `" + Agent.class.getName() + "` (no Creators, like default constructor, exist): abstract types either need to be mapped to concrete types, have custom deserializer, or contain additional type information",
-                    ((InvalidDefinitionException) ex).getOriginalMessage()
+                    ex.getOriginalMessage()
             );
+        } catch (Exception ex) {
+            fail("Ожидалось исключение InvalidDefinitionException!");
         }
 
         Agent parsed = objectMapperCustom.readValue(data, Agent.class);
@@ -85,13 +85,13 @@ public class AgentDeserializerTest implements TestAsserts, TestRandomizers {
         try {
             objectMapper.readValue(data, Agent.class);
             fail("Ожидалось исключение InvalidDefinitionException!");
-        } catch (Exception ex) {
-            if (!(ex instanceof InvalidDefinitionException)) fail("Ожидалось исключение InvalidDefinitionException!");
-
+        } catch (InvalidDefinitionException ex) {
             assertEquals(
                     "Cannot construct instance of `" + Agent.class.getName() + "` (no Creators, like default constructor, exist): abstract types either need to be mapped to concrete types, have custom deserializer, or contain additional type information",
-                    ((InvalidDefinitionException) ex).getOriginalMessage()
+                    ex.getOriginalMessage()
             );
+        } catch (Exception ex) {
+            fail("Ожидалось исключение InvalidDefinitionException!");
         }
         Agent parsed = objectMapperCustom.readValue(data, Agent.class);
         assertEquals(Employee.class, parsed.getClass());

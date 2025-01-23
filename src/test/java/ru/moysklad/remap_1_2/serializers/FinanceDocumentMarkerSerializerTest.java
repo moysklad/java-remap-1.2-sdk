@@ -97,13 +97,13 @@ public class FinanceDocumentMarkerSerializerTest implements TestAsserts, TestRan
         try {
             objectMapper.readValue(data, FinanceDocumentMarker.class);
             fail("Ожидалось исключение InvalidDefinitionException!");
-        } catch (Exception ex) {
-            if (!(ex instanceof InvalidDefinitionException)) fail("Ожидалось исключение InvalidDefinitionException!");
-
+        } catch (InvalidDefinitionException ex) {
             assertEquals(
                     "Cannot construct instance of `" + FinanceDocumentMarker.class.getCanonicalName() + "` (no Creators, like default constructor, exist): abstract types either need to be mapped to concrete types, have custom deserializer, or contain additional type information",
-                    ((InvalidDefinitionException) ex).getOriginalMessage()
+                    ex.getOriginalMessage()
             );
+        } catch (Exception ex) {
+            fail("Ожидалось исключение InvalidDefinitionException!");
         }
 
         FinanceDocumentMarker parsed = objectMapperCustom.readValue(data, FinanceDocumentMarker.class);

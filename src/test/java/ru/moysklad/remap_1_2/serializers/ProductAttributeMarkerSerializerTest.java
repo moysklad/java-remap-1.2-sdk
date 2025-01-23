@@ -61,13 +61,13 @@ public class ProductAttributeMarkerSerializerTest implements TestAsserts, TestRa
         try {
             objectMapper.readValue(data, ProductAttributeMarker.class);
             fail("Ожидалось исключение InvalidDefinitionException!");
-        } catch (Exception ex) {
-            if (!(ex instanceof InvalidDefinitionException)) fail("Ожидалось исключение InvalidDefinitionException!");
-
+        } catch (InvalidDefinitionException ex) {
             assertEquals(
                     "Cannot construct instance of `" + ProductAttributeMarker.class.getCanonicalName() + "` (no Creators, like default constructor, exist): abstract types either need to be mapped to concrete types, have custom deserializer, or contain additional type information",
-                    ((InvalidDefinitionException) ex).getOriginalMessage()
+                    ex.getOriginalMessage()
             );
+        } catch (Exception ex) {
+            fail("Ожидалось исключение InvalidDefinitionException!");
         }
 
         ProductAttributeMarker parsed = objectMapperCustom.readValue(data, ProductAttributeMarker.class);
