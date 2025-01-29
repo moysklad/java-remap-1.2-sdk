@@ -1,15 +1,19 @@
 package ru.moysklad.remap_1_2.utils.json;
 
-import com.google.gson.*;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
-public class EnumSwitchCaseSerializer<T extends Enum<T>> implements JsonSerializer<T>, JsonDeserializer<T> {
-    @Override
-    public T deserialize(JsonElement json, java.lang.reflect.Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        return Enum.valueOf((Class<T>) typeOfT, json.getAsString().toUpperCase());
+import java.io.IOException;
+
+public class EnumSwitchCaseSerializer<T extends Enum<T>> extends StdSerializer<T> {
+
+    public EnumSwitchCaseSerializer(Class<T> t) {
+        super(t);
     }
 
     @Override
-    public JsonElement serialize(T src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(src.toString().toLowerCase());
+    public void serialize(T value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+        gen.writeString(value.toString().toLowerCase());
     }
 }

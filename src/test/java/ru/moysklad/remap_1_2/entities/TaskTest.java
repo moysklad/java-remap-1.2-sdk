@@ -67,6 +67,37 @@ public class TaskTest extends EntityGetUpdateDeleteTest implements FilesTest<Tas
         assertEquals(taskFromApi.getOperation().meta.getHref(), demand.getMeta().getHref());
     }
 
+    @Test
+    public void updateTaskNullAgent() throws Exception {
+        Employee adminEmpl = simpleEntityManager.getAdminEmployee();
+        Counterparty buyerAgent = api.entity().counterparty().get(filterEq("name", "ООО \"Покупатель\"")).getRows().get(0);
+        LocalDateTime dueDate = LocalDateTime.now().plusMonths(1).withSecond(0).withNano(0);
+
+        Task task = new Task();
+        task.setDescription("task_" + randomString(3) + "_" + new Date().getTime());
+        task.setAssignee(adminEmpl);
+        task.setAgent(buyerAgent);
+        task.setDueToDate(dueDate);
+        task.setDone(false);
+        api.entity().task().create(task);
+
+        Task updatedTask = new Task();
+        updatedTask.setId(task.getId());
+        updatedTask.setDescription("task_" + randomString(3) + "_" + new Date().getTime());
+        api.entity().task().update(updatedTask);
+
+        Task taskFromApi = api.entity().task().get(task.getId());
+        assertNotNull(taskFromApi.getAgent());
+
+        updatedTask = new Task();
+        updatedTask.setId(task.getId());
+        updatedTask.setAgent(null);
+        api.entity().task().update(updatedTask);
+
+        taskFromApi = api.entity().task().get(task.getId());
+        assertNull(taskFromApi.getAgent());
+    }
+
     @Override
     protected String getFieldNameToUpdate() {
         return "Description";

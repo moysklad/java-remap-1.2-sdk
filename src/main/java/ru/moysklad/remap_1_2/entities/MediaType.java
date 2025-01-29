@@ -1,12 +1,13 @@
 package ru.moysklad.remap_1_2.entities;
 
-import com.google.gson.annotations.SerializedName;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Тип данных, которые приходят в ответ от сервера, либо отправляются в теле запроса
  */
 public enum MediaType {
-    @SerializedName("application/json") json,
-    @SerializedName("application/octet-stream") octet_stream,
-    @SerializedName("image/png") png
+    @JsonProperty("application/json") json,
+    @JsonProperty("application/octet-stream") octet_stream,
+    @JsonProperty("image/png") png
 }

@@ -1,6 +1,12 @@
 package ru.moysklad.remap_1_2.entities;
 
-import com.google.gson.*;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import ru.moysklad.remap_1_2.entities.agents.Counterparty;
 import ru.moysklad.remap_1_2.entities.agents.Employee;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
@@ -20,6 +26,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -257,15 +264,22 @@ public final class Meta {
                     .findFirst().orElseThrow(() -> new IllegalArgumentException("No type found for string: " + apiName));
         }
 
-        public static class Serializer implements JsonSerializer<Type>, JsonDeserializer<Type> {
-            @Override
-            public Type deserialize(JsonElement json, java.lang.reflect.Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                return Type.find(json.getAsString());
+        public static class Serializer extends StdSerializer<Type> {
+            public Serializer() {
+                super(Type.class);
             }
 
             @Override
-            public JsonElement serialize(Type src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
-                return context.serialize(src.getApiName());
+            public void serialize(Type value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+                gen.writeString(value.getApiName());
+            }
+        }
+
+        public static class Deserializer extends JsonDeserializer<Type> {
+            @Override
+            public Type deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+                JsonNode node = p.getCodec().readTree(p);
+                return Type.find(node.asText());
             }
         }
     }

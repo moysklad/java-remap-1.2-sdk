@@ -1,7 +1,8 @@
 package ru.moysklad.remap_1_2.serializers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.entities.CustomEntity;
 import ru.moysklad.remap_1_2.entities.Meta;
@@ -14,9 +15,8 @@ import static org.junit.Assert.*;
 
 public class CustomEntityMetadataDeserializerTest implements TestAsserts, TestRandomizers {
     @Test
-    public void test_deserialize() {
-        Gson gson = new GsonBuilder().create();
-        Gson gsonCustom = ApiClient.createGson(true);
+    public void test_deserialize() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper(false);
 
         CustomEntityMetadata e = new CustomEntityMetadata();
 
@@ -47,24 +47,19 @@ public class CustomEntityMetadataDeserializerTest implements TestAsserts, TestRa
                 "            \"createShared\": " + e.getCreateShared().toString() + "\n" +
                 "        }";
 
-        CustomEntityMetadata parsed1 = gson.fromJson(data, CustomEntityMetadata.class);
-        CustomEntityMetadata parsed2 = gsonCustom.fromJson(data, CustomEntityMetadata.class);
+        CustomEntityMetadata parsed = objectMapperCustom.readValue(data, CustomEntityMetadata.class);
 
-        assertEquals(e.getMeta().getHref(), parsed1.getMeta().getHref());
-        assertEquals(e.getMeta().getHref(), parsed2.getMeta().getHref());
+        assertEquals(e.getMeta().getHref(), parsed.getMeta().getHref());
 
-        assertEquals(e.getName(), parsed1.getName());
-        assertEquals(e.getName(), parsed2.getName());
+        assertEquals(e.getName(), parsed.getName());
 
-        assertEquals(e.getCreateShared(), parsed1.getCreateShared());
-        assertEquals(e.getCreateShared(), parsed2.getCreateShared());
+        assertEquals(e.getCreateShared(), parsed.getCreateShared());
 
-        assertNull(parsed1.getEntityMeta().getMeta());
-        assertNotNull(parsed2.getEntityMeta().getMeta());
+        assertNotNull(parsed.getEntityMeta().getMeta());
 
-        assertEquals(e.getEntityMeta().getMeta().getHref(), parsed2.getEntityMeta().getMeta().getHref());
-        assertEquals(e.getName(), parsed2.getEntityMeta().getName());
-        assertEquals(e.getEntityMeta().getMeta().getUuidHref(), parsed2.getEntityMeta().getMeta().getUuidHref());
-        assertEquals(id, parsed2.getEntityMeta().getId());
+        assertEquals(e.getEntityMeta().getMeta().getHref(), parsed.getEntityMeta().getMeta().getHref());
+        assertEquals(e.getName(), parsed.getEntityMeta().getName());
+        assertEquals(e.getEntityMeta().getMeta().getUuidHref(), parsed.getEntityMeta().getMeta().getUuidHref());
+        assertEquals(id, parsed.getEntityMeta().getId());
     }
 }

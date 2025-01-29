@@ -2,11 +2,13 @@ package ru.moysklad.remap_1_2.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class BarcodeRules {
     /**
      * Автоматически создавать штрихкод EAN13 для новых товаров, комплектов, модификаций и услуг

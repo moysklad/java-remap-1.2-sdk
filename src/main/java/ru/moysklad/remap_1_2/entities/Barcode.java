@@ -1,10 +1,12 @@
 package ru.moysklad.remap_1_2.entities;
 
-import com.google.gson.*;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.*;
 
+import java.io.IOException;
 import java.util.Map;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -29,29 +31,32 @@ public class Barcode {
     /**
      * Сериализатор/десериализатор штрихкода
      */
-    public static class Serializer implements JsonSerializer<Barcode>, JsonDeserializer<Barcode> {
+    public static class Serializer extends JsonSerializer<Barcode> {
         @Override
-        public Barcode deserialize(JsonElement json, java.lang.reflect.Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            Barcode e = new Barcode();
-            Set<Map.Entry<String, JsonElement>> entries = json.getAsJsonObject().entrySet();
+        public void serialize(Barcode barcode, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+            ObjectMapper objectMapper = (ObjectMapper) gen.getCodec();
+            ObjectNode objectNode = objectMapper.createObjectNode();
+            objectNode.put(barcode.getType().toString().toLowerCase(), barcode.getValue());
+            gen.writeTree(objectNode);
+        }
+    }
 
-            if (entries.size() != 1) {
-                throw new JsonParseException("Can't parse field 'barcode': object contains more or less than 1 field");
+    public static class Deserializer extends JsonDeserializer<Barcode> {
+        @Override
+        public Barcode deserialize(com.fasterxml.jackson.core.JsonParser p, com.fasterxml.jackson.databind.DeserializationContext ctxt)
+                throws IOException {
+            JsonNode node = p.getCodec().readTree(p);
+
+            if (node.size() != 1) {
+                throw new IOException("Can't parse field 'barcode': object contains more or less than 1 field");
             }
 
-            Map.Entry<String, JsonElement> elementEntry = entries.iterator().next();
-            e.type = Type.valueOf(elementEntry.getKey().toUpperCase());
-            e.value =  elementEntry.getValue().getAsString();
+            Map.Entry<String, JsonNode> entry = node.fields().next();
+            Barcode barcode = new Barcode();
+            barcode.setType(Type.valueOf(entry.getKey().toUpperCase()));
+            barcode.setValue(entry.getValue().asText());
 
-            return e;
-        }
-
-        @Override
-        public JsonElement serialize(Barcode src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
-            JsonObject e = new JsonObject();
-            e.add(src.type.toString().toLowerCase(), context.serialize(src.value));
-
-            return e;
+            return barcode;
         }
     }
 }

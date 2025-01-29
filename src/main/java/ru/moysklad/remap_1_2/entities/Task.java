@@ -1,5 +1,6 @@
 package ru.moysklad.remap_1_2.entities;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -26,7 +28,7 @@ public class Task extends MetaEntity implements Fetchable, HasFiles {
     private Boolean done;
     private LocalDateTime completed;
     private Employee implementer;
-    private Agent agent;
+    private Optional<Agent> agent;
     private DocumentEntity operation;
     private ListEntity<TaskNote> notes;
     private ListEntity<AttachedFile> files;
@@ -43,5 +45,22 @@ public class Task extends MetaEntity implements Fetchable, HasFiles {
 
     public Task(String id) {
         super(id);
+    }
+
+    @JsonGetter(value = "agent")
+    public Optional<Agent> getOptionalAgent() {
+        return agent;
+    }
+
+    public Agent getAgent() {
+        return agent == null ? null : agent.orElse(null);
+    }
+
+    public void setAgent(Agent agent) {
+        if (agent == null) {
+            this.agent = Optional.empty();
+        } else {
+            this.agent = Optional.of(agent);
+        }
     }
 }

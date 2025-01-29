@@ -1,6 +1,6 @@
 package ru.moysklad.remap_1_2.entities;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,8 +47,8 @@ public class State extends MetaEntity implements Fetchable {
     }
 
     public enum StateType {
-        @SerializedName("Regular") regular,
-        @SerializedName("Successful") successful,
-        @SerializedName("Unsuccessful") unsuccessful
+        @JsonProperty("Regular") regular,
+        @JsonProperty("Successful") successful,
+        @JsonProperty("Unsuccessful") unsuccessful
     }
 }
