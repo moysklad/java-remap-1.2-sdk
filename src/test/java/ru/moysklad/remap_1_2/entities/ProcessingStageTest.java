@@ -20,6 +20,7 @@ public class ProcessingStageTest extends EntityGetTest {
         processingStage.setArchived(false);
         processingStage.setDescription(randomString());
         processingStage.setExternalCode(randomString());
+        processingStage.setStandardHourCost(3.33);
 
         api.entity().processingStage().create(processingStage);
         ListEntity<ProcessingStage> updatedEntitiesList = api.entity().processingStage().get(filterEq("name", processingStage.getName()));
@@ -29,6 +30,7 @@ public class ProcessingStageTest extends EntityGetTest {
         assertEquals(processingStage.getName(), retrievedEntity.getName());
         assertEquals(processingStage.getDescription(), retrievedEntity.getDescription());
         assertEquals(processingStage.getArchived(), retrievedEntity.getArchived());
+        assertEquals(processingStage.getStandardHourCost(), retrievedEntity.getStandardHourCost());
     }
 
     @Override
@@ -37,6 +39,7 @@ public class ProcessingStageTest extends EntityGetTest {
         ProcessingStage retrievedStage = (ProcessingStage) retrievedEntity;
         assertEquals(originalStage.getName(), retrievedStage.getName());
         assertEquals(originalStage.getDescription(), retrievedStage.getDescription());
+        assertEquals(originalStage.getStandardHourCost(), retrievedStage.getStandardHourCost());
     }
 
     @Override
