@@ -1,13 +1,17 @@
 package ru.moysklad.remap_1_2.entities;
 
-import com.google.gson.*;
-import com.google.gson.annotations.SerializedName;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.lang.reflect.Type;
+import java.io.IOException;
 
 /**
  * Валюта
@@ -76,7 +80,7 @@ public class Currency extends MetaEntity implements Fetchable {
     /**
      * Флаг Валюты учёта
      */
-    @SerializedName("default")
+    @JsonProperty("default")
     private Boolean def;
 
     public Currency(String id) {
@@ -162,17 +166,17 @@ public class Currency extends MetaEntity implements Fetchable {
         /**
          * Сериализатор/десериализатор enum'а
          */
-        public static class Serializer implements JsonSerializer<MultiplicityType>, JsonDeserializer<MultiplicityType> {
+        public static class Serializer extends JsonSerializer<MultiplicityType> {
             @Override
-            public MultiplicityType deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                return Currency.MultiplicityType.valueOf(json.getAsInt());
+            public void serialize(MultiplicityType value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+                gen.writeNumber(Integer.parseInt(value.name().substring(1)));
             }
-
+        }
+        public static class Deserializer extends JsonDeserializer<MultiplicityType> {
             @Override
-            public JsonElement serialize(MultiplicityType src, Type typeOfSrc, JsonSerializationContext context) {
-                return context.serialize(
-                        Integer.parseInt(src.name().substring(1))
-                );
+            public MultiplicityType deserialize(com.fasterxml.jackson.core.JsonParser p, com.fasterxml.jackson.databind.DeserializationContext ctxt) throws IOException {
+                int value = p.getIntValue();
+                return Currency.MultiplicityType.valueOf(value);
             }
         }
     }

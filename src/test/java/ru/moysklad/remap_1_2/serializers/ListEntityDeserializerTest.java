@@ -1,8 +1,8 @@
 package ru.moysklad.remap_1_2.serializers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.internal.LinkedTreeMap;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.entities.Context;
@@ -21,9 +21,8 @@ import static org.junit.Assert.*;
 
 public class ListEntityDeserializerTest implements TestAsserts, TestRandomizers {
     @Test
-    public void test_deserialize() {
-        Gson gson = new GsonBuilder().create();
-        Gson gsonCustom = ApiClient.createGson(true);
+    public void test_deserialize() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper(false);
 
         ListEntity<MetaEntity> e = new ListEntity<>();
 
@@ -55,34 +54,22 @@ public class ListEntityDeserializerTest implements TestAsserts, TestRandomizers 
         m3.getMeta().setType(Meta.Type.DEMAND_POSITION);
         e.getRows().add(m3);
 
-        String data = gsonCustom.toJson(e);
+        String data = objectMapperCustom.writeValueAsString(e);
 
-        ListEntity<DemandDocumentPosition> parsed1 = gson.fromJson(data, ListEntity.class);
-        ListEntity<DemandDocumentPosition> parsed2 = gsonCustom.fromJson(data, ListEntity.class);
+        ListEntity<DemandDocumentPosition> parsed = objectMapperCustom.readValue(data, ListEntity.class);
+        assertEquals(e.getMeta(), parsed.getMeta());
+        assertEquals(e.getContext(), parsed.getContext());
+        assertTrue(parsed.getRows() instanceof ArrayList);
 
-        assertEquals(e.getMeta(), parsed1.getMeta());
-        assertEquals(e.getMeta(), parsed2.getMeta());
-
-        assertEquals(e.getContext(), parsed1.getContext());
-        assertEquals(e.getContext(), parsed2.getContext());
-
-        assertTrue(parsed1.getRows() instanceof ArrayList);
-        assertTrue(parsed2.getRows() instanceof ArrayList);
-
-        assertFalse(parsed1.getRows().equals(e.getRows()));
-        for (Object ee : parsed1.getRows()) {
-            assertTrue(ee instanceof LinkedTreeMap);
-        }
-
-        assertTrue(parsed2.getRows().equals(e.getRows()));
-        for (Object o : parsed2.getRows()) {
+        assertTrue(parsed.getRows().equals(e.getRows()));
+        for (Object o : parsed.getRows()) {
             assertTrue(o instanceof DemandDocumentPosition);
         }
     }
 
     @Test
-    public void test_deserializeListOfChildClasses() {
-        Gson gsonCustom = ApiClient.createGson(true);
+    public void test_deserializeListOfChildClasses() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper(false);
         ListEntity<MetaEntity> e = new ListEntity<>();
 
         e.setMeta(new Meta());
@@ -103,9 +90,9 @@ public class ListEntityDeserializerTest implements TestAsserts, TestRandomizers 
         m1.setVat(15);
         m1.setQuantity(2d);
         e.getRows().add(m1);
-        String data = gsonCustom.toJson(e);
+        String data = objectMapperCustom.writeValueAsString(e);
 
-        ListEntity<DemandDocumentPosition> parsed = gsonCustom.fromJson(data, ListEntity.class);
+        ListEntity<DemandDocumentPosition> parsed = objectMapperCustom.readValue(data, ListEntity.class);
         assertEquals(1, parsed.getRows().size());
         assertEquals(Double.valueOf(10), parsed.getRows().get(0).getDiscount());
         assertEquals(Integer.valueOf(15), parsed.getRows().get(0).getVat());

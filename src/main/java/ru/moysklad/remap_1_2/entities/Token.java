@@ -1,6 +1,6 @@
 package ru.moysklad.remap_1_2.entities;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class Token {
-    @SerializedName("access_token")
+    @JsonProperty("access_token")
     private String accessToken;
 }

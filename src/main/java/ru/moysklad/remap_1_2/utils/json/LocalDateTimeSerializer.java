@@ -1,14 +1,16 @@
 package ru.moysklad.remap_1_2.utils.json;
 
-import com.google.gson.*;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
 
-import java.lang.reflect.Type;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static ru.moysklad.remap_1_2.utils.Constants.DATE_FORMAT_PATTERN;
 
-public class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {
+public class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
     private final DateTimeFormatter formatter;
 
     public LocalDateTimeSerializer() {
@@ -16,12 +18,8 @@ public class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime>, J
     }
 
     @Override
-    public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        return LocalDateTime.parse(json.getAsString(), formatter);
-    }
-
-    @Override
-    public JsonElement serialize(LocalDateTime src, Type typeOfSrc, JsonSerializationContext context) {
-        return context.serialize(src.format(formatter));
+    public void serialize(LocalDateTime value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+        String formattedDate = value.format(formatter);
+        gen.writeString(formattedDate);
     }
 }

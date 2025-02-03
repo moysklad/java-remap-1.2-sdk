@@ -1,7 +1,10 @@
 package ru.moysklad.remap_1_2.entities;
 
-import com.google.gson.*;
-import com.google.gson.annotations.JsonAdapter;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +14,11 @@ import ru.moysklad.remap_1_2.entities.agents.Employee;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 
-import java.lang.reflect.Type;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -37,7 +41,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private Employee owner;
     private Boolean allowCustomPrice;
     private PriceType priceType;
-    @JsonAdapter(CashiersSerializer.class)
+    @JsonSerialize(using = CashiersSerializer.class)
     private ListEntity<Cashier> cashiers;
     private Boolean active;
     private Store store;
@@ -212,21 +216,24 @@ public class RetailStore extends MetaEntity implements Fetchable {
                 .collect(toList()));
     }
 
+    @JsonSetter("cashiers")
     public void setCashiers(ListEntity<Cashier> cashiers) {
         this.cashiers = cashiers;
     }
 
-    public static class CashiersSerializer implements JsonSerializer<ListEntity<Cashier>> {
-
+    public static class CashiersSerializer extends JsonSerializer<ListEntity<Cashier>> {
         @Override
-        public JsonElement serialize(ListEntity<Cashier> src, Type typeOfSrc, JsonSerializationContext context) {
+        public void serialize(ListEntity<Cashier> src, JsonGenerator gen, SerializerProvider serializers) throws IOException {
             if (src.getRows() == null) {
-                return null;
+                gen.writeNull();
+                return;
             }
 
-            return context.serialize(src.getRows().stream()
+            List<Employee> employees = src.getRows().stream()
                     .map(Cashier::getEmployee)
-                    .collect(toList()));
+                    .collect(Collectors.toList());
+
+            gen.writeObject(employees);
         }
     }
 

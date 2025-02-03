@@ -1,6 +1,7 @@
 package ru.moysklad.remap_1_2.serializers;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.entities.Meta;
@@ -12,8 +13,8 @@ import static org.junit.Assert.assertEquals;
 
 public class EnumSwitchCaseSerializerTest implements TestAsserts, TestRandomizers {
     @Test
-    public void testToFromJson() {
-        Gson gsonCustom = ApiClient.createGson();
+    public void testToFromJson() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         NotificationExchange e = new NotificationExchange();
         e.setMeta(new Meta());
@@ -21,8 +22,8 @@ public class EnumSwitchCaseSerializerTest implements TestAsserts, TestRandomizer
         e.setTaskState(NotificationExchange.TaskState.INTERRUPTED);
         e.setTaskType(NotificationExchange.TaskType.EXPORT_1C_CLIENT_BANK);
 
-        String data = gsonCustom.toJson(e);
-        NotificationExchange parsed = gsonCustom.fromJson(data, NotificationExchange.class);
+        String data = objectMapperCustom.writeValueAsString(e);
+        NotificationExchange parsed = objectMapperCustom.readValue(data, NotificationExchange.class);
         assertEquals(NotificationExchange.class, parsed.getClass());
     }
 }

@@ -3,7 +3,6 @@ package ru.moysklad.remap_1_2.entities;
 import org.junit.After;
 import org.junit.Before;
 import ru.moysklad.remap_1_2.ApiClient;
-import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.utils.*;
 
 public abstract class EntityTestBase implements TestRandomizers, TestAsserts, TestUtils, IEntityTestBase {

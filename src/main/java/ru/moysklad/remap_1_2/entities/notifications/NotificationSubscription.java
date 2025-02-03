@@ -1,6 +1,6 @@
 package ru.moysklad.remap_1_2.entities.notifications;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.List;
@@ -17,12 +17,12 @@ public class NotificationSubscription {
     @NoArgsConstructor
     @EqualsAndHashCode(callSuper = false)
     public static class NotificationGroups {
-        private @SerializedName("customer_order") NotificationGroup customerOrder;
+        private @JsonProperty("customer_order") NotificationGroup customerOrder;
         private NotificationGroup invoice;
         private NotificationGroup stock;
         private NotificationGroup retail;
         private NotificationGroup task;
-        private @SerializedName("data_exchange") NotificationGroup dataExchange;
+        private @JsonProperty("data_exchange") NotificationGroup dataExchange;
     }
 
     @Getter
