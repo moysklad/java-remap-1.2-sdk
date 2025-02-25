@@ -96,7 +96,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private Boolean allowDeleteReceiptPositions;
     private Boolean syncAgents;
     private Boolean showBeerOnTap;
-    private ChestnyZnakMarkingSellingMode marksCheckMode;
+    private MarksCheckMode marksCheckMode;
     private Boolean sendMarksToChestnyZnakOnCloud;
 
     public RetailStore(String id) {
@@ -253,7 +253,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
         CORRECT_MARKS_ONLY, WITHOUT_ERRORS, ALL
     }
 
-    public enum ChestnyZnakMarkingSellingMode {
+    public enum MarksCheckMode {
         CORRECT_MARKS_ONLY, WITHOUT_ERRORS, ALL, ALL_CHECKED
     }
 }
