@@ -3,7 +3,7 @@
 Все крупные изменения в проекте будут отражены в этом файле.
 
 ## 7.2-release(03.03.2025)
-* Добавлено поле `codeFias` в `Address`
+* Добавлено поле `fiasCode` в `Address`
 
 ## 7.1-release (03.02.2025)
 * Добавлено поле `standardHourcost` в `ProcessingStage`
