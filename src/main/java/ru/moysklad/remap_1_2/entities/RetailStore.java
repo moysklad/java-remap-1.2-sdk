@@ -242,7 +242,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
     }
 
     public enum MinionToMasterType {
-        ANY, SAME_GROUP, CHOSEN
+        ANY, SAME_GROUP, CHOSEN, APP
     }
 
     public enum TobaccoMrcControlType {
