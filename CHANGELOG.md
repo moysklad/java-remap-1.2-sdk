@@ -1,9 +1,12 @@
 # История версий
 
 Все крупные изменения в проекте будут отражены в этом файле.
-
-## 7.2-release(03.03.2025)
+## 7.3-release(20.03.2025)
 * Добавлено поле `fiasCode` в `Address`
+
+## 7.2-release (06.02.2025)
+* Добавлен справочник `MarksCheckMode`
+* Изменен тип поля `marksCheckMode` с `MarkingSellingMode` на `MarksCheckMode`
 
 ## 7.1-release (03.02.2025)
 * Добавлено поле `standardHourcost` в `ProcessingStage`
