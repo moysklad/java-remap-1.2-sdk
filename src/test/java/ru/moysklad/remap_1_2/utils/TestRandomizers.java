@@ -97,6 +97,7 @@ public interface TestRandomizers {
         address.setApartment(randomString());
         address.setAddInfo(randomString());
         address.setComment(randomString());
+        address.setFiasCode(randomString());
         return address;
     }
 }
