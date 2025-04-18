@@ -54,6 +54,8 @@ public class CustomerOrder extends DocumentEntity implements IEntityWithAttribut
     private List<InvoiceOut> invoicesOut;
     private TaxSystem taxSystem;
     private ListEntity<AttachedFile> files;
+    private String shipmentAddress;
+    private ShipmentAddress shipmentAddressFull;
 
     public CustomerOrder(String id) {
         super(id);

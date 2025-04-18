@@ -2,6 +2,7 @@ package ru.moysklad.remap_1_2.utils;
 
 import org.apache.commons.lang3.tuple.Pair;
 import ru.moysklad.remap_1_2.entities.Address;
+import ru.moysklad.remap_1_2.entities.ShipmentAddress;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -33,6 +34,18 @@ public interface TestAsserts {
     }
 
     default void assertAddressFull(Address expected, Address real) {
+        assertEquals(expected.getPostalCode(), real.getPostalCode());
+        assertEquals(expected.getCountry().getMeta().getUuidHref(), real.getCountry().getMeta().getUuidHref());
+        assertEquals(expected.getRegion().getMeta().getUuidHref(), real.getRegion().getMeta().getUuidHref());
+        assertEquals(expected.getCity(), real.getCity());
+        assertEquals(expected.getStreet(), real.getStreet());
+        assertEquals(expected.getHouse(), real.getHouse());
+        assertEquals(expected.getApartment(), real.getApartment());
+        assertEquals(expected.getAddInfo(), real.getAddInfo());
+        assertEquals(expected.getComment(), real.getComment());
+    }
+
+    default void assertShipmentAddressFull(ShipmentAddress expected, ShipmentAddress real) {
         assertEquals(expected.getPostalCode(), real.getPostalCode());
         assertEquals(expected.getCountry().getMeta().getUuidHref(), real.getCountry().getMeta().getUuidHref());
         assertEquals(expected.getRegion().getMeta().getUuidHref(), real.getRegion().getMeta().getUuidHref());

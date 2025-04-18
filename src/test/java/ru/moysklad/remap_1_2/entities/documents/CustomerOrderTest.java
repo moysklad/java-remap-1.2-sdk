@@ -5,6 +5,7 @@ import ru.moysklad.remap_1_2.entities.Attribute;
 import ru.moysklad.remap_1_2.entities.DocumentAttribute;
 import ru.moysklad.remap_1_2.entities.Meta;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
+import ru.moysklad.remap_1_2.entities.ShipmentAddress;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
@@ -24,7 +25,8 @@ public class CustomerOrderTest extends DocumentWithPositionsTestBase {
         customerOrder.setDescription(randomString());
         customerOrder.setOrganization(simpleEntityManager.getOwnOrganization());
         customerOrder.setAgent(simpleEntityManager.createSimpleCounterparty());
-
+        ShipmentAddress shipmentAddressFull = randomShipmentAddress(api);
+        customerOrder.setShipmentAddressFull(shipmentAddressFull);
         api.entity().customerorder().create(customerOrder);
 
         ListEntity<CustomerOrder> updatedEntitiesList = api.entity().customerorder().get(filterEq("name", customerOrder.getName()));
@@ -37,6 +39,7 @@ public class CustomerOrderTest extends DocumentWithPositionsTestBase {
         assertEquals(customerOrder.getMoment(), retrievedEntity.getMoment());
         assertEquals(customerOrder.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
         assertEquals(customerOrder.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
+        assertShipmentAddressFull(customerOrder.getShipmentAddressFull(), retrievedEntity.getShipmentAddressFull());
     }
 
     @Test
