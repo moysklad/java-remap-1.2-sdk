@@ -42,6 +42,6 @@ public interface TestAsserts {
         assertEquals(expected.getApartment(), real.getApartment());
         assertEquals(expected.getAddInfo(), real.getAddInfo());
         assertEquals(expected.getComment(), real.getComment());
-        assertEquals(expected.getFiasCode(), real.getFiasCode());
+        assertEquals(expected.getFiasCode__ru(), real.getFiasCode__ru());
     }
 }
