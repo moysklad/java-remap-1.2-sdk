@@ -125,6 +125,7 @@ public class CustomerOrderTest extends DocumentWithPositionsTestBase {
         assertEquals(originalCustomerOrder.getMoment(), retrievedCustomerOrder.getMoment());
         assertEquals(originalCustomerOrder.getOrganization().getMeta().getHref(), retrievedCustomerOrder.getOrganization().getMeta().getHref());
         assertEquals(originalCustomerOrder.getAgent().getMeta().getHref(), retrievedCustomerOrder.getAgent().getMeta().getHref());
+        assertEquals(originalCustomerOrder.getShipmentAddress(), retrievedCustomerOrder.getShipmentAddress());
     }
 
     @Override
@@ -139,6 +140,7 @@ public class CustomerOrderTest extends DocumentWithPositionsTestBase {
         assertEquals(originalCustomerOrder.getMoment(), updatedCustomerOrder.getMoment());
         assertEquals(originalCustomerOrder.getOrganization().getMeta().getHref(), updatedCustomerOrder.getOrganization().getMeta().getHref());
         assertEquals(originalCustomerOrder.getAgent().getMeta().getHref(), updatedCustomerOrder.getAgent().getMeta().getHref());
+        assertEquals(originalCustomerOrder.getShipmentAddress(), updatedCustomerOrder.getShipmentAddress());
     }
 
     @Override
