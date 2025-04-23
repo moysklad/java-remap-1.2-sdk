@@ -169,6 +169,7 @@ public final class ApiClient {
         objectMapper.configure(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+        objectMapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
         SimpleModule module = new SimpleModule();
 
         module.addDeserializer(ProductAttributeMarker.class, new ProductAttributeMarkerDeserializer());

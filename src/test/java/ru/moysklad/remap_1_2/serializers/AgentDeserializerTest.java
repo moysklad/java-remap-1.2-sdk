@@ -13,8 +13,7 @@ import ru.moysklad.remap_1_2.entities.agents.Organization;
 import ru.moysklad.remap_1_2.utils.TestAsserts;
 import ru.moysklad.remap_1_2.utils.TestRandomizers;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class AgentDeserializerTest implements TestAsserts, TestRandomizers {
     @Test
@@ -155,5 +154,16 @@ public class AgentDeserializerTest implements TestAsserts, TestRandomizers {
                     "Can't parse field 'agent': meta.type must be one of [organization, counterparty, employee]"
             );
         }
+    }
+
+    @Test
+    public void test_deserializeWithUnknownCompanyType() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
+
+        String jsonWithUnknownCompanyType = "{\"meta\":{\"type\":\"counterparty\"}, \"companyType\": \"unknown_type\"}";
+
+        final Counterparty counterparty = objectMapperCustom.readValue(jsonWithUnknownCompanyType, Counterparty.class);
+
+        assertNull(counterparty.getCompanyType());
     }
 }
