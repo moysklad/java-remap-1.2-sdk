@@ -128,12 +128,12 @@
                 <repository>
                     <id>artifactory</id>
                     <name>Moysklad Development Release Repository</name>
-                    <url>https://repo.moysklad.ru/artifactory/libs-release-local/</url>
+                    <url>https://repo.infra.lognex/artifactory/libs-release-local/</url>
                 </repository>
                 <snapshotRepository>
                     <id>artifactory</id>
                     <name>Moysklad Development Snapshot Repository</name>
-                    <url>https://repo.moysklad.ru/artifactory/libs-snapshot-local/</url>
+                    <url>https://repo.infra.lognex/artifactory/libs-snapshot-local/</url>
                 </snapshotRepository>
             </distributionManagement>
         </profile>

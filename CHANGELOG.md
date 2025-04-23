@@ -5,6 +5,7 @@
 ## 7.2-release (06.02.2025)
 * Добавлен справочник `MarksCheckMode`
 * Изменен тип поля `marksCheckMode` с `MarkingSellingMode` на `MarksCheckMode`
+* Добавлено поле `fiasCode__ru` в `Address`
 
 ## 7.1-release (03.02.2025)
 * Добавлено поле `standardHourcost` в `ProcessingStage`

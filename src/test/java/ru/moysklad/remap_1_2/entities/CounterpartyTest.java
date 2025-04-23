@@ -29,6 +29,8 @@ public class CounterpartyTest extends EntityGetUpdateDeleteTest {
         counterparty.setPriceType(api.entity().companysettings().pricetype().getDefault());
         Address actualAddressFull = randomAddress(api);
         Address legalAddressFull = randomAddress(api);
+        actualAddressFull.setFiasCode__ru(randomString());
+        legalAddressFull.setFiasCode__ru(randomString());
         counterparty.setActualAddressFull(actualAddressFull);
         counterparty.setLegalAddressFull(legalAddressFull);
 

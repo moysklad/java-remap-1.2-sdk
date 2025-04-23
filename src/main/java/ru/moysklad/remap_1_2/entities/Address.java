@@ -18,4 +18,5 @@ public class Address {
     private String apartment;
     private String addInfo;
     private String comment;
+    private String fiasCode__ru;
 }

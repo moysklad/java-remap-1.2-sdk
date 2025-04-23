@@ -28,6 +28,8 @@ public class OrganizationTest extends EntityGetUpdateDeleteTest {
         organization.setOgrn(randomString());
         Address actualAddressFull = randomAddress(api);
         Address legalAddressFull = randomAddress(api);
+        actualAddressFull.setFiasCode__ru(randomString());
+        legalAddressFull.setFiasCode__ru(randomString());
         organization.setActualAddressFull(actualAddressFull);
         organization.setLegalAddressFull(legalAddressFull);
         organization.setSyncId(UUID.randomUUID().toString());
