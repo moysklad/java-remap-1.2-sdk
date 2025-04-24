@@ -1,8 +1,10 @@
 package ru.moysklad.remap_1_2;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import lombok.Getter;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -26,6 +28,9 @@ import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.responses.metadata.CompanySettingsMetadata;
 import ru.moysklad.remap_1_2.utils.NoAuthRedirectStrategy;
 import ru.moysklad.remap_1_2.utils.json.*;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 
 @Getter
@@ -146,60 +151,69 @@ public final class ApiClient {
     public NotificationClient notification() { return new NotificationClient(this); }
 
     /**
-     * Создаёт экземпляр GSON с настроенными сериализаторами и десериализаторами для
+     * Создаёт экземпляр ObjectMapper с настроенными сериализаторами и десериализаторами для
      * некоторых классов и сущностей
      */
-    public static Gson createGson() {
-        return createGson(false);
+    public static ObjectMapper createObjectMapper() {
+        return createObjectMapper(false);
     }
 
-    /**
-     * Создаёт экземпляр GSON с настроенными сериализаторами и десериализаторами для
-     * некоторых классов и сущностей (с возможностью настроить форматированный
-     * вывод)
-     */
-    public static Gson createGson(boolean prettyPrinting) {
-        GsonBuilder gb = new GsonBuilder();
-
+    public static ObjectMapper createObjectMapper(boolean prettyPrinting) {
+        ObjectMapper objectMapper = new ObjectMapper();
         if (prettyPrinting) {
-            gb.setPrettyPrinting();
+            objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         }
 
-        ProductAttributeMarkerSerializer pams = new ProductAttributeMarkerSerializer();
-        gb.registerTypeAdapter(ProductAttributeMarker.class, pams);
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-        ProductMarkerSerializer pmse = new ProductMarkerSerializer();
-        gb.registerTypeAdapter(ProductMarker.class, pmse);
-        gb.registerTypeAdapter(SingleProductMarker.class, pmse);
-        gb.registerTypeAdapter(ConsignmentParentMarker.class, pmse);
-        gb.registerTypeAdapter(Assortment.class, pmse);
+        objectMapper.configure(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+        objectMapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
+        SimpleModule module = new SimpleModule();
 
-        FinanceDocumentMarkerSerializer fdms = new FinanceDocumentMarkerSerializer();
-        gb.registerTypeAdapter(FinanceDocumentMarker.class, fdms);
-        gb.registerTypeAdapter(FinanceInDocumentMarker.class, fdms);
-        gb.registerTypeAdapter(FinanceOutDocumentMarker.class, fdms);
+        module.addDeserializer(ProductAttributeMarker.class, new ProductAttributeMarkerDeserializer());
+        module.addDeserializer(Assortment.class, new AssortmentDeserializer());
+        module.addDeserializer(ProductMarker.class, new ProductMarkerDeserializer());
+        module.addDeserializer(SingleProductMarker.class, new SingleProductMarkerDeserializer());
+        module.addDeserializer(ConsignmentParentMarker.class, new ConsignmentParentMarkerDeserializer());
+        module.addDeserializer(FinanceDocumentMarker.class, new FinanceDocumentMarkerDeserializer());
+        module.addDeserializer(FinanceOutDocumentMarker.class, new FinanceOutDocumentMarkerDeserializer());
+        module.addDeserializer(FinanceInDocumentMarker.class, new FinanceInDocumentMarkerDeserializer());
+        module.addDeserializer(DocumentEntity.class, new DocumentEntityDeserializer());
+        module.addDeserializer(Agent.class, new AgentDeserializer());
+        module.addSerializer(Attribute.class, new AttributeSerializer());
+        module.addDeserializer(Attribute.class, new AttributeDeserializer());
+        module.addSerializer(DocumentAttribute.class, new DocumentAttributeSerializer());
+        module.addDeserializer(DocumentAttribute.class, new DocumentAttributeDeserializer());
+        module.addSerializer(Currency.MultiplicityType.class, new Currency.MultiplicityType.Serializer());
+        module.addDeserializer(Currency.MultiplicityType.class, new Currency.MultiplicityType.Deserializer());
+        module.addDeserializer(Discount.class, new DiscountDeserializer());
+        module.addDeserializer(ListEntity.class, new ListEntityDeserializer());
+        module.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
+        module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
+        module.addDeserializer(CompanySettingsMetadata.CustomEntityMetadata.class, new CustomEntityMetadataDeserializer());
+        module.addSerializer(Barcode.class, new Barcode.Serializer());
+        module.addDeserializer(Barcode.class, new Barcode.Deserializer());
+        module.addSerializer(DocumentTemplate.class, new DocumentTemplate.Serializer());
+        module.addSerializer(Meta.Type.class, new Meta.Type.Serializer());
+        module.addDeserializer(Meta.Type.class, new Meta.Type.Deserializer());
+        module.addDeserializer(Template.class, new Template.Deserializer());
+        module.addDeserializer(Publication.class, new Publication.Deserializer());
+        module.addSerializer(NotificationExchange.TaskType.class, new EnumSwitchCaseSerializer<>(NotificationExchange.TaskType.class));
+        module.addDeserializer(NotificationExchange.TaskType.class, new EnumSwitchCaseDeserializer<>(NotificationExchange.TaskType.class));
+        module.addSerializer(NotificationExchange.TaskState.class, new EnumSwitchCaseSerializer<>(NotificationExchange.TaskState.class));
+        module.addDeserializer(NotificationExchange.TaskState.class, new EnumSwitchCaseDeserializer<>(NotificationExchange.TaskState.class));
+        module.addDeserializer(Notification.class, new NotificationDeserializer());
+        module.addSerializer(NotificationSubscription.Channel.class, new EnumSwitchCaseSerializer<>(NotificationSubscription.Channel.class));
+        module.addDeserializer(NotificationSubscription.Channel.class, new EnumSwitchCaseDeserializer<>(NotificationSubscription.Channel.class));
+        module.addSerializer(RetailStore.PriorityOfdSend.class, new EnumSwitchCaseSerializer<>(RetailStore.PriorityOfdSend.class));
+        module.addDeserializer(RetailStore.PriorityOfdSend.class, new EnumSwitchCaseDeserializer<>(RetailStore.PriorityOfdSend.class));
+        module.addSerializer(Optional.class, new OptionalEmptyAsNullSerializer());
 
-        gb.registerTypeAdapter(DocumentEntity.class, new DocumentEntitySerializer());
-        gb.registerTypeAdapter(Agent.class, new AgentDeserializer());
-        gb.registerTypeAdapter(Attribute.class, new AttributeSerializer());
-        gb.registerTypeAdapter(DocumentAttribute.class, new DocumentAttributeSerializer());
-        gb.registerTypeAdapter(Currency.MultiplicityType.class, new Currency.MultiplicityType.Serializer());
-        gb.registerTypeAdapter(Discount.class, new DiscountDeserializer());
-        gb.registerTypeAdapter(ListEntity.class, new ListEntityDeserializer());
-        gb.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
-        gb.registerTypeAdapter(CompanySettingsMetadata.CustomEntityMetadata.class, new CustomEntityMetadataDeserializer());
-        gb.registerTypeAdapter(Barcode.class, new Barcode.Serializer());
-        gb.registerTypeAdapter(DocumentTemplate.class, new DocumentTemplate.Serializer());
-        gb.registerTypeAdapter(Meta.Type.class, new Meta.Type.Serializer());
-        gb.registerTypeAdapter(Template.class, new Template.Deserializer());
-        gb.registerTypeAdapter(Publication.class, new Publication.Deserializer());
-        gb.registerTypeAdapter(NotificationExchange.TaskType.class, new EnumSwitchCaseSerializer<NotificationExchange.TaskType>());
-        gb.registerTypeAdapter(NotificationExchange.TaskState.class, new EnumSwitchCaseSerializer<NotificationExchange.TaskState>());
-        gb.registerTypeAdapter(Notification.class, new NotificationDeserializer());
-        gb.registerTypeAdapter(NotificationSubscription.Channel.class, new EnumSwitchCaseSerializer<NotificationSubscription.Channel>());
-        gb.registerTypeAdapter(RetailStore.PriorityOfdSend.class, new EnumSwitchCaseSerializer<RetailStore.PriorityOfdSend>());
+        objectMapper.registerModule(module);
 
-        return gb.create();
+        return objectMapper;
     }
 
     public ApiClient prettyPrintJson() {

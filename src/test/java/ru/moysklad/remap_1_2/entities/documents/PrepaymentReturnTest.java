@@ -1,6 +1,7 @@
 package ru.moysklad.remap_1_2.entities.documents;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Ignore;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.ApiClient;
@@ -21,10 +22,10 @@ import static org.junit.Assert.assertEquals;
 public class PrepaymentReturnTest extends EntityTestBase implements FilesTest<PrepaymentReturn> {
 
     @Test
-    public void deserializePrepaymentReturn() {
-        Gson gson = ApiClient.createGson();
+    public void deserializePrepaymentReturn() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        PrepaymentReturn prepaymentReturn = gson.fromJson(
+        PrepaymentReturn prepaymentReturn = objectMapper.readValue(
                 TestUtils.getFile("documentsJson/prepaymentreturn.json"), PrepaymentReturn.class
         );
 

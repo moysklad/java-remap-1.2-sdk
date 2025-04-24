@@ -1,6 +1,16 @@
 # История версий
 
 Все крупные изменения в проекте будут отражены в этом файле.
+## 8.0-release(21.04.2025)
+* Изменен тип поля `marksCheckMode` с `MarkingSellingMode` на `MarksCheckMode`
+* Исправлен критический баг при десериализации неизвестных строк в полях типа `Enum`
+
+## 7.1-release (03.02.2025)
+* Добавлено поле `standardHourcost` в `ProcessingStage`
+
+## 7.0-release (29.01.2025)
+* Переход с библиотеки `gson` на `jackson`
+* Добавлена поддержка обнуление поля `agent` в сущности `Task`
 
 ## 6.6-release (20.11.2024)
 * Добавлено поле `advancePaymentSum` в `RetailDemand`

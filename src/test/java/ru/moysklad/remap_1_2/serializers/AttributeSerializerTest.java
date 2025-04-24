@@ -1,6 +1,7 @@
 package ru.moysklad.remap_1_2.serializers;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.entities.*;
@@ -10,22 +11,23 @@ import ru.moysklad.remap_1_2.utils.TestRandomizers;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import static org.junit.Assert.*;
 
 public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     @Test
-    public void test_deserializeString() {
-        Gson gsonCustom = ApiClient.createGson();
+    public void test_deserializeString() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         Attribute e = new Attribute();
         e.setType(Attribute.Type.stringValue);
         e.setValue("STRING");
 
-        String data = gsonCustom.toJson(e);
+        String data = objectMapperCustom.writeValueAsString(e);
 
-        assertEquals("{\"type\":\"string\",\"value\":\"STRING\"}", gsonCustom.toJson(e));
-        Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
+        assertEquals("{\"type\":\"string\",\"value\":\"STRING\"}", objectMapperCustom.writeValueAsString(e));
+        Attribute parsed = objectMapperCustom.readValue(data, Attribute.class);
         assertEquals(Attribute.Type.stringValue, parsed.getType());
         assertNull(parsed.getEntityType());
         assertEquals("STRING", parsed.getValue());
@@ -33,17 +35,17 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     }
 
     @Test
-    public void test_deserializeLong() {
-        Gson gsonCustom = ApiClient.createGson();
+    public void test_deserializeLong() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         Attribute e = new Attribute();
         e.setType(Attribute.Type.longValue);
         e.setValue(1234567L);
 
-        String data = gsonCustom.toJson(e);
+        String data = objectMapperCustom.writeValueAsString(e);
 
-        assertEquals("{\"type\":\"long\",\"value\":1234567}", gsonCustom.toJson(e));
-        Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
+        assertEquals("{\"type\":\"long\",\"value\":1234567}", objectMapperCustom.writeValueAsString(e));
+        Attribute parsed = objectMapperCustom.readValue(data, Attribute.class);
         assertEquals(Attribute.Type.longValue, parsed.getType());
         assertNull(parsed.getEntityType());
         assertEquals(1234567L, parsed.getValue());
@@ -51,20 +53,20 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     }
 
     @Test
-    public void test_deserializeTime() {
-        Gson gsonCustom = ApiClient.createGson();
+    public void test_deserializeTime() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         Attribute e = new Attribute();
         e.setType(Attribute.Type.timeValue);
 
-        LocalDateTime date = LocalDateTime.now();
+        LocalDateTime date = LocalDateTime.now().truncatedTo(ChronoUnit.MILLIS);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         e.setValue(date);
 
-        String data = gsonCustom.toJson(e);
+        String data = objectMapperCustom.writeValueAsString(e);
 
         assertEquals("{\"type\":\"time\",\"value\":\"" + date.format(formatter) + "\"}", data);
-        Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
+        Attribute parsed = objectMapperCustom.readValue(data, Attribute.class);
         assertEquals(Attribute.Type.timeValue, parsed.getType());
         assertNull(parsed.getEntityType());
         assertEquals(date, parsed.getValue());
@@ -72,8 +74,8 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     }
 
     @Test
-    public void test_deserializeFile() {
-        Gson gsonCustom = ApiClient.createGson();
+    public void test_deserializeFile() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         Attribute e = new Attribute();
         e.setType(Attribute.Type.fileValue);
@@ -82,10 +84,10 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
         e.getDownload().setHref("[URL]");
         e.getDownload().setMediaType(MediaType.octet_stream);
 
-        String data = gsonCustom.toJson(e);
+        String data = objectMapperCustom.writeValueAsString(e);
 
         assertEquals("{\"type\":\"file\",\"value\":\"picture\",\"download\":{\"href\":\"[URL]\",\"mediaType\":\"application/octet-stream\"}}", data);
-        Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
+        Attribute parsed = objectMapperCustom.readValue(data, Attribute.class);
         assertEquals(Attribute.Type.fileValue, parsed.getType());
         assertNull(parsed.getEntityType());
         assertEquals("picture", parsed.getValue());
@@ -96,17 +98,17 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     }
 
     @Test
-    public void test_deserializeDouble() {
-        Gson gsonCustom = ApiClient.createGson();
+    public void test_deserializeDouble() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         Attribute e = new Attribute();
         e.setType(Attribute.Type.doubleValue);
         e.setValue(12.345);
 
-        String data = gsonCustom.toJson(e);
+        String data = objectMapperCustom.writeValueAsString(e);
 
         assertEquals("{\"type\":\"double\",\"value\":12.345}", data);
-        Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
+        Attribute parsed = objectMapperCustom.readValue(data, Attribute.class);
         assertEquals(Attribute.Type.doubleValue, parsed.getType());
         assertNull(parsed.getEntityType());
         assertEquals(12.345, parsed.getValue());
@@ -114,17 +116,17 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     }
 
     @Test
-    public void test_deserializeBoolean() {
-        Gson gsonCustom = ApiClient.createGson();
+    public void test_deserializeBoolean() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         Attribute e = new Attribute();
         e.setType(Attribute.Type.booleanValue);
         e.setValue(true);
 
-        String data = gsonCustom.toJson(e);
+        String data = objectMapperCustom.writeValueAsString(e);
 
         assertEquals("{\"type\":\"boolean\",\"value\":true}", data);
-        Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
+        Attribute parsed = objectMapperCustom.readValue(data, Attribute.class);
         assertEquals(Attribute.Type.booleanValue, parsed.getType());
         assertNull(parsed.getEntityType());
         assertEquals(true, parsed.getValue());
@@ -132,8 +134,8 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     }
 
     @Test
-    public void test_deserializeText() {
-        Gson gsonCustom = ApiClient.createGson();
+    public void test_deserializeText() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         Attribute e = new Attribute();
         e.setType(Attribute.Type.textValue);
@@ -145,10 +147,10 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
                         "DEF"
         );
 
-        String data = gsonCustom.toJson(e);
+        String data = objectMapperCustom.writeValueAsString(e);
 
         assertEquals("{\"type\":\"text\",\"value\":\"123\\n456\\n789\\nabc\\nDEF\"}", data);
-        Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
+        Attribute parsed = objectMapperCustom.readValue(data, Attribute.class);
         assertEquals(Attribute.Type.textValue, parsed.getType());
         assertNull(parsed.getEntityType());
         assertEquals("123\n456\n789\nabc\nDEF", parsed.getValue());
@@ -156,17 +158,17 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     }
 
     @Test
-    public void test_deserializeLink() {
-        Gson gsonCustom = ApiClient.createGson();
+    public void test_deserializeLink() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         Attribute e = new Attribute();
         e.setType(Attribute.Type.linkValue);
         e.setValue("http://moysklad.ru");
 
-        String data = gsonCustom.toJson(e);
+        String data = objectMapperCustom.writeValueAsString(e);
 
         assertEquals("{\"type\":\"link\",\"value\":\"http://moysklad.ru\"}", data);
-        Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
+        Attribute parsed = objectMapperCustom.readValue(data, Attribute.class);
         assertEquals(Attribute.Type.linkValue, parsed.getType());
         assertNull(parsed.getEntityType());
         assertEquals("http://moysklad.ru", parsed.getValue());
@@ -174,8 +176,8 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     }
 
     @Test
-    public void test_deserializeProductEntity() {
-        Gson gsonCustom = ApiClient.createGson();
+    public void test_deserializeProductEntity() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         Attribute e = new Attribute();
         e.setEntityType(Meta.Type.PRODUCT);
@@ -185,10 +187,10 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
         pr.setName("PRODUCT");
         e.setValue(pr);
 
-        String data = gsonCustom.toJson(e);
+        String data = objectMapperCustom.writeValueAsString(e);
 
         assertEquals("{\"value\":{\"name\":\"PRODUCT\",\"meta\":{\"type\":\"product\"}},\"type\":\"product\"}", data);
-        Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
+        Attribute parsed = objectMapperCustom.readValue(data, Attribute.class);
         assertEquals(Meta.Type.PRODUCT, parsed.getEntityType());
         assertNull(parsed.getType());
         assertEquals(Product.class, parsed.getValue().getClass());
@@ -196,8 +198,8 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     }
 
     @Test
-    public void test_deserializeProductFolderEntity() {
-        Gson gsonCustom = ApiClient.createGson();
+    public void test_deserializeProductFolderEntity() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         Attribute e = new Attribute();
         e.setEntityType(Meta.Type.PRODUCT);
@@ -207,10 +209,10 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
         prf.setName("PRODUCT_FOLDER");
         e.setValue(prf);
 
-        String data = gsonCustom.toJson(e);
+        String data = objectMapperCustom.writeValueAsString(e);
 
         assertEquals("{\"value\":{\"name\":\"PRODUCT_FOLDER\",\"meta\":{\"type\":\"productfolder\"}},\"type\":\"product\"}", data);
-        Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
+        Attribute parsed = objectMapperCustom.readValue(data, Attribute.class);
         assertEquals(Meta.Type.PRODUCT, parsed.getEntityType());
         assertNull(parsed.getType());
         assertEquals(ProductFolder.class, parsed.getValue().getClass());
@@ -218,8 +220,8 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     }
 
     @Test
-    public void test_deserializeCustomEntity() {
-        Gson gsonCustom = ApiClient.createGson();
+    public void test_deserializeCustomEntity() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         Meta customEntityMeta = new Meta();
         customEntityMeta.setHref("customentity/12341234");
@@ -234,12 +236,12 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
         ce.setName("CUSTOM VALUE");
         e.setValue(ce);
 
-        String data = gsonCustom.toJson(e);
+        String data = objectMapperCustom.writeValueAsString(e);
 
         assertEquals("{\"value\":{\"name\":\"CUSTOM VALUE\",\"meta\":{\"type\":\"customentity\"}}," +
                 "\"customEntityMeta\":{\"href\":\"customentity/12341234\",\"type\":\"customentitymetadata\"}," +
                 "\"type\":\"customentity\"}", data);
-        Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
+        Attribute parsed = objectMapperCustom.readValue(data, Attribute.class);
         assertEquals(Meta.Type.CUSTOM_ENTITY, parsed.getEntityType());
         assertNull(parsed.getType());
         assertEquals(CustomEntityElement.class, parsed.getValue().getClass());
@@ -249,16 +251,16 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     }
 
     @Test
-    public void test_deserializeNullTime() {
-        Gson gsonCustom = ApiClient.createGson();
+    public void test_deserializeNullTime() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         Attribute e = new Attribute();
         e.setType(Attribute.Type.timeValue);
 
-        String data = gsonCustom.toJson(e);
+        String data = objectMapperCustom.writeValueAsString(e);
 
         assertEquals("{\"type\":\"time\"}", data);
-        Attribute parsed = gsonCustom.fromJson(data, Attribute.class);
+        Attribute parsed = objectMapperCustom.readValue(data, Attribute.class);
         assertEquals(Attribute.Type.timeValue, parsed.getType());
         assertNull(parsed.getEntityType());
         assertNull(parsed.getValue());

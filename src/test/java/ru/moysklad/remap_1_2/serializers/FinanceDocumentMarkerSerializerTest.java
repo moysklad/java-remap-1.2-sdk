@@ -1,7 +1,9 @@
 package ru.moysklad.remap_1_2.serializers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.entities.Meta;
@@ -21,9 +23,10 @@ import static org.junit.Assert.fail;
 
 public class FinanceDocumentMarkerSerializerTest implements TestAsserts, TestRandomizers {
     @Test
-    public void test_serialize() {
-        Gson gson = new GsonBuilder().create();
-        Gson gsonCustom = ApiClient.createGson();
+    public void test_serialize() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         {
             FinanceDocumentMarker e = new CashIn();
@@ -32,8 +35,8 @@ public class FinanceDocumentMarkerSerializerTest implements TestAsserts, TestRan
             epe.getMeta().setType(Meta.Type.CASH_IN);
             epe.setVatSum(1234098745L);
 
-            assertEquals("{\"vatSum\":1234098745,\"meta\":{\"type\":\"CASH_IN\"}}", gson.toJson(e));
-            assertEquals("{\"vatSum\":1234098745,\"meta\":{\"type\":\"cashin\"}}", gsonCustom.toJson(e));
+            assertEquals("{\"meta\":{\"type\":\"CASH_IN\"},\"vatSum\":1234098745}", objectMapper.writeValueAsString(e));
+            assertEquals("{\"meta\":{\"type\":\"cashin\"},\"vatSum\":1234098745}", objectMapperCustom.writeValueAsString(e));
         }
 
         {
@@ -43,8 +46,8 @@ public class FinanceDocumentMarkerSerializerTest implements TestAsserts, TestRan
             epe.getMeta().setType(Meta.Type.PAYMENT_IN);
             epe.setVatSum(94356340L);
 
-            assertEquals("{\"vatSum\":94356340,\"meta\":{\"type\":\"PAYMENT_IN\"}}", gson.toJson(e));
-            assertEquals("{\"vatSum\":94356340,\"meta\":{\"type\":\"paymentin\"}}", gsonCustom.toJson(e));
+            assertEquals("{\"meta\":{\"type\":\"PAYMENT_IN\"},\"vatSum\":94356340}", objectMapper.writeValueAsString(e));
+            assertEquals("{\"meta\":{\"type\":\"paymentin\"},\"vatSum\":94356340}", objectMapperCustom.writeValueAsString(e));
         }
 
         {
@@ -54,34 +57,34 @@ public class FinanceDocumentMarkerSerializerTest implements TestAsserts, TestRan
             epe.getMeta().setType(Meta.Type.CASH_OUT);
             epe.setVatSum(435764L);
 
-            assertEquals("{\"vatSum\":435764,\"meta\":{\"type\":\"CASH_OUT\"}}", gson.toJson(e));
-            assertEquals("{\"vatSum\":435764,\"meta\":{\"type\":\"cashout\"}}", gsonCustom.toJson(e));
+            assertEquals("{\"meta\":{\"type\":\"CASH_OUT\"},\"vatSum\":435764}", objectMapper.writeValueAsString(e));
+            assertEquals("{\"meta\":{\"type\":\"cashout\"},\"vatSum\":435764}", objectMapperCustom.writeValueAsString(e));
         }
     }
 
     @Test
-    public void test_deserializeCashIn() throws IllegalAccessException, InstantiationException {
+    public void test_deserializeCashIn() throws IllegalAccessException, InstantiationException, JsonProcessingException {
         deserializationTest(CashIn.class, Meta.Type.CASH_IN);
     }
 
     @Test
-    public void test_deserializeCashOut() throws IllegalAccessException, InstantiationException {
+    public void test_deserializeCashOut() throws IllegalAccessException, InstantiationException, JsonProcessingException {
         deserializationTest(CashOut.class, Meta.Type.CASH_OUT);
     }
 
     @Test
-    public void test_deserializePaymentIn() throws IllegalAccessException, InstantiationException {
+    public void test_deserializePaymentIn() throws IllegalAccessException, InstantiationException, JsonProcessingException {
         deserializationTest(PaymentIn.class, Meta.Type.PAYMENT_IN);
     }
 
     @Test
-    public void test_deserializePaymentOut() throws IllegalAccessException, InstantiationException {
+    public void test_deserializePaymentOut() throws IllegalAccessException, InstantiationException, JsonProcessingException {
         deserializationTest(PaymentOut.class, Meta.Type.PAYMENT_OUT);
     }
 
-    private void deserializationTest(Class<? extends FinanceDocumentMarker> cl, Meta.Type metaType) throws InstantiationException, IllegalAccessException {
-        Gson gson = new GsonBuilder().create();
-        Gson gsonCustom = ApiClient.createGson();
+    private void deserializationTest(Class<? extends FinanceDocumentMarker> cl, Meta.Type metaType) throws InstantiationException, IllegalAccessException, JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         FinanceDocumentMarker e = cl.newInstance();
         MetaEntity epe = ((MetaEntity) e);
@@ -89,21 +92,21 @@ public class FinanceDocumentMarkerSerializerTest implements TestAsserts, TestRan
         epe.getMeta().setType(metaType);
         epe.getMeta().setHref(randomString());
 
-        String data = gsonCustom.toJson(e);
+        String data = objectMapperCustom.writeValueAsString(e);
 
         try {
-            gson.fromJson(data, FinanceDocumentMarker.class);
-            fail("Ожидалось исключение RuntimeException!");
-        } catch (Exception ex) {
-            if (!(ex instanceof RuntimeException)) fail("Ожидалось исключение RuntimeException!");
-
+            objectMapper.readValue(data, FinanceDocumentMarker.class);
+            fail("Ожидалось исключение InvalidDefinitionException!");
+        } catch (InvalidDefinitionException ex) {
             assertEquals(
-                    "Unable to invoke no-args constructor for interface " + FinanceDocumentMarker.class.getCanonicalName() + ". Registering an InstanceCreator with Gson for this type may fix this problem.",
-                    ex.getMessage()
+                    "Cannot construct instance of `" + FinanceDocumentMarker.class.getCanonicalName() + "` (no Creators, like default constructor, exist): abstract types either need to be mapped to concrete types, have custom deserializer, or contain additional type information",
+                    ex.getOriginalMessage()
             );
+        } catch (Exception ex) {
+            fail("Ожидалось исключение InvalidDefinitionException!");
         }
 
-        FinanceDocumentMarker parsed = gsonCustom.fromJson(data, FinanceDocumentMarker.class);
+        FinanceDocumentMarker parsed = objectMapperCustom.readValue(data, FinanceDocumentMarker.class);
 
         assertEquals(cl, parsed.getClass());
         assertEquals(e, parsed);

@@ -1,6 +1,7 @@
 package ru.moysklad.remap_1_2.entities;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.ApiClient;
@@ -71,10 +72,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationOrderNew() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationOrderNew() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/ordernew.json"), Notification.class
         );
 
@@ -92,10 +93,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationOrderOverdue() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationOrderOverdue() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue(
                 TestUtils.getFile("notificationJson/orderoverdue.json"), Notification.class
         );
 
@@ -113,10 +114,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationInvoiceOutOverdue() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationInvoiceOutOverdue() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/invoiceoutoverdue.json"), Notification.class
         );
 
@@ -134,10 +135,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationGoodCountTooLow() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationGoodCountTooLow() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/goodcounttoolow.json"), Notification.class
         );
 
@@ -155,10 +156,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationTaskAssigned() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationTaskAssigned() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/taskassigned.json"), Notification.class
         );
 
@@ -177,10 +178,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationTaskUnassigned() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationTaskUnassigned() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/taskunassigned.json"), Notification.class
         );
 
@@ -201,10 +202,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationTaskOverdue() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationTaskOverdue() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/taskoverdue.json"), Notification.class
         );
 
@@ -222,10 +223,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationTaskCompleted() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationTaskCompleted() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/taskcompleted.json"), Notification.class
         );
 
@@ -246,10 +247,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationTaskReopened() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationTaskReopened() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/taskreopened.json"), Notification.class
         );
 
@@ -270,10 +271,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationTaskDeleted() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationTaskDeleted() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/taskdeleted.json"), Notification.class
         );
 
@@ -290,10 +291,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationTaskNewComment() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationTaskNewComment() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/tasknewcomment.json"), Notification.class
         );
 
@@ -315,10 +316,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationTaskCommentChanged() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationTaskCommentChanged() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/taskcommentchanged.json"), Notification.class
         );
 
@@ -345,10 +346,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationTaskCommentDeleted() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationTaskCommentDeleted() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/taskcommentdeleted.json"), Notification.class
         );
 
@@ -370,10 +371,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationTaskChanged() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationTaskChanged() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/taskchanged.json"), Notification.class
         );
 
@@ -400,10 +401,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationImportCompleted() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationImportCompleted() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/importcompleted.json"), Notification.class
         );
 
@@ -418,10 +419,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationExportCompleted() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationExportCompleted() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/exportcompleted.json"), Notification.class
         );
 
@@ -437,10 +438,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationSubscribeExpired() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationSubscribeExpired() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/subscribeexpired.json"), Notification.class
         );
 
@@ -453,10 +454,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationSubscribeTermsExpired() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationSubscribeTermsExpired() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/subscribetermsexpired.json"), Notification.class
         );
 
@@ -470,10 +471,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationRetailShiftOpened() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationRetailShiftOpened() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/retailshiftopened.json"), Notification.class
         );
 
@@ -498,10 +499,10 @@ public class NotificationTest extends EntityTestBase {
     }
 
     @Test
-    public void testNotificationRetailShiftClosed() {
-        Gson gson = ApiClient.createGson();
+    public void testNotificationRetailShiftClosed() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
 
-        Notification notification = gson.fromJson(
+        Notification notification = objectMapper.readValue (
                 TestUtils.getFile("notificationJson/retailshiftclosed.json"), Notification.class
         );
 

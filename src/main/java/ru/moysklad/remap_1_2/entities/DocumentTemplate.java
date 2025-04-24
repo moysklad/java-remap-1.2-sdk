@@ -1,11 +1,18 @@
 package ru.moysklad.remap_1_2.entities;
 
-import com.google.gson.*;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.moysklad.remap_1_2.entities.documents.DocumentEntity;
 
+import java.io.IOException;
 import java.util.List;
 
 @Getter
@@ -19,29 +26,32 @@ public class DocumentTemplate {
     /**
      * Сериализатор шаблона для создания документов
      */
-    public static class Serializer implements JsonSerializer<DocumentTemplate> {
+    public static class Serializer extends JsonSerializer<DocumentTemplate> {
         @Override
-        public JsonElement serialize(DocumentTemplate src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
-            JsonObject serializedDocumentTemplate = new JsonObject();
+        public void serialize(DocumentTemplate src, JsonGenerator jsonGenerator, SerializerProvider serializers) throws IOException {
+            ObjectMapper objectMapper = (ObjectMapper) jsonGenerator.getCodec();
+            ObjectNode serializedDocumentTemplate = objectMapper.createObjectNode();
             if (src.getDocument() != null) {
-                JsonObject element = new JsonObject();
+                ObjectNode element = objectMapper.createObjectNode();
 
-                element.add("meta", context.serialize(src.getDocument().getMeta()));
+                JsonNode metaNode = objectMapper.valueToTree(src.getDocument().getMeta());
 
-                serializedDocumentTemplate.add(src.getDocumentType(), element);
+                element.set("meta", metaNode);
+                serializedDocumentTemplate.set(src.getDocumentType(), element);
             } else if (src.getDocuments() != null) {
-                JsonArray metaArray = new JsonArray();
+                ArrayNode metaArray = objectMapper.createArrayNode();
 
                 for (DocumentEntity document: src.getDocuments()) {
-                    JsonObject element = new JsonObject();
-                    element.add("meta", context.serialize(document.getMeta()));
+                    ObjectNode element = objectMapper.createObjectNode();
+                    JsonNode metaNode = objectMapper.valueToTree(document.getMeta());
+                    element.set("meta", metaNode);
                     metaArray.add(element);
                 }
 
-                serializedDocumentTemplate.add(src.getDocumentType(), metaArray);
+                serializedDocumentTemplate.set(src.getDocumentType(), metaArray);
             }
 
-            return serializedDocumentTemplate;
+            jsonGenerator.writeTree(serializedDocumentTemplate);
         }
     }
 }
