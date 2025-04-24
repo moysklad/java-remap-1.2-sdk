@@ -433,6 +433,7 @@ public class SimpleEntityManager implements TestRandomizers {
         customerOrder.setDescription(randomString());
         customerOrder.setOrganization(getOwnOrganization());
         customerOrder.setAgent(createSimpleCounterparty());
+        customerOrder.setShipmentAddress(randomString());
 
         api.entity().customerorder().create(customerOrder);
 
