@@ -5,6 +5,7 @@ import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.entities.Address;
 import ru.moysklad.remap_1_2.entities.Country;
 import ru.moysklad.remap_1_2.entities.Meta.Type;
+import ru.moysklad.remap_1_2.entities.ShipmentAddress;
 
 import java.io.IOException;
 import java.util.Date;
@@ -87,6 +88,21 @@ public interface TestRandomizers {
 
     default Address randomAddress(ApiClient api) throws IOException, ApiClientException {
         Address address = new Address();
+        address.setPostalCode(randomString());
+        List<Country> countries = api.entity().country().get().getRows();
+        address.setCountry(countries.get(randomInteger(0, countries.size() - 1)));
+        address.setRegion(api.entity().region().get("00000000-0000-0000-0000-000000000077"));
+        address.setCity(randomString());
+        address.setStreet(randomString());
+        address.setHouse(randomString());
+        address.setApartment(randomString());
+        address.setAddInfo(randomString());
+        address.setComment(randomString());
+        return address;
+    }
+
+    default ShipmentAddress randomShipmentAddress(ApiClient api) throws IOException, ApiClientException {
+        ShipmentAddress address = new ShipmentAddress();
         address.setPostalCode(randomString());
         List<Country> countries = api.entity().country().get().getRows();
         address.setCountry(countries.get(randomInteger(0, countries.size() - 1)));
