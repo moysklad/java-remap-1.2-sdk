@@ -10,10 +10,12 @@ import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
 
 public class RetailShiftTest extends EntityTestBase {
     
@@ -81,9 +83,30 @@ public class RetailShiftTest extends EntityTestBase {
         }
     }
     
-    @Ignore
     @Test
     public void createTest() throws IOException, ApiClientException {
+        RetailShift retailShift = new RetailShift();
+        retailShift.setName("retailshfit_" + randomString(3) + "_" + new Date().getTime());
+        retailShift.setCreated(LocalDateTime.now());
+        retailShift.setCloseDate(LocalDateTime.now().plusHours(1));
+        retailShift.setReceivedCash(100_000.0);
+        retailShift.setReceivedNoCash(200_000.0);
+        retailShift.setRetailStore(simpleEntityManager.getRetailStore());
+        retailShift.setOrganization(simpleEntityManager.getOwnOrganization());
+
+        api.entity().retailshift().create(retailShift);
+
+        ListEntity<RetailShift> updatedEntitiesList = api.entity().retailshift().get(filterEq("name", retailShift.getName()));
+        assertEquals(1, updatedEntitiesList.getRows().size());
+
+        RetailShift retrievedEntity = updatedEntitiesList.getRows().get(0);
+        assertEquals(retailShift.getName(), retrievedEntity.getName());
+        assertEquals(retailShift.getCreated(), retrievedEntity.getCreated());
+        assertEquals(retailShift.getCloseDate(), retrievedEntity.getCloseDate());
+        assertEquals(retailShift.getReceivedCash(), retrievedEntity.getReceivedCash());
+        assertEquals(retailShift.getReceivedNoCash(), retrievedEntity.getReceivedNoCash());
+        assertEquals(retailShift.getRetailStore().getId(), retrievedEntity.getRetailStore().getId());
+        assertEquals(retailShift.getOrganization().getId(), retrievedEntity.getOrganization().getId());
     }
 
     @Ignore

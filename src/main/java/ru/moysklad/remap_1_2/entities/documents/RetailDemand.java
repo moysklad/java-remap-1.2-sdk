@@ -56,6 +56,7 @@ public class RetailDemand extends DocumentEntity implements IEntityWithAttribute
     private TaxSystem taxSystem;
     private Long qrSum;
     private Long prepaymentQrSum;
+    private Long advancePaymentSum;
     private ListEntity<AttachedFile> files;
 
     public RetailDemand(String id) {
