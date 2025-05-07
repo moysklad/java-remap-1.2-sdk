@@ -53,6 +53,9 @@
 ## 4.11-release (14.09.2022)
 * Добавлено поле `discountProhibited` в `Service`, `Bundle`
 
+## 4.10-release (02.06.2022)
+* Добавлены поля `printed` и `published` в Договор
+
 ## 4.5-release (02.03.2022)
 * Добавлены поля `markingSellingMode`, `sendMarksForCheck` в `RetailStore`
 
