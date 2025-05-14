@@ -322,6 +322,11 @@ public final class EntityClient {
     }
 
     @ApiChainElement
+    public WebHookStockClient webhookStock() {
+        return new WebHookStockClient(api);
+    }
+
+    @ApiChainElement
     public TokenClient token() {
         return new TokenClient(api);
     }

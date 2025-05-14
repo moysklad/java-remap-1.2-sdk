@@ -850,6 +850,19 @@ public class SimpleEntityManager implements TestRandomizers {
         return webHook;
     }
 
+    public WebHookStock createSimpleWebHookStock() throws IOException, ApiClientException {
+        WebHookStock webHookStock = new WebHookStock();
+        webHookStock.setStockType(WebHookStock.StockType.STOCK);
+        webHookStock.setReportType(WebHookStock.ReportType.ALL);
+        webHookStock.setMethod(WebHookStock.HttpMethod.POST);
+        webHookStock.setEnabled(false);
+        webHookStock.setUrl(randomUrl());
+
+        api.entity().webhookStock().create(webHookStock);
+
+        return webHookStock;
+    }
+
     public RetailStore createSimpleRetailStore() throws IOException, ApiClientException {
         RetailStore retailStore = new RetailStore();
         retailStore.setName("retailstore_" + randomStringTail());
