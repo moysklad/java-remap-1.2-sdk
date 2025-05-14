@@ -17,8 +17,6 @@ import java.util.Collection;
 
 import java.util.List;
 
-
-
 public final class OrganizationClient
         extends EntityClientBase
         implements
