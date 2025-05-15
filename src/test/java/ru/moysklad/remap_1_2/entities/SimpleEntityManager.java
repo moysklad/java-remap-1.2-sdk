@@ -852,8 +852,8 @@ public class SimpleEntityManager implements TestRandomizers {
 
     public WebHookStock createSimpleWebHookStock() throws IOException, ApiClientException {
         WebHookStock webHookStock = new WebHookStock();
-        webHookStock.setStockType(WebHookStock.StockType.STOCK);
-        webHookStock.setReportType(WebHookStock.ReportType.ALL);
+        webHookStock.setStockType(WebHookStock.StockType.STOCK.getName());
+        webHookStock.setReportType(WebHookStock.ReportType.ALL.getName());
         webHookStock.setMethod(WebHookStock.HttpMethod.POST);
         webHookStock.setEnabled(false);
         webHookStock.setUrl(randomUrl());

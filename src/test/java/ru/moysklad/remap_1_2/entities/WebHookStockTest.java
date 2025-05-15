@@ -19,9 +19,9 @@ public class WebHookStockTest extends EntityGetDeleteTest {
         WebHookStock webHookStock = new WebHookStock();
         webHookStock.setUrl(randomUrl());
         webHookStock.setMethod(WebHookStock.HttpMethod.POST);
-        webHookStock.setStockType(WebHookStock.StockType.STOCK);
+        webHookStock.setStockType(WebHookStock.StockType.STOCK.getName());
         webHookStock.setEnabled(false);
-        webHookStock.setReportType(WebHookStock.ReportType.ALL);
+        webHookStock.setReportType(WebHookStock.ReportType.ALL.getName());
 
         api.entity().webhookStock().create(webHookStock);
 
@@ -29,7 +29,7 @@ public class WebHookStockTest extends EntityGetDeleteTest {
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         WebHookStock retrievedEntity = updatedEntitiesList.getRows().get(0);
-        assertEquals(webHookStock.getStockType().name(), retrievedEntity.getStockType());
+        assertEquals(webHookStock.getStockType(), retrievedEntity.getStockType());
         assertEquals(webHookStock.getReportType(), retrievedEntity.getReportType());
         assertEquals(webHookStock.getMethod(), retrievedEntity.getMethod());
         assertEquals(webHookStock.getUrl(), retrievedEntity.getUrl());
@@ -69,7 +69,7 @@ public class WebHookStockTest extends EntityGetDeleteTest {
         WebHookStock originalWebHookStock = (WebHookStock) originalEntity;
         WebHookStock retrievedWebHookStock = (WebHookStock) retrievedEntity;
 
-        assertEquals(originalWebHookStock.getStockType().name(), retrievedWebHookStock.getStockType());
+        assertEquals(originalWebHookStock.getStockType(), retrievedWebHookStock.getStockType());
         assertEquals(originalWebHookStock.getMethod(), retrievedWebHookStock.getMethod());
         assertEquals(originalWebHookStock.getReportType(), retrievedWebHookStock.getReportType());
         assertEquals(originalWebHookStock.getUrl(), retrievedWebHookStock.getUrl());

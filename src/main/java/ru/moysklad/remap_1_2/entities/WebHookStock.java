@@ -10,8 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class WebHookStock extends MetaEntity {
-    private StockType stockType;
-    private ReportType reportType;
+    private String stockType;
+    private String reportType;
     private String url;
     private HttpMethod method;
     private Boolean enabled;
@@ -21,11 +21,32 @@ public class WebHookStock extends MetaEntity {
     }
 
     public enum StockType {
-        STOCK
+        STOCK("stock"),
+        ;
+
+        private final String name;
+
+        StockType(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 
     public enum ReportType {
-        ALL,
-        BY_STORE
+        ALL("all"),
+        BY_STORE("bystore"),
+        ;
+        private final String name;
+
+        ReportType(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
     }
 }
