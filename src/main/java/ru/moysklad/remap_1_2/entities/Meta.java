@@ -221,6 +221,7 @@ public final class Meta {
         UOM("uom", Uom.class),
         VARIANT("variant", Variant.class),
         WEBHOOK("webhook", WebHook.class),
+        WEBHOOKSTOCK("webhookstock", WebHookStock.class),
         COUNTERPARTY_SETTINGS("counterpartysettings", CounterpartySettings.class),
         SYSTEM_ROLE("systemrole", EmployeeRole.class),
         INDIVIDUAL_ROLE("individualrole", EmployeeRole.class),
