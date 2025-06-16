@@ -132,6 +132,7 @@ public final class Meta {
         EXPENSE_ITEM("expenseitem", ExpenseItem.class),
         FACTURE_IN("facturein", FactureIn.class),
         FACTURE_OUT("factureout", FactureOut.class),
+        GIFT_CARD("giftcard", GiftCard.class),
         GROUP("group", Group.class),
         IMAGE("image", Image.class),
         FILE("files", AttachedFile.class),
