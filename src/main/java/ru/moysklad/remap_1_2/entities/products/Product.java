@@ -227,7 +227,9 @@ public class Product extends AbstractProduct implements SingleProductMarker, Con
         VETPHARMA,
         SEAFOOD,
         BICYCLE,
-        NABEER
+        NABEER,
+        VEGETABLE_OIL,
+        PET_FOOD
     }
 
     /**
