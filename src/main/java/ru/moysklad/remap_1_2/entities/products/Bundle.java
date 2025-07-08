@@ -151,7 +151,9 @@ public class Bundle extends AbstractProduct implements IEntityWithAttributes<Att
         VETPHARMA,
         SEAFOOD,
         BICYCLE,
-        NABEER
+        NABEER,
+        VEGETABLE_OIL,
+        PET_FOOD
     }
 
     /**
