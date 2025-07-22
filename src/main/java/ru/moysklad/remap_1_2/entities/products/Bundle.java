@@ -51,12 +51,12 @@ public class Bundle extends AbstractProduct implements IEntityWithAttributes<Att
     /**
      * Вес
      */
-    private Integer weight;
+    private Double weight;
 
     /**
      * Объём
      */
-    private Integer volume;
+    private Double volume;
 
     /**
      * Отметка о том, добавлен ли Комплект в архив
