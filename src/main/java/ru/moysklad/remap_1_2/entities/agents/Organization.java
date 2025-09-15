@@ -192,6 +192,11 @@ public final class Organization extends Agent implements IEntityWithAttributes<A
      */
     private BigDecimal advancePaymentVat;
 
+    /**
+     * Настройки НДС
+     */
+    private CompanyVat companyVat;
+
     public Organization(String id) {
         super(id);
     }
