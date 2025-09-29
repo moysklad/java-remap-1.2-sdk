@@ -1,5 +1,6 @@
 package ru.moysklad.remap_1_2.entities.agents;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -195,6 +196,7 @@ public final class Organization extends Agent implements IEntityWithAttributes<A
     /**
      * Настройки НДС
      */
+    @JsonProperty("companyVat__ru")
     private CompanyVat companyVat;
 
     public Organization(String id) {
