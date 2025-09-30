@@ -62,7 +62,7 @@ public class OrganizationTest extends EntityGetUpdateDeleteTest {
     @Test
     public void companyVatTest() throws ApiClientException, IOException {
         Organization org = new Organization();
-        org.setName("Test Organization");
+        org.setName("organization_" + randomString(3) + "_" + new Date().getTime());
         org.setPayerVat(true);
         CompanyVat vat = new CompanyVat();
         vat.setDefaultCompanyVat(new BigDecimal("25"));
