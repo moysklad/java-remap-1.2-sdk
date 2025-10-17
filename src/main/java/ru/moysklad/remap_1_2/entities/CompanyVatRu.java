@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
-public class CompanyVat {
+public class CompanyVatRu {
     Boolean useCompanyVat;
     BigDecimal defaultCompanyVat;
     Boolean defaultCompanyVatEnabled;

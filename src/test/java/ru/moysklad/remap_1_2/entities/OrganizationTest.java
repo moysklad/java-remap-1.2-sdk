@@ -64,11 +64,11 @@ public class OrganizationTest extends EntityGetUpdateDeleteTest {
         Organization org = new Organization();
         org.setName("organization_" + randomString(3) + "_" + new Date().getTime());
         org.setPayerVat(true);
-        CompanyVat vat = new CompanyVat();
+        CompanyVatRu vat = new CompanyVatRu();
         vat.setDefaultCompanyVat(new BigDecimal("25"));
         vat.setUseCompanyVat(true);
         vat.setDefaultCompanyVatEnabled(true);
-        org.setCompanyVat(vat);
+        org.setCompanyVatRu(vat);
 
         api.entity().organization().create(org);
 
@@ -77,9 +77,9 @@ public class OrganizationTest extends EntityGetUpdateDeleteTest {
 
         Organization retrievedEntity = updatedEntitiesList.getRows().get(0);
 
-        assertEquals(vat.getDefaultCompanyVat(), retrievedEntity.getCompanyVat().getDefaultCompanyVat());
-        assertEquals(vat.getUseCompanyVat(), retrievedEntity.getCompanyVat().getUseCompanyVat());
-        assertEquals(vat.getDefaultCompanyVatEnabled(), retrievedEntity.getCompanyVat().getDefaultCompanyVatEnabled());
+        assertEquals(vat.getDefaultCompanyVat(), retrievedEntity.getCompanyVatRu().getDefaultCompanyVat());
+        assertEquals(vat.getUseCompanyVat(), retrievedEntity.getCompanyVatRu().getUseCompanyVat());
+        assertEquals(vat.getDefaultCompanyVatEnabled(), retrievedEntity.getCompanyVatRu().getDefaultCompanyVatEnabled());
     }
 
     @Test

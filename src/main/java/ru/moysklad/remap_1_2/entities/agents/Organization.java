@@ -197,7 +197,7 @@ public final class Organization extends Agent implements IEntityWithAttributes<A
      * Настройки НДС
      */
     @JsonProperty("companyVat__ru")
-    private CompanyVat companyVat;
+    private CompanyVatRu companyVatRu;
 
     public Organization(String id) {
         super(id);
