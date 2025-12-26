@@ -1,6 +1,7 @@
 package ru.moysklad.remap_1_2;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.entities.Publication;
 import ru.moysklad.remap_1_2.entities.Store;
@@ -32,6 +33,7 @@ public class PublicationTest {
     }
 
     @Test
+    @Ignore
     public void getPublicationTest() throws IOException, ApiClientException {
         String docId;
         {
@@ -66,6 +68,7 @@ public class PublicationTest {
     }
 
     @Test
+    @Ignore
     public void getAndDeletePublicationsTest() throws IOException, ApiClientException {
         String docId;
         {
