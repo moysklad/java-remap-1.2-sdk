@@ -12,12 +12,10 @@ import ru.moysklad.remap_1_2.entities.agents.Organization;
 import ru.moysklad.remap_1_2.entities.documents.Demand;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
-import ru.moysklad.remap_1_2.utils.MetaHrefUtils;
 import ru.moysklad.remap_1_2.utils.TestConstants;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
