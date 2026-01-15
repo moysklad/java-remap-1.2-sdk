@@ -14,7 +14,6 @@ import ru.moysklad.remap_1_2.utils.MetaHrefUtils;
 import ru.moysklad.remap_1_2.utils.TestConstants;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Optional;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -79,22 +78,17 @@ public class PublicationTest {
                 ));
 
         Publication publication = mockedApi.entity().demand().publish(docId, templates.getRows().get(0));
-        assertEquals(templates.getRows().get(0).getMeta().getHref(), publication.getHref());
+        assertEquals(MetaHrefUtils.getIdFromHref(templates.getRows().get(0).getMeta().getHref()).get(), publication.getHref());
         assertFalse(isEmpty(publication.getHref()));
-        assertNotNull("publication url " + publication.getHref() + " is relative or not an url",
-                new URL(publication.getHref()).getHost());
 
-        Optional<String> publicationId = MetaHrefUtils.getIdFromHref(publication.getHref());
-        assertTrue(publicationId.isPresent());
-
-        wireMockServer.stubFor(get(API_PATH + "/" + "entity/demand/" + docId + "/publication/" + publicationId.get())
+        wireMockServer.stubFor(get(API_PATH + "/" + "entity/demand/" + docId + "/publication/" + publication.getHref())
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader("X-Lognex-Get-Content", "true")
                         .withBodyFile("file_publication.json")
                 ));
 
-        Publication retrievedPublication = mockedApi.entity().demand().getPublication(docId, publicationId.get());
+        Publication retrievedPublication = mockedApi.entity().demand().getPublication(docId, publication.getHref());
         assertEquals(publication, retrievedPublication);
     }
 

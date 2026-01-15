@@ -1,19 +1,18 @@
 {
   "meta": {
     "size": 1,
-    "href" : "http://localhost/api/remap/1.2/entity/demand/metadata/embeddedtemplate/4fdd996f-d2fd-4500-baf2-fea33b6db078"
+    "href" : "4fdd996f-d2fd-4500-baf2-fea33b6db078"
   },
   "rows": [
     {
       "meta" : {
-        "href" : "http://localhost/api/remap/1.2/entity/demand/metadata/embeddedtemplate/4fdd996f-d2fd-4500-baf2-fea33b6db078",
+        "href" : "4fdd996f-d2fd-4500-baf2-fea33b6db078",
         "type" : "embeddedtemplate",
         "mediaType" : "application/json"
       },
       "id" : "4fdd996f-d2fd-4500-baf2-fea33b6db078",
       "name" : "УПД",
-      "type" : "entity",
-      "content" : "http://localhost/api/remap/1.2/download-template/upd_new.xls"
+      "type" : "entity"
     }
   ]
 }
