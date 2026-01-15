@@ -1,7 +1,7 @@
 package ru.moysklad.remap_1_2;
 
+import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.entities.Publication;
 import ru.moysklad.remap_1_2.entities.Store;
@@ -17,11 +17,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static org.junit.Assert.*;
+import static ru.moysklad.remap_1_2.ExportTest.wireMockServer;
+import static ru.moysklad.remap_1_2.utils.Constants.API_PATH;
 
 public class PublicationTest {
     private ApiClient api;
+    private ApiClient mockedApi;
 
     @Before
     public void init() {
@@ -30,10 +34,22 @@ public class PublicationTest {
                 TestConstants.FORCE_HTTPS_FOR_TESTS, System.getenv("API_LOGIN"),
                 System.getenv("API_PASSWORD")
         );
+
+        wireMockServer.start();
+
+        mockedApi = new ApiClient(wireMockServer.baseUrl(),
+                TestConstants.FORCE_HTTPS_FOR_TESTS, System.getenv("API_LOGIN"),
+                System.getenv("API_PASSWORD")
+        );
+    }
+
+    @After
+    public void afterTest() throws InterruptedException {
+        wireMockServer.shutdown();
+        Thread.sleep(1500);
     }
 
     @Test
-    @Ignore
     public void getPublicationTest() throws IOException, ApiClientException {
         String docId;
         {
@@ -54,21 +70,35 @@ public class PublicationTest {
         assertNotNull(templates.getRows());
         assertFalse(templates.getRows().isEmpty());
 
-        Publication publication = api.entity().demand().publish(docId, templates.getRows().get(0));
-        assertEquals(templates.getRows().get(0).getMeta(), publication.getTemplate().getMeta());
+        wireMockServer.stubFor(post(API_PATH + "/" + "entity/demand/" + docId + "/publication/")
+                .withRequestBody(containing("upd_new.xls"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("X-Lognex-Get-Content", "true")
+                        .withBodyFile("file_publication.json")
+                ));
+
+        Publication publication = mockedApi.entity().demand().publish(docId, templates.getRows().get(0));
+        assertEquals(templates.getRows().get(0).getMeta().getHref(), publication.getHref());
         assertFalse(isEmpty(publication.getHref()));
         assertNotNull("publication url " + publication.getHref() + " is relative or not an url",
                 new URL(publication.getHref()).getHost());
 
-        Optional<String> publicationId = MetaHrefUtils.getIdFromHref(publication.getMeta().getHref());
+        Optional<String> publicationId = MetaHrefUtils.getIdFromHref(publication.getHref());
         assertTrue(publicationId.isPresent());
 
-        Publication retrievedPublication = api.entity().demand().getPublication(docId, publicationId.get());
+        wireMockServer.stubFor(get(API_PATH + "/" + "entity/demand/" + docId + "/publication/" + publicationId.get())
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("X-Lognex-Get-Content", "true")
+                        .withBodyFile("file_publication.json")
+                ));
+
+        Publication retrievedPublication = mockedApi.entity().demand().getPublication(docId, publicationId.get());
         assertEquals(publication, retrievedPublication);
     }
 
     @Test
-    @Ignore
     public void getAndDeletePublicationsTest() throws IOException, ApiClientException {
         String docId;
         {
@@ -89,22 +119,58 @@ public class PublicationTest {
         assertNotNull(templates.getRows());
         assertFalse(templates.getRows().isEmpty());
 
-        api.entity().demand().publish(docId, templates.getRows().get(0));
-        ListEntity<Publication> publications = api.entity().demand().getPublications(docId);
-        assertEquals(Integer.valueOf(1), publications.getMeta().getSize());
-        assertEquals(templates.getRows().get(0).getMeta(), publications.getRows().get(0).getTemplate().getMeta());
+        wireMockServer.stubFor(post(API_PATH + "/" + "entity/demand/" + docId + "/publication/")
+                .withRequestBody(containing("upd_new.xls"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("X-Lognex-Get-Content", "true")
+                        .withBodyFile("file_publication.json")
+                ));
 
-        api.entity().demand().publish(docId, templates.getRows().get(1));
-        publications = api.entity().demand().getPublications(docId);
+        mockedApi.entity().demand().publish(docId, templates.getRows().get(0));
+
+        wireMockServer.stubFor(get(API_PATH + "/" + "entity/demand/" + docId + "/publication/")
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("X-Lognex-Get-Content", "true")
+                        .withBodyFile("file_publication_1.json")
+                ));
+
+        ListEntity<Publication> publications = mockedApi.entity().demand().getPublications(docId);
+        assertEquals(Integer.valueOf(1), publications.getMeta().getSize());
+
+        wireMockServer.stubFor(post(API_PATH + "/" + "entity/demand/" + docId + "/publication/")
+                .withRequestBody(containing("upd.xls"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("X-Lognex-Get-Content", "true")
+                        .withBodyFile("file_publication.json")
+                ));
+        mockedApi.entity().demand().publish(docId, templates.getRows().get(1));
+
+        wireMockServer.stubFor(get(API_PATH + "/" + "entity/demand/" + docId + "/publication/")
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("X-Lognex-Get-Content", "true")
+                        .withBodyFile("file_publication_another.json")
+                ));
+
+        publications = mockedApi.entity().demand().getPublications(docId);
         assertEquals(Integer.valueOf(2), publications.getMeta().getSize());
 
-        Publication publicationToDelete = publications.getRows().get(0);
-        Optional<String> publicationId = MetaHrefUtils.getIdFromHref(publicationToDelete.getMeta().getHref());
+        String publicationToDelete = publications.getMeta().getHref();
+        Optional<String> publicationId = MetaHrefUtils.getIdFromHref(publicationToDelete);
         assertTrue(publicationId.isPresent());
 
         api.entity().demand().delelePublication(docId, publicationId.get());
-        publications = api.entity().demand().getPublications(docId);
+        wireMockServer.stubFor(get(API_PATH + "/" + "entity/demand/" + docId + "/publication/")
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("X-Lognex-Get-Content", "true")
+                        .withBodyFile("file_publication_1.json")
+                ));
+        publications = mockedApi.entity().demand().getPublications(docId);
         assertEquals(Integer.valueOf(1), publications.getMeta().getSize());
-        assertNotEquals(publicationToDelete, publications.getRows().get(0));
+        assertNotEquals(publicationToDelete, publications.getMeta().getHref());
     }
 }

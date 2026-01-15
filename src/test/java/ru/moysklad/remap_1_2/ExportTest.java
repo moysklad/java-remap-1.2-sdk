@@ -6,16 +6,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import ru.moysklad.remap_1_2.entities.ExportExtension;
-import ru.moysklad.remap_1_2.entities.Store;
 import ru.moysklad.remap_1_2.entities.Template;
-import ru.moysklad.remap_1_2.entities.agents.Organization;
-import ru.moysklad.remap_1_2.entities.documents.Demand;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 import ru.moysklad.remap_1_2.utils.TestConstants;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
@@ -55,19 +53,7 @@ public class ExportTest {
 
     @Test
     public void test_exportSingle() throws IOException, ApiClientException {
-        String docId;
-        {
-            Organization ag = api.entity().organization().get().getRows().get(0);
-            Store st = api.entity().store().get().getRows().get(0);
-
-            Demand doc = new Demand();
-            doc.setAgent(ag);
-            doc.setOrganization(ag);
-            doc.setStore(st);
-            api.entity().demand().create(doc);
-
-            docId = doc.getId();
-        }
+        String docId = UUID.randomUUID().toString();
 
         ListEntity<Template> templates = api.entity().demand().metadata().embeddedtemplate();
         assertNotNull(templates);
@@ -137,19 +123,7 @@ public class ExportTest {
 
     @Test
     public void test_exportMultiple() throws IOException, ApiClientException {
-        String docId;
-        {
-            Organization ag = api.entity().organization().get().getRows().get(0);
-            Store st = api.entity().store().get().getRows().get(0);
-
-            Demand doc = new Demand();
-            doc.setAgent(ag);
-            doc.setOrganization(ag);
-            doc.setStore(st);
-            api.entity().demand().create(doc);
-
-            docId = doc.getId();
-        }
+        String docId = UUID.randomUUID().toString();
 
         ListEntity<Template> templates = api.entity().demand().metadata().embeddedtemplate();
         assertNotNull(templates);
