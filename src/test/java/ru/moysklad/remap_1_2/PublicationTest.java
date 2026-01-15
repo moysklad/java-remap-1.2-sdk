@@ -156,7 +156,13 @@ public class PublicationTest {
         Optional<String> publicationId = MetaHrefUtils.getIdFromHref(publicationToDelete);
         assertTrue(publicationId.isPresent());
 
-        api.entity().demand().delelePublication(docId, publicationId.get());
+        wireMockServer.stubFor(delete(API_PATH + "/" + "entity/demand/" + docId + "/publication/" + publicationId.get())
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("X-Lognex-Get-Content", "true")
+                ));
+
+        mockedApi.entity().demand().delelePublication(docId, publicationId.get());
         wireMockServer.stubFor(get(API_PATH + "/" + "entity/demand/" + docId + "/publication/")
                 .willReturn(aResponse()
                         .withStatus(200)
