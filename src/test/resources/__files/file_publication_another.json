@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "size": 2,
+    "href": "4fdd996f-d2fd-4500-baf2-fea33b6db079"
+  },
+  "rows": [
+    {
+      "template": {
+        "meta": {
+          "href": "4fdd996f-d2fd-4500-baf2-fea33b6db079",
+          "type": "embeddedtemplate",
+          "mediaType": "application/json"
+        },
+        "id": "4fdd996f-d2fd-4500-baf2-fea33b6db078",
+        "name": "УПД",
+        "type": "entity"
+      }
+    },
+    {
+      "template": {
+        "meta": {
+          "href": "4fdd996f-d2fd-4500-baf2-fea33b6db078",
+          "type": "embeddedtemplate",
+          "mediaType": "application/json"
+        },
+        "id": "4fdd996f-d2fd-4500-baf2-fea33b6db078",
+        "name": "УПД",
+        "type": "entity"
+      }
+    }
+  ]
+}
