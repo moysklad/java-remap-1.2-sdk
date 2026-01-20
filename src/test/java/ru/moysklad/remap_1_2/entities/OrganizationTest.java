@@ -60,6 +60,29 @@ public class OrganizationTest extends EntityGetUpdateDeleteTest {
     }
 
     @Test
+    public void companyVatTest() throws ApiClientException, IOException {
+        Organization org = new Organization();
+        org.setName("organization_" + randomString(3) + "_" + new Date().getTime());
+        org.setPayerVat(true);
+        CompanyVatRu vat = new CompanyVatRu();
+        vat.setDefaultCompanyVat(new BigDecimal("25"));
+        vat.setUseCompanyVat(true);
+        vat.setDefaultCompanyVatEnabled(true);
+        org.setCompanyVatRu(vat);
+
+        api.entity().organization().create(org);
+
+        ListEntity<Organization> updatedEntitiesList = api.entity().organization().get(filterEq("name", org.getName()));
+        assertEquals(1, updatedEntitiesList.getRows().size());
+
+        Organization retrievedEntity = updatedEntitiesList.getRows().get(0);
+
+        assertEquals(vat.getDefaultCompanyVat(), retrievedEntity.getCompanyVatRu().getDefaultCompanyVat());
+        assertEquals(vat.getUseCompanyVat(), retrievedEntity.getCompanyVatRu().getUseCompanyVat());
+        assertEquals(vat.getDefaultCompanyVatEnabled(), retrievedEntity.getCompanyVatRu().getDefaultCompanyVatEnabled());
+    }
+
+    @Test
     public void metadataTest() throws IOException, ApiClientException {
         MetadataAttributeSharedResponse metadata = api.entity().organization().metadata();
         assertTrue(metadata.getCreateShared());
