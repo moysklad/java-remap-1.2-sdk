@@ -22,6 +22,7 @@ public final class JsonUtils {
         module.addDeserializer(Meta.Type.class, new Meta.Type.Deserializer());
 
         objectMapper.registerModule(module);
+        objectMapper.findAndRegisterModules();
 
         return objectMapper;
     }

@@ -212,6 +212,7 @@ public final class ApiClient {
         module.addSerializer(Optional.class, new OptionalEmptyAsNullSerializer());
 
         objectMapper.registerModule(module);
+        objectMapper.findAndRegisterModules();
 
         return objectMapper;
     }
