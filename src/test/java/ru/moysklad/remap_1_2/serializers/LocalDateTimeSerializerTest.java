@@ -2,6 +2,7 @@ package ru.moysklad.remap_1_2.serializers;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.ApiClient;
@@ -19,6 +20,7 @@ public class LocalDateTimeSerializerTest implements TestAsserts, TestRandomizers
     @Test
     public void test_localDateTimeSerialization() throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(MapperFeature.REQUIRE_HANDLERS_FOR_JAVA8_TIMES, false);
         ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         LocalDateTime now = now();
