@@ -24,6 +24,7 @@ public final class CounterpartyClient
         PutByIdEndpoint<Counterparty>,
         MassCreateUpdateDeleteEndpoint<Counterparty>,
         HasStatesEndpoint,
+        HasNotesEndpoint,
         HasSettingsEndpoint<CounterpartySettings>,
         HasFilesEndpoint<Counterparty> {
 

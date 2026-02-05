@@ -24,6 +24,7 @@ public final class InvoiceOutClient
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint,
+        HasNotesEndpoint,
         HasFilesEndpoint<InvoiceOut> {
 
     public InvoiceOutClient(ApiClient api) {
