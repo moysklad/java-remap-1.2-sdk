@@ -24,7 +24,7 @@ public final class InvoiceInClient
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint,
-        HasNotesEndpoint,
+        HasNotesEndpoint<InvoiceIn>,
         HasFilesEndpoint<InvoiceIn> {
 
     public InvoiceInClient(ApiClient api) {

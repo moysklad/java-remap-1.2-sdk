@@ -1,5 +1,6 @@
 package ru.moysklad.remap_1_2.entities.documents;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.*;
@@ -13,6 +14,7 @@ import ru.moysklad.remap_1_2.utils.ApiClientException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -201,6 +203,183 @@ public class SupplyTest extends DocumentWithPositionsTestBase {
         assertEquals(state.getStateType(), retrievedState.getStateType());
         assertEquals(state.getColor(), retrievedState.getColor());
         assertEquals(state.getEntityType(), retrievedState.getEntityType());
+    }
+
+    @Test
+    public void getNotesTest() throws IOException, ApiClientException {
+        Supply supply = createDefaultSupply();
+
+        ListEntity<Note> notesList = new ListEntity<>();
+        notesList.setRows(new ArrayList<>());
+        Note note1 = new Note();
+        note1.setDescription(randomString());
+        notesList.getRows().add(note1);
+        Note note2 = new Note();
+        note2.setDescription(randomString());
+        notesList.getRows().add(note2);
+
+        api.entity().supply().create(supply);
+        api.entity().supply().createNote(supply.getId(), notesList.getRows().get(0));
+        api.entity().supply().createNote(supply.getId(), notesList.getRows().get(1));
+
+        ListEntity<Note> retrievedNotesById = api.entity().supply().getNotes(supply.getId());
+
+        assertEquals(2, retrievedNotesById.getRows().size());
+
+        for (Note note : retrievedNotesById.getRows()) {
+            for (Note otherNote : notesList.getRows()) {
+                if (note.getId().equals(otherNote.getId())) {
+                    assertEquals(otherNote.getName(), note.getName());
+                    break;
+                }
+            }
+        }
+
+        ListEntity<Note> retrievedNotesByEntity = api.entity().supply().getNotes(supply);
+
+        assertEquals(2, retrievedNotesByEntity.getRows().size());
+
+        for (Note note : retrievedNotesByEntity.getRows()) {
+            for (Note otherNote : notesList.getRows()) {
+                if (note.getId().equals(otherNote.getId())) {
+                    assertEquals(otherNote.getName(), note.getName());
+                    break;
+                }
+            }
+        }
+    }
+
+    @Test
+    public void postNoteTest() throws IOException, ApiClientException {
+        Supply supply = simpleEntityManager.createSimple(Supply.class);
+
+        Note note = new Note();
+        String name = randomString();
+        note.setDescription(name);
+
+        api.entity().supply().createNote(supply.getId(), note);
+
+        Note retrievedNote = api.entity().supply().getNote(supply.getId(), note.getId());
+        assertEquals(retrievedNote.getDescription(), name);
+    }
+
+    @Test
+    public void getNoteTest() throws IOException, ApiClientException {
+        Supply supply = createDefaultSupply();
+
+        api.entity().supply().create(supply);
+
+        ListEntity<Note> notesList = new ListEntity<>();
+        notesList.setRows(new ArrayList<>());
+        List<String> descriptions = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            descriptions.add(randomString());
+            Note note = new Note();
+            note.setDescription(descriptions.get(i));
+            notesList.getRows().add(note);
+
+            api.entity().supply().createNote(supply.getId(), notesList.getRows().get(i));
+        }
+
+        Note retrievedNoteByIds = api.entity().supply().getNote(supply.getId(), notesList.getRows().get(0).getId());
+        assertEquals(descriptions.get(0), retrievedNoteByIds.getDescription());
+
+        Note retrievedNoteByEntityId = api.entity().supply().getNote(supply, notesList.getRows().get(1).getId());
+        assertEquals(descriptions.get(1), retrievedNoteByEntityId.getDescription());
+
+        Note retrievedNoteByEntities = api.entity().supply().getNote(supply, notesList.getRows().get(2));
+        assertEquals(descriptions.get(2), retrievedNoteByEntities.getDescription());
+    }
+
+    @Test
+    public void putNoteTest() throws IOException, ApiClientException {
+        Supply supply = createDefaultSupply();
+
+        api.entity().supply().create(supply);
+
+        ListEntity<Note> notesList = new ListEntity<>();
+        notesList.setRows(new ArrayList<>());
+        List<String> descriptions = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            descriptions.add(randomString());
+            Note note = new Note();
+            note.setDescription(randomString());
+            notesList.getRows().add(note);
+
+            api.entity().supply().createNote(supply.getId(), notesList.getRows().get(i));
+        }
+
+        Note updNoteByIds = new Note();
+        updNoteByIds.setDescription(descriptions.get(0));
+        api.entity().supply().updateNote(supply.getId(), notesList.getRows().get(0).getId(), updNoteByIds);
+        Note retrievedEntity = api.entity().supply().getNote(supply.getId(), notesList.getRows().get(0).getId());
+        assertNotEquals(notesList.getRows().get(0).getDescription(), updNoteByIds.getDescription());
+        assertEquals(descriptions.get(0), updNoteByIds.getDescription());
+        assertEquals(retrievedEntity.getDescription(), updNoteByIds.getDescription());
+
+        Note updNoteByEntityId = new Note();
+        updNoteByEntityId.setDescription(descriptions.get(1));
+        api.entity().supply().updateNote(supply, notesList.getRows().get(1).getId(), updNoteByEntityId);
+        retrievedEntity = api.entity().supply().getNote(supply.getId(), notesList.getRows().get(1).getId());
+        assertNotEquals(notesList.getRows().get(1).getDescription(), updNoteByEntityId.getDescription());
+        assertEquals(descriptions.get(1), updNoteByEntityId.getDescription());
+        assertEquals(retrievedEntity.getDescription(), updNoteByEntityId.getDescription());
+
+        Note updNoteByEntities = new Note();
+        updNoteByEntities.setDescription(descriptions.get(2));
+        api.entity().supply().updateNote(supply, notesList.getRows().get(2), updNoteByEntities);
+        retrievedEntity = api.entity().supply().getNote(supply.getId(), notesList.getRows().get(2).getId());
+        assertNotEquals(notesList.getRows().get(2).getDescription(), updNoteByEntities.getDescription());
+        assertEquals(descriptions.get(2), updNoteByEntities.getDescription());
+        assertEquals(retrievedEntity.getDescription(), updNoteByEntities.getDescription());
+
+        Note updNoteByPrevObject = new Note();
+        Note prevObject = api.entity().supply().getNote(supply.getId(), notesList.getRows().get(3).getId());
+        updNoteByPrevObject.set(prevObject);
+        updNoteByPrevObject.setDescription(descriptions.get(3));
+        api.entity().supply().updateNote(supply, updNoteByPrevObject);
+        retrievedEntity = api.entity().supply().getNote(supply.getId(), notesList.getRows().get(3).getId());
+        assertNotEquals(notesList.getRows().get(3).getDescription(), updNoteByPrevObject.getDescription());
+        assertEquals(descriptions.get(3), updNoteByPrevObject.getDescription());
+        assertEquals(retrievedEntity.getDescription(), updNoteByPrevObject.getDescription());
+    }
+
+    @Test
+    public void deleteNoteTest() throws IOException, ApiClientException {
+        Supply supply = createDefaultSupply();
+
+        api.entity().supply().create(supply);
+
+        for (int i = 0; i < 3; i++) {
+            Note note = new Note();
+            note.setDescription(randomString());
+
+            api.entity().supply().createNote(supply.getId(), note);
+        }
+
+        ListEntity<Note> notesBefore = api.entity().supply().getNotes(supply.getId());
+        assertEquals((Integer) 3, notesBefore.getMeta().getSize());
+
+        api.entity().supply().deleteNote(supply.getId(), notesBefore.getRows().get(0).getId());
+        ListEntity<Note> notesAfter = api.entity().supply().getNotes(supply.getId());
+        assertEquals((Integer) 2, notesAfter.getMeta().getSize());
+
+        api.entity().supply().deleteNote(supply, notesBefore.getRows().get(1).getId());
+        notesAfter = api.entity().supply().getNotes(supply.getId());
+        assertEquals((Integer) 1, notesAfter.getMeta().getSize());
+
+        api.entity().supply().deleteNote(supply, notesBefore.getRows().get(2));
+        notesAfter = api.entity().supply().getNotes(supply.getId());
+        assertEquals((Integer) 0, notesAfter.getMeta().getSize());
+    }
+
+    private @NonNull Supply createDefaultSupply() throws IOException, ApiClientException {
+        Supply supply = new Supply();
+        supply.setName("supply_" + randomString(3) + "_" + new Date().getTime());
+        supply.setOrganization(simpleEntityManager.getOwnOrganization());
+        supply.setAgent(simpleEntityManager.createSimpleCounterparty());
+        supply.setStore(simpleEntityManager.getMainStore());
+        return supply;
     }
 
     @Override

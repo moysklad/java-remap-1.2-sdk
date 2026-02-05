@@ -23,7 +23,7 @@ public final class CustomerOrderClient
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint,
-        HasNotesEndpoint,
+        HasNotesEndpoint<CustomerOrder>,
         MetadataDocumentAttributeEndpoint,
         HasFilesEndpoint<CustomerOrder> {
 

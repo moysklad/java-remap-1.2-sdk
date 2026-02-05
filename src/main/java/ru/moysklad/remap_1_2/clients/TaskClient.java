@@ -21,7 +21,6 @@ public final class TaskClient
         PostEndpoint<Task>,
         PutByIdEndpoint<Task>,
         DeleteByIdEndpoint,
-        HasNotesEndpoint,
         HasFilesEndpoint<Task> {
 
     TaskClient(ru.moysklad.remap_1_2.ApiClient api) {

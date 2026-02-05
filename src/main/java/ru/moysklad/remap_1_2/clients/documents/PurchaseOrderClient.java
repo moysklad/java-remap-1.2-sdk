@@ -25,7 +25,7 @@ public final class PurchaseOrderClient
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint,
-        HasNotesEndpoint,
+        HasNotesEndpoint<PurchaseOrder>,
         HasFilesEndpoint<PurchaseOrder> {
 
     public PurchaseOrderClient(ApiClient api) {

@@ -24,7 +24,7 @@ public final class CommissionReportOutClient
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint,
-        HasNotesEndpoint,
+        HasNotesEndpoint<CommissionReportOut>,
         HasFilesEndpoint<CommissionReportOut> {
 
     public CommissionReportOutClient(ApiClient api) {

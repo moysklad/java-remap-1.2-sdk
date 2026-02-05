@@ -25,7 +25,7 @@ public final class PurchaseReturnClient
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint,
-        HasNotesEndpoint,
+        HasNotesEndpoint<PurchaseReturn>,
         HasFilesEndpoint<PurchaseReturn> {
 
     public PurchaseReturnClient(ApiClient api) {

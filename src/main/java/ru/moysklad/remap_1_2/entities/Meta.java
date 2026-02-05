@@ -225,7 +225,8 @@ public final class Meta {
         COUNTERPARTY_SETTINGS("counterpartysettings", CounterpartySettings.class),
         SYSTEM_ROLE("systemrole", EmployeeRole.class),
         INDIVIDUAL_ROLE("individualrole", EmployeeRole.class),
-        CUSTOM_ROLE("customrole", EmployeeRole.class)
+        CUSTOM_ROLE("customrole", EmployeeRole.class),
+        NOTE_DOC("eventnote", Note.class)
         ;
 
         @Getter
