@@ -1,6 +1,7 @@
 package ru.moysklad.remap_1_2.utils;
 
 import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.client.methods.*;
@@ -59,7 +60,7 @@ public final class HttpRequestExecutor {
         if (api.isPricePrecision()) header("X-Lognex-Precision", "true");
         if (api.isWithoutWebhookContent()) header("X-Lognex-WebHook-Disable", "true");
 
-        objectMapper = ApiClient.createObjectMapper();
+        objectMapper = api.getObjectMapper();
     }
 
     private HttpRequestExecutor(CloseableHttpClient client, String url) {
