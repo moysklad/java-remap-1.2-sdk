@@ -279,11 +279,13 @@ public final class ApiClient {
     public static ObjectMapper createCustomConfig(boolean prettyPrintJson, Map<MapperFeature, Boolean> mapConfig) {
         ObjectMapper objectMapper = createObjectMapper(prettyPrintJson);
         if (mapConfig == null || mapConfig.isEmpty()) {
+            objectMapper.findAndRegisterModules();
             return objectMapper;
         }
         for (MapperFeature config: mapConfig.keySet()) {
             objectMapper.configure(config, mapConfig.get(config));
         }
+        objectMapper.findAndRegisterModules();
         return objectMapper;
     }
 
