@@ -229,6 +229,7 @@ public final class ApiClient {
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
         objectMapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
+        objectMapper.configure(MapperFeature.REQUIRE_HANDLERS_FOR_JAVA8_OPTIONALS, false);
 
         SimpleModule module = new SimpleModule();
 
@@ -279,13 +280,11 @@ public final class ApiClient {
     public static ObjectMapper createCustomConfig(boolean prettyPrintJson, Map<MapperFeature, Boolean> mapConfig) {
         ObjectMapper objectMapper = createObjectMapper(prettyPrintJson);
         if (mapConfig == null || mapConfig.isEmpty()) {
-            objectMapper.findAndRegisterModules();
             return objectMapper;
         }
         for (MapperFeature config: mapConfig.keySet()) {
             objectMapper.configure(config, mapConfig.get(config));
         }
-        objectMapper.findAndRegisterModules();
         return objectMapper;
     }
 
