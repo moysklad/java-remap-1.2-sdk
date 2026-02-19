@@ -59,7 +59,7 @@ public final class HttpRequestExecutor {
         if (api.isPricePrecision()) header("X-Lognex-Precision", "true");
         if (api.isWithoutWebhookContent()) header("X-Lognex-WebHook-Disable", "true");
 
-        objectMapper = ApiClient.createObjectMapper();
+        objectMapper = api.getObjectMapper();
     }
 
     private HttpRequestExecutor(CloseableHttpClient client, String url) {

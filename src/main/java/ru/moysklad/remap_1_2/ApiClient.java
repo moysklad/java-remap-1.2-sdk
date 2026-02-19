@@ -31,6 +31,7 @@ import ru.moysklad.remap_1_2.utils.NoAuthRedirectStrategy;
 import ru.moysklad.remap_1_2.utils.json.*;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -44,6 +45,7 @@ public final class ApiClient {
     private boolean prettyPrintJson = false;
     private boolean pricePrecision = false;
     private boolean withoutWebhookContent = false;
+    private final ObjectMapper objectMapper;
 
     /**
      * Создаёт экземпляр коннектора API
@@ -82,8 +84,56 @@ public final class ApiClient {
         this.host = host;
         this.client = client;
         setCredentials(login, password);
+        this.objectMapper = createObjectMapper();
     }
 
+    /**
+     * Создаёт экземпляр коннектора API
+     *
+     * @param host        хост, на котором располагается API
+     * @param forceHttps  форсировать запрос через HTTPS
+     * @param login       логин пользователя
+     * @param password    пароль пользователя
+     * @param configurate кастомная конфигурация маппера
+     */
+    public ApiClient(String host, boolean forceHttps, String login, String password, Map<MapperFeature, Boolean> configurate) {
+        this(host, forceHttps, login, password, createHttpClient(), configurate);
+    }
+
+    /**
+     * Создаёт экземпляр коннектора API
+     *
+     * @param host        хост, на котором располагается API
+     * @param forceHttps  форсировать запрос через HTTPS
+     * @param login       логин пользователя
+     * @param password    пароль пользователя
+     * @param client      HTTP-клиент
+     * @param configurate кастомная конфигурация маппера
+     */
+    public ApiClient(String host, boolean forceHttps, String login, String password, CloseableHttpClient client, Map<MapperFeature, Boolean> configurate) {
+        if (host == null || host.trim().isEmpty()) throw new IllegalArgumentException("Адрес хоста API не может быть пустым или null!");
+        host = host.trim();
+
+        while (host.endsWith("/")) host = host.substring(0, host.lastIndexOf("/"));
+
+        if (forceHttps) {
+            if (host.startsWith("http://")) host = host.replace("http://", "https://");
+            else if (!host.startsWith("https://")) host = "https://" + host;
+        } else {
+            if (!host.startsWith("https://") && !host.startsWith("http://")) host = "http://" + host;
+        }
+
+        this.host = host;
+        this.client = client;
+        setCredentials(login, password);
+        this.objectMapper = createCustomObjectMapper(configurate);
+    }
+
+    public static ApiClient createWithBearerToken(String host, boolean forceHttps, String token, CloseableHttpClient client, Map<MapperFeature, Boolean> configurate) {
+        ApiClient apiClient = new ApiClient(host, forceHttps, null, null, client, configurate);
+        apiClient.setToken(token);
+        return apiClient;
+    }
 
     public static ApiClient createWithBearerToken(String host, boolean forceHttps, String token, CloseableHttpClient client) {
         ApiClient apiClient = new ApiClient(host, forceHttps, null, null, client);
@@ -93,6 +143,10 @@ public final class ApiClient {
 
     public static ApiClient createWithBearerToken(String host, boolean forceHttps, String token) {
         return createWithBearerToken(host, forceHttps, token, createHttpClient());
+    }
+
+    public static ApiClient createWithBearerToken(String host, boolean forceHttps, String token, Map<MapperFeature, Boolean> configurate) {
+        return createWithBearerToken(host, forceHttps, token, createHttpClient(), configurate);
     }
 
     private static CloseableHttpClient createHttpClient() {
@@ -159,6 +213,10 @@ public final class ApiClient {
         return createObjectMapper(false);
     }
 
+    public static ObjectMapper createCustomObjectMapper(Map<MapperFeature, Boolean> customConfiguration) {
+        return createCustomConfig(false, customConfiguration);
+    }
+
     public static ObjectMapper createObjectMapper(boolean prettyPrinting) {
         ObjectMapper objectMapper = new ObjectMapper();
         if (prettyPrinting) {
@@ -171,7 +229,6 @@ public final class ApiClient {
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
         objectMapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
-        objectMapper.configure(MapperFeature.REQUIRE_HANDLERS_FOR_JAVA8_TIMES, false);
 
         SimpleModule module = new SimpleModule();
 
@@ -216,6 +273,17 @@ public final class ApiClient {
 
         objectMapper.registerModule(module);
 
+        return objectMapper;
+    }
+
+    public static ObjectMapper createCustomConfig(boolean prettyPrintJson, Map<MapperFeature, Boolean> mapConfig) {
+        ObjectMapper objectMapper = createObjectMapper(prettyPrintJson);
+        if (mapConfig == null || mapConfig.isEmpty()) {
+            return objectMapper;
+        }
+        for (MapperFeature config: mapConfig.keySet()) {
+            objectMapper.configure(config, mapConfig.get(config));
+        }
         return objectMapper;
     }
 
