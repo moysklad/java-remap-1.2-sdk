@@ -313,4 +313,8 @@ public final class ApiClient {
         this.withoutWebhookContent = without;
         return this;
     }
+
+    public void setObjectMapper(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 }
