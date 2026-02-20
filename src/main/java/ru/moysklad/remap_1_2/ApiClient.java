@@ -45,7 +45,7 @@ public final class ApiClient {
     private boolean prettyPrintJson = false;
     private boolean pricePrecision = false;
     private boolean withoutWebhookContent = false;
-    private final ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
     /**
      * Создаёт экземпляр коннектора API
