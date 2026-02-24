@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import lombok.NoArgsConstructor;
 import ru.moysklad.remap_1_2.entities.Meta;
 
+import java.time.LocalDateTime;
+
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
@@ -20,9 +22,10 @@ public final class JsonUtils {
 
         module.addSerializer(Meta.Type.class, new Meta.Type.Serializer());
         module.addDeserializer(Meta.Type.class, new Meta.Type.Deserializer());
+        module.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
+        module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
 
         objectMapper.registerModule(module);
-        objectMapper.findAndRegisterModules();
 
         return objectMapper;
     }
