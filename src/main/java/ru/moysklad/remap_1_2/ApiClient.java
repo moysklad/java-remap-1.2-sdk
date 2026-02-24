@@ -45,7 +45,7 @@ public final class ApiClient {
     private boolean prettyPrintJson = false;
     private boolean pricePrecision = false;
     private boolean withoutWebhookContent = false;
-    private final ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
     /**
      * Создаёт экземпляр коннектора API
@@ -312,5 +312,9 @@ public final class ApiClient {
     public ApiClient withoutWebhookContent(boolean without) {
         this.withoutWebhookContent = without;
         return this;
+    }
+
+    public void setObjectMapper(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
     }
 }
