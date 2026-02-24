@@ -26,7 +26,6 @@ public final class JsonUtils {
         module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
 
         objectMapper.registerModule(module);
-        objectMapper.findAndRegisterModules();
 
         return objectMapper;
     }
