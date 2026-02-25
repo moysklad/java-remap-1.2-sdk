@@ -1,5 +1,6 @@
 package ru.moysklad.remap_1_2.utils.json;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,9 +8,11 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import lombok.NoArgsConstructor;
 import ru.moysklad.remap_1_2.entities.Meta;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 import static lombok.AccessLevel.PRIVATE;
+import static ru.moysklad.remap_1_2.utils.Constants.DATE_FORMAT_PATTERN;
 
 @NoArgsConstructor(access = PRIVATE)
 public final class JsonUtils {
@@ -19,6 +22,8 @@ public final class JsonUtils {
         objectMapper.configure(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         objectMapper.enable(DeserializationFeature.UNWRAP_SINGLE_VALUE_ARRAYS);
+
+        objectMapper.configOverride(Instant.class).setFormat(JsonFormat.Value.forPattern(DATE_FORMAT_PATTERN).withLenient(true));
 
         SimpleModule module = new SimpleModule();
 
