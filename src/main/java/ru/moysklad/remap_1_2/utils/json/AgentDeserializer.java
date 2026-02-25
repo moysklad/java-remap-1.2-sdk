@@ -19,7 +19,7 @@ import java.io.IOException;
  * одного из классов, наследующихся от Agent: Organization, Counterparty, Employee
  */
 public class AgentDeserializer extends JsonDeserializer<Agent> {
-    private final ObjectMapper objectMapper = JsonUtils.createObjectMapperWithMetaAdapter();
+    private final ObjectMapper objectMapper = JsonUtils.createObjectMapperWithMetaAdapterWithoutAgent();
 
     @Override
     public Agent deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
