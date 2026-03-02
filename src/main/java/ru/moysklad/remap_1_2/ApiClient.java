@@ -32,6 +32,7 @@ import ru.moysklad.remap_1_2.utils.json.*;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -111,22 +112,8 @@ public final class ApiClient {
      * @param configurate кастомная конфигурация маппера
      */
     public ApiClient(String host, boolean forceHttps, String login, String password, CloseableHttpClient client, Map<MapperFeature, Boolean> configurate) {
-        if (host == null || host.trim().isEmpty()) throw new IllegalArgumentException("Адрес хоста API не может быть пустым или null!");
-        host = host.trim();
-
-        while (host.endsWith("/")) host = host.substring(0, host.lastIndexOf("/"));
-
-        if (forceHttps) {
-            if (host.startsWith("http://")) host = host.replace("http://", "https://");
-            else if (!host.startsWith("https://")) host = "https://" + host;
-        } else {
-            if (!host.startsWith("https://") && !host.startsWith("http://")) host = "http://" + host;
-        }
-
-        this.host = host;
-        this.client = client;
-        setCredentials(login, password);
-        this.objectMapper = createCustomObjectMapper(configurate);
+        this(host, forceHttps, login, password, client);
+        this.objectMapper = createObjectMapper(configurate);
     }
 
     public static ApiClient createWithBearerToken(String host, boolean forceHttps, String token, CloseableHttpClient client, Map<MapperFeature, Boolean> configurate) {
@@ -143,10 +130,6 @@ public final class ApiClient {
 
     public static ApiClient createWithBearerToken(String host, boolean forceHttps, String token) {
         return createWithBearerToken(host, forceHttps, token, createHttpClient());
-    }
-
-    public static ApiClient createWithBearerToken(String host, boolean forceHttps, String token, Map<MapperFeature, Boolean> configurate) {
-        return createWithBearerToken(host, forceHttps, token, createHttpClient(), configurate);
     }
 
     private static CloseableHttpClient createHttpClient() {
@@ -213,8 +196,8 @@ public final class ApiClient {
         return createObjectMapper(false);
     }
 
-    public static ObjectMapper createCustomObjectMapper(Map<MapperFeature, Boolean> customConfiguration) {
-        return createCustomConfig(false, customConfiguration);
+    public static ObjectMapper createObjectMapper(Map<MapperFeature, Boolean> customConfiguration) {
+        return createObjectMapper(false, customConfiguration);
     }
 
     public static ObjectMapper createObjectMapper(boolean prettyPrinting) {
@@ -276,7 +259,7 @@ public final class ApiClient {
         return objectMapper;
     }
 
-    public static ObjectMapper createCustomConfig(boolean prettyPrintJson, Map<MapperFeature, Boolean> mapConfig) {
+    public static ObjectMapper createObjectMapper(boolean prettyPrintJson, Map<MapperFeature, Boolean> mapConfig) {
         ObjectMapper objectMapper = createObjectMapper(prettyPrintJson);
         if (mapConfig == null || mapConfig.isEmpty()) {
             return objectMapper;
@@ -315,6 +298,7 @@ public final class ApiClient {
     }
 
     public void setObjectMapper(ObjectMapper objectMapper) {
+        Objects.requireNonNull(objectMapper);
         this.objectMapper = objectMapper;
     }
 }
