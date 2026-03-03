@@ -2,7 +2,6 @@ package ru.moysklad.remap_1_2;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -31,8 +30,6 @@ import ru.moysklad.remap_1_2.utils.NoAuthRedirectStrategy;
 import ru.moysklad.remap_1_2.utils.json.*;
 
 import java.time.LocalDateTime;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 
@@ -46,7 +43,6 @@ public final class ApiClient {
     private boolean prettyPrintJson = false;
     private boolean pricePrecision = false;
     private boolean withoutWebhookContent = false;
-    private ObjectMapper objectMapper;
 
     /**
      * Создаёт экземпляр коннектора API
@@ -85,41 +81,6 @@ public final class ApiClient {
         this.host = host;
         this.client = client;
         setCredentials(login, password);
-        this.objectMapper = createObjectMapper();
-    }
-
-    /**
-     * Создаёт экземпляр коннектора API
-     *
-     * @param host        хост, на котором располагается API
-     * @param forceHttps  форсировать запрос через HTTPS
-     * @param login       логин пользователя
-     * @param password    пароль пользователя
-     * @param configurate кастомная конфигурация маппера
-     */
-    public ApiClient(String host, boolean forceHttps, String login, String password, Map<MapperFeature, Boolean> configurate) {
-        this(host, forceHttps, login, password, createHttpClient(), configurate);
-    }
-
-    /**
-     * Создаёт экземпляр коннектора API
-     *
-     * @param host        хост, на котором располагается API
-     * @param forceHttps  форсировать запрос через HTTPS
-     * @param login       логин пользователя
-     * @param password    пароль пользователя
-     * @param client      HTTP-клиент
-     * @param configurate кастомная конфигурация маппера
-     */
-    public ApiClient(String host, boolean forceHttps, String login, String password, CloseableHttpClient client, Map<MapperFeature, Boolean> configurate) {
-        this(host, forceHttps, login, password, client);
-        this.objectMapper = createObjectMapper(configurate);
-    }
-
-    public static ApiClient createWithBearerToken(String host, boolean forceHttps, String token, CloseableHttpClient client, Map<MapperFeature, Boolean> configurate) {
-        ApiClient apiClient = new ApiClient(host, forceHttps, null, null, client, configurate);
-        apiClient.setToken(token);
-        return apiClient;
     }
 
     public static ApiClient createWithBearerToken(String host, boolean forceHttps, String token, CloseableHttpClient client) {
@@ -196,10 +157,6 @@ public final class ApiClient {
         return createObjectMapper(false);
     }
 
-    public static ObjectMapper createObjectMapper(Map<MapperFeature, Boolean> customConfiguration) {
-        return createObjectMapper(false, customConfiguration);
-    }
-
     public static ObjectMapper createObjectMapper(boolean prettyPrinting) {
         ObjectMapper objectMapper = new ObjectMapper();
         if (prettyPrinting) {
@@ -212,7 +169,6 @@ public final class ApiClient {
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
         objectMapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
-
         SimpleModule module = new SimpleModule();
 
         module.addDeserializer(ProductAttributeMarker.class, new ProductAttributeMarkerDeserializer());
@@ -259,17 +215,6 @@ public final class ApiClient {
         return objectMapper;
     }
 
-    public static ObjectMapper createObjectMapper(boolean prettyPrintJson, Map<MapperFeature, Boolean> mapConfig) {
-        ObjectMapper objectMapper = createObjectMapper(prettyPrintJson);
-        if (mapConfig == null || mapConfig.isEmpty()) {
-            return objectMapper;
-        }
-        for (MapperFeature config: mapConfig.keySet()) {
-            objectMapper.configure(config, mapConfig.get(config));
-        }
-        return objectMapper;
-    }
-
     public ApiClient prettyPrintJson() {
         return prettyPrintJson(true);
     }
@@ -295,10 +240,5 @@ public final class ApiClient {
     public ApiClient withoutWebhookContent(boolean without) {
         this.withoutWebhookContent = without;
         return this;
-    }
-
-    public void setObjectMapper(ObjectMapper objectMapper) {
-        Objects.requireNonNull(objectMapper);
-        this.objectMapper = objectMapper;
     }
 }
