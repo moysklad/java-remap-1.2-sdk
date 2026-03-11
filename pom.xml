@@ -145,7 +145,6 @@
                 <version>3.5.1</version>
                 <executions>
                     <execution>
-                        <id>shade</id>
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
@@ -268,39 +267,6 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>versions-maven-plugin</artifactId>
                         <version>2.8.1</version>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-shade-plugin</artifactId>
-                        <version>3.5.1</version>
-                        <executions>
-                            <execution>
-                                <id>shade</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>shade</goal>
-                                </goals>
-                                <configuration>
-                                    <relocations>
-                                        <relocation>
-                                            <pattern>com.fasterxml.jackson</pattern>
-                                            <shadedPattern>com.sdk.ms.jackson</shadedPattern>
-                                        </relocation>
-                                    </relocations>
-                                    <filters>
-                                        <filter>
-                                            <artifact>*:*</artifact>
-                                            <excludes>
-                                                <exclude>META-INF/maven/**</exclude>
-                                                <exclude>META-INF/*.SF</exclude>
-                                                <exclude>META-INF/*.DSA</exclude>
-                                                <exclude>META-INF/*.RSA</exclude>
-                                            </excludes>
-                                        </filter>
-                                    </filters>
-                                </configuration>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>

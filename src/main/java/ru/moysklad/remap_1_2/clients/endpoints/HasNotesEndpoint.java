@@ -38,7 +38,7 @@ public interface HasNotesEndpoint<T extends MetaEntity>  extends Endpoint {
     default Note getNote(String documentId, String noteId, ApiParam... params) throws IOException, ApiClientException {
         return HttpRequestExecutor.
                 path(api(), path() + documentId + "/notes/" + noteId)
-                        .apiParams()
+                        .apiParams(params)
                         .get(Note.class);
     }
 
