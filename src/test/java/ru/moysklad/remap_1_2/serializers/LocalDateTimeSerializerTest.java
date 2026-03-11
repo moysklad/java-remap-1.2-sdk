@@ -20,7 +20,6 @@ public class LocalDateTimeSerializerTest implements TestAsserts, TestRandomizers
     @Test
     public void test_localDateTimeSerialization() throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(MapperFeature.REQUIRE_HANDLERS_FOR_JAVA8_TIMES, false);
         ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
         LocalDateTime now = now();
