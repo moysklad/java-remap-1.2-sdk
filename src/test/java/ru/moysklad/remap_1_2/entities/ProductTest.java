@@ -24,7 +24,7 @@ public class ProductTest extends EntityGetUpdateDeleteWithImageTest<Product> imp
         product.setDescription(randomString());
         product.setArticle(randomString());
         product.setWeight(randomDouble(1, 5, 2));
-        product.setTrackingType(Product.TrackingType.OTP);
+        product.setTrackingType(TrackingType.OTP);
         product.setPaymentItemType(GoodPaymentItemType.GOOD);
         product.setTaxSystem(GoodTaxSystem.SIMPLIFIED_TAX_SYSTEM_INCOME);
         product.setSupplier(simpleEntityManager.createSimple(Counterparty.class));

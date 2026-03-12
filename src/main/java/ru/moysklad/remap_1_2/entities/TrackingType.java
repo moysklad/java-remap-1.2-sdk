@@ -1,0 +1,30 @@
+package ru.moysklad.remap_1_2.entities;
+
+public enum TrackingType {
+    AUTO_FLUIDS,
+    NOT_TRACKED,
+    GROCERY,
+    CHEMISTRY,
+    TOBACCO,
+    SHOES,
+    LP_CLOTHES,
+    LP_LINENS,
+    PERFUMERY,
+    ELECTRONICS,
+    TIRES,
+    OTP,
+    MILK,
+    WATER,
+    NCP,
+    BEER_ALCOHOL,
+    FOOD_SUPPLEMENT,
+    SANITIZER,
+    MEDICAL_DEVICES,
+    SOFT_DRINKS,
+    VETPHARMA,
+    SEAFOOD,
+    BICYCLE,
+    NABEER,
+    VEGETABLE_OIL,
+    PET_FOOD
+}
