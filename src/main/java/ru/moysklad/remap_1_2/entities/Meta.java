@@ -126,6 +126,7 @@ public final class Meta {
         DEMAND_POSITION("demandposition", DemandDocumentPosition.class),
         DISCOUNT("discount", Discount.class),
         EMBEDDED_TEMPLATE("embeddedtemplate", Template.class),
+        EMISSION_ORDER("emissionorder", EmissionOrder.class),
         EMPLOYEE("employee", Employee.class),
         ENTER("enter", Enter.class),
         ENTER_POSITION("enterposition", EnterDocumentPosition.class),

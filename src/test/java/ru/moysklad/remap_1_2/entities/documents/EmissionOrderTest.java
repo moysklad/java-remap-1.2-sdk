@@ -1,5 +1,6 @@
 package ru.moysklad.remap_1_2.entities.documents;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.*;
@@ -35,6 +36,16 @@ public class EmissionOrderTest extends DocumentWithPositionsTestBase {
         assertEquals(emissionOrder.getTrackingType(), TrackingType.SHOES);
         assertEquals(emissionOrder.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
     }
+
+    @Test
+    @Ignore("Причина - удаление документа не поддерживается через json api")
+    @Override
+    public void massCreateDeleteTest() {}
+
+    @Test
+    @Ignore("Причина - удаление документа не поддерживается через json api")
+    @Override
+    public void deleteTest() throws IOException, ApiClientException {}
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
