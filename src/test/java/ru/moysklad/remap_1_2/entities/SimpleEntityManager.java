@@ -100,6 +100,13 @@ public class SimpleEntityManager implements TestRandomizers {
         }
     }
 
+    public <T extends MetaEntity> void removeSimpleFromPool(Class<T> entityClass) {
+        List<MetaEntity> entityList = entityPoolMap.get(entityClass);
+        if (entityList != null) {
+            entityList.clear();
+        }
+    }
+
     public Bundle createSimpleBundle() throws IOException, ApiClientException {
         Bundle bundle = new Bundle();
         bundle.setName("bundle_" + randomStringTail());
@@ -448,6 +455,19 @@ public class SimpleEntityManager implements TestRandomizers {
         api.entity().customerorder().create(customerOrder);
 
         return customerOrder;
+    }
+
+    public EmissionOrder createSimpleEmissionOrder() throws IOException, ApiClientException {
+        EmissionOrder emissionOrder = new EmissionOrder();
+        emissionOrder.setName("emissionorder" + randomStringTail());
+        emissionOrder.setDescription(randomString());
+        emissionOrder.setEmissionType(EmissionOrder.EmissionType.LOCAL);
+        emissionOrder.setTrackingType(TrackingType.SHOES);
+        emissionOrder.setOrganization(getOwnOrganization());
+
+        api.entity().emissionorder().create(emissionOrder);
+
+        return emissionOrder;
     }
 
     public Demand createSimpleDemand() throws IOException, ApiClientException {

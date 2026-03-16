@@ -27,10 +27,10 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
 
         DocumentPosition position = createDocumentPosition();
 
-        Product product = simpleEntityManager.createSimple(Product.class, true);
+        Product product = getProductValueForPosition(position);
 
         position.setAssortment(product);
-        position.setQuantity(randomDouble(1, 5, 3));
+        position.setQuantity(getQuantityValueForPosition(position));
 
         ((DocumentPositionsEndpoint) entityClient()).createPosition(document.getId(), position);
         ListEntity<DocumentPosition> retrievedPositions = ((DocumentPositionsEndpoint) entityClient()).getPositions(document.getId());
@@ -53,10 +53,10 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
 
         DocumentPosition position = createDocumentPosition();
 
-        Product product = simpleEntityManager.createSimple(Product.class, true);
+        Product product = getProductValueForPosition(position);
 
         position.setAssortment(product);
-        position.setQuantity(randomDouble(1, 5, 3));
+        position.setQuantity(getQuantityValueForPosition(position));
 
         ((DocumentPositionsEndpoint) entityClient()).createPosition(document, position);
         ListEntity<DocumentPosition> retrievedPositions = ((DocumentPositionsEndpoint) entityClient()).getPositions(document);
@@ -91,12 +91,11 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         for (int i = 0; i < 2; i++) {
             DocumentPosition position = createDocumentPosition();
 
-            Product product = simpleEntityManager.createSimple(Product.class, true);
+            Product product = getProductValueForPosition(position);
             products.add(product);
 
             position.setAssortment(product);
-            DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(3);
-            position.setQuantity(Double.valueOf(df.format(randomDouble(1, 5, 3))));
+            position.setQuantity(getQuantityValueForPosition(position));
 
             positions.add(position);
         }
@@ -131,12 +130,11 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         for (int i = 0; i < 2; i++) {
             DocumentPosition position = createDocumentPosition();
 
-            Product product = simpleEntityManager.createSimple(Product.class, true);
+            Product product = getProductValueForPosition(position);
             products.add(product);
 
             position.setAssortment(product);
-            DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(3);
-            position.setQuantity(Double.valueOf(df.format(randomDouble(1, 5, 3))));
+            position.setQuantity(getQuantityValueForPosition(position));
 
             positions.add(position);
         }
@@ -179,8 +177,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         DocumentPosition position = positions.get(0);
         DocumentPosition retrievedPosition = ((DocumentPositionsEndpoint) entityClient()).getPosition(document.getId(), position.getId());
 
-        DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(3);
-        double quantity = Double.valueOf(df.format(position.getQuantity() + randomDouble(1, 1, 3)));
+        double quantity = getQuantityValueForPosition(position);
         position.setQuantity(quantity);
         ((DocumentPositionsEndpoint) entityClient()).updatePosition(document.getId(), position.getId(), position);
 
@@ -195,8 +192,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         DocumentPosition position = positions.get(0);
         DocumentPosition retrievedPosition = ((DocumentPositionsEndpoint) entityClient()).getPosition(document.getId(), position.getId());
 
-        DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(3);
-        double quantity = Double.valueOf(df.format(position.getQuantity() + randomDouble(1, 1, 3)));
+        double quantity = getQuantityValueForPosition(position);
         position.setQuantity(quantity);
         ((DocumentPositionsEndpoint) entityClient()).updatePosition(document, position.getId(), position);
 
@@ -211,8 +207,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         DocumentPosition position = positions.get(0);
         DocumentPosition retrievedPosition = ((DocumentPositionsEndpoint) entityClient()).getPosition(document.getId(), position.getId());
 
-        DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(3);
-        double quantity = Double.valueOf(df.format(position.getQuantity() + randomDouble(1, 1, 3)));
+        double quantity = getQuantityValueForPosition(position);
         position.setQuantity(quantity);
         ((DocumentPositionsEndpoint) entityClient()).updatePosition(document, position, position);
 
@@ -227,8 +222,7 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         DocumentPosition position = positions.get(0);
         DocumentPosition retrievedPosition = ((DocumentPositionsEndpoint) entityClient()).getPosition(document.getId(), position.getId());
 
-        DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(3);
-        double quantity = Double.valueOf(df.format(position.getQuantity() + randomDouble(1, 1, 3)));
+        double quantity = getQuantityValueForPosition(position);
         position.setQuantity(quantity);
         ((DocumentPositionsEndpoint) entityClient()).updatePosition(document, position);
 
@@ -294,15 +288,25 @@ public abstract class DocumentWithPositionsTestBase extends EntityGetUpdateDelet
         doTestFiles();
     }
 
+    protected double getQuantityValueForPosition(DocumentPosition position) {
+        DecimalFormat df = TestUtils.getDoubleFormatWithFractionDigits(3);
+        double v = position.getQuantity() == null ? 0 : position.getQuantity();
+        return Double.parseDouble(df.format(v + randomDouble(1, 1, 3)));
+    }
+
+    protected Product getProductValueForPosition(DocumentPosition position) {
+        return simpleEntityManager.createSimple(Product.class, true);
+    }
+
     private List<DocumentPosition> createSimplePositions(DocumentEntity document) throws IOException, ApiClientException {
         List<DocumentPosition> positions = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
             DocumentPosition position = createDocumentPosition();
 
-            Product product = simpleEntityManager.createSimple(Product.class, true);
+            Product product = getProductValueForPosition(position);
             position.setAssortment(product);
-            position.setQuantity(randomDouble(1, 5, 3));
+            position.setQuantity(getQuantityValueForPosition(position));
 
             positions.add(position);
         }

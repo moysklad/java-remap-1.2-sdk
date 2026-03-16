@@ -3,7 +3,11 @@ package ru.moysklad.remap_1_2.entities.documents;
 import org.junit.Ignore;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
-import ru.moysklad.remap_1_2.entities.*;
+import ru.moysklad.remap_1_2.entities.Attribute;
+import ru.moysklad.remap_1_2.entities.DocumentAttribute;
+import ru.moysklad.remap_1_2.entities.MetaEntity;
+import ru.moysklad.remap_1_2.entities.TrackingType;
+import ru.moysklad.remap_1_2.entities.products.Product;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
@@ -15,6 +19,13 @@ import static org.junit.Assert.*;
 import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
 
 public class EmissionOrderTest extends DocumentWithPositionsTestBase {
+
+    @Override
+    public void tearDown() {
+        super.tearDown();
+        simpleEntityManager.removeSimpleFromPool(EmissionOrder.class);
+    }
+
     @Test
     public void createTest() throws IOException, ApiClientException {
         EmissionOrder emissionOrder = new EmissionOrder();
@@ -46,6 +57,11 @@ public class EmissionOrderTest extends DocumentWithPositionsTestBase {
     @Ignore("Причина - удаление документа не поддерживается через json api")
     @Override
     public void deleteTest() throws IOException, ApiClientException {}
+
+    @Test
+    @Ignore("Причина - файлы не поддерживаюся через json api для данного документа")
+    @Override
+    public void testFiles() throws IOException, ApiClientException {}
 
     @Test
     public void metadataTest() throws IOException, ApiClientException {
@@ -97,5 +113,23 @@ public class EmissionOrderTest extends DocumentWithPositionsTestBase {
     @Override
     public Class<? extends MetaEntity> entityClass() {
         return EmissionOrder.class;
+    }
+
+    @Override
+    protected double getQuantityValueForPosition(DocumentPosition position) {
+        double v = position.getQuantity() == null ? 0 : position.getQuantity();
+        return v + randomInteger(1, 2);
+    }
+
+    @Override
+    protected Product getProductValueForPosition(DocumentPosition position) {
+        Product product = new Product();
+        product.setName("product_" + randomString(3) + "_" + new Date().getTime());
+        product.setTrackingType(TrackingType.SHOES);
+        try {
+            return api.entity().product().create(product);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
