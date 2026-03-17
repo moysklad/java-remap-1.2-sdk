@@ -83,7 +83,6 @@ public final class ApiClient {
         setCredentials(login, password);
     }
 
-
     public static ApiClient createWithBearerToken(String host, boolean forceHttps, String token, CloseableHttpClient client) {
         ApiClient apiClient = new ApiClient(host, forceHttps, null, null, client);
         apiClient.setToken(token);

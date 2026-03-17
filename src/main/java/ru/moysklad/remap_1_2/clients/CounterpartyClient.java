@@ -24,6 +24,7 @@ public final class CounterpartyClient
         PutByIdEndpoint<Counterparty>,
         MassCreateUpdateDeleteEndpoint<Counterparty>,
         HasStatesEndpoint,
+        HasNotesEndpoint<Counterparty>,
         HasSettingsEndpoint<CounterpartySettings>,
         HasFilesEndpoint<Counterparty> {
 
@@ -122,89 +123,6 @@ public final class CounterpartyClient
     @ApiEndpoint
     public void updateContactPerson(Counterparty counterparty, ContactPerson contactPerson) throws IOException, ApiClientException {
         updateContactPerson(counterparty, contactPerson.getId(), contactPerson);
-    }
-
-    @ApiEndpoint
-    public ListEntity<Note> getNotes(String counterpartyId, ApiParam... params) throws IOException, ApiClientException {
-        return HttpRequestExecutor.
-                path(api(), path() + counterpartyId + "/notes").
-                apiParams(params).
-                list(Note.class);
-    }
-
-    @ApiEndpoint
-    public ListEntity<Note> getNotes(Counterparty counterparty, ApiParam... params) throws IOException, ApiClientException {
-        return getNotes(counterparty.getId(), params);
-    }
-
-    @ApiEndpoint
-    public Note createNote(String counterpartyId, Note newEntity) throws IOException, ApiClientException {
-        List<Note> responseEntity = HttpRequestExecutor.
-                path(api(), path() + counterpartyId + "/notes").
-                body(newEntity).
-                postList(Note.class);
-
-        newEntity.set(responseEntity.get(0));
-        return newEntity;
-    }
-
-    @ApiEndpoint
-    public Note getNote(String counterpartyId, String noteId) throws IOException, ApiClientException {
-        return HttpRequestExecutor.
-                path(api(), path() + counterpartyId + "/notes/" + noteId).
-                get(Note.class);
-    }
-
-    @ApiEndpoint
-    public Note getNote(Counterparty counterparty, String noteId) throws IOException, ApiClientException {
-        return getNote(counterparty.getId(), noteId);
-    }
-
-    @ApiEndpoint
-    public Note getNote(Counterparty counterparty, Note note) throws IOException, ApiClientException {
-        return getNote(counterparty, note.getId());
-    }
-
-    @ApiEndpoint
-    public void updateNote(String counterpartyId, String noteId, Note updatedEntity) throws IOException, ApiClientException {
-        Note responseEntity = HttpRequestExecutor
-                .path(api(), path() + counterpartyId + "/notes/" + noteId)
-                .body(updatedEntity)
-                .put(Note.class);
-
-        updatedEntity.set(responseEntity);
-    }
-
-    @ApiEndpoint
-    public void updateNote(Counterparty counterparty, String noteId, Note updatedEntity) throws IOException, ApiClientException {
-        updateNote(counterparty.getId(), noteId, updatedEntity);
-    }
-
-    @ApiEndpoint
-    public void updateNote(Counterparty counterparty, Note note, Note updatedEntity) throws IOException, ApiClientException {
-        updateNote(counterparty, note.getId(), updatedEntity);
-    }
-
-    @ApiEndpoint
-    public void updateNote(Counterparty counterparty, Note note) throws IOException, ApiClientException {
-        updateNote(counterparty, note.getId(), note);
-    }
-
-    @ApiEndpoint
-    public void deleteNote(String counterpartyId, String noteId) throws IOException, ApiClientException {
-        HttpRequestExecutor.
-                path(api(), path() + counterpartyId + "/notes/" + noteId).
-                delete();
-    }
-
-    @ApiEndpoint
-    public void deleteNote(Counterparty counterparty, String noteId) throws IOException, ApiClientException {
-        deleteNote(counterparty.getId(), noteId);
-    }
-
-    @ApiEndpoint
-    public void deleteNote(Counterparty counterparty, Note note) throws IOException, ApiClientException {
-        deleteNote(counterparty, note.getId());
     }
 
     @Override

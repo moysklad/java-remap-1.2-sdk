@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import lombok.NoArgsConstructor;
 import ru.moysklad.remap_1_2.entities.Meta;
+import ru.moysklad.remap_1_2.entities.agents.Agent;
+
+import java.time.LocalDateTime;
 
 import static lombok.AccessLevel.PRIVATE;
 
@@ -20,8 +23,30 @@ public final class JsonUtils {
 
         module.addSerializer(Meta.Type.class, new Meta.Type.Serializer());
         module.addDeserializer(Meta.Type.class, new Meta.Type.Deserializer());
+        module.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
+        module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
+        module.addDeserializer(Agent.class, new AgentDeserializer());
 
         objectMapper.registerModule(module);
+        objectMapper.findAndRegisterModules();
+
+        return objectMapper;
+    }
+
+    public static ObjectMapper createObjectMapperWithMetaAdapterWithoutAgent() {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        objectMapper.configure(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+        SimpleModule module = new SimpleModule();
+
+        module.addSerializer(Meta.Type.class, new Meta.Type.Serializer());
+        module.addDeserializer(Meta.Type.class, new Meta.Type.Deserializer());
+        module.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
+        module.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
+        objectMapper.registerModule(module);
+        objectMapper.findAndRegisterModules();
 
         return objectMapper;
     }

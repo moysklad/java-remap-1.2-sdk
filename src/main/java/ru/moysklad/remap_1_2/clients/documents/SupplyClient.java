@@ -25,6 +25,7 @@ public final class SupplyClient
         ExportEndpoint,
         PublicationEndpoint,
         HasStatesEndpoint,
+        HasNotesEndpoint<Supply>,
         HasFilesEndpoint<Supply> {
 
     public SupplyClient(ApiClient api) {
