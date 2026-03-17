@@ -21,8 +21,7 @@ public final class EmissionOrderClient
         DocumentPositionsEndpoint<EmissionOrderDocumentPosition>,
         ExportEndpoint,
         PublicationEndpoint,
-        HasStatesEndpoint,
-        MetadataDocumentAttributeEndpoint {
+        HasStatesEndpoint {
 
     public EmissionOrderClient(ApiClient api) {
         super(api, "/entity/emissionorder/");

@@ -3,7 +3,6 @@ package ru.moysklad.remap_1_2.entities.documents;
 import org.junit.Ignore;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
-import ru.moysklad.remap_1_2.entities.Attribute;
 import ru.moysklad.remap_1_2.entities.DocumentAttribute;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
 import ru.moysklad.remap_1_2.entities.TrackingType;
@@ -68,12 +67,6 @@ public class EmissionOrderTest extends DocumentWithPositionsTestBase {
         MetadataAttributeSharedStatesResponse<DocumentAttribute> response = api.entity().emissionorder().metadata().get();
 
         assertFalse(response.getCreateShared());
-    }
-
-    @Test
-    public void attributesTest() throws IOException, ApiClientException{
-        ListEntity<Attribute> attributes = api.entity().emissionorder().metadataAttributes();
-        assertNotNull(attributes);
     }
 
     @Override
