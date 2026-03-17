@@ -28,7 +28,7 @@ public class EmissionOrderTest extends DocumentWithPositionsTestBase {
     @Test
     public void createTest() throws IOException, ApiClientException {
         EmissionOrder emissionOrder = new EmissionOrder();
-        emissionOrder.setName("emissionorder" + randomString(3) + "_" + new Date().getTime());
+        emissionOrder.setName("emissionorder_" + randomString(3) + "_" + new Date().getTime());
         emissionOrder.setDescription(randomString());
         emissionOrder.setEmissionType(EmissionOrder.EmissionType.LOCAL);
         emissionOrder.setTrackingType(TrackingType.SHOES);

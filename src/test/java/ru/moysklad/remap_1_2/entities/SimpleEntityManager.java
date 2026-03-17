@@ -459,7 +459,7 @@ public class SimpleEntityManager implements TestRandomizers {
 
     public EmissionOrder createSimpleEmissionOrder() throws IOException, ApiClientException {
         EmissionOrder emissionOrder = new EmissionOrder();
-        emissionOrder.setName("emissionorder" + randomStringTail());
+        emissionOrder.setName("emissionorder_" + randomStringTail());
         emissionOrder.setDescription(randomString());
         emissionOrder.setEmissionType(EmissionOrder.EmissionType.LOCAL);
         emissionOrder.setTrackingType(TrackingType.SHOES);
