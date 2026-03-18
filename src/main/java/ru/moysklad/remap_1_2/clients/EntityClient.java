@@ -37,6 +37,11 @@ public final class EntityClient {
     }
 
     @ApiChainElement
+    public EmissionOrderClient emissionorder() {
+        return new EmissionOrderClient(api);
+    }
+
+    @ApiChainElement
     public DemandClient demand() {
         return new DemandClient(api);
     }

@@ -131,31 +131,6 @@ public class Bundle extends AbstractProduct implements IEntityWithAttributes<Att
      */
     private TrackingType trackingType;
 
-    public enum TrackingType {
-        NOT_TRACKED,
-        TOBACCO,
-        SHOES,
-        LP_CLOTHES,
-        LP_LINENS,
-        PERFUMERY,
-        ELECTRONICS,
-        TIRES,
-        OTP,
-        MILK,
-        WATER,
-        NCP,
-        FOOD_SUPPLEMENT,
-        SANITIZER,
-        MEDICAL_DEVICES,
-        SOFT_DRINKS,
-        VETPHARMA,
-        SEAFOOD,
-        BICYCLE,
-        NABEER,
-        VEGETABLE_OIL,
-        PET_FOOD
-    }
-
     /**
      * Код ТН ВЭД
      */

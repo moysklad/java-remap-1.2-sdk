@@ -27,7 +27,7 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> imple
         bundle.setName("bundle_" + randomString(3) + "_" + new Date().getTime());
         bundle.setArchived(false);
         bundle.setArticle(randomString());
-        bundle.setTrackingType(Bundle.TrackingType.OTP);
+        bundle.setTrackingType(TrackingType.OTP);
         bundle.setPaymentItemType(GoodPaymentItemType.COMPOUND_PAYMENT_ITEM);
         bundle.setTaxSystem(GoodTaxSystem.PRESUMPTIVE_TAX_SYSTEM);
         bundle.setPartialDisposal(true);
@@ -67,7 +67,7 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> imple
         bundleDiscountProhibited.setName("bundle_" + randomString(3) + "_" + new Date().getTime());
         bundleDiscountProhibited.setArchived(false);
         bundleDiscountProhibited.setArticle(randomString());
-        bundleDiscountProhibited.setTrackingType(Bundle.TrackingType.OTP);
+        bundleDiscountProhibited.setTrackingType(TrackingType.OTP);
         bundleDiscountProhibited.setPaymentItemType(GoodPaymentItemType.COMPOUND_PAYMENT_ITEM);
         bundleDiscountProhibited.setTaxSystem(GoodTaxSystem.PRESUMPTIVE_TAX_SYSTEM);
         bundleDiscountProhibited.setPartialDisposal(true);
@@ -93,7 +93,7 @@ public class BundleTest extends EntityGetUpdateDeleteWithImageTest<Bundle> imple
         bundleDiscountNotProhibited.setName("bundle_" + randomString(3) + "_" + new Date().getTime());
         bundleDiscountNotProhibited.setArchived(false);
         bundleDiscountNotProhibited.setArticle(randomString());
-        bundleDiscountNotProhibited.setTrackingType(Bundle.TrackingType.OTP);
+        bundleDiscountNotProhibited.setTrackingType(TrackingType.OTP);
         bundleDiscountNotProhibited.setPaymentItemType(GoodPaymentItemType.COMPOUND_PAYMENT_ITEM);
         bundleDiscountNotProhibited.setTaxSystem(GoodTaxSystem.PRESUMPTIVE_TAX_SYSTEM);
         bundleDiscountNotProhibited.setPartialDisposal(true);

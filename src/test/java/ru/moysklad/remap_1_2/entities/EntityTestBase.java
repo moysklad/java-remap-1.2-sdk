@@ -28,11 +28,6 @@ public abstract class EntityTestBase implements TestRandomizers, TestAsserts, Te
         simpleEntityManager.clearAccessCounts();
     }
 
-    @After
-    public void antiLimits() throws InterruptedException {
-        Thread.sleep(200); // Защита от лимитов
-    }
-
     public SimpleEntityManager getSimpleEntityManager() {
         return simpleEntityManager;
     }
