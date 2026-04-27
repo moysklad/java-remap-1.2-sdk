@@ -17,4 +17,5 @@ public class RetailSalesDocumentPosition extends DocumentPosition {
     private Double discount;
     private List<String> things;
     private Integer vat;
+    private Boolean vatEnabled;
 }

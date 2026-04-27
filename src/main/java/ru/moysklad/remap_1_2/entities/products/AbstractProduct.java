@@ -36,9 +36,19 @@ public abstract class AbstractProduct extends Assortment implements ProductMarke
     private Integer vat;
 
     /**
+     * Признак для определения разграничения НДС = 0 или "без НДС"
+     */
+    private Boolean vatEnabled;
+
+    /**
      * Реальный НДС %
      */
     private Integer effectiveVat;
+
+    /**
+     * Признак для определения разграничения реального НДС = 0 или "без НДС"
+     */
+    private Boolean effectiveVatEnabled;
 
     /**
      * Ссылка на группу Товаров в формате Метаданных

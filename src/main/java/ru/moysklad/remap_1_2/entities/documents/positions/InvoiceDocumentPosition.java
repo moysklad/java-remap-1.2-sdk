@@ -13,4 +13,5 @@ import ru.moysklad.remap_1_2.entities.documents.DocumentPosition;
 public class InvoiceDocumentPosition extends DocumentPosition {
     private Double discount;
     private Integer vat;
+    private Boolean vatEnabled;
 }

@@ -12,4 +12,5 @@ import ru.moysklad.remap_1_2.entities.documents.DocumentPosition;
 @EqualsAndHashCode(callSuper = true)
 public class InternalOrderDocumentPosition extends DocumentPosition {
     private Integer vat;
+    private Boolean vatEnabled;
 }

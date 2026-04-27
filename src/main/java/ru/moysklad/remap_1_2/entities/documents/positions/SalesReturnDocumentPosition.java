@@ -21,4 +21,5 @@ public class SalesReturnDocumentPosition extends DocumentPosition {
     private DocumentEntity.Gtd gtd;
     private List<String> things;
     private Integer vat;
+    private Boolean vatEnabled;
 }
