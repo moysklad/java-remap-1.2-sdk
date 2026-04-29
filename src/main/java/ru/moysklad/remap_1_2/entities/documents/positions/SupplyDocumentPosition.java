@@ -22,4 +22,5 @@ public class SupplyDocumentPosition extends DocumentPosition {
     private List<String> things;
     private List<TrackingCode> trackingCodes;
     private Integer vat;
+    private Boolean vatEnabled;
 }

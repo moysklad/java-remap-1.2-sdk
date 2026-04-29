@@ -13,4 +13,5 @@ import ru.moysklad.remap_1_2.entities.documents.DocumentPosition;
 public class CommissionReportDocumentPosition extends DocumentPosition {
     private Double reward;
     private Integer vat;
+    private Boolean vatEnabled;
 }

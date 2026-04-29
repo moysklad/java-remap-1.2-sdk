@@ -17,4 +17,5 @@ public class CustomerOrderDocumentPosition extends DocumentPosition {
     private Long shipped;
     private GoodTaxSystem taxSystem;
     private Integer vat;
+    private Boolean vatEnabled;
 }

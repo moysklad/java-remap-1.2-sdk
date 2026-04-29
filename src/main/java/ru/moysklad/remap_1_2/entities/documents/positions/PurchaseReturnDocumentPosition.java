@@ -16,4 +16,5 @@ public class PurchaseReturnDocumentPosition extends DocumentPosition {
     private Double discount;
     private List<String> things;
     private Integer vat;
+    private Boolean vatEnabled;
 }

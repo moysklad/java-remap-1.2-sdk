@@ -18,5 +18,6 @@ public class DemandDocumentPosition extends DocumentPosition {
     private Integer overhead;
     private List<TrackingCode> trackingCodes;
     private Integer vat;
+    private Boolean vatEnabled;
     private List<String> things;
 }
