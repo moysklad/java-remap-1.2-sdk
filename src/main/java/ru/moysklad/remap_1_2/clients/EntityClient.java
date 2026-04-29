@@ -172,6 +172,11 @@ public final class EntityClient {
     }
 
     @ApiChainElement
+    public RoleClient role(){
+        return new RoleClient(api);
+    }
+
+    @ApiChainElement
     public RetailDemandClient retaildemand() {
         return new RetailDemandClient(api);
     }
