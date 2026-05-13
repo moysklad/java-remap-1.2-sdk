@@ -6,6 +6,7 @@ import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.entities.agents.Counterparty;
 import ru.moysklad.remap_1_2.entities.agents.Employee;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
+import ru.moysklad.remap_1_2.entities.agents.OrganizationBranch;
 import ru.moysklad.remap_1_2.entities.documents.*;
 import ru.moysklad.remap_1_2.entities.documents.positions.ProcessingOrderPosition;
 import ru.moysklad.remap_1_2.entities.products.Bundle;
@@ -15,6 +16,9 @@ import ru.moysklad.remap_1_2.entities.products.Variant;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 import ru.moysklad.remap_1_2.utils.TestRandomizers;
+import ru.moysklad.remap_1_2.utils.params.FilterParam;
+import ru.moysklad.remap_1_2.utils.params.LimitParam;
+import ru.moysklad.remap_1_2.utils.params.OrderParam;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -908,5 +912,19 @@ public class SimpleEntityManager implements TestRandomizers {
         for (Map.Entry<Class, Integer> entry : accessCounterMap.entrySet()) {
             entry.setValue(0);
         }
+    }
+
+    public OrganizationBranch createSimpleOrganizationBranch() throws ApiClientException, IOException {
+        Organization organization = api.entity().organization().get(
+                        FilterParam.filterEq("companyType", "legal"),
+                        OrderParam.order("name"),
+                        LimitParam.limit(1))
+                .getRows().get(0);
+
+        OrganizationBranch branch = new OrganizationBranch();
+        branch.setName("organizationbranch_" + randomStringTail());
+        branch.setOrganization(organization);
+
+        return api.entity().organizationBranch().create(branch);
     }
 }

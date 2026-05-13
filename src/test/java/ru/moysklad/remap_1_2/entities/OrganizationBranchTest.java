@@ -10,8 +10,9 @@ import ru.moysklad.remap_1_2.utils.ApiClientException;
 import java.io.IOException;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
-import static org.junit.Assert.*;
 
 public class OrganizationBranchTest extends EntityGetUpdateDeleteTest {
 
@@ -47,7 +48,7 @@ public class OrganizationBranchTest extends EntityGetUpdateDeleteTest {
         assertEquals(branch.getCode(), retrievedEntity.getCode());
         assertEquals(branch.getKpp(), retrievedEntity.getKpp());
         assertEquals(branch.getActualAddress(), retrievedEntity.getActualAddress());
-        assertEquals(organization.getId(), retrievedEntity.getOrganization().getId());
+        assertEquals(organization.getMeta(), retrievedEntity.getOrganization().getMeta());
     }
 
     @Override
