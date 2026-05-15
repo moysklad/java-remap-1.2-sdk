@@ -26,5 +26,10 @@ public enum TrackingType {
     BICYCLE,
     NABEER,
     VEGETABLE_OIL,
-    PET_FOOD
+    PET_FOOD,
+    CONSERVE,
+    CONSTRUCTION,
+    GADGETS,
+    RADIO,
+    TOYS
 }
