@@ -33,11 +33,6 @@ public final class OrganizationBranch extends Agent {
     private Organization organization;
 
     /**
-     * КПП
-     */
-    private String kpp;
-
-    /**
      * Фактический адрес
      */
     private String actualAddress;

@@ -33,7 +33,6 @@ public class OrganizationBranchTest extends EntityGetUpdateDeleteTest {
         branch.setArchived(false);
         branch.setDescription(randomString());
         branch.setCode(randomString());
-        branch.setKpp("123456789");
         branch.setActualAddress("Moscow, Tverskaya 1");
 
         api.entity().organizationBranch().create(branch);
@@ -46,7 +45,6 @@ public class OrganizationBranchTest extends EntityGetUpdateDeleteTest {
         assertEquals(branch.getArchived(), retrievedEntity.getArchived());
         assertEquals(branch.getDescription(), retrievedEntity.getDescription());
         assertEquals(branch.getCode(), retrievedEntity.getCode());
-        assertEquals(branch.getKpp(), retrievedEntity.getKpp());
         assertEquals(branch.getActualAddress(), retrievedEntity.getActualAddress());
         assertEquals(organization.getMeta(), retrievedEntity.getOrganization().getMeta());
     }
