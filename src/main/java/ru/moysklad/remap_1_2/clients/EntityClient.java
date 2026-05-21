@@ -22,6 +22,11 @@ public final class EntityClient {
     }
 
     @ApiChainElement
+    public OrganizationBranchClient organizationBranch() {
+        return new OrganizationBranchClient(api);
+    }
+
+    @ApiChainElement
     public GroupClient group() {
         return new GroupClient(api);
     }
