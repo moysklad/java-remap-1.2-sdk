@@ -59,6 +59,11 @@ public final class Meta {
     private String metadataHref;
 
     /**
+     * Ссылка на скачивание
+     */
+    private String downloadHref;
+
+    /**
      * Тип сущности
      */
     private Type type;
