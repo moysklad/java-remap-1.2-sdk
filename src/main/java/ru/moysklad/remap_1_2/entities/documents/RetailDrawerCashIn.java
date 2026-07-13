@@ -7,6 +7,7 @@ import lombok.Setter;
 import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.agents.Agent;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
+import ru.moysklad.remap_1_2.entities.agents.OrganizationBranch;
 import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 
@@ -23,6 +24,7 @@ public class RetailDrawerCashIn extends DocumentEntity implements IEntityWithAtt
     private String description;
     private String externalCode;
     private Organization organization;
+    private OrganizationBranch organizationBranch;
     private Rate rate;
     private RetailShift retailShift;
     private String syncId;

@@ -12,6 +12,7 @@ import lombok.Setter;
 import ru.moysklad.remap_1_2.entities.agents.Agent;
 import ru.moysklad.remap_1_2.entities.agents.Employee;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
+import ru.moysklad.remap_1_2.entities.agents.OrganizationBranch;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 
 import java.io.IOException;
@@ -51,6 +52,7 @@ public class RetailStore extends MetaEntity implements Fetchable {
     private Boolean authTokenAttached;
     private Boolean egaisEnabled;
     private Organization organization;
+    private OrganizationBranch organizationBranch;
     private Integer discountMaxPercent;
     private LocalDateTime updated;
     private String description;

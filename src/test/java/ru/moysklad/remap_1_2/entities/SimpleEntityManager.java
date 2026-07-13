@@ -16,9 +16,6 @@ import ru.moysklad.remap_1_2.entities.products.Variant;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 import ru.moysklad.remap_1_2.utils.TestRandomizers;
-import ru.moysklad.remap_1_2.utils.params.FilterParam;
-import ru.moysklad.remap_1_2.utils.params.LimitParam;
-import ru.moysklad.remap_1_2.utils.params.OrderParam;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -915,15 +912,9 @@ public class SimpleEntityManager implements TestRandomizers {
     }
 
     public OrganizationBranch createSimpleOrganizationBranch() throws ApiClientException, IOException {
-        Organization organization = api.entity().organization().get(
-                        FilterParam.filterEq("companyType", "legal"),
-                        OrderParam.order("name"),
-                        LimitParam.limit(1))
-                .getRows().get(0);
-
         OrganizationBranch branch = new OrganizationBranch();
         branch.setName("organizationbranch_" + randomStringTail());
-        branch.setOrganization(organization);
+        branch.setOrganization(getOwnOrganization());
 
         return api.entity().organizationBranch().create(branch);
     }

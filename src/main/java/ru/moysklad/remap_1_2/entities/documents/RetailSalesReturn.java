@@ -1,11 +1,13 @@
 package ru.moysklad.remap_1_2.entities.documents;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.agents.Agent;
+import ru.moysklad.remap_1_2.entities.agents.OrganizationBranch;
 import ru.moysklad.remap_1_2.entities.documents.positions.RetailSalesDocumentPosition;
 import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
 import ru.moysklad.remap_1_2.responses.ListEntity;
@@ -25,6 +27,8 @@ public class RetailSalesReturn extends DocumentEntity implements IEntityWithAttr
     private String externalCode;
     private Long noCashSum;
     private Agent organization;
+    @JsonAlias("_myCompanyBranch")
+    private OrganizationBranch organizationBranch;
     private ListEntity<RetailSalesDocumentPosition> positions;
     private Rate rate;
     private RetailShift retailShift;

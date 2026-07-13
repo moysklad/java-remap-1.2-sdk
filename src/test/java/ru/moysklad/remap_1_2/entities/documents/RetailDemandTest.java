@@ -1,13 +1,18 @@
 package ru.moysklad.remap_1_2.entities.documents;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Ignore;
 import org.junit.Test;
+import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.*;
+import ru.moysklad.remap_1_2.entities.agents.OrganizationBranch;
 import ru.moysklad.remap_1_2.entities.documents.positions.RetailSalesDocumentPosition;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
+import ru.moysklad.remap_1_2.utils.TestUtils;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -21,6 +26,8 @@ import static ru.moysklad.remap_1_2.utils.params.LimitParam.limit;
 public class RetailDemandTest extends EntityGetUpdateDeleteTest implements FilesTest<RetailDemand> {
     @Test
     public void createTest() throws IOException, ApiClientException {
+        RetailShift retailShift = getAnyOrCreateRetailShift();
+
         RetailDemand retailDemand = new RetailDemand();
         retailDemand.setName("retaildemand_" + randomString(3) + "_" + new Date().getTime());
         retailDemand.setDescription(randomString());
@@ -41,7 +48,7 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest implements Files
         retailDemand.setOrganization(simpleEntityManager.getOwnOrganization());
         retailDemand.setAgent(simpleEntityManager.createSimpleCounterparty());
         retailDemand.setStore(simpleEntityManager.getMainStore());
-        retailDemand.setRetailShift(getAnyOrCreateRetailShift());
+        retailDemand.setRetailShift(retailShift);
 
         api.entity().retaildemand().create(retailDemand);
 
@@ -55,11 +62,24 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest implements Files
         assertEquals(retailDemand.getVatIncluded(), retrievedEntity.getVatIncluded());
         assertEquals(retailDemand.getMoment(), retrievedEntity.getMoment());
         assertEquals(retailDemand.getOrganization().getMeta().getHref(), retrievedEntity.getOrganization().getMeta().getHref());
+        assertEquals(retailShift.getOrganizationBranch().getMeta().getHref(), retrievedEntity.getOrganizationBranch().getMeta().getHref());
         assertEquals(retailDemand.getAgent().getMeta().getHref(), retrievedEntity.getAgent().getMeta().getHref());
         assertEquals(retailDemand.getStore().getMeta().getHref(), retrievedEntity.getStore().getMeta().getHref());
         assertEquals(retailDemand.getCashSum(), retrievedEntity.getCashSum());
         assertEquals(retailDemand.getNoCashSum(), retrievedEntity.getNoCashSum());
         assertEquals(retailDemand.getAdvancePaymentSum(), retrievedEntity.getAdvancePaymentSum());
+    }
+
+    @Test
+    public void deserializeOrganizationBranchTest() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
+
+        RetailDemand retailDemand = objectMapper.readValue(
+                TestUtils.getFile("documentsJson/retaildemand.json"), RetailDemand.class
+        );
+
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/organizationbranch/branch-id",
+                retailDemand.getOrganizationBranch().getMeta().getHref());
     }
 
     @Test
@@ -108,7 +128,7 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest implements Files
     }
 
     @Test
-    public void attributesTest() throws IOException, ApiClientException{
+    public void attributesTest() throws IOException, ApiClientException {
         ListEntity<Attribute> attributes = api.entity().retaildemand().metadataAttributes();
         assertNotNull(attributes);
     }
@@ -154,7 +174,7 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest implements Files
     }
 
     @Test
-    public void deleteAttributeTest() throws IOException, ApiClientException{
+    public void deleteAttributeTest() throws IOException, ApiClientException {
         DocumentAttribute attribute = new DocumentAttribute();
         attribute.setEntityType(Meta.Type.PRODUCT);
         attribute.setName("field" + randomString(3) + "_" + new Date().getTime());
@@ -225,16 +245,19 @@ public class RetailDemandTest extends EntityGetUpdateDeleteTest implements Files
     }
 
     private RetailShift getAnyOrCreateRetailShift() throws IOException, ApiClientException {
-        List<RetailShift> retailShifts = api.entity().retailshift().get(limit(1)).getRows();
-        RetailShift retailShift;
-        if (retailShifts.isEmpty()) {
-            retailShift = new RetailShift();
-            retailShift.setRetailStore(simpleEntityManager.getRetailStore());
-            retailShift.setOrganization(simpleEntityManager.getOwnOrganization());
-            api.entity().retailshift().create(retailShift);
-        } else {
-            retailShift = retailShifts.get(0);
+        List<RetailShift> retailShifts = api.entity().retailshift().get(limit(10)).getRows();
+        for (RetailShift retailShift : retailShifts) {
+            if (retailShift.getOrganizationBranch() != null) {
+                return retailShift;
+            }
         }
+
+        OrganizationBranch organizationBranch = simpleEntityManager.createSimpleOrganizationBranch();
+        RetailShift retailShift = new RetailShift();
+        retailShift.setRetailStore(simpleEntityManager.getRetailStore());
+        retailShift.setOrganization(simpleEntityManager.getOwnOrganization());
+        retailShift.setOrganizationBranch(organizationBranch);
+        api.entity().retailshift().create(retailShift);
         return retailShift;
     }
 

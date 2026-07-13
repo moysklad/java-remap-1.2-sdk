@@ -64,6 +64,14 @@
       "uuidHref": "https://online.moysklad.ru/app/#mycompany/edit?id=7906d621-2e92-11e9-ac12-000e0000005a"
     }
   },
+  "organizationBranch": {
+    "meta": {
+      "href": "https://api.moysklad.ru/api/remap/1.2/entity/organizationbranch/7906d621-2e92-11e9-ac12-000e0000005b",
+      "metadataHref": "https://api.moysklad.ru/api/remap/1.2/entity/organizationbranch/metadata",
+      "type": "organizationbranch",
+      "mediaType": "application/json"
+    }
+  },
   "created": "2019-02-22 09:31:44.000",
   "positions": {
     "meta": {

@@ -1,12 +1,16 @@
 package ru.moysklad.remap_1_2.entities.documents;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Ignore;
 import org.junit.Test;
+import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.responses.metadata.MetadataAttributeSharedStatesResponse;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
+import ru.moysklad.remap_1_2.utils.TestUtils;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -64,6 +68,18 @@ public class RetailSalesReturnTest extends EntityGetUpdateDeleteTest implements 
         assertEquals(state.getStateType(), retrievedState.getStateType());
         assertEquals(state.getColor(), retrievedState.getColor());
         assertEquals(state.getEntityType(), retrievedState.getEntityType());
+    }
+
+    @Test
+    public void deserializeOrganizationBranchTest() throws JsonProcessingException {
+        ObjectMapper objectMapper = ApiClient.createObjectMapper();
+
+        RetailSalesReturn retailSalesReturn = objectMapper.readValue(
+                TestUtils.getFile("documentsJson/retailsalesreturn.json"), RetailSalesReturn.class
+        );
+
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/organizationbranch/branch-id",
+                retailSalesReturn.getOrganizationBranch().getMeta().getHref());
     }
 
     @Ignore

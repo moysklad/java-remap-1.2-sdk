@@ -7,6 +7,7 @@ import lombok.Setter;
 import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.agents.Agent;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
+import ru.moysklad.remap_1_2.entities.agents.OrganizationBranch;
 import ru.moysklad.remap_1_2.entities.documents.positions.RetailSalesDocumentPosition;
 import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
 import ru.moysklad.remap_1_2.responses.ListEntity;
@@ -26,6 +27,7 @@ public class RetailDemand extends DocumentEntity implements IEntityWithAttribute
     private Boolean fiscal;
     private Long noCashSum;
     private Organization organization;
+    private OrganizationBranch organizationBranch;
     private Long payedSum;
     private ListEntity<RetailSalesDocumentPosition> positions;
     private Rate rate;
