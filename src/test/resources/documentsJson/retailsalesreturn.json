@@ -4,7 +4,7 @@
     "metadataHref": "https://api.moysklad.ru/api/remap/1.2/entity/retailsalesreturn/metadata",
     "type": "retailsalesreturn"
   },
-  "_myCompanyBranch": {
+  "organizationBranch": {
     "meta": {
       "href": "https://api.moysklad.ru/api/remap/1.2/entity/organizationbranch/branch-id",
       "metadataHref": "https://api.moysklad.ru/api/remap/1.2/entity/organizationbranch/metadata",

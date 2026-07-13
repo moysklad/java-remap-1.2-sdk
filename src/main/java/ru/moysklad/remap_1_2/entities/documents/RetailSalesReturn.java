@@ -27,7 +27,6 @@ public class RetailSalesReturn extends DocumentEntity implements IEntityWithAttr
     private String externalCode;
     private Long noCashSum;
     private Agent organization;
-    @JsonAlias("_myCompanyBranch")
     private OrganizationBranch organizationBranch;
     private ListEntity<RetailSalesDocumentPosition> positions;
     private Rate rate;
