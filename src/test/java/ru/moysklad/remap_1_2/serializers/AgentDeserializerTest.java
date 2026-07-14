@@ -10,6 +10,7 @@ import ru.moysklad.remap_1_2.entities.agents.Agent;
 import ru.moysklad.remap_1_2.entities.agents.Counterparty;
 import ru.moysklad.remap_1_2.entities.agents.Employee;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
+import ru.moysklad.remap_1_2.entities.agents.OrganizationBranch;
 import ru.moysklad.remap_1_2.utils.TestAsserts;
 import ru.moysklad.remap_1_2.utils.TestRandomizers;
 
@@ -97,6 +98,33 @@ public class AgentDeserializerTest implements TestAsserts, TestRandomizers {
     }
 
     @Test
+    public void test_deserializeOrganizationBranch() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
+
+        Agent e = new OrganizationBranch();
+        e.setMeta(new Meta());
+        e.getMeta().setType(Meta.Type.ORGANIZATION_BRANCH);
+
+        String data = objectMapperCustom.writeValueAsString(e);
+
+        try {
+            objectMapper.readValue(data, Agent.class);
+            fail("Ожидалось исключение InvalidDefinitionException!");
+        } catch (InvalidDefinitionException ex) {
+            assertEquals(
+                    "Cannot construct instance of `" + Agent.class.getName() + "` (no Creators, like default constructor, exist): abstract types either need to be mapped to concrete types, have custom deserializer, or contain additional type information",
+                    ex.getOriginalMessage()
+            );
+        } catch (Exception ex) {
+            fail("Ожидалось исключение InvalidDefinitionException!");
+        }
+
+        Agent parsed = objectMapperCustom.readValue(data, Agent.class);
+        assertEquals(OrganizationBranch.class, parsed.getClass());
+    }
+
+    @Test
     public void test_deserializeWithoutMeta() throws JsonProcessingException {
         ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
@@ -151,7 +179,7 @@ public class AgentDeserializerTest implements TestAsserts, TestRandomizers {
         } catch (JsonProcessingException ex) {
             assertEquals(
                     ex.getOriginalMessage(),
-                    "Can't parse field 'agent': meta.type must be one of [organization, counterparty, employee]"
+                    "Can't parse field 'agent': meta.type must be one of [organization, organizationbranch, counterparty, employee]"
             );
         }
     }

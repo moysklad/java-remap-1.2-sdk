@@ -11,6 +11,7 @@ import ru.moysklad.remap_1_2.entities.agents.Agent;
 import ru.moysklad.remap_1_2.entities.agents.Counterparty;
 import ru.moysklad.remap_1_2.entities.agents.Employee;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
+import ru.moysklad.remap_1_2.entities.agents.OrganizationBranch;
 
 import java.io.IOException;
 
@@ -39,8 +40,11 @@ public class AgentDeserializer extends JsonDeserializer<Agent> {
             case EMPLOYEE:
                 return objectMapper.treeToValue(node, Employee.class);
 
+            case ORGANIZATION_BRANCH:
+                return objectMapper.treeToValue(node, OrganizationBranch.class);
+
             default:
-                throw new JsonParseException(p, "Can't parse field 'agent': meta.type must be one of [organization, counterparty, employee]");
+                throw new JsonParseException(p, "Can't parse field 'agent': meta.type must be one of [organization, organizationbranch, counterparty, employee]");
         }
     }
 }

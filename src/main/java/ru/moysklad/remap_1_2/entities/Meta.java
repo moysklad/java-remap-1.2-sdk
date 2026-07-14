@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import ru.moysklad.remap_1_2.entities.agents.Counterparty;
 import ru.moysklad.remap_1_2.entities.agents.Employee;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
+import ru.moysklad.remap_1_2.entities.agents.OrganizationBranch;
 import ru.moysklad.remap_1_2.entities.discounts.*;
 import ru.moysklad.remap_1_2.entities.documents.*;
 import ru.moysklad.remap_1_2.entities.documents.positions.*;
@@ -172,6 +173,7 @@ public final class Meta {
         NOTIFICATION_TASK_UNASSIGNED("NotificationTaskUnassigned", NotificationTask.class),
         OPERATION_PUBLICATION("operationpublication", Publication.class),
         ORGANIZATION("organization", Organization.class),
+        ORGANIZATION_BRANCH("organizationbranch", OrganizationBranch.class),
         PAYMENT_IN("paymentin", PaymentIn.class),
         PAYMENT_OUT("paymentout", PaymentOut.class),
         PERSONAL_DISCOUNT("personaldiscount", PersonalDiscount.class),

@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "href": "https://api.moysklad.ru/api/remap/1.2/entity/retaildemand/demand-id",
+    "metadataHref": "https://api.moysklad.ru/api/remap/1.2/entity/retaildemand/metadata",
+    "type": "retaildemand"
+  },
+  "organizationBranch": {
+    "meta": {
+      "href": "https://api.moysklad.ru/api/remap/1.2/entity/organizationbranch/branch-id",
+      "metadataHref": "https://api.moysklad.ru/api/remap/1.2/entity/organizationbranch/metadata",
+      "type": "organizationbranch"
+    }
+  }
+}
