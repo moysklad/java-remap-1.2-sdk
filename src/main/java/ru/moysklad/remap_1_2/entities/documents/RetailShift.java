@@ -8,6 +8,7 @@ import ru.moysklad.remap_1_2.entities.AttachedFile;
 import ru.moysklad.remap_1_2.entities.RetailStore;
 import ru.moysklad.remap_1_2.entities.Store;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
+import ru.moysklad.remap_1_2.entities.agents.OrganizationBranch;
 import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 
@@ -26,6 +27,7 @@ public class RetailShift extends DocumentEntity implements HasFiles {
     private String syncId;
     private Double proceedsNoCash;
     private Organization organization;
+    private OrganizationBranch organizationBranch;
     private RetailStore retailStore;
     private Double proceedsCash;
     private Double receivedNoCash;

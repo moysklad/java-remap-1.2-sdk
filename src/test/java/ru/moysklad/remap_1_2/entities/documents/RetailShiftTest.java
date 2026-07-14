@@ -6,6 +6,7 @@ import ru.moysklad.remap_1_2.entities.Attribute;
 import ru.moysklad.remap_1_2.entities.EntityTestBase;
 import ru.moysklad.remap_1_2.entities.Meta;
 import ru.moysklad.remap_1_2.entities.DocumentAttribute;
+import ru.moysklad.remap_1_2.entities.agents.OrganizationBranch;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 
@@ -93,6 +94,7 @@ public class RetailShiftTest extends EntityTestBase {
         retailShift.setReceivedNoCash(200_000.0);
         retailShift.setRetailStore(simpleEntityManager.getRetailStore());
         retailShift.setOrganization(simpleEntityManager.getOwnOrganization());
+        retailShift.setOrganizationBranch(simpleEntityManager.createSimpleOrganizationBranch());
 
         api.entity().retailshift().create(retailShift);
 
@@ -107,6 +109,44 @@ public class RetailShiftTest extends EntityTestBase {
         assertEquals(retailShift.getReceivedNoCash(), retrievedEntity.getReceivedNoCash());
         assertEquals(retailShift.getRetailStore().getId(), retrievedEntity.getRetailStore().getId());
         assertEquals(retailShift.getOrganization().getId(), retrievedEntity.getOrganization().getId());
+        assertEquals(retailShift.getOrganizationBranch().getMeta().getHref(), retrievedEntity.getOrganizationBranch().getMeta().getHref());
+    }
+
+    @Test
+    public void updateOrganizationBranchTest() throws IOException, ApiClientException {
+        RetailShift retailShift = new RetailShift();
+        retailShift.setName("retailshfit_" + randomString(3) + "_" + new Date().getTime());
+        retailShift.setRetailStore(simpleEntityManager.getRetailStore());
+        retailShift.setOrganization(simpleEntityManager.getOwnOrganization());
+        retailShift.setOrganizationBranch(simpleEntityManager.createSimpleOrganizationBranch());
+        retailShift = api.entity().retailshift().create(retailShift);
+
+        OrganizationBranch nextOrganizationBranch = simpleEntityManager.createSimpleOrganizationBranch();
+
+        RetailShift updatedRetailShift = new RetailShift();
+        updatedRetailShift.setId(retailShift.getId());
+        updatedRetailShift.setOrganization(simpleEntityManager.getOwnOrganization());
+        updatedRetailShift.setOrganizationBranch(nextOrganizationBranch);
+        api.entity().retailshift().update(updatedRetailShift);
+
+        RetailShift retrievedEntity = api.entity().retailshift().get(retailShift.getId());
+        assertEquals(nextOrganizationBranch.getMeta().getHref(), retrievedEntity.getOrganizationBranch().getMeta().getHref());
+    }
+
+    @Test
+    public void filterByOrganizationBranchTest() throws IOException, ApiClientException {
+        OrganizationBranch organizationBranch = simpleEntityManager.createSimpleOrganizationBranch();
+
+        RetailShift retailShift = new RetailShift();
+        retailShift.setName("retailshfit_" + randomString(3) + "_" + new Date().getTime());
+        retailShift.setRetailStore(simpleEntityManager.getRetailStore());
+        retailShift.setOrganization(simpleEntityManager.getOwnOrganization());
+        retailShift.setOrganizationBranch(organizationBranch);
+        retailShift = api.entity().retailshift().create(retailShift);
+
+        ListEntity<RetailShift> filtered = api.entity().retailshift().get(filterEq("organizationBranch", organizationBranch));
+        String retailShiftId = retailShift.getId();
+        assertTrue(filtered.getRows().stream().anyMatch(rs -> retailShiftId.equals(rs.getId())));
     }
 
     @Ignore

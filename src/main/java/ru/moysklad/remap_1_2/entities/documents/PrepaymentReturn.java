@@ -7,6 +7,7 @@ import lombok.Setter;
 import ru.moysklad.remap_1_2.entities.*;
 import ru.moysklad.remap_1_2.entities.agents.Agent;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
+import ru.moysklad.remap_1_2.entities.agents.OrganizationBranch;
 import ru.moysklad.remap_1_2.entities.documents.positions.PrepaymentDocumentPosition;
 import ru.moysklad.remap_1_2.entities.products.markers.HasFiles;
 import ru.moysklad.remap_1_2.responses.ListEntity;
@@ -26,6 +27,7 @@ public class PrepaymentReturn extends DocumentEntity implements IEntityWithAttri
     private Rate rate;
     private Agent agent;
     private Organization organization;
+    private OrganizationBranch organizationBranch;
     private State state;
     private List<DocumentAttribute> attributes;
     private LocalDateTime created;

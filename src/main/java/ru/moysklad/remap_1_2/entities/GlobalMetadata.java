@@ -58,6 +58,7 @@ public class GlobalMetadata extends Entity {
     private CreateSharedOption purchasereturn;
     private CreateSharedOption invoiceout;
     private CreateSharedOption organization;
+    private CreateSharedOption organizationbranch;
     private CreateSharedOption processing;
     private CreateSharedOption retailshift;
     private CreateSharedOption paymentin;
