@@ -2,9 +2,11 @@ package ru.moysklad.remap_1_2.serializers;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import ru.moysklad.remap_1_2.ApiClient;
+import ru.moysklad.remap_1_2.entities.Attribute;
 import ru.moysklad.remap_1_2.entities.Context;
 import ru.moysklad.remap_1_2.entities.Meta;
 import ru.moysklad.remap_1_2.entities.MetaEntity;
@@ -97,5 +99,22 @@ public class ListEntityDeserializerTest implements TestAsserts, TestRandomizers 
         assertEquals(Double.valueOf(10), parsed.getRows().get(0).getDiscount());
         assertEquals(Integer.valueOf(15), parsed.getRows().get(0).getVat());
         assertEquals(Double.valueOf(2), parsed.getRows().get(0).getQuantity());
+    }
+
+    @Test
+    public void test_deserializeTypedList() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper(false);
+        String data = "{\"rows\":[" +
+                "{\"meta\":{\"type\":\"attributemetadata\"},\"type\":\"long\",\"value\":1}," +
+                "{\"meta\":{\"type\":\"attributemetadata\"},\"type\":\"string\",\"value\":\"str\"}" +
+                "]}";
+
+        JavaType type = objectMapperCustom.getTypeFactory().constructParametricType(ListEntity.class, Attribute.class);
+        ListEntity<Attribute> parsed = objectMapperCustom.readValue(data, type);
+
+        assertEquals(2, parsed.getRows().size());
+        for (Object o : parsed.getRows()) {
+            assertEquals(Attribute.class, o.getClass());
+        }
     }
 }

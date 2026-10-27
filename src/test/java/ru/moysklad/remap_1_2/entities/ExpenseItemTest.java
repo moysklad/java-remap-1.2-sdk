@@ -23,7 +23,7 @@ public class ExpenseItemTest extends EntityGetUpdateDeleteTest {
 
         api.entity().expenseitem().create(expenceItem);
 
-        ListEntity<ExpenseItem> updatedEntitiesList = api.entity().expenseitem().get(filterEq("name", expenceItem.getName()));
+        ListEntity<ExpenseItem> updatedEntitiesList = api.entity().expenseitem().get(filterEq("name", expenceItem.getName()), filterEq("archived", "true"));
         assertEquals(1, updatedEntitiesList.getRows().size());
 
         ExpenseItem retrievedEntity = updatedEntitiesList.getRows().get(0);

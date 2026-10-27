@@ -44,7 +44,7 @@ public class AttributeDeserializer extends JsonDeserializer<Attribute> {
         if (ae.getType() != null && ae.getValue() != null) {
             switch (ae.getType()) {
                 case longValue:
-                    ae.setValue(((Integer)ae.getValue()).longValue());
+                    ae.setValue(((Number) ae.getValue()).longValue());
                     break;
 
                 case timeValue:
