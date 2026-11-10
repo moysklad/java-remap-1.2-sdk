@@ -47,7 +47,7 @@ public class DocumentAttributeDeserializer extends JsonDeserializer<DocumentAttr
         if (ae.getType() != null && ae.getValue() != null) {
             switch (ae.getType()) {
                 case longValue:
-                    ae.setValue(((Integer)ae.getValue()).longValue());
+                    ae.setValue(((Number) ae.getValue()).longValue());
                     break;
 
                 case timeValue:

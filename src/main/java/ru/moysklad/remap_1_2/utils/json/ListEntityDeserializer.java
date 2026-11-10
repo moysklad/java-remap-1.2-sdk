@@ -24,10 +24,12 @@ public class ListEntityDeserializer extends JsonDeserializer<ListEntity> impleme
 
     @Override
     public JsonDeserializer<?> createContextual(DeserializationContext deserializationContext, BeanProperty beanProperty) {
-        if (beanProperty != null) {
-            JavaType wrapperType = beanProperty.getType();
+        JavaType wrapperType = beanProperty != null ? beanProperty.getType() : deserializationContext.getContextualType();
+        if (wrapperType != null) {
             JavaType valueType = wrapperType.containedType(0);
-            return new ListEntityDeserializer(valueType);
+            if (valueType != null && !valueType.hasRawClass(MetaEntity.class)) {
+                return new ListEntityDeserializer(valueType);
+            }
         }
         return this;
     }
@@ -47,7 +49,7 @@ public class ListEntityDeserializer extends JsonDeserializer<ListEntity> impleme
 
             if (type != null) {
                 for (JsonNode row : rows) {
-                    le.getRows().add(((ObjectMapper)jp.getCodec()).readValue(row.toString(), type));
+                    le.getRows().add(jp.getCodec().readValue(jp.getCodec().treeAsTokens(row), type));
                 }
             } else {
                 for (JsonNode row : rows) {

@@ -53,6 +53,18 @@ public class AttributeSerializerTest implements TestAsserts, TestRandomizers {
     }
 
     @Test
+    public void test_deserializeLongGreaterThanInteger() throws JsonProcessingException {
+        ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
+        long value = Integer.MAX_VALUE + 1L;
+
+        Attribute parsed = objectMapperCustom.readValue("{\"type\":\"long\",\"value\":" + value + "}", Attribute.class);
+        assertEquals(value, parsed.getValue());
+
+        DocumentAttribute parsedDocumentAttribute = objectMapperCustom.readValue("{\"type\":\"long\",\"value\":" + value + "}", DocumentAttribute.class);
+        assertEquals(value, parsedDocumentAttribute.getValue());
+    }
+
+    @Test
     public void test_deserializeTime() throws JsonProcessingException {
         ObjectMapper objectMapperCustom = ApiClient.createObjectMapper();
 
