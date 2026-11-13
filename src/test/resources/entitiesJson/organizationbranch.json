@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "href": "https://api.moysklad.ru/api/remap/1.2/entity/organizationbranch/branch-id",
+    "metadataHref": "https://api.moysklad.ru/api/remap/1.2/entity/organizationbranch/metadata",
+    "type": "organizationbranch"
+  },
+  "id": "branch-id",
+  "accountId": "account-id",
+  "name": "Branch name",
+  "description": "Branch description",
+  "code": "branch-code",
+  "externalCode": "branch-external-code",
+  "shared": false,
+  "updated": "2024-01-01 10:00:00.000",
+  "updatedBy": {
+    "meta": {
+      "href": "https://api.moysklad.ru/api/remap/1.2/entity/employee/employee-id",
+      "metadataHref": "https://api.moysklad.ru/api/remap/1.2/entity/employee/metadata",
+      "type": "employee"
+    }
+  },
+  "deleted": "2024-01-02 10:00:00.000",
+  "created": "2023-12-01 10:00:00.000",
+  "archived": true,
+  "organization": {
+    "meta": {
+      "href": "https://api.moysklad.ru/api/remap/1.2/entity/organization/organization-id",
+      "metadataHref": "https://api.moysklad.ru/api/remap/1.2/entity/organization/metadata",
+      "type": "organization"
+    }
+  },
+  "actualAddress": "Actual address",
+  "phone": "+79990000000",
+  "fax": "+74950000000",
+  "email": "branch@example.com",
+  "mod__requisites__ru.kpp": "123456789"
+}

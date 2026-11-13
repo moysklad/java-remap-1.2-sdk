@@ -1,19 +1,26 @@
 package ru.moysklad.remap_1_2.entities;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.collect.ImmutableList;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntityEnclosingRequest;
 import org.junit.Test;
+import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.clients.EntityClientBase;
 import ru.moysklad.remap_1_2.entities.agents.Employee;
+import ru.moysklad.remap_1_2.entities.agents.Organization;
+import ru.moysklad.remap_1_2.entities.agents.OrganizationBranch;
 import ru.moysklad.remap_1_2.responses.ListEntity;
 import ru.moysklad.remap_1_2.utils.ApiClientException;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.*;
 import static ru.moysklad.remap_1_2.utils.params.ExpandParam.expand;
 import static ru.moysklad.remap_1_2.utils.params.FilterParam.filterEq;
-import static org.junit.Assert.*;
 
 public class RetailStoreTest extends EntityGetUpdateDeleteTest {
     @Test
@@ -31,6 +38,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         retailStore.setDiscountMaxPercent(20);
         retailStore.setPriceType(api.entity().companysettings().pricetype().getDefault());
         retailStore.setOrganization(simpleEntityManager.getOwnOrganization());
+        retailStore.setOrganizationBranch(simpleEntityManager.createSimpleOrganizationBranch());
         retailStore.setStore(simpleEntityManager.getMainStore());
         retailStore.setAcquire(simpleEntityManager.createSimpleOrganization());
         retailStore.setBankPercent(randomDouble(10, 2, 2));
@@ -93,6 +101,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getDiscountMaxPercent(), retrievedEntity.getDiscountMaxPercent());
         assertEquals(retailStore.getPriceType(), retrievedEntity.getPriceType());
         assertEquals(retailStore.getOrganization(), retrievedEntity.getOrganization());
+        assertEquals(retailStore.getOrganizationBranch(), retrievedEntity.getOrganizationBranch());
         assertEquals(retailStore.getStore(), retrievedEntity.getStore());
         assertEquals(retailStore.getAcquire(), retrievedEntity.getAcquire());
         assertEquals(retailStore.getBankPercent(), retrievedEntity.getBankPercent());
@@ -133,6 +142,89 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getShowBeerOnTap(), retrievedEntity.getShowBeerOnTap());
         assertEquals(retailStore.getMarksCheckMode(), retrievedEntity.getMarksCheckMode());
         assertEquals(retailStore.getSendMarksToChestnyZnakOnCloud(), retrievedEntity.getSendMarksToChestnyZnakOnCloud());
+    }
+
+    @Test
+    public void serializeOrganizationBranchRefTest() throws Exception {
+        RetailStore retailStore = new RetailStore();
+        retailStore.setName("retailstore_" + randomStringTail());
+        retailStore.setPriceType(new PriceType("price-type-id"));
+        retailStore.setOrganization(new Organization("organization-id"));
+        retailStore.setOrganizationBranch(new OrganizationBranch("organization-branch-id"));
+        retailStore.setStore(new Store("store-id"));
+
+        mockApi.entity().retailstore().create(retailStore);
+
+        String body = IOUtils.toString(
+                ((HttpEntityEnclosingRequest) mockHttpClient.getLastExecutedRequest()).getEntity().getContent(),
+                StandardCharsets.UTF_8
+        );
+        JsonNode organizationBranchMeta = ApiClient.createObjectMapper()
+                .readTree(body)
+                .path("organizationBranch")
+                .path("meta");
+
+        assertEquals("https://test.moysklad/api/remap/1.2/entity/organizationbranch/organization-branch-id",
+                organizationBranchMeta.path("href").asText());
+        assertEquals("https://test.moysklad/api/remap/1.2/entity/organizationbranch/metadata",
+                organizationBranchMeta.path("metadataHref").asText());
+        assertEquals("organizationbranch", organizationBranchMeta.path("type").asText());
+    }
+
+    @Test
+    public void updateOrganizationBranchTest() throws IOException, ApiClientException {
+        Organization organization = simpleEntityManager.getOwnOrganization();
+        OrganizationBranch organizationBranch = simpleEntityManager.createSimpleOrganizationBranch();
+
+        RetailStore retailStore = new RetailStore();
+        retailStore.setName("retailstore_" + randomStringTail());
+        retailStore.setPriceType(api.entity().companysettings().pricetype().getDefault());
+        retailStore.setOrganization(organization);
+        retailStore.setOrganizationBranch(organizationBranch);
+        retailStore.setStore(simpleEntityManager.getMainStore());
+        retailStore = api.entity().retailstore().create(retailStore);
+
+        Organization nextOrganization = simpleEntityManager.createSimpleOrganization();
+        OrganizationBranch nextOrganizationBranch = new OrganizationBranch();
+        nextOrganizationBranch.setName("organizationbranch_" + randomStringTail());
+        nextOrganizationBranch.setOrganization(nextOrganization);
+        nextOrganizationBranch = api.entity().organizationBranch().create(nextOrganizationBranch);
+
+        RetailStore updatedRetailStore = new RetailStore();
+        updatedRetailStore.setId(retailStore.getId());
+        updatedRetailStore.setOrganization(nextOrganization);
+        updatedRetailStore.setOrganizationBranch(nextOrganizationBranch);
+        api.entity().retailstore().update(updatedRetailStore);
+
+        RetailStore retrievedRetailStore = api.entity().retailstore().get(retailStore.getId());
+        assertEquals(nextOrganization.getMeta().getHref(), retrievedRetailStore.getOrganization().getMeta().getHref());
+        assertEquals(nextOrganizationBranch.getMeta().getHref(), retrievedRetailStore.getOrganizationBranch().getMeta().getHref());
+
+        RetailStore updateOrganizationOnly = new RetailStore();
+        updateOrganizationOnly.setId(retailStore.getId());
+        updateOrganizationOnly.setOrganization(organization);
+        api.entity().retailstore().update(updateOrganizationOnly);
+
+        RetailStore retrievedWithoutBranch = api.entity().retailstore().get(retailStore.getId());
+        assertEquals(organization.getMeta().getHref(), retrievedWithoutBranch.getOrganization().getMeta().getHref());
+        assertNull(retrievedWithoutBranch.getOrganizationBranch());
+    }
+
+    @Test
+    public void filterByOrganizationBranchTest() throws IOException, ApiClientException {
+        OrganizationBranch organizationBranch = simpleEntityManager.createSimpleOrganizationBranch();
+
+        RetailStore retailStore = new RetailStore();
+        retailStore.setName("retailstore_" + randomStringTail());
+        retailStore.setPriceType(api.entity().companysettings().pricetype().getDefault());
+        retailStore.setOrganization(simpleEntityManager.getOwnOrganization());
+        retailStore.setOrganizationBranch(organizationBranch);
+        retailStore.setStore(simpleEntityManager.getMainStore());
+        retailStore = api.entity().retailstore().create(retailStore);
+
+        ListEntity<RetailStore> filtered = api.entity().retailstore().get(filterEq("organizationBranch", organizationBranch));
+        String retailStoreId = retailStore.getId();
+        assertTrue(filtered.getRows().stream().anyMatch(rs -> retailStoreId.equals(rs.getId())));
     }
 
     @Test
@@ -187,6 +279,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(retailStore.getName(), retrievedStore.getName());
         assertEquals(retailStore.getStore(), retrievedStore.getStore());
         assertEquals(retailStore.getOrganization(), retrievedStore.getOrganization());
+        assertEquals(retailStore.getOrganizationBranch(), retrievedStore.getOrganizationBranch());
         assertEquals(retailStore.getPriceType(), retrievedStore.getPriceType());
     }
 
@@ -199,6 +292,7 @@ public class RetailStoreTest extends EntityGetUpdateDeleteTest {
         assertEquals(changedField, retrievedStore.getName());
         assertEquals(originalStore.getStore(), retrievedStore.getStore());
         assertEquals(originalStore.getOrganization(), retrievedStore.getOrganization());
+        assertEquals(originalStore.getOrganizationBranch(), retrievedStore.getOrganizationBranch());
         assertEquals(originalStore.getPriceType(), retrievedStore.getPriceType());
     }
 

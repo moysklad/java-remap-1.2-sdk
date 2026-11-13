@@ -6,6 +6,7 @@ import ru.moysklad.remap_1_2.ApiClient;
 import ru.moysklad.remap_1_2.entities.agents.Counterparty;
 import ru.moysklad.remap_1_2.entities.agents.Employee;
 import ru.moysklad.remap_1_2.entities.agents.Organization;
+import ru.moysklad.remap_1_2.entities.agents.OrganizationBranch;
 import ru.moysklad.remap_1_2.entities.documents.*;
 import ru.moysklad.remap_1_2.entities.documents.positions.ProcessingOrderPosition;
 import ru.moysklad.remap_1_2.entities.products.Bundle;
@@ -908,5 +909,13 @@ public class SimpleEntityManager implements TestRandomizers {
         for (Map.Entry<Class, Integer> entry : accessCounterMap.entrySet()) {
             entry.setValue(0);
         }
+    }
+
+    public OrganizationBranch createSimpleOrganizationBranch() throws ApiClientException, IOException {
+        OrganizationBranch branch = new OrganizationBranch();
+        branch.setName("organizationbranch_" + randomStringTail());
+        branch.setOrganization(getOwnOrganization());
+
+        return api.entity().organizationBranch().create(branch);
     }
 }

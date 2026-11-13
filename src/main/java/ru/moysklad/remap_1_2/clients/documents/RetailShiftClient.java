@@ -13,12 +13,15 @@ public final class RetailShiftClient
         implements
         GetListEndpoint<RetailShift>,
         DeleteByIdEndpoint,
+        GetByIdEndpoint<RetailShift>,
         MetadataDocumentAttributeEndpoint,
         DocumentMetadataEndpoint<MetadataAttributeSharedStatesResponse<DocumentAttribute>>,
         ExportEndpoint,
         PublicationEndpoint,
         HasFilesEndpoint<RetailShift>,
-        PostEndpoint<RetailShift> {
+        PostEndpoint<RetailShift>,
+        PutByIdEndpoint<RetailShift>,
+        MassCreateUpdateDeleteEndpoint<RetailShift> {
 
     public RetailShiftClient(ApiClient api) {
         super(api, "/entity/retailshift/");

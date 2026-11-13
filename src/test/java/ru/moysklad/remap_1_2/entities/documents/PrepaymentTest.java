@@ -61,6 +61,9 @@ public class PrepaymentTest extends EntityTestBase implements FilesTest<Prepayme
         assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/organization/7906d621-2e92-11e9-ac12-000e0000005a",
                 prepayment.getOrganization().getMeta().getHref()
         );
+        assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/organizationbranch/7906d621-2e92-11e9-ac12-000e0000005b",
+                prepayment.getOrganizationBranch().getMeta().getHref()
+        );
         assertEquals("https://api.moysklad.ru/api/remap/1.2/entity/prepayment/7944ef04-f831-11e5-7a69-971500188b19/positions",
                 prepayment.getPositions().getMeta().getHref()
         );
