@@ -31,5 +31,6 @@ public enum TrackingType {
     CONSTRUCTION,
     GADGETS,
     RADIO,
-    TOYS
+    TOYS,
+    SWEETS
 }
